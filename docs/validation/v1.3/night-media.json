@@ -1,0 +1,118 @@
+{
+  "video": "/Users/william/dev/architecture/output/Willis-Chicago-Night-Walkthrough-1080p.mp4",
+  "metadataPassed": true,
+  "fullDecodePassed": true,
+  "fullDecodeCommand": "ffmpeg -v error -xerror -i VIDEO -f null -",
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "24/1",
+        "duration": "96.000000",
+        "nb_frames": "2304"
+      }
+    ],
+    "format": {
+      "duration": "96.000000",
+      "size": "252203915"
+    }
+  },
+  "sha256": "50957a13686f14263467e37c2de8b0e48977fcfc332afd9fd4a182be5c3ed2f0",
+  "frameTimesSeconds": [
+    6,
+    18,
+    30,
+    42,
+    54,
+    66,
+    78,
+    90
+  ],
+  "checkedAtUTC": "2026-09-07T23:51:15.816407+00:00",
+  "passed": true,
+  "visualReviewPassed": true,
+  "visualReviewMethod": "Actually opened and visually inspected eight extracted chapter midpoint PNGs with view_image, at 6, 18, 30, 42, 54, 66, 78 and 90 seconds. Entire video stream separately decoded with ffmpeg -xerror; full continuous motion playback was not visually reviewed by this reviewer.",
+  "visualReviewCompletedAtUTC": "2026-09-07T23:54:45.276902+00:00",
+  "visualReviewFrames": [
+    {
+      "chapter": 1,
+      "timeSeconds": 6,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/00-06s.png",
+      "title": "Bundled tubes, Chicago",
+      "passed": true,
+      "notes": "Whole tower and antennas fit; mapped offices create plausible foreground depth. Night panes and sky remain readable."
+    },
+    {
+      "chapter": 2,
+      "timeSeconds": 18,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/01-18s.png",
+      "title": "Inside Catalog",
+      "passed": true,
+      "notes": "Interior skylight, mezzanine and reflective floor are visible with localized warm and cool lighting. Minor glossy-floor grain."
+    },
+    {
+      "chapter": 3,
+      "timeSeconds": 30,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/02-30s.png",
+      "title": "Black aluminum, bronze glass",
+      "passed": true,
+      "notes": "Close facade mullions, panels and individual fasteners remain clear with readable night material detail."
+    },
+    {
+      "chapter": 4,
+      "timeSeconds": 42,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/03-42s.png",
+      "title": "A garden above the city",
+      "passed": true,
+      "notes": "Rooftop furniture, curved Catalog skylight, paths and planting are legible under localized lamps."
+    },
+    {
+      "chapter": 5,
+      "timeSeconds": 54,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/04-54s.png",
+      "title": "Inside the Skydeck",
+      "passed": true,
+      "notes": "Observation glazing, structural mullions and glass Ledge boxes frame the illuminated city and lake horizon; dim interior flooring remains visible."
+    },
+    {
+      "chapter": 6,
+      "timeSeconds": 66,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/05-66s.png",
+      "title": "Out on the Ledge",
+      "passed": true,
+      "notes": "Downward view through glass shows transmission and reflected city windows; the street and river network remain readable below."
+    },
+    {
+      "chapter": 7,
+      "timeSeconds": 78,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/06-78s.png",
+      "title": "Crown of the skyline",
+      "passed": true,
+      "notes": "Close illuminated broadcast mast shows bands, support members and red marker lights against clean sky, with the night skyline below."
+    },
+    {
+      "chapter": 8,
+      "timeSeconds": 90,
+      "path": "/Users/william/dev/architecture/output/v4-review/night-video-frames/07-90s.png",
+      "title": "Along the Chicago River",
+      "passed": true,
+      "notes": "Open river corridor clearly shows the illuminated tour boat, mapped bridge, bridge houses, banks and rippled reflections. Fine grain remains in dark water and glossy surfaces."
+    }
+  ],
+  "limitations": [
+    "24 samples per pixel leaves some fine sampling grain in dark water, reflections and glossy interior surfaces. This report does not claim zero noise or independently quantify temporal behavior."
+  ],
+  "decodeLog": "/Users/william/dev/architecture/output/v4-review/night-media-full-decode.log",
+  "heroValidation": "/Users/william/dev/architecture/output/v4-review/night-hero-validation.json",
+  "exportSettings": {
+    "samplesPerFrame": 24,
+    "pathInteractions": 3,
+    "lighting": 2,
+    "motionReconstruction": true,
+    "pathRegularization": true
+  }
+}

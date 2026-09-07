@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "2182391f96aa6785e57bb586b126bc5e666baa5a",
+  "version": "1.3.0",
+  "build": "4",
+  "architecture": "arm64",
+  "executableSHA256": "290bb364948708f4b6dd668df342934fc1f5b5dd3caf75823dee9762082697b2",
+  "localSignatureVerified": true,
+  "shaders": {
+    "Renderer.metal": {
+      "sha256": "8ac62a6761d688754b7c21638a439e1d40a945ee0a174cd81fe2d15d65ba7ad0",
+      "packagedMatchesSource": true
+    },
+    "Denoise.metal": {
+      "sha256": "c2aaeeabc8fb3b6b18a7bb409b2e4857b6bdeb8963cfe70868a8c630f402d1b1",
+      "packagedMatchesSource": true
+    }
+  },
+  "locationDatabases": {
+    "Chicago": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+    "Paris": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+  },
+  "finalAppLaunchVerified": true
+}

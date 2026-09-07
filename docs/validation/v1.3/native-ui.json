@@ -24,5 +24,14 @@
   ],
   "pendingLiveChecks": [],
   "note": "All requested UI functions were verified live. Fullscreen used an isolated copy of the same app; location changes, current-view playback, 2/4/8x transport, exact pause, resized viewport, and final compact layout were checked in the main final app. The user changed/hid the interface during testing; further actions were stopped to preserve their interaction. No performance benchmark is inferred from UI FPS while concurrent CLI GPU exports were active.",
-  "passed": true
+  "passed": true,
+  "finalRendererReopened": true,
+  "finalRendererLaunchReview": {
+    "version": "1.3.0 (4)",
+    "location": "Chicago \u00b7 Willis Tower",
+    "idleCycle": "Day pass, 1\u00d7",
+    "visibleViews": 8,
+    "visualReviewPassed": true,
+    "notes": "Final packaged renderer reopened after exports. Actual native screenshot shows the complete tower, mapped context, all eight cards, transport, idle speed and attribution with no clipped controls. No sustained performance claim inferred from the snapshot."
+  }
 }

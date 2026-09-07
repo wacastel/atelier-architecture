@@ -1,0 +1,80 @@
+{
+  "video": "/Users/william/dev/architecture/output/Willis-Chicago-Day-Walkthrough-1080p.mp4",
+  "reviewer": "willis_building agent",
+  "checkedAtUTC": "2026-09-07T23:40:20.295575+00:00",
+  "renderer": "Final packaged app with selective path regularization and motion reconstruction",
+  "sha256": "1b3cd0e06733eaa4698cdf9ee239e17154974b9ab5f08bccc01d6b4acd03a63d",
+  "fileBytes": 240920212,
+  "metadataPassed": true,
+  "metadata": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "frameRate": "24/1",
+    "durationSeconds": 96.0,
+    "frames": 2304
+  },
+  "fullDecode": {
+    "command": "ffmpeg -v error -xerror -i output/Willis-Chicago-Day-Walkthrough-1080p.mp4 -f null -",
+    "exitCode": 0,
+    "passed": true,
+    "errors": []
+  },
+  "visualReviewCompleted": true,
+  "visualReviewPassed": true,
+  "compositionAndGeometryPassed": true,
+  "sampleTimesSeconds": [
+    6,
+    18,
+    30,
+    42,
+    54,
+    66,
+    78,
+    90
+  ],
+  "reviewedFrames": [
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/01-06s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/02-18s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/03-30s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/04-42s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/05-54s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/06-66s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/07-78s.png",
+    "/Users/william/dev/architecture/output/v4-review/day-video-frames/08-90s.png"
+  ],
+  "findings": [
+    {
+      "timeSeconds": 90,
+      "view": "Along the Chicago River",
+      "finding": "Conspicuous isolated white fireflies seen in previous export are removed. River reflection shapes, boat fittings, bridge and embankment detail remain visible.",
+      "passed": true
+    },
+    {
+      "timeSeconds": 66,
+      "view": "Out on the Ledge",
+      "finding": "Bright isolated speckles in prior export removed; city transmission and reflected sill details retained.",
+      "passed": true
+    },
+    {
+      "timeSeconds": 18,
+      "view": "Welcome to Catalog",
+      "finding": "Atrium remains dark under daytime roof/tower shadow; skylight lattice and floor are readable.",
+      "passed": true
+    }
+  ],
+  "notes": [
+    "All eight midpoint PNGs were actually opened and visually inspected.",
+    "Full video decoded without errors.",
+    "No missing chapter frames, incorrectly placed chapter titles or route obstructions observed in sampled frames.",
+    "Fine grain and reconstruction softness remain at low sample count; eight midpoint stills are a sampled visual review, not an exhaustive review of every frame.",
+    "Prior failed video report and frames preserved under output/v4-review/before-path-regularization/."
+  ],
+  "exportSettings": {
+    "samplesPerFrame": 16,
+    "pathInteractions": 3,
+    "lighting": 0,
+    "motionReconstruction": true,
+    "pathRegularization": true
+  }
+}

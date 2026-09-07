@@ -6,6 +6,28 @@ Chicago's eight chapters cover the tower skyline, Catalog entrance, close curtai
 
 The current videos are generated locally under `output/` and are intentionally excluded from Git. The command-line examples in the repository README reproduce both locations' videos. An eight-view Chicago tour lasts 96 seconds with the complete routes compressed into twelve-second chapters; a nine-view Paris tour lasts 108 seconds. `--single-view --seconds 56` records one route at its ordinary 1× speed. `--idle` records the selected view's gentle drift.
 
+## Version 1.3 demonstration artifacts
+
+These local files show the final Chicago geometry and corrected renderer. They are excluded from Git; the app and README export commands reproduce them.
+
+- [Day walkthrough](../output/Willis-Chicago-Day-Walkthrough-1080p.mp4): eight chapters, 96 seconds, 1920 × 1080, 24 FPS, 16 samples/frame and three path interactions. The complete recording decodes successfully and all eight chapter midpoints passed visual review. [Media report](validation/v1.3/day-media.json).
+- [Night walkthrough](../output/Willis-Chicago-Night-Walkthrough-1080p.mp4): all eight chapters, 96 seconds, 1920 × 1080, 24 FPS, 24 samples/frame and three path interactions. Full decoding and all eight chapter-frame reviews passed. [Media report](validation/v1.3/night-media.json).
+- [Day overview](../output/Willis-Tower-Day.png) and [night overview](../output/Willis-Tower-Night.png): 1920 × 1200, respectively 256 and 512 samples. Both were visually reviewed; copies are included in `docs/images/` for the GitHub README.
+
+| Time | Chicago chapter |
+| --- | --- |
+| 00:00 | Chicago's great tower |
+| 00:12 | Welcome to Catalog |
+| 00:24 | Black aluminum, bronze glass |
+| 00:36 | A garden above the Loop |
+| 00:48 | Inside the Skydeck |
+| 01:00 | Out on the Ledge |
+| 01:12 | Crown of the skyline |
+| 01:24 | Along the Chicago River |
+| 01:36 | End |
+
+The films compress each complete 56-second route into a twelve-second chapter. In the app, each walkthrough plays at its independent adjustable pace. The earlier bright secondary-reflection speckles were corrected with selective path regularization; fine sampling grain and some reconstruction softness remain. [Method and limits](MOTION.md#selective-glossy-path-regularization).
+
 ## Earlier Paris demonstrations
 
 The following notes describe earlier Paris releases; use `--location paris` explicitly for clarity when reproducing their exports.
