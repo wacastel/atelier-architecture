@@ -1,0 +1,12 @@
+Map geometry © OpenStreetMap contributors, available under the Open Database License (ODbL) 1.0.
+https://www.openstreetmap.org/copyright
+https://opendatacommons.org/licenses/odbl/1-0/
+
+Source: Overpass API, https://overpass-api.de/api/interpreter
+Snapshots: 2026-09-07T21:11:18Z and 2026-09-07T21:23:34Z.
+Source snapshots: scripts/data/paris-osm-2026-09-07.json and paris-osm-relations-2026-09-07.json.
+The derived ParisContext.json database is also ODbL 1.0.
+Reproduce with scripts/prepare-paris-context.py; see docs/PARIS.md.
+
+Facade articulation and garden furniture are authored procedural geometry.
+OSM heights/levels are used when available; missing dimensions are estimated.

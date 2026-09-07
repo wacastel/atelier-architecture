@@ -1,0 +1,27 @@
+{
+  "metric": "Full-frame FFmpeg PSNR in encoded image components. Each16spp image compared against128spp reference with the SAME regularization mode. Measures convergence to that mode, not unbiased physical accuracy.",
+  "results": {
+    "river": {
+      "regularized": {
+        "psnr16Versus128dB": 25.854498,
+        "normalizedMSE": 0.002597467964779264
+      },
+      "unregularized": {
+        "psnr16Versus128dB": 23.557089,
+        "normalizedMSE": 0.004408502587189781
+      },
+      "matchedReferenceMSEDecreasePercent": 41.08049358240184
+    },
+    "ledge": {
+      "regularized": {
+        "psnr16Versus128dB": 29.300181,
+        "normalizedMSE": 0.0011748485900010038
+      },
+      "unregularized": {
+        "psnr16Versus128dB": 28.31038,
+        "normalizedMSE": 0.0014755774172098151
+      },
+      "matchedReferenceMSEDecreasePercent": 20.380416757628527
+    }
+  }
+}

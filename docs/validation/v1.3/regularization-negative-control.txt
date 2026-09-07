@@ -1,0 +1,11 @@
+bounce-counter: exit 1
+PASS: GPU alpha rule, unchanged primary/rough lobes, GGX mixture PDF and direct-light BRDF agreement
+FAIL: First opaque camera-glass reflection must retain original radiance and independent path state
+
+shared-branch-state: exit 1
+PASS: GPU alpha rule, unchanged primary/rough lobes, GGX mixture PDF and direct-light BRDF agreement
+PASS: 4,096 pixels each preserve exact first-surface, two-sheet transmission and saved camera-reflection radiance
+FAIL: Saved camera reflection must reset non-delta state after the transmitted branch scatters
+
+disabled-helper: exit 1
+FAIL: GPU regularization must operate on GGX alpha, not perceptual roughness

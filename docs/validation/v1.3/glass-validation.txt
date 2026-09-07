@@ -1,0 +1,4 @@
+PASS: thin-sheet Fresnel normal/grazing values, tinted transparent shadows and opaque blockers
+PASS: mixed-order blockers, reversed rays, empty/short segments and all-glass multiplicative visibility
+PASS: actual red emitter through glass with one opaque bounce: SIMD3<Float>(0.7881085, 0.01354991, 0.0087567875); opaque control SIMD3<Float>(0.0, 0.0, 0.0)
+PASS: behind-glass world/depth guides and current-coverage flag on Apple M3 Ultra

@@ -1,0 +1,31 @@
+{
+  "abiValidated" : true,
+  "allocatedMiB" : 1606.65625,
+  "device" : "Apple M3 Ultra",
+  "elapsedSeconds" : 2.5561619997024536,
+  "geometricDetails" : 22804,
+  "gpuLastSampleMilliseconds" : 1.1562031249923166,
+  "imageMeanByte" : 156.56005468750587,
+  "importerChecks" : [
+    "OBJ: negative-index quad, metre scaling and normalized normals",
+    "MTL: named Kd\/Ns\/Ks\/d material",
+    "OBJ: concave polygon preserves area",
+    "OBJ: malformed, zero, out-of-range and degenerate indices rejected"
+  ],
+  "lights" : 816,
+  "location" : "chicago",
+  "mappedBuildingFootprints" : 2735,
+  "mapTimestamp" : "2026-09-07T22:11:33Z",
+  "materials" : 54,
+  "navigationBVHNodes" : 1791961,
+  "passed" : true,
+  "rayTracing" : true,
+  "resolution" : [
+    640,
+    400
+  ],
+  "samples" : 16,
+  "thinGlass" : true,
+  "triangleCount" : 8652712,
+  "unifiedMemory" : true
+}

@@ -1,0 +1,31 @@
+{
+  "abiValidated" : true,
+  "allocatedMiB" : 1605.375,
+  "device" : "Apple M3 Ultra",
+  "elapsedSeconds" : 2.5166360139846802,
+  "geometricDetails" : 12743,
+  "gpuLastSampleMilliseconds" : 1.6306171874020947,
+  "imageMeanByte" : 173.37336197918825,
+  "importerChecks" : [
+    "OBJ: negative-index quad, metre scaling and normalized normals",
+    "MTL: named Kd\/Ns\/Ks\/d material",
+    "OBJ: concave polygon preserves area",
+    "OBJ: malformed, zero, out-of-range and degenerate indices rejected"
+  ],
+  "lights" : 586,
+  "location" : "paris",
+  "mappedBuildingFootprints" : 2760,
+  "mapTimestamp" : "2026-09-07T21:11:18Z",
+  "materials" : 41,
+  "navigationBVHNodes" : 1760325,
+  "passed" : true,
+  "rayTracing" : true,
+  "resolution" : [
+    640,
+    400
+  ],
+  "samples" : 16,
+  "thinGlass" : false,
+  "triangleCount" : 8645884,
+  "unifiedMemory" : true
+}

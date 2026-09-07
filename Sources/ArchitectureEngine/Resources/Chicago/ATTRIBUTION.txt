@@ -1,0 +1,9 @@
+Chicago context map geometry © OpenStreetMap contributors.
+Source database and the derived ChicagoContext.json database are made available under the Open Database License (ODbL) 1.0:
+https://www.openstreetmap.org/copyright
+https://opendatacommons.org/licenses/odbl/1-0/
+OSM snapshot database timestamp: 2026-09-07T22:11:33Z.
+Raw snapshot: scripts/data/chicago-osm-2026-09-07.json
+Derived-data generator: scripts/prepare-chicago-context.py
+
+Architectural mesh, facades, lights, vegetation and boat geometry are original authored interpretations informed by the map and the references documented in docs/CHICAGO.md. Map-derived geometry remains subject to ODbL. Source photographs and satellite/aerial imagery were viewed for reference only; they are not redistributed as assets or textures in this project.

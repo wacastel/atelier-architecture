@@ -1,0 +1,10 @@
+.build/
+.DS_Store
+output/
+dist/
+
+.swiftpm/
+.env
+.env.*
+*.log
+__pycache__/

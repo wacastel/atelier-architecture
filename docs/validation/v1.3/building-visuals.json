@@ -1,0 +1,56 @@
+{
+  "reviewer": "willis_building agent",
+  "passed": true,
+  "reviewedInitialDayAndNightViews": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "finalReviewedImages": [
+    "willis-final-entry-night.png",
+    "willis-final-facade-night.png",
+    "willis-final-garden-night.png",
+    "willis-final-skydeck-night.png",
+    "willis-final-crown-night.png",
+    "willis-route-entry-28.png",
+    "willis-route-entry-56.png",
+    "willis-route-entry-56-night.png",
+    "willis-route-skydeck-28.png",
+    "willis-route-ledge-35.png",
+    "willis-route-facade-56-night.png"
+  ],
+  "findingsFixed": [
+    "Centered Catalog entrance camera in open entrance",
+    "Adjusted garden route around curved stone bench",
+    "Moved Skydeck camera to reveal city rather than only distant horizon",
+    "Updated current Ledge count to five after official operator reference check",
+    "Removed blocking floor-level sill across Ledge apertures",
+    "Added low-power continuous mast illumination with red beacons",
+    "Made close aluminum night detail readable with a modeled terrace projector",
+    "Kept entrance camera gaze below mezzanine until inside atrium",
+    "Added restrained atrium roof lights",
+    "Closed four narrow roof gaps around exact skylight aperture"
+  ],
+  "latestGeometryAfterImages": "Final package gallery includes the four skylight perimeter infill slabs; all six building/detail views in day and night reviewed without new defects.",
+  "limitations": [
+    "Authored interiors and intermediate slab elevations, not an as-built interior survey",
+    "Fine path-tracing grain remains at night",
+    "Thin glass transmission is a sheet approximation without volumetric refraction",
+    "Roof inspection is an aerial camera, not public visitor access"
+  ],
+  "finalPackageGalleryReviewedDayAndNightViews": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "finalPackageGalleryResolution": "1440x900",
+  "finalPackageDaySamples": 128,
+  "finalPackageNightSamples": 256,
+  "finalPackageGalleryPassed": true
+}

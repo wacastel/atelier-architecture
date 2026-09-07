@@ -1,0 +1,5 @@
+2735 buildings 484 areas 4161 paths 13 movable bridges 4 river polygons 2821 ground strips
+Counter({'levels': 1522, 'estimated': 967, 'height': 192, 'base-under-mapped-parts': 53, 'height-minus-authored-crown': 1})
+1973622 bytes
+PASS: unique IDs, finite coordinates, positive triangulation coverage, plausible heights, Willis exclusion, landmark/bridge/river IDs, river-ground area partition, deterministic regeneration.
+Derived database SHA256: 2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904

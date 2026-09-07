@@ -1,0 +1,111 @@
+{
+  "createdAtUTC": "2026-09-07T23:24:15.591925+00:00",
+  "pairedVisualReviewPassed": true,
+  "pairedImagesActuallyReviewed": [
+    "river-regularized-16spp.png",
+    "river-unregularized-16spp.png",
+    "ledge-regularized-16spp.png",
+    "ledge-unregularized-16spp.png",
+    "river-regularized-128spp.png",
+    "river-unregularized-128spp.png",
+    "ledge-regularized-128spp.png",
+    "ledge-unregularized-128spp.png"
+  ],
+  "pairedSettings": {
+    "location": "chicago",
+    "views": [
+      7,
+      5
+    ],
+    "atSeconds": 28,
+    "lighting": 0,
+    "width": 1920,
+    "height": 1080,
+    "samples": [
+      16,
+      128
+    ],
+    "bounces": 3
+  },
+  "pairedFindings": [
+    "Selective regularization removes the conspicuous isolated bright white outliers in both river and Ledge.",
+    "River ripple reflection shapes, bridge lines and boat fittings remain readable.",
+    "Ledge glass floor transmission, city geometry and reflected sill detail remain intact.",
+    "Fine low-sample grain remains; regularization is a biased variance reduction and is not a guarantee of physical equivalence."
+  ],
+  "convergenceMetrics": {
+    "metric": "Full-frame FFmpeg PSNR in encoded image components. Each16spp image compared against128spp reference with the SAME regularization mode. Measures convergence to that mode, not unbiased physical accuracy.",
+    "results": {
+      "river": {
+        "regularized": {
+          "psnr16Versus128dB": 25.854498,
+          "normalizedMSE": 0.002597467964779264
+        },
+        "unregularized": {
+          "psnr16Versus128dB": 23.557089,
+          "normalizedMSE": 0.004408502587189781
+        },
+        "matchedReferenceMSEDecreasePercent": 41.08049358240184
+      },
+      "ledge": {
+        "regularized": {
+          "psnr16Versus128dB": 29.300181,
+          "normalizedMSE": 0.0011748485900010038
+        },
+        "unregularized": {
+          "psnr16Versus128dB": 28.31038,
+          "normalizedMSE": 0.0014755774172098151
+        },
+        "matchedReferenceMSEDecreasePercent": 20.380416757628527
+      }
+    }
+  },
+  "galleryReviewPassed": true,
+  "galleryResolution": "1440x900",
+  "galleryDay": {
+    "folder": "output/v4-review/final-day-regularized",
+    "lighting": 0,
+    "samples": 128,
+    "viewsActuallyReviewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "galleryNight": {
+    "folder": "output/v4-review/final-night-regularized",
+    "lighting": 2,
+    "samples": 256,
+    "viewsActuallyReviewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "galleryFindings": [
+    "All sixteen gallery images were actually opened and reviewed.",
+    "No new geometry obstructions, broken glass transmission, missing reflected detail or mast lighting regressions observed.",
+    "Night river retains warm reflected lights; tower masts retain continuous white illumination with red beacons.",
+    "Night interiors and shaded river surfaces retain visible fine grain at finite sample counts."
+  ],
+  "sourceMutations": false,
+  "dayHero": {
+    "rendered": "output/Willis-Tower-Day.png",
+    "copiedTo": "docs/images/Willis-Tower-Day.png",
+    "resolution": "1920x1200",
+    "samples": 256,
+    "lighting": 0,
+    "actuallyViewed": true,
+    "passed": true
+  }
+}

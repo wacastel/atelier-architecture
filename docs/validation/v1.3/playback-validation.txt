@@ -1,0 +1,20 @@
+Validating camera geometry: Eiffel Tower
+View 1: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 9: 560 steps, blocked=0, unsupported=0, near-surface=0
+Validating camera geometry: Willis Tower
+View 1: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 560 steps, blocked=0, unsupported=0, near-surface=0
+Playback: 13914 checks; failures: []

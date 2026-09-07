@@ -1,0 +1,43 @@
+{
+  "createdAtUTC": "2026-09-07T23:09:20.838576+00:00",
+  "executable": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "sourceMutations": false,
+  "settings": {
+    "location": "chicago",
+    "lighting": 0,
+    "timeSeconds": 28,
+    "width": 1920,
+    "height": 1080,
+    "samples": 16,
+    "bounces": [
+      1,
+      2,
+      3
+    ]
+  },
+  "viewsReviewed": [
+    7,
+    5
+  ],
+  "allSixImagesActuallyViewed": true,
+  "river": {
+    "bounce1": "Diffuse low-sample grain is visible, but isolated bright white outliers are largely absent.",
+    "bounce2": "Dense isolated bright white speckles appear across water, boat, embankment and building facades.",
+    "bounce3": "Closely resembles bounce2 in outlier density and placement; little additional change."
+  },
+  "ledge": {
+    "bounce1": "Fine grain but essentially no isolated bright white outliers; city remains visible through glass floor.",
+    "bounce2": "Bright isolated outliers appear over city, transmitted glass floor view, and black sill reflections.",
+    "bounce3": "Very similar outlier pattern and density to bounce2."
+  },
+  "conclusion": "The conspicuous bright outliers originate after enabling the second path bounce, consistent with high-variance indirect/glossy secondary contributions. Single-bounce is not noise-free but lacks the bright fireflies seen in multi-bounce images.",
+  "files": [
+    "river-bounce1.png",
+    "river-bounce2.png",
+    "river-bounce3.png",
+    "ledge-bounce1.png",
+    "ledge-bounce2.png",
+    "ledge-bounce3.png"
+  ],
+  "additionalUnreviewedFiles": "Initial river-daylight-bounce1/2/3 used lighting1 before parent confirmed movie lighting0; final conclusion relies exclusively on lighting0 river-bounce and ledge-bounce files."
+}

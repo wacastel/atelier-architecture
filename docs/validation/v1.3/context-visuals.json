@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "reviewedAtUTC": "2026-09-07T22:48:22.443944+00:00",
+  "method": "Actual visual inspection of four final PNGs with view_image",
+  "images": [
+    {
+      "path": "output/v4-review/final-day/00-chicago's-great-tower.png",
+      "passed": true,
+      "notes": "Whole tower and antennas fit; mapped skyline, crown and lake visible; no blocking foreground."
+    },
+    {
+      "path": "output/v4-review/final-night/00-chicago's-great-tower.png",
+      "passed": true,
+      "notes": "Distinct grouped warm/cool room panes; crown grid and cylinder silhouette retained below former blown glare; dark skyline with local street light."
+    },
+    {
+      "path": "output/v4-review/final-day/07-along-the-chicago-river.png",
+      "passed": true,
+      "notes": "Open river, boat, Jackson foreground parapet and Adams bridge beyond; no camera-facing facade obstruction. Fine path-tracing grain remains in shadows and reflections."
+    },
+    {
+      "path": "output/v4-review/final-night/07-along-the-chicago-river.png",
+      "passed": true,
+      "notes": "Localized warm pools on the riverbanks and bridge, warm/cool window groups, lit boat side, long ripple reflections and readable foreground parapet; scene retains appropriate night darkness."
+    }
+  ]
+}

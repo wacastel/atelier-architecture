@@ -1,0 +1,23 @@
+PASS: stationary plane raw RMSE 0.37664 → temporal 0.05493 → filtered 0.00569 (66.2× lower RMS noise)
+PASS: translating plane raw RMSE 0.37664 → temporal 0.02709 → filtered 0.00434 (86.7× lower RMS noise)
+PASS: pivoting plane raw RMSE 0.37664 → temporal 0.02425 → filtered 0.00435 (86.5× lower RMS noise)
+PASS: 96 newly revealed background pixels reject material history; no bright ghost
+PASS: 96 newly revealed background pixels reject same-material depth history; no bright ghost
+PASS: one-pixel thinIron feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel sameMaterialOffset feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel normalEdge feature survives three filter passes (RMSE 0.0000001)
+PASS: one-pixel materialEdge feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel albedoEdge feature survives three filter passes (RMSE 0.0000000)
+PASS: current-frame pixel cone preserves fine geometry across an eightfold FOV-scale change
+PASS: luminance clipping reacts to a lighting change; camera-cut reset is exact
+PASS: moving mirror-like surfaces retain at most two frames to avoid reflection trails
+PASS: analytic sky bypasses temporal/spatial reconstruction without altering current coverage
+PASS: 4320 bright subpixel/sky coverage samples preserved; 1824 formerly bright sky pixels leave no trail (maximum clear-sky error 0.0)
+PASS: 224 gold mixed-coverage pixels over dark geometry clear in their first uncovered frame (maximum RGB error 6.9849193e-10)
+PASS: neighboring lit windows do not preserve stale illumination on dark same-material rooms
+PASS: emissive subpixel windows retain exact current coverage without spatial/temporal trails
+PASS: unresolved distant night facades use current spatial reconstruction without temporal trails
+PASS: all GPU outputs finite on Apple M3 Ultra
+PASS: through-glass surfaces reject temporal history and reduce current spatial noise
+PASS: 17520 moving night-window coverage samples on dark-center guides survive all three spatial passes exactly
+PASS: smooth distant night surfaces retain spatial noise reduction away from emissive coverage

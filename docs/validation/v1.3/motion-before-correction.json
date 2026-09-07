@@ -1,0 +1,126 @@
+{
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+    "Actual-scene reconstruction regressed on willis-night"
+  ],
+  "location" : "chicago",
+  "measurement" : "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "passed" : false,
+  "scenes" : [
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 48,
+      "imageErrorReductionPercent" : 12.396504276962983,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 41.083447916510828,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.041304008022121919,
+      "rawTemporalResidualRMSE" : 0.050727824265714004,
+      "reconstructedRMSE" : 0.036183754901102441,
+      "reconstructedTemporalResidualRMSE" : 0.041246110252563133,
+      "referenceSamples" : 128,
+      "resolution" : [
+        960,
+        600
+      ],
+      "samplesPerFrame" : 4,
+      "temporalNoiseReductionPercent" : 18.691347698031247,
+      "view" : "willis-overview"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 48,
+      "imageErrorReductionPercent" : 43.897460317857515,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 61.791267361210579,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.022950986133964065,
+      "rawTemporalResidualRMSE" : 0.032355024694582409,
+      "reconstructedRMSE" : 0.012876086103250209,
+      "reconstructedTemporalResidualRMSE" : 0.015021529172336867,
+      "referenceSamples" : 128,
+      "resolution" : [
+        960,
+        600
+      ],
+      "samplesPerFrame" : 4,
+      "temporalNoiseReductionPercent" : 53.572808816764393,
+      "view" : "willis-facade"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 48,
+      "imageErrorReductionPercent" : -6.9232158838846924,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 83.195205728164481,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.036294930282162845,
+      "rawTemporalResidualRMSE" : 0.044256189219662602,
+      "reconstructedRMSE" : 0.038807706660502421,
+      "reconstructedTemporalResidualRMSE" : 0.048401824247768899,
+      "referenceSamples" : 128,
+      "resolution" : [
+        960,
+        600
+      ],
+      "samplesPerFrame" : 4,
+      "temporalNoiseReductionPercent" : -9.3673565239196677,
+      "view" : "willis-night"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 48,
+      "imageErrorReductionPercent" : 29.858162757378203,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 57.751138889216236,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.084179446992905804,
+      "rawTemporalResidualRMSE" : 0.1171895083890986,
+      "reconstructedRMSE" : 0.059045010701503073,
+      "reconstructedTemporalResidualRMSE" : 0.081542576928765861,
+      "referenceSamples" : 128,
+      "resolution" : [
+        960,
+        600
+      ],
+      "samplesPerFrame" : 4,
+      "temporalNoiseReductionPercent" : 30.418193531434547,
+      "view" : "chicago-river"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 48,
+      "imageErrorReductionPercent" : 16.95111707571365,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 123.70260156058066,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.044894461488185759,
+      "rawTemporalResidualRMSE" : 0.062782499904334862,
+      "reconstructedRMSE" : 0.037284348760812214,
+      "reconstructedTemporalResidualRMSE" : 0.050566978103762782,
+      "referenceSamples" : 128,
+      "resolution" : [
+        960,
+        600
+      ],
+      "samplesPerFrame" : 4,
+      "temporalNoiseReductionPercent" : 19.456889768941256,
+      "view" : "chicago-river-night"
+    }
+  ]
+}

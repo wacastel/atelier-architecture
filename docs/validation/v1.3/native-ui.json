@@ -1,0 +1,28 @@
+{
+  "build": "1.3.0 (4)",
+  "passedChecks": [
+    "Native app starts in Chicago with Willis Tower identity and eight view cards",
+    "Location selector, fullscreen toolbar button, and controls exposed in native accessibility tree",
+    "Initial daytime idle cycling at 1x",
+    "Keyboard bracket keys select independent idle speed 4x while walkthrough pace remains1x",
+    "Key 8 selects current view and changes state to holding",
+    "I resumes idle cycle from selected view",
+    "Actual night pass observed after eighth Chicago idle view",
+    "I stops cycling while retaining gentle current view motion",
+    "13914 playback and scene camera checks passed across Paris and Chicago",
+    "Ctrl+Command+F enters native fullscreen with viewport filling the display; toolbar changes to Exit Full Screen",
+    "Ctrl+Command+F exits fullscreen and restores normal window controls",
+    "Final app: L changes Chicago\u2019s eight views to Paris\u2019s nine views and back, with correct location identity and scene reload",
+    "Final app: independent idle 2\u00d7 preference retained through location roundtrip",
+    "Final app: key 5 selects Skydeck; Space starts its current walkthrough",
+    "Final app: repeated Right shows Fast forward 2\u00d7, 4\u00d7, 8\u00d7; Left returns reverse 2\u00d7",
+    "Final app: Space pauses with identical timeline value 0.4949217604153091 on a later snapshot while still sampling",
+    "Final app: two actual window-edge drags resize to smaller/compact dimensions; the viewport follows the changed aspect and starts fresh accumulation",
+    "Final app: view card titles wrap to readable two lines",
+    "Final camera geometry rerun passes 13,914 checks after entrance, Skydeck and river camera fixes",
+    "Final compact layout visually checked: compact FPS/triangle/RAM row appears, transport and idle controls remain accessible, and the full OpenStreetMap footer fits with bottom padding"
+  ],
+  "pendingLiveChecks": [],
+  "note": "All requested UI functions were verified live. Fullscreen used an isolated copy of the same app; location changes, current-view playback, 2/4/8x transport, exact pause, resized viewport, and final compact layout were checked in the main final app. The user changed/hid the interface during testing; further actions were stopped to preserve their interaction. No performance benchmark is inferred from UI FPS while concurrent CLI GPU exports were active.",
+  "passed": true
+}

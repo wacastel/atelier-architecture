@@ -1,0 +1,358 @@
+import Foundation
+import Metal
+import MetalKit
+import AppKit
+import simd
+
+struct RenderOptions: Equatable {
+    var exposure: Float = 1.0
+    var bounces: Float = 3
+    var lighting: Int = 0
+    var denoising: Bool = true
+    var regularization: Bool = true
+}
+
+enum EngineError: LocalizedError {
+    case message(String)
+    var errorDescription: String? { if case let .message(m) = self { return m }; return nil }
+}
+
+final class MetalRenderer {
+    let device: MTLDevice
+    let queue: MTLCommandQueue
+    let tracePipeline: MTLComputePipelineState
+    let nightTracePipeline: MTLComputePipelineState
+    let presentPipeline: MTLRenderPipelineState
+    let surfacePipeline: MTLComputePipelineState
+    let temporalPipeline: MTLComputePipelineState
+    let spatialPipeline: MTLComputePipelineState
+    let lightBuffer: MTLBuffer
+    let lightCount: Int
+    let hasTransmission: Bool
+    private var worldGuides: [MTLTexture] = []
+    private var normalGuides: [MTLTexture] = []
+    private var albedoGuide: MTLTexture?
+    private var histories: [MTLTexture] = []
+    private var filters: [MTLTexture] = []
+    private var historyIndex = 0
+    private var historyValid = false
+    private var previousFrame: FrameUniforms?
+    private var previousOptions: RenderOptions?
+    private var finalFiltered: MTLTexture?
+    private var previousPose: CameraPose?
+    let vertexBuffer: MTLBuffer
+    let indexBuffer: MTLBuffer
+    let materialBuffer: MTLBuffer
+    let accelerationStructure: MTLAccelerationStructure
+    let triangleCount: Int
+    let detailCount: Int
+    let buildSeconds: Double
+    var accumulation: MTLTexture?
+    var width = 0, height = 0
+    var sampleCount: UInt32 = 0
+    var frameSeed: UInt32 = 0
+    private let metricsLock = NSLock()
+    private var gpuTime: Double = 0
+    private var gpuError: String?
+    var lastGPUTime: Double {
+        get { metricsLock.lock(); defer { metricsLock.unlock() }; return gpuTime }
+        set { metricsLock.lock(); gpuTime = newValue; metricsLock.unlock() }
+    }
+    func takeGPUError() -> String? {
+        metricsLock.lock(); defer { metricsLock.unlock() }
+        let result = gpuError; gpuError = nil; return result
+    }
+    var lastUniforms: FrameUniforms?
+    private let semaphore = DispatchSemaphore(value: 2)
+    var allocatedMB: Double { Double(device.currentAllocatedSize) / 1048576 }
+
+    init(scene: SceneData, device: MTLDevice) throws {
+        let start = Date()
+        self.device = device
+        guard device.supportsRaytracing else { throw EngineError.message("This GPU does not support Metal ray tracing.") }
+        guard let queue = device.makeCommandQueue() else { throw EngineError.message("Could not create Metal command queue.") }
+        self.queue = queue
+        let resourceBundle = Bundle.main.resourceURL.flatMap { Bundle(url: $0.appendingPathComponent("ArchitectureEngine_ArchitectureEngine.bundle")) } ?? Bundle.module
+        guard let url = resourceBundle.url(forResource: "Renderer", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Renderer.metal is missing from the application resources.") }
+        guard let denoiseURL = resourceBundle.url(forResource: "Denoise", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Denoising shader resource is missing.") }
+        let source = try String(contentsOf: url) + "\n" + String(contentsOf: denoiseURL)
+        let options = MTLCompileOptions()
+        options.languageVersion = .version3_1
+        let library = try device.makeLibrary(source: source, options: options)
+        guard let kernel = library.makeFunction(name: "pathTrace"), let vertex = library.makeFunction(name: "fullscreenVertex"), let fragment = library.makeFunction(name: "presentFragment") else { throw EngineError.message("Metal shader entry points are missing.") }
+        tracePipeline = try device.makeComputePipelineState(function: kernel)
+        guard let nightKernel = library.makeFunction(name:"pathTraceNight") else { throw EngineError.message("Night ray tracing shader is missing.") }
+        nightTracePipeline = try device.makeComputePipelineState(function:nightKernel)
+        guard let surface = library.makeFunction(name: "primarySurface"),
+              let temporal = library.makeFunction(name: "temporalResolve"),
+              let spatial = library.makeFunction(name: "spatialFilter") else { throw EngineError.message("Reconstruction shader entry points are missing.") }
+        surfacePipeline = try device.makeComputePipelineState(function: surface)
+        temporalPipeline = try device.makeComputePipelineState(function: temporal)
+        spatialPipeline = try device.makeComputePipelineState(function: spatial)
+        let presentation = MTLRenderPipelineDescriptor()
+        presentation.vertexFunction = vertex; presentation.fragmentFunction = fragment
+        presentation.colorAttachments[0].pixelFormat = .bgra8Unorm
+        presentPipeline = try device.makeRenderPipelineState(descriptor: presentation)
+        guard !scene.vertices.isEmpty, scene.vertices.count % 3 == 0,
+              scene.materialIndices.count == scene.triangleCount,
+              scene.materialIndices.allSatisfy({ Int($0) < scene.materials.count }) else { throw EngineError.message("Invalid scene triangle or material buffers.") }
+        func buffer<T>(_ values: [T]) throws -> MTLBuffer {
+            let result = values.withUnsafeBytes { device.makeBuffer(bytes: $0.baseAddress!, length: $0.count, options: .storageModeShared) }
+            guard let result else { throw EngineError.message("Could not allocate scene buffer.") }; return result
+        }
+        vertexBuffer = try buffer(scene.vertices); vertexBuffer.label = "Unified scene vertices"
+        indexBuffer = try buffer(scene.materialIndices); indexBuffer.label = "Triangle materials"
+        materialBuffer = try buffer(scene.materials); materialBuffer.label = "Architectural materials"
+        lightCount = scene.lights.count
+        hasTransmission = scene.materials.contains { $0.properties.w > 0 }
+        let lights = scene.lights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : scene.lights
+        lightBuffer = try buffer(lights); lightBuffer.label = "Architectural lighting"
+        triangleCount = scene.triangleCount; detailCount = scene.detailCount
+        let geometry = MTLAccelerationStructureTriangleGeometryDescriptor()
+        geometry.vertexBuffer = vertexBuffer
+        geometry.vertexStride = MemoryLayout<SceneVertex>.stride
+        geometry.vertexFormat = .float3
+        geometry.triangleCount = triangleCount
+        geometry.opaque = true
+        let descriptor = MTLPrimitiveAccelerationStructureDescriptor()
+        descriptor.geometryDescriptors = [geometry]
+        let sizes = device.accelerationStructureSizes(descriptor: descriptor)
+        guard let acceleration = device.makeAccelerationStructure(size: sizes.accelerationStructureSize),
+              let scratch = device.makeBuffer(length: sizes.buildScratchBufferSize, options: .storageModePrivate),
+              let command = queue.makeCommandBuffer(), let encoder = command.makeAccelerationStructureCommandEncoder() else { throw EngineError.message("Could not allocate ray tracing acceleration structure.") }
+        accelerationStructure = acceleration; acceleration.label = scene.name + " static triangle BVH"
+        encoder.build(accelerationStructure: acceleration, descriptor: descriptor, scratchBuffer: scratch, scratchBufferOffset: 0)
+        encoder.endEncoding(); command.commit(); command.waitUntilCompleted()
+        if let error = command.error { throw error }
+        buildSeconds = Date().timeIntervalSince(start)
+    }
+
+    func resetAccumulation() { sampleCount = 0 }
+    /// Call after stopping submissions, before replacing a location's resources.
+    func waitUntilIdle() {
+        guard let fence = queue.makeCommandBuffer() else { return }
+        fence.commit(); fence.waitUntilCompleted()
+    }
+    func resetReconstruction() { historyValid = false; finalFiltered = nil; previousFrame = nil }
+
+    func resize(width: Int, height: Int) throws {
+        guard width != self.width || height != self.height else { return }
+        guard width > 0 && height > 0 && width <= 8192 && height <= 8192 else { throw EngineError.message("Render size must be between 1 and 8192 pixels per axis.") }
+        let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba32Float, width: width, height: height, mipmapped: false)
+        desc.storageMode = .private; desc.usage = [.shaderRead, .shaderWrite]
+        guard let texture = device.makeTexture(descriptor: desc) else { throw EngineError.message("Could not allocate HDR accumulation texture.") }
+        texture.label = "Progressive linear HDR"
+        var nextWorld:[MTLTexture] = [], nextNormal:[MTLTexture] = [], nextHistory:[MTLTexture] = [], nextFilters:[MTLTexture] = []
+        func auxiliary(_ format: MTLPixelFormat, _ label: String) throws -> MTLTexture {
+            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat:format,width:width,height:height,mipmapped:false)
+            descriptor.storageMode = .private; descriptor.usage = [.shaderRead,.shaderWrite]
+            guard let result = device.makeTexture(descriptor:descriptor) else { throw EngineError.message("Could not allocate motion reconstruction resources.") }
+            result.label = label; return result
+        }
+        for i in 0..<2 {
+            nextWorld.append(try auxiliary(.rgba32Float,"World positions \(i)"))
+            nextNormal.append(try auxiliary(.rgba32Float,"Surface normal and depth \(i)"))
+            nextHistory.append(try auxiliary(.rgba32Float,"Reprojected radiance \(i)"))
+            nextFilters.append(try auxiliary(.rgba32Float,"Edge-preserving filter \(i)"))
+        }
+        let nextAlbedo = try auxiliary(.rgba16Float,"Albedo and roughness")
+        accumulation = texture; self.width = width; self.height = height; sampleCount = 0
+        worldGuides = nextWorld; normalGuides = nextNormal; histories = nextHistory; filters = nextFilters; albedoGuide = nextAlbedo
+        previousFrame = nil; previousPose = nil; historyIndex = 0; resetReconstruction()
+    }
+
+    func uniforms(pose: CameraPose, options: RenderOptions) -> FrameUniforms {
+        let forward = simd_normalize(pose.target - pose.position)
+        var right = simd_cross(forward, SIMD3<Float>(0, 1, 0))
+        if simd_length_squared(right) < 0.0001 { right = SIMD3(1, 0, 0) }
+        right = simd_normalize(right)
+        let up = simd_normalize(simd_cross(right, forward))
+        let halfFov = tan(pose.fov * .pi / 360)
+        let sun = options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
+        let color = options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
+        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, 0), forward: SIMD4(forward, 0), sunDirection: SIMD4(sun, Float(lightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+    }
+
+    private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
+        guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
+        var u = uniforms(pose: pose, options: options)
+        encoder.label = "Hardware path tracing"
+        encoder.setComputePipelineState(options.lighting == 2 ? nightTracePipeline : tracePipeline)
+        encoder.setTexture(texture, index: 0)
+        encoder.setBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
+        encoder.setBuffer(vertexBuffer, offset: 0, index: 1)
+        encoder.setBuffer(indexBuffer, offset: 0, index: 2)
+        encoder.setBuffer(materialBuffer, offset: 0, index: 3)
+        encoder.setAccelerationStructure(accelerationStructure, bufferIndex: 4)
+        encoder.setBuffer(lightBuffer, offset:0, index:5)
+        encoder.dispatchThreads(MTLSize(width: width, height: height, depth: 1), threadsPerThreadgroup: MTLSize(width: 8, height: 8, depth: 1))
+        encoder.endEncoding()
+        sampleCount &+= 1; frameSeed &+= 1
+        lastUniforms = u
+        return u
+    }
+
+    private func encodePresentation(_ command: MTLCommandBuffer, descriptor: MTLRenderPassDescriptor, uniforms: FrameUniforms, texture: MTLTexture? = nil) throws {
+        guard let encoder = command.makeRenderCommandEncoder(descriptor: descriptor) else { throw EngineError.message("Presentation encoder unavailable.") }
+        var u = uniforms
+        encoder.label = "Filmic presentation"
+        encoder.setRenderPipelineState(presentPipeline)
+        encoder.setFragmentTexture(texture ?? accumulation, index: 0)
+        encoder.setFragmentBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
+        encoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        encoder.endEncoding()
+    }
+
+    private func encodeReconstruction(_ command: MTLCommandBuffer, uniforms: FrameUniforms, moving: Bool) throws -> MTLTexture {
+        let current = 1-historyIndex
+        guard let surface = command.makeComputeCommandEncoder() else { throw EngineError.message("Surface guide encoder unavailable.") }
+        var frame = uniforms
+        surface.label = "Stable primary surfaces"
+        surface.setComputePipelineState(surfacePipeline)
+        surface.setBytes(&frame,length:MemoryLayout<FrameUniforms>.stride,index:0)
+        surface.setBuffer(vertexBuffer,offset:0,index:1)
+        surface.setBuffer(indexBuffer,offset:0,index:2)
+        surface.setBuffer(materialBuffer,offset:0,index:3)
+        surface.setAccelerationStructure(accelerationStructure,bufferIndex:4)
+        surface.setTexture(worldGuides[current],index:0)
+        surface.setTexture(normalGuides[current],index:1)
+        surface.setTexture(albedoGuide,index:2)
+        let grid = MTLSize(width:width,height:height,depth:1), group = MTLSize(width:8,height:8,depth:1)
+        surface.dispatchThreads(grid,threadsPerThreadgroup:group); surface.endEncoding()
+        let previous = previousFrame ?? frame
+        var t = TemporalUniforms(previousOrigin:previous.origin,previousRight:previous.right,previousUp:previous.up,previousForward:previous.forward,currentOrigin:SIMD4(frame.origin.xyz,frame.sunColor.w),sizeFlags:SIMD4(UInt32(width),UInt32(height),historyValid ? 1 : 0,moving ? 1 : 0),settings:SIMD4(32,Float(sampleCount),1,2*simd_length(frame.up.xyz)/Float(height)))
+        guard let temporal = command.makeComputeCommandEncoder() else { throw EngineError.message("Temporal encoder unavailable.") }
+        temporal.label = "Motion reprojection and visibility rejection"
+        temporal.setComputePipelineState(temporalPipeline)
+        temporal.setBytes(&t,length:MemoryLayout<TemporalUniforms>.stride,index:0)
+        let inputs:[MTLTexture?] = [accumulation,worldGuides[current],normalGuides[current],albedoGuide,histories[historyIndex],worldGuides[historyIndex],normalGuides[historyIndex],histories[current]]
+        for (i,texture) in inputs.enumerated() { temporal.setTexture(texture,index:i) }
+        temporal.dispatchThreads(grid,threadsPerThreadgroup:group); temporal.endEncoding()
+        var input = histories[current]
+        for (pass,step) in [Float(1),2,4].enumerated() {
+            guard let spatial = command.makeComputeCommandEncoder() else { throw EngineError.message("Spatial filter encoder unavailable.") }
+            t.settings.z = step
+            spatial.label = "Surface-aware spatial filtering \(pass+1)"
+            spatial.setComputePipelineState(spatialPipeline)
+            spatial.setBytes(&t,length:MemoryLayout<TemporalUniforms>.stride,index:0)
+            spatial.setTexture(input,index:0); spatial.setTexture(worldGuides[current],index:1)
+            spatial.setTexture(normalGuides[current],index:2); spatial.setTexture(albedoGuide,index:3)
+            spatial.setTexture(filters[pass%2],index:4)
+            spatial.dispatchThreads(grid,threadsPerThreadgroup:group); spatial.endEncoding()
+            input = filters[pass%2]
+        }
+        historyIndex = current; historyValid = true; previousFrame = frame
+        finalFiltered = input
+        return input
+    }
+
+    private func moved(_ pose: CameraPose) -> Bool {
+        guard let old = previousPose else { return true }
+        return simd_distance(old.position,pose.position)>0.00001 || simd_distance(old.target,pose.target)>0.00001 || abs(old.fov-pose.fov)>0.00001
+    }
+
+    func draw(view: MTKView, pose: CameraPose, options: RenderOptions, renderWidth: Int, reset: Bool, samplesPerFrame: Int = 4, resetHistory: Bool = false) throws -> Bool {
+        guard let drawable = view.currentDrawable, let descriptor = view.currentRenderPassDescriptor else { return false }
+        let aspect = max(1,view.drawableSize.height) / max(1,view.drawableSize.width)
+        let requestedWidth = Double(max(1,min(8192,renderWidth)))
+        let requestedHeight = max(1,requestedWidth*aspect)
+        let scale = min(1,8192/requestedHeight)
+        try resize(width:max(1,Int(requestedWidth*scale)),height:max(1,Int(requestedHeight*scale)))
+        let moving = moved(pose)
+        if reset || moving || previousOptions != options { resetAccumulation() }
+        if resetHistory || previousOptions != options { resetReconstruction() }
+        semaphore.wait()
+        guard let command = queue.makeCommandBuffer() else { semaphore.signal(); return false }
+        let beforeSubmission = sampleCount
+        do {
+            var u = uniforms(pose: pose, options: options)
+            let tracing = sampleCount < 4096
+            if tracing {
+                for _ in 0..<max(1,samplesPerFrame) { u = try encodeTrace(command, pose: pose, options: options) }
+            }
+            let texture:MTLTexture?
+            if options.denoising {
+                texture = tracing || finalFiltered == nil ? try encodeReconstruction(command,uniforms:u,moving:moving) : finalFiltered
+            } else { texture = nil; resetReconstruction() }
+            try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture)
+            command.present(drawable)
+            command.addCompletedHandler { [weak self] buffer in
+                if let self {
+                    self.metricsLock.lock()
+                    self.gpuTime = max(0, buffer.gpuEndTime - buffer.gpuStartTime) * 1000
+                    if let error = buffer.error { self.gpuError = error.localizedDescription }
+                    self.metricsLock.unlock()
+                    self.semaphore.signal()
+                }
+            }
+            command.commit(); previousPose = pose; previousOptions = options
+            return true
+        } catch { sampleCount = beforeSubmission; resetReconstruction(); semaphore.signal(); throw error }
+    }
+
+    /// Uses the interactive reconstruction path offscreen, retaining validated history between frames.
+    func renderPreviewOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int, resetHistory: Bool = false) throws -> Data {
+        try resize(width:width,height:height)
+        let moving = moved(pose)
+        resetAccumulation()
+        if resetHistory || previousOptions != options { resetReconstruction() }
+        let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat:.bgra8Unorm,width:width,height:height,mipmapped:false)
+        desc.storageMode = .shared; desc.usage = [.renderTarget,.shaderRead]
+        guard let output = device.makeTexture(descriptor:desc), let command = queue.makeCommandBuffer() else { throw EngineError.message("Preview output unavailable.") }
+        var u = uniforms(pose:pose,options:options)
+        for _ in 0..<max(1,samples) { u = try encodeTrace(command,pose:pose,options:options) }
+        let texture = options.denoising ? try encodeReconstruction(command,uniforms:u,moving:moving) : nil
+        let pass = MTLRenderPassDescriptor()
+        pass.colorAttachments[0].texture = output; pass.colorAttachments[0].loadAction = .dontCare; pass.colorAttachments[0].storeAction = .store
+        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
+        command.commit(); command.waitUntilCompleted()
+        if let error = command.error { resetReconstruction(); throw error }
+        previousPose = pose; previousOptions = options
+        lastGPUTime = max(0,command.gpuEndTime-command.gpuStartTime)*1000
+        var data = Data(count:width*height*4)
+        data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!,bytesPerRow:width*4,from:MTLRegionMake2D(0,0,width,height),mipmapLevel:0) }
+        return data
+    }
+
+    func renderOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int) throws -> Data {
+        // Same command queue serializes this with any preceding interactive frames.
+        try resize(width: width, height: height); resetAccumulation(); resetReconstruction()
+        let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
+        desc.storageMode = .shared; desc.usage = [.renderTarget, .shaderRead]
+        guard let output = device.makeTexture(descriptor: desc) else { throw EngineError.message("Could not allocate export texture.") }
+        // Batch ordered dispatches to avoid a CPU/GPU round trip for every sample.
+        // A bounded batch keeps exports responsive to other GPU users.
+        let count = max(1, samples)
+        for firstSample in stride(from: 0, to: count, by: 32) {
+            guard let command = queue.makeCommandBuffer() else { throw EngineError.message("Export command unavailable.") }
+            let end = min(firstSample + 32, count)
+            let beforeSubmission = sampleCount
+            do {
+                for sample in firstSample..<end {
+                    let u = try encodeTrace(command, pose: pose, options: options)
+                    if sample == count - 1 {
+                        let pass = MTLRenderPassDescriptor()
+                        pass.colorAttachments[0].texture = output
+                        pass.colorAttachments[0].loadAction = .dontCare
+                        pass.colorAttachments[0].storeAction = .store
+                        try encodePresentation(command, descriptor: pass, uniforms: u)
+                    }
+                }
+            } catch { sampleCount = beforeSubmission; throw error }
+            command.commit(); command.waitUntilCompleted()
+            if let error = command.error { resetAccumulation(); throw error }
+            lastGPUTime = max(0, command.gpuEndTime - command.gpuStartTime) * 1000 / Double(end-firstSample)
+        }
+        var data = Data(count: width * height * 4)
+        data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!, bytesPerRow: width * 4, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0) }
+        return data
+    }
+}
+
+func writePNG(_ data: Data, width: Int, height: Int, to url: URL) throws {
+    guard let provider = CGDataProvider(data: data as CFData),
+          let cg = CGImage(width: width, height: height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: width * 4, space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: [.byteOrder32Little, CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)], provider: provider, decode: nil, shouldInterpolate: false, intent: .defaultIntent),
+          let png = NSBitmapImageRep(cgImage: cg).representation(using: .png, properties: [:]) else { throw EngineError.message("Could not encode PNG.") }
+    try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+    try png.write(to: url)
+}

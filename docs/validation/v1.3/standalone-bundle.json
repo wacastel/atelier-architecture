@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "developmentBuildDirectoryHidden": true,
+  "locations": [
+    {
+      "location": "chicago",
+      "passed": true,
+      "triangles": 8652504
+    },
+    {
+      "location": "paris",
+      "passed": true,
+      "triangles": 8645884
+    }
+  ]
+}

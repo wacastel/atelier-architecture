@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "visualReviewPassed": true,
+  "reviewedAtUTC": "2026-09-07T23:26:07.567046+00:00",
+  "method": "Actual view_image inspection at1920x1200",
+  "samples": 512,
+  "file": "/Users/william/dev/architecture/output/Willis-Tower-Night.png",
+  "docsCopy": "/Users/william/dev/architecture/docs/images/Willis-Tower-Night.png",
+  "sha256": "76e49909c97f0d3aa80dc96e51aed6b45e649ef6d32ea5dc08120a6969e2d22c",
+  "notes": "Whole tower, antennas and skyline fit; rectangular occupied rooms with restrained warm/cool variation, readable white crown grid, localized street light, clean dark sky, no obstructing foreground or obvious bright fireflies."
+}

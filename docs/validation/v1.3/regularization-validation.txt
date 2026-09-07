@@ -1,0 +1,5 @@
+PASS: GPU alpha rule, unchanged primary/rough lobes, GGX mixture PDF and direct-light BRDF agreement
+PASS: 4,096 pixels each preserve exact first-surface, two-sheet transmission and saved camera-reflection radiance
+PASS: actual saved-branch surface observation preserves roughness after the other branch's non-delta scatter
+PASS: secondary glossy fixture variance 0.0049735 → 0.0001459, peak 0.91798 → 0.08684, mean 0.02774 → 0.03126
+PASS: production regularization option and real ray-path tests on Apple M3 Ultra
