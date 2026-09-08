@@ -1,0 +1,14 @@
+{
+  "binary": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "binarySHA256": "d2ca27973a28ff13b227f42a6554297b6aa5552ca1deade603192da782e4262e",
+  "resolution": [
+    960,
+    600
+  ],
+  "frames": 32,
+  "referenceSamples": 128,
+  "isolatedGPU": true,
+  "scene": "Final 1.4/build5 geometry and museum lighting, coverage guard, NoH clamp, indexed lighting, common reference sampler",
+  "RendererSHA256": "cd088c3a35dc8f873c59fe16b47a2e78c8e90339ea1402cfbe019e87c1cffefa",
+  "DenoiseSHA256": "8bb3c3ad363522894fbb67da8f2ef52ab10696f3300729b32981c926994c014c"
+}

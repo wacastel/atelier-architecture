@@ -1,0 +1,36 @@
+{
+  "abiValidated" : true,
+  "allocatedMiB" : 2486.171875,
+  "device" : "Apple M3 Ultra",
+  "elapsedSeconds" : 3.26624596118927,
+  "geometricDetails" : 23203,
+  "gpuLastSampleMilliseconds" : 2.6033359372377163,
+  "imageMeanByte" : 119.29997135418165,
+  "importerChecks" : [
+    "OBJ: negative-index quad, metre scaling and normalized normals",
+    "MTL: named Kd\/Ns\/Ks\/d material",
+    "OBJ: concave polygon preserves area",
+    "OBJ: malformed, zero, out-of-range and degenerate indices rejected"
+  ],
+  "lights" : 1049,
+  "location" : "millennium",
+  "mappedBuildingFootprints" : 2735,
+  "mapTimestamp" : "2026-09-07T22:11:33Z",
+  "materials" : 94,
+  "millenniumMappedAreas" : 91,
+  "millenniumMappedPaths" : 228,
+  "millenniumMappedTrees" : 626,
+  "millenniumMapTimestamp" : "2026-09-08T00:55:31Z",
+  "navigationBVHNodes" : 2622841,
+  "passed" : true,
+  "rayTracing" : true,
+  "resolution" : [
+    640,
+    400
+  ],
+  "samples" : 16,
+  "sharedChicagoWorld" : true,
+  "thinGlass" : true,
+  "triangleCount" : 13539844,
+  "unifiedMemory" : true
+}

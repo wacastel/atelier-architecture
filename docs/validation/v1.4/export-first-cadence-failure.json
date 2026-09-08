@@ -1,0 +1,27 @@
+{
+  "passed": false,
+  "processesWereSuspended": true,
+  "reason": "Three frames are absent from each original export. This does not establish a unique cause; source-rate AutoLevel hint was also missing. These files are superseded by fresh uninterrupted exports.",
+  "files": [
+    {
+      "archivedPath": "output/v5-review/pre-timing-fix/Cloud-Gate-Night-Walkthrough-1080p.mp4",
+      "sha256": "025d5fb1ff85c9df079a90d85c3f0f06baa74d6b7c2b8047e2646d39bbd086a4",
+      "expectedFrames": 1344,
+      "encodedFrames": 1341,
+      "decodedFrames": 1341,
+      "durationSeconds": 56.0,
+      "fullDecodePassed": true,
+      "uniformCadencePassed": false
+    },
+    {
+      "archivedPath": "output/v5-review/pre-timing-fix/Chicago-Willis-Park-Art-Institute-1080p.mp4",
+      "sha256": "523fd82360097c7cccbfbc2ec279bd34cf18923abab214149085be7fb67c1c70",
+      "expectedFrames": 5760,
+      "encodedFrames": 5757,
+      "decodedFrames": 5757,
+      "durationSeconds": 240.0,
+      "fullDecodePassed": true,
+      "uniformCadencePassed": false
+    }
+  ]
+}

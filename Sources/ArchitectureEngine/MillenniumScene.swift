@@ -1,0 +1,15 @@
+import Foundation
+import simd
+
+enum MillenniumScene {
+    static let stops: [TourStop] = [
+        TourStop(id:0,title:"Chicago's garden of art",subtitle:"MILLENNIUM PARK · THE LAKEFRONT & THE LOOP",detail:"An elevated introduction to the park, its sculpture, concert pavilion and gardens. Mapped Michigan Avenue buildings frame the same Chicago world as Willis Tower, visible across the Loop.",pose:CameraPose(position:SIMD3(1310,165,-220),target:SIMD3(1080,12,-425),fov:59)),
+        TourStop(id:1,title:"A city in the Bean",subtitle:"CLOUD GATE · POLISHED STAINLESS STEEL",detail:"Circle Anish Kapoor's monumental sculpture on its raised plaza. Its curved steel surface reflects the actual buildings, trees, sky and lights in the scene; the reflections change with your viewpoint.",pose:CameraPose(position:SIMD3(1014,7.5,-402),target:SIMD3(1042.46,7.7,-424.15),fov:53)),
+        TourStop(id:2,title:"Beneath Cloud Gate",subtitle:"THE OMPHALOS · A VAULT OF REFLECTIONS",detail:"Walk beneath the sculpture's arch and look into its concave underside. Continuous smooth normals preserve the curved reflections at close range, including the surrounding plaza and city.",pose:CameraPose(position:SIMD3(1029,4.75,-424.15),target:SIMD3(1042.46,7.5,-424.15),fov:68)),
+        TourStop(id:3,title:"Music under the skyline",subtitle:"JAY PRITZKER PAVILION · THE GREAT LAWN",detail:"Approach the sweeping steel ribbons and overhead trellis of Frank Gehry's outdoor concert pavilion, with the Loop rising beyond the lawn and stage lighting illuminating the structure after dark.",pose:CameraPose(position:SIMD3(1164,2,-348),target:SIMD3(1165,18,-517),fov:62)),
+        TourStop(id:4,title:"Water, glass and light",subtitle:"CROWN FOUNTAIN · TWO GLASS TOWERS",detail:"Move beside the shallow reflecting pool between the glass-block towers. Water, paving joints, landscaping and nighttime light give the plaza depth and human scale.",pose:CameraPose(position:SIMD3(997,2.0,-285),target:SIMD3(1009,7,-316.3),fov:65)),
+        TourStop(id:5,title:"A garden and a bridge",subtitle:"LURIE GARDEN · NICHOLS BRIDGEWAY",detail:"Drift across layered planting and garden paths toward Renzo Piano's pedestrian connection to the Art Institute. The mapped park layout connects its sculpture, landscape and museum in one continuous place.",pose:CameraPose(position:SIMD3(1220,12,-261),target:SIMD3(1155,4,-288),fov:61)),
+        TourStop(id:6,title:"The Art Institute",subtitle:"MICHIGAN AVENUE · STONE, BRONZE & GALLERIES",detail:"Study the historic museum's limestone façade, entrance stairs and bronze lions, then explore an architectural interpretation of its interior galleries and modern addition.",pose:CameraPose(position:SIMD3(948,10,-75),target:SIMD3(992,12,-76),fov:66)),
+        TourStop(id:7,title:"From tower to museum",subtitle:"CONTINUOUS CHICAGO FLIGHT · FOUR MINUTES",detail:"Depart Willis Tower, cross the Loop, descend to Cloud Gate, sweep through Millennium Park and enter the Art Institute. One continuous camera route traverses the shared Chicago world; Space pauses anywhere for exploration.",pose:WillisScene.stops[0].pose)
+    ]
+}

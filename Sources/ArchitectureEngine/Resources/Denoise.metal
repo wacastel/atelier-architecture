@@ -37,7 +37,7 @@ float currentPixelFootprint(float depth, constant TemporalUniforms &u) {
 
 float surfaceColorWeight(float4 a, float4 b) {
     float3 difference = (a.rgb - b.rgb) / max(a.rgb + b.rgb, float3(0.05f));
-    return exp(-12.0f * dot(difference, difference) - 10.0f * abs(a.w - b.w));
+    return exp(-64.0f * dot(difference, difference) - 10.0f * abs(a.w - b.w));
 }
 
 // Material and tangent-plane tests distinguish a rivet from its backing plate,
@@ -172,8 +172,17 @@ kernel void temporalResolve(
 
     float maximumHistory = clamp(u.settings.x, 1.0f, 64.0f);
     if (u.sizeFlags.w != 0) {
-        // View-dependent sharp reflections must respond to camera movement.
-        maximumHistory = min(maximumHistory, mix(2.0f, maximumHistory, smoothstep(0.08f, 0.42f, albedo.w)));
+        // A camera rotation reprojects the same surface/view direction exactly;
+        // a slow translation changes it much less than a GGX lobe's angular
+        // width. Do not discard that useful lighting history merely because
+        // the camera moved. Fast glossy changes keep the two-frame safeguard.
+        float3 currentView=normalize(u.currentOrigin.xyz-world.xyz);
+        float3 previousView=normalize(u.previousOrigin.xyz-world.xyz);
+        float angularChange=length(currentView-previousView);
+        float angularBudget=0.1f*max(albedo.w*albedo.w,0.0004f);
+        float slowMotionLimit=clamp(angularBudget/max(angularChange,0.000001f),2.0f,16.0f);
+        float roughnessLimit=mix(2.0f,maximumHistory,smoothstep(0.08f,0.42f,albedo.w));
+        maximumHistory=min(maximumHistory,max(roughnessLimit,slowMotionLimit));
     }
     // Progressive stationary input already contains many samples; adding long
     // correlated history would only delay its convergence.
@@ -201,6 +210,28 @@ kernel void spatialFilter(
     if (world.w<0 || (fract(world.w)>0.25f && fract(world.w)<0.7f)) {
         outputHDR.write(float4(center, normalDepth.w), tid);
         return;
+    }
+    if (fract(world.w)>0.1f && fract(world.w)<0.15f) {
+        // Polished-metal reflections contain real scene edges that are absent
+        // from primary albedo/normal guides. Surface-only spatial filtering
+        // erases those edges; keep their angularly validated temporal result.
+        outputHDR.write(float4(center,normalDepth.w),tid);
+        return;
+    }
+    // A center ray can hit pale stone while jittered radiance includes its
+    // narrow dark joint. Rejecting only different-material neighbors erases
+    // that legitimate fractional coverage asymmetrically. Preserve the local
+    // result on BOTH sides of a contrasting material boundary; stable regions
+    // farther from the edge still receive the full spatial filter.
+    for (int y=-1; y<=1; ++y) for (int x=-1; x<=1; ++x) {
+        int2 q=int2(tid)+int2(x,y);
+        if (!validPixel(q,u.sizeFlags.xy)) continue;
+        float4 otherWorld=currentWorld.read(uint2(q));
+        if (otherWorld.w<0 || abs(floor(otherWorld.w)-floor(world.w))<0.5f) continue;
+        if (surfaceColorWeight(albedo,currentAlbedo.read(uint2(q)))<0.01f) {
+            outputHDR.write(float4(center,normalDepth.w),tid);
+            return;
+        }
     }
     float footprint = currentPixelFootprint(normalDepth.w, u);
     if (u.currentOrigin.w > 0.5f && footprint > 0.25f) {
@@ -254,9 +285,11 @@ kernel void spatialFilter(
         result += other * weight;
         total += weight;
     }
-    // Filter strength falls with genuinely accumulated samples. Restrict wide
-    // passes for shiny surfaces rather than smearing the night reflections.
-    float strength = clamp(18.0f / (max(u.settings.y, 1.0f) + 18.0f), 0.0f, 0.92f);
+    // Trust genuinely accumulated samples sooner as sampling error falls.
+    // The eight-sample confidence scale limits bias on converging shadows and
+    // subpixel coverage; stronger blur was erasing detail at higher SPP.
+    // Restrict wide passes for shiny surfaces as before.
+    float strength = clamp(8.0f / (max(u.settings.y, 1.0f) + 8.0f), 0.0f, 0.92f);
     if (step > 1 && world.w >= 0.0f) strength *= smoothstep(0.08f, 0.3f, albedo.w);
     float3 filtered = total > 0.0f ? mix(center, result / total, strength) : center;
     outputHDR.write(float4(finiteRadiance(filtered), normalDepth.w), tid);

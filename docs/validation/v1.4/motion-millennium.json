@@ -1,0 +1,131 @@
+{
+  "device": "Apple M3 Ultra",
+  "failures": [],
+  "glossyHistory": "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+  "indexedLighting": true,
+  "location": "millennium",
+  "measurement": "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "passed": true,
+  "pathRegularization": true,
+  "rawPresentation": "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+  "referenceSampling": "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+  "sampling": "Fast Owen-scrambled Sobol",
+  "scenes": [
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 49.254185078022395,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 53.367363281722646,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.03308028756516939,
+      "rawTemporalResidualRMSE": 0.04812812524957909,
+      "reconstructedRMSE": 0.01678686150347883,
+      "reconstructedTemporalResidualRMSE": 0.016413082469762832,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 65.89710821967583,
+      "view": "cloud-gate-idle"
+    },
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 9.449855309149402,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 57.63806249797199,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.03844644165487263,
+      "rawTemporalResidualRMSE": 0.05475837493019146,
+      "reconstructedRMSE": 0.03481330854697062,
+      "reconstructedTemporalResidualRMSE": 0.04730975292127276,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 13.602708295150368,
+      "view": "cloud-gate-orbit"
+    },
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 2.447258366637517,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 88.23767317790043,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.03693440388782154,
+      "rawTemporalResidualRMSE": 0.05202662515508409,
+      "reconstructedRMSE": 0.03603052359850914,
+      "reconstructedTemporalResidualRMSE": 0.04745552558954107,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 8.786077420776795,
+      "view": "cloud-gate-night"
+    },
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 27.146251058836068,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 54.05868359412125,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.06016797287690399,
+      "rawTemporalResidualRMSE": 0.08564837963033212,
+      "reconstructedRMSE": 0.04383462390272724,
+      "reconstructedTemporalResidualRMSE": 0.05903659289113451,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 31.070975135848478,
+      "view": "beneath-cloud-gate"
+    },
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 28.548297505533704,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 96.19410026152764,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.07418357560472451,
+      "rawTemporalResidualRMSE": 0.10429509142596244,
+      "reconstructedRMSE": 0.05300542774084523,
+      "reconstructedTemporalResidualRMSE": 0.07367725104426566,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 29.35693325839015,
+      "view": "beneath-cloud-gate-night"
+    }
+  ],
+  "timingContext": "GPU may be shared with independent movie exports; use only isolated paired report for performance claims."
+}

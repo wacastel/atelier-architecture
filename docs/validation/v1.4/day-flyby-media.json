@@ -1,0 +1,267 @@
+{
+  "path": "/Users/william/dev/architecture/output/Chicago-Willis-Park-Art-Institute-1080p.mp4",
+  "arguments": [
+    "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--location",
+    "millennium",
+    "--video",
+    "/Users/william/dev/architecture/output/Chicago-Willis-Park-Art-Institute-1080p.mp4",
+    "--single-view",
+    "--stop",
+    "7",
+    "--lighting",
+    "0",
+    "--seconds",
+    "240",
+    "--fps",
+    "24",
+    "--width",
+    "1920",
+    "--height",
+    "1080",
+    "--samples",
+    "16"
+  ],
+  "bytes": 627846109,
+  "exportAndDecodeSeconds": 639.2389223575592,
+  "fullDecodePassed": true,
+  "expectedFrames": 5760,
+  "decodedFrameCount": 5760,
+  "maximumTimestampErrorSeconds": 3.333333342681044e-07,
+  "uniformFrameTimingPassed": true,
+  "frameSampleTimes": [
+    0,
+    15,
+    42,
+    68,
+    88,
+    108,
+    125,
+    141,
+    157,
+    177,
+    193,
+    207,
+    217,
+    225,
+    230,
+    239.9
+  ],
+  "visualReviewPending": false,
+  "probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.640028",
+        "width": 1920,
+        "height": 1080,
+        "coded_width": 1920,
+        "coded_height": 1088,
+        "has_b_frames": 2,
+        "pix_fmt": "yuv420p",
+        "level": 40,
+        "field_order": "progressive",
+        "refs": 4,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "24/1",
+        "avg_frame_rate": "24/1",
+        "time_base": "1/600",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 144000,
+        "duration": "240.000000",
+        "bit_rate": "20925321",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "5760",
+        "nb_read_frames": "5760",
+        "extradata_size": 31,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "creation_time": "2026-09-08T02:57:43.000000Z",
+          "language": "und",
+          "handler_name": "Core Media Video"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/Users/william/dev/architecture/output/Chicago-Willis-Park-Art-Institute-1080p.mp4",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "240.000000",
+      "size": "627846109",
+      "bit_rate": "20928203",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "mp42",
+        "minor_version": "1",
+        "compatible_brands": "isommp41mp42",
+        "creation_time": "2026-09-08T02:57:43.000000Z"
+      }
+    }
+  },
+  "sha256": "909425b439a1d79e456c4e4991deecfa40d6feb181cfd186e0af665596f7b386",
+  "visualReviewPassed": true,
+  "visualReviewReports": [
+    "day-flight-opening-review.json",
+    "day-park-movie-review.json",
+    "day-museum-movie-review.json"
+  ],
+  "visualReviewScope": "Sixteen actual sampled frame inspections; all 5760 frames separately decoded and their presentation timestamps verified. Sampling grain remains; no claim of frame-by-frame visual inspection.",
+  "reviewedFrames": [
+    {
+      "timeSeconds": 0,
+      "path": "output/v5-review/media-review/day-flyby/0.png",
+      "sha256": "d6c4575c36b91f45569b3266d02745f42c7ac175d7116adb0ac104ba76072f08"
+    },
+    {
+      "timeSeconds": 15,
+      "path": "output/v5-review/media-review/day-flyby/15.png",
+      "sha256": "31abe1ce880f6b8263945fb86c403c6ab23796efc8e0ddd2a399c4853a6855a0"
+    },
+    {
+      "timeSeconds": 42,
+      "path": "output/v5-review/media-review/day-flyby/42.png",
+      "sha256": "ba22e9a1a5908f03546896fff6516e6953195b9bd02383f134ba29a519fd062b"
+    },
+    {
+      "timeSeconds": 68,
+      "path": "output/v5-review/media-review/day-flyby/68.png",
+      "sha256": "5451c792c2b7f9b9c2cff6305cfab3a09c36291dd061cd7a6b12d49262057579"
+    },
+    {
+      "timeSeconds": 88,
+      "path": "output/v5-review/media-review/day-flyby/88.png",
+      "sha256": "e376e8b544775f9b95dbf3578b64117c3d112c4683d356b7b3257f2aefeb6671"
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/108.png",
+      "timeSeconds": 108,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2209905,
+      "sha256": "f13af8ce21f025a865eaaaed972c073195709973ca7f9fe0e0775541d4463fb1",
+      "visuallyReviewed": true,
+      "finding": "Aerial Grainger Plaza composition clearly frames Cloud Gate, mapped plaza/tree allees and the Millennium Monument; no foreground camera obstruction."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/125.png",
+      "timeSeconds": 125,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2197432,
+      "sha256": "9c5c4654c99704e5178ce7b73e53787f2fee83260b7feeeda95d8fd6abbfd04c",
+      "visuallyReviewed": true,
+      "finding": "Oblique Cloud Gate view preserves the rounded steel silhouette and arch, with continuous curved skyline/paving reflections; Pavilion headdress is visible behind the plaza."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/141.png",
+      "timeSeconds": 141,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 1423205,
+      "sha256": "895c94436f639459fc22c130e0bf47f07b19f42851c2cf559f98c1cd29ed8b20",
+      "visuallyReviewed": true,
+      "finding": "Broad-side Cloud Gate view remains fully framed and unobstructed, with smooth skyline reflection band, readable reflected paving and concave underside."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/157.png",
+      "timeSeconds": 157,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2027667,
+      "sha256": "8a6cdb05cd7a4c961663a2f55f1deb7f2eff8e7f7f229bf8b28eb4dea9ca3e70",
+      "visuallyReviewed": true,
+      "finding": "The elevated Pavilion approach clears the tree crowns and exposes the broad curved steel headdress, dark stage, acoustic trellis, speakers and rows of seats."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/177.png",
+      "timeSeconds": 177,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2246680,
+      "sha256": "d51955cced213b9b51b143aa2a9b90ce0ffd03b5195ad96f8bc56feeedda0b60",
+      "visuallyReviewed": true,
+      "finding": "The stage and seating are centered under the trellis; tubular beams cross the scene as intended architecture without accidentally hiding the stage or headdress."
+    },
+    {
+      "seconds": 193.0,
+      "path": "output/v5-review/media-review/day-flyby/193.png",
+      "sha256": "7d1efe07bf9774911b9e1ef4d1c3b105bf4adbbc9301c376dcd69d6382069440",
+      "bytes": 2634714,
+      "visuallyReviewed": true,
+      "finding": "Garden-to-museum establishing view: Modern Wing, roof and Nichols Bridgeway are recognizable behind the planting; no foreground object blocks the overall museum approach."
+    },
+    {
+      "seconds": 207.0,
+      "path": "output/v5-review/media-review/day-flyby/207.png",
+      "sha256": "c42986ae5c9592ede5fd7d1dbddcc5ef019898ed75b43175a0b8971e3134cd13",
+      "bytes": 1980693,
+      "visuallyReviewed": true,
+      "finding": "Modern Wing is centered at a useful scale. Roof blades, glazed pavilion levels and the central entry court are readable; bridge remains visible on the right."
+    },
+    {
+      "seconds": 217.0,
+      "path": "output/v5-review/media-review/day-flyby/217.png",
+      "sha256": "e27358e215d3c63abc587366f7dde8dfb2545979dc028c190784103f49acab31",
+      "bytes": 2180705,
+      "visuallyReviewed": true,
+      "finding": "Ground approach frames the central entrance and long court. Thin fa\u00e7ade members cross the image as expected, but the entry opening and interior remain visible."
+    },
+    {
+      "seconds": 225.0,
+      "path": "output/v5-review/media-review/day-flyby/225.png",
+      "sha256": "0beec271cc8fff66ff72e282fec855105e5260995e77eefaefbdd52efe66ff03",
+      "bytes": 1424816,
+      "visuallyReviewed": true,
+      "finding": "Inside Griffin Court, the camera has a clear forward corridor between the slender columns. Floor, wall planes and skylight rhythm remain readable."
+    },
+    {
+      "seconds": 230.0,
+      "path": "output/v5-review/media-review/day-flyby/230.png",
+      "sha256": "506fdd04fa99719cd49da46ddc2e51e76f6ce90d5d53ced08c8b19048f8de654",
+      "bytes": 1317219,
+      "visuallyReviewed": true,
+      "finding": "The turn presents the gallery opening, bench and framed artwork. Foreground architectural columns remain visible without filling or blocking the view."
+    },
+    {
+      "seconds": 239.9,
+      "path": "output/v5-review/media-review/day-flyby/239.9.png",
+      "sha256": "14fb308b630ccaa932de57095fc8b403a3c7e6fd49ef419eb3c076cc2181220b",
+      "bytes": 1051315,
+      "visuallyReviewed": true,
+      "finding": "Final gallery composition clearly frames three original geometric artworks, neutral walls, plaster ceiling, floor and wall labels. Exposure and caption readability are satisfactory."
+    }
+  ]
+}

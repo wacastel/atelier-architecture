@@ -68,5 +68,12 @@ if chicagoWorld.canMove(from:ledgeInside,to:ledgeOutside) {failures.append("Ledg
 if !chicagoWorld.canMove(from:V(-32.65,cy,0),to:V(-34.7,cy,0)) {failures.append("Ledge entry aperture obstructed")}
 if !chicagoWorld.canMove(from:V(0,1.85,76),to:V(0,1.85,68)) {failures.append("Catalog entrance aisle obstructed")}
 print("CHICAGO: supported visitor views; glass Ledge floor, entry, outer barrier and void; Catalog entrance")
+for (name,p) in [("Cloud Gate west landing",V(1029,4.75,-424.15)),("Cloud Gate arch",V(1042.46,4.75,-424.15)),("Cloud Gate east landing",V(1056,4.75,-424.15)),("Griffin Court",V(1146,2,-184)),("museum gallery",V(1175,2,-178))] {
+    if !chicagoSupport(p) { failures.append("\(name) lacks a supporting floor") }
+}
+for (name,a,b) in [("Bean arch",V(1029,4.75,-424.15),V(1056,4.75,-424.15)),("Modern Wing entrance",V(1146,2,-211),V(1146,2,-184)),("gallery opening",V(1146,2,-178),V(1175,2,-178))] {
+    if !chicagoWorld.canMove(from:a,to:b) { failures.append("\(name) blocks its intended passage") }
+}
+print("MILLENNIUM: raised plaza and Bean arch support/clearance; Modern Wing entrance, Griffin Court and gallery")
 print("FAILURES: \(failures)")
 if !failures.isEmpty{exit(1)}

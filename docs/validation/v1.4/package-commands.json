@@ -1,0 +1,38 @@
+[
+  {
+    "name": "millennium-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-mcsx_7bg/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 3.623879909515381,
+    "exitCode": 0
+  },
+  {
+    "name": "paris-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-mcsx_7bg/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 1.991441011428833,
+    "exitCode": 0
+  }
+]

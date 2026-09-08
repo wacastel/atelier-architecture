@@ -5,8 +5,8 @@ import SwiftUI
 import simd
 
 @MainActor final class EngineController: ObservableObject {
-    @Published var status = "Preparing Willis Tower…"
-    @Published private(set) var location: ArchitectureLocation = .chicago
+    @Published var status = "Preparing Millennium Park…"
+    @Published private(set) var location: ArchitectureLocation = .millennium
     @Published var isFullscreen = false
     @Published var isReady = false
     @Published var errorMessage: String?
@@ -44,14 +44,14 @@ import simd
     private var frameTimes: [Double] = []
     private var dirty = true
     private var historyDirty = true
-    private var playback = WalkthroughPlayback(location: .chicago)
+    private var playback = WalkthroughPlayback(location: .millennium)
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
     private var movementSpeed: Float = 8
     private var loaded = false
     var stops: [TourStop] { location.stops }
-    var walkthroughDuration: Double { location.duration }
+    var walkthroughDuration: Double { playback.duration }
     var timeLabel: String { String(format: "%02d:%02d / %02d:%02d", Int(playbackSeconds) / 60, Int(playbackSeconds) % 60, Int(walkthroughDuration) / 60, Int(walkthroughDuration) % 60) }
 
     func attach(view: MTKView) {
@@ -67,9 +67,26 @@ import simd
     }
     func selectLocation(_ value: ArchitectureLocation) {
         guard value != location, let device = view?.device else { return }
+        if isReady && location.world == value.world {
+            // The park and tower are bookmarks in the same world. Keep the GPU
+            // scene resident, changing only the camera and its playback clock.
+            location = value; playback.selectLocation(value); lighting = playback.lighting
+            applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
+            view?.window?.title = "ATELIER / \(value.name)"; focusViewport()
+            return
+        }
         loadLocation(value, device: device)
     }
-    func toggleLocation() { selectLocation(location == .paris ? .chicago : .paris) }
+    func toggleLocation() {
+        let locations = ArchitectureLocation.allCases
+        selectLocation(locations[(locations.firstIndex(of: location)! + 1) % locations.count])
+    }
+    func startChicagoFlyby() {
+        guard isReady, location.world == "chicago" else { return }
+        let selectedLighting = lighting
+        selectLocation(.millennium); selectStop(MillenniumWalkthrough.flybyView)
+        setLighting(selectedLighting); toggleTour()
+    }
     private func loadLocation(_ selected: ArchitectureLocation, device: MTLDevice) {
         loadGeneration += 1
         let generation = loadGeneration
@@ -217,7 +234,7 @@ import simd
         else if playback.state == .manual { updateMovement(Float(dt)) }
         let width = min(Int(view.drawableSize.width), quality == 0 ? 960 : (quality == 2 ? 2560 : 1440))
         do {
-            if try renderer.draw(view:view,pose:pose,options:options,renderWidth:max(64,width),reset:dirty,samplesPerFrame:quality == 0 ? 2 : 4,resetHistory:historyDirty) { dirty = false; historyDirty = false }
+            if try renderer.draw(view:view,pose:pose,options:options,renderWidth:max(64,width),reset:dirty,samplesPerFrame:quality == 2 ? 8 : 4,resetHistory:historyDirty) { dirty = false; historyDirty = false }
             if captured {
                 captured = false
                 let folder = FileManager.default.urls(for:.picturesDirectory,in:.userDomainMask).first!.appendingPathComponent("Atelier")

@@ -1,0 +1,8 @@
+PASS: specialized daylight/night + presentation pipelines on Apple M3 Ultra
+PASS: actual 32×32 hardware ray trace, finite RGB and expected five-metre hit
+PASS: exact frame-zero reset; progressive mean maximum error 0.0
+PASS: 32 sequential commands versus 32 encoders in one batch; maximum RGB error 0.0, differing components 0/3072
+PASS: 64-byte night light at buffer 5 adds warm illumination; finite output, exact reset, progressive mean error 0.0
+PASS: daylight interior specialization adds opted-in illumination and preserves identical day sky/sun with zero interior lights
+PASS: actual presentation at1/4/128samples preserves per-pixel HDR coverage and applies only tone/sRGB mapping (maximum byte error 0)
+PASS: 1,024 smooth curved-surface guide normals match the tracer's vertex interpolation across triangle edges

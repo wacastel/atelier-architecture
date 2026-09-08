@@ -10,12 +10,13 @@ enum NightLighting {
 
     static func source(_ position: V, toward target: V? = nil, power: Float,
                        color: V = sodium, range: Float = 42, radius: Float = 0.18,
-                       outerDegrees: Float = 80, innerDegrees: Float = 48) -> SceneLight {
+                       outerDegrees: Float = 80, innerDegrees: Float = 48,
+                       alwaysOn: Bool = false) -> SceneLight {
         let direction = target.map { simd_normalize($0-position) } ?? V(0,-1,0)
         return SceneLight(positionRadius: SIMD4(position,radius),
                           directionCone: SIMD4(direction,target == nil ? -1 : cos(outerDegrees * .pi / 180)),
                           colorPower: SIMD4(color,power),
-                          parameters: SIMD4(range,cos(innerDegrees * .pi / 180),0,0))
+                          parameters: SIMD4(range,cos(innerDegrees * .pi / 180),alwaysOn ? 1 : 0,0))
     }
 
     static func tower(section: (Float) -> (outer: Float, width: Float)) -> [SceneLight] {

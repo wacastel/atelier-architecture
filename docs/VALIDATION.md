@@ -1,6 +1,64 @@
 # Validation record
 
-Recorded 7 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.3.0 / build 4**. Earlier sections below preserve historical measurements; they do not benchmark the current Chicago scene.
+Recorded 7 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.4.0 / build 5**. Earlier sections below preserve historical measurements; they do not benchmark the current shared Chicago scene.
+
+## Version 1.4 Millennium Park and the shared Chicago world
+
+Willis Tower and Millennium Park now use one scene, acceleration structure and navigation world. The park adds eight animated viewpoints, including a continuous **240-second** flight from Willis Tower through Millennium Park into an interpreted Art Institute gallery. The other seven studies last 56 seconds. Paris retains nine routes and Willis retains eight.
+
+The signed native arm64 app contains **13,539,844 Chicago triangles, 94 materials and 1,049 explicit lights**, with 23,203 generated geometric details and 2,735 mapped building/building-part polygons. At 640 × 400, the 16-sample self-test passes geometry, Swift/Metal ABI, hardware acceleration, image range, accumulation, viewport aspect/resizing, navigation and OBJ/MTL import; reported Metal allocation is **2,486.17 MiB**. A copied app passes both Chicago and Paris self-tests from separate temporary working directories while an OS sandbox denies all reads from this repository, including `.build`. The original repository and build directory remain untouched. [Chicago self-test](validation/v1.4/millennium-self-test.json) · [Paris self-test](validation/v1.4/paris-self-test.json) · [Standalone bundle proof](validation/v1.4/standalone-bundle.json).
+
+The production geometry passes **22,258 playback and clearance checks** across all 25 routes. The harness samples each ordinary route at 10 Hz and the entire connecting flight at 2,400 positions, plus 120 seconds of idle motion per bookmark. No tested movement is obstructed, unsupported on a walking route, or too close to a surface. Dedicated navigation checks include the raised Cloud Gate plaza and arch, the Modern Wing entrance, Griffin Court and gallery, alongside the previous Paris and Willis cases. [Playback](validation/v1.4/playback-validation.txt) · [Navigation](validation/v1.4/navigation-validation.txt).
+
+The new bundled OpenStreetMap snapshot has **91 areas, 228 paths, 626 tree positions and 12 identified landmarks**. Its source timestamp is 8 September 2026, 00:55:31 UTC. Validation covers finite coordinates, landmark coverage, polygon triangulation and deterministic regeneration. A separate geometry fixture checks Cloud Gate's closed manifold, dimensions, smooth normals and walkable underside. The park layer contains **1,678,830 triangles and 84 lights**. Primary-source photographs, published dimensions and visually inspected aerial imagery constrain the authored reconstruction. [Map check](validation/v1.4/millennium-map-validation.txt) · [Geometry check](validation/v1.4/millennium-geometry-validation.txt) · [Park sources and limits](MILLENNIUM.md) · [Art Institute sources and limits](ART-INSTITUTE.md).
+
+The final eight-bookmark day/night gallery uses 1600 × 1000 images at 128/256 samples. Park review covers all six park viewpoints in each lighting mode; museum review additionally covers the historic entrance, Modern Wing, Nichols Bridgeway, Griffin Court and gallery. Final Cloud Gate hero stills use 1920 × 1200 at 256/512 samples. The visibly smooth shell reflects modeled buildings and paving, and the nighttime lower shell retains the warm plaza illumination seen in photographic references. [Park visuals](validation/v1.4/park-visual-validation.json) · [Museum visuals](validation/v1.4/museum-visual-validation.json) · [Final heroes and route endpoints](validation/v1.4/root-final-visual-validation.json).
+
+Native UI operation verified the third destination, four-minute flight, exact pause, 2×/4×/8× transport, endpoint inside the museum, location roundtrips, retained Chicago resources, preserved flight lighting, keyboard idle speeds, a night-to-day cycle wrap, and full-screen entry/exit. All controls and attribution remained visible. [Native UI evidence](validation/v1.4/native-ui.json).
+
+The renderer now uses Owen-scrambled Sobol paths, smooth reflective-surface guides, angularly bounded glossy history, and a corrected narrow GGX lobe. A domain clamp prevents rounded dot products above one from producing false polished highlights. Spatial filtering preserves both sides of thin high-contrast paving boundaries. Dedicated GPU fixtures exercise real shader kernels and intentionally broken variants; nine negative controls detect the corresponding sampling, reflection, guide, history, coverage and GGX-domain regressions. [Renderer method](MOTION.md) · [Negative controls](validation/v1.4/motion-negative-controls.json).
+
+A conservative spatial light index retains original candidate order and falls back to the complete linear light list if its inputs or memory bounds cannot be indexed safely. **43,860 CPU coverage/order checks** and **16,384 GPU comparison pixels** pass; the GPU fixture's indexed and linear radiance are bit-identical. This fixture result is distinct from whole-scene image comparisons. Daylight museum fixtures use a filtered always-on buffer and matching index. [CPU light-grid checks](validation/v1.4/light-grid-validation.txt) · [GPU indexed-light checks](validation/v1.4/motion-indexed-lighting-validation.txt).
+
+The gallery arrangement, paintings, Crown Fountain's abstract displays, vegetation, material finishes and lighting are authored interpretations. This release is not a surveyed digital twin or a reproduction of the museum's current exhibition layout. Motion checks measure specific traces and retain explicit image-error and ghosting limits; they do not establish scene-wide noise elimination or a universal frame-rate guarantee.
+
+## Version 1.4 final motion checks
+
+All **15 actual-scene cases pass** the unchanged image-error and temporal-error requirements at 960 × 600, 32 frames, eight current samples and independent 128-sample references. Measurements use the second half of each sequence. The following reductions compare reconstruction with matching unfiltered paths; they are separate from the cross-sampler comparison below. Correctness runs shared the GPU with exports, so their timing fields are excluded from performance claims. [Summary and source hashes](validation/v1.4/motion-summary.json).
+
+| Moving view | Raw image RMSE | Reconstructed image RMSE | Temporal residual reduction |
+| --- | ---: | ---: | ---: |
+| millennium / cloud-gate-idle | 0.033080 | 0.016787 | 65.9% |
+| millennium / cloud-gate-orbit | 0.038446 | 0.034813 | 13.6% |
+| millennium / cloud-gate-night | 0.036934 | 0.036031 | 8.8% |
+| millennium / beneath-cloud-gate | 0.060168 | 0.043835 | 31.1% |
+| millennium / beneath-cloud-gate-night | 0.074184 | 0.053005 | 29.4% |
+| chicago / willis-overview | 0.028678 | 0.026875 | 25.7% |
+| chicago / willis-facade | 0.020733 | 0.010627 | 57.5% |
+| chicago / willis-night | 0.024938 | 0.024919 | 1.2% |
+| chicago / chicago-river | 0.070942 | 0.033670 | 55.0% |
+| chicago / chicago-river-night | 0.042262 | 0.031370 | 27.4% |
+| paris / overview | 0.027306 | 0.026368 | 33.6% |
+| paris / iron | 0.055553 | 0.032336 | 61.6% |
+| paris / night-silhouette | 0.038220 | 0.036525 | 4.9% |
+| paris / river-day | 0.042878 | 0.033303 | 36.7% |
+| paris / river-night | 0.049377 | 0.040985 | 20.1% |
+
+[Millennium results](validation/v1.4/motion-millennium.json) · [Willis/Chicago results](validation/v1.4/motion-chicago.json) · [Paris results](validation/v1.4/motion-paris.json). Paris clear-sky RMSE is **0.000072**, and maximum unsupported temporal night brightness is **0**. The small Willis night gain reflects intentionally conservative treatment of unresolved lit windows. Fine grain remains in moving glossy reflections.
+
+The separately isolated Bean night comparison uses identical independent references across sampler modes. At four samples, Sobol lowers reconstructed image error **10.0%** and temporal residual **10.8%** relative to the current renderer’s independent-random mode. Eight Sobol samples lower those errors **21.4%** and **22.8%**, respectively, versus independent random at four samples. Indexed lighting takes **27.74 ms**, compared with **66.48 ms** for linear light traversal at eight samples, a **2.40×** throughput improvement in this specific 960 × 600 benchmark. Four-sample indexed rendering takes **14.50 ms**. These are measured GPU frame durations for this trace, not native window FPS guarantees. [Paired results](validation/v1.4/motion-comparison.json) · [Method and limitations](MOTION.md#version-14-measured-comparisons).
+
+The failed preliminary paving and Willis-night measurements remain preserved. Symmetric material-boundary coverage and sample-aware spatial strength correct their respective causes; acceptance thresholds were not relaxed. [Discovery notes and failed inputs](validation/v1.4/motion-discovery-notes.md).
+
+## Version 1.4 finished demonstrations
+
+The final daytime flight is **240.000 seconds / 5,760 frames** and the final night Bean orbit is **56.000 seconds / 1,344 frames**. Both are H.264 High, 1920 × 1080 at 24 FPS with three path interactions; the day recording uses 16 samples/frame and the night recording 24. Full FFmpeg `-xerror` decoding passes all **7,104 frames**, and each presentation timestamp matches its expected 1/24-second cadence within 0.000001 seconds. Movie sizes are respectively **627,846,109** and **147,131,001 bytes**. [Day media proof](validation/v1.4/day-flyby-media.json) · [Night media proof](validation/v1.4/night-bean-media.json) · [Local demos and flight landmarks](DEMO.md#version-14-demonstration-artifacts).
+
+The final movies were exported sequentially without process suspension. An earlier recording decoded correctly but had three missing frames; that failure is retained as a negative control for the new reusable cadence validator. The final offline encoder explicitly supplies its expected source frame rate and disables real-time encoding. [Encoder correction and preserved failure](validation/v1.4/export-timing-notes.md).
+
+Visual review covers 16 sampled daytime frames from tower departure through the gallery endpoint, plus nine sampled frames around the complete night Bean orbit. Captions and map attribution are readable. Sampled park and museum approaches are unobstructed, and the Bean retains curved reflections of surrounding geometry and illumination. Fine grain and reconstruction softness remain in difficult reflections. This combines complete automated decoding with sampled visual review, rather than visual inspection of every frame.
+
+The final signed app was launched again after both exports and its process was observed running. The Mac was locked, preventing a fresh on-screen inspection at that point; the earlier native controls review is explicitly scoped in its record. The copied final bundle separately passed both-city self-tests while repository reads were denied. [Package/source manifest](validation/v1.4/release-manifest.json) · [Native UI and final launch record](validation/v1.4/native-ui.json).
 
 ## Version 1.3 Chicago and two-location application
 

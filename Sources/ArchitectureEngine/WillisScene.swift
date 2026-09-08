@@ -35,11 +35,7 @@ enum WillisScene {
         return roofHeight
     }
     static func build()->SceneData {
-        let b=EiffelBuilder()
-        b.scene.name="Willis Tower · Chicago"
-        b.chicagoEnvironment()
-        b.willisTower()
-        return b.scene
+        ChicagoWorld.build()
     }
 }
 

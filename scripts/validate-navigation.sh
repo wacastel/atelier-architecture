@@ -7,7 +7,7 @@ navigation_tmp="$(mktemp -d "${TMPDIR:-/tmp}/atelier-navigation.XXXXXX")"
 trap 'rm -rf -- "$navigation_tmp"' EXIT
 
 scene_sources=()
-for scene_source in "$project_dir"/Sources/ArchitectureEngine/Paris*.swift "$project_dir"/Sources/ArchitectureEngine/River*.swift "$project_dir"/Sources/ArchitectureEngine/Chicago*.swift "$project_dir"/Sources/ArchitectureEngine/WillisScene.swift; do
+for scene_source in "$project_dir"/Sources/ArchitectureEngine/Millennium*.swift "$project_dir"/Sources/ArchitectureEngine/ArtInstitute.swift "$project_dir"/Sources/ArchitectureEngine/CameraTrack.swift "$project_dir"/Sources/ArchitectureEngine/Paris*.swift "$project_dir"/Sources/ArchitectureEngine/River*.swift "$project_dir"/Sources/ArchitectureEngine/Chicago*.swift "$project_dir"/Sources/ArchitectureEngine/WillisScene.swift; do
   if [[ -f "$scene_source" ]]; then scene_sources+=("$scene_source"); fi
 done
 xcrun swiftc -O -whole-module-optimization \

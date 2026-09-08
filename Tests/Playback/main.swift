@@ -162,6 +162,19 @@ for location in ArchitectureLocation.allCases {
     }
 }
 
+// The long flight uses its own clock throughout seeking, shuttling and pause.
+var flight = WalkthroughPlayback(location: .millennium)
+flight.select(MillenniumWalkthrough.flybyView)
+expect(flight.duration == 240, "Connecting flight has a four-minute timeline")
+flight.seek(progress: 0.75)
+expect(flight.time == 180, "Flyby seek uses its complete duration")
+flight.transport(.forward); flight.advance(30)
+expect(flight.time == 240 && flight.state == .paused, "Flyby shuttle reaches and pauses at the museum endpoint")
+flight.select(2)
+expect(flight.duration == 56 && flight.time == 0, "A park bookmark restores the short route duration")
+expect(ArchitectureLocation.chicago.world == ArchitectureLocation.millennium.world, "Chicago destinations identify the same resident world")
+expect(ArchitectureLocation.paris.world != ArchitectureLocation.chicago.world, "Paris remains an independent world")
+
 // Verify actual production geometry, including intermediate positions and body clearance.
 for location in ArchitectureLocation.allCases {
 print("Validating camera geometry: \(location.name)")
@@ -171,8 +184,9 @@ let axes: [SIMD3<Float>] = [SIMD3(1,0,0), SIMD3(-1,0,0), SIMD3(0,1,0), SIMD3(0,-
 for view in 0..<location.stops.count {
     var previous = location.pose(view: view, seconds: 0)
     var blocked = 0, unsupported = 0, close = 0
-    for frame in 1...560 {
-        let pose = location.pose(view: view, seconds: Double(frame) * 0.1)
+    let steps = max(560, Int(location.duration(view: view) * 10))
+    for frame in 1...steps {
+        let pose = location.pose(view: view, seconds: Double(frame) / Double(steps) * location.duration(view: view))
         expect(pose.position.x.isFinite && pose.position.y.isFinite && pose.position.z.isFinite && simd_length(pose.target - pose.position) > 0.1, "View \(view + 1) has valid camera at \(frame)")
         if !world.canMove(from: previous.position, to: pose.position) {
             if blocked == 0 || frame % 20 == 0 { print("Obstruction: view=\(view + 1), seconds=\(Double(frame) * 0.1), position=\(pose.position)") }
@@ -188,7 +202,7 @@ for view in 0..<location.stops.count {
     expect(blocked == 0, "View \(view + 1) has \(blocked) obstructed camera steps")
     expect(unsupported == 0, "View \(view + 1) has \(unsupported) unsupported walking positions")
     expect(close == 0, "View \(view + 1) has \(close) camera positions too close to geometry")
-    print("View \(view + 1): 560 steps, blocked=\(blocked), unsupported=\(unsupported), near-surface=\(close)")
+    print("View \(view + 1): \(steps) steps, blocked=\(blocked), unsupported=\(unsupported), near-surface=\(close)")
     previous = location.idlePose(view: view, seconds: 0)
     for tick in 1...120 {
         let idle = location.idlePose(view: view, seconds: Double(tick))

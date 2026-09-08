@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "duration": 6,
+  "fps": 24,
+  "expectedFrames": 144,
+  "decodedFrames": 144,
+  "maximumTimestampErrorSeconds": 3.33333333379926e-07,
+  "fullDecodePassed": true,
+  "scope": "Actual packaged encoder with expected frame-rate hint and offline VideoToolbox mode; no process suspension."
+}

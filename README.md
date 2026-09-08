@@ -1,15 +1,16 @@
 # Atelier
 
-A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, and Metal hardware ray tracing. Two locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, and Metal hardware ray tracing. Three locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
 
+- **Millennium Park, Chicago** — eight views, reflective Cloud Gate with a walkable underside, Pritzker Pavilion, Crown Fountain, gardens, the detailed Art Institute and a continuous four-minute flight from Willis Tower through the park into the museum.
 - **Willis Tower, Chicago** — eight views, the nine bundled tubes and their mapped setbacks, individually modeled curtain-wall panels and connections, Catalog entrance and roof garden, Skydeck at its published elevation, five transparent Ledge boxes, broadcast antennas, and mapped Loop surroundings.
 - **Eiffel Tower, Paris** — nine views, detailed ironwork and rivets, observation terraces and visitor spaces, mapped gardens and nearby buildings, the Seine, Pont d’Iéna, and a river cruiser.
 
-Nearby layouts use bundled OpenStreetMap snapshots. Architectural photographs, published dimensions, and aerial/satellite references inform the models. These are detailed architectural reconstructions, not surveyed digital twins: interiors, façade treatments, vegetation, boats, and lighting contain authored interpretations. [Willis methodology](docs/WILLIS.md) · [Chicago map data and references](docs/CHICAGO.md) · [Paris methodology](docs/PARIS.md).
+Nearby layouts use bundled OpenStreetMap snapshots. Architectural photographs, published dimensions, and aerial/satellite references inform the models. These are detailed architectural reconstructions, not surveyed digital twins: interiors, façade treatments, vegetation, boats, and lighting contain authored interpretations. [Park methodology](docs/MILLENNIUM.md) · [Art Institute](docs/ART-INSTITUTE.md) · [Willis methodology](docs/WILLIS.md) · [Chicago map data and references](docs/CHICAGO.md) · [Paris methodology](docs/PARIS.md).
 
-![Willis Tower by day](docs/images/Willis-Tower-Day.png)
+![Cloud Gate and Millennium Park by day](docs/images/Millennium-Cloud-Gate-Day.png)
 
-![Willis Tower at night](docs/images/Willis-Tower-Night.png)
+![Cloud Gate reflecting the illuminated Chicago scene](docs/images/Millennium-Cloud-Gate-Night.png)
 
 ## Run
 
@@ -20,17 +21,17 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. It opens at Willis Tower. Use the location menu or **L** to switch between Chicago and Paris; loading replaces the active scene's GPU and navigation resources.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. It opens at Millennium Park. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower and Millennium Park. The two Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
 ## Explore
 
-The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Selecting a view holds it with gentle motion; **Play** starts that view's own 56-second walkthrough.
+The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough: 56 seconds for individual studies, or four minutes for the connecting Chicago flight. The **Willis → Park → Art Institute** button starts that flight from either Chicago destination and preserves the chosen day/night lighting.
 
 | Control | Action |
 | --- | --- |
-| Location menu / **L** | Switch Chicago ↔ Paris; begin a fresh daytime idle cycle |
+| Location menu / **L** | Cycle all three locations; begin a fresh daytime idle cycle |
 | View card / **1–8** (Chicago), **1–9** (Paris) | Select and hold a view |
 | **↑ / ↓** | Previous / next view; stop cycling |
 | **Idle Play / Idle Pause**, or **I** | Resume the view cycle / hold the current view |
@@ -44,31 +45,44 @@ The opening idle cycle visits each view in order during daytime, switches to nig
 | Mouse drag / WASD / Q–E | Manual look / movement / vertical flight |
 | Shift / mouse wheel | Faster movement / adjust manual speed |
 | **H / ? / Esc** | Hide interface / show controls / release keys and close help |
-| **⌘R / ⌘⇧S** | Reset selected view / save a render to Pictures/Atelier |
+| **⌘R / ⌘⇧S** | Return to the location’s opening view / save a render to Pictures/Atelier |
 
-Manual movement suspends animation. Walk mode uses floor support and collision checks; Fly mode allows unrestricted inspection. Routes are separate authored chapters, including aerial architectural views, rather than a continuous elevator trip through every floor. Full-screen and ordinary window sizes retain the same rendering and input controls. The view cards scroll horizontally when needed.
+Manual movement suspends animation. Walk mode uses floor support and collision checks; Fly mode allows unrestricted inspection. Individual routes are authored architectural studies. Millennium Park’s eighth route connects Willis Tower, the park and an interpreted Modern Wing gallery without a scene cut or teleport. Full-screen and ordinary window sizes retain the same rendering and input controls. The view cards scroll horizontally when needed.
 
 ## Rendering
 
-The engine traces the actual modeled triangles using Metal acceleration structures, GGX reflections, direct-light shadow rays, and multibounce lighting. Water uses filtered analytic ripple normals and dielectric Fresnel reflections. Selected Chicago glazing uses thin-sheet transmission and reflection; the first camera pane traces both branches to reduce movement noise. [Glass implementation and limits](docs/GLASS.md).
+The engine traces the actual modeled triangles using Metal acceleration structures, GGX reflections, direct-light shadow rays, and multibounce lighting. Cloud Gate’s polished shell and concave underside reflect the shared Chicago scene, including reflected reflections; they do not use a painted skyline. Water uses filtered analytic ripple normals and dielectric Fresnel reflections. Selected Chicago glazing uses thin-sheet transmission and reflection; the first camera pane traces both branches to reduce movement noise. [Glass implementation and limits](docs/GLASS.md).
 
-Selective path regularization broadens difficult secondary glossy reflections after a non-delta scatter, reducing bright motion speckles while preserving directly viewed materials and first reflections through perfect glass. This introduces a documented lighting bias; `--no-regularization` disables it for comparisons. [Method and GPU checks](docs/MOTION.md#selective-glossy-path-regularization).
+Fast Owen-scrambled Sobol samples distribute camera, sun, and material samples across each pixel’s sampling domain. Pure metals sample their reflective GGX lobe directly, and a numerically stable GGX evaluation retains the narrow highlights of polished steel. `--random-sampling` restores independent random samples for controlled comparisons.
+
+Selective path regularization broadens difficult secondary glossy reflections after an ordinary surface scatter, reducing bright motion speckles while preserving directly viewed materials and first reflections through perfect glass. A chain of very smooth metal reflections, such as Cloud Gate’s underside, retains its authored lobes until an ordinary scatter occurs. Those metal reflections still use finite GGX lobes. Regularization introduces a documented lighting bias; `--no-regularization` disables it for comparisons. [Method and GPU checks](docs/MOTION.md#selective-glossy-path-regularization).
+
+A conservative spatial light grid restricts local-light evaluation to candidates whose declared finite range can reach the current cell. Candidate lists retain scene order, and the renderer falls back to the complete linear list if a grid cannot be built within its bounds. `--linear-lights` selects that baseline explicitly. Museum interior fixtures can remain on during daytime while the sun and sky retain daytime lighting; architectural exterior fixtures switch on at night.
 
 Motion reconstruction uses deterministic world position, depth, normal, material and albedo guides, rejects stale history, and filters within compatible surfaces. Distant night coverage, emissive windows, and mixed reflection/transmission require conservative history handling. Fine sampling grain can remain in reflective water, thin detail, and moving glass. Paused views progressively accumulate samples. [Motion reconstruction](docs/MOTION.md).
 
 | Quality | Maximum render width | Path interactions | New samples/frame |
 | --- | ---: | ---: | ---: |
-| Interactive | 960 px | 2 | 2 |
+| Interactive | 960 px | 2 | 4 |
 | Balanced | 1440 px | 3 | 4 |
-| Ultra | 2560 px | 5 | 4 |
+| Ultra | 2560 px | 5 | 8 |
 
 Render dimensions preserve the actual drawable's aspect ratio, including portrait windows and full-screen displays; both axes are bounded by the renderer's 8192-pixel limit. GPU memory usage is scene- and viewport-dependent. Unified memory and native ray-tracing acceleration are used directly; allocating all 512 GB is unnecessary for these models.
 
 ## Render and record
 
-The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower. View numbers are zero-based on the command line.
+The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower or `millennium` for the park and museum. View numbers are zero-based on the command line.
 
 ```sh
+# Complete continuous flight at ordinary 1× speed, from tower to museum.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium \
+  --video output/Chicago-Park-Museum-Flyby.mp4 --single-view --stop 7 \
+  --seconds 240 --fps 24 --width 1920 --height 1080 --samples 16
+
+# All eight park/museum bookmarks, with actual traced nighttime reflections.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium \
+  --gallery output/millennium-night --lighting 2 --samples 256
+
 # Geometry, GPU dispatch, accumulation, viewport resizing, and importer checks.
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location chicago --self-test
 
@@ -97,25 +111,60 @@ The command-line interface uses the same scenes and shaders as the application. 
   --video output/Paris-Walkthrough.mp4 --seconds 108 --fps 24 --samples 12
 ```
 
-`--camera x,y,z --target x,y,z --fov 60` overrides a still camera. `--raw` disables reconstruction for comparison. `--obj building.obj --scale 1 --render image.png` imports another building for still rendering; imported materials have the limits described in [engine documentation](docs/ENGINE.md). Run `--help` for all options. Video exports require a new filename and never overwrite an existing recording.
+`--camera x,y,z --target x,y,z --fov 60` overrides a still camera. `--raw` disables reconstruction in moving previews and video comparisons; still exports already use unfiltered progressive radiance followed by exposure and tone mapping. `--obj building.obj --scale 1 --render image.png` imports another building for still rendering; imported materials have the limits described in [engine documentation](docs/ENGINE.md). Run `--help` for all options. Video exports require a new filename and never overwrite an existing recording.
+
+Check an existing movie’s complete decoding, frame count and uniform presentation timestamps with:
+
+```sh
+python3 scripts/validate-video-timing.py output/Chicago-Park-Museum-Flyby.mp4 \
+  --seconds 240 --fps 24 --report output/flyby-timing.json
+```
 
 Generated videos, high-resolution renders, build products and local reports stay in `output/` or `dist/` and are excluded from Git. [Demo notes](docs/DEMO.md) · [validation](docs/VALIDATION.md).
 
 ## Verify and reproduce
 
 ```sh
+# CPU: map geometry, landmark mesh, light-grid coverage, and camera controls.
+python3 scripts/validate-paris-context.py
+python3 scripts/validate-chicago-context.py
+python3 scripts/validate-millennium-context.py
+./scripts/validate-millennium-geometry.sh
+./scripts/validate-light-grid.sh
 ./scripts/validate-playback.sh
 ./scripts/validate-navigation.sh
+
+# GPU: real Metal kernels, glass, reconstruction, polished sampling, and lighting.
 swift scripts/validate-metal.swift
 swift scripts/validate-denoiser.swift
 swift scripts/validate-glass.swift
 swift scripts/validate-regularization.swift
-python3 scripts/validate-paris-context.py
-python3 scripts/validate-chicago-context.py
+swift scripts/validate-sampling.swift
+./scripts/validate-indexed-lighting.sh
+
+# Full scene self-tests; Chicago destinations share geometry but use distinct cameras.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location paris --self-test
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location chicago --self-test
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium --self-test
+
+# Actual Bean motion against independent higher-sample references.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium \
+  --motion-test output/millennium-motion --frames 48 \
+  --width 960 --height 600 --samples 4 --reference-samples 128
 ```
 
-Playback checks cover both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, and alternating day/night passes. GPU checks exercise actual Metal kernels, not image mocks. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
+Playback checks cover all three destinations in both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, the full 240-second flight and alternating day/night passes. Landmark checks validate finite geometry, Cloud Gate’s envelope and underside headroom. Light-grid CPU checks exercise conservative candidate coverage and fallbacks; GPU checks compare indexed and linear lighting and include negative controls. Sampling checks exercise the actual Sobol and polished-GGX shader routines. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
 
-The repository bundles both raw map snapshots and derived geometry. `scripts/prepare-paris-context.py` and `scripts/prepare-chicago-context.py` reproduce the local map databases; see the location documentation for inputs, dependencies, coordinate systems, and known approximations.
+The motion command runs the Bean’s idle/orbit, night reflection and underside cases. Use `--motion-case cloud-gate-orbit` to select one case, or `--lighting 2` for the nighttime cases. Reports compare image error and motion-compensated temporal residuals against independent higher-sample references; they do not certify every camera or quality setting as noiseless. Quality and frame-rate measurements are reported separately from these reproduction commands.
 
-Map data **© OpenStreetMap contributors**, available under the **Open Database License (ODbL)**. Attribution is visible in the app and exported video captions. Original and derived map databases retain their ODbL notices under `Resources/Paris/` and `Resources/Chicago/`. Reference photographs and satellite images are consulted visually and are not redistributed as textures or project assets.
+The repository bundles raw map snapshots and derived geometry for all three destinations. The Millennium snapshot is a separate park/museum extract anchored to the same coordinate origin as Willis Tower. These commands regenerate the bundled databases offline from their recorded inputs:
+
+```sh
+python3 scripts/prepare-paris-context.py
+python3 scripts/prepare-chicago-context.py
+python3 scripts/prepare-millennium-context.py
+```
+
+See the location documentation for input dates, dependencies, coordinate systems, and known approximations. Reference images inform authored detail; the map-preparation scripts reproduce map geometry, not the photographic interpretation.
+
+Map data **© OpenStreetMap contributors**, available under the **Open Database License (ODbL)**. Attribution is visible in the app and exported video captions. Original and derived map databases retain their ODbL notices under `Resources/Paris/`, `Resources/Chicago/` and `Resources/Millennium/`. Reference photographs and satellite images are consulted visually and are not redistributed as textures or project assets.

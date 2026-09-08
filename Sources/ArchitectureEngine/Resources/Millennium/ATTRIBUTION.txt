@@ -1,0 +1,13 @@
+Map data © OpenStreetMap contributors, https://www.openstreetmap.org/copyright
+Open Database License (ODbL) 1.0, https://opendatacommons.org/licenses/odbl/1-0/
+
+MillenniumContext.json is a derived database from the public OpenStreetMap
+snapshot timestamped 2026-09-08T00:55:31Z. Source extract and deterministic
+conversion are distributed as scripts/data/millennium-osm-2026-09-08.json and
+scripts/prepare-millennium-context.py. Coordinates use the existing Willis
+Tower origin (41.878876,-87.635918), in metres east / south.
+
+The Cloud Gate, Pavilion, Crown Fountain, Millennium Monument and BP Bridge
+surfaces are original reference-based reconstructions. They are not surveyed
+scans or official architectural models. See docs/MILLENNIUM.md for references
+and model limitations. Reference photography is not bundled or used as textures.

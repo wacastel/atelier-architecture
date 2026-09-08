@@ -1,0 +1,56 @@
+[
+  {
+    "case": "independent-jitter",
+    "exitCode": 1,
+    "detected": true,
+    "failure": "FAIL: Every aligned four-sample camera block must cover all four quadrants"
+  },
+  {
+    "case": "clipped-ggx-peak",
+    "exitCode": 1,
+    "detected": true,
+    "failure": "FAIL: GGX normal peak lost energy to a numerical denominator floor"
+  },
+  {
+    "case": "diffuse-metal-proposal",
+    "exitCode": 1,
+    "detected": true,
+    "failure": "FAIL: A pure conductor must always sample its GGX lobe with the exact PDF test=0, index=0, data=SIMD4<Float>(1989436.9, 66852.26, 0.9318808, 4015097.2)"
+  },
+  {
+    "case": "blurred-conductor-chain",
+    "exitCode": 1,
+    "detected": true,
+    "failure": "FAIL: Nested polished-conductor reflections must preserve their authored GGX radiance"
+  },
+  {
+    "case": "facet-guides",
+    "exitCode": -5,
+    "detected": true,
+    "failure": "main/validate-metal.swift:22: Fatal error: Metal validation failed: Smooth reflective surface guide used a facet normal"
+  },
+  {
+    "case": "fixed-gloss-history",
+    "exitCode": -5,
+    "detected": true,
+    "failure": "main/validate-denoiser.swift:17: Fatal error: Denoiser validation failed: Slow glossy motion should retain bounded angularly compatible history"
+  },
+  {
+    "case": "erased-dark-joint-coverage",
+    "exitCode": -5,
+    "detected": true,
+    "failure": "Spatial filtering erased valid dark-joint coverage from the neighboring stone"
+  },
+  {
+    "case": "unclamped-ggx-domain",
+    "exitCode": 1,
+    "detected": true,
+    "failure": "Rounded NoH exceeded the physical GGX peak at boundary case 6"
+  },
+  {
+    "case": "overblurred-converged-shadow",
+    "exitCode": -5,
+    "detected": true,
+    "failure": "High-SPP spatial filtering erased a converged low-contrast contact shadow"
+  }
+]

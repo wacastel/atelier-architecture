@@ -1,14 +1,78 @@
-# Chicago and Paris demonstrations — Atelier 1.3
+# Millennium Park and the continuous Chicago flight — Atelier 1.4
 
-The app opens on Willis Tower with eight animated bookmarks. Use **L** or the location menu to switch to Paris and its nine bookmarks. Every bookmark starts an independent 56-second walkthrough; Space starts/pauses it. Idle Play (**I**) automatically visits the bookmarks, switching from day to night after the final view and back to day after the next pass. **[ / ]** adjusts its speed independently of walkthrough pace. Selecting a view holds it. Native full-screen uses **Control–Command–F** or the toolbar button.
+The app now opens on **Millennium Park**, the third destination. Willis Tower and the park occupy one continuous Chicago world; changing between their bookmark sets keeps the same scene resident. Paris remains available from the location menu or **L**.
+
+Select **From tower to museum** (view 8) and press **Space**, or use **Willis → Park → Art Institute** from either Chicago destination. The four-minute route departs Willis Tower, crosses above the Loop, descends to Cloud Gate, visits the park and enters a modeled Modern Wing gallery. The flight button preserves the chosen day/night mode. The **Pace** selector, timeline and 2×/4×/8× arrow-key shuttle all use the full four-minute route. Space pauses exactly where you are.
+
+The other seven park bookmarks have their own 56-second routes and gentle idle movement. **Idle Play / I** cycles all eight views, switching day/night after each complete pass. Choosing a view holds it; **[ / ]** adjusts idle speed independently. The Bean reflects the actual shared Chicago geometry and lighting.
+
+| View | Architectural study |
+| --- | --- |
+| 1 | Chicago's garden of art — park and skyline overview |
+| 2 | A city in the Bean — orbiting Cloud Gate |
+| 3 | Beneath Cloud Gate — walk through the reflective underside |
+| 4 | Music under the skyline — Pritzker Pavilion and the Great Lawn |
+| 5 | Water, glass and light — Crown Fountain |
+| 6 | A garden and a bridge — Lurie Garden and Nichols Bridgeway |
+| 7 | The Art Institute — Michigan Avenue entrance and museum architecture |
+| 8 | From tower to museum — continuous four-minute Chicago flight |
+
+The map positions and published landmark envelopes constrain the reconstruction. Millennium Park has its own bundled OpenStreetMap extract, sharing Willis Tower’s coordinate origin. Fine surfaces, planting, the sculptural shell and museum gallery arrangement are authored interpretations. The Art Institute combines its historic entrance and bronze-lion interpretations with a glazed Modern Wing, Nichols Bridgeway and an original exhibition room; it does not reproduce the current collection hang. [Park sources](MILLENNIUM.md) · [Museum sources](ART-INSTITUTE.md) · [Renderer improvements](MOTION.md).
+
+Cloud Gate reflects the actual Chicago geometry, with multiple reflections in its concave underside. Scrambled Sobol sampling distributes rays more evenly across the sampling domain; stable GGX evaluation and pure-metal sampling preserve the polished reflection lobe. Consecutive very smooth metal reflections retain their authored roughness until an ordinary surface scatter begins selective path regularization. Fine sampling grain and reconstruction softness can still be visible during motion.
+
+The museum uses neutral warm-white interior fixtures during both day and night. Exterior washes, roof lights and bridge lights switch on at night. A conservative light grid avoids evaluating distant sources outside their finite support, retains scene candidate order and falls back to a linear list if necessary. `--random-sampling`, `--no-regularization` and `--linear-lights` provide independent comparison modes; `--raw` disables motion reconstruction for video comparisons.
+
+## Recording and checking the new flight
+
+The following command records the complete Chicago flight at its ordinary pace:
+
+```sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium \
+  --video output/Chicago-Park-Museum-Flyby.mp4 --single-view --stop 7 \
+  --seconds 240 --fps 24 --width 1920 --height 1080 --samples 16
+```
+
+Choose a new output filename and add `--lighting 2` for night. The ordinary 1× route lasts 240 seconds; `--seconds` changes the recording’s duration while traversing the same complete route. The final frame includes the museum endpoint. Without `--single-view`, the park exporter instead creates eight compressed chapters, defaulting to 96 seconds. Individual studies use `--single-view --stop 0` through `--stop 6` and default to 56 seconds. `--idle` records the selected bookmark’s gentle movement independently of the app’s current controls.
+
+The [README verification commands](../README.md#verify-and-reproduce) cover the three map snapshots, landmark mesh, conservative light-grid coverage, navigation, playback and the full four-minute clock. They also include the Metal, glass, denoising, path-regularization, Sobol/polished-GGX and indexed-lighting GPU checks. `--location millennium --motion-test output/millennium-motion` exercises actual Bean idle, orbit, night and underside sequences against higher-sample references; `--motion-case` selects one case. The demonstration records below include export settings, complete decoding, exact frame timing and sampled visual checks, separate from the motion benchmark’s image-error measurements. `scripts/validate-video-timing.py` validates an existing recording’s full decode and cadence.
+
+`scripts/prepare-millennium-context.py` reproduces the third derived map database from its bundled raw snapshot; the Paris and Chicago preparation commands remain available. No network access is needed to run the app or regenerate these recorded map extracts.
+
+## Version 1.4 demonstration artifacts
+
+- [Willis → Millennium Park → Art Institute](../output/Chicago-Willis-Park-Art-Institute-1080p.mp4): the continuous four-minute daytime flight, 1920 × 1080, 24 FPS, 16 samples/frame and three path interactions. All **5,760 frames** decode successfully with uniform frame timing. [Media report](validation/v1.4/day-flyby-media.json).
+- [Cloud Gate at night](../output/Cloud-Gate-Night-Walkthrough-1080p.mp4): the complete 56-second orbit, 1920 × 1080, 24 FPS, 24 samples/frame and three path interactions. All **1,344 frames** decode successfully with uniform frame timing. [Media report](validation/v1.4/night-bean-media.json).
+- [Cloud Gate by day](../output/Millennium-Cloud-Gate-Day.png) and [by night](../output/Millennium-Cloud-Gate-Night.png): 1920 × 1200, respectively 256 and 512 samples. Visually reviewed copies are included in the repository's README.
+
+| Time | Continuous flight landmark |
+| --- | --- |
+| 00:00 | Willis Tower departure |
+| 00:42 | Crossing above the Loop |
+| 01:28 | Millennium Park descent |
+| 01:48 | Approaching Cloud Gate |
+| 02:37 | Pritzker Pavilion |
+| 03:13 | Lurie Garden |
+| 03:27 | Modern Wing approach |
+| 03:45 | Griffin Court |
+| 03:50 | Entering the interpreted gallery |
+| 04:00 | Museum endpoint |
+
+The complete movies passed FFmpeg decoding and timestamp checks. Visual review samples 16 points along the flight and nine points in the night orbit; it does not inspect every frame. Fine sampling grain remains in difficult moving reflections, especially the first frame before history develops. The polished Bean reflects the rendered Chicago world; the museum's gallery and artwork are authored interpretations. Videos remain local under `output/` and are excluded from Git. The commands above reproduce them.
+
+The existing Willis and Paris demonstrations below document preceding releases. They are historical artifacts and do not certify the new park’s motion quality or current quality-preset performance.
+
+## Chicago and Paris demonstrations — Atelier 1.3
+
+Atelier 1.3 opened on Willis Tower with eight animated bookmarks. **L** or the location menu switched to Paris and its nine bookmarks. Every bookmark started an independent 56-second walkthrough; Space started/paused it. Idle Play (**I**) automatically visited the bookmarks, switching from day to night after the final view and back to day after the next pass. **[ / ]** adjusted its speed independently of walkthrough pace. These controls remain available in 1.4 alongside the new four-minute route. Native full-screen uses **Control–Command–F** or the toolbar button.
 
 Chicago's eight chapters cover the tower skyline, Catalog entrance, close curtain wall, rooftop garden, Skydeck, five glass Ledge boxes, antenna crown, and South Branch river/boat/bridges. Published dimensions, OSM geometry and visually inspected photographs inform the reconstruction; authored interiors, façades and lighting remain interpretations. [Willis references](WILLIS.md) · [Chicago references](CHICAGO.md).
 
-The current videos are generated locally under `output/` and are intentionally excluded from Git. The command-line examples in the repository README reproduce both locations' videos. An eight-view Chicago tour lasts 96 seconds with the complete routes compressed into twelve-second chapters; a nine-view Paris tour lasts 108 seconds. `--single-view --seconds 56` records one route at its ordinary 1× speed. `--idle` records the selected view's gentle drift.
+The 1.3 videos were generated locally under `output/` and are intentionally excluded from Git. The command-line examples in the repository README render fresh videos of the current scenes. An eight-view Willis tour lasts 96 seconds with the complete routes compressed into twelve-second chapters; a nine-view Paris tour lasts 108 seconds. `--single-view --seconds 56` records one of those routes at its ordinary 1× speed. `--idle` records the selected view's gentle drift.
 
 ## Version 1.3 demonstration artifacts
 
-These local files show the final Chicago geometry and corrected renderer. They are excluded from Git; the app and README export commands reproduce them.
+These local files show the final 1.3 Chicago geometry and renderer. They are excluded from Git; current app exports retain the same Willis routes while including subsequent scene and renderer changes.
 
 - [Day walkthrough](../output/Willis-Chicago-Day-Walkthrough-1080p.mp4): eight chapters, 96 seconds, 1920 × 1080, 24 FPS, 16 samples/frame and three path interactions. The complete recording decodes successfully and all eight chapter midpoints passed visual review. [Media report](validation/v1.3/day-media.json).
 - [Night walkthrough](../output/Willis-Chicago-Night-Walkthrough-1080p.mp4): all eight chapters, 96 seconds, 1920 × 1080, 24 FPS, 24 samples/frame and three path interactions. Full decoding and all eight chapter-frame reviews passed. [Media report](validation/v1.3/night-media.json).
@@ -56,7 +120,7 @@ Moving previews and new videos use [GPU motion reconstruction](MOTION.md). The v
 
 The movies use the final version 1.2 scene and motion reconstruction. Captions and map attribution are readable. Fine noise remains in difficult night reflections; the pavilion interior is comparatively dim. [Day media report](../output/v3-review/day-media-validation.json) · [Night media report](../output/v3-review/night-media-validation.json).
 
-## Recording the current nine views
+## Recording the nine Paris views
 
 `--video output/name.mp4 --single-view --stop N` records one complete selected route; indices are zero-based, 0–8. The default duration is 56 seconds, and `--seconds` stretches or compresses that route. Add `--lighting 2` for night. `--idle --stop N --seconds 20` records 20 seconds of that single view's idle movement at 1×, independent of the app's current settings. `--raw` disables motion reconstruction in a video for comparison. Choose a new filename for every video export.
 

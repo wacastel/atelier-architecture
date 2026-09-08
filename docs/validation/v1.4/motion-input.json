@@ -1,0 +1,15 @@
+{
+  "binary": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "binarySHA256": "208d5389a039d7defb6583f311e7bee08aa0cf090c843c95e9a28355476533d2",
+  "resolution": [
+    960,
+    600
+  ],
+  "frames": 32,
+  "referenceSamples": 128,
+  "bounces": 3,
+  "isolatedPairedTiming": true,
+  "scene": "Final 1.4/build5 geometry and lighting, coverage guards, NoH clamp, confidence8, indexed lighting, common reference sampler",
+  "RendererSHA256": "cd088c3a35dc8f873c59fe16b47a2e78c8e90339ea1402cfbe019e87c1cffefa",
+  "DenoiseSHA256": "8bf0d6bc85ed59ae3c0e2f0f600ee447aa29d75f93fd21f991ffee050ecd4b10"
+}

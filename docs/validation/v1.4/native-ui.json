@@ -1,0 +1,34 @@
+{
+  "app": "Atelier1.4.0/build5",
+  "stage": "Final geometry, before spatial light indexing",
+  "passed": [
+    "Millennium Park startup with eight views",
+    "Four-minute Chicago flyby button",
+    "Space freezes time and camera",
+    "Repeated Right selects 2\u00d7, 4\u00d7, 8\u00d7 fast-forward",
+    "Left switches to 2\u00d7 reverse; Space pauses",
+    "Exact 04:00 endpoint inside the gallery",
+    "Native full-screen entry and exit",
+    "Millennium \u2192 Paris \u2192 Willis \u2192 Millennium location roundtrip",
+    "Chicago bookmark changes retain 13,539,844 triangles and 2.65 GB allocation",
+    "The flight button preserves night lighting when starting from Willis",
+    "Bracket keys select 1\u00d7 \u2192 2\u00d7 \u2192 4\u00d7 idle speed",
+    "Observed night pass at view 8 wrap to a daytime pass",
+    "All controls and map attribution visible in the window"
+  ],
+  "notes": [
+    "Native slider does not expose a settable AX value; its timeline was verified through keyboard transport and production clock tests.",
+    "The macOS full-screen exit transition temporarily ignores a simultaneous location key; the key works after transition completes.",
+    "GPU timings during UI verification are not isolated benchmarks.",
+    "Preview was closed before final performance measurements."
+  ],
+  "finalReopen": {
+    "recordedAtUTC": "2026-09-08T03:12:11.269706+00:00",
+    "launchCommand": "open dist/Atelier.app",
+    "launchExitCode": 0,
+    "processObserved": true,
+    "processID": 4751,
+    "freshVisualCheckCompleted": false,
+    "reason": "The Mac was locked at the final post-export check. Native UI automation could not inspect it. Earlier interactive checks above remain valid for their recorded stage; final signed bundle self-tests and final-renderer exports passed separately."
+  }
+}

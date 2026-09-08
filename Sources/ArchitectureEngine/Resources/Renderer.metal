@@ -7,6 +7,7 @@ using namespace raytracing;
 struct SceneVertex { float4 position; float4 normal; };
 struct SceneMaterial { float4 albedo; float4 properties; };
 struct SceneLight { float4 positionRadius; float4 directionCone; float4 colorPower; float4 parameters; };
+struct LightGridHeader { float4 originCellSize; uint4 dimensions; uint4 counts; };
 struct FrameUniforms {
     float4 origin, right, up, forward, sunDirection, sunColor;
     uint4 viewport;
@@ -24,6 +25,85 @@ float randomFloat(thread uint &state) {
     state = hashBits(state + 0x9e3779b9u);
     return float(state >> 8) * (1.0f / 16777216.0f);
 }
+// pbrt is Copyright(c) 1998-2020 Matt Pharr, Wenzel Jakob, and Greg Humphreys.
+// The pbrt source code is licensed under the Apache License, Version 2.0.
+// SPDX: Apache-2.0
+
+// Copyright (c) 2012 Leonhard Gruenschloss (leonhard@gruenschloss.org)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+// of the Software, and to permit persons to whom the Software is furnished to
+// do
+// so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+// These matrices are based on the following publication:
+//
+// S. Joe and F. Y. Kuo: "Constructing Sobol sequences with better
+// two-dimensional projections", SIAM J. Sci. Comput. 30, 2635-2654 (2008).
+//
+// The tabulated direction numbers are available here:
+// http://web.maths.unsw.edu.au/~fkuo/sobol/new-joe-kuo-6.21201
+
+// First 16 dimensions, 32 index bits; higher path domains reuse dimensions
+// with independent scrambles. Critical camera/first-two-bounce domains are unique.
+constant uint pathSobolDirections[16][32] = {
+    { 0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x08000000, 0x04000000, 0x02000000, 0x01000000, 0x00800000, 0x00400000, 0x00200000, 0x00100000, 0x00080000, 0x00040000, 0x00020000, 0x00010000, 0x00008000, 0x00004000, 0x00002000, 0x00001000, 0x00000800, 0x00000400, 0x00000200, 0x00000100, 0x00000080, 0x00000040, 0x00000020, 0x00000010, 0x00000008, 0x00000004, 0x00000002, 0x00000001 },
+    { 0x80000000, 0xc0000000, 0xa0000000, 0xf0000000, 0x88000000, 0xcc000000, 0xaa000000, 0xff000000, 0x80800000, 0xc0c00000, 0xa0a00000, 0xf0f00000, 0x88880000, 0xcccc0000, 0xaaaa0000, 0xffff0000, 0x80008000, 0xc000c000, 0xa000a000, 0xf000f000, 0x88008800, 0xcc00cc00, 0xaa00aa00, 0xff00ff00, 0x80808080, 0xc0c0c0c0, 0xa0a0a0a0, 0xf0f0f0f0, 0x88888888, 0xcccccccc, 0xaaaaaaaa, 0xffffffff },
+    { 0x80000000, 0xc0000000, 0x60000000, 0x90000000, 0xe8000000, 0x5c000000, 0x8e000000, 0xc5000000, 0x68800000, 0x9cc00000, 0xee600000, 0x55900000, 0x80680000, 0xc09c0000, 0x60ee0000, 0x90550000, 0xe8808000, 0x5cc0c000, 0x8e606000, 0xc5909000, 0x6868e800, 0x9c9c5c00, 0xeeee8e00, 0x5555c500, 0x8000e880, 0xc0005cc0, 0x60008e60, 0x9000c590, 0xe8006868, 0x5c009c9c, 0x8e00eeee, 0xc5005555 },
+    { 0x80000000, 0xc0000000, 0x20000000, 0x50000000, 0xf8000000, 0x74000000, 0xa2000000, 0x93000000, 0xd8800000, 0x25400000, 0x59e00000, 0xe6d00000, 0x78080000, 0xb40c0000, 0x82020000, 0xc3050000, 0x208f8000, 0x51474000, 0xfbea2000, 0x75d93000, 0xa0858800, 0x914e5400, 0xdbe79e00, 0x25db6d00, 0x58800080, 0xe54000c0, 0x79e00020, 0xb6d00050, 0x800800f8, 0xc00c0074, 0x200200a2, 0x50050093 },
+    { 0x80000000, 0x40000000, 0x20000000, 0xb0000000, 0xf8000000, 0xdc000000, 0x7a000000, 0x9d000000, 0x5a800000, 0x2fc00000, 0xa1600000, 0xf0b00000, 0xda880000, 0x6fc40000, 0x81620000, 0x40bb0000, 0x22878000, 0xb3c9c000, 0xfb65a000, 0xddb2d000, 0x78022800, 0x9c0b3c00, 0x5a0fb600, 0x2d0ddb00, 0xa2878080, 0xf3c9c040, 0xdb65a020, 0x6db2d0b0, 0x800228f8, 0x400b3cdc, 0x200fb67a, 0xb00ddb9d },
+    { 0x80000000, 0x40000000, 0x60000000, 0x30000000, 0xc8000000, 0x24000000, 0x56000000, 0xfb000000, 0xe0800000, 0x70400000, 0xa8600000, 0x14300000, 0x9ec80000, 0xdf240000, 0xb6d60000, 0x8bbb0000, 0x48008000, 0x64004000, 0x36006000, 0xcb003000, 0x2880c800, 0x54402400, 0xfe605600, 0xef30fb00, 0x7e48e080, 0xaf647040, 0x1eb6a860, 0x9f8b1430, 0xd6c81ec8, 0xbb249f24, 0x80d6d6d6, 0x40bbbbbb },
+    { 0x80000000, 0xc0000000, 0xa0000000, 0xd0000000, 0x58000000, 0x94000000, 0x3e000000, 0xe3000000, 0xbe800000, 0x23c00000, 0x1e200000, 0xf3100000, 0x46780000, 0x67840000, 0x78460000, 0x84670000, 0xc6788000, 0xa784c000, 0xd846a000, 0x5467d000, 0x9e78d800, 0x33845400, 0xe6469e00, 0xb7673300, 0x20f86680, 0x104477c0, 0xf8668020, 0x4477c010, 0x668020f8, 0x77c01044, 0x8020f866, 0xc0104477 },
+    { 0x80000000, 0x40000000, 0xa0000000, 0x50000000, 0x88000000, 0x24000000, 0x12000000, 0x2d000000, 0x76800000, 0x9e400000, 0x08200000, 0x64100000, 0xb2280000, 0x7d140000, 0xfea20000, 0xba490000, 0x1a248000, 0x491b4000, 0xc4b5a000, 0xe3739000, 0xf6800800, 0xde400400, 0xa8200a00, 0x34100500, 0x3a280880, 0x59140240, 0xeca20120, 0x974902d0, 0x6ca48768, 0xd75b49e4, 0xcc95a082, 0x87639641 },
+    { 0x80000000, 0x40000000, 0xa0000000, 0x50000000, 0x28000000, 0xd4000000, 0x6a000000, 0x71000000, 0x38800000, 0x58400000, 0xea200000, 0x31100000, 0x98a80000, 0x08540000, 0xc22a0000, 0xe5250000, 0xf2b28000, 0x79484000, 0xfaa42000, 0xbd731000, 0x18a80800, 0x48540400, 0x622a0a00, 0xb5250500, 0xdab28280, 0xad484d40, 0x90a426a0, 0xcc731710, 0x20280b88, 0x10140184, 0x880a04a2, 0x84350611 },
+    { 0x80000000, 0x40000000, 0xe0000000, 0xb0000000, 0x98000000, 0x94000000, 0x8a000000, 0x5b000000, 0x33800000, 0xd9c00000, 0x72200000, 0x3f100000, 0xc1b80000, 0xa6ec0000, 0x53860000, 0x29f50000, 0x0a3a8000, 0x1b2ac000, 0xd392e000, 0x69ff7000, 0xea380800, 0xab2c0400, 0x4ba60e00, 0xfde50b00, 0x60028980, 0xf006c940, 0x7834e8a0, 0x241a75b0, 0x123a8b38, 0xcf2ac99c, 0xb992e922, 0x82ff78f1 },
+    { 0x80000000, 0x40000000, 0xa0000000, 0x10000000, 0x08000000, 0x6c000000, 0x9e000000, 0x23000000, 0x57800000, 0xadc00000, 0x7fa00000, 0x91d00000, 0x49880000, 0xced40000, 0x880a0000, 0x2c0f0000, 0x3e0d8000, 0x3317c000, 0x5fb06000, 0xc1f8b000, 0xe18d8800, 0xb2d7c400, 0x1e106a00, 0x6328b100, 0xf7858880, 0xbdc3c2c0, 0x77ba63e0, 0xfdf7b330, 0xd7800df8, 0xedc0081c, 0xdfa0041a, 0x81d00a2d },
+    { 0x80000000, 0x40000000, 0x20000000, 0x30000000, 0x58000000, 0xac000000, 0x96000000, 0x2b000000, 0xd4800000, 0x09400000, 0xe2a00000, 0x52500000, 0x4e280000, 0xc71c0000, 0x629e0000, 0x12670000, 0x6e138000, 0xf731c000, 0x3a98a000, 0xbe449000, 0xf83b8800, 0xdc2dc400, 0xee06a200, 0xb7239300, 0x1aa80d80, 0x8e5c0ec0, 0xa03e0b60, 0x703701b0, 0x783b88c8, 0x9c2dca54, 0xce06a74a, 0x87239795 },
+    { 0x80000000, 0xc0000000, 0xa0000000, 0x50000000, 0xf8000000, 0x8c000000, 0xe2000000, 0x33000000, 0x0f800000, 0x21400000, 0x95a00000, 0x5e700000, 0xd8080000, 0x1c240000, 0xba160000, 0xef370000, 0x15868000, 0x9e6fc000, 0x781b6000, 0x4c349000, 0x420e8800, 0x630bcc00, 0xf7ad6a00, 0xad739500, 0x77800780, 0x6d4004c0, 0xd7a00420, 0x3d700630, 0x2f880f78, 0xb1640ad4, 0xcdb6077a, 0x824706d7 },
+    { 0x80000000, 0xc0000000, 0x60000000, 0x90000000, 0x38000000, 0xc4000000, 0x42000000, 0xa3000000, 0xf1800000, 0xaa400000, 0xfce00000, 0x85100000, 0xe0080000, 0x500c0000, 0x58060000, 0x54090000, 0x7a038000, 0x670c4000, 0xb3842000, 0x094a3000, 0x0d6f1800, 0x2f5aa400, 0x1ce7ce00, 0xd5145100, 0xb8000080, 0x040000c0, 0x22000060, 0x33000090, 0xc9800038, 0x6e4000c4, 0xbee00042, 0x261000a3 },
+    { 0x80000000, 0x40000000, 0x20000000, 0xf0000000, 0xa8000000, 0x54000000, 0x9a000000, 0x9d000000, 0x1e800000, 0x5cc00000, 0x7d200000, 0x8d100000, 0x24880000, 0x71c40000, 0xeba20000, 0x75df0000, 0x6ba28000, 0x35d14000, 0x4ba3a000, 0xc5d2d000, 0xe3a16800, 0x91db8c00, 0x79aef200, 0x0cdf4100, 0x672a8080, 0x50154040, 0x1a01a020, 0xdd0dd0f0, 0x3e83e8a8, 0xaccacc54, 0xd52d529a, 0xd91d919d },
+    { 0x80000000, 0xc0000000, 0x20000000, 0xd0000000, 0xd8000000, 0xc4000000, 0x46000000, 0x85000000, 0xa5800000, 0x76c00000, 0xada00000, 0x6ab00000, 0x2da80000, 0xaabc0000, 0x0daa0000, 0x7ab10000, 0xd5a78000, 0xbebd4000, 0x93a3e000, 0x3bb51000, 0x3629b800, 0x4d727c00, 0x9b836200, 0x27c4d700, 0xb629b880, 0x8d727cc0, 0xbb836220, 0xf7c4d7d0, 0x6e29b858, 0x49727c04, 0xfd836266, 0x72c4d755 }
+};
+
+uint pathOwenScramble(uint value, uint seed) {
+    // Fast nested uniform scrambling, following PBRT's FastOwenScrambler.
+    value = reverse_bits(value);
+    value ^= value * 0x3d20adeau;
+    value += seed;
+    value *= (seed >> 16) | 1u;
+    value ^= value * 0x05526c56u;
+    value ^= value * 0x53a22864u;
+    return reverse_bits(value);
+}
+float pathSample(uint index, uint dimension, uint pixelSeed) {
+    uint value=0, bits=index;
+    while (bits!=0) {
+        uint bit=ctz(bits);
+        value ^= pathSobolDirections[dimension&15u][bit];
+        bits &= bits-1;
+    }
+    value=pathOwenScramble(value,hashBits(pixelSeed ^ hashBits(dimension+0x51633e2du)));
+    return float(value >> 8) * (1.0f / 16777216.0f);
+}
+float2 pathSample2D(uint index, uint dimension, uint pixelSeed) {
+    return float2(pathSample(index,dimension,pixelSeed),pathSample(index,dimension+1,pixelSeed));
+}
+
 float noiseCell(float3 p) {
     int3 q = int3(floor(p));
     uint h = hashBits(as_type<uint>(q.x) ^ hashBits(as_type<uint>(q.y)) ^ hashBits(as_type<uint>(q.z) + 113u));
@@ -90,7 +170,7 @@ struct Surface { float3 color; float roughness; float metallic; float emission; 
 Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night) {
     Surface s;
     s.color = material.albedo.rgb;
-    s.roughness = clamp(material.albedo.w, 0.065f, 1.0f);
+    s.roughness = clamp(material.albedo.w, 0.02f, 1.0f);
     s.metallic = saturate(material.properties.x);
     s.emission = max(material.properties.y, 0.0f);
     s.normal = n;
@@ -328,15 +408,22 @@ kernel void primarySurface(texture2d<float, access::write> worldPosition [[textu
     SceneVertex a = vertices[i], b = vertices[i+1], c = vertices[i+2];
     float3 weights = float3(1.0f-hit.triangle_barycentric_coord.x-hit.triangle_barycentric_coord.y,hit.triangle_barycentric_coord);
     float3 p = a.position.xyz*weights.x+b.position.xyz*weights.y+c.position.xyz*weights.z;
-    float3 n = normalize(cross(b.position.xyz-a.position.xyz,c.position.xyz-a.position.xyz));
-    if (dot(n,primary.direction)>0.0f) n = -n;
+    float3 geometricNormal = normalize(cross(b.position.xyz-a.position.xyz,c.position.xyz-a.position.xyz));
+    if (dot(geometricNormal,primary.direction)>0.0f) geometricNormal = -geometricNormal;
+    // Match the tracer's interpolated vertex normal on smooth curved geometry.
+    // Using triangle face normals here breaks history/filter neighborhoods at
+    // tessellation edges although the actual mirror reflection is continuous.
+    float3 n = normalize(a.normal.xyz*weights.x+b.normal.xyz*weights.y+c.normal.xyz*weights.z);
+    if (dot(n,geometricNormal)<0.0f) n = -n;
+    if (dot(n,primary.direction)>=-0.001f) n = geometricNormal;
     uint material = materialIndices[hit.primitive_id];
     float depth=distance(p,u.origin.xyz);
     float footprint = depth*2.0f*length(u.up.xyz)/float(u.viewport.y);
     Surface s = surfaceAt(materials[material],p,n,footprint,u.sunColor.w>0.5f);
     // Emissive subpixel windows/fixtures need current coverage, not relit
     // surface history. Preserve the material ID with a half-unit guide flag.
-    worldPosition.write(float4(p,float(material)+(s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:0.0f)),tid);
+    bool polished=s.metallic>=0.99f && s.roughness<=0.03f;
+    worldPosition.write(float4(p,float(material)+(s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:polished ? 0.125f:0.0f)),tid);
     normalDepth.write(float4(n,depth),tid);
     albedoRoughness.write(float4(s.color,s.roughness),tid);
 }
@@ -346,9 +433,16 @@ float3 fresnelSchlick(float cosTheta, float3 f0) {
     return f0 + (1.0f - f0) * x;
 }
 float ggxDistribution(float noH, float alpha) {
+    // Dot products of normalized Float vectors may round just outside [0,1].
+    // At polished alpha, even one ULP above one can nearly cancel the positive
+    // denominator and create a false, enormous lobe peak. Clamp its domain.
+    noH = saturate(noH);
     float a2 = alpha * alpha;
-    float d = noH * noH * (a2 - 1.0f) + 1.0f;
-    return a2 / max(PI * d * d, 1e-8f);
+    // Preserve the narrow authored lobe of polished steel. The algebraically
+    // equivalent (a2-1)*NoH²+1 loses significant bits near NoH=1, and a 1e-8
+    // denominator floor distorted both the BRDF and PDF at low roughness.
+    float d = (1.0f-noH)*(1.0f+noH) + a2*noH*noH;
+    return a2 / max(PI * d * d, 1e-20f);
 }
 float smithG1(float noV, float alpha) {
     return 2.0f * noV / max(noV + sqrt(alpha * alpha + (1.0f - alpha * alpha) * noV * noV), 1e-6f);
@@ -362,6 +456,12 @@ Surface regularizeSurface(Surface surface, bool hasNonDeltaScatter) {
         surface.roughness = sqrt(clamp(2.0f * alpha, 0.1f, 0.3f));
     return surface;
 }
+bool isSharpConductor(Surface surface) {
+    // Preserve chains of authored polished metal in concave mirror sculpture.
+    // These still sample finite GGX lobes; this threshold only decides whether
+    // a bounce starts path regularization, never the actual reflection model.
+    return surface.metallic>=0.99f && surface.roughness<=0.03f;
+}
 float3 brdf(Surface s, float3 v, float3 l) {
     float noV = max(dot(s.normal, v), 1e-5f), noL = max(dot(s.normal, l), 1e-5f);
     float3 h = normalize(v + l);
@@ -372,7 +472,9 @@ float3 brdf(Surface s, float3 v, float3 l) {
     return (1.0f - f) * (1.0f - s.metallic) * s.color / PI + spec;
 }
 float3 sampleBRDF(Surface s, float3 v, float2 xi, float choose, thread float &pdf) {
-    float specProbability = mix(s.roughness < 0.2f ? 0.65f : 0.25f, 0.9f, s.metallic);
+    // A pure conductor has no diffuse lobe. Giving its absent diffuse proposal
+    // ten percent of the samples created avoidable noisy mirror contributions.
+    float specProbability = mix(s.roughness < 0.2f ? 0.65f : 0.25f, 1.0f, s.metallic);
     float3 l;
     float alpha = s.roughness * s.roughness;
     if (choose < specProbability) {
@@ -427,7 +529,7 @@ DirectSample evaluateLight(SceneLight light, Surface surface, float3 p, float3 v
     // A finite luminaire footprint prevents singular point-source GGX glints.
     // The center is shadow traced; small fixture dimensions yield crisp shadows.
     Surface filtered = surface;
-    filtered.roughness = clamp(sqrt(surface.roughness*surface.roughness+radius/sample.distance*0.35f),0.065f,1.0f);
+    filtered.roughness = clamp(sqrt(surface.roughness*surface.roughness+radius/sample.distance*0.35f),0.02f,1.0f);
     sample.value = brdf(filtered,v,sample.direction)*light.colorPower.rgb*(light.colorPower.w*attenuation*noL);
     sample.radius = radius;
     sample.weight = max(luminance(sample.value),0.0f);
@@ -436,7 +538,7 @@ DirectSample evaluateLight(SceneLight light, Surface surface, float3 p, float3 v
 
 // Specialization keeps the sizable local-light reservoir out of the daylight
 // kernel's register allocation. Both entry points retain the identical GPU ABI.
-template <bool IsNight>
+template <bool IsNight, bool HasLocalLights, bool IndexedLights=false>
 void tracePaths(texture2d<float, access::read_write> accumulation,
                 constant FrameUniforms &u,
                 const device SceneVertex *vertices,
@@ -444,10 +546,16 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
                 const device SceneMaterial *materials,
                 primitive_acceleration_structure scene,
                 const device SceneLight *lights,
+                constant LightGridHeader *lightGrid,
+                const device uint2 *lightRanges,
+                const device uint *lightIndices,
                 uint2 tid) {
     if (tid.x >= u.viewport.x || tid.y >= u.viewport.y) return;
-    uint rng = hashBits(tid.x + tid.y * u.viewport.x) ^ hashBits(u.viewport.w + 67u);
+    uint pixelSeed=hashBits(tid.x + tid.y * u.viewport.x);
+    uint rng = pixelSeed ^ hashBits(u.viewport.w + 67u);
+    bool stratified=u.up.w>0.5f;
     float2 jitter = float2(randomFloat(rng), randomFloat(rng));
+    if (stratified) jitter=pathSample2D(u.viewport.w,0,pixelSeed);
     float2 screen = (float2(tid) + jitter) / float2(u.viewport.xy) * 2.0f - 1.0f;
     ray path;
     path.origin = u.origin.xyz;
@@ -529,7 +637,10 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
         radiance += throughput * surface.color * surface.emission;
         float offset = max(0.0007f, maxComponent(abs(position)) * 0.000008f);
         float3 rayOrigin = position + geometricNormal * offset;
-        float3 lightDirection = sunSample(normalize(u.sunDirection.xyz), max(u.settings.z, 0.001f), float2(randomFloat(rng), randomFloat(rng)));
+        uint sampleDomain=2+6*bounce+48*branch;
+        float2 sunXi=float2(randomFloat(rng),randomFloat(rng));
+        if (stratified) sunXi=pathSample2D(u.viewport.w,sampleDomain,pixelSeed);
+        float3 lightDirection = sunSample(normalize(u.sunDirection.xyz), max(u.settings.z, 0.001f), sunXi);
         float noL = max(dot(surface.normal, lightDirection), 0.0f);
         if (!IsNight && noL > 0.0f && dot(geometricNormal, lightDirection) > 0.0f) {
             ray shadowRay;
@@ -541,7 +652,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
                 : float3(shadow.intersect(shadowRay,scene).type==intersection_type::none ? 1.0f:0.0f);
             radiance += throughput * brdf(surface, v, lightDirection) * u.sunColor.xyz * noL * visibility;
         }
-        if (IsNight && u.sunDirection.w > 0.0f) {
+        if (HasLocalLights && u.sunDirection.w > 0.0f) {
             // Evaluate the four dominant lights every sample, then one weighted
             // reservoir sample of all remaining candidates with its exact PDF.
             // This keeps most direct lighting stable in motion without dropping
@@ -550,8 +661,26 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             for (uint j=0;j<5;++j) { chosen[j].weight=0; chosen[j].value=0; }
             float remainderWeight=0;
             uint count=uint(u.sunDirection.w+0.5f);
+            uint activeCount=count;
+            uint lightOffset=0;
+            bool indexed=false;
+            if (IndexedLights && lightGrid->dimensions.w!=0) {
+                // Conservative cell lists include every finite-range source
+                // that can contribute here, in original order. Skipping only
+                // zero-contribution lights preserves the exact reservoir RNG.
+                indexed=true;
+                float3 cell=floor((position-lightGrid->originCellSize.xyz)/lightGrid->originCellSize.w);
+                if (all(cell>=0) && all(cell<float3(lightGrid->dimensions.xyz))) {
+                    uint3 c=uint3(cell);
+                    uint flat=(c.z*lightGrid->dimensions.y+c.y)*lightGrid->dimensions.x+c.x;
+                    uint2 range=lightRanges[flat];
+                    lightOffset=range.x;count=range.y;
+                } else count=0;
+            }
             for (uint j=0;j<count;++j) {
-                DirectSample candidate=evaluateLight(lights[j],surface,position,v,geometricNormal);
+                uint index=indexed ? lightIndices[lightOffset+j]:j;
+                if (index>=activeCount) continue;
+                DirectSample candidate=evaluateLight(lights[index],surface,position,v,geometricNormal);
                 if (candidate.weight<=0.000001f) continue;
                 uint weakest=0;
                 for (uint k=1;k<4;++k) if (chosen[k].weight<chosen[weakest].weight) weakest=k;
@@ -578,15 +707,23 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             }
         }
         float pdf;
-        float3 next = sampleBRDF(surface, v, float2(randomFloat(rng), randomFloat(rng)), randomFloat(rng), pdf);
+        float2 brdfXi=float2(randomFloat(rng),randomFloat(rng));
+        float brdfChoose=randomFloat(rng);
+        if (stratified) {
+            brdfXi=pathSample2D(u.viewport.w,sampleDomain+2,pixelSeed);
+            brdfChoose=pathSample(u.viewport.w,sampleDomain+4,pixelSeed);
+        }
+        float3 next = sampleBRDF(surface, v, brdfXi, brdfChoose, pdf);
         float cosine = dot(surface.normal, next);
         if (cosine <= 0.0f || dot(geometricNormal, next) <= 0.0f || pdf < 1e-7f) break;
         throughput *= brdf(surface, v, next) * cosine / pdf;
         if (!all(isfinite(throughput))) break;
-        hasNonDeltaScatter=true;
+        hasNonDeltaScatter=hasNonDeltaScatter || !isSharpConductor(surface);
         if (bounce >= 2) {
             float survive = clamp(maxComponent(throughput), 0.1f, 0.95f);
-            if (randomFloat(rng) > survive) break;
+            float roulette=randomFloat(rng);
+            if (stratified) roulette=pathSample(u.viewport.w,sampleDomain+5,pixelSeed);
+            if (roulette > survive) break;
             throughput /= survive;
         }
         path.origin = rayOrigin;
@@ -621,7 +758,18 @@ kernel void pathTrace(texture2d<float, access::read_write> accumulation [[textur
                       primitive_acceleration_structure scene [[buffer(4)]],
                       const device SceneLight *lights [[buffer(5)]],
                       uint2 tid [[thread_position_in_grid]]) {
-    tracePaths<false>(accumulation,u,vertices,materialIndices,materials,scene,lights,tid);
+    tracePaths<false,false>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid);
+}
+
+kernel void pathTraceDayInteriors(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           primitive_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<false,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid);
 }
 
 kernel void pathTraceNight(texture2d<float, access::read_write> accumulation [[texture(0)]],
@@ -632,7 +780,35 @@ kernel void pathTraceNight(texture2d<float, access::read_write> accumulation [[t
                            primitive_acceleration_structure scene [[buffer(4)]],
                            const device SceneLight *lights [[buffer(5)]],
                            uint2 tid [[thread_position_in_grid]]) {
-    tracePaths<true>(accumulation,u,vertices,materialIndices,materials,scene,lights,tid);
+    tracePaths<true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid);
+}
+
+kernel void pathTraceNightIndexed(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           primitive_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant LightGridHeader &grid [[buffer(6)]],
+                           const device uint2 *ranges [[buffer(7)]],
+                           const device uint *indices [[buffer(8)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<true,true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,&grid,ranges,indices,tid);
+}
+
+kernel void pathTraceDayInteriorsIndexed(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           primitive_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant LightGridHeader &grid [[buffer(6)]],
+                           const device uint2 *ranges [[buffer(7)]],
+                           const device uint *indices [[buffer(8)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<false,true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,&grid,ranges,indices,tid);
 }
 
 struct FullscreenOut { float4 position [[position]]; float2 uv; };

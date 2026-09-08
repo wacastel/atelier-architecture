@@ -19,7 +19,7 @@ struct WalkthroughPlayback {
     private(set) var speed = 1.0
     private(set) var direction: Direction = .forward
     private(set) var shuttle = 1
-    var duration: Double { location.duration }
+    var duration: Double { location.duration(view: view) }
     var progress: Double { time / duration }
     var effectiveRate: Double { speed * Double(shuttle * direction.rawValue) }
 

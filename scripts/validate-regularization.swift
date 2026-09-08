@@ -61,7 +61,7 @@ encoder.dispatchThreads(MTLSize(width:roughness.count*2,height:1,depth:1),thread
 encoder.endEncoding();try checkedCommit(command)
 let values=Array(UnsafeBufferPointer(start:outputs.contents().assumingMemoryBound(to:SIMD4<Float>.self),count:roughness.count*10))
 let v=simd_normalize(SIMD3<Float>(0.3,0.1,1))
-func ggx(_ h:Float,_ a:Float)->Float {let d=h*h*(a*a-1)+1;return a*a/max(Float.pi*d*d,1e-8)}
+func ggx(_ h:Float,_ a:Float)->Float {let d=(1-h)*(1+h)+a*a*h*h;return a*a/max(Float.pi*d*d,1e-20)}
 func smith(_ n:Float,_ a:Float)->Float {2*n/max(n+sqrt(a*a+(1-a*a)*n*n),1e-6)}
 for i in roughness.indices {
     for enabled in 0...1 {
@@ -71,7 +71,7 @@ for i in roughness.indices {
         require(abs(actual-expected)<1e-6,"GPU regularization must operate on GGX alpha, not perceptual roughness")
         let direction=SIMD3(values[base+1].x,values[base+1].y,values[base+1].z)
         let h=simd_normalize(v+direction),a=expected*expected
-        let probability:Float=(expected<0.2 ? 0.65:0.25)*0.3 + 0.9*0.7
+        let probability:Float=(expected<0.2 ? 0.65:0.25)*0.3 + 1.0*0.7
         let expectedPDF=(1-probability)*max(direction.z,0)/Float.pi+probability*ggx(max(h.z,0),a)*smith(v.z,a)/(4*v.z)
         require(abs(values[base+1].w-expectedPDF)<max(1e-5,expectedPDF*2e-4),"BRDF sample PDF must use the regularized distribution")
         // A zero-radius point light evaluates the same BRDF and cosine as the
@@ -151,6 +151,19 @@ private let branches=try scene([Plane(z:0,extent:1,material:blackGlass),Plane(z:
 let branchesOff=try render(branches,enabled:false,bounces:2,pipeline:observedTrace),branchesOn=try render(branches,enabled:true,bounces:2,pipeline:observedTrace)
 require(branchesOff==branchesOn,"Saved camera reflection must reset non-delta state after the transmitted branch scatters")
 print("PASS: actual saved-branch surface observation preserves roughness after the other branch's non-delta scatter")
+
+// Multiple finite polished-GGX interactions preserve the sculpture's nested
+// reflections. Emission on the second test panel keeps the reflected signal
+// observable even when the narrowly reflected ray remains between the panels.
+private let polishedMetal=Material(c:SIMD4(0.92,0.93,0.94,0.022),p:SIMD4(1,0,0,0))
+private let litPolishedMetal=Material(c:SIMD4(0.92,0.93,0.94,0.022),p:SIMD4(1,0.2,0,0))
+private let polishedChain=try scene([Plane(z:0,extent:0.8,material:polishedMetal),Plane(z:8,extent:100,material:litPolishedMetal)])
+let chainOff=try render(polishedChain,enabled:false,bounces:3),chainOn=try render(polishedChain,enabled:true,bounces:3)
+require(chainOff==chainOn && chainOn.contains{$0.x>0.1},"Nested polished-conductor reflections must preserve their authored GGX radiance")
+private let broadThenPolished=try scene([Plane(z:0,extent:0.8,material:diffuse),Plane(z:8,extent:100,material:polishedMetal)])
+let broadOff=try render(broadThenPolished,enabled:false,bounces:2,sun:SIMD3(0.5,0.4,-1)),broadOn=try render(broadThenPolished,enabled:true,bounces:2,sun:SIMD3(0.5,0.4,-1))
+require(zip(broadOff,broadOn).contains{simd_reduce_max(abs($0-$1))>0.01},"A prior broad scatter must still regularize a subsequent polished lobe")
+print("PASS: nested .022-roughness conductors preserve exact radiance; a prior diffuse scatter retains secondary regularization")
 // A small diffuse patch sends broadly sampled rays to a glossy wall. Solar
 // highlights at that second vertex reproduce the troublesome low-SPP path.
 private let secondary=try scene([Plane(z:0,extent:0.8,material:diffuse),Plane(z:8,extent:100,material:glossy)])

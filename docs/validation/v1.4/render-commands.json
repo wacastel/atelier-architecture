@@ -1,0 +1,144 @@
+[
+  {
+    "name": "millennium-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-o7boixdu/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 3.297351360321045,
+    "exitCode": 0
+  },
+  {
+    "name": "paris-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-o7boixdu/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 1.737372875213623,
+    "exitCode": 0
+  },
+  {
+    "name": "gallery-day",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--gallery",
+      "/Users/william/dev/architecture/output/v5-review/final/day",
+      "--lighting",
+      "0",
+      "--width",
+      "1600",
+      "--height",
+      "1000",
+      "--samples",
+      "128"
+    ],
+    "elapsedSeconds": 4.688317775726318,
+    "exitCode": 0
+  },
+  {
+    "name": "gallery-night",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--gallery",
+      "/Users/william/dev/architecture/output/v5-review/final/night",
+      "--lighting",
+      "2",
+      "--width",
+      "1600",
+      "--height",
+      "1000",
+      "--samples",
+      "256"
+    ],
+    "elapsedSeconds": 14.879016160964966,
+    "exitCode": 0
+  },
+  {
+    "name": "bean-hero-day",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--render",
+      "/Users/william/dev/architecture/output/Millennium-Cloud-Gate-Day.png",
+      "--stop",
+      "1",
+      "--lighting",
+      "0",
+      "--width",
+      "1920",
+      "--height",
+      "1200",
+      "--samples",
+      "256"
+    ],
+    "elapsedSeconds": 1.858475923538208,
+    "exitCode": 0
+  },
+  {
+    "name": "bean-hero-night",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--render",
+      "/Users/william/dev/architecture/output/Millennium-Cloud-Gate-Night.png",
+      "--stop",
+      "1",
+      "--lighting",
+      "2",
+      "--width",
+      "1920",
+      "--height",
+      "1200",
+      "--samples",
+      "512"
+    ],
+    "elapsedSeconds": 5.696728229522705,
+    "exitCode": 0
+  },
+  {
+    "name": "gallery-interior",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--render",
+      "/Users/william/dev/architecture/output/v5-review/final/museum-endpoint.png",
+      "--stop",
+      "7",
+      "--at",
+      "240",
+      "--width",
+      "1600",
+      "--height",
+      "1000",
+      "--samples",
+      "256"
+    ],
+    "elapsedSeconds": 3.009921073913574,
+    "exitCode": 0
+  }
+]

@@ -1,0 +1,3 @@
+91 mapped areas, 228 paths, 626 trees, 12 landmarks; 111,248 bytes
+PASS: unique IDs; finite projected coordinates; positive and complete triangle coverage; landmark identities; Bean geolocation; mapped tree count; byte-identical regeneration.
+Derived SHA256: b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b

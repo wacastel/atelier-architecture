@@ -1,0 +1,3 @@
+PASS: 2,760 unique, finite footprints; positive triangle areas cover polygons; real Chaillot relation; two garden ponds; deterministic regeneration.
+Height provenance: {'estimated': 868, 'levels': 1855, 'height': 37}
+Derived database SHA-256: 643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6

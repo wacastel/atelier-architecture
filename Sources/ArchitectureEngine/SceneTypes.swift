@@ -54,7 +54,7 @@ struct TourStop: Identifiable {
 struct FrameUniforms {
     var origin: SIMD4<Float> // camera XYZ, selective path regularization enabled W
     var right: SIMD4<Float>
-    var up: SIMD4<Float>
+    var up: SIMD4<Float> // camera up XYZ, low-discrepancy sampling enabled W
     var forward: SIMD4<Float>
     var sunDirection: SIMD4<Float>
     var sunColor: SIMD4<Float>

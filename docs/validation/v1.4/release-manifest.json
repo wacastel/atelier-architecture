@@ -1,0 +1,317 @@
+{
+  "version": "1.4.0",
+  "build": "5",
+  "recordedAtUTC": "2026-09-08T03:04:56.012165+00:00",
+  "nativeArchitecture": "arm64",
+  "localSignatureVerified": true,
+  "sourceBaseCommit": "22edee1f8fe750a5b85416b5a78a89a99f2121fd",
+  "packagedFiles": [
+    {
+      "path": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "sha256": "bee2fcf03c9407fca82a1bbd5e0a1ae7b45e0b6d982f69d372dbb9f96b4ca603",
+      "bytes": 2707904
+    },
+    {
+      "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal",
+      "sha256": "cd088c3a35dc8f873c59fe16b47a2e78c8e90339ea1402cfbe019e87c1cffefa",
+      "bytes": 51719
+    },
+    {
+      "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal",
+      "sha256": "8bf0d6bc85ed59ae3c0e2f0f600ee447aa29d75f93fd21f991ffee050ecd4b10",
+      "bytes": 16375
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "sha256": "1495cd437132011ec208707e66dfe8492c3ab29332bfac95cf54fc81ebfbabc5",
+      "bytes": 37757
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "sha256": "91f1cbcf4e13246bd27500642ed3957b158301205e1bbed002cbb1f31d3e16bb",
+      "bytes": 2616
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "sha256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "bytes": 19923
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "bytes": 2112
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "sha256": "4b43175686d13383b402a6651fcb51cd2bcaa2a14a2728111ab682dfe052febe",
+      "bytes": 28288
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "sha256": "b0090d82c96f83a6b68d73e0e92554db25ebf201da27f87af2f771216490c173",
+      "bytes": 513
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "sha256": "2d2fb56fef7a5f3b1444a86db85d1c047f59146218423cba012900a0bdda1030",
+      "bytes": 4172
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "sha256": "a15fb7144491538eff9eb505c37389c58061e54fd3adcffe460bb98d94c12361",
+      "bytes": 20317
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "bytes": 37758
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "sha256": "385a86b42cbdd68c57dd3db25228ffe484014e1e6e70d5871d19f3f58b5b3e61",
+      "bytes": 16109
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "sha256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb",
+      "bytes": 7965
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "sha256": "bd6e44f9a42519eaba139abf8d98732cc6d3138d8885d919b07c46b8e86d3091",
+      "bytes": 27200
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "sha256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "bytes": 26912
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "sha256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "bytes": 3142
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "bytes": 3770
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "sha256": "f12c8fad1ac35b08db15aecdea3246e0628542726e1d437431120f1959fbb280",
+      "bytes": 11384
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "sha256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "bytes": 4026
+    },
+    {
+      "path": "Sources/ArchitectureEngine/OBJScene.swift",
+      "sha256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "bytes": 21500
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "sha256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "bytes": 19452
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "bytes": 807
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "bytes": 1973622
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "sha256": "8bf0d6bc85ed59ae3c0e2f0f600ee447aa29d75f93fd21f991ffee050ecd4b10",
+      "bytes": 16375
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "bytes": 840
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "bytes": 111248
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "bytes": 683
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "bytes": 1372461
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "sha256": "cd088c3a35dc8f873c59fe16b47a2e78c8e90339ea1402cfbe019e87c1cffefa",
+      "bytes": 51719
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "sha256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "bytes": 20824
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "sha256": "8a06e285bdc520ad5f35880507692d3bfc8d602afd73f2ca38a56bf06d3e595c",
+      "bytes": 2317
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "8be48ec89420d3eee06c3f0e45d47d6d0109cb7c152c7020f6d15d7d3108ddaa",
+      "bytes": 10980
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "sha256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "bytes": 26643
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "sha256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "bytes": 3234
+    },
+    {
+      "path": "Tests/LightGrid/main.swift",
+      "sha256": "52ad3c740c8c9115e9d1ef83456126faaa283946497ce735dd6c978eb9f78592",
+      "bytes": 8949
+    },
+    {
+      "path": "Tests/Lighting/main.swift",
+      "sha256": "44243e51b858b6bb7aa9b4a2f2227185ce7dc1083c3844b97adc0333297ffc5b",
+      "bytes": 7711
+    },
+    {
+      "path": "Tests/MillenniumGeometry/main.swift",
+      "sha256": "a28db20bf5ea40aec72d900fd2f69839240b34d13d5b958d44881505cf7d15db",
+      "bytes": 2706
+    },
+    {
+      "path": "Tests/Navigation/main.swift",
+      "sha256": "24fa64e0de5b921ff7cfd48d49275d9f70b1356e39133c9c2484a49caef97ffa",
+      "bytes": 5147
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "969e86a4839756426e48cbd414067895c4685d39d03bf1b761babe7496bdf351",
+      "bytes": 14736
+    },
+    {
+      "path": "scripts/build-app.sh",
+      "sha256": "c9330113ee2d1da8335c5940f68224ce72f628ccba7c9d6a32f11922670d249e",
+      "bytes": 3444
+    },
+    {
+      "path": "scripts/create-icon.swift",
+      "sha256": "b3c9107f239c5df646bc3bcdd34118cdda0be7341e65fe9e2fa3a94a2df65f73",
+      "bytes": 6510
+    },
+    {
+      "path": "scripts/prepare-chicago-context.py",
+      "sha256": "6a7b2fee50dda77547efd52207ad7ac09d946ab01c60b2375ca71fef1bd886e6",
+      "bytes": 9164
+    },
+    {
+      "path": "scripts/prepare-millennium-context.py",
+      "sha256": "e00784f8ae516714af64fbd67e3752c28fd3a66fefc032008c8342639c9b991d",
+      "bytes": 3837
+    },
+    {
+      "path": "scripts/prepare-paris-context.py",
+      "sha256": "547cf3a488af575afc5eadc4016e45656ad62806c6b429d589a5bcb9716a6779",
+      "bytes": 5506
+    },
+    {
+      "path": "scripts/validate-chicago-context.py",
+      "sha256": "6fe9e9e5cc1697a0fd986da2e7dfa1ef08290c34660e79adc8203f8acdcc6bca",
+      "bytes": 2168
+    },
+    {
+      "path": "scripts/validate-denoiser.swift",
+      "sha256": "55b0d8a3bc479e965e5f25ae3818098343cede64779955b8fe2214d73e5f25f6",
+      "bytes": 31843
+    },
+    {
+      "path": "scripts/validate-glass.swift",
+      "sha256": "d934933b0831ed5b9eacf781e1bf0789dab50b9919c9260708233829fab122e9",
+      "bytes": 9601
+    },
+    {
+      "path": "scripts/validate-indexed-lighting.sh",
+      "sha256": "e2591c2ef91d3818d134d100ee51e254bf16411a8cd2038b7577761a5950a31d",
+      "bytes": 354
+    },
+    {
+      "path": "scripts/validate-light-grid.sh",
+      "sha256": "e943a4d301ca2980b96abaf208b19b2b09d2d35b246039d12837dd99a36403ad",
+      "bytes": 415
+    },
+    {
+      "path": "scripts/validate-metal.swift",
+      "sha256": "5a94e45281b4b43d5549f20d7ea30a7ae13f135ba30992cf4dd671c546dd04d8",
+      "bytes": 18268
+    },
+    {
+      "path": "scripts/validate-millennium-context.py",
+      "sha256": "7cc29ca2aa7c01bd67220db78eb4302d76c0a0c6923ffd82ca3fa5144d0789b0",
+      "bytes": 1914
+    },
+    {
+      "path": "scripts/validate-millennium-geometry.sh",
+      "sha256": "b99017b1cc23fccdca8eeed60f194ab9f343b3468e88593446a156a2efd7f64d",
+      "bytes": 644
+    },
+    {
+      "path": "scripts/validate-navigation.sh",
+      "sha256": "e01f0054f67245b9b50f1856fbc7d40ceb64fc6f9bb5b4c94ac702c5929c465d",
+      "bytes": 1305
+    },
+    {
+      "path": "scripts/validate-paris-context.py",
+      "sha256": "eaca58dd5fa5e82365527c8d14def5581ed17fd7039a227dca4398e32859e4a0",
+      "bytes": 2183
+    },
+    {
+      "path": "scripts/validate-playback.sh",
+      "sha256": "622ab23b079d917e70be0e70898b0bad4a164333b59b24349179f6ba785bc208",
+      "bytes": 1332
+    },
+    {
+      "path": "scripts/validate-regularization.swift",
+      "sha256": "fbe5e763b3858136a444abf6c1910eed9ac6dfcc541cd759bb36ccc4cd0266df",
+      "bytes": 15237
+    },
+    {
+      "path": "scripts/validate-sampling.swift",
+      "sha256": "ccde727cf007e1898d2af216a9205d61f5ee9202de65047f853165e43d6e1544",
+      "bytes": 14856
+    },
+    {
+      "path": "scripts/validate-video-timing.py",
+      "sha256": "d463792a3323e07fbb14be1fa2e37de1cd7ee8af272aa796b58c2220d77736c7",
+      "bytes": 2964
+    }
+  ],
+  "limits": [
+    "App is locally ad-hoc signed, not notarized for distribution.",
+    "Sourcebase commit is the preceding release; this manifest is committed with the recorded source hashes.",
+    "Final motion tests preceded only the documented offline video-encoder configuration change; packaged Renderer.metal and Denoise.metal match the tested shader hashes."
+  ]
+}

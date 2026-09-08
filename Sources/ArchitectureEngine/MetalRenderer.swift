@@ -10,6 +10,8 @@ struct RenderOptions: Equatable {
     var lighting: Int = 0
     var denoising: Bool = true
     var regularization: Bool = true
+    var lowDiscrepancySampling: Bool = true
+    var indexedLighting: Bool = true
 }
 
 enum EngineError: LocalizedError {
@@ -22,12 +24,23 @@ final class MetalRenderer {
     let queue: MTLCommandQueue
     let tracePipeline: MTLComputePipelineState
     let nightTracePipeline: MTLComputePipelineState
+    let dayInteriorTracePipeline: MTLComputePipelineState
+    let indexedNightTracePipeline: MTLComputePipelineState
+    let indexedDayInteriorTracePipeline: MTLComputePipelineState
     let presentPipeline: MTLRenderPipelineState
     let surfacePipeline: MTLComputePipelineState
     let temporalPipeline: MTLComputePipelineState
     let spatialPipeline: MTLComputePipelineState
     let lightBuffer: MTLBuffer
     let lightCount: Int
+    let dayInteriorLightBuffer: MTLBuffer
+    let dayInteriorLightCount: Int
+    private let nightLightGrid:LightGrid
+    private let dayLightGrid:LightGrid
+    private let nightLightRanges:MTLBuffer
+    private let nightLightIndices:MTLBuffer
+    private let dayLightRanges:MTLBuffer
+    private let dayLightIndices:MTLBuffer
     let hasTransmission: Bool
     private var worldGuides: [MTLTexture] = []
     private var normalGuides: [MTLTexture] = []
@@ -83,6 +96,12 @@ final class MetalRenderer {
         tracePipeline = try device.makeComputePipelineState(function: kernel)
         guard let nightKernel = library.makeFunction(name:"pathTraceNight") else { throw EngineError.message("Night ray tracing shader is missing.") }
         nightTracePipeline = try device.makeComputePipelineState(function:nightKernel)
+        guard let dayInteriorKernel=library.makeFunction(name:"pathTraceDayInteriors") else { throw EngineError.message("Daylight interior ray tracing shader is missing.") }
+        dayInteriorTracePipeline=try device.makeComputePipelineState(function:dayInteriorKernel)
+        guard let indexedNightKernel=library.makeFunction(name:"pathTraceNightIndexed"),
+              let indexedDayKernel=library.makeFunction(name:"pathTraceDayInteriorsIndexed") else {throw EngineError.message("Indexed lighting ray tracing shaders are missing.")}
+        indexedNightTracePipeline=try device.makeComputePipelineState(function:indexedNightKernel)
+        indexedDayInteriorTracePipeline=try device.makeComputePipelineState(function:indexedDayKernel)
         guard let surface = library.makeFunction(name: "primarySurface"),
               let temporal = library.makeFunction(name: "temporalResolve"),
               let spatial = library.makeFunction(name: "spatialFilter") else { throw EngineError.message("Reconstruction shader entry points are missing.") }
@@ -107,6 +126,16 @@ final class MetalRenderer {
         hasTransmission = scene.materials.contains { $0.properties.w > 0 }
         let lights = scene.lights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : scene.lights
         lightBuffer = try buffer(lights); lightBuffer.label = "Architectural lighting"
+        let interiorLights=scene.lights.filter{$0.parameters.z>0.5}
+        dayInteriorLightCount=interiorLights.count
+        dayInteriorLightBuffer=try buffer(interiorLights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : interiorLights)
+        dayInteriorLightBuffer.label="Always-on interior lighting"
+        nightLightGrid=LightGrid(lights:scene.lights)
+        dayLightGrid=LightGrid(lights:interiorLights)
+        nightLightRanges=try buffer(nightLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:nightLightGrid.ranges)
+        nightLightIndices=try buffer(nightLightGrid.indices.isEmpty ? [UInt32(0)]:nightLightGrid.indices)
+        dayLightRanges=try buffer(dayLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:dayLightGrid.ranges)
+        dayLightIndices=try buffer(dayLightGrid.indices.isEmpty ? [UInt32(0)]:dayLightGrid.indices)
         triangleCount = scene.triangleCount; detailCount = scene.detailCount
         let geometry = MTLAccelerationStructureTriangleGeometryDescriptor()
         geometry.vertexBuffer = vertexBuffer
@@ -170,21 +199,30 @@ final class MetalRenderer {
         let halfFov = tan(pose.fov * .pi / 360)
         let sun = options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
         let color = options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
-        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, 0), forward: SIMD4(forward, 0), sunDirection: SIMD4(sun, Float(lightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
     }
 
     private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
         guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
         var u = uniforms(pose: pose, options: options)
         encoder.label = "Hardware path tracing"
-        encoder.setComputePipelineState(options.lighting == 2 ? nightTracePipeline : tracePipeline)
+        let night=options.lighting==2
+        let grid=night ? nightLightGrid:dayLightGrid
+        let indexed=options.indexedLighting && grid.enabled
+        encoder.setComputePipelineState(night ? (indexed ? indexedNightTracePipeline:nightTracePipeline) : dayInteriorLightCount>0 ? (indexed ? indexedDayInteriorTracePipeline:dayInteriorTracePipeline) : tracePipeline)
         encoder.setTexture(texture, index: 0)
         encoder.setBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
         encoder.setBuffer(vertexBuffer, offset: 0, index: 1)
         encoder.setBuffer(indexBuffer, offset: 0, index: 2)
         encoder.setBuffer(materialBuffer, offset: 0, index: 3)
         encoder.setAccelerationStructure(accelerationStructure, bufferIndex: 4)
-        encoder.setBuffer(lightBuffer, offset:0, index:5)
+        encoder.setBuffer(options.lighting == 2 ? lightBuffer:dayInteriorLightBuffer, offset:0, index:5)
+        if indexed {
+            var header=grid.header
+            encoder.setBytes(&header,length:MemoryLayout<LightGrid.Header>.stride,index:6)
+            encoder.setBuffer(night ? nightLightRanges:dayLightRanges,offset:0,index:7)
+            encoder.setBuffer(night ? nightLightIndices:dayLightIndices,offset:0,index:8)
+        }
         encoder.dispatchThreads(MTLSize(width: width, height: height, depth: 1), threadsPerThreadgroup: MTLSize(width: 8, height: 8, depth: 1))
         encoder.endEncoding()
         sampleCount &+= 1; frameSeed &+= 1

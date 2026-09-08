@@ -21,7 +21,8 @@ guard let device = MTLCreateSystemDefaultDevice(), let queue = device.makeComman
     fatalError("Denoiser validation requires a local Metal GPU")
 }
 let root = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
-let source = try String(contentsOf: root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Denoise.metal"), encoding: .utf8)
+let sourceURL=CommandLine.arguments.count>1 ? URL(fileURLWithPath:CommandLine.arguments[1]) : root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Denoise.metal")
+let source = try String(contentsOf:sourceURL,encoding:.utf8)
 let options = MTLCompileOptions()
 options.languageVersion = .version3_1
 let library = try device.makeLibrary(source: source, options: options)
@@ -203,6 +204,79 @@ let zoomResult = try render(frame: 0, originX: 0, previousX: 0, previousFOVScale
 require(rmse(zoomResult.filtered, zoomReference) < 0.0003, "A large FOV change incorrectly broadened the current spatial filter")
 print("PASS: current-frame pixel cone preserves fine geometry across an eightfold FOV-scale change")
 
+_ = populate(frame:0,originX:0,noise:false,roughness:0.022)
+var polishedWorld=read(worlds[0]),reflection=read(raw)
+for i in polishedWorld.indices {
+    polishedWorld[i].w=0.125
+    let bright=(i%width/2)%2==0
+    reflection[i]=bright ? SIMD4(0.8,0.6,0.4,reflection[i].w):SIMD4(0.03,0.05,0.09,reflection[i].w)
+}
+write(polishedWorld,worlds[0]);write(reflection,raw)
+let reflectedEdges=try render(frame:0,originX:0,previousX:0,valid:false)
+require(rmse(reflectedEdges.filtered,reflection)<0.000001,"Surface-only spatial filtering blurred sharp polished reflections")
+print("PASS: sharp reflected scene edges absent from primary geometry/albedo guides retain exact coverage")
+
+_ = populate(frame:0,originX:0,noise:false)
+var jointRadiance=read(raw),jointAlbedo=read(albedo)
+for i in jointRadiance.indices {
+    let value:Float=i%width==width/2 ? 0.5:0.7
+    jointRadiance[i]=SIMD4(value,value,value,jointRadiance[i].w)
+    jointAlbedo[i]=SIMD4(value,value,value,0.6)
+}
+write(jointRadiance,raw);write(jointAlbedo,albedo)
+let joints=try render(frame:0,originX:0,previousX:0,valid:false)
+let maximumJointError=zip(joints.filtered,jointRadiance).map{abs($0.x-$1.x)}.max()!
+require(maximumJointError<0.004,"Moderate-contrast paving joints were eroded by the spatial filter")
+print(String(format:"PASS: one-pixel moderate-contrast paving joints retain detail (maximum error %.6f)",maximumJointError))
+
+// Real plaza joints are separate dark geometry. Pixel-center guides on the
+// adjacent pale paving can still contain valid jittered coverage of that joint.
+// This is distinct from an albedo-only edge or a centered thin-geometry test.
+var mixedJointSamples=0
+for frame in 0..<6 {
+    _ = populate(frame:frame,originX:0,noise:false)
+    var points=read(worlds[frame%2]),colors=read(albedo),values=read(raw)
+    for y in 0..<height {for x in 0..<width {
+        let i=y*width+x,d=abs((x+frame)%16-7)
+        points[i].w=d==0 ? 2:0
+        colors[i]=d==0 ? SIMD4(0.025,0.028,0.03,0.6):SIMD4(0.65,0.61,0.55,0.6)
+        let coverage:Float=d==0 ? 0.8:d==1 ? 0.22:0
+        let rgb=SIMD3<Float>(0.7,0.62,0.52)*(1-coverage)+SIMD3<Float>(0.025,0.028,0.03)*coverage
+        values[i]=SIMD4(rgb,values[i].w)
+    }}
+    write(points,worlds[frame%2]);write(colors,albedo);write(values,raw)
+    let result=try render(frame:frame,originX:0,previousX:0,valid:false,spp:8)
+    for y in 8..<(height-8) {for x in 8..<(width-8) {
+        let i=y*width+x,d=abs((x+frame)%16-7)
+        if d<=1 {
+            require(result.filtered[i]==values[i],"Spatial filtering erased valid dark-joint coverage from the neighboring stone")
+            if d==1 {mixedJointSamples += 1}
+        }
+    }}
+}
+require(mixedJointSamples>1000,"Dark-joint fixture did not exercise adjacent pale-center coverage")
+print("PASS: \(mixedJointSamples) moving dark-joint coverage samples on pale-center guides survive all spatial passes exactly")
+
+// A converged thin contact shadow is a radiance feature, not an albedo or
+// geometry boundary. More samples should reduce reconstruction bias as well as
+// stochastic variance; a high-SPP image must retain this low-contrast detail.
+_ = populate(frame:0,originX:0,noise:false)
+var shadowRadiance=read(raw)
+for i in shadowRadiance.indices {
+    let value:Float=i%width==width/2 ? 0.95:1.0
+    shadowRadiance[i]=SIMD4(value,value,value,shadowRadiance[i].w)
+}
+write(shadowRadiance,raw)
+var shadowErrors:[Float]=[]
+for spp:Float in [8,32,128] {
+    let result=try render(frame:0,originX:0,previousX:0,valid:false,spp:spp)
+    shadowErrors.append(zip(result.filtered,shadowRadiance).map{abs($0.x-$1.x)}.max()!)
+}
+print("Contact-shadow maximum errors at 8/32/128 SPP: \(shadowErrors)")
+require(shadowErrors[0]>shadowErrors[1] && shadowErrors[1]>shadowErrors[2],"Converging samples failed to reduce spatial reconstruction bias")
+require(shadowErrors[2]<0.006,"High-SPP spatial filtering erased a converged low-contrast contact shadow")
+print("PASS: converged contact-shadow detail survives as spatial strength falls with sample count")
+
 _ = populate(frame: 0, originX: 0, noise: false)
 _ = try render(frame: 0, originX: 0, previousX: 0, valid: false)
 _ = populate(frame: 1, originX: 0, noise: false)
@@ -219,6 +293,27 @@ for frame in 0..<8 {
     require(result.history.allSatisfy { $0.w <= 2.001 }, "Sharp reflection history was not limited during movement")
 }
 print("PASS: moving mirror-like surfaces retain at most two frames to avoid reflection trails")
+
+var slowMirrorRawError:Double=0,slowMirrorHistoryError:Double=0
+var longestSlowMirrorHistory:Float=0
+for frame in 0..<48 {
+    let x=Float(frame)*0.0001
+    let reference=populate(frame:frame,originX:x,noise:true,roughness:0.065)
+    let rawError=rmse(read(raw),reference)
+    let result=try render(frame:frame,originX:x,previousX:Float(max(0,frame-1))*0.0001,valid:frame>0)
+    if frame>=24 {
+        slowMirrorRawError += rawError
+        slowMirrorHistoryError += rmse(result.history,reference)
+        longestSlowMirrorHistory=max(longestSlowMirrorHistory,result.history.map{$0.w}.max()!)
+    }
+}
+require(longestSlowMirrorHistory>12 && longestSlowMirrorHistory<=16.001,"Slow glossy motion should retain bounded angularly compatible history")
+require(slowMirrorHistoryError<slowMirrorRawError*0.35,"Slow glossy motion history failed to reduce sampling noise")
+_ = populate(frame:48,originX:0.0048,noise:false,roughness:0.065)
+write([SIMD4<Float>](repeating:SIMD4(0,0,0,5),count:count),raw)
+let mirrorExtinguished=try render(frame:48,originX:0.0048,previousX:0.0047)
+require(mirrorExtinguished.history.allSatisfy{$0.x<0.00001 && $0.y<0.00001 && $0.z<0.00001},"Longer slow-mirror history retained an extinguished reflection")
+print(String(format:"PASS: slow glossy view-change history RMS %.5f → %.5f; at most 16 frames and exact extinguished-reflection rejection",slowMirrorRawError/24,slowMirrorHistoryError/24))
 
 for frame in 0..<8 {
     _ = populate(frame: frame, originX: Float(frame), scene: .sky)

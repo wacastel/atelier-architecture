@@ -50,9 +50,21 @@ extension EiffelBuilder {
             if s<0 {box(V(s*26200,-0.13,0),V(47600,0.15,4800),pavement)}
             box(V(-24091,-0.13,s*26200),V(51820,0.15,47600),pavement)
         }
-        for area in data.areas where area.kind != "water" {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
-        for p in data.paths {chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)}
-        for b in data.buildings {chicagoBuilding(b,masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)}
+        func inPark(_ points:[[Float]]) -> Bool {
+            guard !points.isEmpty else { return false }
+            let c=points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(points.count)
+            return MillenniumContext.containsPark(c.x,c.y)
+        }
+        for area in data.areas where area.kind != "water" && !inPark(area.points) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
+        for p in data.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 {chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)}
+        for b in data.buildings {
+            if MillenniumContext.suppressesGenericBuilding(b.id) { continue }
+            // Replace every generic museum building part, including the parent
+            // outline that otherwise fills the modeled courtyards and galleries.
+            let center=b.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(b.points.count)
+            if center.x>=982 && center.x<=1231 && center.y>=(-200) && center.y<=48 { continue }
+            chicagoBuilding(b,masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
+        }
         for r in data.rivers {
             chicagoArea(r,y:-5.7,material:river)
             chicagoQuays(r,concrete:concrete)
@@ -114,7 +126,10 @@ extension EiffelBuilder {
         }
     }
     private func chicagoBuilding(_ b:ChicagoContext.Building,masonry:UInt32,granite:UInt32,pale:UInt32,blue:UInt32,gray:UInt32,windows:[UInt32]) {
-        let p=b.points.map{V($0[0],0.12,$0[1])},c=p.reduce(V.zero,+)/Float(p.count),d=simd_length(c),h=b.height
+        let p=b.points.map{V($0[0],0.12,$0[1])},c=p.reduce(V.zero,+)/Float(p.count),h=b.height
+        // Detail follows both destinations, including the Michigan Avenue
+        // facades that are visible in Cloud Gate's curved reflections.
+        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)))
         let modern=b.material == "glass" || b.material == "steel" || (h>105 && b.material != "stone" && b.material != "brick" && b.material != "masonry")
         let near=d<440,medium=d<950,stone=b.id == 686318733 ? granite : b.material == "brick" ? masonry : b.id%4==0 ? pale:facade
         let material=modern ? gray:stone
@@ -163,6 +178,15 @@ extension EiffelBuilder {
                     orientedBox(q+V(0,h/2,0)+n*0.07,t,V(0,1,0),n,V(modern ? 0.15:0.3,h,modern ? 0.18:0.28),material)
                 }
                 if h>20 && len<90 {orientedBox(middle+V(0,3.4,0)+n*1.1,t,V(0,1,0),n,V(min(7,len*0.4),0.23,2.5),gray)}
+            }
+            if !modern && c.x>800 && c.x<988 && c.z > -670 && c.z < 80 && n.x>0.7 && len>12 {
+                // Warm architectural washes along the park's Michigan Avenue
+                // frontage also form real reflected highlights in Cloud Gate.
+                for fraction:Float in [0.25,0.75] {
+                    let lampPosition=a+t*(len*fraction)+n*0.8+V(0,1.2,0)
+                    scene.lights.append(NightLighting.source(lampPosition,toward:lampPosition-n*0.6+V(0,min(h*0.5,24),0),power:125,color:V(1,0.78,0.53),range:64,radius:0.65,outerDegrees:70,innerDegrees:42))
+                    orientedBox(lampPosition,t,V(0,1,0),n,V(0.5,0.14,0.36),gray)
+                }
             }
         }
         if medium && h>10 {
@@ -246,7 +270,7 @@ extension EiffelBuilder {
         var planted=Set<String>()
         for a in data.areas where a.kind != "water" {
             let center=a.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(a.points.count)
-            if simd_length(center)>1000{continue}
+            if simd_length(center)>1000 || MillenniumContext.containsPark(center.x,center.y){continue}
             let minX=a.points.map{$0[0]}.min()!,maxX=a.points.map{$0[0]}.max()!,minZ=a.points.map{$0[1]}.min()!,maxZ=a.points.map{$0[1]}.max()!
             for x in stride(from:minX+4,through:maxX-3,by:13) {for z in stride(from:minZ+4,through:maxZ-3,by:13) {
                 let q=SIMD2(x+(rnd()-0.5)*4,z+(rnd()-0.5)*4)
@@ -262,6 +286,7 @@ extension EiffelBuilder {
                 if len<24 || simd_length((a+b)/2)>460{continue};let t=(b-a)/len,n=V(-t.z,0,t.x)
                 for d in stride(from:Float(12),through:len-8,by:28) {
                     let q=a+t*d+n*(p.width/2+1.5)
+                    if MillenniumContext.containsPark(q.x,q.z){continue}
                     if q.x > -60 && q.x<65 && q.z > -47 && q.z<85{continue}
                     let key="\(Int(q.x/8)),\(Int(q.z/8))";if !planted.insert(key).inserted{continue}
                     box(q-V(0,0.02,0),V(2.5,0.10,2.5),bark)

@@ -1,0 +1,6 @@
+PASS: GPU stratification; 4-SPP subpixel coverage RMS reduction 36.1%, temporal residual reduction 28.9%
+PASS: polished GGX stays finite and bounded at negative inputs, nextDown(1), 1, nextUp(1), two ULPs above 1 and 1.01
+PASS: 32,768 polished-conductor samples retain .02/.022 roughness, stable GGX peaks/PDFs, bounded throughput and Fresnel-limit energy
+GPU primary mirror: 4-SPP RMS 0.046240 → 0.042340 (8.4% reduction)
+GPU secondary glossy: 4-SPP RMS 0.048059 → 0.044690 (7.0% reduction)
+PASS: production sampler reduces noise before denoising; reflection geometry and radiance are not blurred

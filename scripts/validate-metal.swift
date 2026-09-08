@@ -30,13 +30,14 @@ require(MemoryLayout<Vertex>.stride == 32 && MemoryLayout<Material>.stride == 32
         MemoryLayout<Uniforms>.stride == 128 && MemoryLayout<Light>.stride == 64,
         "Swift/Metal vertex, material, uniform or light ABI changed.")
 let root = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
-let sourceURL = root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Renderer.metal")
+let sourceURL = CommandLine.arguments.count>1 ? URL(fileURLWithPath:CommandLine.arguments[1]) : root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Renderer.metal")
 let source = try String(contentsOf: sourceURL, encoding: .utf8)
 let options = MTLCompileOptions()
 options.languageVersion = .version3_1
 let library = try device.makeLibrary(source: source, options: options)
 let kernel = try device.makeComputePipelineState(function: library.makeFunction(name: "pathTrace")!)
 let nightKernel = try device.makeComputePipelineState(function: library.makeFunction(name: "pathTraceNight")!)
+let interiorKernel = try device.makeComputePipelineState(function: library.makeFunction(name:"pathTraceDayInteriors")!)
 let renderDescriptor = MTLRenderPipelineDescriptor()
 renderDescriptor.vertexFunction = library.makeFunction(name: "fullscreenVertex")!
 renderDescriptor.fragmentFunction = library.makeFunction(name: "presentFragment")!
@@ -55,7 +56,7 @@ let materialBuffer = device.makeBuffer(bytes: [material], length: MemoryLayout<M
 // This source is inactive in the daylight kernel and when the uniform light
 // count is zero. Night checks below must read this exact binding at buffer 5.
 private let light = Light(positionRadius: SIMD4(0,2,3,0.18), directionCone: SIMD4(0,-1,0,-1),
-                          colorPower: SIMD4(1,0.5,0.15,25), parameters: SIMD4(20,0.5,0,0))
+                          colorPower: SIMD4(1,0.5,0.15,25), parameters: SIMD4(20,0.5,1,0))
 let lightBuffer = device.makeBuffer(bytes:[light], length:MemoryLayout<Light>.stride, options:.storageModeShared)!
 let indexBuffer = device.makeBuffer(bytes: [UInt32(0), UInt32(0)], length: 8, options: .storageModeShared)!
 let geometry = MTLAccelerationStructureTriangleGeometryDescriptor()
@@ -83,14 +84,14 @@ textureDescriptor.usage = [.shaderRead, .shaderWrite]
 let texture = device.makeTexture(descriptor: textureDescriptor)!
 
 func encodeTrace(into command: MTLCommandBuffer, accumulatedFrames: UInt32, seed: UInt32,
-                 night: Bool = false, lightCount: UInt32 = 0) {
+                 night: Bool = false, lightCount: UInt32 = 0, interiors:Bool = false) {
     var uniforms = Uniforms(origin: SIMD4(0,0,5,1), right: SIMD4(0.5,0,0,0), up: SIMD4(0,0.5,0,0),
                             forward: SIMD4(0,0,-1,0), sunDirection: SIMD4(-0.4,0.8,1,0), sunColor: SIMD4(3.5,3.2,2.7,0),
                             viewport: SIMD4(32,32,accumulatedFrames,seed), settings: SIMD4(1,3,0.00465,0.7))
     uniforms.sunColor.w = night ? 1 : 0
     uniforms.sunDirection.w = Float(lightCount)
     let encoder = command.makeComputeCommandEncoder()!
-    encoder.setComputePipelineState(night ? nightKernel : kernel)
+    encoder.setComputePipelineState(night ? nightKernel : interiors ? interiorKernel:kernel)
     encoder.setTexture(texture, index: 0)
     encoder.setBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 0)
     encoder.setBuffer(vertexBuffer, offset: 0, index: 1)
@@ -109,9 +110,9 @@ func readPixels() -> [SIMD4<Float>] {
 }
 
 func render(accumulatedFrames: UInt32, seed: UInt32, night: Bool = false,
-            lightCount: UInt32 = 0) throws -> [SIMD4<Float>] {
+            lightCount: UInt32 = 0, interiors:Bool = false) throws -> [SIMD4<Float>] {
     let command = queue.makeCommandBuffer()!
-    encodeTrace(into: command, accumulatedFrames: accumulatedFrames, seed: seed, night:night, lightCount:lightCount)
+    encodeTrace(into: command, accumulatedFrames: accumulatedFrames, seed: seed, night:night, lightCount:lightCount,interiors:interiors)
     command.commit()
     command.waitUntilCompleted()
     if let error = command.error { throw error }
@@ -191,6 +192,15 @@ print("PASS: exact frame-zero reset; progressive mean maximum error \(meanError)
 print("PASS: 32 sequential commands versus 32 encoders in one batch; maximum RGB error \(batchError), differing components \(differentComponents)/3072")
 print("PASS: 64-byte night light at buffer 5 adds warm illumination; finite output, exact reset, progressive mean error \(nightMeanError)")
 
+let dayWithoutLocal=try render(accumulatedFrames:0,seed:401)
+let dayIgnoringCityLights=try render(accumulatedFrames:0,seed:401,lightCount:1)
+let dayInteriorZero=try render(accumulatedFrames:0,seed:401,interiors:true)
+let dayInteriorLit=try render(accumulatedFrames:0,seed:401,lightCount:1,interiors:true)
+require(dayWithoutLocal==dayIgnoringCityLights && dayWithoutLocal==dayInteriorZero,"Daylight specialization changed sky/sun or enabled ordinary city lamps")
+require(dayInteriorLit[528].x>dayWithoutLocal[528].x+0.1,"Always-on interior-light specialization failed to illuminate the day scene")
+require(dayInteriorLit.allSatisfy{$0.x.isFinite && $0.y.isFinite && $0.z.isFinite},"Daytime interior-light output is nonfinite")
+print("PASS: daylight interior specialization adds opted-in illumination and preserves identical day sky/sun with zero interior lights")
+
 // Exercise the actual presentation shader with sharp, same-depth HDR features.
 // Low-SPP presentation previously applied an undocumented 3x3 filter, making
 // --raw comparisons measure a filtered baseline instead of the traced pixels.
@@ -241,3 +251,29 @@ for sampleCount:UInt32 in [1,4,128] {
     }
 }
 print("PASS: actual presentation at1/4/128samples preserves per-pixel HDR coverage and applies only tone/sRGB mapping (maximum byte error \(maximumPresentationError))")
+
+// Smooth vertex normals must reach the deterministic guide just as they do
+// the path tracer; facet normals would falsely break a curved mirror's history.
+private var curvedVertices=vertices
+for i in curvedVertices.indices {
+    let p=curvedVertices[i].position
+    curvedVertices[i].normal=SIMD4(simd_normalize(SIMD3(p.x*0.05,p.y*0.05,1)),0)
+}
+curvedVertices.withUnsafeBytes {vertexBuffer.contents().copyMemory(from:$0.baseAddress!,byteCount:$0.count)}
+let guides=(0..<3).map{_ in device.makeTexture(descriptor:textureDescriptor)!}
+let guideKernel=try device.makeComputePipelineState(function:library.makeFunction(name:"primarySurface")!)
+private var guideUniforms=Uniforms(origin:SIMD4(0,0,5,1),right:SIMD4(0.5,0,0,0),up:SIMD4(0,0.5,0,1),forward:SIMD4(0,0,-1,0),sunDirection:SIMD4(0,1,1,0),sunColor:SIMD4(1,1,1,0),viewport:SIMD4(32,32,0,0),settings:SIMD4(1,2,0.009,1))
+let guideCommand=queue.makeCommandBuffer()!,guideEncoder=guideCommand.makeComputeCommandEncoder()!
+guideEncoder.setComputePipelineState(guideKernel);guideEncoder.setBytes(&guideUniforms,length:128,index:0)
+guideEncoder.setBuffer(vertexBuffer,offset:0,index:1);guideEncoder.setBuffer(indexBuffer,offset:0,index:2);guideEncoder.setBuffer(materialBuffer,offset:0,index:3);guideEncoder.setAccelerationStructure(acceleration,bufferIndex:4)
+for (i,t) in guides.enumerated(){guideEncoder.setTexture(t,index:i)}
+guideEncoder.dispatchThreads(MTLSize(width:32,height:32,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));guideEncoder.endEncoding();guideCommand.commit();guideCommand.waitUntilCompleted()
+if let error=guideCommand.error {throw error}
+var guidePositions=[SIMD4<Float>](repeating:.zero,count:1024),guideNormals=guidePositions
+guides[0].getBytes(&guidePositions,bytesPerRow:32*16,from:MTLRegionMake2D(0,0,32,32),mipmapLevel:0)
+guides[1].getBytes(&guideNormals,bytesPerRow:32*16,from:MTLRegionMake2D(0,0,32,32),mipmapLevel:0)
+for i in guidePositions.indices {
+    let p=guidePositions[i],n=guideNormals[i],expected=simd_normalize(SIMD3(p.x*0.05,p.y*0.05,1))
+    require(simd_distance(SIMD3(n.x,n.y,n.z),expected)<0.00001,"Smooth reflective surface guide used a facet normal")
+}
+print("PASS: 1,024 smooth curved-surface guide normals match the tracer's vertex interpolation across triangle edges")

@@ -1,0 +1,70 @@
+{
+  "reviewedAtUTC": "2026-09-08T03:12:34.557789+00:00",
+  "visualReviewPassed": true,
+  "scope": "Five final daytime connecting-flight frames at 108, 125, 141, 157 and 177 seconds; Cloud Gate and Pavilion park segment only.",
+  "method": "Each exact PNG listed below was opened with view_image and actually inspected. Hashes were calculated from these final sampled files. No source changes, GPU commands, new renders or image edits were performed.",
+  "images": [
+    {
+      "path": "output/v5-review/media-review/day-flyby/108.png",
+      "timeSeconds": 108,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2209905,
+      "sha256": "f13af8ce21f025a865eaaaed972c073195709973ca7f9fe0e0775541d4463fb1",
+      "visuallyReviewed": true,
+      "finding": "Aerial Grainger Plaza composition clearly frames Cloud Gate, mapped plaza/tree allees and the Millennium Monument; no foreground camera obstruction."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/125.png",
+      "timeSeconds": 125,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2197432,
+      "sha256": "9c5c4654c99704e5178ce7b73e53787f2fee83260b7feeeda95d8fd6abbfd04c",
+      "visuallyReviewed": true,
+      "finding": "Oblique Cloud Gate view preserves the rounded steel silhouette and arch, with continuous curved skyline/paving reflections; Pavilion headdress is visible behind the plaza."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/141.png",
+      "timeSeconds": 141,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 1423205,
+      "sha256": "895c94436f639459fc22c130e0bf47f07b19f42851c2cf559f98c1cd29ed8b20",
+      "visuallyReviewed": true,
+      "finding": "Broad-side Cloud Gate view remains fully framed and unobstructed, with smooth skyline reflection band, readable reflected paving and concave underside."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/157.png",
+      "timeSeconds": 157,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2027667,
+      "sha256": "8a6cdb05cd7a4c961663a2f55f1deb7f2eff8e7f7f229bf8b28eb4dea9ca3e70",
+      "visuallyReviewed": true,
+      "finding": "The elevated Pavilion approach clears the tree crowns and exposes the broad curved steel headdress, dark stage, acoustic trellis, speakers and rows of seats."
+    },
+    {
+      "path": "output/v5-review/media-review/day-flyby/177.png",
+      "timeSeconds": 177,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 2246680,
+      "sha256": "d51955cced213b9b51b143aa2a9b90ce0ffd03b5195ad96f8bc56feeedda0b60",
+      "visuallyReviewed": true,
+      "finding": "The stage and seating are centered under the trellis; tubular beams cross the scene as intended architecture without accidentally hiding the stage or headdress."
+    }
+  ],
+  "findings": [
+    "Cloud Gate and the Pavilion remain clearly framed without accidental scene geometry obstructing the featured landmarks in the five inspected samples.",
+    "Cloud Gate reflection outlines are continuous and readable; the earlier scalloped mirror-normal artifact is absent.",
+    "The top-left From tower to museum title and continuous-flight caption remain legible and clear of the featured landmarks, and the bottom OpenStreetMap attribution is legible in every inspected frame.",
+    "No gross frame corruption, missing landmark, oversized isolated firefly bloom or camera-inside-solid artifact is visible in these samples."
+  ],
+  "limitations": [
+    "This is a five-frame visual sample review, not continuous playback or a frame-by-frame temporal assessment. Full-movie decode/frame-count/timing validation and earlier flight/museum footage are handled separately.",
+    "Residual fine sampling grain is visible in Cloud Gate lower-shell reflections and some shiny surfaces; these frames are not noise-free.",
+    "Solid simplified tree crowns, repeated generic surrounding facades and the reference-interpreted Pavilion ribbon form remain visible approximations."
+  ],
+  "blockers": []
+}

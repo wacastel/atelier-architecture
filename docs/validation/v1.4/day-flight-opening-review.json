@@ -1,0 +1,40 @@
+{
+  "scope": "Five sampled frames from the final, uninterrupted daytime movie; visual inspection does not certify every video frame or temporal noise by itself.",
+  "visualReviewPassed": true,
+  "frames": [
+    {
+      "timeSeconds": 0,
+      "path": "output/v5-review/media-review/day-flyby/0.png",
+      "sha256": "d6c4575c36b91f45569b3266d02745f42c7ac175d7116adb0ac104ba76072f08"
+    },
+    {
+      "timeSeconds": 15,
+      "path": "output/v5-review/media-review/day-flyby/15.png",
+      "sha256": "31abe1ce880f6b8263945fb86c403c6ab23796efc8e0ddd2a399c4853a6855a0"
+    },
+    {
+      "timeSeconds": 42,
+      "path": "output/v5-review/media-review/day-flyby/42.png",
+      "sha256": "ba22e9a1a5908f03546896fff6516e6953195b9bd02383f134ba29a519fd062b"
+    },
+    {
+      "timeSeconds": 68,
+      "path": "output/v5-review/media-review/day-flyby/68.png",
+      "sha256": "5451c792c2b7f9b9c2cff6305cfab3a09c36291dd061cd7a6b12d49262057579"
+    },
+    {
+      "timeSeconds": 88,
+      "path": "output/v5-review/media-review/day-flyby/88.png",
+      "sha256": "e376e8b544775f9b95dbf3578b64117c3d112c4683d356b7b3257f2aefeb6671"
+    }
+  ],
+  "findings": [
+    "Willis remains clearly framed at departure, with readable captions and map attribution.",
+    "The Loop crossing reveals the same Chicago world and brings the park and museum into view without sampled camera obstruction.",
+    "The park descent clearly resolves the Cloud Gate plaza, Pritzker Pavilion, lawn trellis and mapped planting."
+  ],
+  "limits": [
+    "Distant buildings and terrain remain simplified procedural context.",
+    "Fine grain remains in initial-frame reflective facades and shaded detail."
+  ]
+}

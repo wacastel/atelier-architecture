@@ -1,0 +1,78 @@
+{
+  "reviewedAtUTC": "2026-09-08T01:37:44.936246+00:00",
+  "visualReviewPassed": true,
+  "method": "Each listed PNG was opened with view_image and visually inspected. No image edits or denoising were applied to these unfiltered progressive renders.",
+  "samplesPerPixel": 128,
+  "bounces": 3,
+  "images": [
+    {
+      "path": "output/v5-review/museum-review/modern-night-refined.png",
+      "sha256": "a8e0c1cfcf442d575c22c2dff8e594636955b1ee66ebeb3ef973cde31f3eeadf",
+      "bytes": 2066967,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/interior-night-refined.png",
+      "sha256": "0b772e2958887484cfeaae34dad672db9cebf781bcd82c8ef21c246d8528ba65",
+      "bytes": 2386723,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/interior-day-refined.png",
+      "sha256": "8be01d28bfced77e56bd7d1778ce680c0e0956a702048ea783d7e4d81cd0a934",
+      "bytes": 2373330,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/historic-day-final.png",
+      "sha256": "4f1f3749be9b26390602d0eefb81d1afc33100b5032d594d3daa4af37ee8e23e",
+      "bytes": 1585851,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/historic-night-final.png",
+      "sha256": "be9e6908487dcf87ae325d63057c1a621710a0b41ee44ea3687e59dde9db9b9f",
+      "bytes": 1367795,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/court-day-final.png",
+      "sha256": "d6177d37b022bf3b7f03b531fefaf9c502af99964895cb5d8046506943b64715",
+      "bytes": 2090144,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/court-night-final.png",
+      "sha256": "001b117efb80b37cb180c9a0940e347e86624346061ca1cc991d5f3faa7c243a",
+      "bytes": 1883399,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/nichols-day-final.png",
+      "sha256": "1518a6f8842aafef25e06303100799aa2e9c0bff95611d59d15f924c86c899e9",
+      "bytes": 1309383,
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/museum-review/nichols-night-final.png",
+      "sha256": "a0770c6285a04e76bf3b38d1b6ab2b2c30eb4166077a297b9e8f5b7b8880b475",
+      "bytes": 970789,
+      "visuallyReviewed": true
+    }
+  ],
+  "findings": [
+    "Historic frontage, entrance arches, broad stair and two authored bronze lions remain identifiable in day and night.",
+    "Modern Wing night refinement reveals the projecting white roof and glazed pavilions; illumination follows primary nighttime reference cues.",
+    "The t240 gallery has neutral lighting, legible original geometric artwork, plain plaster soffits and readable wall/frame details.",
+    "The t225 Griffin Court route is open, with visible columns, glazed roof and an unobstructed east gallery portal.",
+    "Nichols Bridgeway follows its mapped rising alignment toward the Modern Wing terrace; rail and deck geometry are present."
+  ],
+  "limitations": [
+    "Fine Monte Carlo grain remains in these unfiltered 128-sample stills; this report does not certify motion noise performance.",
+    "Interior rooms and artwork are authored interpretations, not a recreation of the current exhibition layout.",
+    "Bronze lions use authored anatomical primitives, not photogrammetry.",
+    "Later campus wings and the immediate open grounds are simplified relative to the featured museum fronts.",
+    "Fixture powers and positions are visual approximations rather than a photometric survey."
+  ],
+  "artInstituteSourceSHA256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221"
+}

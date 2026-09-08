@@ -1,0 +1,61 @@
+{
+  "reviewedAtUTC": "2026-09-08T03:12:25.796957+00:00",
+  "scope": "Visual review of six sampled PNG frames from the final daytime connecting-flight movie, focused on museum approach and interior framing. Full video timing and decoding were handled separately by the parent.",
+  "visualReviewPassed": true,
+  "blockingFindings": [],
+  "images": [
+    {
+      "seconds": 193.0,
+      "path": "output/v5-review/media-review/day-flyby/193.png",
+      "sha256": "7d1efe07bf9774911b9e1ef4d1c3b105bf4adbbc9301c376dcd69d6382069440",
+      "bytes": 2634714,
+      "visuallyReviewed": true,
+      "finding": "Garden-to-museum establishing view: Modern Wing, roof and Nichols Bridgeway are recognizable behind the planting; no foreground object blocks the overall museum approach."
+    },
+    {
+      "seconds": 207.0,
+      "path": "output/v5-review/media-review/day-flyby/207.png",
+      "sha256": "c42986ae5c9592ede5fd7d1dbddcc5ef019898ed75b43175a0b8971e3134cd13",
+      "bytes": 1980693,
+      "visuallyReviewed": true,
+      "finding": "Modern Wing is centered at a useful scale. Roof blades, glazed pavilion levels and the central entry court are readable; bridge remains visible on the right."
+    },
+    {
+      "seconds": 217.0,
+      "path": "output/v5-review/media-review/day-flyby/217.png",
+      "sha256": "e27358e215d3c63abc587366f7dde8dfb2545979dc028c190784103f49acab31",
+      "bytes": 2180705,
+      "visuallyReviewed": true,
+      "finding": "Ground approach frames the central entrance and long court. Thin fa\u00e7ade members cross the image as expected, but the entry opening and interior remain visible."
+    },
+    {
+      "seconds": 225.0,
+      "path": "output/v5-review/media-review/day-flyby/225.png",
+      "sha256": "0beec271cc8fff66ff72e282fec855105e5260995e77eefaefbdd52efe66ff03",
+      "bytes": 1424816,
+      "visuallyReviewed": true,
+      "finding": "Inside Griffin Court, the camera has a clear forward corridor between the slender columns. Floor, wall planes and skylight rhythm remain readable."
+    },
+    {
+      "seconds": 230.0,
+      "path": "output/v5-review/media-review/day-flyby/230.png",
+      "sha256": "506fdd04fa99719cd49da46ddc2e51e76f6ce90d5d53ced08c8b19048f8de654",
+      "bytes": 1317219,
+      "visuallyReviewed": true,
+      "finding": "The turn presents the gallery opening, bench and framed artwork. Foreground architectural columns remain visible without filling or blocking the view."
+    },
+    {
+      "seconds": 239.9,
+      "path": "output/v5-review/media-review/day-flyby/239.9.png",
+      "sha256": "14fb308b630ccaa932de57095fc8b403a3c7e6fd49ef419eb3c076cc2181220b",
+      "bytes": 1051315,
+      "visuallyReviewed": true,
+      "finding": "Final gallery composition clearly frames three original geometric artworks, neutral walls, plaster ceiling, floor and wall labels. Exposure and caption readability are satisfactory."
+    }
+  ],
+  "limitations": [
+    "This is sampled-frame review, not a claim that every intervening movie frame was individually inspected.",
+    "Fine sampling grain remains visible around glazing, thin members and some interior floor/ceiling regions.",
+    "The museum room, artworks, sculpture details and planting are authored interpretations; simplified architectural and landscape forms remain apparent."
+  ]
+}

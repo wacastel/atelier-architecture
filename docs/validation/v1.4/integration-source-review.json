@@ -1,0 +1,53 @@
+{
+  "reviewedAtUTC": "2026-09-08T01:40:28.737244+00:00",
+  "method": "Bounded read-only source review, supplemented by existing playback-validation output. No GPU jobs or production changes were performed during integration review.",
+  "blockingFindings": [],
+  "verifiedByInspection": [
+    "Willis and Millennium share world identity and ChicagoWorld scene construction. The controller reuses the resident renderer/BVH when changing between them.",
+    "The dedicated Chicago flight action selects view 7, preserves the selected lighting and starts playback.",
+    "Timeline seeking, shuttle advancement and endpoint clamping read the selected view duration, including the 240-second connecting flight.",
+    "Single-view CLI export defaults to the selected duration; final-frame interpolation includes the exact route endpoint. Multi-view montage intentionally compresses each route into one chapter.",
+    "CameraTrack uses ordered keys and monotone coordinate tangents. The authored Millennium keys are strictly ordered and position/target continuity is preserved.",
+    "Existing playback tests cover the 240-second clock, 75% seek, shuttle endpoint, returning to 56-second views, shared-world identity, idle lighting cycles and sampled route clearance."
+  ],
+  "minorDocumentationFinding": {
+    "file": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+    "lineAtReview": 462,
+    "description": "Help paragraph still calls every selected walkthrough 56 seconds; the connecting Chicago flight is 240 seconds. Reported to parent for its UI/docs pass."
+  },
+  "limitations": [
+    "This review does not replace native UI verification, which the parent owns.",
+    "No new full playback validation run was started here; the existing report was read.",
+    "Motion quality and final GPU performance are being assessed separately."
+  ],
+  "files": [
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "sha256": "91f1cbcf4e13246bd27500642ed3957b158301205e1bbed002cbb1f31d3e16bb"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "sha256": "7fe1611f21ef3fca1001575b50302901eea6f3998643c1aa22cea9d5b335779b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "sha256": "71f9ff09149c7e0321aaebc7550a94510eaf4f8f598599cd7c991c88436e00b3"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "8be48ec89420d3eee06c3f0e45d47d6d0109cb7c152c7020f6d15d7d3108ddaa"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "969e86a4839756426e48cbd414067895c4685d39d03bf1b761babe7496bdf351"
+    }
+  ]
+}

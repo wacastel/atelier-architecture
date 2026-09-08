@@ -29,7 +29,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1440, height: 960),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                               backing: .buffered, defer: false)
-        window.title = "ATELIER / Willis Tower"
+        window.title = "ATELIER / Millennium Park"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = false
@@ -79,7 +79,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let fullscreen = viewMenu.addItem(withTitle: "Enter / Exit Full Screen", action: #selector(toggleFullscreen), keyEquivalent: "f")
         fullscreen.keyEquivalentModifierMask = [.command, .control]
         fullscreen.target = self
-        viewMenu.addItem(withTitle: "Switch Paris / Chicago", action: #selector(toggleLocation), keyEquivalent: "l").target = self
+        viewMenu.addItem(withTitle: "Next Location", action: #selector(toggleLocation), keyEquivalent: "l").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
         screenshot.keyEquivalentModifierMask = [.command, .shift]
@@ -105,8 +105,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "02 · Paris & Chicago",
-            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nEiffel Tower, Paris · Willis Tower, Chicago.\nReference-informed architecture and mapped surroundings.")
+            .applicationVersion: "03 · Paris & Chicago",
+            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nEiffel Tower, Paris · Willis Tower & Millennium Park, Chicago.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
@@ -206,8 +206,17 @@ private struct ArchitectureWorkspace: View {
                 ForEach(ArchitectureLocation.allCases) { location in
                     Text("\(location.shortName) · \(location.name)").tag(location)
                 }
-            }.pickerStyle(.menu).labelsHidden().frame(width: 250, alignment: .leading)
+            }.pickerStyle(.menu).labelsHidden().frame(width: 280, alignment: .leading)
                 .help("Change the architectural location · L")
+            if engine.location.world == "chicago" {
+                Button { engine.startChicagoFlyby() } label: {
+                    Label("Willis → Park → Art Institute", systemImage: "airplane")
+                        .font(.system(size: 11, weight: .medium))
+                        .padding(.horizontal, 12).padding(.vertical, 8)
+                }.buttonStyle(.plain).glassPanel(radius: 8)
+                    .help("Play the continuous four-minute flight across the shared Chicago world")
+                    .disabled(!engine.isReady)
+            }
         }.shadow(color: .black.opacity(0.15), radius: 14, y: 3)
     }
 
@@ -450,7 +459,7 @@ private struct ArchitectureWorkspace: View {
                     Spacer()
                     iconButton("xmark", help: "Close controls") { engine.showHelp = false }
                 }
-                Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s 56-second walkthrough. Idle speed changes both gentle motion and time per view; manual movement gives you the camera.")
+                Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough (56 seconds, or four minutes for the Chicago flight). Idle speed changes both gentle motion and time per view; manual movement gives you the camera.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")

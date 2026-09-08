@@ -9,7 +9,7 @@ scene_sources=(
   "$project_dir/Sources/ArchitectureEngine/NightLighting.swift"
   "$project_dir/Sources/ArchitectureEngine/ArchitectureLocation.swift"
 )
-for scene_source in "$project_dir"/Sources/ArchitectureEngine/Paris*.swift "$project_dir"/Sources/ArchitectureEngine/River*.swift "$project_dir"/Sources/ArchitectureEngine/Willis*.swift "$project_dir"/Sources/ArchitectureEngine/Chicago*.swift; do
+for scene_source in "$project_dir"/Sources/ArchitectureEngine/Millennium*.swift "$project_dir"/Sources/ArchitectureEngine/ArtInstitute.swift "$project_dir"/Sources/ArchitectureEngine/CameraTrack.swift "$project_dir"/Sources/ArchitectureEngine/Paris*.swift "$project_dir"/Sources/ArchitectureEngine/River*.swift "$project_dir"/Sources/ArchitectureEngine/Willis*.swift "$project_dir"/Sources/ArchitectureEngine/Chicago*.swift; do
   if [[ -f "$scene_source" ]]; then scene_sources+=("$scene_source"); fi
 done
 xcrun swiftc -O -whole-module-optimization \

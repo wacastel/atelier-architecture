@@ -1,0 +1,3 @@
+PASS: 16384 actual day/night GPU pixels are bit-identical for indexed/linear lights, cell boundaries, outside-grid rays, and both samplers (maximum difference 0.0)
+PASS: actual CPU grid helper + 48-byte GPU ABI, filtered interior grid, disabled fallback and active-count guard
+PASS: reversed-order negative control changes reservoir results and is detected

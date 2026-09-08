@@ -1,0 +1,135 @@
+{
+  "method": "Identical 32-frame camera path, 960x600, 3 bounces; independent common 128-SPP Sobol references; second half measured. Sampler comparisons compare reconstructed streams; reconstruction-vs-raw gains stay in individual reports. Timings isolated on M3 Ultra.",
+  "variants": {
+    "bean-night-4": {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 8.164822330103384,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 14.498346356958791,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.04493472132247633,
+      "rawTemporalResidualRMSE": 0.06246711700937339,
+      "reconstructedRMSE": 0.041265881161969054,
+      "reconstructedTemporalResidualRMSE": 0.054797525803228886,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 4,
+      "temporalNoiseReductionPercent": 12.27780562530788,
+      "view": "cloud-gate-night"
+    },
+    "bean-night-8": {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 2.4472235206641657,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 27.74056119415036,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.036934400672515535,
+      "rawTemporalResidualRMSE": 0.05202661729163503,
+      "reconstructedRMSE": 0.03603053333204139,
+      "reconstructedTemporalResidualRMSE": 0.047455530881625595,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 8.78605346256942,
+      "view": "cloud-gate-night"
+    },
+    "bean-night-random-4": {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 11.077839249459132,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 14.164848957989307,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.05155691744457812,
+      "rawTemporalResidualRMSE": 0.07120396444009076,
+      "reconstructedRMSE": 0.0458455250080914,
+      "reconstructedTemporalResidualRMSE": 0.0614479195218309,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 4,
+      "temporalNoiseReductionPercent": 13.701547371661238,
+      "view": "cloud-gate-night"
+    },
+    "bean-night-linear-8": {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 2.4472237577869316,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 66.47773046552174,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.03693440202038361,
+      "rawTemporalResidualRMSE": 0.05202661783689079,
+      "reconstructedRMSE": 0.03603053455934425,
+      "reconstructedTemporalResidualRMSE": 0.04745553051827048,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 8.786055116923375,
+      "view": "cloud-gate-night"
+    }
+  },
+  "crossSamplerComparisons": [
+    {
+      "variant": "bean-night-4",
+      "referenceVariant": "bean-night-random-4",
+      "imageErrorReductionPercent": 9.989293056005078,
+      "temporalErrorReductionPercent": 10.822813482300731
+    },
+    {
+      "variant": "bean-night-8",
+      "referenceVariant": "bean-night-random-4",
+      "imageErrorReductionPercent": 21.408832539964884,
+      "temporalErrorReductionPercent": 22.771134888031753
+    }
+  ],
+  "lightIndexSpeedup": 2.3964089983709442,
+  "indexedLinearLastFrame": [
+    {
+      "stream": "raw",
+      "maximumByteDifference": 1,
+      "differingChannelValues": 2,
+      "totalChannelValues": 2304000,
+      "rmsByteDifference": 0.0009316949906249123
+    },
+    {
+      "stream": "reconstructed",
+      "maximumByteDifference": 0,
+      "differingChannelValues": 0,
+      "totalChannelValues": 2304000,
+      "rmsByteDifference": 0.0
+    },
+    {
+      "stream": "reference",
+      "maximumByteDifference": 1,
+      "differingChannelValues": 6,
+      "totalChannelValues": 2304000,
+      "rmsByteDifference": 0.001613743060919757
+    }
+  ]
+}

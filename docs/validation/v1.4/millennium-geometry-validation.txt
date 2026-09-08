@@ -1,0 +1,3 @@
+PASS: Millennium triangles 1678830; materials 42; lights 84; build 0.15609192848205566 s
+PASS: all positions/normals finite, all material IDs valid; Cloud Gate 171264 triangles, no degenerate faces; max normal length error 1.7881393e-07
+Cloud Gate bounds SIMD3<Float>(1036.0599, 3.015, -434.15)...SIMD3<Float>(1048.86, 13.0, -414.15); volume 1105.712543286508 m³; minimum upward headroom from y4.75 along center route 1.8155293 m

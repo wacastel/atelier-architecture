@@ -2,6 +2,7 @@ import Foundation
 import Metal
 import simd
 import AVFoundation
+import VideoToolbox
 import CoreText
 
 @MainActor func runCommandLine() -> Bool {
@@ -20,17 +21,20 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago (default paris)
+        --location paris           paris / chicago / millennium (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
-        --single-view --stop 0      Export only the selected 56-second walkthrough
+        --single-view --stop 0      Export only the selected walkthrough (56s; Chicago flyby 240s)
         --idle                     Export the selected view’s slow idle animation
         --raw                      Disable motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
+        --random-sampling          Use independent random rays for sampler comparisons
+        --linear-lights            Disable spatial light indexing for exact comparisons
         --motion-test directory    Measure actual moving-scene noise against 128spp references
+        --motion-case name         Limit the moving-scene benchmark to one named case
         --obj building.obj --scale 1 Load another structure; scale converts units to meters
         """)
         return true
@@ -49,7 +53,8 @@ import CoreText
         switch locationName {
         case "paris", "eiffel": location = .paris
         case "chicago", "willis": location = .chicago
-        default: throw EngineError.message("Unknown location. Choose paris or chicago.")
+        case "millennium", "park": location = .millennium
+        default: throw EngineError.message("Unknown location. Choose paris, chicago or millennium.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -66,7 +71,7 @@ import CoreText
         let width = max(64,min(8192,integer("--width",args.contains("--self-test") ? 640 : 1920)))
         let height = max(64,min(8192,integer("--height",args.contains("--self-test") ? 400 : 1080)))
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(2,integer("--lighting",0))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(2,integer("--lighting",0))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         var pose = location.stops[stop].pose
         if args.contains("--at") {
@@ -115,13 +120,20 @@ import CoreText
             let collision = CollisionWorld(scene:scene)
             guard collision.distance(origin:SIMD3(0,3,90),direction:SIMD3(0,-1,0),maximum:10) != nil else { throw EngineError.message("Navigation ground intersection failed.") }
             let importerChecks = try testOBJImporter()
-            let report: [String:Any] = ["passed":true,"device":device.name,"unifiedMemory":device.hasUnifiedMemory,"rayTracing":device.supportsRaytracing,"triangleCount":scene.triangleCount,"geometricDetails":scene.detailCount,"materials":scene.materials.count,"lights":scene.lights.count,"location":location.rawValue,"mappedBuildingFootprints":location == .paris ? ParisContext.database.buildings.count:ChicagoContext.database.buildings.count,"mapTimestamp":location == .paris ? ParisContext.database.timestamp:ChicagoContext.database.timestamp,"thinGlass":renderer.hasTransmission,"allocatedMiB":renderer.allocatedMB,"gpuLastSampleMilliseconds":renderer.lastGPUTime,"imageMeanByte":mean,"resolution":[width,height],"samples":16,"abiValidated":true,"navigationBVHNodes":collision.nodes.count,"importerChecks":importerChecks,"elapsedSeconds":Date().timeIntervalSince(start)]
+            var report: [String:Any] = ["passed":true,"device":device.name,"unifiedMemory":device.hasUnifiedMemory,"rayTracing":device.supportsRaytracing,"triangleCount":scene.triangleCount,"geometricDetails":scene.detailCount,"materials":scene.materials.count,"lights":scene.lights.count,"location":location.rawValue,"mappedBuildingFootprints":location == .paris ? ParisContext.database.buildings.count:ChicagoContext.database.buildings.count,"mapTimestamp":location == .paris ? ParisContext.database.timestamp:ChicagoContext.database.timestamp,"thinGlass":renderer.hasTransmission,"allocatedMiB":renderer.allocatedMB,"gpuLastSampleMilliseconds":renderer.lastGPUTime,"imageMeanByte":mean,"resolution":[width,height],"samples":16,"abiValidated":true,"navigationBVHNodes":collision.nodes.count,"importerChecks":importerChecks,"elapsedSeconds":Date().timeIntervalSince(start)]
+            if location.world == "chicago" {
+                report["millenniumMapTimestamp"] = MillenniumContext.database.timestamp
+                report["millenniumMappedAreas"] = MillenniumContext.database.areas.count
+                report["millenniumMappedPaths"] = MillenniumContext.database.paths.count
+                report["millenniumMappedTrees"] = MillenniumContext.database.trees.count
+                report["sharedChicagoWorld"] = true
+            }
             try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:path.deletingLastPathComponent().appendingPathComponent("validation.json"))
             print("PASS: geometry, ABI, acceleration structure, hardware dispatch, progressive accumulation, image range, navigation BVH and OBJ importer.")
             print("Validation: \(path.deletingLastPathComponent().appendingPathComponent("validation.json").path)")
         }
         if args.contains("--motion-test") {
-            try validateSceneMotion(scene:scene,device:device,folder:URL(fileURLWithPath:value("--motion-test","output/motion-validation")),width:width,height:height,frames:max(16,min(240,integer("--frames",48))),samples:integer("--samples",4),referenceSamples:max(64,integer("--reference-samples",128)),nightOnly:args.contains("--lighting") && integer("--lighting",0)==2,location:location,regularization:options.regularization)
+            try validateSceneMotion(scene:scene,device:device,folder:URL(fileURLWithPath:value("--motion-test","output/motion-validation")),width:width,height:height,frames:max(16,min(240,integer("--frames",48))),samples:integer("--samples",4),referenceSamples:max(64,integer("--reference-samples",128)),nightOnly:args.contains("--lighting") && integer("--lighting",0)==2,location:location,regularization:options.regularization,lowDiscrepancySampling:options.lowDiscrepancySampling,indexedLighting:options.indexedLighting,caseName:args.contains("--motion-case") ? value("--motion-case", "") : nil)
         }
         if args.contains("--render") {
             let pixels = try renderer.renderOffscreen(pose:pose,options:options,width:width,height:height,samples:samples)
@@ -139,7 +151,9 @@ import CoreText
         }
         if args.contains("--video") {
             let url = URL(fileURLWithPath:value("--video","output/Eiffel-Walkthrough.mp4"))
-            let seconds = max(6,min(600,Double(value("--seconds",String(args.contains("--single-view") ? 56 : location.stops.count*12))) ?? 84))
+            let defaultSeconds = args.contains("--single-view") || args.contains("--idle") ? location.duration(view: stop) : Double(location.stops.count*12)
+            guard let requestedSeconds=Double(value("--seconds",String(defaultSeconds))),requestedSeconds.isFinite else { throw EngineError.message("--seconds requires a finite duration.") }
+            let seconds = max(6,min(600,requestedSeconds))
             let fps = max(12,min(60,integer("--fps",24)))
             try exportVideo(renderer:renderer,url:url,width:width,height:height,seconds:seconds,fps:fps,samples:samples,options:options,singleView:args.contains("--single-view") || args.contains("--idle") ? stop : nil,idle:args.contains("--idle"),location:location)
         }
@@ -154,7 +168,15 @@ private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,sec
     // A fresh export never silently replaces an existing recording.
     if FileManager.default.fileExists(atPath:url.path) { throw EngineError.message("Video already exists at \(url.path); choose a new filename.") }
     let writer = try AVAssetWriter(outputURL:url,fileType:.mp4)
-    let settings:[String:Any] = [AVVideoCodecKey:AVVideoCodecType.h264,AVVideoWidthKey:width,AVVideoHeightKey:height,AVVideoCompressionPropertiesKey:[AVVideoAverageBitRateKey:width*height*10,AVVideoProfileLevelKey:AVVideoProfileLevelH264HighAutoLevel]]
+    // AutoLevel needs the source-rate hint to select a compatible bitstream.
+    // Offline frame timestamps must remain independent of rendering wall time.
+    let compression:[String:Any] = [
+        AVVideoAverageBitRateKey:width*height*10,
+        AVVideoProfileLevelKey:AVVideoProfileLevelH264HighAutoLevel,
+        AVVideoExpectedSourceFrameRateKey:fps,
+        kVTCompressionPropertyKey_RealTime as String:false
+    ]
+    let settings:[String:Any] = [AVVideoCodecKey:AVVideoCodecType.h264,AVVideoWidthKey:width,AVVideoHeightKey:height,AVVideoCompressionPropertiesKey:compression]
     let input = AVAssetWriterInput(mediaType:.video,outputSettings:settings)
     input.expectsMediaDataInRealTime = false
     let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput:input,sourcePixelBufferAttributes:[kCVPixelBufferPixelFormatTypeKey as String:kCVPixelFormatType_32BGRA,kCVPixelBufferWidthKey as String:width,kCVPixelBufferHeightKey as String:height,kCVPixelBufferCGImageCompatibilityKey as String:true,kCVPixelBufferCGBitmapContextCompatibilityKey as String:true])
@@ -169,11 +191,11 @@ private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,sec
             let time = Double(frame)/Double(frameCount)*duration
             let shot: (pose:CameraPose,index:Int)
             if let view = singleView {
-                let local = idle ? Double(frame)/Double(fps) : Double(frame)/Double(max(1,frameCount-1))*location.duration
+                let local = idle ? Double(frame)/Double(fps) : Double(frame)/Double(max(1,frameCount-1))*location.duration(view: view)
                 shot = (idle ? location.idlePose(view:view,seconds:local) : location.pose(view:view,seconds:local),view)
             } else {
                 let chapter=min(location.stops.count-1,Int(time/12))
-                shot=(location.pose(view:chapter,seconds:(time-Double(chapter)*12)/12*location.duration),chapter)
+                shot=(location.pose(view:chapter,seconds:(time-Double(chapter)*12)/12*location.duration(view: chapter)),chapter)
             }
             let pixels = try renderer.renderPreviewOffscreen(pose:shot.pose,options:options,width:width,height:height,samples:samples,resetHistory:previousChapter != shot.index)
             previousChapter = shot.index
@@ -216,7 +238,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
         context.textPosition = CGPoint(x:x,y:y); CTLineDraw(line,context)
     }
     let ivory = CGColor(red:0.95,green:0.94,blue:0.90,alpha:1), gold = CGColor(red:0.86,green:0.71,blue:0.47,alpha:1)
-    text(location == .paris ? "A T E L I E R    /    E I F F E L":"A T E L I E R    /    W I L L I S",x:58,y:h-69,size:18,color:gold)
+    text(location == .paris ? "A T E L I E R    /    E I F F E L" : location == .chicago ? "A T E L I E R    /    W I L L I S" : "A T E L I E R    /    M I L L E N N I U M",x:58,y:h-69,size:18,color:gold)
     text(stop.title,x:58,y:h-115,size:32,color:ivory)
     text("\(stop.subtitle)  ·  METAL HARDWARE RAY TRACING",x:58,y:h-148,size:13,color:ivory)
     context.setFillColor(CGColor(red:0.035,green:0.055,blue:0.07,alpha:0.65)); context.fill(CGRect(x:30,y:28,width:1860,height:34))

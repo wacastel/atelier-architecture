@@ -1,0 +1,157 @@
+{
+  "reviewedAtUTC": "2026-09-08T02:22:47.825484+00:00",
+  "visualReviewPassed": true,
+  "scope": "Final full-scene park stops 0\u20135 in day and night; excludes museum, connecting flyby and motion performance.",
+  "method": "All 12 listed PNGs were opened with view_image and actually inspected. Corrected Pavilion stop 3 was reviewed first in both modes. These are unfiltered progressive renders; no image edits or new renders were performed for this review.",
+  "images": [
+    {
+      "path": "output/v5-review/final/day/00-chicago's-garden-of-art.png",
+      "stop": 0,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 3517206,
+      "sha256": "061195104e1c48ac850870b4de23cbd16575a70a934832e479f74839fb07cb57",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/day/01-a-city-in-the-bean.png",
+      "stop": 1,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2369247,
+      "sha256": "c4c7b76804703d2bb075e28f014d1eb2374503319fce89965e35ffbde6dc669f",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/day/02-beneath-cloud-gate.png",
+      "stop": 2,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2214423,
+      "sha256": "9e6f57d29fbf5a51566eaf59c4fb4e963d2a63f747dc0e9673f54ef916178f40",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/day/03-music-under-the-skyline.png",
+      "stop": 3,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2697299,
+      "sha256": "7e62038673cc9392ce01f955c72d97c1703baa03dde3932e0f5263841bdcd653",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/day/04-water,-glass-and-light.png",
+      "stop": 4,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2542470,
+      "sha256": "2aba56f33ae077f6a8440b72bee5b1b81df47126b05607d302e1babf0b408f37",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/day/05-a-garden-and-a-bridge.png",
+      "stop": 5,
+      "mode": "day",
+      "samplesPerPixel": 128,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2962410,
+      "sha256": "2f164fa52ac215178589f0d6f620630ac170500e15f60b0e4afa499d08728f8e",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/00-chicago's-garden-of-art.png",
+      "stop": 0,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2565423,
+      "sha256": "aeebaaf209bacfe400946f36c68c7e457fbab9d91680b3e6f3f77c22adba1e11",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/01-a-city-in-the-bean.png",
+      "stop": 1,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2023165,
+      "sha256": "8411917ba1b35ac0206ff3a13ec8d738a810b8febb617600a151bd3a4600c8d7",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/02-beneath-cloud-gate.png",
+      "stop": 2,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 1957449,
+      "sha256": "370fb981917860c12f88a78658cdd7b1839aa9f0e409607e80b7ed6357c81ed4",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/03-music-under-the-skyline.png",
+      "stop": 3,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2120574,
+      "sha256": "9ab305c06254fa1ff8387f94d1cb50be6371e7a0c23df6ce5663f306fa6eac93",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/04-water,-glass-and-light.png",
+      "stop": 4,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 1972037,
+      "sha256": "dbf9910251f4721ec9f861a3356f0c618726fcd9102899715d9020cf51d4768a",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "output/v5-review/final/night/05-a-garden-and-a-bridge.png",
+      "stop": 5,
+      "mode": "night",
+      "samplesPerPixel": 256,
+      "width": 1600,
+      "height": 1000,
+      "bytes": 2351781,
+      "sha256": "ec3fbb50ad5f924ffe2d1623271cc8351b9c29e052f434a46742dbc10b2fc12c",
+      "visuallyReviewed": true
+    }
+  ],
+  "findings": [
+    "Corrected Pavilion ribbons expose broad curved steel faces above a dark stage cavity; trellis, suspended speakers, lawn and stage composition read clearly in both modes. Violet/warm nighttime lighting keeps the headdress and stage visible.",
+    "Overview shows the mapped spatial relationship among Grainger Plaza, Crown Fountain, Monument, Great Lawn, Lurie Garden, BP Bridge and Nichols Bridgeway. Night illumination identifies plaza, stage, lawn and principal paths.",
+    "Cloud Gate outer and underside views have continuous curved skyline/paving reflections and a clear arch opening. The former scalloped normal artifact is absent. Warm plaza light makes the lower mirrored shell readable against a dark blue upper shell at night.",
+    "Crown Fountain framing is unobstructed; glass-block joints, stream silhouette and reflected tower/pool illumination are visible in day and night.",
+    "Lurie Garden beds, paths, hedges, flowers and the Nichols connection remain readable in the final camera composition, with stronger foreground lighting at night."
+  ],
+  "limitations": [
+    "Unfiltered 128/256-sample stills retain Monte Carlo grain, especially in reflected paving and dark surfaces. This still-image review does not certify motion noise performance.",
+    "Tree crowns use simplified solid geometry; foreground garden trees look stylized and brightly lit at night. Flower species and individual planting specimens are authored approximations.",
+    "Cloud Gate and Pritzker ribbons are reference-based geometric interpretations, not scans or fabrication CAD; the Pavilion headdress is simplified.",
+    "Crown LED imagery is an original abstract color field, not the actual filmed portraits. Water geometry is static and the narrow stream reads as a dark silhouette; ripple shading is an approximation.",
+    "Surrounding city footprints follow map data, while many facades retain generic repeated windows and simplified architectural treatment.",
+    "Light positions, beam angles and powers are authored for visual correspondence; this is not surveyed photometry."
+  ],
+  "blockers": [],
+  "millenniumEnvironmentSourceSHA256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d"
+}

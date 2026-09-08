@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "copiedApplication": "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-mcsx_7bg/Atelier.app",
+  "workingDirectories": [
+    "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-mcsx_7bg/millennium",
+    "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v14-package-mcsx_7bg/paris"
+  ],
+  "sourceRepositoryReadsDeniedBySandbox": "/Users/william/dev/architecture",
+  "sourceAndBuildUntouched": true,
+  "locations": [
+    "millennium",
+    "paris"
+  ]
+}
