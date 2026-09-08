@@ -1,0 +1,5 @@
+{
+  "cause": "Advancing dome neighborhood used traffic-style fully reactive guides, bypassing both spatial and temporal reconstruction. The entire theater case is byte-identical to raw, correctly avoiding projection trails but retaining stochastic seat noise.",
+  "observed": "Five new campus cases improve; planetarium-show is exactly equal to raw and fails the unchanged strict improvement requirement.",
+  "action": "Separate changing diffuse illumination from direct projection and smooth reflections. Reject temporal history for the new diffuse guide while permitting bounded edge-aware spatial filtering. Dedicated GPU negative controls and unchanged full-world motion checks required."
+}

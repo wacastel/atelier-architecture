@@ -1,0 +1,23 @@
+Scene: 8645884 triangles; navigation: 6673220 triangles, 1760325 BVH nodes; built 1.4842720031738281s
+STOP 1 Beneath the arches: position=SIMD3<Float>(0.0, 2.0, 77.0), floor=0.009999752, passable 0.2m steps=["+X", "-X", "+Z", "-Z"]
+STOP 3 The first terrace: position=SIMD3<Float>(3.5, 58.75, 28.0), floor=57.0, passable 0.2m steps=["+X", "-X", "+Z", "-Z"]
+STOP 4 The visitor pavilion: position=SIMD3<Float>(25.2, 58.75, 7.5), floor=57.050003, passable 0.2m steps=["+X", "-X", "+Z", "-Z"]
+STOP 5 Above the city: position=SIMD3<Float>(3.0, 116.75, 17.5), floor=115.0, passable 0.2m steps=["+X", "-X", "+Z", "-Z"]
+STOP 6 The summit gallery: position=SIMD3<Float>(0.0, 277.75, 6.6), floor=276.0, passable 0.2m steps=["+X", "-X", "+Z", "-Z"]
+PATH ground beneath arches: reached SIMD3<Float>(0.0, 1.8594999, 0.0006004721), length 77.0m
+PATH first terrace lateral: reached SIMD3<Float>(17.000029, 58.75, 28.0), length 13.5m
+PATH east pavilion south doorway: reached SIMD3<Float>(26.0, 58.800003, 8.999977), length 6.0m
+PATH east pavilion full central aisle + north doorway: reached SIMD3<Float>(26.0, 58.75, -15.000019), length 24.0m
+PATH west pavilion mirrored central aisle: reached SIMD3<Float>(-26.0, 58.75, -15.000043), length 30.0m
+PATH second terrace lateral: reached SIMD3<Float>(-3.9999979, 116.75, 17.5), length 7.0m
+PATH summit gallery lateral: reached SIMD3<Float>(3.9999983, 277.75, 6.6), length 4.0m
+PATH first terrace central void safety: blocked after 31 / 80 steps at SIMD3<Float>(0.0, 58.75, 13.899988)
+PATH first terrace outer edge safety: blocked after 10 / 50 steps at SIMD3<Float>(0.0, 58.75, 35.999985)
+PATH second terrace central void safety: blocked after 24 / 60 steps at SIMD3<Float>(0.0, 116.75, 7.599993)
+PATH summit outer edge safety: blocked after 8 / 44 steps at SIMD3<Float>(0.0, 277.75, 7.399999)
+SUPPORT first void: false
+SUPPORT second void: false
+SUPPORT outside first deck: false
+CHICAGO: supported visitor views; glass Ledge floor, entry, outer barrier and void; Catalog entrance
+MILLENNIUM: raised plaza and Bean arch support/clearance; Modern Wing entrance, Griffin Court and gallery
+FAILURES: []

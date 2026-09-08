@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "scope": "Root inspected all four final-package opening Art Institute and McCormick day/night bookmark stills at 1600x1000.",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/final-day/00-from-art-to-natural-history.png",
+      "sha256": "2a28a0c99710c5fc2822dd67a59e765904f1fc2f95e16ae84a321fd5905b8c75",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/final-day/07-the-mccormick-place-campus.png",
+      "sha256": "e73d50ec816683e680cf251bcce92073cfbba1352073436f51e73e5abfd0c870",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/final-night/00-from-art-to-natural-history.png",
+      "sha256": "f412ddd0ca29d9a999a35a91008bfe39b88a87f279c4734b8d29ea65fa58e58d",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/final-night/07-the-mccormick-place-campus.png",
+      "sha256": "2ef4e6cb6244c5a9f8bd573ddfb3da8dff85eed0c058247a647c8aee9484156a",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Art Institute departure retains the Modern Wing roof fins, glazed frontage and continuous city context. Night fixtures and skyline windows remain visible; fine glass/roof grain remains.",
+    "McCormick Lakeside terrace meets the mapped shore without the former ground wedge. Recessed glazing, dark steel envelope, North pylons, South curved edge and hotel cluster remain legible.",
+    "Night McCormick uses modest promenade, pylon and window illumination. Broad roofs and open water remain dark; night brightness is an authored interpretation."
+  ]
+}

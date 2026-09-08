@@ -1,0 +1,6 @@
+PASS: arc length, bend continuity, bridge grade, bounded endpoint streaming, cars/buses, malformed lanes, huge/negative time and deterministic light/pose ABI
+PASS: 13944 actual mapped road placements across six lanes, both directions and ten minutes; 168 vehicles retain lane grade and safe longitudinal spacing
+PASS: actual hardware TLAS/traffic BLAS build+refit; world vertex max error 0.0m; deterministic rewind/pause and stationary-camera invalidation
+PASS: moving night headlights illuminate road outside visible car/lamp geometry (mean pixel 4.155056423611112 → 30.624891493055557)
+PASS: all five traffic kernels execute; static light index equivalence retained; actual guides reject moving bodies, nearby roadway and distant reflected cars while preserving unrelated/paused surfaces
+PASS: two queued GPU updates retain their own immutable frame transforms

@@ -1,0 +1,86 @@
+{
+  "viewedDate": "2026-09-08",
+  "scope": "Reference-only visual inspection; no source photographic assets included in scene",
+  "mapSnapshot": "scripts/data/chicago-museum-campus-osm-2026-09-08.json",
+  "references": [
+    {
+      "title": "Field main and upper floor plan",
+      "url": "https://www.datocms-assets.com/44232/1670515204-fm_map_english_digital_091822.pdf",
+      "inspection": "Native Chrome",
+      "observations": "Long north–south central hall, north/south entrances, side galleries and upper balcony. Publication September 2022; current official maps page linked this file."
+    },
+    {
+      "title": "Field Stanley Hall event photograph",
+      "url": "https://www.datocms-assets.com/44232/1642284078-specialevents_maximo2018flubacker298_webexport.jpg",
+      "inspection": "Native Chrome",
+      "observations": "Actually inspected Ionic columns, upper arches, balcony rail, large paving blocks, sauropod/elephants. Event blue/pink illumination not adopted as permanent lighting."
+    },
+    {
+      "title": "Field south facade",
+      "url": "https://www.datocms-assets.com/44232/1632763978-gn90618095d.jpg",
+      "inspection": "Native Chrome",
+      "observations": "Triangular pediment and corner ornaments, broad side wings; corrected initial flat attic assumption."
+    },
+    {
+      "title": "Field frontal portico",
+      "url": "https://www.datocms-assets.com/44232/1632763991-gn9067005bd.jpg",
+      "inspection": "Native Chrome",
+      "observations": "Four Ionic shafts between broad plain antae, flanking caryatid porches, pediment. Corrected initial eight-shaft inference."
+    },
+    {
+      "title": "Museum Campus aerial",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.627,41.850,-87.598,41.870&bboxSR=4326&imageSR=3857&size=1400,1300&format=png&f=image",
+      "inspection": "Native Chrome",
+      "observations": "Field rectangle and broad stairs, Shedd octagon and lake-facing crescent, shoreline relationship. Acquisition date unknown; used OSM for ground placement."
+    },
+    {
+      "title": "Shedd facade conservation profile",
+      "url": "https://vertical-access.com/wp-content/uploads/2016/06/shedd_aquarium.pdf",
+      "inspection": "Native Chrome",
+      "observations": "Actually viewed Doric shafts and marble facade, pediment/cornice, aquatic relief details; source describes original octagonal rotunda and cardinal wings."
+    },
+    {
+      "title": "Shedd current visitor plan",
+      "url": "https://www.sheddaquarium.org/map",
+      "inspection": "Native Chrome",
+      "observations": "Actually viewed exploded levels and Main Entry beside south circular ticketing/dropoff. July 21, 2026 poster. Ground entrance, main-level rotunda, lower/underwater oceanarium levels. Modeled ramp is interpretive."
+    },
+    {
+      "title": "Shedd current Wonder of Water hero",
+      "url": "https://www.sheddaquarium.org/exhibits/wonder-of-water",
+      "inspection": "Parent agent hidden in-app browser",
+      "observations": "Parent actually viewed two curved tanks, green freshwater and blue coral, central passage, double-lobed gold scalloped crown, pale rotunda and glazed dome. Not the former single Caribbean Reef tank."
+    },
+    {
+      "title": "Oceanarium designer interior photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/627a7a44178ccf7bb2347908/dd12bd4a-b78e-4cdb-b429-a463c4044e3b/Abbott%2BOceanarium_Website_2.jpg",
+      "inspection": "Native Chrome",
+      "observations": "Actually viewed exposed trussed ceiling and fixtures, stone seating terraces, rock-framed shore, pool and glass rail; Space Haus owner-team designer portfolio,2009 project."
+    },
+    {
+      "title": "Shedd west entrance at night",
+      "url": "https://commons.wikimedia.org/wiki/File:Acuario_Shedd,_Chicago,_Illinois,_Estados_Unidos,_2012-10-21,_DD_05.jpg",
+      "inspection": "Native Chrome direct Wikimedia image",
+      "observations": "Photographer Diego Delso,October 21, 2012. Warm off-white column/pediment washing; darker stairs, globe lamps, cool glazing behind shafts. Viewed only; no asset downloaded."
+    },
+    {
+      "title": "Field Museum at night",
+      "url": "https://www.flickr.com/photos/cormackphotos/54745703595",
+      "inspection": "Native Chrome",
+      "observations": "Brian Cormack photograph June 25, 2025. Actually viewed warm-white portico/column lighting and brighter pediment, dark stairs, temporary pink wing wash. Permanent reconstruction uses warm-white lighting; no image downloaded."
+    },
+    {
+      "title": "Close aerial of Shedd south entrance and Museum Campus Cafe",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.616,41.8659,-87.6125,41.8678&bboxSR=4326&imageSR=3857&size=1000,800&format=png&f=html",
+      "inspection": "Native Chrome; actually viewed September 8, 2026",
+      "observations": "Two low rounded white pavilion roofs frame the circular Man with Fish plaza. The cafe is a narrow diagonal low roof beside the southwest dropoff. OSM relation 18999713 matches the southwest ticket pavilion; way 445721198 is the cafe. Image acquisition date unknown; roof height cannot be measured reliably from this aerial."
+    },
+    {
+      "title": "Built Shedd ticket pavilion at night, engineer presentation",
+      "url": "https://seaoi.org/resources/Pictures/Structures%20Symposium/3_Exterior%20at%20night_credit%20VDT%20-%20Carolyn%20Everett.jpeg",
+      "sourcePage": "https://seaoi.org/event-6235358",
+      "inspection": "Native Chrome; actually viewed September 8, 2026",
+      "observations": "Photo credited to VDT / Carolyn Everett in Thornton Tomasetti engineer Melissa Bayer's 2025 SEAOI presentation. Curved glass ticket pavilion has one tall storey, a thin cream rounded overhanging roof, glazed columns and mullions, warm ceiling illumination and bright ticket kiosks. Approximate 4–5m roof height is an inference from door/kiosk scale, not a published dimension."
+    }
+  ]
+}

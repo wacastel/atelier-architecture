@@ -7,7 +7,7 @@ import simd
 private struct Vertex { var p,n:SIMD4<Float> }
 private struct Material { var c,p:SIMD4<Float> }
 private struct Light { var p,d,c,r:SIMD4<Float> }
-private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>;var viewport:SIMD4<UInt32>;var settings:SIMD4<Float> }
+private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>;var viewport:SIMD4<UInt32>;var settings:SIMD4<Float>; var animation:SIMD4<Float> = .zero }
 func require(_ condition:Bool,_ message:String) { if !condition { fputs("FAIL: \(message)\n",stderr);exit(1) } }
 let root=URL(fileURLWithPath:#filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
 let source=try String(contentsOf:root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Renderer.metal"),encoding:.utf8)
@@ -49,7 +49,7 @@ func atmosphere(_ library:MTLLibrary,night:Bool,kernel:String="checkAtmosphere")
     let out=buffer([SIMD4<Float>](repeating:.zero,count:64)),pipeline=try device.makeComputePipelineState(function:library.makeFunction(name:kernel)!)
     var frame=u;frame.sunColor.w=night ? 1:0
     let command=queue.makeCommandBuffer()!,encoder=command.makeComputeCommandEncoder()!
-    encoder.setComputePipelineState(pipeline);encoder.setBuffer(out,offset:0,index:0);encoder.setBytes(&frame,length:128,index:1)
+    encoder.setComputePipelineState(pipeline);encoder.setBuffer(out,offset:0,index:0);encoder.setBytes(&frame,length:144,index:1)
     encoder.dispatchThreads(MTLSize(width:32,height:1,depth:1),threadsPerThreadgroup:MTLSize(width:32,height:1,depth:1));encoder.endEncoding();try commit(command)
     return Array(UnsafeBufferPointer(start:out.contents().assumingMemoryBound(to:SIMD4<Float>.self),count:64))
 }
@@ -108,7 +108,7 @@ func trace(_ library:MTLLibrary,kernel:String,spp:Int,nearHorizon:Bool=false,mis
         if nearHorizon {frame.right=SIMD4(0.05,0,0,0);frame.up=SIMD4(0,0.000002,0,1)}
         if missScene {frame.forward=SIMD4(0,0,1,0)}
         var trafficCounts=SIMD4<UInt32>(2,0,1,0)
-        let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(pipeline);e.setTexture(output,index:0);e.setBytes(&frame,length:128,index:0)
+        let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(pipeline);e.setTexture(output,index:0);e.setBytes(&frame,length:144,index:0)
         e.setBuffer(vb,offset:0,index:1);e.setBuffer(ids,offset:0,index:2);e.setBuffer(mb,offset:0,index:3);e.setAccelerationStructure(traffic ? top:acceleration,bufferIndex:4);e.setBuffer(lights,offset:0,index:5)
         if indexed {e.setBuffer(gridBuffer,offset:0,index:6);e.setBuffer(ranges,offset:0,index:7);e.setBuffer(indices,offset:0,index:8)}
         if traffic {e.setBytes(&trafficCounts,length:16,index:9);e.setBuffer(gridBuffer,offset:0,index:10);e.setBuffer(ranges,offset:0,index:11);e.setBuffer(indices,offset:0,index:12);e.setBuffer(dynamicLights,offset:0,index:13)}

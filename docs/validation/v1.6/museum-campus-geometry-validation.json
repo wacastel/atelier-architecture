@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "CPU-only museum campus environment and Soldier Field geometry; no full-world rendering or GPU image claims",
+  "environmentTriangles": 763927,
+  "soldierFieldTriangles": 614790,
+  "totalTriangles": 1378717,
+  "lights": 390,
+  "boats": 151,
+  "trafficLanes": 6,
+  "maxNormalError": 2.3841858e-07,
+  "checks": [
+    "finite geometry",
+    "unit normals",
+    "noncollapsed triangles",
+    "valid material indices",
+    "six extended traffic lanes with exact old northern sequences",
+    "clear museum approach masks including the current south Shedd entrance",
+    "suppressed generic stadium slab",
+    "bounded low-rise harbor estimate preserving tagged heights",
+    "actual built-mesh portico aisle and field camera clearance",
+    "untagged cafe low-rise estimate preserves tagged heights",
+    "actual modeled ticket canopy remains between4m and5m above shared grade",
+    "actual bent walkway mesh covers joint samples once, without holes or coplanar overlaps"
+  ],
+  "filesSHA256": {
+    "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources/ArchitectureEngine/SoldierField.swift": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+    "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+    "Tests/MuseumCampusGeometry/main.swift": "cabe4b6e16d8a0cbc8578223eb9fb966255e973fdf09669f04f15724a7113c35",
+    "scripts/validate-museum-campus-geometry.sh": "0d00c509dcb57729612358a578e000a8312979ac9231e7ab26ae73bfeb1939ca",
+    "Sources/ArchitectureEngine/ChicagoEnvironment.swift": "9f2c506fa2dc5053474af3234be809b2976cf58a46ef8d699ba3472835ad763c",
+    "Sources/ArchitectureEngine/LakefrontEnvironment.swift": "f1f769069566eb1190473ac2c056099fa383a6a520ea21498924b2488ac95970"
+  },
+  "logSHA256": "f32bf9bd1c6cae298d8fa7457447a04529818368f1eb15389b96a69231b0d444"
+}

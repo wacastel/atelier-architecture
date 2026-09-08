@@ -21,13 +21,13 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / millennium / lakefront (default paris)
+        --location paris           paris / chicago / millennium / lakefront / campus (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
-        --single-view --stop 0      Export one full route (56 / 90 / 120 / 240 seconds)
+        --single-view --stop 0      Export one full route (56–240 seconds)
         --idle                     Export the selected view’s slow idle animation
         --raw                      Disable motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
@@ -55,7 +55,8 @@ import CoreText
         case "chicago", "willis": location = .chicago
         case "millennium", "park": location = .millennium
         case "lakefront", "magmile", "grant": location = .lakefront
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium or lakefront.")
+        case "campus", "museum", "museums": location = .campus
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront or campus.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -66,7 +67,7 @@ import CoreText
         if args.contains("--obj") { print(OBJScene.materialLimitations) }
         print("Scene: \(scene.name) | \(scene.triangleCount) triangles | \(scene.detailCount) geometric details | \(scene.materials.count) materials")
         guard scene.vertices.allSatisfy({ v in v.position.x.isFinite && v.position.y.isFinite && v.position.z.isFinite && v.normal.x.isFinite && v.normal.y.isFinite && v.normal.z.isFinite }) else { throw EngineError.message("Scene has nonfinite vertices.") }
-        guard MemoryLayout<SceneVertex>.stride == 32, MemoryLayout<SceneMaterial>.stride == 32, MemoryLayout<FrameUniforms>.stride == 128, MemoryLayout<SceneLight>.stride == 64, MemoryLayout<TemporalUniforms>.stride == 112 else { throw EngineError.message("Swift/Metal ABI mismatch.") }
+        guard MemoryLayout<SceneVertex>.stride == 32, MemoryLayout<SceneMaterial>.stride == 32, MemoryLayout<FrameUniforms>.stride == 144, MemoryLayout<SceneLight>.stride == 64, MemoryLayout<TemporalUniforms>.stride == 112 else { throw EngineError.message("Swift/Metal ABI mismatch.") }
         let renderer = try MetalRenderer(scene:scene,device:device)
         print(String(format:"Metal pipelines + acceleration structure: %.2fs | allocated %.1f MiB",renderer.buildSeconds,renderer.allocatedMB))
         let width = max(64,min(8192,integer("--width",args.contains("--self-test") ? 640 : 1920)))
@@ -133,6 +134,12 @@ import CoreText
                 report["lakefrontMappedSurfaces"] = LakefrontContext.database.areas.count
                 report["lakefrontMappedTrees"] = LakefrontContext.database.trees.count
                 report["lakefrontMappedPiers"] = LakefrontContext.database.piers.count
+                report["museumCampusMapTimestamp"] = MuseumCampusContext.database.timestamp
+                report["museumCampusAdditionalMappedBuildings"] = MuseumCampusContext.database.buildings.count
+                report["museumCampusLandmarksAndParts"] = MuseumCampusContext.database.landmarks.count
+                report["museumCampusAdditionalBoats"] = MuseumCampusContext.database.boats.count
+                report["museumCampusAdditionalTrees"] = MuseumCampusContext.database.trees.count
+                report["frameUniformBytes"] = MemoryLayout<FrameUniforms>.stride
                 let fleet = TrafficFleet(lanes: scene.trafficLanes)
                 report["trafficLanes"] = fleet.paths.count
                 report["trafficVehicles"] = fleet.vehicles.count
@@ -265,6 +272,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     case .chicago: heading = "A T E L I E R    /    W I L L I S"
     case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
+    case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"
     }
     text(heading,x:58,y:h-69,size:18,color:gold)
     text(stop.title,x:58,y:h-115,size:32,color:ivory)

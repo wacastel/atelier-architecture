@@ -1,0 +1,70 @@
+{
+  "reviewDate": "2026-09-08",
+  "version": "1.6.0",
+  "build": 7,
+  "sourceInputManifest": "output/v7-review/final-input.json",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "scope": "Actual visual inspection of four regenerated final-package museum bookmark PNGs only. This record does not certify the entire museum interiors, every route time, motion noise, or exported movies.",
+  "actuallyViewed": true,
+  "passed": true,
+  "visualReviewPassed": true,
+  "images": [
+    {
+      "path": "output/v7-review/final-day/01-the-field-museum.png",
+      "title": "Field portico daylight",
+      "sha256": "fc63c68042889b2bd9daf7e7a2dbd40e4b62c83980e1b2d0cd44e903b2aa5200",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Four Ionic front columns and side piers read clearly. FIELD MUSEUM lettering is left-to-right; a view through the entrance reveals the hall. Daytime portico is in cool shadow, with some still-image grain on shaded stone."
+    },
+    {
+      "path": "output/v7-review/final-day/02-a-world-beneath-the-water.png",
+      "title": "Shedd west approach daylight",
+      "sha256": "1d205386f3f46da01f5c501b00851a93aceb4a3ff486ec0d711008eb1cde8116",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Classical portico and pediment are visible at left; mapped low glass ticket pavilion and museum facade read at appropriate scale. Trees frame the edges without blocking the landmark. Previous oversized cafe/pavilion masses are absent."
+    },
+    {
+      "path": "output/v7-review/final-night/01-the-field-museum.png",
+      "title": "Field portico nighttime",
+      "sha256": "2cc2fe34f3e29966da26791a92008f8417ab434f014971fe7d29cdd5ca49c18d",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Warm architectural wash lights the columns, cornice and side piers. Lettering remains left-to-right but partly in cornice shadow. Stairs are darker; entrance and hall remain visible."
+    },
+    {
+      "path": "output/v7-review/final-night/02-a-world-beneath-the-water.png",
+      "title": "Shedd west approach nighttime",
+      "sha256": "63b2fc09fd651739d594de04ff5df29cbe05bb67fad100013cc4be81453c25df",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Illuminated classical portico and warm low ticket canopy remain recognizable, with restrained ground reflections. No foreground cafe or trunk obstruction. Lawn and unlit roof remain dark."
+    }
+  ],
+  "limitations": [
+    "The Field bookmark is an intentional close view of its north portico, not a whole-building portrait.",
+    "The central Shedd dome is hidden by the near roof at this ground-level composition; the portico supplies landmark recognition.",
+    "Dark nighttime lawn and unlit surfaces retain limited detail. Lighting is authored rather than measured photometry.",
+    "Architectural and exhibit models remain documented procedural interpretations."
+  ],
+  "sourceEdits": false,
+  "gpuJobsLaunchedByReviewer": false
+}

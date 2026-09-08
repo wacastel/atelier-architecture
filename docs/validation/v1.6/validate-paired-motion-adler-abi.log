@@ -1,0 +1,1 @@
+PASS: 55296 actual accumulation channels match paired raw presentation at 1/8/32 SPP (maximum quantization difference 0); one trace budget and traffic update per frame; paused clock and normal preview preserved

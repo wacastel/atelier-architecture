@@ -1,0 +1,74 @@
+{
+  "reviewDate": "2026-09-08",
+  "scope": "Six actually viewed isolated Adler stills,1200x800,64SPP; no surrounding campus geometry",
+  "visualReviewPassed": true,
+  "images": [
+    {
+      "path": "output/v7-review/adler-final/exterior-day.png",
+      "sha256": "0d9db627625f3a89b4bbce7e7c64388f519fb3a11c3b0eb2ca1eac2e4718c391",
+      "actuallyViewed": true,
+      "observations": [
+        "Twelve-sided, three-tier stone core and copper hemisphere are legible together with the broad west stair.",
+        "Granite is restrained, with no earlier square camouflage patches. Sloping glass crescent and Doane dome remain visible.",
+        "Fixture housings are small and bounded to the roof terrace."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-final/exterior-night.png",
+      "sha256": "7104507b1fda383c36efe560c9b94857a3bf59301e4c2463f0075ec3150da817",
+      "actuallyViewed": true,
+      "observations": [
+        "Warm grazing light reveals the lower copper dome and facade; roof-terrace lights reveal the upper stone drum.",
+        "Upper copper and some terrace bands remain dark outside the grazing lights; illumination is an interpreted scheme, not measured photometry.",
+        "Night glass and indirect surfaces retain some visible low-sample grain."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-final/welcome.png",
+      "sha256": "82cbad91f6c1a798a550175297abf4ea249c6e95c6291ea3db2443857390fe7c",
+      "actuallyViewed": true,
+      "observations": [
+        "Open entrance leaf and frame sit at the left edge; the central walkable floor leads through repeated gallery ribs.",
+        "Projection is visible through the theater doorway only; screen exterior is opaque.",
+        "Gallery ceiling and reflected/indirect areas show residual noise in the unfiltered64SPP proof."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-final/theater-0.png",
+      "sha256": "6dcde3b326d292d940d548df34a449c70bb89c3811a25b5bbd7b953737e52462",
+      "actuallyViewed": true,
+      "observations": [
+        "Stars now vary in apparent size and brightness, with substantially less density than the initial proof.",
+        "Original blue line constellations, teal/purple curtains and ringed stylized planet occupy the dome.",
+        "Seats form dark silhouettes around the central aisle; no seat or beam blocks the main projection."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-final/theater-35.png",
+      "sha256": "1e9bf1b45e9243e94c71407da66136d27c82cac54e1af31e5cda9579a60c4648",
+      "actuallyViewed": true,
+      "observations": [
+        "The projected planet has moved into the upper-right edge while auroral folds shift across the dome.",
+        "Starfield remains sparse, with the central aisle and seat silhouettes still readable.",
+        "This is a sampled still and does not prove continuous-frame noise or absence of trails."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-final/theater-90.png",
+      "sha256": "c96932ac90af8901c45d1b7a1dba2668dc6869bb75785aae7e3c906eb1bb1937",
+      "actuallyViewed": true,
+      "observations": [
+        "The planet is outside the camera view at this phase; the shifted aurora and faint original constellations remain visible.",
+        "The lower screen edge, aisle lamp and rows of seats remain readable.",
+        "Artistic motion is not an astronomical ephemeris or reproduction of an Adler program."
+      ]
+    }
+  ],
+  "limits": [
+    "Isolated assembly omits terrain, surrounding buildings and city illumination.",
+    "No claim of motion quality from stills; full-world camera-motion validation is separate.",
+    "Night photometry and exact interior decor are interpretations.",
+    "Some residual path-tracing noise remains in dark non-screen surfaces.",
+    "Original starfield and planets are artistic and intentionally simplified."
+  ]
+}

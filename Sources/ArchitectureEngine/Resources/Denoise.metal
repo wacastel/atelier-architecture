@@ -23,9 +23,11 @@ bool requiresCurrentCoverage(float materialGuide) {
     // Integer IDs describe reflecting surfaces; +0.5 identifies an emitter,
     // +0.75 an opaque surface viewed through glass (no shared reflection motion).
     // +0.875 marks moving geometry or locally affected lighting/reflections.
+    // +0.25 marks stationary rough diffuse surfaces relit by an animated source:
+    // no historical lighting, but current-frame spatial filtering remains safe.
     // Surface-lighting reconstruction cannot reliably track subpixel emitter
     // coverage. Preserve current coverage of sky and visible lights.
-    return materialGuide < 0.0f || fract(materialGuide) > 0.25f;
+    return materialGuide < 0.0f || fract(materialGuide) > 0.25f || fract(materialGuide) == 0.25f;
 }
 float pixelFootprint(float depth, constant TemporalUniforms &u) {
     return max(0.0005f, 2.0f * length(u.previousUp.xyz) * depth / float(u.sizeFlags.y));
@@ -208,6 +210,8 @@ kernel void spatialFilter(
     float4 albedo = currentAlbedo.read(tid);
     // Avoid spreading partially covered bright silhouette pixels into clear
     // analytic sky. Surface reconstruction remains fully edge-aware below.
+    // The new +0.25 diffuse-lighting tag deliberately reaches this filtering
+    // path; +0.875 screen/reflection/traffic coverage remains untouched.
     if (world.w<0 || (fract(world.w)>0.25f && fract(world.w)<0.7f) || fract(world.w)>0.8f) {
         outputHDR.write(float4(center, normalDepth.w), tid);
         return;

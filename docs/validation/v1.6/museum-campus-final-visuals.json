@@ -1,0 +1,73 @@
+{
+  "scope": "Actual review of seven sampled stills covering Soldier Field, Burnham Harbor and the corrected southern shoreline. Does not cover Shedd or claim whole-world/media approval.",
+  "reviewedAllListedImages": true,
+  "passed": true,
+  "turfCorrectionVerified": true,
+  "shorelineCapCorrectionVerified": true,
+  "boatCourtesyLightingVerified": true,
+  "renderRevision": "Generated before the subsequent Shedd ticket-pavilion/cafe/path-junction correction; exact images are identified by hashes.",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/05-soldier-field.png",
+      "sha256": "9f40b87dd9798f5287820bc7ad3672f64e486667c350593a919991b6117dcf8f",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Clear stadium exterior: continuous classical porticos, open lower supports, silver/glass east crescent and taller upper seating bank. No generic stadium slab or side blocks.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-day/05-soldier-field.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/05-soldier-field.png",
+      "sha256": "556aa9e0bbfd5f541f411bf48f83c880f70abe0b2ff7e9bb17f46837f12ca0e9",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Portico columns receive restrained warm light; suite facade and upper aisles remain readable. Most surrounding lawn and unlit seating stay dark. No new geometric obstruction.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-night/05-soldier-field.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/06-boats-in-burnham-harbor.png",
+      "sha256": "9fc9975299c954d24575214d3597915cc10aac7300e0bd0a34b9ce3e859e5182",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Mapped shoreline and piers meet water cleanly. Representative white/navy hulls, cabins, masts and low harbor facilities are visible; no tall generic harbor offices.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-day/06-boats-in-burnham-harbor.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/06-boats-in-burnham-harbor.png",
+      "sha256": "b29bceb6eafc66c267fa8207660db385cb2f4bc9ee49889bf905cb4fc360ec73",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Selected warm cabins, dock pedestal pools and short water reflections define the marina. Unoccupied boats and foreground paths remain dark as documented.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-night/06-boats-in-burnham-harbor.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/soldier-bowl.png",
+      "sha256": "6e3be87bab45067d67672f98db886e1a5e0100e14076724129b7dd0861fc8d75",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Corrected turf has smooth grass variation and alternating mowing bands; prior brick/masonry joints are absent. Yard lines, hash marks, goal, seating and aisles are visible and unobstructed.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/soldier-bowl.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/burnham-boat-night.png",
+      "sha256": "91c47c4aca9ddecb6fc62818f1b5c5aba5f23681cc4721c5186bbeb55f3b27d4",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Closer marina view shows occupied cabin strips and nearby dock illumination reflected in water. Most rigging is visible only in silhouette; no all-boat floodlighting.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/burnham-boat-night.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/mccormick-west.png",
+      "sha256": "d65877950d8c1b0f03240907d7fb1ef2753b08fa62ec4c77fb702cf0a7c6efee",
+      "width": 1600,
+      "height": 1000,
+      "observation": "Open lake extends continuously beyond the south shoreline. The prior bright triangular land cap is absent.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/mccormick-west.png"
+    }
+  ],
+  "limits": [
+    "Sampled1600\u00d71000 still images do not establish all-frame animation continuity or temporal noise quality.",
+    "Nighttime harbor is deliberately subdued; many unoccupied boats and mast details remain dark.",
+    "Boat occupancy, building finishes, seating and lighting are architectural interpretations.",
+    "The separate Shedd-context correction requires its own fresh image and playback checks."
+  ]
+}

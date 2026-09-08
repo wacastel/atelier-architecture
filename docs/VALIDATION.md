@@ -1,6 +1,59 @@
 # Validation record
 
-Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.5.0 / build 6**. Earlier sections preserve their original measurements and limitations.
+Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.6.0 / build 7**. Earlier sections preserve their original measurements and limitations.
+
+## Version 1.6 Museum Campus
+
+The fifth destination adds eight animated studies of the Field Museum, Shedd Aquarium, Adler Planetarium, Soldier Field, Burnham Harbor and all four McCormick Place buildings with their associated hotels, arena and connecting structures. A continuous **180-second** Art Institute–Field Museum flight crosses Grant Park and enters Stanley Field Hall. Selected connected interiors include that hall, Shedd's two-tank rotunda and oceanarium, and Adler's welcome gallery and domed theater. The original silent planetarium program lasts **180 seconds**, shares the camera's play/pause/rewind clock and returns to its opening camera position. All four Chicago destinations share one resident city.
+
+The final signed native arm64 app contains **26,950,320 static Chicago triangles, 238 materials and 2,640 explicit static lights**. Its 640 × 400 / 16-sample self-test reports **4,951.95 MiB** of Metal allocations. The app uses a separate refitted structure for moving traffic; static architecture is not rebuilt per frame. This allocation is viewport-dependent and is separate from whole-process memory or a frame-rate guarantee. [Chicago self-test](validation/v1.6/campus-self-test.json) · [Paris self-test](validation/v1.6/paris-self-test.json).
+
+The copied application passes both-city self-tests from temporary working directories while an OS sandbox denies reads from this repository. These cover geometry, the **144-byte** Swift/Metal frame uniform, hardware ray tracing, accumulation, viewport resizing/aspect, navigation and the OBJ/MTL importer. All packaged resources match their source files and the strict local signature verifies. [Standalone package](validation/v1.6/standalone-bundle.json) · [Build](validation/v1.6/build-validation.txt) · [Package hashes](validation/v1.6/final-package-input.json).
+
+Production geometry passes **42,882 playback and clearance checks across all 41 routes**, including every new complete route, walking support, sampled head/torso/leg clearance and 120 seconds of idle motion per bookmark. Controller coverage includes manual view holds, independent idle and walkthrough speeds, 2×/4×/8× shuttle, day/night wraps, five destinations, both connecting flights and preservation of paused clocks. Dedicated navigation and component geometry checks also pass. [Playback](validation/v1.6/playback-validation.txt) · [Navigation](validation/v1.6/navigation-validation.txt) · [Museum geometry](validation/v1.6/museum-buildings-geometry.json) · [Campus/stadium geometry](validation/v1.6/museum-campus-geometry-validation.json) · [McCormick geometry](validation/v1.6/mccormick-validation.txt).
+
+The new map layer contains **3,382 contextual building polygons, 626 areas, 5,189 paths, 2,745 tree positions and 358 piers**. It places **151 representative moored boats**, including 31 with detailed lit cabins. The six existing vehicle lanes extend south while preserving their original northern samples. The primary OSM snapshot is timestamped **2026-09-08 12:08:37 UTC**; supplemental roads and shoreline use 12:21:50 UTC. Mapped site masks remove duplicate generic museum/stadium blocks, and fresh shoreline polygons repair the exposed southern edge of the earlier ground surface. [Map checks](validation/v1.6/museum-campus-map-validation.json) · [References and scope](MUSEUM-CAMPUS.md) · [Museum interiors](MUSEUM-BUILDINGS.md) · [McCormick Place](MCCORMICK-PLACE.md).
+
+## Version 1.6 motion and projection checks
+
+All **26 actual-scene motion cases pass** the unchanged requirement that both image error and temporal residual improve. Tests use 960 × 600, 32 frames, eight current samples and independent 128-sample references, comparing reconstructed and unfiltered presentations of the exact same trace. Measurements use the second half of each sequence. The twenty previous cases remain in the suite. These percentages measure reconstruction benefit over matching raw samples, not improvement over the previous release. [Summary and source hashes](validation/v1.6/motion-summary.json).
+
+| Museum Campus moving view | Raw image RMSE | Reconstructed image RMSE | Temporal residual reduction |
+| --- | ---: | ---: | ---: |
+| field-hall | 0.073550 | 0.034516 | 55.8% |
+| shedd-tanks | 0.063099 | 0.036228 | 48.0% |
+| adler-gallery | 0.027929 | 0.012138 | 58.1% |
+| planetarium-show | 0.005306 | 0.002377 | 58.5% |
+| burnham-harbor-night | 0.011103 | 0.010287 | 7.5% |
+| mccormick-night | 0.012732 | 0.011285 | 12.5% |
+
+[Campus](validation/v1.6/motion-campus.json) · [Lakefront](validation/v1.6/motion-lakefront.json) · [Millennium Park](validation/v1.6/motion-millennium.json) · [Willis/Chicago](validation/v1.6/motion-chicago.json) · [Paris](validation/v1.6/motion-paris.json).
+
+The first full-world theater test exposed an overly broad coverage bypass: it correctly rejected old projection images but also left stochastic seat lighting unfiltered, producing zero reconstruction gain. Stationary rough, opaque, nonemissive dielectric surfaces near the dome now reject temporal lighting history while receiving the existing edge-aware spatial filter. The screen, sharp reflections, glass and traffic retain exact current coverage. Acceptance thresholds and the measured camera trace were retained. [Preserved discovery](validation/v1.6/motion-campus-discovery.json) · [Diagnosis](validation/v1.6/motion-discovery-notes.json).
+
+Actual GPU fixtures reduce controlled diffuse image error **62.4%** and temporal residual **62.0%**, detect stale illumination when the new temporal guard is deliberately removed, preserve contrasting material edges and keep fully reactive surfaces exact. All **147,456** tested legacy-guide components remain bit-identical to the prior denoiser policy. The shared denoiser regression passes. [Diffuse reconstruction and negative controls](validation/v1.6/adler-diffuse-reconstruction.json).
+
+The show also passes deterministic advancement, pause, rewind and loop checks, local/reflected guide checks and a **6,144-component** day/night legacy path comparison. A separate negative control reproduces the bright polar slivers found during visual review; bounded spherical star distances correct that defect. Existing ABI/shader suites remain separately scoped in their evidence. [Adler GPU validation](validation/v1.6/adler-validation.json) · [Polar correction](validation/v1.6/adler-polar-correction.json) · [Renderer method](MOTION.md).
+
+The scene is an architectural reconstruction. Selected interiors and exhibits, unmeasured building heights, decorative details, artificial light intensities, road grades and boat occupancy include authored interpretations. It is not a surveyed digital twin or a complete current museum inventory. Fine grain and reconstruction softness remain possible in moving reflections and small detail. Fixtures and sampled routes do not establish a universal frame-rate guarantee.
+
+## Version 1.6 visual and native review
+
+All sixteen final-package day/night bookmark stills were inspected at **1600 × 1000**, using 256 daytime and 384 nighttime samples. Review covered museum entrance framing, the corrected low Shedd glass ticket pavilion, Adler's granite and copper silhouette, its projected sky, Soldier Field's historic colonnades, harbor boats and piers, and the McCormick halls, pylons, promenade and shoreline. Earlier inspection found and corrected guessed tall Shedd context blocks and path corner gaps; those failure records remain preserved. [Field/Shedd](validation/v1.6/final-museum-gallery-visuals.json) · [Adler](validation/v1.6/final-adler-gallery-visuals.json) · [Soldier/Burnham](validation/v1.6/final-campus-gallery-visuals.json) · [Art Institute/McCormick](validation/v1.6/final-root-gallery-visuals.json) · [Shedd context correction](validation/v1.6/shedd-context-correction.json).
+
+Three final **1920 × 1200** interior stills were inspected and copied into the repository: Stanley Field Hall, Shedd's two habitats and the Adler show. Additional interior, stadium bowl, close-boat and far-south shoreline images were inspected before the last local Shedd correction; their records identify that earlier snapshot. The six final motion-test images and paired raw dome image were also inspected. Dark unlit night areas, fine glass grain and simplified procedural exhibits remain explicit limitations. [Final interior stills](validation/v1.6/release-hero-visuals.json) · [Motion still review](validation/v1.6/motion-visual-review.json) · [Earlier interior samples](validation/v1.6/museum-interior-final-visuals.json) · [Earlier campus samples](validation/v1.6/museum-campus-final-visuals.json).
+
+Actual native UI operation verified eight campus cards, current-view Space playback and pause, 2×/4×/8× shuttle in both directions, keyboard view selection, idle pace and observed night-to-day wrap, N preserving a paused clock, fullscreen entry/exit and live window resizing. All five destinations and both connecting flights were exercised, including a Paris roundtrip. These checks use the final controller and shaders and precede the last local Shedd geometry/camera correction; exact input hashes identify their scope. Keyboard transport was tested with the viewport focused. Sampled HUD readings are not a sustained frame-rate benchmark. [Native UI evidence](validation/v1.6/native-ui.json).
+
+## Version 1.6 finished demonstrations
+
+Four final silent H.264 movies use **1920 × 1080 at 24 FPS**: a 96-second day tour, the full 180-second Art Institute–Field Museum flight, the full 180-second Adler show and a 96-second night tour. The first three use 16 samples per frame; the night montage uses 24. All **13,248 frames** pass full FFmpeg decoding and uniform presentation-timestamp checks. Ten extracted frames per movie were actually inspected for composition, route progression, captions, attribution and conspicuous rendering defects. This is complete automated decoding plus sampled visual review, not visual inspection of every frame.
+
+The two montages compress each full route and its scene clock into twelve-second chapters. The dedicated flight and show retain their ordinary three-minute timing. The flyover crosses the existing Grant Park world and enters Stanley Field Hall; the show returns close to its opening frame at the end of its loop. Interiors retain authored exhibits and artificial lighting. Reflective glass/water can retain fine grain, while unlit night foregrounds and roof surfaces remain dark.
+
+[Day media](validation/v1.6/museum-day-tour-media.json) · [Day visual samples](validation/v1.6/museum-day-tour-visuals.json) · [Flight media](validation/v1.6/museum-flyover-media.json) · [Flight visual samples](validation/v1.6/museum-flyover-visuals.json) · [Show media](validation/v1.6/adler-show-media.json) · [Show visual samples](validation/v1.6/adler-show-visuals.json) · [Night media](validation/v1.6/museum-night-tour-media.json) · [Night visual samples](validation/v1.6/museum-night-tour-visuals.json) · [Local demos](DEMO.md#version-16-demonstration-artifacts) · [Release manifest](validation/v1.6/release-manifest.json).
+
+The final packaged app was reopened after every export and checked again at the corrected Shedd day/night camera and the active dome show. A paused timeline remained exactly fixed while sample accumulation continued. The app was left running the 1× Museum Campus day/night idle cycle with all eight cards and controls visible. [Final native launch](validation/v1.6/native-final-launch.json).
 
 ## Version 1.5 Chicago Lakefront
 

@@ -176,6 +176,22 @@ expect(ArchitectureLocation.chicago.world == ArchitectureLocation.millennium.wor
 expect(ArchitectureLocation.paris.world != ArchitectureLocation.chicago.world, "Paris remains an independent world")
 expect(ArchitectureLocation.lakefront.world == ArchitectureLocation.chicago.world, "The lakefront retains the resident Chicago world")
 
+// The new flight and dome program share ordinary transport; neither owns a wall clock.
+var campusFlight = WalkthroughPlayback(location: .campus)
+campusFlight.select(MuseumCampusWalkthrough.flybyView)
+expect(campusFlight.duration == 180, "Art Institute to Field flight is three minutes")
+campusFlight.seek(progress: 0.75)
+expect(campusFlight.time == 135, "Museum flight seeking uses its complete timeline")
+campusFlight.transport(.reverse); campusFlight.advance(5)
+expect(campusFlight.time == 125, "Museum flight rewinds continuously")
+campusFlight.select(4); campusFlight.toggle(); campusFlight.advance(40); campusFlight.toggle()
+expect(campusFlight.duration == AdlerLayout.showPeriod, "The dome walkthrough presents the complete show period")
+expect(samePose(ArchitectureLocation.campus.pose(view:4,seconds:180),ArchitectureLocation.campus.stops[4].pose), "The dome camera returns to its opening pose at the show loop")
+let domeTime = campusFlight.time
+campusFlight.advance(30)
+expect(campusFlight.time == domeTime && domeTime == 40, "Paused planetarium retains its absolute show time")
+expect(ArchitectureLocation.campus.world == ArchitectureLocation.chicago.world, "Museum Campus shares the resident Chicago world")
+
 // The day/night shortcut must not restart or resume a selected animation.
 for location in ArchitectureLocation.allCases {
     var lightingClock = WalkthroughPlayback(location: location)

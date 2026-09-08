@@ -1,0 +1,56 @@
+{
+  "scope": "Second-candidate Field Hall and Shedd selected interiors, still images only; excludes final exterior bookmark and facade-label correction, motion and exported movie QA.",
+  "reviewDate": "2026-09-08",
+  "interiorVisualReviewPassed": true,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/field-hall.png",
+      "sha256": "4b3667f97a51518c6f0d88a382a9f68d11cd6df9ed0395a0f84274a3e37e5396",
+      "actuallyViewed": true,
+      "accepted": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/field-hall-night.png",
+      "sha256": "74156282632070b8fba901562ae428457b4a05be00abfc89e5856fd776b6cfa5",
+      "actuallyViewed": true,
+      "accepted": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/shedd-rotunda.png",
+      "sha256": "78eb703e780e51a7302e7317604e008ad263387b11dbc1e445b7e595f60ffe0b",
+      "actuallyViewed": true,
+      "accepted": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/shedd-rotunda-night.png",
+      "sha256": "1dd84754f82d5e0907942affa7c343350d59eb698cee6329e9f25d7bc6b36e19",
+      "actuallyViewed": true,
+      "accepted": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/shedd-oceanarium.png",
+      "sha256": "7ca8a112a7438a4edba42143fb74149892c5d23e067e074948b5b67a2f953ff6",
+      "actuallyViewed": true,
+      "accepted": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/shedd-oceanarium-night.png",
+      "sha256": "68df130b9de8c5b651ac458f5851d55dc2060582f1fa9db8455d9b9cf826b909",
+      "actuallyViewed": true,
+      "accepted": true
+    }
+  ],
+  "findings": [
+    "Field Hall has clear aisle and legible procedural sauropod, Ionic colonnade, arcade and vaulted skylight in day/night. Four hanging garden clouds are intentional reference-backed exhibits.",
+    "Shedd two habitats and connecting warm gold crown are recognizable in both lighting modes; supporting glazed drum closes the initial gap.",
+    "Oceanarium transparent lake window, calm reflective pool, seating and supported overlook are visible. Night ceiling remains subdued; readable localized lighting preserves the pool/window view."
+  ],
+  "limitations": [
+    "Architectural interpretation rather than measured museum interior or current collection inventory.",
+    "Thin-sheet panes and static authored fish do not simulate thick acrylic or water-volume optics.",
+    "These1280\u00d7800stills do not establish animation stability; integrated motion tests are separate."
+  ],
+  "pendingExteriorReview": [
+    "Farther southwest Shedd bookmark, corrected exterior window offset, and Field facade lettering will be reviewed in the final candidate."
+  ]
+}

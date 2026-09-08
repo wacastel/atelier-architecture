@@ -1,0 +1,34 @@
+{
+  "reviewedAtUTC": "2026-09-08T13:56:27.593007+00:00",
+  "method": "Actual native AppKit application operated through CUA accessibility and screenshots. This UI session uses the final 1.6 renderer/controller and precedes the last Shedd contextual-building correction. Final package relaunch is recorded separately.",
+  "passed": true,
+  "inputSHA256": {
+    "ArchitectureApp.swift": "e5c66856c55be395689d31bdc091cc99788196856d9512cb232764af45018f9a",
+    "EngineController.swift": "ae2eecc0acb5cdba4deb0e190b30940c8d740d541d21d440289e62e54b5a221b",
+    "Walkthrough.swift": "60d14a9815cb5a16a3b29f65f60bfb05d1f86ac79dd41fcc855b025a001136a9",
+    "ArchitectureLocation.swift": "ac0dff9521ab6677d454c5fb57499b20968435335be7df8d04bb08abdb9e94be",
+    "MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+    "Resources/Renderer.metal": "137528c48d7cfdd92cc70a909cfdce3cbae78c06d498f0a89d0f6a9c9aff50fc",
+    "Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e"
+  },
+  "observations": [
+    "App launched at Museum Campus with eight view cards and opening daytime idle cycle.",
+    "Key 5 selected the dome study and held the view; Space started the 180-second camera/show timeline and Space paused it.",
+    "Paused timeline 0.06265397199086793 remained unchanged across subsequent reads and N; settings showed Night selected and accumulation continued while paused.",
+    "With viewport focused, three distinct Right presses displayed Fast forward 2x,4x,8x; Left displayed Rewind 2x,4x,8x and decreasing timeline.",
+    "Up selected Adler exterior 04/08; Down returned to dome 05/08, both holding at time zero.",
+    "Right bracket increased idle 1x to 4x; I started view 08 of a night pass; subsequent screenshot showed a daytime pass after wrapping. Left bracket restored 1x and I held the view.",
+    "Control-Command-F entered native fullscreen, showed Exit Full Screen and widened the live viewport; repeating returned to the window.",
+    "Dragging the window corner resized the live viewport and layout. Controls and eight view cards remained visible and the projection kept its proportions.",
+    "Location menu contains Paris, Willis, Millennium Park, Chicago Lakefront and Museum Campus. Willis switch retained the same Chicago triangle count and allocations.",
+    "Both Chicago connecting flight menu entries started their intended locations/views: Millennium 08 at 04:00 and Campus 01 at 03:00. Night lighting persisted into both.",
+    "Paris loaded its nine views and 8,645,884 triangles with roughly 1.78 GB displayed allocations; returning to Campus completed loading and restored the city scene.",
+    "App quit after review to free the GPU for final rendering."
+  ],
+  "limits": [
+    "Keyboard transport was exercised with the viewport focused; after a settings popover, clicking the viewport restored keyboard focus.",
+    "This was sampled UI observation, not a sustained frame-rate benchmark.",
+    "Later Shedd context geometry is outside this UI evidence snapshot; controller/shader input hashes make the scope explicit."
+  ],
+  "sourceSnapshot": "native-ui-source-input.json"
+}

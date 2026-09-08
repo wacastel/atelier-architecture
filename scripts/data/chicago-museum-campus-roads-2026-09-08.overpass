@@ -1,0 +1,1 @@
+[out:json][timeout:120];way(41.814,-87.630,41.846,-87.570)["name"~"Lake Shore Drive"]["highway"~"^(motorway|trunk)$"];out geom;

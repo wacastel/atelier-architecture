@@ -6,7 +6,7 @@ import Metal
 import simd
 private struct Vertex { var p,n:SIMD4<Float> }
 private struct Material { var c,p:SIMD4<Float> }
-private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>; var viewport:SIMD4<UInt32>; var settings:SIMD4<Float> }
+private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>; var viewport:SIMD4<UInt32>; var settings:SIMD4<Float>; var animation:SIMD4<Float> = .zero }
 private func require(_ b:Bool,_ message:String) { if !b { fatalError(message) } }
 let root=URL(fileURLWithPath:#filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
 guard let device=MTLCreateSystemDefaultDevice(),let queue=device.makeCommandQueue() else { fatalError("Metal required") }
@@ -87,7 +87,7 @@ func radiance()throws->SIMD3<Float> {
         let c=queue.makeCommandBuffer()!
         for j in 0..<32 {
             let sample=batch*32+j;u.viewport.z=UInt32(sample);u.viewport.w=UInt32(sample+771)
-            let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(trace);e.setTexture(color,index:0);e.setBytes(&u,length:128,index:0);bind(e)
+            let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(trace);e.setTexture(color,index:0);e.setBytes(&u,length:144,index:0);bind(e)
             e.dispatchThreads(MTLSize(width:32,height:32,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));e.endEncoding()
         };try checkedCommit(c)
     }
@@ -99,7 +99,7 @@ let transmitted=try radiance()
 require(transmitted.x>0.73 && transmitted.x<0.85 && transmitted.y<0.03,"Transmitted red emitter must be visible through the glass at one opaque bounce")
 materials[1].p.y=0 // Non-emissive opaque background: retain the through-glass guide flag.
 materials.withUnsafeBytes { mb.contents().copyMemory(from:$0.baseAddress!,byteCount:$0.count) }
-let c=queue.makeCommandBuffer()!,e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(guide);e.setBytes(&u,length:128,index:0);bind(e)
+let c=queue.makeCommandBuffer()!,e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(guide);e.setBytes(&u,length:144,index:0);bind(e)
 e.setTexture(world,index:0);e.setTexture(normal,index:1);e.setTexture(albedo,index:2);e.dispatchThreads(MTLSize(width:32,height:32,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));e.endEncoding();try checkedCommit(c)
 let gp=pixels(world)[528],gn=pixels(normal)[528]
 require(abs(gp.z+2)<0.001 && abs(gp.w-1.75)<0.001 && gn.w>6.99 && gn.w<7.01,"Guides must follow opaque surface behind glass and flag current coverage")

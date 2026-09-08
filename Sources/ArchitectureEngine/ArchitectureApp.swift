@@ -29,7 +29,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1440, height: 960),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                               backing: .buffered, defer: false)
-        window.title = "ATELIER / Millennium Park"
+        window.title = "ATELIER / Museum Campus"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = false
@@ -105,8 +105,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "1.5 · Paris & Chicago",
-            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · The Loop, Magnificent Mile & Chicago Lakefront.\nReference-informed architecture and mapped surroundings.")
+            .applicationVersion: "1.6 · Paris & Chicago",
+            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from the Loop to Museum Campus.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
@@ -209,12 +209,15 @@ private struct ArchitectureWorkspace: View {
             }.pickerStyle(.menu).labelsHidden().frame(width: 280, alignment: .leading)
                 .help("Change the architectural location · L")
             if engine.location.world == "chicago" {
-                Button { engine.startChicagoFlyby() } label: {
-                    Label("Willis → Park → Art Institute", systemImage: "airplane")
+                Menu {
+                    Button("Willis → Park → Art Institute") { engine.startChicagoFlyby() }
+                    Button("Art Institute → Field Museum") { engine.startMuseumCampusFlyby() }
+                } label: {
+                    Label("Chicago connecting flights", systemImage: "airplane")
                         .font(.system(size: 11, weight: .medium))
                         .padding(.horizontal, 12).padding(.vertical, 8)
-                }.buttonStyle(.plain).glassPanel(radius: 8)
-                    .help("Play the continuous four-minute flight across the shared Chicago world")
+                }.menuStyle(.borderlessButton).fixedSize().glassPanel(radius: 8)
+                    .help("Play a continuous flight through the shared Chicago world")
                     .disabled(!engine.isReady)
             }
         }.shadow(color: .black.opacity(0.15), radius: 14, y: 3)
@@ -474,7 +477,7 @@ private struct ArchitectureWorkspace: View {
                     helpRow("[  /  ]", "Slower / faster idle motion and view cycling")
                     helpRow("PACE / TIMELINE", "Set 0.25×–4× speed / seek to a time")
                     helpRow("1 – \(engine.stops.count)", "Select a view and its slow idle animation")
-                    helpRow("L", "Cycle the four architectural destinations")
+                    helpRow("L", "Cycle the five architectural destinations")
                     helpRow("N", "Toggle day / night; preserve camera and playback")
                     helpRow("⌃ ⌘ F", "Enter / exit full screen; resize from any edge")
                     helpRow("H", "Show / hide the interface")

@@ -11,6 +11,7 @@ swiftc -O \
   Sources/ArchitectureEngine/NightLighting.swift \
   Sources/ArchitectureEngine/MillenniumEnvironment.swift \
   Sources/ArchitectureEngine/ChicagoEnvironment.swift \
+  Sources/ArchitectureEngine/MuseumCampusEnvironment.swift \
   Sources/ArchitectureEngine/LakefrontEnvironment.swift \
   Tests/LakefrontGeometry/main.swift \
   -o "$lakefront_validation_dir/validate"

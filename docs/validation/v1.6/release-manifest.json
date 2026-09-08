@@ -1,0 +1,58 @@
+{
+  "version": "1.6.0",
+  "build": 7,
+  "recordedAtUTC": "2026-09-08T15:15:33.766122+00:00",
+  "validatedWorkingTreeParentCommit": "edf8ba8966599f33b003f33dad30c66cbccab403",
+  "architecture": "arm64",
+  "app": "/Users/william/dev/architecture/dist/Atelier.app",
+  "sourceInput": "final-input.json",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "packageInput": "final-package-input.json",
+  "packageInputSHA256": "2854495ae68d28f4f1733af9b6ed635e82628a853f73590a73dc08d78e810d9d",
+  "packageInventoryUnchangedAfterExports": true,
+  "media": [
+    {
+      "path": "/Users/william/dev/architecture/output/Chicago-Museum-Campus-Day-1080p.mp4",
+      "bytes": 250502507,
+      "videoSHA256": "14934a3ea591f7bdb5fc890f26967d89dc62d7f4ed8c92e2ebf2cc5ccb0061af",
+      "requestedSeconds": 96.0,
+      "fps": 24,
+      "decodedFrames": 2304,
+      "fullDecodePassed": true,
+      "sampledVisualReview": "docs/validation/v1.6/museum-day-tour-visuals.json"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/Art-Institute-to-Field-Museum-1080p.mp4",
+      "bytes": 471246812,
+      "videoSHA256": "7b39076630a154c8e2724b45bc2fc5b6d29c3a62248d6ea3d349aa20758a9cc5",
+      "requestedSeconds": 180.0,
+      "fps": 24,
+      "decodedFrames": 4320,
+      "fullDecodePassed": true,
+      "sampledVisualReview": "docs/validation/v1.6/museum-flyover-visuals.json"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/Adler-Planetarium-Light-Show-1080p.mp4",
+      "bytes": 404930523,
+      "videoSHA256": "3dffd13729d9699794e720d1c4f35d6ddd79f8bf36d95c9f206d75e44b3c5418",
+      "requestedSeconds": 180.0,
+      "fps": 24,
+      "decodedFrames": 4320,
+      "fullDecodePassed": true,
+      "sampledVisualReview": "docs/validation/v1.6/adler-show-visuals.json"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/Chicago-Museum-Campus-Night-1080p.mp4",
+      "bytes": 248970397,
+      "videoSHA256": "c1a0053c8c5470f5c7e10975d488ea766b9dc8fa78195fa61942eb527cef32cf",
+      "requestedSeconds": 96.0,
+      "fps": 24,
+      "decodedFrames": 2304,
+      "fullDecodePassed": true,
+      "sampledVisualReview": "docs/validation/v1.6/museum-night-tour-visuals.json"
+    }
+  ],
+  "scope": "The signed package, source hashes, final geometry/motion checks, galleries and exports use the same frozen source snapshot. Videos are local ignored artifacts. Visual review samples ten frames per video; automated decoding covers every frame.",
+  "finalNativeLaunch": "native-final-launch.json",
+  "finalNativeLaunchSHA256": "c7d08d43a30ed99e74d14d3255f2c5681355caa69271e012558472e029a0714a"
+}

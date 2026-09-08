@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "recordedAtUTC": "2026-09-08T15:16:44.379853+00:00",
+  "method": "Actual native AppKit app operation through CUA accessibility reads and screenshots after all four exports completed.",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "packageInputSHA256": "2854495ae68d28f4f1733af9b6ed635e82628a853f73590a73dc08d78e810d9d",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "observations": [
+    "Final signed app launched at Museum Campus with all eight cards, transport, location menu and map attribution visible.",
+    "HUD reports 27,112,132 triangles including traffic and 5.06 GB Metal allocations in this window; the separate 640x400 self-test reports 26,950,320 static triangles.",
+    "Key 3 selected and held the corrected Shedd camera. Day and night screenshots show the low glazed pavilion and west portico without the former tall fallback blocks.",
+    "Key 5 and Space started the original dome program. Stars, aurora, planet and live timeline appeared correctly.",
+    "Space paused at normalized timeline 0.2382394891203148 (00:42 / 03:00). A later accessibility read retained that exact value while accumulated samples grew from 68 to 3,628.",
+    "N restored daylight, key 1 selected the opening flight and I resumed the 1x Museum Campus idle cycle. Final screenshot shows the complete viewport, eight cards, Day pass and Idle Pause.",
+    "Application remains running, cycling through Museum Campus."
+  ],
+  "limits": [
+    "This is a final launch/control smoke check. Earlier version-scoped native evidence covers fullscreen, resizing, all five destinations and all shuttle speeds.",
+    "Sampled HUD frame rates are not a sustained performance benchmark."
+  ]
+}

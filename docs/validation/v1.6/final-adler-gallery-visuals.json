@@ -1,0 +1,125 @@
+{
+  "dateUTC": "2026-09-08T14:19:06.665306+00:00",
+  "scope": "Four regenerated final-package Adler exterior and show bookmarks after the final Shedd-context and first-camera corrections. Actually viewed anew; older scoped records are preserved.",
+  "sourceInputPath": "output/v7-review/final-input.json",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "packageInputSHA256": "2854495ae68d28f4f1733af9b6ed635e82628a853f73590a73dc08d78e810d9d",
+  "sourceHashes": {
+    "Sources/ArchitectureEngine/AdlerPlanetarium.swift": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources/ArchitectureEngine/EngineController.swift": "ae2eecc0acb5cdba4deb0e190b30940c8d740d541d21d440289e62e54b5a221b",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+    "Sources/ArchitectureEngine/MuseumBuildings.swift": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+    "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "137528c48d7cfdd92cc70a909cfdce3cbae78c06d498f0a89d0f6a9c9aff50fc"
+  },
+  "actuallyViewed": true,
+  "passed": true,
+  "newBlockingDefects": [],
+  "images": [
+    {
+      "path": "output/v7-review/final-day/03-adler-at-the-edge-of-the-lake.png",
+      "sha256": "c2a7824009518873a04157f782ca33dc4bed0acb720fb2d5a30c8fe6527ffa39",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "lighting": "day",
+      "stop": 3,
+      "actuallyViewed": true,
+      "method": "view_image, full frame, original exposure and color",
+      "passed": true,
+      "findings": [
+        "Entire copper dome and receding historic core are framed above the broad west stair and entrance.",
+        "Glass crescent ribs are visible on both sides; foreground approach paving and central handrail are readable.",
+        "No new obstruction, projection light leak or obvious broken surface appears."
+      ],
+      "limitations": [
+        "Facade, trees and paving remain authored architectural approximations rather than photographed materials."
+      ]
+    },
+    {
+      "path": "output/v7-review/final-day/04-a-sky-made-of-light.png",
+      "sha256": "c6806af92ff70fdb7ba2bb6704cbf4f4b4cd6286bb919e17c7b214863fec4a17",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "lighting": "day",
+      "stop": 4,
+      "actuallyViewed": true,
+      "method": "view_image, full frame, original exposure and color",
+      "passed": true,
+      "findings": [
+        "Centered ringed planet, teal/purple bands, white star points and blue line constellations remain clear.",
+        "Seat blocks flank a clear central aisle as dark silhouettes without obstructing the main projected composition.",
+        "No narrow bright top-edge polar slivers are visible in this opening bookmark."
+      ],
+      "limitations": [
+        "Dark upholstery detail remains low contrast.",
+        "Soft peripheral star shapes and this static bookmark do not prove all-frame temporal stability."
+      ]
+    },
+    {
+      "path": "output/v7-review/final-night/03-adler-at-the-edge-of-the-lake.png",
+      "sha256": "2726f0e8978e27f4232ea71fa6271843c08f5e333f9d5e91a4043a3b40aadb90",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "lighting": "night",
+      "stop": 3,
+      "actuallyViewed": true,
+      "method": "view_image, full frame, original exposure and color",
+      "passed": true,
+      "findings": [
+        "Warm facade and lower-dome lighting reveal the building silhouette; the doorway frame, upper landing and central handrail are readable.",
+        "Warm reflections extend over the foreground paving.",
+        "No unexpected bright seam or projection light leak appears."
+      ],
+      "limitations": [
+        "Lower stairs and the upper copper apex remain dark; the complete stair run is not evenly illuminated.",
+        "Fine grain remains in dark reflected paving in this unfiltered still."
+      ]
+    },
+    {
+      "path": "output/v7-review/final-night/04-a-sky-made-of-light.png",
+      "sha256": "2ee0ab6baea10ee2bdeb4980c5005af1ceacee9775e4ad2aa4e552f3dbe4e755",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "lighting": "night",
+      "stop": 4,
+      "actuallyViewed": true,
+      "method": "view_image, full frame, original exposure and color",
+      "passed": true,
+      "findings": [
+        "Centered ringed planet, teal/purple bands, white star points and blue line constellations remain clear.",
+        "Seat blocks flank a clear central aisle as dark silhouettes without obstructing the main projected composition.",
+        "No narrow bright top-edge polar slivers are visible in this opening bookmark."
+      ],
+      "limitations": [
+        "Dark upholstery detail remains low contrast.",
+        "Soft peripheral star shapes and this static bookmark do not prove all-frame temporal stability."
+      ]
+    }
+  ],
+  "readOnlyIntegrationAudit": {
+    "findings": [],
+    "scope": [
+      "New material patterns and guide classification",
+      "Absolute show clock, pause and rewind plumbing",
+      "Shared Chicago world and location cache transition",
+      "Adler route duration and closed show camera loop",
+      "README, ADLER.md, ENGINE.md and current MOTION.md claims"
+    ],
+    "conclusion": "No new blocking material, control, timeline or documented-behavior mismatch was found. Local rough/multiple-bounce reactive-guide limitations remain documented."
+  },
+  "limits": [
+    "This report reviews four unfiltered stills and source; it does not certify exported video, all animation phases or noise-free interactive playback.",
+    "The full-world paired motion results and separate GPU negative controls remain distinct numerical evidence.",
+    "No source edits, rendering or native application interaction occurred during this review."
+  ]
+}

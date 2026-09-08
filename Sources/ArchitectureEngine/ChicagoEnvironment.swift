@@ -54,16 +54,21 @@ extension EiffelBuilder {
             return MillenniumContext.containsPark(c.x,c.y)
         }
         for area in LakefrontContext.database.legacyAreas where area.kind != "water" && !inPark(area.points) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
-        let mainRoadIDs=Set(LakefrontContext.database.roads.flatMap{$0.sourceIDs})
-        for p in data.paths+LakefrontContext.database.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 && !mainRoadIDs.contains(p.id) {chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)}
-        for b in data.buildings+LakefrontContext.database.buildings {
+        let mainRoadIDs=Set((LakefrontContext.database.roads+MuseumCampusContext.database.roads).flatMap{$0.sourceIDs})
+        for p in data.paths+LakefrontContext.database.paths+MuseumCampusContext.database.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 && !mainRoadIDs.contains(p.id) {
+            let c=p.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(p.points.count)
+            if MuseumCampusContext.clearsApproach(c.x,c.y) {continue}
+            chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)
+        }
+        for b in data.buildings+LakefrontContext.database.buildings+MuseumCampusContext.database.buildings {
             if MillenniumContext.suppressesGenericBuilding(b.id) || LakefrontContext.replacementBuildingIDs.contains(b.id) || [-174605391,-174605390,150407241].contains(b.id) { continue }
             // Replace every generic museum building part, including the parent
             // outline that otherwise fills the modeled courtyards and galleries.
             let center=b.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(b.points.count)
+            if MuseumCampusContext.suppressesBuilding(b.id,center.x,center.y) {continue}
             if LakefrontContext.containsAuthoredCampus(center.x,center.y) {continue}
             if center.x>=982 && center.x<=1231 && center.y>=(-200) && center.y<=48 { continue }
-            chicagoBuilding(b,masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
+            chicagoBuilding(MuseumCampusContext.interpretedBuilding(b),masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
         }
         for r in data.rivers {
             chicagoQuays(r,concrete:concrete)
@@ -98,8 +103,21 @@ extension EiffelBuilder {
             tri(V(p[0],y,p[1]),V(r[0],y,r[1]),V(q[0],y,q[1]),material)
         }
     }
-    private func chicagoRoad(_ p:ChicagoContext.Path,asphalt:UInt32,concrete:UInt32,white:UInt32) {
+    func chicagoRoad(_ p:ChicagoContext.Path,asphalt:UInt32,concrete:UInt32,white:UInt32) {
         let ped=["footway","path","pedestrian","cycleway"].contains(p.kind)
+        let campusApproach=ped && p.points.contains{$0[0]>1700 && $0[0]<1850 && $0[1]>1250 && $0[1]<1450}
+        func joint(_ index:Int,_ fallback:V,_ halfWidth:Float)->V {
+            guard campusApproach,index>0,index<p.points.count-1 else{return fallback*halfWidth}
+            let q=p.points[index-1],r=p.points[index],s=p.points[index+1]
+            let before=V(r[0]-q[0],0,r[1]-q[1]),after=V(s[0]-r[0],0,s[1]-r[1])
+            guard simd_length(before)>0.01,simd_length(after)>0.01 else{return fallback*halfWidth}
+            let a=simd_normalize(before),b=simd_normalize(after),normalA=V(-a.z,0,a.x),normalB=V(-b.z,0,b.x),sum=normalA+normalB
+            guard simd_length_squared(sum)>0.01 else{return fallback*halfWidth}
+            let bisector=simd_normalize(sum),denominator=simd_dot(bisector,normalA)
+            // Shared miter vertices close the wedge between neighboring path
+            // segments. Bound acute corners to avoid long spikes into planting.
+            return bisector*min(halfWidth*2,halfWidth/max(0.01,denominator))
+        }
         for i in 1..<p.points.count {
             let a=V(p.points[i-1][0],0.027,p.points[i-1][1]),b=V(p.points[i][0],0.027,p.points[i][1]),len=simd_distance(a,b)
             if len<0.2{continue};let t=(b-a)/len,n=V(-t.z,0,t.x),w=p.width/2
@@ -107,7 +125,8 @@ extension EiffelBuilder {
                 // Secondary fixed access spans carry their own thin slab above water.
                 orientedBox((a+b)/2-V(0,0.42,0),n,V(0,1,0),t,V(p.width,0.8,len),concrete)
             }
-            quad(a-n*w,a+n*w,b+n*w,b-n*w,ped ? pavement:asphalt)
+            let aa=joint(i-1,n,w),bb=joint(i,n,w)
+            quad(a-aa,a+aa,b+bb,b-bb,ped ? pavement:asphalt)
             if !ped {
                 for side:Float in [-1,1] {
                     let c=(a+b)/2+n*side*(w+1.45)

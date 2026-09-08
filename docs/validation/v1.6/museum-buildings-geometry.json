@@ -1,0 +1,23 @@
+{
+  "boundsMax": [
+    1923.0474853515625,
+    28.299999237060547,
+    1496.17529296875
+  ],
+  "boundsMin": [
+    1455.812255859375,
+    -0.050000011920928955,
+    1183.125
+  ],
+  "degenerate": 0,
+  "generationSeconds": 0.045391082763671875,
+  "lights": 106,
+  "materials": 47,
+  "nonfinite": 0,
+  "normalError": 2.384185791015625e-07,
+  "passed": true,
+  "routeChecks": 1717,
+  "routeIssues": [],
+  "scope": "Authored museum geometry and route keys; outdoor approach uses an explicit grade plane. Actual complete-world terrain/vegetation checked by integrated playback.",
+  "triangles": 248168
+}

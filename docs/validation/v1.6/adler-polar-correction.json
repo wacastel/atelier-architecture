@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-08",
+  "observedDefect": "Two thin bright slivers at top edge of the100s show view, around x606\u2013631,y0\u201322.",
+  "isolation": "Same packaged full-world camera with constant screen radiance has uniform upper-dome output; therefore no mesh/backing gap causes these slivers.",
+  "cause": "Longitude/latitude tangent-distance approximation and fixed longitude-neighbor count distort filtered stars near the sphere pole.",
+  "correction": "Stable3D chord distance to hashed spherical star directions, with a four-sigma spherical-cap candidate span; no geometric or unrelated lighting changes.",
+  "gpuFixture": {
+    "geodesicRingSamples": 128,
+    "starGridCell": [
+      13,
+      47
+    ],
+    "ringAngularRadiusRadians": 0.0012,
+    "correctedRelativeRadianceRange": 0.004172025,
+    "legacyRelativeRadianceRange": 6.706766,
+    "unchangedThresholds": {
+      "correctedMustBeBelow": 0.1,
+      "legacyMustExceed": 0.5
+    },
+    "preCorrectionShaderSHA256": "6dddefebaa3aeaaf5c36599863986daa648de6682693af38fbcc78b194502b13"
+  },
+  "images": [
+    {
+      "path": "output/v7-review/second-phases/adler-show-late.png",
+      "sha256": "6bb3c02602fa79cb935a840d48b55a3b877231a1a51d1d328e97cd41a9cda808",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v7-review/adler-polar-flat.png",
+      "sha256": "e8b106f1a1f3857b678c0b52f62d880b45731821a812edc24744d41abf4ca428",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v7-review/adler-polar-corrected.png",
+      "sha256": "eb6d779d457c1cff7e11b471cee13d118baf633ef6c0ebade12c4410db7f3f03",
+      "actuallyViewed": true
+    }
+  ],
+  "scopeLimits": [
+    "Corrected full-world proof used a temporary copy of the preceding packaged geometry/camera with only the shader replaced.",
+    "Stills do not prove motion reconstruction quality; final full-world motion validation remains separate."
+  ]
+}

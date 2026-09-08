@@ -1,0 +1,143 @@
+{
+  "reviewDate": "2026-09-08",
+  "passed": true,
+  "scope": "Sampled visual review: all10 designated stills extracted from the final96-second daytime tour plus six supplemental Shedd transition frames. This is not a frame-by-frame viewing of the full movie.",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "sourceInputManifest": "/Users/william/dev/architecture/output/v7-review/final-input.json",
+  "videoPath": "/Users/william/dev/architecture/output/Chicago-Museum-Campus-Day-1080p.mp4",
+  "videoSHA256": "14934a3ea591f7bdb5fc890f26967d89dc62d7f4ed8c92e2ebf2cc5ccb0061af",
+  "mediaValidationPath": "/Users/william/dev/architecture/output/v7-review/museum-day-tour-media.json",
+  "packageInputSHA256": "2854495ae68d28f4f1733af9b6ed635e82628a853f73590a73dc08d78e810d9d",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/0.png",
+      "sha256": "6818847708f32156ae15492a7b262b0dc242b31a52935ff94ad29e6939f01e42",
+      "actuallyViewed": true,
+      "timeSeconds": 0.0,
+      "findings": "Art Institute/Modern Wing and Chicago skyline establish the starting location."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/6.png",
+      "sha256": "39fbb906981c87b04031e2f88933a4b457a2cc39be280a3bd24808555bdd699c",
+      "actuallyViewed": true,
+      "timeSeconds": 6.0,
+      "findings": "Field Museum full north elevation and surrounding campus are recognizable in the connecting flight."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/18.png",
+      "sha256": "5288b7daedde889a9d39049f2f0bb2e9418619b68f81619e52f2bf4d31379480",
+      "actuallyViewed": true,
+      "timeSeconds": 18.0,
+      "findings": "Stanley Field Hall, sauropod, elephants, columns and skylight read clearly from the side aisle."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/30.png",
+      "sha256": "2370f5809c818dc986ff9f00fdc8c1a7754096477108b5cf59616240678ec8ca",
+      "actuallyViewed": true,
+      "timeSeconds": 30.0,
+      "findings": "A large structural pier temporarily occludes the rotunda habitats during the approach. Supplemental samples establish that the camera passes around it and reaches a clear dual-habitat view by32s."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/42.png",
+      "sha256": "f9e234f11a49c624e5ddad9d97253fa0b1c7df7d7cc537ec99b2368baa7bd522",
+      "actuallyViewed": true,
+      "timeSeconds": 42.0,
+      "findings": "Adler theater entrance frames the original projected sky; surrounding room is deliberately dark."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/54.png",
+      "sha256": "816936922f71e7453c0ec9a78ef1f3477c5a0163b14d89658b72fff2abef12df",
+      "actuallyViewed": true,
+      "timeSeconds": 54.0,
+      "findings": "Original dome program fills the view; stars, aurora and constellation lines remain visible above seat silhouettes."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/66.png",
+      "sha256": "91e8d8af50b36618a354cedbcb740fc37e028e632cb7f21ecf7c61c4846f85b2",
+      "actuallyViewed": true,
+      "timeSeconds": 66.0,
+      "findings": "Soldier Field seating bowl, retained colonnades, field and museum/harbor context are visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/78.png",
+      "sha256": "a5e4068a6c17910aa2dee17847bc375ae399b4a0eb53f07095e8e0af83af6427",
+      "actuallyViewed": true,
+      "timeSeconds": 78.0,
+      "findings": "Burnham Harbor piers, two detailed sailboats and water reflections are clear."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/90.png",
+      "sha256": "60cf18ded729b14b6253bdabdafcba3e870252b239627bd1d33263408aeb9e73",
+      "actuallyViewed": true,
+      "timeSeconds": 90.0,
+      "findings": "McCormick roofs, planted terraces, hotels and connecting campus volumes are recognizable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour/95.9.png",
+      "sha256": "93a71cdf15381f7103c18efbbdd7907a4590428b33a692a797e897a6d6e061a9",
+      "actuallyViewed": true,
+      "timeSeconds": 95.9,
+      "findings": "McCormick skywalk and Lake Shore Drive corridor provide a coherent final campus view."
+    }
+  ],
+  "supplementalImages": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/24.png",
+      "sha256": "9eeaa7bd70645fb6026fab90fd07634ae561e5f41b526d4bfe4f99276b9a695d",
+      "actuallyViewed": true,
+      "timeSeconds": 24.0,
+      "findings": "Clear Shedd west-approach exterior, classical portico and correctly scaled ticket pavilion."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/29.png",
+      "sha256": "c283e6dea558066343ae306b521e101044b8b9d241184b01bf31a45a9f112c63",
+      "actuallyViewed": true,
+      "timeSeconds": 29.0,
+      "findings": "Supported entrance ramp/corridor; rotunda pier visible ahead through the doorway."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/31.png",
+      "sha256": "889c38e5cddd7af30dd54dd636d208a733293c630598ea44bde5aa8f737219bd",
+      "actuallyViewed": true,
+      "timeSeconds": 31.0,
+      "findings": "Camera moving around the pier: both habitats are largely visible at its sides, with a narrow arch support still crossing the center."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/32.png",
+      "sha256": "bc12972b1f9d855a87fd35a892d9ccdc1e7badb713cb5fbdf340384b72d74570",
+      "actuallyViewed": true,
+      "timeSeconds": 32.0,
+      "findings": "Unobstructed centered view of both curved habitats, gold crowns and central passage."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/33.png",
+      "sha256": "497c184254e081d7637512bdaef95afff0d3cd737d53205cebb01e013aa6236a",
+      "actuallyViewed": true,
+      "timeSeconds": 33.0,
+      "findings": "Clear eastern gallery with representative side tanks and lake window beyond."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-day-tour-supplemental/35.9.png",
+      "sha256": "eabcf04edf9622002fa307ff957eda2a28e8931b1f60db9cbe2ec25739772795",
+      "actuallyViewed": true,
+      "timeSeconds": 35.9,
+      "findings": "Clear Oceanarium overlook, reflective pool, curved glazing and Adler across the water."
+    }
+  ],
+  "findings": [
+    "Scenery progresses from Art Institute/Field Museum through the museum interiors, Adler, Soldier Field, Burnham Harbor and McCormick Place.",
+    "Chapter captions and OpenStreetMap attribution are legible within the frame in every designated sample.",
+    "No image corruption, missing scene or persistent architectural blockage identified in the samples.",
+    "Shedd transition contains a visible pier occlusion around29\u201331s; it is resolved by the clear32s paired-habitat view and subsequent gallery/Oceanarium views. This was investigated and retained as a brief architectural passage, rather than silently waived."
+  ],
+  "limits": [
+    "The sampled stills bound the Shedd transition to approximately29\u201332s; the precise onset/duration was not measured frame by frame.",
+    "Residual fine grain remains in shaded walls, aquarium glass and pool reflections at16samples per exported frame.",
+    "Still samples do not certify the absence of temporal shimmer or all obstructions at unsampled times; the separate full decode and motion reports cover different aspects.",
+    "Interior, exhibit, landscape and boat details remain authored architectural interpretations.",
+    "Dark theater seating is intentionally subordinate to the projected sky."
+  ],
+  "sourceEdits": false,
+  "gpuJobsLaunchedByReviewer": false
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "Root actually viewed these day/night Art Institute departure and McCormick overview stills before the later Shedd context correction. The exact PNGs are preserved.",
+  "passed": true,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/00-from-art-to-natural-history.png",
+      "sha256": "fe539cc7ebba6ba8001d7ee9078e50f98b19b986429d03163918def81faee98c",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/07-the-mccormick-place-campus.png",
+      "sha256": "6e0687f59148751af0c6231156e3be0f5438a24f50d207705010f5a0fad0a5f8",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/00-from-art-to-natural-history.png",
+      "sha256": "30a473819e5d400794d3cfe6305a1c8e5023090e2d028ad22986c1700e0a89de",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/07-the-mccormick-place-campus.png",
+      "sha256": "41a5ad5d2136d3127bcca3cd6fd6fd6dbe82c03acd0b159ed73cf5e54988a723",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Art Institute roof fins, forecourt and skyline frame the departure in both lighting modes.",
+    "McCormick Lakeside, North pylons, South curved footprint, West and hotel massing are distinct in the overview.",
+    "Raised lake terrace has a filled support base. Mapped shoreline and breakwater meet reflective water without the earlier white ground wedge.",
+    "Night roofs and unlit grounds remain dark; pavilion facade fixtures, pylon accents and hotel windows provide restrained illumination."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "resourceSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+  "sourceSHA256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+  "previousLakefrontSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+  "counts": {
+    "landmarks": 4213,
+    "replacementBuildingIDs": 75,
+    "buildings": 3382,
+    "areas": 626,
+    "paths": 5189,
+    "trees": 2745,
+    "piers": 358,
+    "breakwaters": 32,
+    "roads": 2,
+    "trafficLanes": 6,
+    "boats": 151
+  },
+  "checks": [
+    "positive constrained triangles and polygon area coverage",
+    "disjoint land/water and old/new southern seam",
+    "unchanged previous resource hash and northern terrain; repaired exposed old south shoreline cap",
+    "no repeated old/new feature IDs",
+    "authored museum/stadium/convention exclusions",
+    "exact original northern lane subsequences",
+    "continuous finite directed road/lane extension",
+    "151 hulls within mapped Burnham water, clear of piers and one another"
+  ],
+  "limits": [
+    "Generic map heights remain tagged or explicitly estimated; no survey accuracy claimed.",
+    "Representative dock occupancy is deterministic, not a real-time berth inventory.",
+    "Tests verify map and mesh support, not final video or full-world camera clearance."
+  ]
+}

@@ -12,6 +12,7 @@ struct FrameUniforms {
     float4 origin, right, up, forward, sunDirection, sunColor;
     uint4 viewport;
     float4 settings;
+    float4 animation;
 };
 
 constant float PI = 3.14159265358979323846f;
@@ -192,8 +193,75 @@ float3 daylightCameraBackground(float3 d, constant FrameUniforms &u) {
     return sky + u.sunColor.xyz * disk * 6.0f;
 }
 
+// Original procedural planetarium composition. No commercial show frames,
+// narration, music, or copyrighted constellation artwork are embedded.
+constant float3 adlerProjectionCenter = float3(2413.718f,4.0f,1393.247f);
+float3 planetariumRadiance(float3 position,float footprint,float seconds) {
+    float3 d=normalize(position-adlerProjectionCenter);
+    float phase=seconds*(2.0f*PI/180.0f);
+    float c=cos(phase),s=sin(phase);
+    float3 q=float3(c*d.x-s*d.z,d.y,s*d.x+c*d.z);
+    float lon=atan2(q.z,q.x),latitude=asin(clamp(q.y,-1.0f,1.0f));
+    float angular=max(0.0018f,footprint/10.5f);
+    float3 color=float3(0.0025f,0.004f,0.014f);
+    // Broad auroral curtains and a tilted galactic band remain continuous at
+    // the longitude seam and through the full180-second seekable loop.
+    float band=exp(-pow((dot(q,normalize(float3(0.3f,0.8f,-0.52f))))/0.14f,2.0f));
+    color+=float3(0.025f,0.036f,0.09f)*band*(0.5f+0.5f*smoothNoise(q*9.0f));
+    float curtain=0.42f+0.11f*sin(lon*3.0f+phase)+0.055f*sin(lon*7.0f-phase*2.0f);
+    float aurora=exp(-pow((latitude-curtain)/0.11f,2.0f));
+    float folds=0.55f+0.45f*pow(0.5f+0.5f*sin(lon*19.0f+latitude*8.0f+phase*2.0f),3.0f);
+    color+=mix(float3(0.02f,0.24f,0.18f),float3(0.19f,0.035f,0.3f),0.5f+0.5f*sin(lon*2.0f+phase))*aurora*folds;
+    // Equal-area spherical cells use wrapped neighbors and footprint-normalized
+    // discs, avoiding both polar crowding and random temporal star sampling.
+    float2 uv=float2((lon+PI)/(2.0f*PI)*96.0f,(q.y+1.0f)*0.5f*48.0f);
+    int2 cell=int2(floor(uv));
+    // A longitude/latitude tangent approximation becomes singular at a pole,
+    // stretching small stars into angular slivers. Use stable 3D chord distance
+    // and include every longitude cell touched by the filtered spherical cap.
+    float support=min(PI,4.0f*sqrt(0.00225f*0.00225f+angular*angular*0.32f));
+    float cosLatitude=sqrt(max(0.0f,1.0f-q.y*q.y));
+    int longitudeSpan=support>=PI/2 || cosLatitude<=sin(support) ? 48
+        : min(48,max(1,int(ceil(asin(clamp(sin(support)/cosLatitude,0.0f,1.0f))/(2*PI/96)))));
+    int rowSpan=min(48,max(1,int(ceil(support*24.0f))));
+    int firstLongitude=longitudeSpan==48 ? 0:cell.x-longitudeSpan;
+    int longitudeCount=longitudeSpan==48 ? 96:longitudeSpan*2+1;
+    for(int dy=-rowSpan;dy<=rowSpan;++dy) {for(int x=0;x<longitudeCount;++x) {
+        int2 k=int2(firstLongitude+x,cell.y+dy);k.x=(k.x%96+96)%96;
+        uint h=hashBits(uint(k.x)+uint(k.y+50)*193u+7717u);
+        if(k.y<0 || k.y>=48 || (h&1u)==0u)continue;
+        float2 jitter=float2(float((h>>8)&255u),float((h>>16)&255u))/255.0f;
+        float starLongitude=(float(k.x)+jitter.x)*(2*PI/96)-PI;
+        float starY=(float(k.y)+jitter.y)*(2.0f/48)-1;
+        float starHorizontal=sqrt(max(0.0f,1-starY*starY));
+        float3 starDirection=float3(cos(starLongitude)*starHorizontal,starY,sin(starLongitude)*starHorizontal);
+        float magnitude=float((h>>24)&63u)/63.0f;
+        float brightFraction=magnitude*magnitude*magnitude;
+        float radius=0.00065f+brightFraction*0.0016f;
+        float width=sqrt(radius*radius+angular*angular*0.32f);
+        float star=exp(-distance_squared(q,starDirection)/(width*width))*radius*radius/(width*width);
+        float brightness=0.32f+brightFraction*2.5f;
+        color+=mix(float3(0.68f,0.79f,1),float3(1,0.86f,0.66f),float(h&63u)/63.0f)*star*brightness;
+    }}
+    // Eight original line constellations link regular angular anchor stars.
+    float sector=round(lon/(PI/4)),local=lon-sector*(PI/4);
+    float lineY=0.72f+0.10f*cos(sector*1.7f)+0.25f*abs(local);
+    float line=(1-smoothstep(angular,angular+0.0025f,abs(latitude-lineY)))*(1-smoothstep(0.22f,0.24f,abs(local)));
+    color+=float3(0.045f,0.13f,0.27f)*line*(0.55f+0.45f*cos(phase));
+    // Stylized planets travel on original great-circle arcs, separate from
+    // any claim of ephemeris accuracy. Keep wide, antialiased rims and rings.
+    float3 planet=normalize(float3(cos(phase),0.70f,sin(phase)));
+    float dist=acos(clamp(dot(d,planet),-1.0f,1.0f));
+    float disc=1-smoothstep(0.125f-angular,0.125f+angular,dist);
+    float stripe=0.62f+0.38f*sin(d.y*115.0f+sin(d.z*30.0f));
+    color=mix(color,float3(0.77f,0.38f,0.16f)*stripe,disc);
+    float ring=1-smoothstep(angular+0.002f,angular+0.008f,abs(dist-0.19f));
+    color+=float3(0.42f,0.26f,0.11f)*ring;
+    return color;
+}
+
 struct Surface { float3 color; float roughness; float metallic; float emission; float dielectricF0; float3 normal; };
-Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night) {
+Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night,float showSeconds=0.0f) {
     Surface s;
     s.color = material.albedo.rgb;
     s.roughness = clamp(material.albedo.w, 0.02f, 1.0f);
@@ -203,7 +271,18 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
     s.dielectricF0 = 0.04f;
     int pattern = int(material.properties.z + 0.5f);
     float closeDetail = 1.0f - smoothstep(0.012f, 0.09f, footprint);
-    if (pattern == 1) {
+    if (pattern == 17) {
+        float3 projected=planetariumRadiance(p,footprint,showSeconds);
+        s.emission=maxComponent(projected);
+        s.color=projected/max(s.emission,0.00001f);
+        s.metallic=0;s.roughness=1;
+    } else if (pattern == 18) {
+        float3 local=p-adlerProjectionCenter;
+        float veins=smoothNoise(local*float3(0.65f,1.4f,0.65f)+float3(0,sin(local.x*0.4f),0));
+        s.color*=mix(float3(0.88f,0.93f,0.89f),float3(1.06f,1.025f,1.02f),veins);
+        float grainDetail=1-smoothstep(0.008f,0.06f,footprint);
+        if(grainDetail>0) s.color*=1+(smoothNoise(local*85)-0.5f)*0.16f*grainDetail;
+    } else if (pattern == 1) {
         // Half-metre dressed paving blocks, staggered by row; millimetre joints.
         float2 coord = abs(n.y) > 0.65f ? p.xz : (abs(n.z) > 0.65f ? p.xy : p.zy);
         float2 q = coord / float2(0.72f, 0.46f);
@@ -477,13 +556,37 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
     uint material = materialIndices[hit.primitive_id];
     float depth=distance(p,u.origin.xyz);
     float footprint = depth*2.0f*length(u.up.xyz)/float(u.viewport.y);
-    Surface s = surfaceAt(materials[material],p,n,footprint,u.sunColor.w>0.5f);
+    Surface s = surfaceAt(materials[material],p,n,footprint,u.sunColor.w>0.5f,u.animation.x);
     // Emissive subpixel windows/fixtures need current coverage, not relit
     // surface history. Preserve the material ID with a half-unit guide flag.
     bool polished=s.metallic>=0.99f && s.roughness<=0.03f;
     bool reactive=false;
+    bool changingDiffuseLighting=false;
+    if(u.animation.y>0.5f) {
+        bool projection=int(materials[material].properties.z+0.5f)==17;
+        bool nearProjection=distance_squared(p,adlerProjectionCenter)<196.0f;
+        // Stationary rough seats/floors have stochastic diffuse illumination,
+        // unlike the analytic screen or a sharp reflection of its moving image.
+        // Reject their old lighting but retain compatible current-frame samples.
+        changingDiffuseLighting=nearProjection && !projection && !throughGlass && !hit.dynamic
+            && s.emission<=0.0f && s.metallic<0.1f && s.roughness>=0.5f;
+        reactive=projection || (nearProjection && !changingDiffuseLighting);
+        if(!reactive && s.roughness<0.25f) {
+            ray reflection;
+            float epsilon=max(0.001f,maxComponent(abs(p))*0.000008f);
+            reflection.origin=p+geometricNormal*epsilon;reflection.direction=reflect(primary.direction,n);
+            reflection.min_distance=epsilon*0.25f;reflection.max_distance=100000;
+            float3 toCenter=reflection.origin-adlerProjectionCenter;
+            float projected=dot(toCenter,reflection.direction);
+            float discriminant=projected*projected-dot(toCenter,toCenter)+10.7f*10.7f;
+            if(discriminant>=0 && -projected+sqrt(discriminant)>reflection.min_distance) {
+                auto reflected=sceneIntersection(reflection,scene,false,staticTriangles);
+                reactive=reflected.type!=intersection_type::none && int(materials[materialIndices[reflected.primitive_id]].properties.z+0.5f)==17;
+            }
+        }
+    }
     if (HasTraffic && u.forward.w>0.5f) {
-        reactive=hit.dynamic;
+        reactive=reactive || hit.dynamic;
         // Only finite-support neighborhoods of current moving lamps/shadows
         // reject static lighting history. Distant architecture keeps its full
         // history even while traffic is advancing elsewhere in the city.
@@ -514,7 +617,7 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
             reactive=sceneIntersection(reflection,scene,false,staticTriangles).dynamic;
         }
     }
-    worldPosition.write(float4(p,float(material)+(reactive ? 0.875f : s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:polished ? 0.125f:0.0f)),tid);
+    worldPosition.write(float4(p,float(material)+(reactive ? 0.875f : changingDiffuseLighting ? 0.25f : s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:polished ? 0.125f:0.0f)),tid);
     normalDepth.write(float4(n,depth),tid);
     albedoRoughness.write(float4(s.color,s.roughness),tid);
 }
@@ -752,10 +855,14 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             continue;
         }
         if (bounce == maxBounces) break;
-        Surface surface = surfaceAt(material, position, n, hit.distance * pixelCone, IsNight);
+        Surface surface = surfaceAt(material, position, n, hit.distance * pixelCone, IsNight,u.animation.x);
         surface = regularizeSurface(surface, hasNonDeltaScatter && u.origin.w > 0.5f);
         float3 v = -path.direction;
         radiance += throughput * surface.color * surface.emission;
+        // Projection is represented as a radiance display, so its sampled
+        // radiance is the terminal source. Secondary rays still carry that
+        // light onto the room, without relighting the projected image itself.
+        if(int(material.properties.z+0.5f)==17) break;
         float offset = max(0.0007f, maxComponent(abs(position)) * 0.000008f);
         float3 rayOrigin = position + geometricNormal * offset;
         uint sampleDomain=2+6*bounce+48*branch;

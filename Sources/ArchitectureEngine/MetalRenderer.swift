@@ -44,6 +44,8 @@ final class MetalRenderer {
     private let traffic: TrafficMetal?
     private(set) var sceneTime: Double = 0
     private var trafficMoving = false
+    private let hasAnimatedProjection: Bool
+    private var projectionMoving = false
     var trafficVehicleCount: Int { traffic?.fleet.vehicles.count ?? 0 }
     var trafficUpdateCount: Int { traffic?.updateCount ?? 0 }
     let hasTransmission: Bool
@@ -142,6 +144,7 @@ final class MetalRenderer {
         materialBuffer = try buffer(scene.materials + fleet.materials); materialBuffer.label = "Architectural materials"
         lightCount = scene.lights.count
         hasTransmission = scene.materials.contains { $0.properties.w > 0 }
+        hasAnimatedProjection = scene.materials.contains { Int($0.properties.z.rounded()) == 17 }
         let lights = scene.lights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : scene.lights
         lightBuffer = try buffer(lights); lightBuffer.label = "Architectural lighting"
         let interiorLights=scene.lights.filter{$0.parameters.z>0.5}
@@ -182,6 +185,7 @@ final class MetalRenderer {
         guard seconds != sceneTime else { return }
         sceneTime=seconds
         if traffic != nil { trafficMoving=true; resetAccumulation() }
+        if hasAnimatedProjection { projectionMoving=true; resetAccumulation() }
     }
     func resetAccumulation() { sampleCount = 0 }
     /// Call after stopping submissions, before replacing a location's resources.
@@ -226,7 +230,12 @@ final class MetalRenderer {
         let halfFov = tan(pose.fov * .pi / 360)
         let sun = options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
         let color = options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
-        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        var frame = FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        if hasAnimatedProjection {
+            let period=180.0, phase=sceneTime.truncatingRemainder(dividingBy:period)
+            frame.animation=SIMD4(Float(phase<0 ? phase+period:phase),projectionMoving ? 1:0,0,0)
+        }
+        return frame
     }
 
     private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
@@ -332,7 +341,7 @@ final class MetalRenderer {
         let scale = min(1,8192/requestedHeight)
         try resize(width:max(1,Int(requestedWidth*scale)),height:max(1,Int(requestedHeight*scale)))
         let moving = moved(pose)
-        if reset || moving || trafficMoving || previousOptions != options { resetAccumulation() }
+        if reset || moving || trafficMoving || projectionMoving || previousOptions != options { resetAccumulation() }
         if resetHistory || previousOptions != options { resetReconstruction() }
         semaphore.wait()
         guard let command = queue.makeCommandBuffer() else { semaphore.signal(); return false }
@@ -358,7 +367,7 @@ final class MetalRenderer {
                     self.semaphore.signal()
                 }
             }
-            command.commit(); previousPose = pose; previousOptions = options; trafficMoving=false
+            command.commit(); previousPose = pose; previousOptions = options; trafficMoving=false; projectionMoving=false
             return true
         } catch { traffic?.invalidate(); sampleCount = beforeSubmission; resetReconstruction(); semaphore.signal(); throw error }
     }
@@ -404,7 +413,7 @@ final class MetalRenderer {
         try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
         command.commit(); submitted=true; command.waitUntilCompleted()
         if let error = command.error { traffic?.invalidate(); resetReconstruction(); throw error }
-        previousPose = pose; previousOptions = options; trafficMoving=false
+        previousPose = pose; previousOptions = options; trafficMoving=false; projectionMoving=false
         lastGPUTime = max(0,command.gpuEndTime-command.gpuStartTime)*1000
         func readback(_ texture:MTLTexture)->Data {
             var data=Data(count:width*height*4)
@@ -443,7 +452,7 @@ final class MetalRenderer {
             if let error = command.error { traffic?.invalidate(); resetAccumulation(); throw error }
             lastGPUTime = max(0, command.gpuEndTime - command.gpuStartTime) * 1000 / Double(end-firstSample)
         }
-        trafficMoving=false
+        trafficMoving=false; projectionMoving=false
         var data = Data(count: width * height * 4)
         data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!, bytesPerRow: width * 4, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0) }
         return data

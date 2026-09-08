@@ -1,0 +1,2 @@
+PASS: Museum Campus environment 763927 triangles, Soldier Field 614790, total 1378717, 390 lights, 151 boats, six extended lanes
+PASS: finite geometry, unit normals (maximum error 2.3841858e-07), noncollapsed triangles, unchanged northern lane samples, approach masks, open portico/field cameras; 1.8755329847335815s

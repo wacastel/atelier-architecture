@@ -1,0 +1,82 @@
+{
+  "reviewDateUTC": "2026-09-08T14:21:31.252447+00:00",
+  "version": "1.6.0",
+  "build": 7,
+  "sourceInputPath": "output/v7-review/final-input.json",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "sourceHashes": {
+    "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources/ArchitectureEngine/SoldierField.swift": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+    "Sources/ArchitectureEngine/ChicagoEnvironment.swift": "9f2c506fa2dc5053474af3234be809b2976cf58a46ef8d699ba3472835ad763c",
+    "Sources/ArchitectureEngine/LakefrontEnvironment.swift": "f1f769069566eb1190473ac2c056099fa383a6a520ea21498924b2488ac95970",
+    "Sources/ArchitectureEngine/MuseumCampusScene.swift": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+    "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "137528c48d7cfdd92cc70a909cfdce3cbae78c06d498f0a89d0f6a9c9aff50fc",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e"
+  },
+  "reviewedSourceFilesMatchSnapshot": true,
+  "scope": "Actual visual review of four regenerated final-package Soldier Field and Burnham Harbor bookmark PNGs. Only these sampled stills are covered; previous scoped visual records are preserved.",
+  "actuallyViewed": true,
+  "passed": true,
+  "visualReviewPassed": true,
+  "newBlockingDefects": [],
+  "images": [
+    {
+      "path": "output/v7-review/final-day/05-soldier-field.png",
+      "title": "Soldier Field daylight",
+      "sha256": "7cc0f38dca172c7e98337046eae786396f60561e78142d959e01800c5efedb21",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "The classical portico columns, open lower supports, glazed east crescent and taller opposite seating bank are clearly visible together. Surrounding lawn has grass variation rather than masonry joints. No oversized generic stadium shell or foreground obstruction is visible. The playing field itself is hidden from this exterior bookmark."
+    },
+    {
+      "path": "output/v7-review/final-night/05-soldier-field.png",
+      "title": "Soldier Field night",
+      "sha256": "6cb23653bd9ef57de56c00de29d6d01e12e5c7df289fa0296c3795865340cd6f",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Warm illumination makes the curved suite facade and a series of portico columns readable; upper aisles and sparse skyline windows remain visible. The facade retains its panel grid without clipped white bloom. Much of the lawn, unlit seating and foreground is very dark, so this view does not establish detailed night readability of those surfaces."
+    },
+    {
+      "path": "output/v7-review/final-day/06-boats-in-burnham-harbor.png",
+      "title": "Burnham Harbor daylight",
+      "sha256": "d1adfa7692cb2be0d8e40f3d539e5199d46bb2aa56a68e8bd98345fcd30d1921",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "The water follows the visible stepped shoreline and surrounds coherent rows of mapped piers. Nearby moored boats show contrasting hulls, raised white cabins, teak-colored decks and masts; no boat visibly intersects the foreground piers. Harbor buildings remain low and do not obstruct the stadium/convention skyline. Ripple reflections are present without an obvious large white water wedge in this frame."
+    },
+    {
+      "path": "output/v7-review/final-night/06-boats-in-burnham-harbor.png",
+      "title": "Burnham Harbor night",
+      "sha256": "6fadb541d47bb219489a6dc9cb4efd94a638b39d0c5dc5fe450c89bc38657534",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": "Localized dock lights and restrained small cabin lights create warm pools and short reflections on the water. The dark harbor reads against the illuminated stadium facade and city windows. Most unoccupied boats, rigging and the foreground shore are low contrast or nearly black; detailed hull visibility at this overview is limited. No gross bright-speckle field or new geometric obstruction is apparent in the still."
+    }
+  ],
+  "limits": [
+    "No video, temporal noise, every-frame continuity or full-route camera-clearance claim follows from this still-image review.",
+    "The Soldier Field exterior bookmark does not expose the playing field; prior bowl/turf close-up evidence is a separate historical record.",
+    "The visible harbor shoreline appears coherent, but this overview does not fully expose the far-south terrain cap or every dock/boat.",
+    "Night lighting is intentionally sparse: unlit turf, unoccupied boats and much of the foreground remain dark, and representative architecture/vegetation are not a photogrammetric survey.",
+    "No source edits, native-app interactions or GPU/render commands were performed for this review."
+  ]
+}

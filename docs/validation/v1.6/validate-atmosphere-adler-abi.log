@@ -1,0 +1,3 @@
+PASS: GPU horizon jump 0.00089889765 versus legacy 0.36701074; actual traced facade row jump 0.00087428093 versus legacy 0.08408582
+PASS: primary-background horizon jump 0.00071910024 versus legacy 0.36701074; actual missing-ray row jump 0.0006815195 versus legacy 0.36684334; haze-asymptote and visible solar-disc checks pass
+PASS: environment lighting unchanged; 65536 RGBA/depth components exactly equal across four night kernels at1/8SPP, including hits/misses and indexed/dynamic local lights

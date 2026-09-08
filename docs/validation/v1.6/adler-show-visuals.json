@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "scope": "sampled-only",
+  "dateUTC": "2026-09-08T14:58:31.107316+00:00",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "videoSHA256": "3dffd13729d9699794e720d1c4f35d6ddd79f8bf36d95c9f206d75e44b3c5418",
+  "videoPath": "/Users/william/dev/architecture/output/Adler-Planetarium-Light-Show-1080p.mp4",
+  "mediaReportPath": "/Users/william/dev/architecture/output/v7-review/adler-show-media.json",
+  "frameSampleTimes": [
+    0,
+    20,
+    40,
+    60,
+    80,
+    100,
+    120,
+    140,
+    160,
+    179.9
+  ],
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/0.png",
+      "sha256": "09614bb32a1db5c862591b61922ff69f89c6a575e9b2f556ac52b1f5c8ed17fa",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/20.png",
+      "sha256": "e93c0f113d24f6529acc1134499cf2c2c2e1e46e1fed9f6d707c1c4cd863c73c",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/40.png",
+      "sha256": "587bc4e11324868f9b9a4ea04939001111107aa84cbade1aae52bda88a4885e7",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/60.png",
+      "sha256": "872e78f8febe37740ac77a31dc9672f993c89a709e93574888f42be344832079",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/80.png",
+      "sha256": "8147129966d5ffaa70029c734062d605386b0bcd85642dfc2458b062813857ed",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/100.png",
+      "sha256": "021138a0d1b6025f685057fbce10cd8ed8c65b367fab5a97ee5219d6550e07b2",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/120.png",
+      "sha256": "1a784ad04988404ec66d01f1b5a2421fc005d401c13c1fc7bcb01cc4face0d8d",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/140.png",
+      "sha256": "ecd5b16d0193a6c63498326e0af4f08819df899f56d85cd8fcdb50914b2c3636",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/160.png",
+      "sha256": "56bd9f7255ac1234925f982685f267430eb4f3ece1e53889d0bead006216fb98",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/adler-show/179.9.png",
+      "sha256": "4ee1cdf37da4576fcdb78743f7d630c593fbd7e68ca24dfb76ebe519e800025d",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "All ten 1920 \u00d7 1080 PNGs were actually viewed at their original exposure and color; no additional rendering was performed.",
+    "At 0 s the complete ringed planet is near center, with teal to the left, purple to the right, blue line constellations and varied white stars.",
+    "At 20 s the planet has moved right; at 40 s it is partially beyond the upper-right edge. The colored bands and constellation positions have changed.",
+    "At 60, 80, 100 and 120 s the planet is outside the selected view while the aurora and galactic bands remain clearly visible across the dome.",
+    "At 140 s the planet reenters from the upper left, partly outside the image and behind the fixed title card; at 160 s it is fully visible left of center.",
+    "At 179.9 s the planet, teal/purple bands, seat arrangement and center aisle closely resemble the opening composition.",
+    "No narrow bright polar wedges, projection-shell light leaks, blank show frames or unexpected foreground geometry occlusions are visible in these samples.",
+    "The title A sky made of light, the original-dome-show subtitle, and the bottom OpenStreetMap attribution are readable and fit their panels in all ten samples.",
+    "The dark seat blocks frame a clear central aisle, and the advancing lower progress line remains within the footer."
+  ],
+  "limits": [
+    "Only the ten specified frames were visually inspected. This is not a frame-by-frame viewing of the complete movie and does not prove absence of every transient flicker or motion artifact.",
+    "The independent media report records full decode of 4,320 frames and 24 FPS cadence; those structural checks are distinct from this sampled visual review.",
+    "Some fine grain remains on low-light seating, and peripheral stars are softly elliptical in the wide dome view.",
+    "The moving planet is intentionally outside the camera field during part of the program and partially occluded by the fixed caption at 140 s.",
+    "The 179.9 s frame supports a near return to the opening composition, not exact byte equality of loop endpoints.",
+    "The show is an original artistic composition, not an astronomy ephemeris or a reproduction of an Adler commercial show."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "copiedApplication": "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v16-package-twe08m3t/Atelier.app",
+  "sourceRepositoryReadsDeniedBySandbox": "/Users/william/dev/architecture",
+  "locations": [
+    "campus",
+    "paris"
+  ],
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8"
+}

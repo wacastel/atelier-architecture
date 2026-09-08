@@ -1,0 +1,108 @@
+{
+  "reviewDate": "2026-09-08",
+  "scope": "Reference evidence for original procedural reconstruction; actual visual observations separated from text and interpretation",
+  "primaryReferences": [
+    {
+      "url": "https://www.wightco.com/work/adler-planetarium/",
+      "sourceRole": "Renovation architect",
+      "textUsed": [
+        "Historic twelve-sided granite core",
+        "Glass C-shaped Sky Pavilion",
+        "21 m projection dome",
+        "Exterior copper replacement"
+      ],
+      "imagesActuallyViewed": [
+        "Sky Pavilion hero: sloped triangular glazing and radial structural ribs",
+        "Aerial and west-entrance photographs: twelve-sided core, crescent addition, receding terraces, broad stairs and warm copper roof",
+        "Grainger theater photograph: projected imagery above seated silhouettes",
+        "Welcome gallery photograph: repeated colored ribs"
+      ],
+      "method": "Native Chrome page screenshots inspected through CUA; no image assets copied into the application"
+    },
+    {
+      "url": "https://www.adlerplanetarium.org/plan-your-visit/museum-map/",
+      "sourceRole": "Museum visitor information",
+      "imagesActuallyViewed": [
+        "Current upper-level map: central Grainger theater, west entrance, welcome gallery and surrounding exhibits connected to crescent"
+      ],
+      "method": "Native Chrome page screenshot inspected through CUA",
+      "limits": "Public wayfinding map supports relative arrangement, not surveyed doorway, seating or emergency-access dimensions"
+    },
+    {
+      "url": "https://tech.cosm.com/our-work/adler-planetarium",
+      "sourceRole": "Projection supplier",
+      "textUsed": [
+        "21 m dome",
+        "191-degree projection coverage",
+        "Nearly 200 seats"
+      ],
+      "imagesActuallyViewed": [],
+      "limits": "Image URLs did not load during browser visit; no visual conclusions attributed to these images"
+    },
+    {
+      "url": "https://npgallery.nps.gov/NRHP/GetAsset/NHLS/87000819_text",
+      "sourceRole": "National Park Service historic nomination",
+      "textUsed": [
+        "160 ft exterior diameter",
+        "Three receding twelve-sided rings",
+        "Reddish rainbow granite with darker veins",
+        "Fluted stone, corner reliefs, copper hemisphere and broad western stairs"
+      ],
+      "imagesActuallyViewed": [],
+      "limits": "Textual reference; contemporary exterior and interior appearance checked with architect and museum sources"
+    },
+    {
+      "url": "https://libsysdigi.library.illinois.edu/oca/Books2009-06/chicagosaccompli00bish/chicagosaccompli00bish.pdf",
+      "sourceRole": "Contemporary guide archived by University of Illinois",
+      "textUsed": [
+        "85 ft building height above terrace"
+      ],
+      "imagesActuallyViewed": [],
+      "limits": "Height used as an architectural envelope estimate, with interpreted raised terrace grade"
+    },
+    {
+      "url": "https://blogs.depaul.edu/deblogs/project/visiting-the-adler-planetarium/",
+      "imageURL": "https://blogs.depaul.edu/deblogs/files/2024/04/outside-35781691acb41052.jpg",
+      "sourceRole": "Firsthand student visit photograph published by DePaul University",
+      "imagesActuallyViewed": [
+        "Night entrance photograph: dark upper copper dome, white practical light at the doors and readable stone stairs, warm light near the lake-side pavilion"
+      ],
+      "method": "Actual image inspected in native Chrome through CUA after hidden browser became unavailable; no image asset downloaded or included in the app",
+      "limits": "Supports the overall night balance; modeled entry downlight locations and calibrated intensity remain interpretation."
+    }
+  ],
+  "mappedEvidence": {
+    "file": "scripts/data/chicago-museum-campus-osm-2026-09-08.json",
+    "sha256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+    "ways": {
+      "24825591": "Combined original building and crescent addition",
+      "766703208": "Historic core",
+      "686342956": "Exterior dome",
+      "91526195": "Doane Observatory"
+    },
+    "projectionCenterEastSouthMetres": [
+      2413.718,
+      1393.247
+    ],
+    "originLatitudeLongitude": [
+      41.878876,
+      -87.635918
+    ],
+    "coordinateConvention": "X east, Y up, Z south; absolute OSM elevation is not local ground height"
+  },
+  "interpretations": [
+    "Raised upper floor 2.8 m above scene grade",
+    "Detailed doorway, aisle and seat arrangement",
+    "Exhibit objects and abstract facade reliefs",
+    "Granite microtexture and copper aging",
+    "Night illumination fixture placement and intensity",
+    "Silent original 180-second star/aurora/planet composition; no commercial show frames, narration, story or music reproduced"
+  ],
+  "notClaimed": [
+    "As-built survey accuracy",
+    "Complete collection inventory",
+    "Astronomical ephemeris accuracy",
+    "Measured night photometry",
+    "Current operational or emergency-access plan"
+  ]
+}

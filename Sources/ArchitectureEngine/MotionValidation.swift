@@ -17,6 +17,9 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
     ] : location == .chicago ? [(0,false,"willis-overview"),(2,false,"willis-facade"),(0,true,"willis-night"),(7,false,"chicago-river"),(7,true,"chicago-river-night")] : location == .lakefront ? [
         (3,false,"hancock-braces"),(1,false,"historic-water-tower"),(4,true,"buckingham-night"),
         (6,false,"harbor-reflections"),(7,true,"lakefront-traffic-night")
+    ] : location == .campus ? [
+        (1,false,"field-hall"),(2,false,"shedd-tanks"),(3,false,"adler-gallery"),
+        (4,false,"planetarium-show"),(6,true,"burnham-harbor-night"),(7,true,"mccormick-night")
     ] : [
         (1,false,"cloud-gate-idle"),(1,false,"cloud-gate-orbit"),(1,true,"cloud-gate-night"),
         (2,false,"beneath-cloud-gate"),(2,true,"beneath-cloud-gate-night")]
@@ -41,7 +44,8 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
         for frame in 0..<frames {
             try autoreleasepool {
                 // Slow overview pivot; closer detail pan advances along its authored route.
-                let time = view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
+                let campusOffsets: [Int:Double] = [1:80,2:79,3:64,4:40,6:20,7:139]
+                let time = location == .campus ? (campusOffsets[view] ?? 0)+Double(frame)/30*3 : view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
                 let pose = test.tag == "cloud-gate-idle" ? location.idlePose(view:view,seconds:Double(frame)/30) : silhouette ? location.pose(view:0,seconds:Double(frame)/24) : view == 8 ? location.pose(view:view,seconds:16+Double(frame)/24) : view == 0 ? location.idlePose(view:view,seconds:time) : location.pose(view:view,seconds:time)
                 let sceneTime = test.tag == "cloud-gate-idle" ? Double(frame)/30 : silhouette ? Double(frame)/24 : view == 8 ? 16+Double(frame)/24 : time
                 for renderer in [reconstructed,reference,spatialOnly] { renderer.setSceneTime(sceneTime) }

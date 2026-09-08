@@ -1,0 +1,4 @@
+PASS: Adler 105748 triangles, 61 fixtures; mapped envelope, unit normals, published21m inward shell,144B uniform ABI, entrance/gallery/theater route
+PASS: Actual renderer scene-time advancement, stationary invalidation, exact pause/rewind/loop and bounded negative/huge clocks
+PASS: Actual local reactive guides for theater lighting and100m mirror reflection; unrelated, behind/outside bounds and paused surfaces retain their guides
+PASS: 6144 RGBA/depth values bit-identical to pre-Adler shader at animation.zero, day/night hit/miss paths

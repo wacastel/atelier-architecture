@@ -1,0 +1,55 @@
+{
+  "reviewDate": "2026-09-08",
+  "scope": "Actual inspection of six final-phase stills; does not certify exterior composition, unsampled route times, motion noise or exported movies.",
+  "visualReviewPassed": true,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/field-hall.png",
+      "sha256": "bae55921e4e2bc1b8d915801f61df35a738d3244c5125bc7efb043a80d6336cd",
+      "actuallyViewed": true,
+      "findings": "Clear supported side aisle, sauropod and long glazed hall visible. Procedural bones and garden clouds are simplified authored interpretations.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/field-hall.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/field-hall-night.png",
+      "sha256": "2b232924b8f301b136e4c0d4f1b17442a9a6584eeb01697cd67454ca3fc1aea8",
+      "actuallyViewed": true,
+      "findings": "Local lighting keeps the skeleton, columns and floor legible at night. Upper arcades remain dark; no obstruction found.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/field-hall-night.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/shedd-rotunda.png",
+      "sha256": "4046952d1656970bc0165ef537ab4b7f5af0579594bbee3f2927dc010e7e20a1",
+      "actuallyViewed": true,
+      "findings": "Both curved habitats, gold scalloped crowns and clear central passage are readable. Glazed dome and supporting drum visible.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/shedd-rotunda.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/shedd-rotunda-night.png",
+      "sha256": "c5f5a0dc8060813bf829513e984218636a611df253cbd3f540a00e358bcf7945",
+      "actuallyViewed": true,
+      "findings": "Habitat lighting preserves fish, coral, plants and the central passage at night. Dark upper rotunda is intentional lighting interpretation.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/shedd-rotunda-night.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/shedd-oceanarium.png",
+      "sha256": "48677b901ab66ff8f8ca7df6234dd51c4110eca877caa621a7f86119c2187136",
+      "actuallyViewed": true,
+      "findings": "Clear supported overlook, curved lake window, calm pool reflection and Adler across the water. Trusses and seating remain visible.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/shedd-oceanarium.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/shedd-oceanarium-night.png",
+      "sha256": "dae769f47faf4d6f39252c40204bf5da42278bd55699ae943c0ace42bf87d351",
+      "actuallyViewed": true,
+      "findings": "Pool, window silhouette and Adler illumination remain visible. Interior is deliberately dim and seat/ceiling detail is subdued; no clipping or blocked path in this still.",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-phases/shedd-oceanarium-night.png"
+    }
+  ],
+  "limitations": [
+    "Original procedural exhibit forms and simplified architectural details; no photogrammetry or current collection inventory reproduction.",
+    "Oceanarium night view is substantially dimmer than daytime.",
+    "Aquarium glass uses thin-sheet transport and static fish; no volumetric water or thick acrylic optics."
+  ],
+  "renderRevision": "Reviewed interior images precede the later Shedd context/first-camera correction; selected interior meshes remain unchanged."
+}

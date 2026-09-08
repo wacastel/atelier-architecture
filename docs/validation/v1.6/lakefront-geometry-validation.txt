@@ -1,0 +1,2 @@
+PASS: lakefront 3708357 triangles, 372 lights, 247 boats/ornaments, six traffic lanes; build 0.7308299541473389s
+PASS: finite positions/normals, valid materials, no collapsed triangles; maximum normal error 3.5762787e-07

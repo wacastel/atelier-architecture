@@ -1,0 +1,66 @@
+{
+  "scope": "Read-only actual review of two rebuilt Shedd bookmark stills after bounded context corrections, before any further camera reframing.",
+  "geometryCorrectionVerified": true,
+  "finalFramingApproval": false,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/shedd-context-correction/day.png",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-day/02-a-world-beneath-the-water.png",
+      "sha256": "f6a661aa580d47bc3c309f11c1c4b26e6e15fe9a88035b23519a8bda53fd35b3",
+      "observation": "Unsupported tall masses are absent. The ticket pavilion has a thin low canopy and glass walls, the cafe is a low roof, and the nearby path joins have no triangular grass holes. Existing foreground trees/cafe still partly frame the museum."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/shedd-context-correction/night.png",
+      "originalRenderPath": "/Users/william/dev/architecture/output/v7-review/final-night/02-a-world-beneath-the-water.png",
+      "sha256": "2f75603df015a01d84ca82cb99aeb2ebb7ab0f722f867f8aa1f2dcb0f7531fb7",
+      "observation": "Low pavilion and museum entrance lighting are visible behind dark trees; no multi-storey generic cylinders. This view remains intentionally low-light and its foreground framing is evaluated separately."
+    }
+  ],
+  "sourceObjects": [
+    {
+      "id": 445721198,
+      "type": "way",
+      "rawName": "Museum Campus Cafe",
+      "rawHeightTag": null,
+      "previousEstimatedHeightMetres": 34,
+      "interpretedHeightMetres": 4.5,
+      "preservesFutureTaggedHeight": true
+    },
+    {
+      "id": 18999713,
+      "type": "relation",
+      "outerWayID": 766375454,
+      "rawBuildingTag": "yes",
+      "rawHeightTag": null,
+      "previousEstimatedHeightMetres": 21.1,
+      "authoredCanopyHeightMetres": 4.5,
+      "interpretation": "Single-storey curved glass ticket pavilion, thin cream overhanging canopy, kiosks and warm interior lighting."
+    }
+  ],
+  "references": [
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.616,41.8659,-87.6125,41.8678&bboxSR=4326&imageSR=3857&size=1000,800&format=png&f=html",
+      "viewedBy": "Modeling team",
+      "viewedDate": "2026-09-08",
+      "acquisitionDate": null
+    },
+    {
+      "url": "https://seaoi.org/resources/Pictures/Structures%20Symposium/3_Exterior%20at%20night_credit%20VDT%20-%20Carolyn%20Everett.jpeg",
+      "sourcePage": "https://seaoi.org/event-6235358",
+      "credit": "VDT / Carolyn Everett",
+      "viewedBy": "Modeling team",
+      "viewedDate": "2026-09-08"
+    }
+  ],
+  "rawAndDerivedMapBytesUnchanged": true,
+  "rawMapSHA256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+  "derivedMapSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+  "cpuRegressionEvidence": "museum-campus-geometry-validation.json",
+  "limitations": [
+    "Both new heights are visual estimates, not surveyed measurements.",
+    "Still review verifies massing/path corrections and does not certify full animation quality.",
+    "No image assets were downloaded or bundled; photographs were viewed as references.",
+    "Museum exterior composition remains a separate camera-selection decision."
+  ],
+  "subsequentFraming": "The corrected low structures were retained. The final opening camera was moved to Shedd-local(-80,1.8,75), looking toward(-10,12,0) at70 degrees; remaining twelve-key timing was retained and42,882 integrated playback checks pass."
+}

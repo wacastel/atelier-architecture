@@ -5,7 +5,7 @@ import Foundation
 enum ChicagoWorld {
     static func build() -> SceneData {
         let builder = EiffelBuilder()
-        builder.scene.name = "Chicago · The Loop, Magnificent Mile & Lakefront"
+        builder.scene.name = "Chicago · The Loop, Lakefront & Museum Campus"
         builder.chicagoEnvironment()
         builder.willisTower()
         builder.millenniumPark()
@@ -13,6 +13,11 @@ enum ChicagoWorld {
         builder.magnificentMile()
         builder.magnificentGateway()
         builder.chicagoLakefront()
+        builder.museumCampusEnvironment()
+        builder.museumBuildings()
+        builder.adlerPlanetarium()
+        builder.soldierField()
+        builder.mccormickPlace()
         return builder.scene
     }
 }

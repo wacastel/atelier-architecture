@@ -1,0 +1,142 @@
+{
+  "reviewDateUTC": "2026-09-08T15:14:43.734149+00:00",
+  "version": "1.6.0",
+  "build": 7,
+  "passed": true,
+  "actuallyViewed": true,
+  "visualReviewPassed": true,
+  "scope": "Sampled-only visual review of exactly ten final night-tour PNGs at 0, 6, 18, 30, 42, 54, 66, 78, 90 and 95.9 seconds, covering all eight chapters. No every-frame, uninterrupted-motion or photometric-fidelity certification.",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v7-review/final-input.json",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "videoPath": "/Users/william/dev/architecture/output/Chicago-Museum-Campus-Night-1080p.mp4",
+  "videoSHA256": "c1a0053c8c5470f5c7e10975d488ea766b9dc8fa78195fa61942eb527cef32cf",
+  "mediaReportPath": "/Users/william/dev/architecture/output/v7-review/museum-night-tour-media.json",
+  "mediaReportSHA256": "fa02a784b19478c2fc4705b5eb6973bc9e8c0714d5b4b352b1b0492d4a22ca44",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "mediaReportDecodeEvidence": {
+    "fullDecodePassed": true,
+    "decodedFrames": 2304,
+    "expectedFrames": 2304,
+    "fps": 24,
+    "requestedSeconds": 96.0,
+    "note": "Read from the completed release media report; full decoding was performed by the release owner, not rerun during this visual review."
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/0.png",
+      "sha256": "47e17c1fd3359c0d43ad9b50b3104d77430c311241f960c5cfbd67d1bbae266b",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/6.png",
+      "sha256": "e180dd3a323d898469f3afe7722deeb3d11e9473c59aed49ed9f4af391a5de4b",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/18.png",
+      "sha256": "25f74055ae735d084eeb86c86d0584245d86d8fb5c7d5e5393481edf49e81357",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/30.png",
+      "sha256": "c7184e5d15c5f900537a83d030932d8584464cbd1f4712c4108c282ddf61ec38",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/42.png",
+      "sha256": "881d3db514f8aa588be02e0e03488117d59eb1034a74d1b4c4bd97c4226f9e46",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/54.png",
+      "sha256": "add313e62212edfdf0f83a1a9bf5b42fe074410c9d9abb3899233a9d77c5d7be",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/66.png",
+      "sha256": "574be7719a1ffb2b24f344480133e68aeb50ff44302ff16f9d4721c0fdb6b0be",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/78.png",
+      "sha256": "478cb583eefaf932ca2a89d91da05a9bbd41f5884b9772f47aea61a5d527cadc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/90.png",
+      "sha256": "c5072f4d24e390351284c7204da76898c2a1759c83ba7745d759b3dde0426534",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-night-tour/95.9.png",
+      "sha256": "75686ffb0da8385202574be00a40f2e1d4652c9fb646dcfefcc9c6c5f741a4f7",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    {
+      "seconds": 0,
+      "chapter": 1,
+      "observation": "Opening Art Institute/park roof and city-window scene is visible. Title, complete subtitle and OSM attribution fit. Reflective roof/paving shows conspicuous fine bright sampling grain in this first-frame sample; it is not represented as a noiseless image."
+    },
+    {
+      "seconds": 6,
+      "chapter": 1,
+      "observation": "Field Museum north facade, portico and stairs are clearly lit against the lake and skyline. Foreground lawns are dark. The flying approach has no central geometric obstruction in this sample."
+    },
+    {
+      "seconds": 18,
+      "chapter": 2,
+      "observation": "Stanley Field Hall is readable at night: marble columns, arcades, patterned floor, glass-roof ribs, suspended gardens and the interpreted dinosaur/elephant exhibits remain visible. The close dinosaur neck extends above the image; the hall aisle remains clear."
+    },
+    {
+      "seconds": 30,
+      "chapter": 3,
+      "observation": "A real modeled rotunda masonry pier fills the center of the view and partially hides the illuminated aquarium tank, while fish/plants and gold tank band remain visible at its sides. This is the already identified route occlusion, not a newly introduced generic building. This night sample alone does not demonstrate when it clears; neighboring daytime frames were reviewed separately by the release owner."
+    },
+    {
+      "seconds": 42,
+      "chapter": 4,
+      "observation": "At the Adler theater entrance, the doorway frames stars, constellation lines and colored aurora on the dome. Dark seats, an aisle guide light and a side-gallery telescope provide scale. The theater wall correctly frames the opening rather than filling it."
+    },
+    {
+      "seconds": 54,
+      "chapter": 5,
+      "observation": "The original dome show fills the view with a continuous blue-purple-green aurora, distinct stars and constellation lines. Dark seat silhouettes remain along the bottom. No large blank or erased rectangular patch is apparent in this sampled show image."
+    },
+    {
+      "seconds": 66,
+      "chapter": 6,
+      "observation": "Aerial Soldier Field view shows the open asymmetric bowl, green marked field, upper seating rows, warm curved suite facade and both colonnade strips. The Field Museum and Adler lights read beyond it. Much of the stadium interior remains dark; sparse grain is visible on roof/skyline detail."
+    },
+    {
+      "seconds": 78,
+      "chapter": 7,
+      "observation": "Burnham piers have small warm pools from dock pedestals. The nearest occupied sailboat has a lit cabin/courtesy strip and a short reflection on the water, while neighboring moored hulls and masts remain mostly silhouettes. The view is very dark away from practical lights, limiting close detail readability."
+    },
+    {
+      "seconds": 90,
+      "chapter": 8,
+      "observation": "McCormick roofs, hotel masses and the connecting skywalk are visible through patterned windows and local building washes. Lake and shore are low contrast in the background, with no bright white terrain wedge visible. Large roofs remain mostly dark."
+    },
+    {
+      "seconds": 95.9,
+      "chapter": 8,
+      "observation": "The ending view frames the glazed connecting bridge over the illuminated Lake Shore Drive corridor. Shore/lake continue at left without an obvious bright triangular cap. Road pools, facades and lit windows show residual fine sampling grain; title/subtitle and OSM attribution remain within their panels."
+    }
+  ],
+  "captionsAndAttribution": {
+    "allTenSamplesRead": true,
+    "passed": true,
+    "observation": "Every sampled title, subtitle, reconstruction label and Map data \u00a9 OpenStreetMap contributors attribution is legible and fits its overlay. The eight chapter labels match the visible architectural study. The three-minute flight subtitle describes the original full route, compressed into its twelve-second montage chapter as documented."
+  },
+  "newBlockingDefects": [],
+  "limits": [
+    "The known Shedd pier occlusion is visible at30seconds. This record does not claim the route has no temporary architectural occlusions or independently verify the clearing time in the night video.",
+    "Fine sampling grain remains visible, especially on the opening reflective roof and ending lit facades/paving. These samples do not establish temporal-noise behavior between frames.",
+    "Burnham Harbor and unlit stadium/roof surfaces are very dark. Practical lights and occupied cabins are readable, but this recording does not show all modeled detail at night.",
+    "Only two samples cover the McCormick chapter, and the far shoreline is dark; no complete shoreline survey follows from those views.",
+    "The montage uses eight chapter cuts and compressed route clocks. The first and final samples have different locations and are not intended as a seamless loop; cut continuity was not inspected frame by frame.",
+    "No GPU work, native-app interaction, source change or geometry change was performed for this review."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "scope": "Root actually inspected ten extracted frames spanning the complete 180-second movie. Automated full decoding and cadence are separate from sampled visual review; this is not all-frame visual inspection.",
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "videoSHA256": "7b39076630a154c8e2724b45bc2fc5b6d29c3a62248d6ea3d349aa20758a9cc5",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/0.png",
+      "sha256": "f7623c60907fa1b634fef6f747abeacfca33a2228604f3e7843a55d5789e5c13",
+      "timestampSeconds": 0,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/30.png",
+      "sha256": "04b6cbaaa589afab9eb78751d4c052c1edabc7087bf741238cf8ffbb26dce44b",
+      "timestampSeconds": 30,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/60.png",
+      "sha256": "811dfac73f3866bd6f15e3898a8b6de5c4fdfd8b8804fb0cbbd1221f70a4e553",
+      "timestampSeconds": 60,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/90.png",
+      "sha256": "836bb2b39d199c6579e0d499f014974daccd14c6c237e342accc6e14ec138eff",
+      "timestampSeconds": 90,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/112.png",
+      "sha256": "5c85d8dcaaef285f6a8a1f4f0f75cff3f1c8ab121f6adc70fcd36045a5885b3c",
+      "timestampSeconds": 112,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/122.png",
+      "sha256": "2faab7da5b76272a0da512699234d7c69abca03d2c5f135c4ae6d95836afcc1f",
+      "timestampSeconds": 122,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/135.png",
+      "sha256": "9867b87185f7382262187b2da8b5d5aed4d1333b9ebf8ae525f4674d5450af92",
+      "timestampSeconds": 135,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/150.png",
+      "sha256": "0d8e5bf8e0021d1b7104a7e878838131962b04a7214794cbf8f2c7cf79af128e",
+      "timestampSeconds": 150,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/170.png",
+      "sha256": "852f2248157c061add1508f8f7211da2ff341d0c0042959af0c3c7b4f7dac943",
+      "timestampSeconds": 170,
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/media-review/museum-flyover/179.9.png",
+      "sha256": "59efff2e912d83126ad0a16c228bd3b8ebe638e28cdbe285a143cf95c90823e2",
+      "timestampSeconds": 179.9,
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Opening Modern Wing/skyline composition connects through Buckingham Fountain and Grant Park to Museum Campus; Lake Shore Drive cars, harbor boats and continuous shoreline remain present.",
+    "North facade, four front columns, readable Field Museum name, stairs and open portico remain clear through the sampled approach and entry.",
+    "Arrival moves into Stanley Field Hall past the interpreted skeleton, hanging gardens and elephants. The camera remains outside exhibits in the sampled views.",
+    "Title and OpenStreetMap attribution are legible in all ten frames; progress bar advances normally. No conspicuous corruption, missing surface or blocked final view."
+  ],
+  "limits": [
+    "Fine 16-sample glass/indirect-light grain remains, especially in the first frame before history develops.",
+    "Procedural fauna and contextual buildings are visibly simplified; the scope is an architectural reconstruction."
+  ]
+}

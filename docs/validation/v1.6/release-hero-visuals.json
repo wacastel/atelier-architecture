@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e",
+  "images": [
+    {
+      "name": "Museum-Campus-Field-Hall",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/release-heroes/Museum-Campus-Field-Hall.png",
+        "--stop",
+        "1",
+        "--at",
+        "85",
+        "--lighting",
+        "0",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "256"
+      ],
+      "sha256": "153229be8a4a25e61f4f54719822d198fdd84eeb3b038240dbb5ffe10526ce36",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "passed": true,
+      "repositoryImage": "docs/images/Museum-Campus-Field-Hall.png"
+    },
+    {
+      "name": "Museum-Campus-Shedd-Rotunda",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/release-heroes/Museum-Campus-Shedd-Rotunda.png",
+        "--stop",
+        "2",
+        "--at",
+        "77",
+        "--lighting",
+        "0",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "384"
+      ],
+      "sha256": "1aee4230c8187fa33ca5d78ecb24bbc2438ae56d67f85eb19ce588774fa4678f",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "passed": true,
+      "repositoryImage": "docs/images/Museum-Campus-Shedd-Rotunda.png"
+    },
+    {
+      "name": "Museum-Campus-Adler-Show",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/release-heroes/Museum-Campus-Adler-Show.png",
+        "--stop",
+        "4",
+        "--at",
+        "40",
+        "--lighting",
+        "2",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "384"
+      ],
+      "sha256": "0cbd7648ff34293b6cd7713ce3439518eda5787daf7509963a560d2882f0b4a0",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "passed": true,
+      "repositoryImage": "docs/images/Museum-Campus-Adler-Show.png"
+    }
+  ],
+  "findings": [
+    "Field Hall arches, glass roof, interpreted skeleton and hanging garden clouds are readable with slight indirect-light grain.",
+    "Both Shedd habitats, gold crowns, daylight glazing and connecting aisle are visible. Animals are static procedural interpretations.",
+    "Adler stars, aurora and planet are smooth with no polar slivers in the sampled show phase; the seating remains subdued."
+  ]
+}

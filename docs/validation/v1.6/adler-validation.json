@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-08",
+  "command": [
+    "./scripts/validate-adler.sh",
+    "--gpu",
+    "--baseline",
+    "/tmp/atelier-before-adler-Renderer.metal"
+  ],
+  "exitCode": 0,
+  "triangleCount": 105796,
+  "lightCount": 63,
+  "alwaysOnLightCount": 33,
+  "uniformBytes": 144,
+  "animationOffsetBytes": 128,
+  "legacyComparison": {
+    "baseline": "Pre-Adler v1.5 final Renderer.metal",
+    "baselineSHA256": "2a1693611ef077c740f7b65dc1dfd5dbf489db652e744c87cb5d79b7674fec46",
+    "componentsCompared": 6144,
+    "comparison": "Exact SIMD Float equality, shared geometry/AS/lights/seeds, day/night hit and miss cameras, animation.zero",
+    "passed": true,
+    "scopeLimit": "Controlled fixture only; does not establish full-scene bit identity."
+  },
+  "checks": [
+    "Finite bounded geometry and unit vertex normals",
+    "Exact21m inward projection shell",
+    "Entrance/gallery/theater collision clearance and floor support",
+    "Actual GPU show phase changes",
+    "Stationary camera time changes invalidate accumulation",
+    "Same absolute time preserves accumulation",
+    "Rewind0 and loop180 render exact phase0 image",
+    "Negative and enormous finite time normalization",
+    "Local relighting history reactivity",
+    "100m mirror catching screen remains reactive",
+    "Paused mirror and distant/behind/outside-bound rays retain ordinary guides",
+    "Self-contained actual GPU negative control for polar angular-star footprint:0.004172025 corrected relative variation versus6.706766 legacy",
+    "Stationary rough nonemissive dielectric guide gets spatial-only reconstruction while show advances",
+    "Actual GPU changing diffuse noise: image RMSE0.023375\u21920.008782; temporal residual0.032822\u21920.012472",
+    "Missing temporal guard negative control admits stale color; strong current-coverage bypass remains exact",
+    "All147456 tested RGBA components for preexisting guide classes exactly match previous policy"
+  ],
+  "log": {
+    "path": "docs/validation/v1.6/adler-validation.log",
+    "sha256": "72cb5ab84ec681cec0a21377c80d39140b8970a854cefb4117492cd91e14a30a"
+  },
+  "inputSHA256": {
+    "Sources/ArchitectureEngine/AdlerPlanetarium.swift": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources/ArchitectureEngine/SceneTypes.swift": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "137528c48d7cfdd92cc70a909cfdce3cbae78c06d498f0a89d0f6a9c9aff50fc",
+    "Tests/Adler/main.swift": "527ff00a38a9ed3c0080b4893274f608081fddd3d847bea8ab6ee38c886ba8f0",
+    "scripts/validate-adler.sh": "36b079387b10ec6cb0663e71c98901bc37127ca339ab6940f6aa6bf66242d956",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "Tests/Adler/ProjectionReconstruction.swift": "ad341e1096f1743fd7e6aad4e12bd778d0f37dacf94506954da9852db33ca8d1",
+    "scripts/validate-denoiser.swift": "86712f7ff1d215cb94603fc13cb1ac552e5131b675c4276b17cecddae106650b"
+  },
+  "abiRegressionReport": {
+    "path": "docs/validation/v1.6/adler-abi-regressions.json",
+    "sha256": "2171f4a92d5ccb1d7ddce9fe3c5b0e403c5881c3e4efc41711e7bd550c8964f1",
+    "scope": "Eight suites passed after the144B ABI integration; subsequent polar correction changes only the new procedural projection, rechecked here with controlled legacy equivalence."
+  },
+  "visualReview": {
+    "path": "docs/validation/v1.6/adler-isolated-visuals.json",
+    "sha256": "af65d7b6c4b933ba579deca32556d6c88d18392f3ed21d8c93511efcc9c6f72d",
+    "scope": "Images reviewed before the diffuse reconstruction split; the change affects reconstruction guides only and does not change these unfiltered stills."
+  },
+  "limits": [
+    "The linear isolated route probe is distinct from the root full-world CameraTrack route validation.",
+    "The first-reflection guide does not classify all rough or multiple-bounce show illumination.",
+    "No rendering throughput claim is derived from fixture elapsed time."
+  ],
+  "renderCommand": [
+    "./scripts/validate-adler.sh",
+    "--gpu",
+    "--baseline",
+    "/tmp/atelier-before-adler-Renderer.metal",
+    "--polar-baseline",
+    "/tmp/atelier-before-polar-Renderer.metal",
+    "--render",
+    "output/v7-review/adler-release"
+  ],
+  "polarCorrectionReport": {
+    "path": "docs/validation/v1.6/adler-polar-correction.json",
+    "sha256": "b2aad6ca2e75793fbf2e98dfdf1d586da64a30111c9e283d94660906e450fff8"
+  },
+  "diffuseReconstructionReport": {
+    "path": "docs/validation/v1.6/adler-diffuse-reconstruction.json",
+    "sha256": "a47ed6b139fa2c28962a1976f21fc6fbed25fd92e3a8612d9c6db5d241f6a0e3"
+  },
+  "renderCommandScope": "The listed render command produced the unfiltered proof images before the subsequent diffuse guide split. Current shader/fixture validation uses command above."
+}

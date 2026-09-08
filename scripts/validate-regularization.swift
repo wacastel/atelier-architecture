@@ -7,7 +7,7 @@ import simd
 
 private struct Vertex { var p,n:SIMD4<Float> }
 private struct Material { var c,p:SIMD4<Float> }
-private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>; var viewport:SIMD4<UInt32>; var settings:SIMD4<Float> }
+private struct Uniforms { var origin,right,up,forward,sunDirection,sunColor:SIMD4<Float>; var viewport:SIMD4<UInt32>; var settings:SIMD4<Float>; var animation:SIMD4<Float> = .zero }
 private func require(_ b:Bool,_ message:String) { if !b { fputs("FAIL: \(message)\n",stderr); exit(1) } }
 let root=URL(fileURLWithPath:#filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
 guard let device=MTLCreateSystemDefaultDevice(),let queue=device.makeCommandQueue() else { fatalError("Metal required") }
@@ -119,7 +119,7 @@ private func render(_ scene:Scene,enabled:Bool,bounces:Float,samples:Int=32,sun:
         let c=queue.makeCommandBuffer()!
         for sample in batch..<min(samples,batch+32) {
             u.viewport.z=UInt32(sample);u.viewport.w=UInt32(sample+771)
-            let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(pipeline);e.setTexture(color,index:0);e.setBytes(&u,length:128,index:0)
+            let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(pipeline);e.setTexture(color,index:0);e.setBytes(&u,length:144,index:0)
             e.setBuffer(scene.vertices,offset:0,index:1);e.setBuffer(scene.ids,offset:0,index:2);e.setBuffer(scene.materials,offset:0,index:3);e.setAccelerationStructure(scene.acceleration,bufferIndex:4);e.setBuffer(lights,offset:0,index:5)
             e.dispatchThreads(MTLSize(width:side,height:side,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));e.endEncoding()
         };try checkedCommit(c)

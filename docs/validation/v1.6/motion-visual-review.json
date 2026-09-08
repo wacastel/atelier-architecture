@@ -1,0 +1,49 @@
+{
+  "scope": "Root actually viewed all six reconstructed final frames and the paired raw theater frame from the final package after the Shedd context/camera correction. This is sampled still inspection alongside the independent 32-frame numeric motion test, not an all-frame visual claim.",
+  "passed": true,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/planetarium-show-raw.png",
+      "sha256": "a7e5decf011ad926a80f026523ed90ff87b5bb0609de3ccb0e7947b126c5dcb5",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/planetarium-show-reconstructed.png",
+      "sha256": "7cc3365bf9d4685a788a3381c58b0c38f8f862600df70caacbd96535f699e9e7",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/shedd-tanks-reconstructed.png",
+      "sha256": "01ae87ff94c963145d4adde8542fede44596f19d4ffc55ade8f9a83d5fef5fab",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/field-hall-reconstructed.png",
+      "sha256": "a82083a3ad7cfe26bb22b648c7b43587910b3c83d40d075af1efdd197b418545",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/adler-gallery-reconstructed.png",
+      "sha256": "c3810a541f761eb79b860e10a9b38d53cf3646f19a89137eb14ea96c91358b41",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/burnham-harbor-night-reconstructed.png",
+      "sha256": "6d10a65bd455bdbe73f7f522039fa5c33722530e4c2d1d691dd2a4c9d35dcc68",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/motion-final/campus/mccormick-night-reconstructed.png",
+      "sha256": "0e43245c57a4a29b861add3dca5b89849cb2fe7b8a00c3c4c2577c4d10291aec",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Dome star and aurora detail remains unchanged while seat speckle is substantially reduced. No visible polar sliver in the sampled frame.",
+    "Field Hall arches, suspended gardens and skeleton remain legible; spatial smoothing preserves broad material boundaries.",
+    "Shedd glass and gold crowns retain fine sampling grain at eight samples; the two habitats and aisle are clear.",
+    "Adler gallery floor is quieter, with retained projection doorway and slender supports.",
+    "Night harbor and broad convention roofs remain subdued; finite dock, promenade and pylon lamps are visible. These are low-sample motion proofs; high-sample final stills and exported movies are reviewed separately."
+  ],
+  "sourceInputSHA256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e"
+}

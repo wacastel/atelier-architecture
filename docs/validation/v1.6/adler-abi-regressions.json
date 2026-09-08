@@ -1,0 +1,79 @@
+[
+  {
+    "command": [
+      "swift",
+      "scripts/validate-metal.swift"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 1.209,
+    "log": "docs/validation/v1.6/validate-metal-adler-abi.log",
+    "logSHA256": "3112124b3d35b559e4d5175ca1f08fc7d8fea80947f04463995f65a812f23746"
+  },
+  {
+    "command": [
+      "swift",
+      "scripts/validate-atmosphere.swift"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 2.61,
+    "log": "docs/validation/v1.6/validate-atmosphere-adler-abi.log",
+    "logSHA256": "273ab1437d6fe6f3a4fc84b14edcc49324d2281f367cb66e1e3bd3643eb19599"
+  },
+  {
+    "command": [
+      "swift",
+      "scripts/validate-glass.swift"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 0.952,
+    "log": "docs/validation/v1.6/validate-glass-adler-abi.log",
+    "logSHA256": "053f6e1fd3723833ee3d1bd01ac1407395b450e9cbe2766faa714a740cbacd7d"
+  },
+  {
+    "command": [
+      "swift",
+      "scripts/validate-sampling.swift"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 1.471,
+    "log": "docs/validation/v1.6/validate-sampling-adler-abi.log",
+    "logSHA256": "727dc04cc5e65382ae62b4a1c6294094330d71d0f115de0bbde6095ec41417f0"
+  },
+  {
+    "command": [
+      "swift",
+      "scripts/validate-regularization.swift"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 1.482,
+    "log": "docs/validation/v1.6/validate-regularization-adler-abi.log",
+    "logSHA256": "4fe6d0a29b173717b940f45aa22175dedcaddde325fe19eee7b56051df0f2484"
+  },
+  {
+    "command": [
+      "./scripts/validate-indexed-lighting.sh"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 2.873,
+    "log": "docs/validation/v1.6/validate-indexed-lighting-adler-abi.log",
+    "logSHA256": "b74e263decc1c10d2a802c93438144edd8d7f663943fc427804aa72b104deb25"
+  },
+  {
+    "command": [
+      "./scripts/validate-traffic.sh"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 9.453,
+    "log": "docs/validation/v1.6/validate-traffic-adler-abi.log",
+    "logSHA256": "86bc4fe724cf32b450eeaafb3bab787e2e105bf48f0dcdeaaf6c5fd9266defb4"
+  },
+  {
+    "command": [
+      "./scripts/validate-paired-motion.sh"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 6.33,
+    "log": "docs/validation/v1.6/validate-paired-motion-adler-abi.log",
+    "logSHA256": "64f936d1ec84640ca7b8a6c10965be733aef6ad1f3d4393e3ea2435bd3f585fe"
+  }
+]

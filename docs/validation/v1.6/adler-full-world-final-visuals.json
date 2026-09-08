@@ -1,0 +1,346 @@
+{
+  "dateUTC": "2026-09-08T13:43:53.518957+00:00",
+  "scope": "Actual visual inspection of eight final full-world unfiltered Adler PNGs: day/night exterior and show bookmarks, plus gallery and show40/100/179s phases. No rendering or source changes were performed during review.",
+  "reviewedImageCount": 8,
+  "visualReviewPassed": true,
+  "newBlockingDefects": [],
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/03-adler-at-the-edge-of-the-lake.png",
+      "sha256": "3cf00849249b74f7087626e5269b7870557fa4863e04b42e16e637761a925cd3",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "day exterior",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "The west entrance, broad stair, railings, three receding roof rings and warm copper dome are fully in frame.",
+        "The glass crescent and its radial framing extend to both sides; the approach paving is visible in the foreground.",
+        "No camera obstruction, broken shell or bright seam is visible."
+      ],
+      "limitations": [
+        "Trees and broad facade surfaces remain stylized architectural geometry; this is not photographic reproduction."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--gallery",
+        "/Users/william/dev/architecture/output/v7-review/final-day",
+        "--lighting",
+        "0",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "256"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-day/03-adler-at-the-edge-of-the-lake.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/03-adler-at-the-edge-of-the-lake.png",
+      "sha256": "af0ec8745b9b37bba0e76c580976668382f925f9d4dda722580479d62bc10b4c",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "night exterior",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "Warm facade pools, bright entrance trim and the lower copper dome are readable against the dark sky.",
+        "The upper landing, some tread edges and central handrail are visible; light reflects on the foreground paving.",
+        "The upper copper apex remains dark, consistent with the documented evening-lighting balance."
+      ],
+      "limitations": [
+        "Most of the lower stair run remains very dim; this image does not support a claim that every tread is brightly illuminated.",
+        "Fine stochastic grain remains in dark paving and reflected highlights in this unfiltered still."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--gallery",
+        "/Users/william/dev/architecture/output/v7-review/final-night",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "384"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-night/03-adler-at-the-edge-of-the-lake.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-day/04-a-sky-made-of-light.png",
+      "sha256": "20cc383f496e64dee5cfcbf12acaaeb8202a66aabd978fb39c21bf8048859cf6",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "day show bookmark",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "A complete ringed planet is centered amid teal/purple bands, white stars and blue line constellations.",
+        "Seating blocks and the central aisle form dark foreground silhouettes without blocking the main display.",
+        "No narrow bright polar wedges or shell light leaks are visible."
+      ],
+      "limitations": [
+        "The display is deliberately artistic, and bright peripheral stars appear softly elliptical in the wide view.",
+        "Seat details remain low contrast in the dark room."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--gallery",
+        "/Users/william/dev/architecture/output/v7-review/final-day",
+        "--lighting",
+        "0",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "256"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-day/04-a-sky-made-of-light.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-night/04-a-sky-made-of-light.png",
+      "sha256": "952a4ecc63b648cae9a999455b68fd08225df16a606e0f9d754b4d9695a5fafc",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "night show bookmark",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "The same centered planet and colored dome composition remain readable in night mode.",
+        "The central aisle and seat silhouettes remain clear of the projected centerpiece.",
+        "No bright top-edge slivers or projection showing through an exterior backing are visible."
+      ],
+      "limitations": [
+        "Dark seats are visible principally as silhouettes; no claim of evenly lit upholstery is made."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--gallery",
+        "/Users/william/dev/architecture/output/v7-review/final-night",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "384"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-night/04-a-sky-made-of-light.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/adler-gallery.png",
+      "sha256": "51dd9ed44af83f5800e5ecc9fa738a592b753168d3f1772affd8f707944a945c",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "gallery at65s",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "A ringed-planet exhibit and telescope stand on lit plinths beside the glazed crescent.",
+        "The tiled circulation floor is visible and clear ahead; the opaque theater backing occupies the right side.",
+        "No stars bleed through that backing, and there is no camera penetration or obvious clipped exhibit."
+      ],
+      "limitations": [
+        "Some ceiling and window-shadow regions retain sampling grain.",
+        "The gallery and exhibits are original interpretations rather than a survey of current operational installations."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/final-phases/adler-gallery.png",
+        "--stop",
+        "3",
+        "--at",
+        "65",
+        "--lighting",
+        "0",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "256"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-phases/adler-gallery.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/adler-show.png",
+      "sha256": "ed14e65fe6b55a8b6e13556ee8a0179ff21f5e97e2491781e4ca485ddb5e88a8",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "show at40s",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "Teal and purple bands sweep across the dome, with line constellations and varying stars visible.",
+        "The large moving planet is partly beyond the upper-right edge; the room and central aisle remain visible below.",
+        "No top-edge triangular polar slivers are visible."
+      ],
+      "limitations": [
+        "This selected direction does not contain the entire moving planet; the show occupies more of the dome than the camera field of view."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/final-phases/adler-show.png",
+        "--stop",
+        "4",
+        "--at",
+        "40",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "384"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-phases/adler-show.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/adler-show-late.png",
+      "sha256": "2be067dfc9bc880aed8fe27ae9c18084420e1f1d75f137930cec77e958f6dca2",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "show at100s",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "The pole region and upper image edge have regular soft star points without the previously identified narrow bright slivers.",
+        "Colored bands span the lower dome and the dark constellation lines remain visible above them.",
+        "Seat blocks and the aisle are visible; no foreground geometry blocks the main sky field."
+      ],
+      "limitations": [
+        "This still verifies the previously affected composition only; it does not establish all-frame temporal stability."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/final-phases/adler-show-late.png",
+        "--stop",
+        "4",
+        "--at",
+        "100",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "384"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-phases/adler-show-late.png"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/before-shedd-context/visuals/final-phases/adler-show-end.png",
+      "sha256": "93e2af3bff2b91da39b09327f3722665e3f11c68018d3cee3fd31fa58329f5a4",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "label": "show at179s",
+      "actuallyViewed": true,
+      "viewMethod": "view_image full frame, no exposure or color edits",
+      "observations": [
+        "The ringed planet has returned near the center, with teal on the left and purple on the right, close to the opening composition.",
+        "The seat arrangement and aisle remain aligned with the opening view.",
+        "No late-program blank screen, bright polar wedges or unexpected camera obstruction are visible."
+      ],
+      "limitations": [
+        "179s is near the loop endpoint; this image alone does not establish exact camera or image equality at180s."
+      ],
+      "generationArguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "campus",
+        "--render",
+        "/Users/william/dev/architecture/output/v7-review/final-phases/adler-show-end.png",
+        "--stop",
+        "4",
+        "--at",
+        "179",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "384"
+      ],
+      "visualReviewPassed": true,
+      "originalRenderPath": "output/v7-review/final-phases/adler-show-end.png"
+    }
+  ],
+  "polarCorrection": "The actual100s composition that previously exposed top-edge wedges was viewed again; those bright slivers are absent. The other sampled dome compositions are also clean.",
+  "entranceLighting": "Doorway, upper landing and central rail are readable; lower stairs remain dim. This is a bounded practical-light improvement, not uniform stair floodlighting.",
+  "inputManifest": {
+    "path": "output/v7-review/final-input.json",
+    "sha256": "ce2e985e19190a592bf8313cb1a21b0c634fb47ba3755517d68a9554a4108ea5"
+  },
+  "packageManifest": {
+    "path": "output/v7-review/final-package-input.json",
+    "sha256": "9748eb772a3e49713148c21907836b2ea99573cfdb2f5274bfb955eaa985cd6e"
+  },
+  "relatedEvidence": {
+    "polarFixture": {
+      "path": "docs/validation/v1.6/adler-polar-correction.json",
+      "sha256": "b2aad6ca2e75793fbf2e98dfdf1d586da64a30111c9e283d94660906e450fff8"
+    },
+    "diffuseReconstruction": {
+      "path": "docs/validation/v1.6/adler-diffuse-reconstruction.json",
+      "sha256": "a47ed6b139fa2c28962a1976f21fc6fbed25fd92e3a8612d9c6db5d241f6a0e3"
+    },
+    "fullWorldMotion": {
+      "path": "output/v7-review/motion-final/campus/metrics.json",
+      "sha256": "e762b51144b3402200cbf0919cbb22fc819f6a4f8421faa1a92d2d930216bacb"
+    }
+  },
+  "limits": [
+    "This is a sampled still-image review, not a full movie, full-route collision test or proof that all interactive motion is noise-free.",
+    "The unfiltered stills retain some stochastic noise on dark surfaces. Motion reconstruction quality is measured by the separate paired full-world GPU suite.",
+    "The original show is an artistic silent composition; no astronomy or operational-gallery accuracy is inferred from its visual appearance."
+  ],
+  "renderRevision": "Reviewed images precede the later Shedd context and first-camera correction; the Adler geometry and shaders are unchanged. Exact old images are preserved at the archived paths."
+}

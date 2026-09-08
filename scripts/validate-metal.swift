@@ -17,6 +17,7 @@ private struct Uniforms {
     var origin, right, up, forward, sunDirection, sunColor: SIMD4<Float>
     var viewport: SIMD4<UInt32>
     var settings: SIMD4<Float>
+    var animation: SIMD4<Float> = .zero
 }
 private func require(_ condition: Bool, _ message: String) {
     if !condition { fatalError("Metal validation failed: " + message) }
@@ -27,7 +28,7 @@ guard let device = MTLCreateSystemDefaultDevice(), let queue = device.makeComman
 }
 require(device.supportsRaytracing, "Device does not support Metal ray tracing.")
 require(MemoryLayout<Vertex>.stride == 32 && MemoryLayout<Material>.stride == 32 &&
-        MemoryLayout<Uniforms>.stride == 128 && MemoryLayout<Light>.stride == 64,
+        MemoryLayout<Uniforms>.stride == 144 && MemoryLayout<Light>.stride == 64,
         "Swift/Metal vertex, material, uniform or light ABI changed.")
 let root = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent()
 let sourceURL = CommandLine.arguments.count>1 ? URL(fileURLWithPath:CommandLine.arguments[1]) : root.appendingPathComponent("Sources/ArchitectureEngine/Resources/Renderer.metal")
@@ -264,7 +265,7 @@ let guides=(0..<3).map{_ in device.makeTexture(descriptor:textureDescriptor)!}
 let guideKernel=try device.makeComputePipelineState(function:library.makeFunction(name:"primarySurface")!)
 private var guideUniforms=Uniforms(origin:SIMD4(0,0,5,1),right:SIMD4(0.5,0,0,0),up:SIMD4(0,0.5,0,1),forward:SIMD4(0,0,-1,0),sunDirection:SIMD4(0,1,1,0),sunColor:SIMD4(1,1,1,0),viewport:SIMD4(32,32,0,0),settings:SIMD4(1,2,0.009,1))
 let guideCommand=queue.makeCommandBuffer()!,guideEncoder=guideCommand.makeComputeCommandEncoder()!
-guideEncoder.setComputePipelineState(guideKernel);guideEncoder.setBytes(&guideUniforms,length:128,index:0)
+guideEncoder.setComputePipelineState(guideKernel);guideEncoder.setBytes(&guideUniforms,length:144,index:0)
 guideEncoder.setBuffer(vertexBuffer,offset:0,index:1);guideEncoder.setBuffer(indexBuffer,offset:0,index:2);guideEncoder.setBuffer(materialBuffer,offset:0,index:3);guideEncoder.setAccelerationStructure(acceleration,bufferIndex:4)
 for (i,t) in guides.enumerated(){guideEncoder.setTexture(t,index:i)}
 guideEncoder.dispatchThreads(MTLSize(width:32,height:32,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));guideEncoder.endEncoding();guideCommand.commit();guideCommand.waitUntilCompleted()

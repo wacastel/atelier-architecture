@@ -1,0 +1,48 @@
+{
+  "scope": "Actual visual review of seven second-candidate still images; no animation or video-quality claim.",
+  "viewedAllListedImages": true,
+  "requestedCorrectionsVerified": true,
+  "pendingMaterialCorrection": "Soldier Field turf uses masonry pattern10; change to grass pattern4 and inspect a fresh bowl proof.",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-day/05-soldier-field.png",
+      "sha256": "b1829844ac6058a19750d0d070edfcca696621ab77f05c5f85dd51b4151ecc4c",
+      "observation": "Generic stadium slab and side blocks are absent. Historic porticos, open understructure, silver/glass east crescent and taller west seating bank are readable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/soldier-bowl.png",
+      "sha256": "fab2577dd7e918bc1a2805dd8c63ed3d0058c0b12b22cd758f6e344db569d139",
+      "observation": "Field, yard lines, end zones, discrete inward-facing seats and radial aisles are unobstructed. Remaining defect: masonry-like joints across the turf from material pattern10."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/harbor-boat.png",
+      "sha256": "891b772e39a9a01f150ac5b4a9b7001d64589c1694ce7adfb40339b5d2ea2031",
+      "observation": "Warm courtesy strips identify several occupied nearby boats; two-sided dock pools and short reflections are clearer. Most unoccupied boats and rigging remain dark, consistent with a restrained moored-marina treatment."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-phases/mccormick-west.png",
+      "sha256": "7d7a32f0344c7b7d6f96b62555861ae1c580b4c345c43c5bf96dd03092d3a24a",
+      "observation": "The former bright triangular land wedge over Lake Michigan is absent. Shoreline meets open water continuously in the upper-right background."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-day/06-boats-in-burnham-harbor.png",
+      "sha256": "3792e58948e90f063b6bd64e34991adbddba57da29833a2a6662610a86e1a5fc",
+      "observation": "Mapped finger rows, water and representative sailboats/motorboats are visible. The harbor office and visitor facilities now have low-rise proportions rather than tall generic blocks."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-night/06-boats-in-burnham-harbor.png",
+      "sha256": "1b3aa77c166dc8ade91607d64f4ca826bbe71fa8944263b4be5b061cde66c401",
+      "observation": "Dock pools, selected occupied cabins and shoreline/city lights establish the marina at night. The unlit foreground remains dark; boat occupancy is deliberately a subset."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v7-review/second-night/05-soldier-field.png",
+      "sha256": "e06c69cd0f4b61ffda768cef08159510d88439603f20c48108d877b63038ab38",
+      "observation": "Classical portico columns receive subdued warm illumination. The suite facade and portions of the upper aisles remain readable; no generic stadium slab is visible."
+    }
+  ],
+  "limits": [
+    "1280x800 stills do not establish motion quality, temporal stability or full walkthrough coverage.",
+    "Harbor nighttime design is an interpreted calm marina; no calibrated photometric survey or live berth occupancy.",
+    "Generic buildings remain simplified and some map heights are estimated."
+  ]
+}

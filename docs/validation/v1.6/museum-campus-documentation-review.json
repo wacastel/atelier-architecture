@@ -1,0 +1,130 @@
+{
+  "reviewedAtUTC": "2026-09-08T13:21:26.935456+00:00",
+  "scope": "Read-only consistency review of map provenance, notices, packaged resources, documentation and existing CPU evidence. Documentation wording only was polished; no source, tests, scripts, geometry, GPU work or media generation.",
+  "passed": true,
+  "resourceSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+  "packagedResourceMatchesSource": true,
+  "mapCountsMatchEvidence": true,
+  "geometryEvidenceSourceHashesMatch": true,
+  "provenance": {
+    "mainDatabaseTimestamp": "2026-09-08T12:08:37Z",
+    "supplementalRoadAndShorelineTimestamp": "2026-09-08T12:21:50Z",
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "license": "ODbL 1.0",
+    "licenseURL": "https://www.openstreetmap.org/copyright",
+    "rawMainSHA256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+    "priorLakefrontSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+    "rawCopyrightNoticesPresent": true,
+    "exactOverpassQueryFilesPresent": true,
+    "dedicatedMuseumAttributionTextFile": false,
+    "noticeLocation": "MuseumCampusContext.json metadata; raw response osm3s copyright; app attribution link and exported caption",
+    "inputFileSHA256": {
+      "scripts/data/chicago-museum-campus-osm-2026-09-08.json": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+      "scripts/data/chicago-museum-campus-roads-2026-09-08.json": "de116809551286bda289028de63e36a2d18b7899308af9740fdbba0d10847aea",
+      "scripts/data/chicago-museum-campus-shoreline-2026-09-08.json": "56d55c4b9220e6c2c5d8c5575e3918032ca948b6ca147d775006ff4ff4f2f7ee",
+      "scripts/data/chicago-museum-campus-osm-2026-09-08.overpass": "d3663b4a47447803d13b10fc7aef4dd68e944b0f526e981c7cc86e5e528fc6dc",
+      "scripts/data/chicago-museum-campus-roads-2026-09-08.overpass": "2a70c4047d42b997cbf2e1258560af6da624e62017d1a22b4d60de6b106c40f4",
+      "scripts/data/chicago-museum-campus-shoreline-2026-09-08.overpass": "876e923107e5a94fd3e03e41422aa44ad2206172e0441bf4adeeec6e32d61e43"
+    }
+  },
+  "packagedReferencePhotographsOrSatelliteImages": false,
+  "packagedRasterAssets": [
+    "Atelier.icns (byte-identical to assets/Atelier.icns)"
+  ],
+  "packagedResourceInventory": [
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ATTRIBUTION.txt",
+      "bytes": 807,
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ChicagoContext.json",
+      "bytes": 1973622,
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal",
+      "bytes": 16885,
+      "sha256": "5b34060fddceffe00e93ab4171572374a560b7455446fcdc683c74c755cfcfb7"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/ATTRIBUTION.txt",
+      "bytes": 763,
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/LakefrontContext.json",
+      "bytes": 6396480,
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/ATTRIBUTION.txt",
+      "bytes": 840,
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/MillenniumContext.json",
+      "bytes": 111248,
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/MuseumCampus/MuseumCampusContext.json",
+      "bytes": 6988877,
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ATTRIBUTION.txt",
+      "bytes": 683,
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ParisContext.json",
+      "bytes": 1372461,
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal",
+      "bytes": 73978,
+      "sha256": "5ce91786716dfa4c0f203d5276fc58c78a92838e998e5ceb38ecab208bf31e31"
+    },
+    {
+      "path": "ArchitectureEngine_ArchitectureEngine.bundle/Resources/Sampling-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "Atelier.icns",
+      "bytes": 1151623,
+      "sha256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd"
+    }
+  ],
+  "documentationPolish": [
+    "Clarified that preserved northern land/water boundaries do not imply unchanged museum landscaping or generic-building exclusions.",
+    "Added the distinct supplemental road/shoreline source timestamp and exact location of bundled map notices."
+  ],
+  "releaseLimitations": [
+    "Coordinates and vertical levels are a shared relative architectural model, not surveyed geodetic/civil-engineering elevations; road grades outside the interpreted river crossing are simplified.",
+    "Generic context uses tagged heights, levels-derived heights or explicit estimates. Some landmark source heights conflict and are resolved through authored interpretation; untagged harbor facilities use a 5.5\u20138 m fallback.",
+    "Museum interiors cover selected interpreted public spaces; the campus is not a complete surveyed interior model or navigation/accessibility guide.",
+    "Soldier Field seating, facade details and markings are representative rather than a seat-for-seat as-built inventory.",
+    "Burnham contains 151 representative moored boats, including 31 lit detailed cabins, rather than all 1,126 published slips or a live berth inventory. Boats remain moored.",
+    "Night lighting is an authored visual treatment without a calibrated photometric survey; most unoccupied harbor boats remain dark.",
+    "Aerial imagery was viewed on 2026-09-08 but acquisition dates were not supplied; the model does not establish present-day exact conditions.",
+    "CPU map/mesh evidence and sampled still reviews do not establish all-frame movie correctness or temporal quality. Final GPU/motion/media checks are reported separately."
+  ],
+  "remainingReview": "Soldier turf, harbor lights and southern shoreline were verified in seven final sampled stills before the later Shedd context correction. Fresh Shedd day/night bookmarks and renewed integrated release checks remain pending.",
+  "documentationSHA256": "1e553f7b8fea2361be979f03d93e8487923226f11c08076404cc3a71cf101141",
+  "supplementalContextCorrection": {
+    "scope": "Two untagged buildings near Shedd plus nearby path joints only",
+    "rawAndDerivedMapBytesUnchanged": true,
+    "campusCafeID": 445721198,
+    "campusCafeEstimatedHeightMetres": 4.5,
+    "ticketPavilionRelationID": 18999713,
+    "ticketCanopyEstimatedHeightMetres": 4.5,
+    "primaryReference": "https://seaoi.org/event-6235358",
+    "photoCredit": "VDT / Carolyn Everett",
+    "visualReferenceViewedBy": "Modeling team,2026-09-08",
+    "taggedCafeHeightsPreservedByRegression": true
+  },
+  "snapshotScope": "This review predates the later Shedd ticket-pavilion/cafe/path-junction correction. Its inventory and truth values refer to the recorded snapshot; the release package/source hashes and new component regression are reported separately."
+}

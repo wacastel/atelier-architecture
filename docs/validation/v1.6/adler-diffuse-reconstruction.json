@@ -1,0 +1,145 @@
+{
+  "dateUTC": "2026-09-08T13:32:29.482850+00:00",
+  "device": "Apple M3 Ultra",
+  "scope": "Local animated-diffuse guide split; no radiance/path-tracing, sample-budget, spatial strength or motion-threshold changes.",
+  "discovery": {
+    "report": {
+      "path": "output/v7-review/motion-discovery/campus/metrics.json",
+      "sha256": "145e31fa5e667b2b43177c3127f48ad8f1a8aa10b3b7414cc290332457ce505e"
+    },
+    "case": {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 0,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 16.70835416553018,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.005306210074766383,
+      "rawTemporalResidualRMSE": 0.007784909481965656,
+      "reconstructedRMSE": 0.005306210074766383,
+      "reconstructedTemporalResidualRMSE": 0.007784909481965656,
+      "referenceSamples": 128,
+      "resolution": [
+        960,
+        600
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 0,
+      "view": "planetarium-show"
+    },
+    "diagnosis": "The initial +0.875 guide preserved both direct analytic projection and noisy stationary theater surfaces exactly, so the actual show case produced identical raw and reconstructed images."
+  },
+  "classification": {
+    "newFlag": 0.25,
+    "conditions": [
+      "Animation phase advanced",
+      "Stationary hit within 14 m of projection center",
+      "Not the pattern17 projection",
+      "No thin-sheet transmission before the hit",
+      "Nonemissive surface",
+      "Metallic weight below0.1",
+      "Roughness at least0.5"
+    ],
+    "policy": "Reject temporal history; retain existing current-frame edge-aware spatial filter. Traffic strong reactivity has priority.",
+    "preservedFlag": 0.875,
+    "preserved": "Direct screen, local emitters, smooth/metallic surfaces, transmission and traffic retain current coverage."
+  },
+  "commands": [
+    {
+      "argv": [
+        "./scripts/validate-adler.sh",
+        "--gpu",
+        "--baseline",
+        "/tmp/atelier-before-adler-Renderer.metal"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/validation/v1.6/adler-validation.log",
+        "sha256": "72cb5ab84ec681cec0a21377c80d39140b8970a854cefb4117492cd91e14a30a"
+      }
+    },
+    {
+      "argv": [
+        "swift",
+        "scripts/validate-denoiser.swift"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/validation/v1.6/adler-diffuse-denoiser.log",
+        "sha256": "f4b45c77a9ebbe00ee4211e37a23c36021ab7380041e8e480b0480bf98ca1832"
+      }
+    }
+  ],
+  "actualGPUGuideChecks": [
+    "Nearby rough dielectric advancing=.25, paused=0",
+    "Direct screen=.875",
+    "Nearby rough metal/emitter/smooth dielectric/transmitted floor=.875",
+    "100m mirror seeing screen=.875, paused=.125",
+    "Unrelated distant surface, behind-facing mirror and sphere-missing mirror retain original guides"
+  ],
+  "reconstructionFixture": {
+    "resolution": [
+      64,
+      48
+    ],
+    "frames": 2,
+    "filterSPPSetting": 8,
+    "input": "Two independent deterministic noisy current-radiance fields with changing analytic panel illumination, shared planar geometry, a contrasting material/albedo boundary, and compatible stale prior color. Actual production temporal and three spatial GPU passes.",
+    "rawRMSE": 0.02337514932990289,
+    "filteredRMSE": 0.008782126543169538,
+    "imageErrorReductionPercent": 62.4296451790581,
+    "rawTemporalResidualRMSE": 0.03282162318570365,
+    "filteredTemporalResidualRMSE": 0.012472320725433049,
+    "temporalNoiseReductionPercent": 61.99968339510489,
+    "temporalCurrentRGBExact": true,
+    "contrastingBoundaryCurrentRGBExact": true,
+    "perPanelMeanShiftAddedByFilteringNormBelow": 0.001
+  },
+  "negativeControls": [
+    {
+      "change": "Remove only the +0.25 temporal rejection condition from the actual shader",
+      "result": "Compatible stale historical illumination blends into current RGB",
+      "historyVersusCurrentRMSE": 0.023416689864272925,
+      "detectsMissingGuard": true
+    },
+    {
+      "change": "Use the preceding +0.875 classification on the same noisy input",
+      "result": "Temporal and spatial outputs are exactly raw, reproducing zero reconstruction improvement",
+      "currentRGBExact": true
+    }
+  ],
+  "legacyEquivalence": {
+    "guideClasses": [
+      -1,
+      0,
+      0.125,
+      0.5,
+      0.75,
+      0.875
+    ],
+    "comparedRGBAComponents": 147456,
+    "sameGeometryInputAndHistory": true,
+    "exactTemporalAndSpatialOutputs": true,
+    "controlledAnimationZeroTraceComponents": 6144,
+    "exactDayNightHitMissOutputs": true,
+    "preAdlerRendererSHA256": "2a1693611ef077c740f7b65dc1dfd5dbf489db652e744c87cb5d79b7674fec46"
+  },
+  "sharedRegression": "All existing GPU denoiser checks pass, including traffic, sky, emitter, thin iron, normal/depth/material/albedo edges, glass, night-window mixed coverage, glossy temporal history and dim reflected-detail guards.",
+  "inputSHA256": {
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "137528c48d7cfdd92cc70a909cfdce3cbae78c06d498f0a89d0f6a9c9aff50fc",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "Tests/Adler/main.swift": "527ff00a38a9ed3c0080b4893274f608081fddd3d847bea8ab6ee38c886ba8f0",
+    "Tests/Adler/ProjectionReconstruction.swift": "ad341e1096f1743fd7e6aad4e12bd778d0f37dacf94506954da9852db33ca8d1",
+    "scripts/validate-adler.sh": "36b079387b10ec6cb0663e71c98901bc37127ca339ab6940f6aa6bf66242d956",
+    "scripts/validate-denoiser.swift": "86712f7ff1d215cb94603fc13cb1ac552e5131b675c4276b17cecddae106650b"
+  },
+  "limitations": [
+    "Synthetic reconstruction noise reduction is not a full-world improvement or frame-rate claim.",
+    "Old-guide equality is controlled GPU equality; independent whole-world acceleration structures are not asserted bit-identical.",
+    "Final full-world 26-case release run is separate and pending when this report is written.",
+    "The local radius and first-reflection guide do not classify every rough or multiple-bounce illumination path."
+  ]
+}

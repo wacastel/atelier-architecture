@@ -1,0 +1,78 @@
+{
+  "reviewDate": "2026-09-08",
+  "scope": "Six actually viewed isolated Adler stills,1200x800,64SPP; no surrounding campus geometry",
+  "visualReviewPassed": true,
+  "images": [
+    {
+      "path": "output/v7-review/adler-release/exterior-day.png",
+      "sha256": "ba2ffb1bf0e1b92259367a4346d447b79d0049e04f1402778f8c8dc1026765aa",
+      "actuallyViewed": true,
+      "observations": [
+        "Twelve-sided, three-tier stone core and copper hemisphere are legible together with the broad west stair.",
+        "Granite is restrained, with no earlier square camouflage patches. Sloping glass crescent and Doane dome remain visible.",
+        "Fixture housings are small and bounded to the roof terrace."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-release/exterior-night.png",
+      "sha256": "820eb6add79dfbcad5f6129416f982de38c0dffc2e627ad660f87c0c7789d41c",
+      "actuallyViewed": true,
+      "observations": [
+        "Warm grazing light reveals the lower copper dome and facade; roof-terrace lights reveal the upper stone drum.",
+        "Two small entrance downlights reveal the upper stair treads and threshold; upper copper remains naturally dark.",
+        "Upper copper and some terrace bands remain dark outside the grazing lights; illumination is an interpreted scheme, not measured photometry.",
+        "Night glass and indirect surfaces retain some visible low-sample grain."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-release/welcome.png",
+      "sha256": "c72ebe7a285631eff459c1731d0b3c574713f6860203c181f9d7d5db0ff7dbae",
+      "actuallyViewed": true,
+      "observations": [
+        "Open entrance leaf and frame sit at the left edge; the central walkable floor leads through repeated gallery ribs.",
+        "Projection is visible through the theater doorway only; screen exterior is opaque.",
+        "Gallery ceiling and reflected/indirect areas show residual noise in the unfiltered64SPP proof."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-release/theater-0.png",
+      "sha256": "1ee5135d20008d12ce171797976711e1ddec6a2a4c71ebdbd4b1a0c80c3edfe2",
+      "actuallyViewed": true,
+      "observations": [
+        "Stars now vary in apparent size and brightness, with substantially less density than the initial proof.",
+        "Original blue line constellations, teal/purple curtains and ringed stylized planet occupy the dome.",
+        "Seats form dark silhouettes around the central aisle; no seat or beam blocks the main projection.",
+        "Corrected spherical star distances retain round points; no narrow polar slivers observed in this proof."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-release/theater-35.png",
+      "sha256": "545e4e1eea698c99cb6f81da7da16cedc47761358ff3426d56fbe92f77f10b38",
+      "actuallyViewed": true,
+      "observations": [
+        "The projected planet has moved into the upper-right edge while auroral folds shift across the dome.",
+        "Starfield remains sparse, with the central aisle and seat silhouettes still readable.",
+        "This is a sampled still and does not prove continuous-frame noise or absence of trails.",
+        "Corrected spherical star distances retain round points; no narrow polar slivers observed in this proof."
+      ]
+    },
+    {
+      "path": "output/v7-review/adler-release/theater-90.png",
+      "sha256": "db6d9ed88b350f69866662653951f9ce2bab817cb5be3b4a857ec622739b8a91",
+      "actuallyViewed": true,
+      "observations": [
+        "The planet is outside the camera view at this phase; the shifted aurora and faint original constellations remain visible.",
+        "The lower screen edge, aisle lamp and rows of seats remain readable.",
+        "Artistic motion is not an astronomical ephemeris or reproduction of an Adler program.",
+        "Corrected spherical star distances retain round points; no narrow polar slivers observed in this proof."
+      ]
+    }
+  ],
+  "limits": [
+    "Isolated assembly omits terrain, surrounding buildings and city illumination.",
+    "No claim of motion quality from stills; full-world camera-motion validation is separate.",
+    "Night photometry and exact interior decor are interpretations.",
+    "Some residual path-tracing noise remains in dark non-screen surfaces.",
+    "Original starfield and planets are artistic and intentionally simplified."
+  ]
+}

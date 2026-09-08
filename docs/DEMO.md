@@ -1,4 +1,52 @@
-# Chicago Lakefront — Atelier 1.5
+# Museum Campus — Atelier 1.6
+
+The app opens on **Museum Campus**, the fifth destination. The Field Museum, Shedd Aquarium, Adler Planetarium, Soldier Field, Burnham Harbor and all four McCormick Place buildings inhabit the existing Chicago world. The lakefront continues south with mapped buildings, boats and light traffic.
+
+Select a view to hold its gentle idle animation. **Space** starts or pauses that view's route; **← / →** shuttle at 2×, 4× and 8× with repeated presses. **N** toggles day/night without restarting the camera. **Idle Play / I** cycles all eight studies, changing day/night after each complete pass; **[ / ]** adjusts idle speed independently of the walkthrough pace. **L** changes locations. Full-screen and resizable windows remain available.
+
+| View | Study | Duration at 1× |
+| --- | --- | --- |
+| 1 | Art Institute → Field Museum: continuous flight across Grant Park into the hall | 180 seconds |
+| 2 | Field Museum north portico and Stanley Field Hall | 120 seconds |
+| 3 | Shedd south approach, Wonder of Water rotunda and oceanarium | 120 seconds |
+| 4 | Adler exterior, gallery and entrance into the dome theater | 150 seconds |
+| 5 | Original planetarium light show, with a closed camera loop | 180 seconds |
+| 6 | Soldier Field colonnades, modern bowl and descent toward the field | 90 seconds |
+| 7 | Burnham Harbor piers, moored boats and skyline | 90 seconds |
+| 8 | McCormick Place halls, roof systems, gardens, hotels and skywalks | 180 seconds |
+
+The **Chicago connecting flights** menu contains both the new Art Institute–Field Museum flight and the original four-minute Willis–Millennium Park–Art Institute flight. Both preserve the chosen lighting. All four Chicago destinations reuse the resident city and its acceleration structures; Paris has its own world.
+
+The dome program is original, with a 180-second deterministic cycle of stars, line constellations, aurora ribbons and a stylized planet. It is not an ephemeris or a reproduction of a commercial Adler presentation. Camera and show share the same clock for play, pause, seeking and rewind. Museum routes cover selected connected public spaces; exhibits and circulation details are architectural interpretations, not a complete museum inventory.
+
+## Version 1.6 demonstration artifacts
+
+- [Museum Campus by day](../output/Chicago-Museum-Campus-Day-1080p.mp4): all eight routes in 96 seconds, with twelve-second chapters.
+- [Art Institute to Field Museum](../output/Art-Institute-to-Field-Museum-1080p.mp4): the complete three-minute continuous flight at its ordinary pace, ending inside Stanley Field Hall.
+- [Adler light show](../output/Adler-Planetarium-Light-Show-1080p.mp4): the complete three-minute original dome program and camera loop.
+- [Museum Campus at night](../output/Chicago-Museum-Campus-Night-1080p.mp4): all eight routes in 96 seconds, including illuminated interiors, boats and convention buildings.
+
+The recordings use the packaged renderer at 1920 × 1080 and 24 FPS. The day, connecting flight and dome exports use 16 samples per frame; the night montage uses 24. They are silent. The two montages accelerate each route and its scene clock to fit the chapter, while the connecting flight and dome program retain their full 180-second duration. Movies remain local in `output/` and are excluded from Git. The interactive app keeps every route's full duration and independent speed controls. Final decoding, timing and sampled visual evidence is linked from [Validation](VALIDATION.md).
+
+![Shedd rotunda with two interpreted habitats](images/Museum-Campus-Shedd-Rotunda.png)
+
+## Export the new routes
+
+```sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location campus \
+  --video output/Art-Institute-to-Field-Museum.mp4 --single-view --stop 0 \
+  --seconds 180 --fps 24 --width 1920 --height 1080 --samples 16
+
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location campus \
+  --video output/Adler-Planetarium-Light-Show.mp4 --single-view --stop 4 \
+  --lighting 2 --seconds 180 --fps 24 --width 1920 --height 1080 --samples 16
+```
+
+Full route exports use their ordinary timeline. A multi-view 96-second export compresses each complete route into a 12-second chapter for a short overview. All exports use uniform presentation timestamps regardless of rendering speed.
+
+---
+
+## Earlier release: Chicago Lakefront 1.5
 
 The app opens on **Chicago Lakefront**, a fourth destination covering the Magnificent Mile, Grant Park, harbors and DuSable Lake Shore Drive. It shares the same physical world as Willis Tower and Millennium Park. Use **L** or the location menu to select any destination.
 

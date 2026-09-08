@@ -42,7 +42,7 @@ func render(lights:[SceneLight],grid:LightGrid,indexed:Bool,nightMode:Bool,x:Flo
     for sample in 0..<32 {
         u.viewport.z=UInt32(sample);u.viewport.w=UInt32(128+sample)
         let e=c.makeComputeCommandEncoder()!;e.setComputePipelineState(nightMode ? (indexed ? nightIndexed:night):(indexed ? dayIndexed:day));e.setTexture(texture,index:0)
-        e.setBytes(&u,length:128,index:0);e.setBuffer(vb,offset:0,index:1);e.setBuffer(ib,offset:0,index:2);e.setBuffer(mb,offset:0,index:3);e.setAccelerationStructure(acceleration,bufferIndex:4);e.setBuffer(lb,offset:0,index:5)
+        e.setBytes(&u,length:MemoryLayout<FrameUniforms>.stride,index:0);e.setBuffer(vb,offset:0,index:1);e.setBuffer(ib,offset:0,index:2);e.setBuffer(mb,offset:0,index:3);e.setAccelerationStructure(acceleration,bufferIndex:4);e.setBuffer(lb,offset:0,index:5)
         if indexed {e.setBytes(&header,length:48,index:6);e.setBuffer(ranges,offset:0,index:7);e.setBuffer(indices,offset:0,index:8)}
         e.dispatchThreads(MTLSize(width:32,height:32,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1));e.endEncoding()
     }

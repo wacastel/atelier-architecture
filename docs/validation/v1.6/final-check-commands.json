@@ -1,0 +1,188 @@
+[
+  {
+    "name": "motion-final-campus",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "campus",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v7-review/motion-final/campus",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 166.79832005500793,
+    "exitCode": 0
+  },
+  {
+    "name": "motion-final-lakefront",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "lakefront",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v7-review/motion-final/lakefront",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 55.83923578262329,
+    "exitCode": 0
+  },
+  {
+    "name": "motion-final-millennium",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v7-review/motion-final/millennium",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 84.55786490440369,
+    "exitCode": 0
+  },
+  {
+    "name": "motion-final-chicago",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "chicago",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v7-review/motion-final/chicago",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 75.22286081314087,
+    "exitCode": 0
+  },
+  {
+    "name": "motion-final-paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v7-review/motion-final/paris",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 74.8804349899292,
+    "exitCode": 0
+  },
+  {
+    "name": "campus-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v16-package-twe08m3t/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "campus",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 6.987235069274902,
+    "exitCode": 0
+  },
+  {
+    "name": "paris-self-test",
+    "arguments": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+      "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v16-package-twe08m3t/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "elapsedSeconds": 1.87204909324646,
+    "exitCode": 0
+  },
+  {
+    "name": "final-day",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "campus",
+      "--gallery",
+      "/Users/william/dev/architecture/output/v7-review/final-day",
+      "--lighting",
+      "0",
+      "--width",
+      "1600",
+      "--height",
+      "1000",
+      "--samples",
+      "256"
+    ],
+    "elapsedSeconds": 13.38666296005249,
+    "exitCode": 0
+  },
+  {
+    "name": "final-night",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "campus",
+      "--gallery",
+      "/Users/william/dev/architecture/output/v7-review/final-night",
+      "--lighting",
+      "2",
+      "--width",
+      "1600",
+      "--height",
+      "1000",
+      "--samples",
+      "384"
+    ],
+    "elapsedSeconds": 25.4646098613739,
+    "exitCode": 0
+  }
+]

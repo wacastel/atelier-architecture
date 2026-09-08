@@ -56,8 +56,8 @@ extension EiffelBuilder {
     func chicagoLakefront() {
         let data=LakefrontContext.database,p=LakefrontPalette(self),saved=randomState
         randomState=0x1970_CAFE_2026
-        lakefrontSurface(data.ground,y:-0.065,material:pavingForLakefront)
-        lakefrontSurface(data.water,y:-5.7,material:p.water)
+        lakefrontSurface(MuseumCampusContext.database.legacyGround,y:-0.065,material:pavingForLakefront)
+        lakefrontSurface(MuseumCampusContext.database.legacyWater,y:-5.7,material:p.water)
         // Water continues beyond the bounded derivative into the lake horizon.
         quad(V(6000,-5.7,-18000),V(6000,-5.7,18000),V(26000,-5.7,18000),V(26000,-5.7,-18000),p.water)
         for a in data.areas {
@@ -68,7 +68,7 @@ extension EiffelBuilder {
         for road in data.roads {lakefrontDrive(road,p:p)}
         for pier in data.piers {lakefrontPier(pier,p:p)}
         for wall in data.breakwaters where (wall.points.first?[0] ?? 0)>1200 {lakefrontSeawall(wall,p:p)}
-        for tree in data.trees {lakefrontTree(tree,p:p)}
+        for tree in data.trees where !MuseumCampusContext.clearsApproach(tree.point[0],tree.point[1]) {lakefrontTree(tree,p:p)}
         lakefrontRailway(p:p)
         buckinghamFountain(p:p)
         lakefrontBoats(p:p)
@@ -77,7 +77,7 @@ extension EiffelBuilder {
         randomState=saved
     }
     private var pavingForLakefront:UInt32 {pavement}
-    private struct LakefrontPalette {
+    struct LakefrontPalette {
         var water:UInt32;var paving:UInt32;var sand:UInt32;var dark:UInt32;var white:UInt32;var stone:UInt32
         var bronze:UInt32;var foam:UInt32;var asphalt:UInt32;var light:UInt32;var glass:UInt32;var hull:UInt32;var red:UInt32;var dock:UInt32;var cabin:UInt32
         init(_ b:EiffelBuilder) {
@@ -98,13 +98,13 @@ extension EiffelBuilder {
             cabin=b.riverMaterial(V(0.11,0.18,0.20),roughness:0.13,metallic:0.6,emission:0.11,pattern:14)
         }
     }
-    private func lakefrontSurface(_ a:LakefrontContext.Surface,y:Float,material:UInt32) {
+    func lakefrontSurface(_ a:LakefrontContext.Surface,y:Float,material:UInt32) {
         for i in stride(from:0,to:a.triangles.count,by:3) {
             let q=a.points[a.triangles[i]],r=a.points[a.triangles[i+1]],s=a.points[a.triangles[i+2]]
             tri(V(q[0],y,q[1]),V(s[0],y,s[1]),V(r[0],y,r[1]),material)
         }
     }
-    private func lakefrontDrive(_ road:LakefrontContext.Road,p:LakefrontPalette) {
+    func lakefrontDrive(_ road:LakefrontContext.Road,p:LakefrontPalette) {
         let points=road.points.map{V($0[0],$0[1],$0[2])}
         for i in 1..<points.count {
             let a=points[i-1],b=points[i],d=b-a,len=simd_length(d)
@@ -132,7 +132,7 @@ extension EiffelBuilder {
             if i%16==0 && a.y>2 {box(a-V(0,(a.y+5.5)/2,0),V(1.7,a.y+5.5,3.2),p.paving)}
         }
     }
-    private func lakefrontPier(_ pier:ChicagoContext.Path,p:LakefrontPalette) {
+    func lakefrontPier(_ pier:ChicagoContext.Path,p:LakefrontPalette) {
         for i in 1..<pier.points.count {
             let q=pier.points[i-1],r=pier.points[i],a=V(q[0],-5.20,q[1]),b=V(r[0],-5.20,r[1]),len=simd_distance(a,b)
             guard len>0.05 else{continue};let t=(b-a)/len,n=V(-t.z,0,t.x),w=pier.width
@@ -155,7 +155,7 @@ extension EiffelBuilder {
             }
         }
     }
-    private func lakefrontSeawall(_ wall:ChicagoContext.Path,p:LakefrontPalette) {
+    func lakefrontSeawall(_ wall:ChicagoContext.Path,p:LakefrontPalette) {
         for i in 1..<wall.points.count {
             let a=V(wall.points[i-1][0],-3.05,wall.points[i-1][1]),b=V(wall.points[i][0],-3.05,wall.points[i][1]),d=b-a,len=simd_length(d)
             guard len>0.1 else{continue};let t=d/len,n=V(-t.z,0,t.x)
@@ -221,7 +221,7 @@ extension EiffelBuilder {
             orientedBox((a+b)/2,n,V(0,1,0),t,V(crossing.width,0.83,len+1.2),p.paving)
         }}
     }
-    private func lakefrontSmoothCrown(_ c:V,_ r:V,_ material:UInt32,segments:Int,rings:Int) {
+    func lakefrontSmoothCrown(_ c:V,_ r:V,_ material:UInt32,segments:Int,rings:Int) {
         func vertex(_ i:Int,_ j:Int)->(V,V) {
             let t=Float(i)*2 * .pi/Float(segments),f = -Float.pi/2+Float(j) * .pi/Float(rings)
             let n=V(cos(f)*cos(t),sin(f),cos(f)*sin(t))
@@ -345,7 +345,7 @@ extension EiffelBuilder {
             }}
         }
     }
-    private func lakefrontBoat(_ c:V,length:Float,angle:Float,sailboat:Bool,detailed:Bool,p:LakefrontPalette) {
+    func lakefrontBoat(_ c:V,length:Float,angle:Float,sailboat:Bool,detailed:Bool,p:LakefrontPalette) {
         let forward=V(sin(angle),0,cos(angle)),right=V(cos(angle),0,-sin(angle)),up=V(0,1,0),w=length*0.285
         func at(_ x:Float,_ y:Float,_ z:Float)->V {c+right*x+up*y+forward*z}
         let stations=20,boatSeed=abs(Int(c.x*7+c.z*13)),hullMaterial=boatSeed%3==0 ? p.white:p.hull

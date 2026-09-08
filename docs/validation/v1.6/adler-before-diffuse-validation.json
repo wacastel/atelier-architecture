@@ -1,0 +1,77 @@
+{
+  "date": "2026-09-08",
+  "command": [
+    "./scripts/validate-adler.sh",
+    "--gpu",
+    "--baseline",
+    "/tmp/atelier-before-adler-Renderer.metal"
+  ],
+  "exitCode": 0,
+  "triangleCount": 105796,
+  "lightCount": 63,
+  "alwaysOnLightCount": 33,
+  "uniformBytes": 144,
+  "animationOffsetBytes": 128,
+  "legacyComparison": {
+    "baseline": "Pre-Adler v1.5 final Renderer.metal",
+    "baselineSHA256": "2a1693611ef077c740f7b65dc1dfd5dbf489db652e744c87cb5d79b7674fec46",
+    "componentsCompared": 6144,
+    "comparison": "Exact SIMD Float equality, shared geometry/AS/lights/seeds, day/night hit and miss cameras, animation.zero",
+    "passed": true,
+    "scopeLimit": "Controlled fixture only; does not establish full-scene bit identity."
+  },
+  "checks": [
+    "Finite bounded geometry and unit vertex normals",
+    "Exact21m inward projection shell",
+    "Entrance/gallery/theater collision clearance and floor support",
+    "Actual GPU show phase changes",
+    "Stationary camera time changes invalidate accumulation",
+    "Same absolute time preserves accumulation",
+    "Rewind0 and loop180 render exact phase0 image",
+    "Negative and enormous finite time normalization",
+    "Local relighting history reactivity",
+    "100m mirror catching screen remains reactive",
+    "Paused mirror and distant/behind/outside-bound rays retain ordinary guides",
+    "Self-contained actual GPU negative control for polar angular-star footprint:0.004172025 corrected relative variation versus6.706766 legacy"
+  ],
+  "log": {
+    "path": "docs/validation/v1.6/adler-validation.log",
+    "sha256": "3bb4531dfce5d401563d8f15bc1957ea0a9010765df4c4f8c0e875330fa1839e"
+  },
+  "inputSHA256": {
+    "Sources/ArchitectureEngine/AdlerPlanetarium.swift": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources/ArchitectureEngine/SceneTypes.swift": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "5ce91786716dfa4c0f203d5276fc58c78a92838e998e5ceb38ecab208bf31e31",
+    "Tests/Adler/main.swift": "d11414f6233e4aabb6ddb4a8e57ae58f2a78ac24470f843d783e3f9e41bab678",
+    "scripts/validate-adler.sh": "706fdcc787357b6d6990523108a044d8076331f44688629598a1b58aff0dda34"
+  },
+  "abiRegressionReport": {
+    "path": "docs/validation/v1.6/adler-abi-regressions.json",
+    "sha256": "2171f4a92d5ccb1d7ddce9fe3c5b0e403c5881c3e4efc41711e7bd550c8964f1",
+    "scope": "Eight suites passed after the144B ABI integration; subsequent polar correction changes only the new procedural projection, rechecked here with controlled legacy equivalence."
+  },
+  "visualReview": {
+    "path": "docs/validation/v1.6/adler-isolated-visuals.json",
+    "sha256": "af65d7b6c4b933ba579deca32556d6c88d18392f3ed21d8c93511efcc9c6f72d"
+  },
+  "limits": [
+    "The linear isolated route probe is distinct from the root full-world CameraTrack route validation.",
+    "The first-reflection guide does not classify all rough or multiple-bounce show illumination.",
+    "No rendering throughput claim is derived from fixture elapsed time."
+  ],
+  "renderCommand": [
+    "./scripts/validate-adler.sh",
+    "--gpu",
+    "--baseline",
+    "/tmp/atelier-before-adler-Renderer.metal",
+    "--polar-baseline",
+    "/tmp/atelier-before-polar-Renderer.metal",
+    "--render",
+    "output/v7-review/adler-release"
+  ],
+  "polarCorrectionReport": {
+    "path": "docs/validation/v1.6/adler-polar-correction.json",
+    "sha256": "b2aad6ca2e75793fbf2e98dfdf1d586da64a30111c9e283d94660906e450fff8"
+  }
+}
