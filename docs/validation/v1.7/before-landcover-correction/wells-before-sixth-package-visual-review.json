@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "scope": "Seven actually viewed sampled stills only: final Wells day/night endpoint, Old Town day/night, zoo-to-Wrigley day/night start and Millennium departure by day",
+  "reviewDate": "2026-09-08",
+  "executableSHA256": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882",
+  "renderCommandManifestSHA256": "1b136942af05ab8c7de89aa69da208d60c8a23e72ff4324d67f7501bd1bbb814",
+  "resourceSHA256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "ba928858231b9d16fa02e53ea35b0946ef54e5aabf51bb691c65f7c9959a05d6",
+    "Tests/NorthSideGeometry/main.swift": "35db1de81c6360a408358444cb511e27b8619d5a5d13ea9c050bec6226ce0dba",
+    "scripts/validate-north-side-geometry.sh": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526"
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-1-120.png",
+      "sha256": "c774846c1d8b4dabee87282621e63507b1dc5e738b6cba046c6d4f6730791822",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 96,
+      "renderJob": "day-route-1-120",
+      "findings": [
+        "Colored low shopfront frames, transoms and shallow awnings add a readable commercial rhythm.",
+        "Sparse static pedestrians and small planters provide scale; the roadway and route sightline stay open.",
+        "Original upper facades and roof masses remain intact."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-1-120.png",
+      "sha256": "5aeff01f423ca2f0b6a1f9021c6e7be9e39b73df8708597b41f726f284470873",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 96,
+      "renderJob": "night-route-1-120",
+      "findings": [
+        "Warm shop glazing, restrained fixture pools and traced pavement reflections make the new layer legible.",
+        "The nearby pedestrian remains a silhouette; upper facades and much of the road remain dark.",
+        "No gross glare, detached light trail or obstruction is apparent in this still; fine grain remains in dark surfaces."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/01-the-streets-of-old-town.png",
+      "sha256": "7596f258584c69ad7ff7874e1b93df49aea49d350177a0811cc0e2ae65ba4f98",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "St Michael is framed against the continuous mapped neighborhood and distant Chicago skyline.",
+        "Street grid and low-rise block scale remain visible; facades retain procedural repetition and simplified roofs."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/01-the-streets-of-old-town.png",
+      "sha256": "392ce9d523fc18cfac49652c95e78963d5f5cbf88fe32696791660c4061662ad",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Warm church facade and clock lighting contrast with scattered neighborhood windows and dark roofs.",
+        "The church remains readable without a foreground obstruction; this is an authored lighting interpretation."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "77e8817aa174b28dad376d0ecf10531b0b2f4b1031dac1be54e470af20ece446",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "Zoo roofs, public paths, green terrain and apartment blocks form a continuous neighborhood backdrop.",
+        "Trees and ancillary buildings remain simplified at this aerial distance."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "34dfb1e04a7d7a3dcb3259cd99a9747b254df0ac44bc21d6bbe5740fa9362e28",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Selected zoo entrances, colored seasonal lights and apartment windows remain legible in a predominantly dark park.",
+        "Unlit paths and roofs are dark; no terrain seam or gross obstruction is apparent in this sample."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/00-from-millennium-park-to-the-zoo.png",
+      "sha256": "6301f28a2f5c8a453bd90cbdcdae3a1d94fe034611bd8c6b023594b7a6a0cc30",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "Millennium Park, Cloud Gate plaza, pavilion roof, mapped streets and Loop facades remain present at the new flight departure.",
+        "This bookmark confirms visible continuity only, not the entire flight."
+      ]
+    }
+  ],
+  "findings": [
+    "The bounded Wells ground-floor refinement is visually accepted in the sampled day/night endpoint views.",
+    "No new foreground obstruction, conspicuous misplaced storefront shell or terrain seam was found in these samples.",
+    "Documentation counts match the current component report, unchanged source map and packaged resource."
+  ],
+  "documentationAudit": {
+    "passed": true,
+    "path": "/Users/william/dev/architecture/docs/NORTH-SIDE.md",
+    "sha256": "c98fde26786054e144195b75a57f429d2d927788628cdbcde9c0aeb73641cc2b",
+    "contextTriangles": 9004135,
+    "contextLights": 341,
+    "contextMaterials": 70,
+    "wellsAdditionalTriangles": 28970,
+    "wellsAdditionalLights": 12,
+    "legacyStreetFacingFrontages": 82,
+    "resourceCounts": {
+      "buildings": 31425,
+      "areas": 1360,
+      "paths": 19878,
+      "trees": 3752,
+      "piers": 709,
+      "breakwaters": 78,
+      "landmarks": 3961,
+      "boats": 104,
+      "trafficLanes": 6
+    }
+  },
+  "limits": [
+    "Sampled stills do not visually cover every route position or movie frame.",
+    "Stills cannot establish temporal noise, moving traffic continuity or sustained GPU performance.",
+    "Facades and lighting are authored interpretations; upper windows repeat and vegetation/ancillary buildings are simplified.",
+    "Night roofs, roads and pedestrian silhouettes remain dark; fine sampling grain is visible in glossy and shadowed areas.",
+    "These raw stills have no app interface or video captions; caption/control validation are outside this report."
+  ]
+}

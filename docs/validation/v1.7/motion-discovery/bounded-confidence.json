@@ -1,0 +1,152 @@
+[
+  {
+    "case": "old-town-brick",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/bounded-confidence/old-town-brick",
+      "--motion-case",
+      "old-town-brick",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 10.819741010665894,
+    "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 0.519686562270727,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.668351563552278,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.022704583166904192,
+        "rawTemporalResidualRMSE": 0.03314130244112342,
+        "reconstructedRMSE": 0.02258659049916621,
+        "reconstructedTemporalResidualRMSE": 0.0270751896660525,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 18.303785090666135,
+        "view": "old-town-brick"
+      }
+    ]
+  },
+  {
+    "case": "north-avenue-beach",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/bounded-confidence/north-avenue-beach",
+      "--motion-case",
+      "north-avenue-beach",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 11.283049821853638,
+    "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 1.2810817007070985,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 9.813319010390842,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.026236710000242396,
+        "rawTemporalResidualRMSE": 0.0383733451268566,
+        "reconstructedRMSE": 0.0259005963095617,
+        "reconstructedTemporalResidualRMSE": 0.022900666778664723,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 40.321421802142844,
+        "view": "north-avenue-beach"
+      }
+    ]
+  },
+  {
+    "case": "willis-night",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "chicago",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/bounded-confidence/willis-night",
+      "--motion-case",
+      "willis-night",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 1,
+    "seconds": 14.932674646377563,
+    "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": -0.016470991952277636,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 16.95218228996964,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.027587369167102443,
+        "rawTemporalResidualRMSE": 0.039583999415485405,
+        "reconstructedRMSE": 0.027591913080457803,
+        "reconstructedTemporalResidualRMSE": 0.03934409012357572,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 0.6060764335395374,
+        "view": "willis-night"
+      }
+    ]
+  }
+]

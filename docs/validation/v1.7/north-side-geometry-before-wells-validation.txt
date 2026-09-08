@@ -1,0 +1,19 @@
+Built north context: 8975165 triangles, 329 lights
+Finite vertices; max normal error 2.3841858e-07
+Noncollapsed triangles; checking lanes/landmarks
+Exact prior lane sequences passed
+Authored masks passed; Wells 1.9994206; pond levels -0.55,-0.25
+{
+  "boats" : 104,
+  "buildings" : 31425,
+  "lights" : 329,
+  "materials" : 49,
+  "maximumNormalError" : 2.384185791015625e-07,
+  "maximumY" : 357.1199951171875,
+  "minimumY" : -7.6999998092651367,
+  "passed" : true,
+  "scope" : "CPU-only North Side context mesh; does not include authored zoo, Wrigley, St Michael or beach-house geometry",
+  "seconds" : 1.8388979434967041,
+  "trafficLanes" : 6,
+  "triangles" : 8975165
+}

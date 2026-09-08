@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "filesChecked": 29,
+  "localTargetsChecked": 345,
+  "missing": [],
+  "scope": "Local file targets in README and docs Markdown; external URLs and heading anchors are outside scope."
+}

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "scope": "Actual native control and window checks on sixth package while the independent landcover-only correction was prepared. These UI/control source inputs will be required to match final package before carrying this evidence forward. Final-package startup/visual smoke remains separate.",
+  "recordedAtUTC": "2026-09-08T18:19:20.230625+00:00",
+  "testedExecutableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea",
+  "controlSourceSHA256": {
+    "Sources/ArchitectureEngine/ArchitectureApp.swift": "a4196645952bae32ddd37e213e077e8d224321583ec8ee32492901582f2bec91",
+    "Sources/ArchitectureEngine/ArchitectureLocation.swift": "6d8cc154bf8497d68ac368e87fb565fdbfd7cc0fb16eff01f3c81e4eacd9f103",
+    "Sources/ArchitectureEngine/EngineController.swift": "fe26b6c28fc81bf4a38f25e39e192361090855deead60022d8fbdd08d416ec84",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+    "Sources/ArchitectureEngine/Walkthrough.swift": "60d14a9815cb5a16a3b29f65f60bfb05d1f86ac79dd41fcc855b025a001136a9"
+  },
+  "checks": [
+    "App opened Chicago North Side with eight cards and 20-second daytime idle cycle.",
+    "Manual8 selection held Wrigley; N visibly toggled night lighting.",
+    "Space started selected Wrigley route; successive Right presses displayed Fast forward2\u00d7,4\u00d7,8\u00d7; Left displayed Rewind2\u00d7,4\u00d7,8\u00d7.",
+    "Space paused at timeline0.01339491083247898; subsequent N preserved exactly that timeline without resuming.",
+    "Up selected view7; Down returned to8; both held idle view.",
+    "Right bracket changed idle pace1\u00d7\u21922\u00d7\u21924\u00d7, with dwell20\u219210\u21925seconds and walkthrough pace unchanged.",
+    "I started cycling from view8; observed subsequent Night pass after Day pass; continued cycle later returned to Day pass without N.",
+    "Control-Command-F entered and exited fullscreen; actual screenshots showed full-display viewport and return to ordinary window.",
+    "Native zoom secondary action resized ordinary window wider and restored it; scene aspect/UI layout and Metal allocation changed with viewport.",
+    "Walkthrough pace menu selected2\u00d7 while idle remained1\u00d7.",
+    "L cycled Paris, Willis, Millennium, Lakefront, Museum Campus, NorthSide. Paris used independent geometry; all Chicago views retained39,929,021 total triangles and7.30GB viewport allocation without city reload.",
+    "Menu showed all four connecting flights. Millennium\u2192Zoo began view1 four-minute route in selected night lighting; Zoo\u2192Wrigley began view7 four-minute route with selected2\u00d7 pace."
+  ],
+  "limitation": "The Mac locked before the last optional slow-idle setting and second-flight pause screenshot checks. No claim that those final attempted actions completed; slow pace/paused clocks are independently covered by the production playback suite. Test app was then terminated to keep subsequent GPU work isolated.",
+  "finalPackageSmokePending": true
+}

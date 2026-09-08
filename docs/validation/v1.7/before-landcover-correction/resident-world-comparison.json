@@ -1,0 +1,54 @@
+{
+  "scope": "One matched Field Hall trace, isolated sequential GPU jobs with native app closed.640x400,32frames,8SPP,128reference. Includes trace,reconstruction,and two paired presentations; not viewport FPS or a city-wide timing guarantee.",
+  "baselineVersion": "1.6.0",
+  "currentVersion": "1.7.0",
+  "baselineGPUms": 38.836454420561495,
+  "currentGPUms": 38.61669010530022,
+  "baseline": {
+    "clearSkyRMSE": null,
+    "darkCityRMSE": null,
+    "darkCitySamples": 0,
+    "frames": 32,
+    "imageErrorReductionPercent": 49.6387748698905,
+    "maximumUnsupportedDarkBrightness": null,
+    "maximumUnsupportedTemporalBrightness": null,
+    "meanReconstructedGPUms": 38.836454420561495,
+    "rawDarkCityRMSE": null,
+    "rawRMSE": 0.07359835510646588,
+    "rawTemporalResidualRMSE": 0.10447909470573098,
+    "reconstructedRMSE": 0.03706503330722472,
+    "reconstructedTemporalResidualRMSE": 0.047911957292794974,
+    "referenceSamples": 128,
+    "resolution": [
+      640,
+      400
+    ],
+    "samplesPerFrame": 8,
+    "temporalNoiseReductionPercent": 54.14206312971923,
+    "view": "field-hall"
+  },
+  "current": {
+    "location": "campus",
+    "clearSkyRMSE": null,
+    "darkCityRMSE": null,
+    "darkCitySamples": 0,
+    "frames": 32,
+    "imageErrorReductionPercent": 50.115469801843204,
+    "maximumUnsupportedDarkBrightness": null,
+    "maximumUnsupportedTemporalBrightness": null,
+    "meanReconstructedGPUms": 38.61669010530022,
+    "rawDarkCityRMSE": null,
+    "rawRMSE": 0.07358507295669446,
+    "rawTemporalResidualRMSE": 0.10446007517428309,
+    "reconstructedRMSE": 0.03670756794041796,
+    "reconstructedTemporalResidualRMSE": 0.04784623993843563,
+    "referenceSamples": 128,
+    "resolution": [
+      640,
+      400
+    ],
+    "samplesPerFrame": 8,
+    "temporalNoiseReductionPercent": 54.196625018115206,
+    "view": "field-hall"
+  }
+}

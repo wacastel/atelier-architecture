@@ -1,0 +1,726 @@
+{
+  "recordedAtUTC": "2026-09-08T16:52:52.918259+00:00",
+  "scope": "Read-only renderer and validation review; actual visual inspection of six original final-frame PNGs and two confidence-candidate PNGs; CPU-only reference-gradient/RGB error analysis. Root ran the GPU ablations and candidate experiments. This review did not dispatch GPU work or alter production shaders, cameras or thresholds.",
+  "discoveryStatus": "Both independently diagnosed fixes are accepted by the final unchanged33-case motion suite and dedicated GPU fixtures: preserved1..32history confidence for spatial strength, plus coarse-night emitter support matching2*activeStep. The cap8 experiment was discarded; final movies remain separate acceptance work.",
+  "originalFailure": {
+    "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/metrics.json",
+    "sha256": "bc7a8b04a67367602bf892b70502183bad51ef5383e628f0aa3deba015f65e7a",
+    "passed": false,
+    "failures": [
+      "Actual-scene reconstruction regressed on old-town-brick",
+      "Actual-scene reconstruction regressed on north-avenue-beach"
+    ],
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": -8.061454174289807,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.268653644132428,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.022704811205453715,
+        "rawTemporalResidualRMSE": 0.03314154253878107,
+        "reconstructedRMSE": 0.02453514915614038,
+        "reconstructedTemporalResidualRMSE": 0.028562523862880218,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 13.816552656058922,
+        "view": "old-town-brick"
+      },
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": -3.6496196614801635,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.459475258656312,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.02623671701231774,
+        "rawTemporalResidualRMSE": 0.03837333472287577,
+        "reconstructedRMSE": 0.027194257394926202,
+        "reconstructedTemporalResidualRMSE": 0.023049819919818477,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 39.93271607411898,
+        "view": "north-avenue-beach"
+      }
+    ],
+    "originalReportedPath": "/Users/william/dev/architecture/output/v8-review/motion-northside/metrics.json",
+    "preservedFailurePath": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/metrics.json"
+  },
+  "inputProvenance": {
+    "sourceSnapshot": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/final-input.json",
+      "sha256": "ffba089050a2e7b97da8fe9d70f26a4c3c78261b37387c216fcd51d25f97f0a0"
+    },
+    "packageSnapshot": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/final-package-input.json",
+      "sha256": "32bc37216107b655defe70701928e885b3416884ed40f8f006e33c58d42cda53"
+    },
+    "originalPackagedDenoiseSHA256": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "candidateShader": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/Denoise-confidence.metal",
+      "sha256": "922f414621846a475eae2a2804a60f24187c4c4b452acd735dbe7d40252cf9fb"
+    },
+    "provenanceNote": "The archived motion-discovery source and package snapshots agree on the original failing Denoise SHA256 710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e. The current production shader is the later confidence-aware revision 97eb650f6f2fd50e763110c8fd127e59599a0ebf1cf1caf87d40c5218f3827f9; its difference is expected, not package drift.",
+    "recoveredOriginalDenoiseSHA256": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "recoveredOriginalMatchesPackagedHash": true,
+    "recoveryMethod": "CPU in-memory reversal of the exact string substitutions recorded in output/v8-review/confidence-experiment.py; no shader source file written.",
+    "candidateAndProductionIdenticalAfterRemovingLineComments": true,
+    "candidateProductionDifference": "At the initial daylight-confidence review, production added/updated explanatory comments only relative to that candidate. The final production shader additionally includes the separate coarse-night coverage guard; see finalAcceptance.",
+    "reviewedOriginalSourceSHA256": {
+      "Sources/ArchitectureEngine/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+      "Sources/ArchitectureEngine/Resources/Renderer.metal": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "Sources/ArchitectureEngine/MetalRenderer.swift": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+      "Sources/ArchitectureEngine/MotionValidation.swift": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d"
+    },
+    "originalSourceAndPackageDenoiseMatch": true,
+    "confidenceOnlyProductionDenoiseAtInitialReview": {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "sha256": "97eb650f6f2fd50e763110c8fd127e59599a0ebf1cf1caf87d40c5218f3827f9"
+    }
+  },
+  "imagesActuallyViewed": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/old-town-brick-raw.png",
+      "sha256": "d080d194a863553d3093a451ede58e0fd775604091de6a647e4f306cdf1d08c6",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "old-town-brick"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/old-town-brick-reconstructed.png",
+      "sha256": "9dbdfa7e0bd9357d0e957484d4f8f05254e14ce87e0d535f5b12a8c2592eb974",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "old-town-brick"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/old-town-brick-reference.png",
+      "sha256": "50fb6dfb9ff3ce47e22192aa3396b1a9c4d65a1d1f152a79fc36594a5f53e7fb",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "old-town-brick"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/confidence/old-town-brick/old-town-brick-reconstructed.png",
+      "sha256": "f656717bfbbdcb20aa0b18494a2512741e21969470465f243a02d59afc51a8fd",
+      "actuallyViewed": true,
+      "variant": "confidence candidate",
+      "case": "old-town-brick"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/north-avenue-beach-raw.png",
+      "sha256": "f32bbe5388d9029f5a9c2518db2a3614da4ef4f15221eba89e8cacb8508f127e",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "north-avenue-beach"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/north-avenue-beach-reconstructed.png",
+      "sha256": "47c9d699281ee084cca0a624ddb5d170b830db1b676d6090d3ef3cbba1779c11",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "north-avenue-beach"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/motion-northside/north-avenue-beach-reference.png",
+      "sha256": "a242f5965769067a6d7ae2fb26e90ae2712c8265d2dd809f5f0c090413a91335",
+      "actuallyViewed": true,
+      "variant": "original combined",
+      "case": "north-avenue-beach"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/confidence/north-avenue-beach/north-avenue-beach-reconstructed.png",
+      "sha256": "ba95b212897a47d72c0f5c7d6e1a5cb8a7163bf9f5c4c91b0095a2fa9fd6a264",
+      "actuallyViewed": true,
+      "variant": "confidence candidate",
+      "case": "north-avenue-beach"
+    }
+  ],
+  "visualFindings": [
+    "Original Old Town reconstruction softens standing-seam roof details and sharp cornice shadows compared with the independent reference.",
+    "Original beach reconstruction smooths same-material cast-shadow boundaries and beach-house detail, despite reducing visible sampling noise.",
+    "No conspicuous camera-pose or silhouette misregistration was found in the matched original raw/reference pairs.",
+    "The confidence candidate preserves more roof-seam and shadow-edge detail. Residual low-SPP noise and some smoothing remain; two sampled frames do not establish every-frame detail fidelity."
+  ],
+  "finalFrameRegionAnalysis": {
+    "scope": "Only the final 640x400 original PNG per case, decoded display RGB in [0,1]. These numbers are not the full validation sequence aggregate. Images were analyzed without alteration.",
+    "referenceLuminance": "0.2126 R + 0.7152 G + 0.0722 B",
+    "gradient": "sqrt(dx^2+dy^2), central differences with half scaling; border differences zero",
+    "masks": {
+      "strongEdges": "gradient > 0.08",
+      "lowGradient": "gradient < 0.005 AND reference luminance < 0.8 AND y > 125"
+    },
+    "results": [
+      {
+        "case": "old-town-brick",
+        "region": "strongEdges",
+        "pixelCount": 16637,
+        "rawRGBRMSE": 0.051338606101083706,
+        "reconstructedRGBRMSE": 0.07958933806189472,
+        "imageErrorReductionPercent": -55.02824113530942
+      },
+      {
+        "case": "old-town-brick",
+        "region": "lowGradient",
+        "pixelCount": 122106,
+        "rawRGBRMSE": 0.011837498425123877,
+        "reconstructedRGBRMSE": 0.007234868704753739,
+        "imageErrorReductionPercent": 38.88177683387504
+      },
+      {
+        "case": "north-avenue-beach",
+        "region": "strongEdges",
+        "pixelCount": 16738,
+        "rawRGBRMSE": 0.04968356173331715,
+        "reconstructedRGBRMSE": 0.08289143046227536,
+        "imageErrorReductionPercent": -66.83874418506
+      },
+      {
+        "case": "north-avenue-beach",
+        "region": "lowGradient",
+        "pixelCount": 64494,
+        "rawRGBRMSE": 0.021235835466810123,
+        "reconstructedRGBRMSE": 0.011622221053656357,
+        "imageErrorReductionPercent": 45.27071434594161
+      }
+    ]
+  },
+  "ablation": {
+    "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/ablation.json",
+    "sha256": "5db7907a51f4cb7faafd44ce3682080124d3670faabf8a19f6b8f71d62e5cba2",
+    "runBy": "Root agent",
+    "protocol": "Same authored camera traces, 640x400, 8 samples/frame, 128 reference samples, 32 frames, same metric/threshold code. Only copied-app denoising shader stage bypasses differ. Raw/reconstruction within each run share traced samples. Separate runs retain tiny floating-point/AS variation.",
+    "results": [
+      {
+        "variant": "spatial-only",
+        "case": "old-town-brick",
+        "shaderSHA256": "3bb61c086f49229fd772b0be7ab5d3d94a01d280ee653fdb7a890260d02f832b",
+        "exitCode": 0,
+        "imageErrorReductionPercent": 9.206269264684408,
+        "temporalNoiseReductionPercent": 17.904630632724494
+      },
+      {
+        "variant": "spatial-only",
+        "case": "north-avenue-beach",
+        "shaderSHA256": "3bb61c086f49229fd772b0be7ab5d3d94a01d280ee653fdb7a890260d02f832b",
+        "exitCode": 0,
+        "imageErrorReductionPercent": 17.453916560067707,
+        "temporalNoiseReductionPercent": 30.392517502636352
+      },
+      {
+        "variant": "temporal-only",
+        "case": "old-town-brick",
+        "shaderSHA256": "3902674626ddb0f9294b8aaf591291ca21e9ff59155252727bd3a52504c2d9fd",
+        "exitCode": 0,
+        "imageErrorReductionPercent": 2.2617145090205404,
+        "temporalNoiseReductionPercent": 18.990182353517316
+      },
+      {
+        "variant": "temporal-only",
+        "case": "north-avenue-beach",
+        "shaderSHA256": "3902674626ddb0f9294b8aaf591291ca21e9ff59155252727bd3a52504c2d9fd",
+        "exitCode": 0,
+        "imageErrorReductionPercent": 1.8830191157009457,
+        "temporalNoiseReductionPercent": 40.144424851855284
+      }
+    ]
+  },
+  "diagnosis": [
+    "The strongest evidence is the interaction: both spatial-only and temporal-only improve image and temporal error, while their original combination fails image error.",
+    "MetalRenderer passes temporally accumulated radiance into three spatial passes. Previously spatialFilter used only current SPP for blend strength and overwrote temporal history alpha with depth. At 8 SPP the blend remained 0.5 in every pass even on compatible 32-frame histories.",
+    "Neighborhood variance contains both noise and real illumination contrast; broad luma tolerance and same-plane/albedo compatibility can mix real shadow edges. Temporal accumulation already reduces noise, making repeated full-strength filtering unnecessarily biased.",
+    "Spatial results are not fed into temporal history; the temporal history texture is retained before the three spatial passes. No erroneous spatial feedback loop was found.",
+    "Primary guides describe pixel-center material, plane, normal and albedo, not direct-light visibility. Water normals are procedural, but the lake region is improved in the failing frame; no guide-generation change is justified by this evidence.",
+    "MotionValidation compares paired raw/reconstruction against independent references with matched camera and scene time. It measures display-space RGB error and temporal error differences after warmup. No metric mismatch or need to weaken its thresholds was found."
+  ],
+  "fixReasoning": {
+    "change": "Preserve accepted center-pixel history count in every spatial output alpha; reduce spatial strength using 8/(currentSPP*clamp(historyCount,1,32)+8).",
+    "whyScoped": "Keeps existing geometry/albedo/coverage rejection and all three filter passes. Newly revealed, reset, reactive and through-glass pixels retain count 1 and the existing fresh-frame strength. Stable accepted history receives less redundant smoothing.",
+    "alphaContract": "Presentation reads only RGB and explicitly writes opaque alpha. Spatial output has its own normal/depth guide and no production consumer needing its previous depth alpha. Count remains center-local, not blurred across neighbors.",
+    "statisticalLimit": "Accepted frame count is a bounded confidence heuristic, not an exact independent-sample count; temporal reprojection correlates samples. Targeted and full cross-location tests remain necessary.",
+    "targetedCandidate": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/confidence.json",
+      "sha256": "fc588c79784d535bdb597b30a61206758d534a2a99e80b22948d347a49e771ac",
+      "runBy": "Root agent",
+      "results": [
+        {
+          "case": "old-town-brick",
+          "shaderSHA256": "922f414621846a475eae2a2804a60f24187c4c4b452acd735dbe7d40252cf9fb",
+          "exitCode": 0,
+          "imageErrorReductionPercent": 1.880154113318211,
+          "temporalNoiseReductionPercent": 19.074297889612325
+        },
+        {
+          "case": "north-avenue-beach",
+          "shaderSHA256": "922f414621846a475eae2a2804a60f24187c4c4b452acd735dbe7d40252cf9fb",
+          "exitCode": 0,
+          "imageErrorReductionPercent": 1.8110510615850672,
+          "temporalNoiseReductionPercent": 40.3378589375149
+        }
+      ]
+    }
+  },
+  "testAlphaAudit": {
+    "scope": [
+      "scripts/validate-denoiser.swift",
+      "Tests/Adler/ProjectionReconstruction.swift",
+      "Tests/PairedMotion/main.swift",
+      "scripts/validate-metal.swift",
+      "Sources/ArchitectureEngine/MotionValidation.swift"
+    ],
+    "finding": "Five legacy denoiser checks compared complete spatial SIMD4 values with raw radiance whose alpha stores depth. Those comparisons became invalid when spatial alpha changed to accepted history count.",
+    "authorizedTestChange": "Only those five bypass checks (dark joint, analytic sky, subpixel spire, emitter window, mixed distant window) now assert exact x/y/z equality plus a separate exact filtered.w == history.w confidence assertion. No numeric tolerances, camera traces, thresholds or other fixtures were changed.",
+    "testFile": {
+      "path": "/Users/william/dev/architecture/scripts/validate-denoiser.swift",
+      "sha256": "aee59f8d3708d1aed642b1ca8062739fe56599560e34c58e17a6be75b7f28b3c"
+    },
+    "originalTestSHA256": "86712f7ff1d215cb94603fc13cb1ac552e5131b675c4276b17cecddae106650b",
+    "cpuValidation": "swiftc -typecheck scripts/validate-denoiser.swift passed; no GPU execution was performed by this reviewer.",
+    "otherFixtures": "Adler raw/output coverage checks already use RGB. Its full-RGBA legacy-policy comparisons compare two shaders with identical new alpha semantics. Paired-motion and Metal presentation checks correctly require final display alpha 255, which presentation still supplies."
+  },
+  "limits": [
+    "Strong-edge regions still include Monte Carlo reference error and subpixel coverage; they locate bias but do not independently prove its mathematical cause.",
+    "Only two targeted cases were ablated here; other locations, quality presets, longer histories and exported movies require their own final regression records.",
+    "GPU timing numbers in referenced metrics include paired validation rendering and are not normal interactive-preview performance claims."
+  ],
+  "willisNightFollowUp": {
+    "recordedAtUTC": "2026-09-08T17:00:45.979684+00:00",
+    "scope": "Read-only review of root GPU measurements on the unchanged Willis-night trajectory in the expanded North Side world; actual three-PNG visual review and CPU-only image comparison. No GPU, shader or camera changes by this reviewer.",
+    "finding": "A distinct pre-existing coarse-night spatial-coverage bias is exposed by the expanded skyline. It is not a regression caused by the daylight temporal-confidence correction.",
+    "sequenceFailureWithCount32": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-chicago/metrics.json",
+      "sha256": "ef5b8d8f38473f3eedc0258447c90ed93db2baf36db680db7ff0b154a68c956f",
+      "willisNight": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": -0.0160963590728036,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 15.092748698407377,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.0275942094302356,
+        "rawTemporalResidualRMSE": 0.039584216923069813,
+        "reconstructedRMSE": 0.02759865109326879,
+        "reconstructedTemporalResidualRMSE": 0.03934429718796886,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 0.6060994854773183,
+        "view": "willis-night"
+      }
+    },
+    "sourceAndPackageAtThatRun": {
+      "source": {
+        "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-input.json",
+        "sha256": "5c9456bde81091f5526a54c82f2f7b1d25a30edc7c4f28a232f0e34279dba2d2"
+      },
+      "package": {
+        "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-package.json",
+        "sha256": "4d31980d63c888bc4adb41950febe01aa041520d9cfd92ef1d4bdce20311cb61"
+      }
+    },
+    "boundedConfidenceExperiment": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/bounded-confidence.json",
+      "sha256": "9db444f2bb7f04e753df5c0af8765f918a32988c9d30ed867c482533cc9c89e8",
+      "results": [
+        {
+          "case": "old-town-brick",
+          "variant": "bounded confidence cap8",
+          "exitCode": 0,
+          "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+          "rawRMSE": 0.022704583166904192,
+          "reconstructedRMSE": 0.02258659049916621,
+          "imageErrorReductionPercent": 0.519686562270727,
+          "temporalNoiseReductionPercent": 18.303785090666135
+        },
+        {
+          "case": "north-avenue-beach",
+          "variant": "bounded confidence cap8",
+          "exitCode": 0,
+          "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+          "rawRMSE": 0.026236710000242396,
+          "reconstructedRMSE": 0.0259005963095617,
+          "imageErrorReductionPercent": 1.2810817007070985,
+          "temporalNoiseReductionPercent": 40.321421802142844
+        },
+        {
+          "case": "willis-night",
+          "variant": "bounded confidence cap8",
+          "exitCode": 1,
+          "shaderSHA256": "45b936e86fe5e49110389c56a4f2287f37a10446c4522b317c91d8e954cf372f",
+          "rawRMSE": 0.027587369167102443,
+          "reconstructedRMSE": 0.027591913080457803,
+          "imageErrorReductionPercent": -0.016470991952277636,
+          "temporalNoiseReductionPercent": 0.6060764335395374
+        }
+      ],
+      "conclusion": "The cap8 candidate still failed Willis-night while slightly reducing the daylight gains. It did not address this separate failure and was not selected for production."
+    },
+    "originalShaderAblation": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/willis-ablation.json",
+      "sha256": "c20151cc0c784a7a22904b63d00e427e0dbd2cd002fffc60bb5ee505002cb4ee",
+      "protocol": "Original, spatial-only and temporal-only shaders in the same expanded world; same camera trace, 640x400,32frames,8SPP,128SPP independent references; unchanged strict image and temporal-error improvement requirements.",
+      "results": [
+        {
+          "case": "willis-night",
+          "variant": "original",
+          "exitCode": 1,
+          "shaderSHA256": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+          "rawRMSE": 0.027583316368755034,
+          "reconstructedRMSE": 0.02758804086654382,
+          "imageErrorReductionPercent": -0.017128099194541058,
+          "temporalNoiseReductionPercent": 0.6062887013219331
+        },
+        {
+          "case": "willis-night",
+          "variant": "spatial-only",
+          "exitCode": 1,
+          "shaderSHA256": "3bb61c086f49229fd772b0be7ab5d3d94a01d280ee653fdb7a890260d02f832b",
+          "rawRMSE": 0.027588768188956548,
+          "reconstructedRMSE": 0.027593000818814033,
+          "imageErrorReductionPercent": -0.015341858790129947,
+          "temporalNoiseReductionPercent": 0.6069221546823433
+        },
+        {
+          "case": "willis-night",
+          "variant": "temporal-only",
+          "exitCode": 1,
+          "shaderSHA256": "3902674626ddb0f9294b8aaf591291ca21e9ff59155252727bd3a52504c2d9fd",
+          "rawRMSE": 0.027583669432190504,
+          "reconstructedRMSE": 0.027583669432190504,
+          "imageErrorReductionPercent": 0,
+          "temporalNoiseReductionPercent": 0
+        }
+      ],
+      "interpretation": [
+        "The original shader also fails image error on the expanded world, so the failure cannot be attributed to the new confidence policy.",
+        "Spatial-only also fails image error; temporal-only gives exactly equal displayed raw and reconstructed error and temporal residual. The coarse-night history bypass makes temporal confidence irrelevant to this case.",
+        "The temporal-only run correctly exits1 under the unchanged strict-improvement test because equality is not improvement; it is an informative ablation rather than a passed renderer configuration."
+      ]
+    },
+    "actualVisualReview": {
+      "images": [
+        {
+          "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-chicago/willis-night-raw.png",
+          "sha256": "a242068511e7d4204384c9983ce84e9b7f594649c752d92bf30c73885a139fcc",
+          "actuallyViewed": true,
+          "viewedThroughOriginalPath": "/Users/william/dev/architecture/output/v8-review/motion-chicago/willis-night-raw.png",
+          "archiveBytesMatchViewedOriginal": true
+        },
+        {
+          "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-chicago/willis-night-reconstructed.png",
+          "sha256": "a32ca0edb642615e34ea6ab406246eadcc1bb461f62361492eaea4483ce75523",
+          "actuallyViewed": true,
+          "viewedThroughOriginalPath": "/Users/william/dev/architecture/output/v8-review/motion-chicago/willis-night-reconstructed.png",
+          "archiveBytesMatchViewedOriginal": true
+        },
+        {
+          "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/unbounded-confidence-chicago/willis-night-reference.png",
+          "sha256": "ef4e063e388afb1601d4a9edbd0a3b41dee9d3e25a4ecd35777a909075336d81",
+          "actuallyViewed": true,
+          "viewedThroughOriginalPath": "/Users/william/dev/architecture/output/v8-review/motion-chicago/willis-night-reference.png",
+          "archiveBytesMatchViewedOriginal": true
+        }
+      ],
+      "findings": [
+        "No conspicuous new ghost or corrupted silhouette is apparent; this failure is much subtler than the obvious original daytime roof/shadow erasure.",
+        "Dense unresolved windows dominate the frame, and most pixels retain current coverage."
+      ],
+      "cpuFinalFrame": {
+        "changedRGBPixels": 17267,
+        "totalPixels": 256000,
+        "changedFraction": 0.06744921875,
+        "rawRGBRMSE": 0.027265716896691987,
+        "reconstructedRGBRMSE": 0.02725924299491175,
+        "imageErrorReductionPercent": 0.0237437431216847,
+        "limit": "This final frame improves slightly despite the full second-half sequence narrowly failing; the frame is not a substitute for sequence acceptance."
+      }
+    },
+    "correctedReasoning": [
+      "The initial suggestion that32frames overstated independence was a general conservative-policy rationale, not an established explanation for Willis. The original/spatial-only/temporal-only ablations supersede that hypothesis for this case.",
+      "The existing coarse-night visible-emitter guard inspects a fixed radius2 neighborhood, whereas the three active spatial kernels reach radii2,4,8. Later passes can filter neighbors outside the protected current-coverage area.",
+      "Root is evaluating a guard radius of2*activeStep, preserving the first pass and existing geometry/material policies. This is a stencil-consistency correction, not a location-specific bypass or changed threshold.",
+      "Cumulative three-pass radiance support can reach14pixels. Matching the active radius alone is not a mathematical guarantee against every possible mixed-coverage halo. The final focused fixture actually exercises coarse-night dark-center coverage throughout each active support, including outer rings/corners, and catches the old radius2 guard; all33real-scene traces pass."
+    ],
+    "coverageExperiment": {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-discovery/coverage-experiment.json",
+      "sha256": "5ca79753f9e5307150709e92a76175f122baf75acd516dce7dba6c48e01e8d24",
+      "runBy": "Root agent",
+      "scope": "Only the unchanged Willis-night trace in this targeted candidate experiment; later33-case acceptance is recorded separately.",
+      "shaderSHA256": "2241f679ead17f3f8cd8a4eb6c1f5b0d3e049ca1d3659c5a406bddb65bf9a375",
+      "exitCode": 0,
+      "result": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 0.25336561004434266,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 16.95602864401735,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.02758469665439278,
+        "rawTemporalResidualRMSE": 0.03958348604931773,
+        "reconstructedRMSE": 0.027514806519435494,
+        "reconstructedTemporalResidualRMSE": 0.039364872721672335,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 0.5522841706590009,
+        "view": "willis-night"
+      }
+    },
+    "initialAcceptanceStatus": "Emitter-guard candidate results and focused GPU fixture are not yet claimed passed in this follow-up. Root owns execution and full regression acceptance.",
+    "finalAcceptanceStatus": "The2*activeStep coarse-night guard passed the targeted Willis experiment and the subsequent full33-case suite. The45-check fixture verifies each active radius, outer corners and negative controls; it is not a mathematical guarantee for all possible cumulative multi-pass coverage."
+  },
+  "finalAcceptance": {
+    "recordedAtUTC": "2026-09-08T17:12:05.929107+00:00",
+    "passed": true,
+    "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+    "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+    "sourceSnapshot": {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/final-input.json",
+      "sha256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f"
+    },
+    "packageSnapshot": {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/final-package-input.json",
+      "sha256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84"
+    },
+    "finalDenoiseSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+    "finalShaderMatchesFixture": true,
+    "selectedPolicy": "Preserve accepted temporal history count1..32 in all spatial alpha outputs; use that count in spatial-strength SPP factor; inspect coarse-night emitters within radius2*current a-trous step. No day-only branch, cap8 or case-specific camera/metric exception.",
+    "discardedPolicy": "Cap8 reduced daylight improvement and did not address Willis-night; original-shader ablation established the separate coarse-night spatial-coverage cause. Its recorded failures and metrics are preserved above.",
+    "motionSummary": {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/motion-summary.json",
+      "sha256": "8590fcdd0b54f9af355b26084e9d23c8ed792a30f76c45d0586ae8b2335965a0",
+      "passed": true,
+      "cases": 33,
+      "acceptance": "Both image RMSE and temporal residual must strictly improve over paired unfiltered presentation. No scene traces, reference seeds or acceptance thresholds were relaxed after discoveries.",
+      "measurement": "640x400,32frames,8currentSPP and independent128SPPreference; second half of each sequence. Different resolution from historical v1.6 suite.",
+      "all33StrictlyImproveImageAndTemporalError": true,
+      "selectedFinalCases": [
+        {
+          "location": "northside",
+          "clearSkyRMSE": null,
+          "darkCityRMSE": null,
+          "darkCitySamples": 0,
+          "frames": 32,
+          "imageErrorReductionPercent": 1.8917869244395646,
+          "maximumUnsupportedDarkBrightness": null,
+          "maximumUnsupportedTemporalBrightness": null,
+          "meanReconstructedGPUms": 7.316251306292543,
+          "rawDarkCityRMSE": null,
+          "rawRMSE": 0.022705400197959767,
+          "rawTemporalResidualRMSE": 0.033143130470337956,
+          "reconstructedRMSE": 0.02227586240587309,
+          "reconstructedTemporalResidualRMSE": 0.026818374120897676,
+          "referenceSamples": 128,
+          "resolution": [
+            640,
+            400
+          ],
+          "samplesPerFrame": 8,
+          "temporalNoiseReductionPercent": 19.08315919373016,
+          "view": "old-town-brick"
+        },
+        {
+          "location": "northside",
+          "clearSkyRMSE": null,
+          "darkCityRMSE": null,
+          "darkCitySamples": 0,
+          "frames": 32,
+          "imageErrorReductionPercent": 1.8113974399664334,
+          "maximumUnsupportedDarkBrightness": null,
+          "maximumUnsupportedTemporalBrightness": null,
+          "meanReconstructedGPUms": 7.4464023409746005,
+          "rawDarkCityRMSE": null,
+          "rawRMSE": 0.02623673308762113,
+          "rawTemporalResidualRMSE": 0.038373357862856235,
+          "reconstructedRMSE": 0.025761481576141134,
+          "reconstructedTemporalResidualRMSE": 0.022894535920951222,
+          "referenceSamples": 128,
+          "resolution": [
+            640,
+            400
+          ],
+          "samplesPerFrame": 8,
+          "temporalNoiseReductionPercent": 40.33741846941117,
+          "view": "north-avenue-beach"
+        },
+        {
+          "location": "northside",
+          "clearSkyRMSE": null,
+          "darkCityRMSE": null,
+          "darkCitySamples": 0,
+          "frames": 32,
+          "imageErrorReductionPercent": 18.57536402007911,
+          "maximumUnsupportedDarkBrightness": null,
+          "maximumUnsupportedTemporalBrightness": null,
+          "meanReconstructedGPUms": 9.112080732847971,
+          "rawDarkCityRMSE": null,
+          "rawRMSE": 0.0388436852529502,
+          "rawTemporalResidualRMSE": 0.056072346008057494,
+          "reconstructedRMSE": 0.03162832931840091,
+          "reconstructedTemporalResidualRMSE": 0.03778296291020499,
+          "referenceSamples": 128,
+          "resolution": [
+            640,
+            400
+          ],
+          "samplesPerFrame": 8,
+          "temporalNoiseReductionPercent": 32.617474387863766,
+          "view": "wrigley-field"
+        },
+        {
+          "location": "northside",
+          "clearSkyRMSE": null,
+          "darkCityRMSE": null,
+          "darkCitySamples": 0,
+          "frames": 32,
+          "imageErrorReductionPercent": 6.498165924964205,
+          "maximumUnsupportedDarkBrightness": null,
+          "maximumUnsupportedTemporalBrightness": null,
+          "meanReconstructedGPUms": 17.62233072622621,
+          "rawDarkCityRMSE": null,
+          "rawRMSE": 0.01818740039838444,
+          "rawTemporalResidualRMSE": 0.02580840288705179,
+          "reconstructedRMSE": 0.017005552943059818,
+          "reconstructedTemporalResidualRMSE": 0.023735246857665992,
+          "referenceSamples": 128,
+          "resolution": [
+            640,
+            400
+          ],
+          "samplesPerFrame": 8,
+          "temporalNoiseReductionPercent": 8.032872233352773,
+          "view": "wrigley-night"
+        },
+        {
+          "location": "chicago",
+          "clearSkyRMSE": null,
+          "darkCityRMSE": null,
+          "darkCitySamples": 0,
+          "frames": 32,
+          "imageErrorReductionPercent": 0.25297676840100314,
+          "maximumUnsupportedDarkBrightness": null,
+          "maximumUnsupportedTemporalBrightness": null,
+          "meanReconstructedGPUms": 15.225179686240153,
+          "rawDarkCityRMSE": null,
+          "rawRMSE": 0.027603551082926905,
+          "rawTemporalResidualRMSE": 0.03958126904699235,
+          "reconstructedRMSE": 0.027533720511433397,
+          "reconstructedTemporalResidualRMSE": 0.039362697489254264,
+          "referenceSamples": 128,
+          "resolution": [
+            640,
+            400
+          ],
+          "samplesPerFrame": 8,
+          "temporalNoiseReductionPercent": 0.5522095753892842,
+          "view": "willis-night"
+        }
+      ]
+    },
+    "dedicatedFixture": {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/temporal-detail.json",
+      "sha256": "5dd8495d518d86e35d8b8bed7be81f82326bf944581fa1ed6cd9507b6a11aba3",
+      "passed": true,
+      "checkCount": 45,
+      "scope": "Real production temporal and three spatial GPU passes on a same-material plane; exact box-filtered reference; raw inputs shared by all ablations; additional per-pass coarse-night coverage fixture; no scene ray tracing or FPS claim",
+      "limits": [
+        "Synthetic additive noise does not model all BRDF, visibility, or low-SPP outliers.",
+        "Fractional-pan noiseless diagnostics expose residual temporal resampling bias but do not assert that all such bias is eliminated.",
+        "The detail negative control discards confidence only; it is not a complete historical shader snapshot."
+      ]
+    },
+    "supportingChecks": [
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/denoiser-validation.txt",
+        "sha256": "ae0981b2838aaecdf77b03767435a1037d3daea33e0ad1cc9a18e03002d748a2",
+        "reviewedResult": "PASS"
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/temporal-detail-validation.txt",
+        "sha256": "36f4c2fa3a7d83f33194ad8731b2bd87953325c47ff68aa0dab1a3f545d3d83e",
+        "reviewedResult": "PASS"
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/temporal-detail.json",
+        "sha256": "5dd8495d518d86e35d8b8bed7be81f82326bf944581fa1ed6cd9507b6a11aba3",
+        "reviewedResult": true
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/adler-validation.txt",
+        "sha256": "ca35badea0c3925b0399044202b28c59c6844125eda890f7a1f216cc7bc8abda",
+        "reviewedResult": "PASS"
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/paired-motion-validation.txt",
+        "sha256": "64f936d1ec84640ca7b8a6c10965be733aef6ad1f3d4393e3ea2435bd3f585fe",
+        "reviewedResult": "PASS"
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/chicago-self-test.json",
+        "sha256": "9aa3348ac4383447e21dbfbf71752ebf6a02f4cdef81652be381fc20bbcbe8a1",
+        "reviewedResult": true
+      },
+      {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/paris-self-test.json",
+        "sha256": "f506959bd1eba2c466b5254ab1d9368b169a5c54efaf30cfc15374e4acad7a7b",
+        "reviewedResult": true
+      }
+    ],
+    "wrigleyFinalFrameVisualReview": {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/wrigley-motion-visual-review.json",
+      "sha256": "832a38b7dda39d60a03124f1628c9ccac442ea4587860cac21f8f9e2602a7bd8"
+    },
+    "scopeLimit": "These records validate the final renderer and sampled Wrigley frames. They do not claim full exported-video visual acceptance or perfect recovery of every subpixel detail. GPU work was run by root; this update only reads and records existing evidence.",
+    "finalPackageRevalidation": {
+      "recordedAtUTC": "2026-09-08T17:45:39.757114+00:00",
+      "reason": "The shared-world Fisher Bridge ramp geometry was corrected after the previous accepted renderer tests. Root regenerated final package, all33motion cases and images; Wrigley six-image review was actually repeated. Denoiser policy is unchanged.",
+      "priorSourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046",
+      "priorPackageInputSHA256": "d7306d2b7a8503704a1809ff8819b02273c8f64d3633efa40d41a955aaadd5d7",
+      "priorSourceArchive": {
+        "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/final-input.json",
+        "sha256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+      },
+      "priorPackageArchive": {
+        "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/final-package-input.json",
+        "sha256": "d7306d2b7a8503704a1809ff8819b02273c8f64d3633efa40d41a955aaadd5d7"
+      }
+    },
+    "landcoverPackageRevalidation": {
+      "recordedAtUTC": "2026-09-08T18:38:15.297332+00:00",
+      "reason": "Corrected shared-world waterfront park landcover; seventh package and all33motion cases regenerated with unchanged denoising policy.",
+      "priorSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+      "priorPackageInputSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+      "priorReviewArchive": {
+        "path": "/Users/william/dev/architecture/docs/validation/v1.7/before-landcover-correction/motion-discovery-notes.json",
+        "sha256": "7e4e0b52fe06af96fd23dddb4ad1af4c3b4318d3f18475c4178210d89ef48535"
+      }
+    }
+  }
+}

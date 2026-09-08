@@ -1,0 +1,25 @@
+{
+  "version": "1.6.0",
+  "commit": "d76562df2ae17b8729a695b4fc0d9aa45398d1be",
+  "executableSHA256": "10c542251b13d6bd7d1bb33a2b544a99afb6c54488694f8de20ab8cdc87df4d8",
+  "command": [
+    "/Users/william/dev/architecture/output/v8-review/baseline/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--location",
+    "campus",
+    "--motion-test",
+    "output/v8-review/baseline/field-hall",
+    "--motion-case",
+    "field-hall",
+    "--width",
+    "640",
+    "--height",
+    "400",
+    "--frames",
+    "32",
+    "--samples",
+    "8",
+    "--reference-samples",
+    "128"
+  ],
+  "notes": "Previous app closed. This baseline contains the v1.6 bundled scene. GPU timing is paired validation cost, not viewport FPS."
+}

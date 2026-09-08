@@ -1,0 +1,69 @@
+{
+  "scope": "Actual sampled visual review of second candidate views3\u20136, day/night; source correction requested afterward",
+  "passed": false,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-day/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "18c3429fd4ac0cef52183d693df202f18c30fae17146a4e8fa381114d0f4792f",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-day/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "13de85d32d359d79985f615d844ed22afc121898804015fcb25cc6a439fd0fd4",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-day/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "7fadd3b271b18ded9713dc4d66086a87244d945d37422d0615dcc13b065585eb",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "e707a2878f20afdd1623fc51490608499e8ec8040780e759fabe7b1156031502",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-night/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "a8a329171c6cd90499d8b52a91452ef8ed86ebcfcf3c4920fd4ce261cb2d7c3f",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-night/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "531f684f3ecb5f6478c8e5abe7ee2140e768b5916383a90af1fff4cc9c92048f",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-night/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "6a49a5821b413e5c79632d5ea7eae3b2aad4a45e43b8879daf0bb0b0393eea8e",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "c0716ba399395aa17dfafdb6254d0d9639d6cbe009d3c9fdb1cfc77b7334a02b",
+      "actuallyViewed": true
+    }
+  ],
+  "observations": {
+    "view3": "Pavilion center passage and layered timber structure remain unobstructed. Added shrubs and trees frame the view. Warm night practical lighting is readable; coarse segmented timber and fiberglass details remain interpretive.",
+    "view4": "Mature canopy now frames the zoo mall; building facades and colored seasonal arches remain visible. Clear dark triangular slivers occur at the lower poles of nearby tree leaf masses.",
+    "view5": "Glasshouse framing, palms and the fountain remain visible by day, with tree crowns framing upper corners. Night illumination now reveals the actual interior plants, framing and garden instead of leaving the glasshouse almost black. Nearby crown poles show the same sliver defect.",
+    "view6": "Aerial composition shows substantially greater landscape density and preserved road/path structure. A few trees appear within vehicle carriageways, indicating missing vehicle-road exclusions. Night remains intentionally concentrated at landmarks and selected paths rather than evenly illuminating the whole park."
+  },
+  "necessaryCorrections": [
+    {
+      "defect": "Leaf-mass pole slivers",
+      "cause": "Angular radius perturbation did not vanish at the poles, yielding multiple vertical pole positions.",
+      "approvedFix": "Fade angular perturbation with squared cosine of latitude, emit exact pole points, and close the longitude seam; validate actual mesh edge multiplicity and retain a legacy pole-spread negative control."
+    },
+    {
+      "defect": "Trees on vehicle roads",
+      "cause": "Planting exclusions included footways but omitted road carriageways.",
+      "approvedFix": "Embed the same mapped road centerlines and widths used by the three production Chicago context layers; reject tree/shrub candidates within the carriageway plus buffer."
+    }
+  ],
+  "limits": [
+    "Actual still-image review only; cannot certify animation, temporal noise or all route frames.",
+    "Architecture, planting and seasonal ZooLights design remain interpretations, not surveyed as-built replicas.",
+    "Night stills retain visible stochastic grain; any motion-quality claim requires separate measured animation tests."
+  ]
+}

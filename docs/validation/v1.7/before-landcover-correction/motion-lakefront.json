@@ -1,0 +1,134 @@
+{
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "glossyHistory" : "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+  "indexedLighting" : true,
+  "location" : "lakefront",
+  "measurement" : "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "pairing" : "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+  "passed" : true,
+  "pathRegularization" : true,
+  "rawPresentation" : "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+  "referenceSampling" : "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+  "sampling" : "Fast Owen-scrambled Sobol",
+  "scenes" : [
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 26.729603000876679,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 13.15772526049841,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.029232590686981041,
+      "rawTemporalResidualRMSE" : 0.041732253383971608,
+      "reconstructedRMSE" : 0.02141883524947976,
+      "reconstructedTemporalResidualRMSE" : 0.027423455126782553,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 34.287145066278001,
+      "view" : "hancock-braces"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 42.691955658213722,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 13.260046878713183,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.059613578493539029,
+      "rawTemporalResidualRMSE" : 0.086001956188118983,
+      "reconstructedRMSE" : 0.034163375996802914,
+      "reconstructedTemporalResidualRMSE" : 0.044868530333020532,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 47.828477023387705,
+      "view" : "historic-water-tower"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 9.8254875272970175,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 13.33367968982202,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.031229609088580728,
+      "rawTemporalResidualRMSE" : 0.043030298403328483,
+      "reconstructedRMSE" : 0.028161147742758613,
+      "reconstructedTemporalResidualRMSE" : 0.034931452985099191,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 18.821262502801584,
+      "view" : "buckingham-night"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 17.644730282076981,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 8.6156757806747919,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.037129209582801415,
+      "rawTemporalResidualRMSE" : 0.052787738013967071,
+      "reconstructedRMSE" : 0.030577860696049026,
+      "reconstructedTemporalResidualRMSE" : 0.040480537733888211,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 23.314505874115131,
+      "view" : "harbor-reflections"
+    },
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 5.8753604343570798,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 9.0604205715862918,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.014459390415048333,
+      "rawTemporalResidualRMSE" : 0.020536469705230827,
+      "reconstructedRMSE" : 0.013609849111553364,
+      "reconstructedTemporalResidualRMSE" : 0.019296115794606879,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 6.039762083879574,
+      "view" : "lakefront-traffic-night"
+    }
+  ],
+  "timingIncludes" : "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+}

@@ -1,0 +1,28 @@
+{
+  "boundsMax" : [
+    -1531.1163330078125,
+    36.059551239013672,
+    -7618.52685546875
+  ],
+  "boundsMin" : [
+    -1793,
+    -0.080000005662441254,
+    -7806.1455078125
+  ],
+  "degenerate" : 0,
+  "fieldFloodlightClearanceChecks" : 18,
+  "generationSeconds" : 0.063575983047485352,
+  "lights" : 65,
+  "localWorldRoundTripError" : 0.00016399871674366295,
+  "materials" : 39,
+  "nonfinite" : 0,
+  "normalError" : 1.7881393432617188e-07,
+  "passed" : true,
+  "publishedDimensionConstantsPassed" : true,
+  "routeAndLightIssues" : [
+
+  ],
+  "routeChecks" : 606,
+  "scope" : "CPU-only authored geometry, canonical dimension constants, interpretive gate-to-field route, and unobstructed central field-light rays. Outside street grade is a fixture plane; all integrated routes\/context require whole-world playback and actual image review.",
+  "triangles" : 261507
+}

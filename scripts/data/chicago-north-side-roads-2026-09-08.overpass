@@ -1,0 +1,4 @@
+[out:json][timeout:180];(
+way(41.931,-87.670,41.980,-87.615)["highway"~"^(motorway|trunk)$"]["name"~"Lake Shore Drive"];
+relation(41.905,-87.650,41.930,-87.620)["tourism"="zoo"];
+);out geom;

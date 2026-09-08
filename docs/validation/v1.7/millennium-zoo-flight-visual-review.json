@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "visualReviewPassed": true,
+  "scope": "All eleven extracted seventh-package flight samples actually viewed in a chronological contact sheet; the 17-second tower-clearance sample and 239.9-second pavilion arrival were additionally inspected at full resolution. Full automated decoding/timing is separate; this is not a claim to have watched every frame.",
+  "videoPath": "/Users/william/dev/architecture/output/Millennium-Park-to-Lincoln-Park-Zoo-1080p.mp4",
+  "videoSHA256": "ac2b26ea1e8b57aebcc210bc7d505a3c5bb9cab6291dd044fc9dbc5c5f29d49a",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "findings": [
+    "Millennium Park and downtown towers lead continuously through the lakefront, North Avenue Beach and Lincoln Park into the Nature Boardwalk pavilion. The sampled early tower passage and final approach are clear.",
+    "Waterline, sandy beach and green park paths remain readable. Final pavilion arrival has unobstructed structure and path.",
+    "Title, subtitle and OSM attribution fit at both individually reviewed full-resolution frames and all contact-sheet samples.",
+    "Contextual facades and vegetation remain visibly simplified; finite-sample water/detail grain and some reconstruction softness remain."
+  ],
+  "images": [
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/0.png",
+      "sha256": "8c0ed92e96f71797f462f44e52aa2f5700a34a5208042dcb60c8ae1d30ec87db"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/17.png",
+      "sha256": "c53bfb9c2393535db02079cb6f42f184fd4c85a020ccf085678bc10ffd65b02b"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/30.png",
+      "sha256": "b7da627ab486d0e6d73e8222dbc0a272d0933b4f45d7522b2ef06424de0632d1"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/60.png",
+      "sha256": "3f7df744382b0bf17be37a8a6f72139f363bb871a9fcab034ec34196ff496dbd"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/90.png",
+      "sha256": "9d11d6e09f454e6af3c171d388b2e490fa141fb8d3e2e53e000f9461a0eb771a"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/120.png",
+      "sha256": "2d565591de0ca6bd49d3e15f087a8ef6324c43dab5b5d24d8de671aff822ea5b"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/150.png",
+      "sha256": "3338c78b7b7e5b50a5d9f2cc3b62017a0c905a8d08f536dfbf5d54c25d910f31"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/180.png",
+      "sha256": "8d2b098a86f3d947f604fa98a69f68cfa0997926a2c5da7402f8a4e35b09e368"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/210.png",
+      "sha256": "51a0cfac36600b30e34e5855e41b3771172d352f6872280feed21bcc5ad2b2e6"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/225.png",
+      "sha256": "2d3643faa787b321641ec7b3ab9c9ab827138b9397082dcde13611ac5515db19"
+    },
+    {
+      "path": "output/v8-review/media-review/millennium-zoo-flight/239.9.png",
+      "sha256": "fb119967d246b7e35b63b9e8cf52b7979b4c174fb076a5556f74b2da88b12b91"
+    }
+  ],
+  "contactSheet": {
+    "path": "output/v8-review/media-review/millennium-zoo-flight/review-contact.jpg",
+    "sha256": "bc38e046997cdf5d82bfc6ffce8eb949ccf455489f306bd613c49bed8f473d86"
+  },
+  "recordedAtUTC": "2026-09-08T18:48:45.062687+00:00"
+}

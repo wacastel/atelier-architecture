@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "scope": "Bounded read-only CPU audit of a copied full Chicago source/resource snapshot, plus static renderer/traffic code review and read-only Metal adapter properties. No GPU command queue or dispatch was created by this audit.",
+  "reviewedAtUTC": "2026-09-08T16:20:46.961140+00:00",
+  "sourceInputSHA256": "b6d00e767379163f2fc690cffc67c0e816a6506f7aef57ed80783f6a7d82b80b",
+  "sourceSnapshotUTC": "2026-09-08T16:17:29.893064+00:00",
+  "summary": {
+    "staticTriangles": 40099083,
+    "trafficTriangles": 161812,
+    "combinedVertices": 120782685,
+    "combinedVertexBufferBytes": 3865045920,
+    "adapterMaxBufferLengthBytes": 373662154752,
+    "vertexBufferFractionOfAdapterMaximum": 0.010343691141440951,
+    "nightGridCells": 182160,
+    "nightGridCellBudget": 262144,
+    "nightGridIndices": 33083,
+    "nightGridIndexBudget": 4194304,
+    "allSampledGridsEnabled": true,
+    "allGridListsSortedUniqueAndInBounds": true,
+    "finiteRangeCoverageProbes": 41125,
+    "missingCoverageProbes": 0,
+    "trafficLanes": 6,
+    "vehicles": 168,
+    "movingVertexTailBytes": 15533952
+  },
+  "findings": [
+    "No capacity or indexing blocker in the audited snapshot. Night, always-on day and all five sampled dynamic light grids remain enabled; no fallback to a full linear light scan occurs.",
+    "Night grid uses 69.49% of the fixed cell budget and less than 1% of its index budget. Its maximum local list is164 lights; traffic adds at most9 in the sampled positions. Larger future geographic expansion should re-run this capacity check.",
+    "Combined vertex/material indexing remains safely below UInt32 limits. The largest scene buffer is3.865GB versus the actual M3 Ultra maxBufferLength373.662GB. Adapter properties are read-only capability evidence, not a GPU memory/performance benchmark.",
+    "MetalRenderer constructs the static city BLAS once. TrafficMetal writes only the15.53MB vehicle tail, refits/rebuilds only its161,812-triangle dynamic BLAS, and refits a two-instance TLAS. Periodic or large-scrub rebuilds never rebuild the40.10-million-triangle static city.",
+    "encodeUpdate returns without work when the absolute scene time is unchanged; several samples at one movie time share the same traffic update. The six lanes cap at28 vehicles each, giving168 vehicles and504 dynamic lights.",
+    "Static world bounds include the existing horizon planes at\u00b150km. Maximum Float ULP there is3.906mm; Wrigley coordinates near8km retain submillimetre coordinate precision. The broad planes do not define the light grid, which is bounded by finite light ranges."
+  ],
+  "necessaryFixes": [],
+  "limitations": [
+    "The root still owns actual GPU timing, Metal AS allocation/traversal performance, visual quality and final source/package equivalence. Existing first-package self-test succeeded on the M3 Ultra, but this CPU audit does not claim that its newer snapshot was dispatched on the GPU.",
+    "Five traffic clocks (0,60,240,-120,3600 seconds) sample dynamic grids; this is not an exhaustive proof over every possible clock. Seven conservative finite-support probes per light complement the existing dedicated LightGrid regression suite.",
+    "Reported per-grid CPU durations include construction, ordering/bounds checks and support-probe validation; they must not be treated as production per-frame CPU timing.",
+    "Concurrent authorized edits occurred after the copied snapshot. Changed files are listed below; this report remains tied to its sourceInputSHA256 and does not silently claim the final package."
+  ],
+  "liveFilesChangedAfterSnapshot": [
+    "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+    "Sources/ArchitectureEngine/NorthSideScene.swift"
+  ],
+  "codeEvidence": [
+    {
+      "file": "/Users/william/dev/architecture/Sources/ArchitectureEngine/LightGrid.swift",
+      "lines": "24-139",
+      "finding": "Conservative finite-support bounds, guarded fixed budgets, all-or-nothing fallback, original-order index lists."
+    },
+    {
+      "file": "/Users/william/dev/architecture/Sources/ArchitectureEngine/MetalRenderer.swift",
+      "lines": "129-177,242-266",
+      "finding": "Static prefix allocation/BLAS build; separate traffic instance tracing; enabled-grid variants selected at dispatch."
+    },
+    {
+      "file": "/Users/william/dev/architecture/Sources/ArchitectureEngine/TrafficMetal.swift",
+      "lines": "50-78,80-135",
+      "finding": "Vehicle-only vertex offset and BLAS descriptor; stable city child; unchanged-time guard and bounded dynamic refit/build."
+    },
+    {
+      "file": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Traffic.swift",
+      "lines": "95-104,121-155",
+      "finding": "28-vehicle-per-lane cap; pure absolute-clock transforms and three bounded lights per vehicle."
+    },
+    {
+      "file": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "lines": "480-487,899-945",
+      "finding": "Dynamic primitive IDs offset by static triangle count; static and dynamic grid indexing stay separate."
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/performance-audit/full-world-cpu.json",
+      "sha256": "55126e8eb60d0ca83d8deab0b6b2f3d3fed9cbe9bfa39fbf0b0b8357a008f826"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/performance-audit/source-input.json",
+      "sha256": "090678064a9d15d38e6d1795d6bd7f09cbba21d65fc43eb1066d207300425447"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/performance-audit/adapter-properties.json",
+      "sha256": "0be4f19a82e8143c2ef9882b6087207ede1531d530024438963c7671be0628a7"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/performance-audit/main.swift",
+      "sha256": "164434c80dcb482b424a6bf4b1ed7c18aab62659dd438da56ac948dbac1fdbc1"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/performance-audit/run.py",
+      "sha256": "64145b834624e1a0ea4d5aefa14b53f68dd919baadaef7b10ca444e24f09e30c"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "recordedAtUTC": "2026-09-08T19:07:01.376557+00:00",
+  "scope": "Actual native UI smoke on the final seventh package after every GPU export finished. This supplements the broader sixth-package control/window review whose relevant runtime inputs are unchanged. No sustained FPS claim is based on the transient HUD.",
+  "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "checks": [
+    "Launched the exact dist/Atelier.app bundle after the Mac became accessible; loaded North Side with all eight cards and 1\u00d7 daytime idle cycling.",
+    "Actually viewed the loaded Old Town scene. HUD reported 39,954,614 total triangles and 7.31 GB viewport Metal allocations.",
+    "Key8 held the Wrigley bookmark; N visibly switched to night with a lit field, red marquee and blue boards.",
+    "Space began the selected 150-second Wrigley route at 1\u00d7; camera elevation and timeline advanced.",
+    "Space paused at timeline0.07373936277775404 (00:11). N switched visibly to day while preserving that exact timeline and paused state.",
+    "Returned to view1, resumed daytime idle cycling with I, kept idle and walkthrough pace1\u00d7 and hid the performance panel. Final screenshot shows the Millennium Park starting view with 20-second dwell."
+  ],
+  "screenshotsActuallyViewed": [
+    "Loaded Old Town daytime view",
+    "Held Wrigley night view",
+    "Paused Wrigley daytime view",
+    "Restored Millennium Park daytime idle cycle"
+  ],
+  "leftRunning": true,
+  "remainingNativeSmokeChecks": []
+}

@@ -1,0 +1,951 @@
+{
+  "checks" : [
+    {
+      "assertion" : "one-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%",
+      "passed" : true
+    },
+    {
+      "assertion" : "one-pixel-shadow: full reconstruction retains useful diffuse noise reduction",
+      "passed" : true
+    },
+    {
+      "assertion" : "one-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control",
+      "passed" : true
+    },
+    {
+      "assertion" : "one-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result",
+      "passed" : true
+    },
+    {
+      "assertion" : "one-pixel-shadow: spatial passes retain each center's exact temporal confidence",
+      "passed" : true
+    },
+    {
+      "assertion" : "one-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: full reconstruction retains useful diffuse noise reduction",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: spatial passes retain each center's exact temporal confidence",
+      "passed" : true
+    },
+    {
+      "assertion" : "two-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: full reconstruction retains useful diffuse noise reduction",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: spatial passes retain each center's exact temporal confidence",
+      "passed" : true
+    },
+    {
+      "assertion" : "four-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: valid history reduces flat-region RMS noise by more than 55%",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: full reconstruction retains useful diffuse noise reduction",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: preserving confidence improves edge RMSE over current-SPP-only negative control",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: extra spatial passes add at most 8% edge-band RMS error to temporal-only result",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: spatial passes retain each center's exact temporal confidence",
+      "passed" : true
+    },
+    {
+      "assertion" : "sun-shadow-step: invalid history restores one-frame confidence and original spatial-only RGB",
+      "passed" : true
+    },
+    {
+      "assertion" : "Lost-confidence GPU negative control exposes excessive edge error in at least two patterns",
+      "passed" : true
+    },
+    {
+      "assertion" : "Integer-pixel pan preserves noiseless same-material shadow history",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1: all 25 coarse-night pixels within radius 2 preserve exact incoming RGBA",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1: outer square ring including corners is actually exercised",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1: ordinary noise beyond protected support still reduces",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1 remains exactly equivalent to original radius-2 guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1: coarse-day output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 1: near-night output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: all 81 coarse-night pixels within radius 4 preserve exact incoming RGBA",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: outer square ring including corners is actually exercised",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: ordinary noise beyond protected support still reduces",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: original radius-2 GPU control changes valid dark-center coverage outside its guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: coarse-day output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 2: near-night output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: all 289 coarse-night pixels within radius 8 preserve exact incoming RGBA",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: outer square ring including corners is actually exercised",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: ordinary noise beyond protected support still reduces",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: original radius-2 GPU control changes valid dark-center coverage outside its guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: coarse-day output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Step 4: near-night output is exactly unchanged by expanded coarse-night guard",
+      "passed" : true
+    },
+    {
+      "assertion" : "Expanded-support fixture exposes the original guard's coverage loss",
+      "passed" : true
+    }
+  ],
+  "criteriaNote" : "Edge and flat-region errors measured independently. Eight-percent temporal-to-combined edge tolerance is a new fixture quality budget, not a change to existing scene-validation thresholds. Emitter-support protection uses exact RGBA identity, ring cardinality, negative-control change detection and bit-exact unaffected-mode comparisons.",
+  "currentSPP" : 8,
+  "device" : "Apple M3 Ultra",
+  "emitterSupport" : {
+    "assumptions" : [
+      "The >0.25 m night guard is conservative coverage protection, not an estimate of an individual window's physical radius.",
+      "Input values are known incoming current-pass coverage; exact identity, not a calibrated RMSE tolerance, is required inside the guarded square.",
+      "Each spatial pass is isolated: preserving an input cannot undo blur from prior passes.",
+      "Daytime and near-footprint cases must remain bit-identical to the original-radius shader."
+    ],
+    "cases" : [
+      {
+        "flatFilteredRMSE" : 0.0023531131048232217,
+        "flatRawRMSE" : 0.0034558355902272169,
+        "mode" : "coarse-night",
+        "originalGuardChangedOuterSamples" : 0,
+        "originalGuardMaximumRGBError" : 0,
+        "protectedMismatches" : 0,
+        "protectedSamples" : 25,
+        "radius" : 2,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16
+        },
+        "step" : 1
+      },
+      {
+        "flatFilteredRMSE" : 0.0021084042268470966,
+        "flatRawRMSE" : 0.0034558355902272169,
+        "mode" : "coarse-day",
+        "originalGuardChangedOuterSamples" : 0,
+        "originalGuardMaximumRGBError" : 0,
+        "protectedMismatches" : 24,
+        "protectedSamples" : 25,
+        "radius" : 2,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16
+        },
+        "step" : 1
+      },
+      {
+        "flatFilteredRMSE" : 0.0023531131048232217,
+        "flatRawRMSE" : 0.0034558355902272169,
+        "mode" : "near-night",
+        "originalGuardChangedOuterSamples" : 0,
+        "originalGuardMaximumRGBError" : 0,
+        "protectedMismatches" : 24,
+        "protectedSamples" : 25,
+        "radius" : 2,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16
+        },
+        "step" : 1
+      },
+      {
+        "flatFilteredRMSE" : 0.0023654222665653534,
+        "flatRawRMSE" : 0.0034570338900074397,
+        "mode" : "coarse-night",
+        "originalGuardChangedOuterSamples" : 56,
+        "originalGuardMaximumRGBError" : 0.0079604983329772949,
+        "protectedMismatches" : 0,
+        "protectedSamples" : 81,
+        "radius" : 4,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32
+        },
+        "step" : 2
+      },
+      {
+        "flatFilteredRMSE" : 0.0021146528769215092,
+        "flatRawRMSE" : 0.0034570338900074397,
+        "mode" : "coarse-day",
+        "originalGuardChangedOuterSamples" : 56,
+        "originalGuardMaximumRGBError" : 0.0092819333076477051,
+        "protectedMismatches" : 80,
+        "protectedSamples" : 81,
+        "radius" : 4,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32
+        },
+        "step" : 2
+      },
+      {
+        "flatFilteredRMSE" : 0.0023654222665653534,
+        "flatRawRMSE" : 0.0034570338900074397,
+        "mode" : "near-night",
+        "originalGuardChangedOuterSamples" : 56,
+        "originalGuardMaximumRGBError" : 0.0079604983329772949,
+        "protectedMismatches" : 80,
+        "protectedSamples" : 81,
+        "radius" : 4,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32
+        },
+        "step" : 2
+      },
+      {
+        "flatFilteredRMSE" : 0.0023583455599252923,
+        "flatRawRMSE" : 0.0034523098677563414,
+        "mode" : "coarse-night",
+        "originalGuardChangedOuterSamples" : 264,
+        "originalGuardMaximumRGBError" : 0.015459164977073669,
+        "protectedMismatches" : 0,
+        "protectedSamples" : 289,
+        "radius" : 8,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32,
+          "5" : 40,
+          "6" : 48,
+          "7" : 56,
+          "8" : 64
+        },
+        "step" : 4
+      },
+      {
+        "flatFilteredRMSE" : 0.0021064847682200115,
+        "flatRawRMSE" : 0.0034523098677563414,
+        "mode" : "coarse-day",
+        "originalGuardChangedOuterSamples" : 264,
+        "originalGuardMaximumRGBError" : 0.018080815672874451,
+        "protectedMismatches" : 288,
+        "protectedSamples" : 289,
+        "radius" : 8,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32,
+          "5" : 40,
+          "6" : 48,
+          "7" : 56,
+          "8" : 64
+        },
+        "step" : 4
+      },
+      {
+        "flatFilteredRMSE" : 0.0023583455599252923,
+        "flatRawRMSE" : 0.0034523098677563414,
+        "mode" : "near-night",
+        "originalGuardChangedOuterSamples" : 264,
+        "originalGuardMaximumRGBError" : 0.015459164977073669,
+        "protectedMismatches" : 288,
+        "protectedSamples" : 289,
+        "radius" : 8,
+        "ringCounts" : {
+          "0" : 1,
+          "1" : 8,
+          "2" : 16,
+          "3" : 24,
+          "4" : 32,
+          "5" : 40,
+          "6" : 48,
+          "7" : 56,
+          "8" : 64
+        },
+        "step" : 4
+      }
+    ],
+    "negativeControl" : "Only replace expanded 2*step emitter-search bounds with original radius 2; all production shading, confidence and other safeguards remain identical."
+  },
+  "failures" : [
+
+  ],
+  "frames" : 48,
+  "height" : 64,
+  "limits" : [
+    "Synthetic additive noise does not model all BRDF, visibility, or low-SPP outliers.",
+    "Fractional-pan noiseless diagnostics expose residual temporal resampling bias but do not assert that all such bias is eliminated.",
+    "The detail negative control discards confidence only; it is not a complete historical shader snapshot."
+  ],
+  "maximumHistory" : 32,
+  "passed" : true,
+  "results" : [
+    {
+      "maximumConfidenceError" : 0,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.31531773078435976,
+            "rmse" : 0.086841705608195374,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.19196549351897133,
+            "rmse" : 0.16776533979432676,
+            "samples" : 64224
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.012456205227739348,
+            "samples" : 129168
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.19923650921929659,
+            "rmse" : 0.096348498773228985,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.10359173509848359,
+            "rmse" : 0.18674297144222435,
+            "samples" : 64224
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0071879854115564738,
+            "samples" : 129168
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 1.0001706536375943,
+            "rmse" : 0.14991477799606306,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 1.0013477445151326,
+            "rmse" : 0.14999833096188817,
+            "samples" : 64224
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.14994229229952652,
+            "samples" : 129168
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.45631019854064125,
+            "rmse" : 0.080657057402295645,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.41477082449039493,
+            "rmse" : 0.13380828229750966,
+            "samples" : 64224
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.048190560664829636,
+            "samples" : 129168
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.32634020756624932,
+            "rmse" : 0.086120369332117988,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.20067889738202832,
+            "rmse" : 0.16617659112005834,
+            "samples" : 64224
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.013431944372554669,
+            "samples" : 129168
+          }
+        }
+      },
+      "minimumStableHistory" : 17,
+      "name" : "one-pixel-shadow",
+      "noise" : true,
+      "pixelsPerFrame" : 0.37,
+      "resetRGBError" : 0
+    },
+    {
+      "maximumConfidenceError" : 0,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.44963067399234669,
+            "rmse" : 0.11173755877018324,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.29978919810222726,
+            "rmse" : 0.20025668106526884,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.012630122119583859,
+            "samples" : 118752
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.32433709681173994,
+            "rmse" : 0.12869314705724258,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.19392467040953365,
+            "rmse" : 0.23100929036773457,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0083391060654626637,
+            "samples" : 118752
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 0.99955857197545395,
+            "rmse" : 0.14991477801339842,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 1.0003547042094167,
+            "rmse" : 0.15007315145556777,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.14990255166676109,
+            "samples" : 118752
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.53951208686069174,
+            "rmse" : 0.098960847059573587,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.4819970665218421,
+            "rmse" : 0.16208225112856192,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.048542122241043185,
+            "samples" : 118752
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.46131707832572139,
+            "rmse" : 0.11038013450594056,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.30996682006354337,
+            "rmse" : 0.19768641139421658,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.013571586145650868,
+            "samples" : 118752
+          }
+        }
+      },
+      "minimumStableHistory" : 17,
+      "name" : "two-pixel-shadow",
+      "noise" : true,
+      "pixelsPerFrame" : 0.37,
+      "resetRGBError" : 0
+    },
+    {
+      "maximumConfidenceError" : 0,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.63622898931731187,
+            "rmse" : 0.11232788835212244,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.47554461267034254,
+            "rmse" : 0.17752815402391045,
+            "samples" : 96000
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.012841766562016509,
+            "samples" : 98352
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.52539687436166649,
+            "rmse" : 0.13556676807598778,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.36572859243964551,
+            "rmse" : 0.21477130903329555,
+            "samples" : 96000
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0092249543736148115,
+            "samples" : 98352
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 0.99873557534072688,
+            "rmse" : 0.14991477801033637,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.99919678292412784,
+            "rmse" : 0.15016619101887269,
+            "samples" : 96000
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.14980891012513831,
+            "samples" : 98352
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.71515803227619312,
+            "rmse" : 0.097442764095772627,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.64124769938270221,
+            "rmse" : 0.14200452683440928,
+            "samples" : 96000
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.04878863956602357,
+            "samples" : 98352
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.64587400208348933,
+            "rmse" : 0.11053075653445224,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.48524767856640999,
+            "rmse" : 0.17456372891661776,
+            "samples" : 96000
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.013758560210989514,
+            "samples" : 98352
+          }
+        }
+      },
+      "minimumStableHistory" : 17,
+      "name" : "four-pixel-shadow",
+      "noise" : true,
+      "pixelsPerFrame" : 0.37,
+      "resetRGBError" : 0
+    },
+    {
+      "maximumConfidenceError" : 0,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.98620809880690452,
+            "rmse" : 0.03026293193542539,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.56973557004048458,
+            "rmse" : 0.15324189282895662,
+            "samples" : 7680
+          },
+          "flat" : {
+            "contrastSlope" : 1.0006264769068667,
+            "rmse" : 0.012417197583566249,
+            "samples" : 230400
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.98387901724248383,
+            "rmse" : 0.030067561451431041,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.53375421017399505,
+            "rmse" : 0.16432593266282039,
+            "samples" : 7680
+          },
+          "flat" : {
+            "contrastSlope" : 0.99966812704010866,
+            "rmse" : 0.0044967855575053515,
+            "samples" : 230400
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 1.0005361586488111,
+            "rmse" : 0.14991477795902086,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.99232100039066407,
+            "rmse" : 0.1497699623200715,
+            "samples" : 7680
+          },
+          "flat" : {
+            "contrastSlope" : 1.0008954549505527,
+            "rmse" : 0.1498918647732769,
+            "samples" : 230400
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.99166774414460745,
+            "rmse" : 0.051625540138143279,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.76383780811895707,
+            "rmse" : 0.10445354515470695,
+            "samples" : 7680
+          },
+          "flat" : {
+            "contrastSlope" : 1.0001546839274269,
+            "rmse" : 0.048647813536972929,
+            "samples" : 230400
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.98641384478728844,
+            "rmse" : 0.030527857960520342,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.57291010391696751,
+            "rmse" : 0.15230795908284198,
+            "samples" : 7680
+          },
+          "flat" : {
+            "contrastSlope" : 1.0007041292323429,
+            "rmse" : 0.013445718027327649,
+            "samples" : 230400
+          }
+        }
+      },
+      "minimumStableHistory" : 1,
+      "name" : "sun-shadow-step",
+      "noise" : true,
+      "pixelsPerFrame" : 0.37,
+      "resetRGBError" : 0
+    },
+    {
+      "diagnosticOnly" : true,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.45004487578351299,
+            "rmse" : 0.11099529426554773,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.30014349934293066,
+            "rmse" : 0.19977861715066611,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0023585325954589777,
+            "samples" : 118752
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.32771971575580972,
+            "rmse" : 0.12810741587095628,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.19677251350259281,
+            "rmse" : 0.2301329161139522,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0065138057502334094,
+            "samples" : 118752
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 118752
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.57725888928623348,
+            "rmse" : 0.079585774666079953,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.53829865143854072,
+            "rmse" : 0.14410091269617037,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0013259511665055022,
+            "samples" : 118752
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.46119359690144279,
+            "rmse" : 0.10958559902477398,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.30988639832354264,
+            "rmse" : 0.19725810179633715,
+            "samples" : 74928
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.0021280151142807719,
+            "samples" : 118752
+          }
+        }
+      },
+      "name" : "noiseless-two-pixel-shadow",
+      "noise" : false,
+      "pixelsPerFrame" : 0.37
+    },
+    {
+      "diagnosticOnly" : false,
+      "metrics" : {
+        "combined" : {
+          "all" : {
+            "contrastSlope" : 0.95810413726355181,
+            "rmse" : 0.0087322245952146504,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.95522069018689004,
+            "rmse" : 0.015189992552865534,
+            "samples" : 81216
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 1.1578506372344766e-05,
+            "samples" : 123696
+          }
+        },
+        "lostConfidenceControl" : {
+          "all" : {
+            "contrastSlope" : 0.53460369586538992,
+            "rmse" : 0.093447654458471655,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.50668196651153319,
+            "rmse" : 0.16253669980122501,
+            "samples" : 81216
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.00071019702820539926,
+            "samples" : 123696
+          }
+        },
+        "raw" : {
+          "all" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 81216
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 123696
+          }
+        },
+        "spatialOnly" : {
+          "all" : {
+            "contrastSlope" : 0.53460192159453412,
+            "rmse" : 0.093447986378901032,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.50668411504761446,
+            "rmse" : 0.16253727007150004,
+            "samples" : 81216
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0.00071025885686162502,
+            "samples" : 123696
+          }
+        },
+        "temporalOnly" : {
+          "all" : {
+            "contrastSlope" : 0.99999815692055538,
+            "rmse" : 6.5889351916267451e-06,
+            "samples" : 245760
+          },
+          "edge" : {
+            "contrastSlope" : 0.99999475110482583,
+            "rmse" : 1.1461726392074367e-05,
+            "samples" : 81216
+          },
+          "flat" : {
+            "contrastSlope" : 1,
+            "rmse" : 0,
+            "samples" : 123696
+          }
+        }
+      },
+      "name" : "noiseless-two-pixel-shadow",
+      "noise" : false,
+      "pixelsPerFrame" : 1
+    }
+  ],
+  "scope" : "Real production temporal and three spatial GPU passes on a same-material plane; exact box-filtered reference; raw inputs shared by all ablations; additional per-pass coarse-night coverage fixture; no scene ray tracing or FPS claim",
+  "shaderPath" : "\/Users\/william\/dev\/architecture\/Sources\/ArchitectureEngine\/Resources\/Denoise.metal",
+  "shaderSHA256" : "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+  "warmupFrames" : 16,
+  "width" : 192
+}

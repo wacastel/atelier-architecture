@@ -1,0 +1,20 @@
+# Old Town and North Avenue Beach
+
+The two authored anchors in `NorthSideLandmarks.swift` use the same east/up/south metre coordinates as Willis Tower. Their ground footprints come from the dated North Side OpenStreetMap snapshot. The remaining architecture is a bounded procedural interpretation of photographs; it is not a photogrammetric scan or an as-built survey.
+
+## References inspected on September 8, 2026
+
+- [Chicago Park District: North Avenue Beach](https://www.chicagoparkdistrict.com/parks-facilities/north-avenue-beach). The photograph was actually viewed at its image URL. It shows white rounded walls, vivid blue portholes and doors, slim blue columns, white rails, roof decks, a flag mast and red funnels. The district identifies the current beach house as a 22,000-square-foot ocean-liner-inspired building, built in 1999 and dedicated in 2000. These features guide the model; individual window spacing, furniture and effective light positions are authored.
+- [St. Michael in Old Town: history](https://www.st-mikes.org/our-history) and [art and architecture](https://www.st-mikes.org/art-and-architecture). The church's 1888 spire is described as 290 feet tall; the model's highest point is 88.39 metres. Brick, pale stone trim, Romanesque windows, the clock faces and the tall dark spire are the principal exterior features. The present restoration status is not recreated.
+- [St. Michael's home-page photograph](https://www.st-mikes.org/), credited by the parish to Barry Butler, was actually viewed. It establishes the tower's brick clock stage, pointed spire and relationship to the distant downtown skyline.
+- [Chicago Architecture Center: Old Town Triangle](https://www.architecture.org/city-tours/old-town-triangle). Irina Hynes's exterior church photograph was actually viewed: deep pale stone arches, paired portal columns, three doorways, vertical brick pilasters and small flanking roof pinnacles informed the facade refinement. The district's diverse historic frame houses and row houses guide the contextual scale; nearby facades are representative, not individual building surveys.
+- [Esri World Imagery: Old Town to North Avenue Beach](https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.642,41.911,-87.622,41.916&bboxSR=4326&imageSR=3857&size=1400,850&format=png&f=image), actually viewed. This shows the diagonal boat-shaped beach-house footprint, broad sandy beach, promenade, Lake Shore Drive, park ballfields and fine-grained neighborhood blocks.
+- [Esri close aerial: St. Michael's block](https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.642,41.9114,-87.6395,41.9138&bboxSR=4326&imageSR=3857&size=850,850&format=png&f=image), actually viewed. The nave runs north–south with its monumental entrance and tower on Eugenie Street. The image mosaic displaces the tall spire relative to the ground footprint, so it is not used to relocate the mapped footprint. Imagery acquisition dates were not exposed.
+
+Reference images are viewed remotely and are not redistributed as textures or bundled assets. Geometry is authored, while the map derivative retains OpenStreetMap attribution.
+
+## Geometry and lighting
+
+St. Michael's includes the mapped low wings, pitched nave roof, projecting piers, trimmed arches, three front portals, four clock faces, belfry louvers, octagonal needle and gilt cross. A footprint-filtered brick material fades small mortar courses with distance to avoid adding shimmer during the flyovers. The beach house uses its complete irregular mapped perimeter, round windows, blue edging, deck rails, a glazed upper bridge, funnels, flag and restrained deck furniture. Beach volleyball nets add context.
+
+Night light sources are an artistic approximation: warm broad church illumination, warm downward beach-house fixtures and dark blue-white exterior paint. This does not claim to document an installed lighting system. ZooLights and Wrigley have their own more specific nighttime reference notes.

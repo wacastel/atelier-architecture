@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "scope": "Four actually viewed 1280 \u00d7 800 / 128-sample stills from the sixth package, after the Fisher ramp correction and before the later northern landcover correction: route 3 at 60 and 90 seconds in day and night. Separate width/grade tests, 30 support rays, the original-axis negative control and 57,517 integrated playback checks pass. The final seventh-package Zoo gallery and route details were reviewed separately.",
+  "finding": "Both ramps are visibly horizontal and graded, with no upright wall. Cafe Brauer is now visible beyond the approach in daytime and lit at night. Pond and lower boardwalk remain readable by day; unlit path/pond are very dark at night.",
+  "camerasUnchanged": true,
+  "images": [
+    {
+      "path": "output/v8-review/fisher-ramp-correction/day-60.png",
+      "sha256": "03ce031c43921d899d9c32d63f46c59c9f17d789c2c9551f85ec8fc5b051c389"
+    },
+    {
+      "path": "output/v8-review/fisher-ramp-correction/day-90.png",
+      "sha256": "c194aec97549b90a444f3a2da259afb085479d264687977e825ac4e76c14f844"
+    },
+    {
+      "path": "output/v8-review/fisher-ramp-correction/night-60.png",
+      "sha256": "51df52979ebb898ad260a4ebc66883401e75a38a74cc027b23cd5cee8712d431"
+    },
+    {
+      "path": "output/v8-review/fisher-ramp-correction/night-90.png",
+      "sha256": "5744ce3625da814af8a7beb077d13564c064a882a7a8926f2280c3000225abcb"
+    }
+  ],
+  "sourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+  "packageInputSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+  "renderCommands": [
+    {
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/output/v8-review/fisher-ramp-correction/day-60.png",
+        "--stop",
+        "3",
+        "--at",
+        "60",
+        "--lighting",
+        "0",
+        "--samples",
+        "128",
+        "--width",
+        "1280",
+        "--height",
+        "800"
+      ],
+      "seconds": 4.888607025146484,
+      "imageSHA256": "03ce031c43921d899d9c32d63f46c59c9f17d789c2c9551f85ec8fc5b051c389",
+      "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+    },
+    {
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/output/v8-review/fisher-ramp-correction/day-90.png",
+        "--stop",
+        "3",
+        "--at",
+        "90",
+        "--lighting",
+        "0",
+        "--samples",
+        "128",
+        "--width",
+        "1280",
+        "--height",
+        "800"
+      ],
+      "seconds": 4.405772924423218,
+      "imageSHA256": "c194aec97549b90a444f3a2da259afb085479d264687977e825ac4e76c14f844",
+      "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+    },
+    {
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/output/v8-review/fisher-ramp-correction/night-60.png",
+        "--stop",
+        "3",
+        "--at",
+        "60",
+        "--lighting",
+        "2",
+        "--samples",
+        "128",
+        "--width",
+        "1280",
+        "--height",
+        "800"
+      ],
+      "seconds": 4.357457160949707,
+      "imageSHA256": "51df52979ebb898ad260a4ebc66883401e75a38a74cc027b23cd5cee8712d431",
+      "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+    },
+    {
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/output/v8-review/fisher-ramp-correction/night-90.png",
+        "--stop",
+        "3",
+        "--at",
+        "90",
+        "--lighting",
+        "2",
+        "--samples",
+        "128",
+        "--width",
+        "1280",
+        "--height",
+        "800"
+      ],
+      "seconds": 4.405531167984009,
+      "imageSHA256": "5744ce3625da814af8a7beb077d13564c064a882a7a8926f2280c3000225abcb",
+      "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+    }
+  ],
+  "priorMovieVisualFailure": "north-day-tour-ramp-discovery.json",
+  "finalPackageFollowup": "zoo-final-visual-review.json"
+}

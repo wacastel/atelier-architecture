@@ -1,0 +1,20 @@
+Chicago North Side map derivative
+© OpenStreetMap contributors — https://www.openstreetmap.org/copyright
+Database license: Open Database License (ODbL) 1.0
+https://opendatacommons.org/licenses/odbl/1-0/
+
+Local metre coordinate frame shared with Willis Tower:
+origin latitude 41.878876, longitude -87.635918; +X east, +Y up, +Z south.
+Main and shoreline snapshots: 2026-09-08T15:38:06Z.
+Northern road supplement: 2026-09-08T15:45:11Z.
+Exact queries, raw responses and preparation script are retained in the project.
+The derived JSON contains source hashes and previous-region resource hashes.
+Documentation: docs/NORTH-SIDE.md.
+
+Aerial/satellite imagery and neighborhood photographs were viewed for modeling
+guidance only. No remotely sourced photographs or satellite imagery are included.
+Facade details, storefronts, pedestrians, boats and occupancy, lighting, and
+unmapped elevations are authored architectural interpretations, not a survey.
+The 3,752 mapped tree positions remain separate from 248 authored representative
+canopy positions sampled inside mapped wood/forest/scrub polygons. Their source
+area IDs, placement method and counts are retained in the derived JSON.

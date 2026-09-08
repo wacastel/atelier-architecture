@@ -204,7 +204,13 @@ kernel void spatialFilter(
     constant TemporalUniforms &u [[buffer(0)]],
     uint2 tid [[thread_position_in_grid]]) {
     if (any(tid >= u.sizeFlags.xy)) return;
-    float3 center = finiteRadiance(inputHDR.read(tid).rgb);
+    // Temporal resolve stores accepted history count in alpha. Carry that
+    // confidence through every spatial pass; normal/depth have their own guide.
+    // Treating a converged history as one fresh frame repeatedly softens
+    // same-material details such as roof seams and narrow sun shadows.
+    float4 input = inputHDR.read(tid);
+    float historyFrames = clamp(input.w, 1.0f, 32.0f);
+    float3 center = finiteRadiance(input.rgb);
     float4 world = currentWorld.read(tid);
     float4 normalDepth = currentNormalDepth.read(tid);
     float4 albedo = currentAlbedo.read(tid);
@@ -213,14 +219,14 @@ kernel void spatialFilter(
     // The new +0.25 diffuse-lighting tag deliberately reaches this filtering
     // path; +0.875 screen/reflection/traffic coverage remains untouched.
     if (world.w<0 || (fract(world.w)>0.25f && fract(world.w)<0.7f) || fract(world.w)>0.8f) {
-        outputHDR.write(float4(center, normalDepth.w), tid);
+        outputHDR.write(float4(center, historyFrames), tid);
         return;
     }
     if (fract(world.w)>0.1f && fract(world.w)<0.15f) {
         // Polished-metal reflections contain real scene edges that are absent
         // from primary albedo/normal guides. Surface-only spatial filtering
         // erases those edges; keep their angularly validated temporal result.
-        outputHDR.write(float4(center,normalDepth.w),tid);
+        outputHDR.write(float4(center,historyFrames),tid);
         return;
     }
     // A center ray can hit pale stone while jittered radiance includes its
@@ -234,30 +240,33 @@ kernel void spatialFilter(
         float4 otherWorld=currentWorld.read(uint2(q));
         if (otherWorld.w<0 || abs(floor(otherWorld.w)-floor(world.w))<0.5f) continue;
         if (surfaceColorWeight(albedo,currentAlbedo.read(uint2(q)))<0.01f) {
-            outputHDR.write(float4(center,normalDepth.w),tid);
+            outputHDR.write(float4(center,historyFrames),tid);
             return;
         }
     }
     float footprint = currentPixelFootprint(normalDepth.w, u);
+    int step = int(clamp(u.settings.z, 1.0f, 4.0f));
     if (u.currentOrigin.w > 0.5f && footprint > 0.25f) {
         // At coarse night coverage, the center ray can hit a dark mullion while
         // jittered rays legitimately include its luminous neighboring window.
         // Filtering only the dark-center pixels (emitters bypass above) erodes
         // that coverage asymmetrically and makes the window flicker during pans.
-        // Preserve the complete current neighborhood around visible emitters;
-        // smooth distant water/roofs still benefit from spatial reconstruction.
-        for (int y = -2; y <= 2; ++y) for (int x = -2; x <= 2; ++x) {
+        // Protect the active wavelet footprint, not just the first pass's
+        // two-pixel radius. Wider passes could otherwise erase legitimate
+        // window coverage outside that original guard. This is a conservative
+        // current-pass bound; it does not claim perfect subpixel reconstruction.
+        // Smooth distant water/roofs still benefit from spatial reconstruction.
+        for (int y = -2*step; y <= 2*step; ++y) for (int x = -2*step; x <= 2*step; ++x) {
             int2 q = int2(tid) + int2(x, y);
             if (!validPixel(q, u.sizeFlags.xy)) continue;
             float material = currentWorld.read(uint2(q)).w;
             float flag = fract(material);
             if (material >= 0.0f && flag > 0.25f && flag < 0.7f) {
-                outputHDR.write(float4(center, normalDepth.w), tid);
+                outputHDR.write(float4(center, historyFrames), tid);
                 return;
             }
         }
     }
-    int step = int(clamp(u.settings.z, 1.0f, 4.0f));
     float centerLuma = reconstructionLuminance(center);
     float sumLuma = 0.0f, sumLuma2 = 0.0f, totalMoment = 0.0f;
     for (int y = -1; y <= 1; ++y) for (int x = -1; x <= 1; ++x) {
@@ -295,12 +304,13 @@ kernel void spatialFilter(
         result += other * weight;
         total += weight;
     }
-    // Trust genuinely accumulated samples sooner as sampling error falls.
-    // The eight-sample confidence scale limits bias on converging shadows and
-    // subpixel coverage; stronger blur was erasing detail at higher SPP.
+    // Spatial strength follows current SPP and bounded accepted history.
+    // Disocclusions and reactive lighting restart at one frame and retain
+    // their original filtering strength. Confidence is never spatially
+    // averaged, so a neighboring stable surface cannot lend it to a reveal.
     // Restrict wide passes for shiny surfaces as before.
-    float strength = clamp(8.0f / (max(u.settings.y, 1.0f) + 8.0f), 0.0f, 0.92f);
+    float strength = clamp(8.0f / (max(u.settings.y, 1.0f) * historyFrames + 8.0f), 0.0f, 0.92f);
     if (step > 1 && world.w >= 0.0f) strength *= smoothstep(0.08f, 0.3f, albedo.w);
     float3 filtered = total > 0.0f ? mix(center, result / total, strength) : center;
-    outputHDR.write(float4(finiteRadiance(filtered), normalDepth.w), tid);
+    outputHDR.write(float4(finiteRadiance(filtered), historyFrames), tid);
 }

@@ -1,0 +1,13 @@
+{
+  "beachDeckDistance" : 16.100002288818359,
+  "degenerate" : 0,
+  "generationSeconds" : 0.7557990550994873,
+  "highestPointMetres" : 88.389999389648438,
+  "lights" : 49,
+  "naveRoofDistance" : 11,
+  "nonfinite" : 0,
+  "normalError" : 1.7881393432617188e-07,
+  "passed" : true,
+  "scope" : "Authored Old Town and beach-house geometry, massing probes and finite materials\/lights. Complete-world route clearance is checked by validate-playback.sh.",
+  "triangles" : 46692
+}

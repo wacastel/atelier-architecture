@@ -1,0 +1,2477 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-09-08T15:45:11Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 4388611,
+  "bounds": {
+    "minlat": 41.9279670,
+    "minlon": -87.6319503,
+    "maxlat": 41.9323666,
+    "maxlon": -87.6317354
+  },
+  "nodes": [
+    258487701,
+    13151989306,
+    258487702,
+    258487384,
+    11699891566,
+    258487385,
+    26794400,
+    26794401,
+    10845487547,
+    10845487550,
+    258487313
+  ],
+  "geometry": [
+    { "lat": 41.9279670, "lon": -87.6317354 },
+    { "lat": 41.9283251, "lon": -87.6318342 },
+    { "lat": 41.9285820, "lon": -87.6318885 },
+    { "lat": 41.9287527, "lon": -87.6319138 },
+    { "lat": 41.9289244, "lon": -87.6319266 },
+    { "lat": 41.9291591, "lon": -87.6319418 },
+    { "lat": 41.9294911, "lon": -87.6319418 },
+    { "lat": 41.9303276, "lon": -87.6319503 },
+    { "lat": 41.9309318, "lon": -87.6319386 },
+    { "lat": 41.9313730, "lon": -87.6319301 },
+    { "lat": 41.9323666, "lon": -87.6319109 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 4388612,
+  "bounds": {
+    "minlat": 41.9424524,
+    "minlon": -87.6448092,
+    "maxlat": 41.9529611,
+    "maxlon": -87.6397847
+  },
+  "nodes": [
+    26794507,
+    11699953885,
+    11702206989,
+    26794509,
+    11702206986,
+    26794510,
+    11702206985,
+    26794511,
+    7981531529,
+    11702207042,
+    11544798445,
+    11544798449,
+    11544798450,
+    26794514,
+    2650379807,
+    10845487575,
+    10845487578,
+    26794515,
+    519550469
+  ],
+  "geometry": [
+    { "lat": 41.9529611, "lon": -87.6447843 },
+    { "lat": 41.9521292, "lon": -87.6448092 },
+    { "lat": 41.9518251, "lon": -87.6448072 },
+    { "lat": 41.9515989, "lon": -87.6447846 },
+    { "lat": 41.9514154, "lon": -87.6447538 },
+    { "lat": 41.9511934, "lon": -87.6446903 },
+    { "lat": 41.9509779, "lon": -87.6446114 },
+    { "lat": 41.9507571, "lon": -87.6445068 },
+    { "lat": 41.9487303, "lon": -87.6432796 },
+    { "lat": 41.9485077, "lon": -87.6431506 },
+    { "lat": 41.9484299, "lon": -87.6431055 },
+    { "lat": 41.9479395, "lon": -87.6428213 },
+    { "lat": 41.9461465, "lon": -87.6417786 },
+    { "lat": 41.9457483, "lon": -87.6415691 },
+    { "lat": 41.9451136, "lon": -87.6412155 },
+    { "lat": 41.9438180, "lon": -87.6405303 },
+    { "lat": 41.9433758, "lon": -87.6402965 },
+    { "lat": 41.9432921, "lon": -87.6402522 },
+    { "lat": 41.9424524, "lon": -87.6397847 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "cycleway:both": "no",
+    "destination:lanes": "none|none|none|none;Belmont Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 4694849,
+  "bounds": {
+    "minlat": 41.9545652,
+    "minlon": -87.6445961,
+    "maxlat": 41.9547492,
+    "maxlon": -87.6445742
+  },
+  "nodes": [
+    26794450,
+    26794454
+  ],
+  "geometry": [
+    { "lat": 41.9545652, "lon": -87.6445742 },
+    { "lat": 41.9547492, "lon": -87.6445961 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 4694851,
+  "bounds": {
+    "minlat": 41.9545609,
+    "minlon": -87.6448193,
+    "maxlat": 41.9547475,
+    "maxlon": -87.6447912
+  },
+  "nodes": [
+    26794497,
+    26794503
+  ],
+  "geometry": [
+    { "lat": 41.9547475, "lon": -87.6448193 },
+    { "lat": 41.9545609, "lon": -87.6447912 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 4694853,
+  "bounds": {
+    "minlat": 41.9277356,
+    "minlon": -87.6321563,
+    "maxlat": 41.9323665,
+    "maxlon": -87.6318608
+  },
+  "nodes": [
+    258487328,
+    10845487551,
+    10845487554,
+    11544798461,
+    26794537,
+    11544798465,
+    258487531,
+    11699891565,
+    26794538,
+    13151989305,
+    250755869
+  ],
+  "geometry": [
+    { "lat": 41.9323665, "lon": -87.6321143 },
+    { "lat": 41.9318784, "lon": -87.6321220 },
+    { "lat": 41.9314563, "lon": -87.6321287 },
+    { "lat": 41.9298185, "lon": -87.6321547 },
+    { "lat": 41.9297146, "lon": -87.6321563 },
+    { "lat": 41.9292867, "lon": -87.6321563 },
+    { "lat": 41.9291439, "lon": -87.6321481 },
+    { "lat": 41.9288662, "lon": -87.6321220 },
+    { "lat": 41.9284267, "lon": -87.6320478 },
+    { "lat": 41.9281324, "lon": -87.6319765 },
+    { "lat": 41.9277356, "lon": -87.6318608 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Fullerton Parkway",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23844575,
+  "bounds": {
+    "minlat": 41.9388998,
+    "minlon": -87.6383797,
+    "maxlat": 41.9403446,
+    "maxlon": -87.6368257
+  },
+  "nodes": [
+    26794520,
+    11942985540,
+    26794521,
+    26794522,
+    26794523
+  ],
+  "geometry": [
+    { "lat": 41.9403446, "lon": -87.6383797 },
+    { "lat": 41.9400310, "lon": -87.6381058 },
+    { "lat": 41.9397535, "lon": -87.6378369 },
+    { "lat": 41.9393011, "lon": -87.6373393 },
+    { "lat": 41.9388998, "lon": -87.6368257 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23844578,
+  "bounds": {
+    "minlat": 41.9403446,
+    "minlon": -87.6385164,
+    "maxlat": 41.9405106,
+    "maxlon": -87.6383797
+  },
+  "nodes": [
+    26794519,
+    26794520
+  ],
+  "geometry": [
+    { "lat": 41.9405106, "lon": -87.6385164 },
+    { "lat": 41.9403446, "lon": -87.6383797 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852295,
+  "bounds": {
+    "minlat": 41.9764919,
+    "minlon": -87.6506620,
+    "maxlat": 41.9766712,
+    "maxlon": -87.6505805
+  },
+  "nodes": [
+    258486125,
+    153405693
+  ],
+  "geometry": [
+    { "lat": 41.9766712, "lon": -87.6506620 },
+    { "lat": 41.9764919, "lon": -87.6505805 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "short_name": "North Lake Shore Drive",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852296,
+  "bounds": {
+    "minlat": 41.9742831,
+    "minlon": -87.6505805,
+    "maxlat": 41.9764919,
+    "maxlon": -87.6495676
+  },
+  "nodes": [
+    153405693,
+    153405695,
+    11544798436,
+    153405696
+  ],
+  "geometry": [
+    { "lat": 41.9764919, "lon": -87.6505805 },
+    { "lat": 41.9752874, "lon": -87.6500212 },
+    { "lat": 41.9749326, "lon": -87.6498509 },
+    { "lat": 41.9742831, "lon": -87.6495676 }
+  ],
+  "tags": {
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "short_name": "North Lake Shore Drive",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852302,
+  "bounds": {
+    "minlat": 41.9766712,
+    "minlon": -87.6527061,
+    "maxlat": 41.9812319,
+    "maxlon": -87.6506620
+  },
+  "nodes": [
+    153405691,
+    2209522151,
+    2209521596,
+    153405692,
+    258486125
+  ],
+  "geometry": [
+    { "lat": 41.9812319, "lon": -87.6527061 },
+    { "lat": 41.9805870, "lon": -87.6524628 },
+    { "lat": 41.9799699, "lon": -87.6521930 },
+    { "lat": 41.9793485, "lon": -87.6519057 },
+    { "lat": 41.9766712, "lon": -87.6506620 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852312,
+  "bounds": {
+    "minlat": 41.9765836,
+    "minlon": -87.6503144,
+    "maxlat": 41.9767628,
+    "maxlon": -87.6502316
+  },
+  "nodes": [
+    258486300,
+    153401287
+  ],
+  "geometry": [
+    { "lat": 41.9765836, "lon": -87.6502316 },
+    { "lat": 41.9767628, "lon": -87.6503144 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "short_name": "North Lake Shore Drive",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852314,
+  "bounds": {
+    "minlat": 41.9743815,
+    "minlon": -87.6502316,
+    "maxlat": 41.9765836,
+    "maxlon": -87.6492074
+  },
+  "nodes": [
+    257109633,
+    153401286,
+    8268168497,
+    258486300
+  ],
+  "geometry": [
+    { "lat": 41.9743815, "lon": -87.6492074 },
+    { "lat": 41.9750206, "lon": -87.6495005 },
+    { "lat": 41.9758325, "lon": -87.6498732 },
+    { "lat": 41.9765836, "lon": -87.6502316 }
+  ],
+  "tags": {
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "short_name": "North Lake Shore Drive",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852315,
+  "bounds": {
+    "minlat": 41.9692596,
+    "minlon": -87.6479496,
+    "maxlat": 41.9695187,
+    "maxlon": -87.6478904
+  },
+  "nodes": [
+    258486339,
+    258486303
+  ],
+  "geometry": [
+    { "lat": 41.9692596, "lon": -87.6478904 },
+    { "lat": 41.9695187, "lon": -87.6479496 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852318,
+  "bounds": {
+    "minlat": 41.9692293,
+    "minlon": -87.6481962,
+    "maxlat": 41.9694861,
+    "maxlon": -87.6481366
+  },
+  "nodes": [
+    258486302,
+    153405699
+  ],
+  "geometry": [
+    { "lat": 41.9694861, "lon": -87.6481962 },
+    { "lat": 41.9692293, "lon": -87.6481366 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852320,
+  "bounds": {
+    "minlat": 41.9642129,
+    "minlon": -87.6472833,
+    "maxlat": 41.9655382,
+    "maxlon": -87.6469877
+  },
+  "nodes": [
+    153405701,
+    271135238
+  ],
+  "geometry": [
+    { "lat": 41.9655382, "lon": -87.6472833 },
+    { "lat": 41.9642129, "lon": -87.6469877 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852321,
+  "bounds": {
+    "minlat": 41.9655382,
+    "minlon": -87.6473402,
+    "maxlat": 41.9657926,
+    "maxlon": -87.6472833
+  },
+  "nodes": [
+    258486340,
+    153405701
+  ],
+  "geometry": [
+    { "lat": 41.9657926, "lon": -87.6473402 },
+    { "lat": 41.9655382, "lon": -87.6472833 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852322,
+  "bounds": {
+    "minlat": 41.9655683,
+    "minlon": -87.6470987,
+    "maxlat": 41.9658246,
+    "maxlon": -87.6470382
+  },
+  "nodes": [
+    26794478,
+    258486554
+  ],
+  "geometry": [
+    { "lat": 41.9655683, "lon": -87.6470382 },
+    { "lat": 41.9658246, "lon": -87.6470987 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852325,
+  "bounds": {
+    "minlat": 41.9658246,
+    "minlon": -87.6474368,
+    "maxlat": 41.9672906,
+    "maxlon": -87.6470987
+  },
+  "nodes": [
+    258486554,
+    271135088
+  ],
+  "geometry": [
+    { "lat": 41.9658246, "lon": -87.6470987 },
+    { "lat": 41.9672906, "lon": -87.6474368 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852329,
+  "bounds": {
+    "minlat": 41.9618740,
+    "minlon": -87.6464821,
+    "maxlat": 41.9620507,
+    "maxlon": -87.6464496
+  },
+  "nodes": [
+    26794482,
+    26794483
+  ],
+  "geometry": [
+    { "lat": 41.9620507, "lon": -87.6464821 },
+    { "lat": 41.9618740, "lon": -87.6464496 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852332,
+  "bounds": {
+    "minlat": 41.9619052,
+    "minlon": -87.6462562,
+    "maxlat": 41.9620813,
+    "maxlon": -87.6462263
+  },
+  "nodes": [
+    258486662,
+    26794475
+  ],
+  "geometry": [
+    { "lat": 41.9619052, "lon": -87.6462263 },
+    { "lat": 41.9620813, "lon": -87.6462562 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852353,
+  "bounds": {
+    "minlat": 41.9404242,
+    "minlon": -87.6383419,
+    "maxlat": 41.9405902,
+    "maxlon": -87.6382053
+  },
+  "nodes": [
+    26794429,
+    26794430
+  ],
+  "geometry": [
+    { "lat": 41.9404242, "lon": -87.6382053 },
+    { "lat": 41.9405902, "lon": -87.6383419 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852354,
+  "bounds": {
+    "minlat": 41.9422749,
+    "minlon": -87.6422505,
+    "maxlat": 41.9473560,
+    "maxlon": -87.6394695
+  },
+  "nodes": [
+    257971135,
+    258487036,
+    26794437,
+    26794438,
+    11544798456,
+    11544798460,
+    26794441,
+    4335560700
+  ],
+  "geometry": [
+    { "lat": 41.9422749, "lon": -87.6394695 },
+    { "lat": 41.9426179, "lon": -87.6396488 },
+    { "lat": 41.9435022, "lon": -87.6401254 },
+    { "lat": 41.9449855, "lon": -87.6409359 },
+    { "lat": 41.9452361, "lon": -87.6410693 },
+    { "lat": 41.9456942, "lon": -87.6413126 },
+    { "lat": 41.9463685, "lon": -87.6416897 },
+    { "lat": 41.9473560, "lon": -87.6422505 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "|||none;Recreation Drive",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852376,
+  "bounds": {
+    "minlat": 41.9326670,
+    "minlon": -87.6356589,
+    "maxlat": 41.9382618,
+    "maxlon": -87.6319043
+  },
+  "nodes": [
+    26794402,
+    10845487555,
+    1439614216,
+    10845487558,
+    26794403,
+    26794404,
+    11942985526,
+    1439614217,
+    26794405,
+    11942985524,
+    26794407,
+    1439614213,
+    10845487566,
+    26794416,
+    1052620524,
+    11948625043,
+    26794418,
+    11942985527,
+    26794420,
+    1439614207,
+    10845487571,
+    26794422,
+    10845487574,
+    1052620526,
+    260080588
+  ],
+  "geometry": [
+    { "lat": 41.9326670, "lon": -87.6319065 },
+    { "lat": 41.9328595, "lon": -87.6319043 },
+    { "lat": 41.9331729, "lon": -87.6319108 },
+    { "lat": 41.9332997, "lon": -87.6319217 },
+    { "lat": 41.9335453, "lon": -87.6319534 },
+    { "lat": 41.9338339, "lon": -87.6320034 },
+    { "lat": 41.9341137, "lon": -87.6320685 },
+    { "lat": 41.9343814, "lon": -87.6321516 },
+    { "lat": 41.9347013, "lon": -87.6322733 },
+    { "lat": 41.9349891, "lon": -87.6324017 },
+    { "lat": 41.9351827, "lon": -87.6325007 },
+    { "lat": 41.9353857, "lon": -87.6326117 },
+    { "lat": 41.9355870, "lon": -87.6327467 },
+    { "lat": 41.9359056, "lon": -87.6329674 },
+    { "lat": 41.9361632, "lon": -87.6331598 },
+    { "lat": 41.9363404, "lon": -87.6333151 },
+    { "lat": 41.9364765, "lon": -87.6334422 },
+    { "lat": 41.9367045, "lon": -87.6336609 },
+    { "lat": 41.9369391, "lon": -87.6339118 },
+    { "lat": 41.9371702, "lon": -87.6341770 },
+    { "lat": 41.9373228, "lon": -87.6343815 },
+    { "lat": 41.9374891, "lon": -87.6346043 },
+    { "lat": 41.9376297, "lon": -87.6348111 },
+    { "lat": 41.9379994, "lon": -87.6352997 },
+    { "lat": 41.9382618, "lon": -87.6356589 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852377,
+  "bounds": {
+    "minlat": 41.9323666,
+    "minlon": -87.6319109,
+    "maxlat": 41.9326670,
+    "maxlon": -87.6319065
+  },
+  "nodes": [
+    258487313,
+    26794402
+  ],
+  "geometry": [
+    { "lat": 41.9323666, "lon": -87.6319109 },
+    { "lat": 41.9326670, "lon": -87.6319065 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23852380,
+  "bounds": {
+    "minlat": 41.9323665,
+    "minlon": -87.6321143,
+    "maxlat": 41.9326678,
+    "maxlon": -87.6321093
+  },
+  "nodes": [
+    26794536,
+    258487328
+  ],
+  "geometry": [
+    { "lat": 41.9326678, "lon": -87.6321093 },
+    { "lat": 41.9323665, "lon": -87.6321143 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "bridge": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "concrete",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23987645,
+  "bounds": {
+    "minlat": 41.9390726,
+    "minlon": -87.6382053,
+    "maxlat": 41.9404242,
+    "maxlon": -87.6367597
+  },
+  "nodes": [
+    26794425,
+    26794426,
+    11942985520,
+    26794428,
+    11942985541,
+    8268168500,
+    26794429
+  ],
+  "geometry": [
+    { "lat": 41.9390726, "lon": -87.6367597 },
+    { "lat": 41.9393684, "lon": -87.6371394 },
+    { "lat": 41.9395040, "lon": -87.6373076 },
+    { "lat": 41.9397074, "lon": -87.6375355 },
+    { "lat": 41.9399257, "lon": -87.6377617 },
+    { "lat": 41.9401392, "lon": -87.6379589 },
+    { "lat": 41.9404242, "lon": -87.6382053 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23987650,
+  "bounds": {
+    "minlat": 41.9326678,
+    "minlon": -87.6357830,
+    "maxlat": 41.9381371,
+    "maxlon": -87.6321093
+  },
+  "nodes": [
+    260080716,
+    26794526,
+    26794527,
+    11942985521,
+    11942985522,
+    26794528,
+    11942985523,
+    10845487567,
+    26794529,
+    10845487570,
+    26794530,
+    1439614214,
+    26794531,
+    11942985525,
+    26794532,
+    1439614215,
+    10845487559,
+    26794534,
+    10845487562,
+    1439614210,
+    26794535,
+    26794536
+  ],
+  "geometry": [
+    { "lat": 41.9381371, "lon": -87.6357830 },
+    { "lat": 41.9378097, "lon": -87.6353273 },
+    { "lat": 41.9372612, "lon": -87.6345836 },
+    { "lat": 41.9371390, "lon": -87.6344220 },
+    { "lat": 41.9369547, "lon": -87.6341939 },
+    { "lat": 41.9367864, "lon": -87.6340004 },
+    { "lat": 41.9366079, "lon": -87.6338067 },
+    { "lat": 41.9362851, "lon": -87.6335064 },
+    { "lat": 41.9361431, "lon": -87.6333854 },
+    { "lat": 41.9359853, "lon": -87.6332547 },
+    { "lat": 41.9358277, "lon": -87.6331342 },
+    { "lat": 41.9354930, "lon": -87.6329016 },
+    { "lat": 41.9350407, "lon": -87.6326366 },
+    { "lat": 41.9348198, "lon": -87.6325268 },
+    { "lat": 41.9346387, "lon": -87.6324534 },
+    { "lat": 41.9342886, "lon": -87.6323352 },
+    { "lat": 41.9340824, "lon": -87.6322748 },
+    { "lat": 41.9339285, "lon": -87.6322297 },
+    { "lat": 41.9336527, "lon": -87.6321739 },
+    { "lat": 41.9335449, "lon": -87.6321548 },
+    { "lat": 41.9331555, "lon": -87.6321139 },
+    { "lat": 41.9326678, "lon": -87.6321093 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23998840,
+  "bounds": {
+    "minlat": 41.9695187,
+    "minlon": -87.6482436,
+    "maxlat": 41.9709134,
+    "maxlon": -87.6479496
+  },
+  "nodes": [
+    258486303,
+    153401283
+  ],
+  "geometry": [
+    { "lat": 41.9695187, "lon": -87.6479496 },
+    { "lat": 41.9709134, "lon": -87.6482436 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 23998841,
+  "bounds": {
+    "minlat": 41.9709600,
+    "minlon": -87.6495676,
+    "maxlat": 41.9742831,
+    "maxlon": -87.6485466
+  },
+  "nodes": [
+    153405696,
+    11699948569,
+    8268168498,
+    260219090,
+    153405697,
+    257110201
+  ],
+  "geometry": [
+    { "lat": 41.9742831, "lon": -87.6495676 },
+    { "lat": 41.9739797, "lon": -87.6494327 },
+    { "lat": 41.9736072, "lon": -87.6492766 },
+    { "lat": 41.9730065, "lon": -87.6490794 },
+    { "lat": 41.9721343, "lon": -87.6488222 },
+    { "lat": 41.9709600, "lon": -87.6485466 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Lawrence Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 30679326,
+  "bounds": {
+    "minlat": 41.9547492,
+    "minlon": -87.6449990,
+    "maxlat": 41.9562158,
+    "maxlon": -87.6445961
+  },
+  "nodes": [
+    26794454,
+    11948640451,
+    26794462,
+    11948640452,
+    26794464
+  ],
+  "geometry": [
+    { "lat": 41.9547492, "lon": -87.6445961 },
+    { "lat": 41.9552656, "lon": -87.6447006 },
+    { "lat": 41.9555423, "lon": -87.6447671 },
+    { "lat": 41.9559737, "lon": -87.6449047 },
+    { "lat": 41.9562158, "lon": -87.6449990 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 30679327,
+  "bounds": {
+    "minlat": 41.9601803,
+    "minlon": -87.6464496,
+    "maxlat": 41.9618740,
+    "maxlon": -87.6463121
+  },
+  "nodes": [
+    26794483,
+    258486757,
+    258486758,
+    257114042
+  ],
+  "geometry": [
+    { "lat": 41.9618740, "lon": -87.6464496 },
+    { "lat": 41.9613784, "lon": -87.6463868 },
+    { "lat": 41.9607338, "lon": -87.6463353 },
+    { "lat": 41.9601803, "lon": -87.6463121 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 317622784,
+  "bounds": {
+    "minlat": 41.9381371,
+    "minlon": -87.6368257,
+    "maxlat": 41.9388998,
+    "maxlon": -87.6357830
+  },
+  "nodes": [
+    26794523,
+    260080716
+  ],
+  "geometry": [
+    { "lat": 41.9388998, "lon": -87.6368257 },
+    { "lat": 41.9381371, "lon": -87.6357830 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 317622786,
+  "bounds": {
+    "minlat": 41.9382618,
+    "minlon": -87.6367597,
+    "maxlat": 41.9390726,
+    "maxlon": -87.6356589
+  },
+  "nodes": [
+    260080588,
+    26794425
+  ],
+  "geometry": [
+    { "lat": 41.9382618, "lon": -87.6356589 },
+    { "lat": 41.9390726, "lon": -87.6367597 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Belmont Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "none|none|none|through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 374037399,
+  "bounds": {
+    "minlat": 41.9529611,
+    "minlon": -87.6447912,
+    "maxlat": 41.9545609,
+    "maxlon": -87.6447535
+  },
+  "nodes": [
+    26794503,
+    11948640448,
+    257967824,
+    26794507
+  ],
+  "geometry": [
+    { "lat": 41.9545609, "lon": -87.6447912 },
+    { "lat": 41.9541551, "lon": -87.6447600 },
+    { "lat": 41.9537494, "lon": -87.6447535 },
+    { "lat": 41.9529611, "lon": -87.6447843 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 374037402,
+  "bounds": {
+    "minlat": 41.9529923,
+    "minlon": -87.6445742,
+    "maxlat": 41.9545652,
+    "maxlon": -87.6445423
+  },
+  "nodes": [
+    26794449,
+    2213814392,
+    11948640449,
+    26794450
+  ],
+  "geometry": [
+    { "lat": 41.9529923, "lon": -87.6445720 },
+    { "lat": 41.9537899, "lon": -87.6445423 },
+    { "lat": 41.9543602, "lon": -87.6445563 },
+    { "lat": 41.9545652, "lon": -87.6445742 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 394517154,
+  "bounds": {
+    "minlat": 41.9657926,
+    "minlon": -87.6476840,
+    "maxlat": 41.9672433,
+    "maxlon": -87.6473402
+  },
+  "nodes": [
+    271135091,
+    258486340
+  ],
+  "geometry": [
+    { "lat": 41.9672433, "lon": -87.6476840 },
+    { "lat": 41.9657926, "lon": -87.6473402 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Wilson Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 435654790,
+  "bounds": {
+    "minlat": 41.9473560,
+    "minlon": -87.6446000,
+    "maxlat": 41.9529923,
+    "maxlon": -87.6422505
+  },
+  "nodes": [
+    4335560700,
+    11702207010,
+    11702207011,
+    11544798438,
+    8778214542,
+    26794443,
+    11702206988,
+    26794444,
+    11702206987,
+    26794445,
+    11699953886,
+    26794447,
+    26794449
+  ],
+  "geometry": [
+    { "lat": 41.9473560, "lon": -87.6422505 },
+    { "lat": 41.9488894, "lon": -87.6431519 },
+    { "lat": 41.9497726, "lon": -87.6436825 },
+    { "lat": 41.9501142, "lon": -87.6438914 },
+    { "lat": 41.9505185, "lon": -87.6441397 },
+    { "lat": 41.9509314, "lon": -87.6443760 },
+    { "lat": 41.9510863, "lon": -87.6444372 },
+    { "lat": 41.9512534, "lon": -87.6444960 },
+    { "lat": 41.9514581, "lon": -87.6445514 },
+    { "lat": 41.9516550, "lon": -87.6445815 },
+    { "lat": 41.9518446, "lon": -87.6445984 },
+    { "lat": 41.9520405, "lon": -87.6446000 },
+    { "lat": 41.9529923, "lon": -87.6445720 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "cycleway:both": "no",
+    "destination:lanes": "none|none|none|none;Irving Park Road",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 952522417,
+  "bounds": {
+    "minlat": 41.9767628,
+    "minlon": -87.6523858,
+    "maxlat": 41.9814405,
+    "maxlon": -87.6503144
+  },
+  "nodes": [
+    153401287,
+    2209522080,
+    153401288,
+    2209521591,
+    257149878
+  ],
+  "geometry": [
+    { "lat": 41.9767628, "lon": -87.6503144 },
+    { "lat": 41.9804025, "lon": -87.6520126 },
+    { "lat": 41.9806880, "lon": -87.6521254 },
+    { "lat": 41.9810391, "lon": -87.6522515 },
+    { "lat": 41.9814405, "lon": -87.6523858 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "destination:lanes": "|||none;Bryn Mawr Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "short_name": "North Lake Shore Drive",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992185251,
+  "bounds": {
+    "minlat": 41.9709134,
+    "minlon": -87.6492074,
+    "maxlat": 41.9743815,
+    "maxlon": -87.6482436
+  },
+  "nodes": [
+    153401283,
+    153401285,
+    8268168499,
+    257109633
+  ],
+  "geometry": [
+    { "lat": 41.9709134, "lon": -87.6482436 },
+    { "lat": 41.9730459, "lon": -87.6487382 },
+    { "lat": 41.9734212, "lon": -87.6488666 },
+    { "lat": 41.9743815, "lon": -87.6492074 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "|||none;Foster Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992381055,
+  "bounds": {
+    "minlat": 41.9694861,
+    "minlon": -87.6485466,
+    "maxlat": 41.9709600,
+    "maxlon": -87.6481962
+  },
+  "nodes": [
+    257110201,
+    11948640525,
+    258486302
+  ],
+  "geometry": [
+    { "lat": 41.9709600, "lon": -87.6485466 },
+    { "lat": 41.9704434, "lon": -87.6484155 },
+    { "lat": 41.9694861, "lon": -87.6481962 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992388730,
+  "bounds": {
+    "minlat": 41.9405106,
+    "minlon": -87.6395665,
+    "maxlat": 41.9420417,
+    "maxlon": -87.6385164
+  },
+  "nodes": [
+    257973326,
+    11942985517,
+    26794518,
+    11942985518,
+    26794519
+  ],
+  "geometry": [
+    { "lat": 41.9420417, "lon": -87.6395665 },
+    { "lat": 41.9415938, "lon": -87.6393148 },
+    { "lat": 41.9413341, "lon": -87.6391444 },
+    { "lat": 41.9410671, "lon": -87.6389571 },
+    { "lat": 41.9405106, "lon": -87.6385164 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992391548,
+  "bounds": {
+    "minlat": 41.9602535,
+    "minlon": -87.6462263,
+    "maxlat": 41.9619052,
+    "maxlon": -87.6460942
+  },
+  "nodes": [
+    26794474,
+    258486763,
+    258486764,
+    258486662
+  ],
+  "geometry": [
+    { "lat": 41.9602535, "lon": -87.6460942 },
+    { "lat": 41.9606572, "lon": -87.6461122 },
+    { "lat": 41.9612508, "lon": -87.6461465 },
+    { "lat": 41.9619052, "lon": -87.6462263 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992391549,
+  "bounds": {
+    "minlat": 41.9562158,
+    "minlon": -87.6460942,
+    "maxlat": 41.9602535,
+    "maxlon": -87.6449990
+  },
+  "nodes": [
+    26794464,
+    26794489,
+    11948640473,
+    26794466,
+    258486782,
+    339269359,
+    26794467,
+    11948640477,
+    26794468,
+    11702272182,
+    26794474
+  ],
+  "geometry": [
+    { "lat": 41.9562158, "lon": -87.6449990 },
+    { "lat": 41.9573383, "lon": -87.6454513 },
+    { "lat": 41.9576385, "lon": -87.6455739 },
+    { "lat": 41.9579496, "lon": -87.6456897 },
+    { "lat": 41.9583054, "lon": -87.6457923 },
+    { "lat": 41.9586530, "lon": -87.6458797 },
+    { "lat": 41.9590425, "lon": -87.6459663 },
+    { "lat": 41.9592336, "lon": -87.6460084 },
+    { "lat": 41.9594561, "lon": -87.6460375 },
+    { "lat": 41.9596684, "lon": -87.6460628 },
+    { "lat": 41.9602535, "lon": -87.6460942 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Montrose Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "none|none|none|through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992425395,
+  "bounds": {
+    "minlat": 41.9620813,
+    "minlon": -87.6466168,
+    "maxlat": 41.9637033,
+    "maxlon": -87.6462562
+  },
+  "nodes": [
+    26794475,
+    257113700
+  ],
+  "geometry": [
+    { "lat": 41.9620813, "lon": -87.6462562 },
+    { "lat": 41.9637033, "lon": -87.6466168 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992458058,
+  "bounds": {
+    "minlat": 41.9547475,
+    "minlon": -87.6457327,
+    "maxlat": 41.9574271,
+    "maxlon": -87.6448193
+  },
+  "nodes": [
+    26794487,
+    26794494,
+    258486783,
+    26794495,
+    11948640450,
+    26794497
+  ],
+  "geometry": [
+    { "lat": 41.9574271, "lon": -87.6457327 },
+    { "lat": 41.9561081, "lon": -87.6451878 },
+    { "lat": 41.9557304, "lon": -87.6450516 },
+    { "lat": 41.9554508, "lon": -87.6449665 },
+    { "lat": 41.9552030, "lon": -87.6449055 },
+    { "lat": 41.9547475, "lon": -87.6448193 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992458059,
+  "bounds": {
+    "minlat": 41.9574271,
+    "minlon": -87.6463121,
+    "maxlat": 41.9601803,
+    "maxlon": -87.6457327
+  },
+  "nodes": [
+    257114042,
+    26794485,
+    11702272183,
+    1984851587,
+    258486781,
+    11948640474,
+    26794487
+  ],
+  "geometry": [
+    { "lat": 41.9601803, "lon": -87.6463121 },
+    { "lat": 41.9596218, "lon": -87.6462817 },
+    { "lat": 41.9593295, "lon": -87.6462454 },
+    { "lat": 41.9588103, "lon": -87.6461425 },
+    { "lat": 41.9584020, "lon": -87.6460401 },
+    { "lat": 41.9580462, "lon": -87.6459404 },
+    { "lat": 41.9574271, "lon": -87.6457327 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Irving Park Road",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992480552,
+  "bounds": {
+    "minlat": 41.9637213,
+    "minlon": -87.6469877,
+    "maxlat": 41.9642129,
+    "maxlon": -87.6468684
+  },
+  "nodes": [
+    271135238,
+    271135296
+  ],
+  "geometry": [
+    { "lat": 41.9642129, "lon": -87.6469877 },
+    { "lat": 41.9637213, "lon": -87.6468684 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Montrose Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "turn:lanes": "none|none|none|through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 992480553,
+  "bounds": {
+    "minlat": 41.9620507,
+    "minlon": -87.6468684,
+    "maxlat": 41.9637213,
+    "maxlon": -87.6464821
+  },
+  "nodes": [
+    271135296,
+    26794482
+  ],
+  "geometry": [
+    { "lat": 41.9637213, "lon": -87.6468684 },
+    { "lat": 41.9620507, "lon": -87.6464821 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427050,
+  "bounds": {
+    "minlat": 41.9678448,
+    "minlon": -87.6481366,
+    "maxlat": 41.9692293,
+    "maxlon": -87.6478236
+  },
+  "nodes": [
+    153405699,
+    271135022
+  ],
+  "geometry": [
+    { "lat": 41.9692293, "lon": -87.6481366 },
+    { "lat": 41.9678448, "lon": -87.6478236 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Wilson Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "|||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427051,
+  "bounds": {
+    "minlat": 41.9677232,
+    "minlon": -87.6478904,
+    "maxlat": 41.9692596,
+    "maxlon": -87.6475412
+  },
+  "nodes": [
+    257110496,
+    258486339
+  ],
+  "geometry": [
+    { "lat": 41.9677232, "lon": -87.6475412 },
+    { "lat": 41.9692596, "lon": -87.6478904 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427052,
+  "bounds": {
+    "minlat": 41.9672906,
+    "minlon": -87.6475412,
+    "maxlat": 41.9677232,
+    "maxlon": -87.6474368
+  },
+  "nodes": [
+    271135088,
+    257110496
+  ],
+  "geometry": [
+    { "lat": 41.9672906, "lon": -87.6474368 },
+    { "lat": 41.9677232, "lon": -87.6475412 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none|Lawrence Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "5",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "none|none|none|none|slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427053,
+  "bounds": {
+    "minlat": 41.9672433,
+    "minlon": -87.6478236,
+    "maxlat": 41.9678448,
+    "maxlon": -87.6476840
+  },
+  "nodes": [
+    271135022,
+    257110686,
+    271135091
+  ],
+  "geometry": [
+    { "lat": 41.9678448, "lon": -87.6478236 },
+    { "lat": 41.9676583, "lon": -87.6477859 },
+    { "lat": 41.9672433, "lon": -87.6476840 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none|none;Wilson Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "5",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "||||through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427054,
+  "bounds": {
+    "minlat": 41.9640194,
+    "minlon": -87.6470382,
+    "maxlat": 41.9655683,
+    "maxlon": -87.6466903
+  },
+  "nodes": [
+    257113406,
+    26794478
+  ],
+  "geometry": [
+    { "lat": 41.9640194, "lon": -87.6466903 },
+    { "lat": 41.9655683, "lon": -87.6470382 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427055,
+  "bounds": {
+    "minlat": 41.9637033,
+    "minlon": -87.6466903,
+    "maxlat": 41.9640194,
+    "maxlon": -87.6466168
+  },
+  "nodes": [
+    257113700,
+    257113406
+  ],
+  "geometry": [
+    { "lat": 41.9637033, "lon": -87.6466168 },
+    { "lat": 41.9640194, "lon": -87.6466903 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "||||Wilson Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "5",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "||||slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 995427056,
+  "bounds": {
+    "minlat": 41.9405902,
+    "minlon": -87.6394695,
+    "maxlat": 41.9422749,
+    "maxlon": -87.6383419
+  },
+  "nodes": [
+    26794430,
+    258487034,
+    26794431,
+    258487035,
+    11942985519,
+    257971135
+  ],
+  "geometry": [
+    { "lat": 41.9405902, "lon": -87.6383419 },
+    { "lat": 41.9412190, "lon": -87.6388334 },
+    { "lat": 41.9413992, "lon": -87.6389622 },
+    { "lat": 41.9416135, "lon": -87.6391012 },
+    { "lat": 41.9418291, "lon": -87.6392231 },
+    { "lat": 41.9422749, "lon": -87.6394695 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "way",
+  "id": 1137204062,
+  "bounds": {
+    "minlat": 41.9420417,
+    "minlon": -87.6397847,
+    "maxlat": 41.9424524,
+    "maxlon": -87.6395665
+  },
+  "nodes": [
+    519550469,
+    257973326
+  ],
+  "geometry": [
+    { "lat": 41.9424524, "lon": -87.6397847 },
+    { "lat": 41.9420417, "lon": -87.6395665 }
+  ],
+  "tags": {
+    "NHS": "yes",
+    "destination:lanes": "none|none|none|none;Belmont Avenue",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "4",
+    "maxspeed": "40 mph",
+    "motorroad": "yes",
+    "name": "North Jean Baptiste Point DuSable Lake Shore Drive",
+    "name:etymology:wikidata": "Q492555",
+    "oneway": "yes",
+    "ref": "US 41",
+    "surface": "asphalt",
+    "turn:lanes": "none|none|none|through;slight_right",
+    "wikidata": "Q3216467",
+    "wikipedia": "en:Lake Shore Drive"
+  }
+},
+{
+  "type": "relation",
+  "id": 5328430,
+  "bounds": {
+    "minlat": 41.9164982,
+    "minlon": -87.6355641,
+    "maxlat": 41.9242541,
+    "maxlon": -87.6314456
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 28948629,
+      "role": "outer",
+      "geometry": [
+         { "lat": 41.9217071, "lon": -87.6349238 },
+         { "lat": 41.9217865, "lon": -87.6348918 },
+         { "lat": 41.9218225, "lon": -87.6348773 },
+         { "lat": 41.9218848, "lon": -87.6347790 },
+         { "lat": 41.9221273, "lon": -87.6346852 },
+         { "lat": 41.9225993, "lon": -87.6346489 },
+         { "lat": 41.9229682, "lon": -87.6346194 },
+         { "lat": 41.9230590, "lon": -87.6346604 },
+         { "lat": 41.9233462, "lon": -87.6347254 },
+         { "lat": 41.9234773, "lon": -87.6347992 },
+         { "lat": 41.9236292, "lon": -87.6348565 },
+         { "lat": 41.9236771, "lon": -87.6348395 },
+         { "lat": 41.9237195, "lon": -87.6348238 },
+         { "lat": 41.9237488, "lon": -87.6348085 },
+         { "lat": 41.9237665, "lon": -87.6347992 },
+         { "lat": 41.9239473, "lon": -87.6346936 },
+         { "lat": 41.9239907, "lon": -87.6344843 },
+         { "lat": 41.9242202, "lon": -87.6345588 },
+         { "lat": 41.9242541, "lon": -87.6344087 },
+         { "lat": 41.9242512, "lon": -87.6342272 },
+         { "lat": 41.9241862, "lon": -87.6340346 },
+         { "lat": 41.9241305, "lon": -87.6338878 },
+         { "lat": 41.9241415, "lon": -87.6337949 },
+         { "lat": 41.9242167, "lon": -87.6337197 },
+         { "lat": 41.9242172, "lon": -87.6335795 },
+         { "lat": 41.9241465, "lon": -87.6332814 },
+         { "lat": 41.9241519, "lon": -87.6332532 },
+         { "lat": 41.9241696, "lon": -87.6331903 },
+         { "lat": 41.9240852, "lon": -87.6331528 },
+         { "lat": 41.9240909, "lon": -87.6331198 },
+         { "lat": 41.9240768, "lon": -87.6331142 },
+         { "lat": 41.9240809, "lon": -87.6330969 },
+         { "lat": 41.9240145, "lon": -87.6330695 },
+         { "lat": 41.9240115, "lon": -87.6330837 },
+         { "lat": 41.9237029, "lon": -87.6329523 },
+         { "lat": 41.9237060, "lon": -87.6329412 },
+         { "lat": 41.9236716, "lon": -87.6329275 },
+         { "lat": 41.9236634, "lon": -87.6329639 },
+         { "lat": 41.9232165, "lon": -87.6327752 },
+         { "lat": 41.9229948, "lon": -87.6326783 },
+         { "lat": 41.9223762, "lon": -87.6326160 },
+         { "lat": 41.9223426, "lon": -87.6326125 },
+         { "lat": 41.9223184, "lon": -87.6326100 },
+         { "lat": 41.9223218, "lon": -87.6325581 },
+         { "lat": 41.9223252, "lon": -87.6325063 },
+         { "lat": 41.9222657, "lon": -87.6324776 },
+         { "lat": 41.9220293, "lon": -87.6324023 },
+         { "lat": 41.9219575, "lon": -87.6323828 },
+         { "lat": 41.9219011, "lon": -87.6323671 },
+         { "lat": 41.9218329, "lon": -87.6323484 },
+         { "lat": 41.9218070, "lon": -87.6323391 },
+         { "lat": 41.9217320, "lon": -87.6321494 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 1323491975,
+      "role": "outer",
+      "geometry": [
+         { "lat": 41.9217320, "lon": -87.6321494 },
+         { "lat": 41.9213177, "lon": -87.6319918 },
+         { "lat": 41.9206167, "lon": -87.6317466 },
+         { "lat": 41.9202969, "lon": -87.6316263 },
+         { "lat": 41.9202508, "lon": -87.6316090 },
+         { "lat": 41.9201981, "lon": -87.6315892 },
+         { "lat": 41.9198279, "lon": -87.6314456 },
+         { "lat": 41.9197731, "lon": -87.6314472 },
+         { "lat": 41.9197237, "lon": -87.6314712 },
+         { "lat": 41.9196818, "lon": -87.6315016 },
+         { "lat": 41.9196451, "lon": -87.6315425 },
+         { "lat": 41.9196374, "lon": -87.6315721 },
+         { "lat": 41.9196211, "lon": -87.6316388 },
+         { "lat": 41.9194535, "lon": -87.6315636 },
+         { "lat": 41.9194128, "lon": -87.6315476 },
+         { "lat": 41.9193957, "lon": -87.6315396 },
+         { "lat": 41.9193543, "lon": -87.6315247 },
+         { "lat": 41.9193506, "lon": -87.6315414 },
+         { "lat": 41.9192004, "lon": -87.6314864 },
+         { "lat": 41.9191515, "lon": -87.6314709 },
+         { "lat": 41.9190853, "lon": -87.6314676 },
+         { "lat": 41.9190396, "lon": -87.6314868 },
+         { "lat": 41.9187393, "lon": -87.6317623 },
+         { "lat": 41.9187037, "lon": -87.6318268 },
+         { "lat": 41.9183410, "lon": -87.6327566 },
+         { "lat": 41.9183441, "lon": -87.6327691 },
+         { "lat": 41.9183507, "lon": -87.6327961 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 758462733,
+      "role": "outer",
+      "geometry": [
+         { "lat": 41.9183507, "lon": -87.6327961 },
+         { "lat": 41.9183585, "lon": -87.6328276 },
+         { "lat": 41.9183613, "lon": -87.6328388 },
+         { "lat": 41.9183849, "lon": -87.6328543 },
+         { "lat": 41.9183941, "lon": -87.6328603 },
+         { "lat": 41.9186235, "lon": -87.6329212 },
+         { "lat": 41.9189015, "lon": -87.6328203 },
+         { "lat": 41.9189296, "lon": -87.6328211 },
+         { "lat": 41.9189663, "lon": -87.6328280 },
+         { "lat": 41.9189978, "lon": -87.6328496 },
+         { "lat": 41.9190339, "lon": -87.6328935 },
+         { "lat": 41.9190740, "lon": -87.6329982 },
+         { "lat": 41.9191204, "lon": -87.6330706 },
+         { "lat": 41.9191657, "lon": -87.6331169 },
+         { "lat": 41.9192861, "lon": -87.6331939 },
+         { "lat": 41.9193589, "lon": -87.6332447 },
+         { "lat": 41.9194242, "lon": -87.6332948 },
+         { "lat": 41.9194844, "lon": -87.6333410 },
+         { "lat": 41.9194863, "lon": -87.6333434 },
+         { "lat": 41.9195136, "lon": -87.6333780 },
+         { "lat": 41.9195314, "lon": -87.6335196 },
+         { "lat": 41.9195360, "lon": -87.6335521 },
+         { "lat": 41.9195429, "lon": -87.6336196 },
+         { "lat": 41.9195522, "lon": -87.6336848 },
+         { "lat": 41.9195560, "lon": -87.6337862 },
+         { "lat": 41.9195589, "lon": -87.6338971 },
+         { "lat": 41.9195739, "lon": -87.6339350 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 758343794,
+      "role": "outer",
+      "geometry": [
+         { "lat": 41.9180439, "lon": -87.6334678 },
+         { "lat": 41.9180081, "lon": -87.6334593 },
+         { "lat": 41.9179289, "lon": -87.6334600 },
+         { "lat": 41.9178738, "lon": -87.6334394 },
+         { "lat": 41.9178553, "lon": -87.6334312 },
+         { "lat": 41.9178317, "lon": -87.6333918 },
+         { "lat": 41.9178239, "lon": -87.6333718 },
+         { "lat": 41.9178120, "lon": -87.6333411 },
+         { "lat": 41.9177862, "lon": -87.6333140 },
+         { "lat": 41.9177451, "lon": -87.6333057 },
+         { "lat": 41.9176574, "lon": -87.6333473 },
+         { "lat": 41.9175647, "lon": -87.6333526 },
+         { "lat": 41.9174585, "lon": -87.6333314 },
+         { "lat": 41.9173728, "lon": -87.6332877 },
+         { "lat": 41.9173116, "lon": -87.6332456 },
+         { "lat": 41.9173010, "lon": -87.6332378 },
+         { "lat": 41.9171710, "lon": -87.6331343 },
+         { "lat": 41.9170785, "lon": -87.6330995 },
+         { "lat": 41.9170717, "lon": -87.6330991 },
+         { "lat": 41.9168993, "lon": -87.6330882 },
+         { "lat": 41.9168909, "lon": -87.6330882 },
+         { "lat": 41.9168110, "lon": -87.6330882 },
+         { "lat": 41.9167611, "lon": -87.6330874 },
+         { "lat": 41.9167131, "lon": -87.6330898 },
+         { "lat": 41.9166784, "lon": -87.6330979 },
+         { "lat": 41.9166564, "lon": -87.6331030 },
+         { "lat": 41.9166319, "lon": -87.6331163 },
+         { "lat": 41.9166149, "lon": -87.6331255 },
+         { "lat": 41.9165846, "lon": -87.6331699 },
+         { "lat": 41.9165706, "lon": -87.6332181 },
+         { "lat": 41.9165275, "lon": -87.6333931 },
+         { "lat": 41.9164982, "lon": -87.6335724 },
+         { "lat": 41.9165037, "lon": -87.6336251 },
+         { "lat": 41.9165307, "lon": -87.6336722 },
+         { "lat": 41.9166761, "lon": -87.6337928 },
+         { "lat": 41.9167306, "lon": -87.6338388 },
+         { "lat": 41.9168878, "lon": -87.6339405 },
+         { "lat": 41.9169768, "lon": -87.6339932 },
+         { "lat": 41.9170695, "lon": -87.6340424 },
+         { "lat": 41.9171812, "lon": -87.6340923 },
+         { "lat": 41.9173069, "lon": -87.6341318 },
+         { "lat": 41.9173966, "lon": -87.6341459 },
+         { "lat": 41.9175697, "lon": -87.6341747 },
+         { "lat": 41.9175917, "lon": -87.6341572 },
+         { "lat": 41.9177034, "lon": -87.6340594 },
+         { "lat": 41.9177388, "lon": -87.6340288 },
+         { "lat": 41.9177388, "lon": -87.6339992 },
+         { "lat": 41.9178618, "lon": -87.6340030 },
+         { "lat": 41.9180439, "lon": -87.6334678 }
+      ]
+    },
+    {
+      "type": "way",
+      "ref": 758462736,
+      "role": "outer",
+      "geometry": [
+         { "lat": 41.9195739, "lon": -87.6339350 },
+         { "lat": 41.9195915, "lon": -87.6339889 },
+         { "lat": 41.9195986, "lon": -87.6340024 },
+         { "lat": 41.9196085, "lon": -87.6340221 },
+         { "lat": 41.9196211, "lon": -87.6340371 },
+         { "lat": 41.9197101, "lon": -87.6340946 },
+         { "lat": 41.9200221, "lon": -87.6343908 },
+         { "lat": 41.9203273, "lon": -87.6343888 },
+         { "lat": 41.9204080, "lon": -87.6345317 },
+         { "lat": 41.9205150, "lon": -87.6347212 },
+         { "lat": 41.9204233, "lon": -87.6348156 },
+         { "lat": 41.9204052, "lon": -87.6351758 },
+         { "lat": 41.9204303, "lon": -87.6353321 },
+         { "lat": 41.9205562, "lon": -87.6354937 },
+         { "lat": 41.9211938, "lon": -87.6355641 },
+         { "lat": 41.9215340, "lon": -87.6355478 },
+         { "lat": 41.9216164, "lon": -87.6354769 },
+         { "lat": 41.9216576, "lon": -87.6354045 },
+         { "lat": 41.9216890, "lon": -87.6353119 },
+         { "lat": 41.9217086, "lon": -87.6352059 },
+         { "lat": 41.9217008, "lon": -87.6350786 },
+         { "lat": 41.9216842, "lon": -87.6350005 },
+         { "lat": 41.9216653, "lon": -87.6349389 },
+         { "lat": 41.9217071, "lon": -87.6349238 }
+      ]
+    }
+  ],
+  "tags": {
+    "access": "yes",
+    "addr:city": "Chicago",
+    "addr:housenumber": "2001",
+    "addr:postcode": "60614",
+    "addr:state": "IL",
+    "addr:street": "North Clark Street",
+    "fee": "no",
+    "gnis:feature_id": "1831351",
+    "name": "Lincoln Park Zoo",
+    "name:etymology:wikidata": "Q91",
+    "name:etymology:wikipedia": "en:Abraham Lincoln",
+    "opening_hours": "May Mo[-1] - Sep Mo[1] Mo-Fr 10:00-17:00; Sa-Su 10:00-18:30; Sep - Oct 10:00-17:00; Nov - Mar 10:00-16:30; Apr - May 10:00-17:00",
+    "tourism": "zoo",
+    "type": "multipolygon",
+    "website": "https://www.lpzoo.org/",
+    "wheelchair": "yes",
+    "wikidata": "Q3241309",
+    "wikipedia": "en:Lincoln Park Zoo"
+  }
+}
+
+  ]
+}

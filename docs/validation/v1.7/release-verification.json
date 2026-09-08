@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "recordedAtUTC": "2026-09-08T19:08:17.232396+00:00",
+  "scope": "Read-only final inventory and evidence consistency audit. Runtime tests and sampled visual reviews are separately recorded; this audit does not add visual or performance claims.",
+  "sourceInputCount": 143,
+  "packageFileCount": 18,
+  "releaseSourceInputSHA256": "98ea3b9fc8bc14d17c2dd3ee3f5f6cb2e715261fb7071cfa1432e587d0ec5215",
+  "validatedSourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "motionCases": 33,
+  "cameraRoutes": 49,
+  "playbackChecks": 57517,
+  "fullDecodedVideoFrames": 16128,
+  "videoSeconds": 672,
+  "mediaReports": [
+    {
+      "mediaReport": "north-day-tour-media.json",
+      "sha256": "0fd381449e8b0b38f6871782a54f70e749f55fc3bafc841b10a229144bc2b5e9"
+    },
+    {
+      "mediaReport": "millennium-zoo-flight-media.json",
+      "sha256": "d4461bd5acbd3e162cf2cba132c5c273d56c872a602332f8d119e282b6201521"
+    },
+    {
+      "mediaReport": "zoo-wrigley-flight-media.json",
+      "sha256": "ac9a02527ec91dfcb2468710ff969951df9390e18ae0539e4bbb5543d29e2a8b"
+    },
+    {
+      "mediaReport": "north-night-tour-media.json",
+      "sha256": "a20f7e38ca290da0c7f5070eac5f4bf7df8abd4ed4b51e679d8610fc733ed366"
+    }
+  ],
+  "nativeSmokeReport": "native-final-smoke.json"
+}

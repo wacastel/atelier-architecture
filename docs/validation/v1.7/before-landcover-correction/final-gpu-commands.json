@@ -1,0 +1,172 @@
+[
+  {
+    "name": "self-test-chicago",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "exitCode": 0,
+    "seconds": 9.774930238723755,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "self-test-paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "exitCode": 0,
+    "seconds": 1.739945888519287,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-northside",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-northside",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 57.864905834198,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-campus",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "campus",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-campus",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 91.68371200561523,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-lakefront",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "lakefront",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-lakefront",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 36.7811598777771,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-millennium",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-millennium",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 50.72601580619812,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-chicago",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "chicago",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-chicago",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 46.308964014053345,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  },
+  {
+    "name": "motion-paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-paris",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 43.00330185890198,
+    "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+  }
+]

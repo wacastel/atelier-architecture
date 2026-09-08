@@ -1,0 +1,6 @@
+PASS: Adler 105796 triangles, 63 fixtures; mapped envelope, unit normals, published21m inward shell,144B uniform ABI, entrance/gallery/theater route
+PASS: Actual renderer scene-time advancement, stationary invalidation, exact pause/rewind/loop and bounded negative/huge clocks
+PASS: GPU polar-star angular variation 0.004172025, legacy tangent-space negative control 6.706766
+PASS: Actual local reactive guides for theater lighting and100m mirror reflection; unrelated, behind/outside bounds and paused surfaces retain their guides
+PASS: GPU animated-diffuse spatial RMSE 0.02337514932990289 -> 0.008782126543169538, temporal residual 0.03282162318570365 -> 0.012472320725433049; exact current temporal color/material-edge coverage; missing-guard negative control 0.023416689864272925
+PASS: Strong reactive bypass remains exact; 147456 legacy guide RGBA components unchanged by diffuse policy

@@ -1,0 +1,1 @@
+PASS: McCormick 468734 triangles, 303 lights; four mapped roofs, finite/unit geometry, published Marriott height,1800 clear flight steps; 1.6948100328445435s

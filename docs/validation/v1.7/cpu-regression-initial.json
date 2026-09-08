@@ -1,0 +1,86 @@
+{
+  "scope": "CPU-only geometry/context/navigation scripts; two independent compiler/test processes max; no GPU dispatch",
+  "results": [
+    {
+      "command": "./scripts/validate-lakefront-geometry.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 18.27,
+      "scriptSHA256": "91b262c7442f67bd8195bef930d5b973725556f02e5d82ec5e75a62ffdabd6f8",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-lakefront-geometry.log",
+      "logSHA256": "0df7d7fa89ee60ca687f75a040324bc2c8edf989ba0ab1155c2692372a49117d",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-museum-campus-geometry.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 19.47,
+      "scriptSHA256": "3a21c9d8342ad06b974bdb29c8dab1558d2f9eed68b60be8c00c6b947b6f5dab",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-museum-campus-geometry.log",
+      "logSHA256": "ed5ba4199c21e7b712883ff95918d254946e4b9a16890e8eb0066d4b08de0a6a",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-magnificent-mile.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 8.92,
+      "scriptSHA256": "7871cbc39309774facaf805b5046604a71214939b89963315d0ef3760fa7ffc7",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-magnificent-mile.log",
+      "logSHA256": "13aa74094bcea21f530dff1cea64c7ace1c334575f59fbaec3b6b7f0a16ff403",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-museum-buildings.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 10.0,
+      "scriptSHA256": "4f667a8783e4c6cbed3f15e1a15e368c4efa2cae590b7c380f65353965767489",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-museum-buildings.log",
+      "logSHA256": "c4d414010f0019a76afd19d2e976c082b97a1502c0102f28224e487d3471ea16",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-millennium-geometry.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 8.98,
+      "scriptSHA256": "b99017b1cc23fccdca8eeed60f194ab9f343b3468e88593446a156a2efd7f64d",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-millennium-geometry.log",
+      "logSHA256": "6b8e8455fc2d3d4d26f64b0c1ac1ccc96e0166320dd24b4105d7e173bd14490a",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-mccormick.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 15.52,
+      "scriptSHA256": "cd815e1ebd1c111ffe8743f25e1846e6f0d2b838af1b39796fb4c04f0d47b091",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-mccormick.log",
+      "logSHA256": "e647191aeaa9f2c2c0dca4c47fd3f794cdb931035388c81afac0ce116f4eccf7",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-magnificent-gateway.sh",
+      "exitCode": 0,
+      "passed": true,
+      "seconds": 17.8,
+      "scriptSHA256": "70499faab7316e182798b7936aa0cfa783bd646aed6cad7bf4f2a6f97c3a406c",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-magnificent-gateway.log",
+      "logSHA256": "b4278da9d9eca360177bcfed5a913393ec5a8df119f642d97525fa68a7055f5e",
+      "gpuDispatched": false
+    },
+    {
+      "command": "./scripts/validate-navigation.sh",
+      "exitCode": 1,
+      "passed": false,
+      "seconds": 43.58,
+      "scriptSHA256": "313ed2c0eb060fb7e13a0c7601eb28657e3df2cebe31160733759343c865a44a",
+      "log": "/Users/william/dev/architecture/output/v8-review/cpu-regression/validate-navigation.log",
+      "logSHA256": "0e3efc8a8d2211c72d4d054eeca3ebe7af295358bcc6c824d15083526064cd56",
+      "gpuDispatched": false
+    }
+  ],
+  "passed": false
+}

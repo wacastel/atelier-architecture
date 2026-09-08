@@ -249,7 +249,8 @@ for frame in 0..<6 {
     for y in 8..<(height-8) {for x in 8..<(width-8) {
         let i=y*width+x,d=abs((x+frame)%16-7)
         if d<=1 {
-            require(result.filtered[i]==values[i],"Spatial filtering erased valid dark-joint coverage from the neighboring stone")
+            require(result.filtered[i].x==values[i].x && result.filtered[i].y==values[i].y && result.filtered[i].z==values[i].z,"Spatial filtering erased valid dark-joint coverage from the neighboring stone")
+            require(result.filtered[i].w==result.history[i].w,"Dark-joint bypass changed accepted history confidence")
             if d==1 {mixedJointSamples += 1}
         }
     }}
@@ -320,7 +321,8 @@ for frame in 0..<8 {
     let current = read(raw)
     let result = try render(frame: frame, originX: Float(frame), previousX: Float(max(0, frame - 1)), valid: frame > 0)
     require(result.history.allSatisfy { $0.w == 1 }, "Analytic sky retained temporal history")
-    require(result.filtered == current, "Analytic sky was modified by reconstruction")
+    require(zip(result.filtered,current).allSatisfy { $0.x==$1.x && $0.y==$1.y && $0.z==$1.z }, "Analytic sky was modified by reconstruction")
+    require(zip(result.filtered,result.history).allSatisfy { $0.w==$1.w }, "Analytic sky bypass changed accepted history confidence")
 }
 print("PASS: analytic sky bypasses temporal/spatial reconstruction without altering current coverage")
 
@@ -366,7 +368,8 @@ for frame in 0..<56 {
         require(result.history[index].w == 1, "A mixed-coverage sky pixel retained history")
         if mixedSky.contains(index) {
             testedMixedPixels += 1
-            require(result.filtered[index] == values[index], "Current subpixel spire coverage was erased or smeared")
+            require(result.filtered[index].x==values[index].x && result.filtered[index].y==values[index].y && result.filtered[index].z==values[index].z, "Current subpixel spire coverage was erased or smeared")
+            require(result.filtered[index].w==result.history[index].w, "Subpixel spire bypass changed accepted history confidence")
         } else {
             let error = abs(result.filtered[index].x - skyRadiance.x)
             largestClearSkyError = max(largestClearSkyError, error)
@@ -442,7 +445,8 @@ for frame in 0..<3 {
     write(world,worlds[frame%2]);write(values,raw)
     let result=try render(frame:frame,originX:0,previousX:0,valid:frame>0)
     require(result.history.allSatisfy{$0.w==1},"Emissive coverage retained temporal history")
-    require(result.filtered==values,"Emissive window coverage was smeared")
+    require(zip(result.filtered,values).allSatisfy { $0.x==$1.x && $0.y==$1.y && $0.z==$1.z },"Emissive window coverage was smeared")
+    require(zip(result.filtered,result.history).allSatisfy { $0.w==$1.w },"Emissive bypass changed accepted history confidence")
 }
 print("PASS: emissive subpixel windows retain exact current coverage without spatial/temporal trails")
 for frame in 0..<3 {
@@ -502,7 +506,8 @@ for frame in 0..<6 {
         let index=y*width+x, distanceFromWindow=abs((x+frame)%12-5)
         if distanceFromWindow<=2 {
             require(result.history[index].w==1,"Mixed distant window reused temporal history")
-            require(result.filtered[index]==values[index],"Spatial filtering erased valid mixed window coverage from a non-emitter center")
+            require(result.filtered[index].x==values[index].x && result.filtered[index].y==values[index].y && result.filtered[index].z==values[index].z,"Spatial filtering erased valid mixed window coverage from a non-emitter center")
+            require(result.filtered[index].w==result.history[index].w,"Mixed-window bypass changed accepted history confidence")
             if distanceFromWindow>0 {preservedMixedWindowSamples += 1}
         }
     } }

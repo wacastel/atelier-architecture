@@ -1,4 +1,10 @@
-# Motion reconstruction — version 1.5
+# Motion reconstruction — version 1.7
+
+The North Side expansion exposed excess smoothing when the temporal and spatial stages were combined. Old Town roof seams and beach-house tree shadows passed with either stage alone, but their combination reduced flicker while increasing image error. Spatial strength used only the current frame's sample count even after temporal history had accumulated.
+
+Spatial filtering now carries the accepted temporal count in its alpha channel through all three passes and scales strength using current samples × bounded history count. Confidence stays local to the pixel; it is not averaged from neighbors. Revealed surfaces, reactive lighting and other history rejections restart at one, retaining their original current-frame filter strength. Depth continues to come from the separate normal/depth guide, and presentation reads RGB only. No texture bindings or uniform layouts change. The paired camera traces, references and acceptance thresholds remain unchanged. [Discovery and ablations](validation/v1.7/motion-discovery-notes.json) · [Current measured results](validation/v1.7/motion-summary.json).
+
+At coarse night coverage, the visible-emitter guard now follows each spatial pass's active radius (2, 4 and 8 pixels). The former fixed two-pixel guard could allow later passes to erase legitimate fractional window coverage in the expanded distant skyline. This is a conservative current-pass bound, not a claim of exact reconstruction across the cumulative support of all passes. The dedicated fixture checks the outer rings against a deliberately shortened guard, while verifying unchanged daylight and near-surface behavior.
 
 The lakefront extension adds deterministic road traffic to the shared Chicago world. Its independently updated geometry, moving headlights and local history rejection are described in [the traffic section](#deterministic-road-traffic). The static rendering and noise safeguards below remain in place.
 
@@ -52,7 +58,7 @@ tone mapping and sRGB encoding.
 5. Apply three edge-avoiding à-trous passes with pixel steps 1, 2 and 4. Material,
    albedo, roughness, normal, tangent-plane distance and luminance weights prevent
    filtering through rivets, narrow ironwork and silhouettes. Filter strength
-   falls as the stationary path sample count rises. High-contrast material
+   falls as current samples and accepted temporal history accumulate. High-contrast material
    boundaries preserve both sides’ local result to retain mixed jittered
    coverage; coarse night emitter neighborhoods retain their existing bypass.
 6. Present the reconstructed HDR result with exposure, tone mapping and sRGB

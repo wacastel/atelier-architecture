@@ -1,0 +1,212 @@
+{
+  "passed": true,
+  "scope": "Eleven actually viewed sampled stills from the sixth package: Wells day/night endpoint, Old Town, beach and two city departure contexts by day/night, plus the Old Town hero. No video or GPU performance inference.",
+  "reviewDate": "2026-09-08",
+  "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea",
+  "renderCommandManifestSHA256": "5293ae18a6ef268725cb0fb501263511416d0440a68b52c2f4f9c1d68fbb652d",
+  "resourceSHA256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "ba928858231b9d16fa02e53ea35b0946ef54e5aabf51bb691c65f7c9959a05d6",
+    "Tests/NorthSideGeometry/main.swift": "35db1de81c6360a408358444cb511e27b8619d5a5d13ea9c050bec6226ce0dba",
+    "scripts/validate-north-side-geometry.sh": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526"
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-1-120.png",
+      "sha256": "26e88fb77d06704fb2231b4ebb079e916d364489eeb71d686b2c8cc87ff8fb5e",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 96,
+      "renderJob": "day-route-1-120",
+      "findings": [
+        "Colored ground-floor joinery, transoms, shallow awnings and abstract signs give Wells a readable commercial rhythm.",
+        "Sparse static pedestrians and planters provide scale. Central road and camera sightline remain open; old upper facades remain repetitive.",
+        "Foreground paving has conspicuous simplified stepped edges; this is retained contextual geometry, not a surveyed curb layout."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-1-120.png",
+      "sha256": "8595b15bca831dc5792b206cf1bef23df91ff8ac5a65bb4da9c988bf9831e950",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 96,
+      "renderJob": "night-route-1-120",
+      "findings": [
+        "Warm storefront windows, small light pools and pavement reflections make the added shop layer legible.",
+        "Road, upper roofs and pedestrian silhouettes remain very dark; finite-sample grain remains. No large glare streak or frame obstruction."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/01-the-streets-of-old-town.png",
+      "sha256": "b820ca8d7d3f788d089d6fc0144f6cbc9b7281160ed3a65d56d7b56ee9e98ff9",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "St Michael cross, spire, clocks and brick facade are readable against mapped Old Town rooflines and the continuous downtown skyline.",
+        "Foreground contextual roof partly hides the lowest portal; the main tower and church mass remain unobstructed. Surrounding windows and flat roofs repeat."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/01-the-streets-of-old-town.png",
+      "sha256": "0aa4def68a6441bfacb849e56930e633ca01ae75346bb184cdca24b2c1a62a9a",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Warm facade and clock illumination reveal the church amid occupied windows and dark roofs.",
+        "The upper spire is a dark silhouette; no newly obstructing foreground mass."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/02-a-ship-beside-the-lake.png",
+      "sha256": "293af9514cbedd2525af316f03a98fea7d8de81fa3ac1ff3c1629b8ee50beb8d",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "The beach house shows its irregular ship outline, blue portholes/trim, red funnels, deck furniture and flag.",
+        "Sand, water, groynes and lakeside park meet without a gross terrain gap. Foreground tree crowns cover portions of the lower wall; the overall building remains readable.",
+        "Tree forms and adjacent geometric lawn/path patches remain simplified."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/02-a-ship-beside-the-lake.png",
+      "sha256": "18b60e39a0850e0cc306367cac324363bfd89ab0b37df3c58d7149b8be51477a",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Portholes, selected side washes and broad deck light pools reveal the beach house in its dark lakeside setting.",
+        "Beach, trees and much of the lake remain nearly black. Some fixtures are bright, but they do not wash out the complete structure."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/00-from-millennium-park-to-the-zoo.png",
+      "sha256": "7c0e20f41cb086f84f94b7b771abcaa7c36256a9765f672b499a768a69edfffb",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "Cloud Gate plaza, Pavilion roof/seating, Michigan Avenue facades and park landscaping remain present at the continuous flight departure.",
+        "This frame establishes the departure context only; it does not inspect the full flight."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/00-from-millennium-park-to-the-zoo.png",
+      "sha256": "8dc6aa8fe2d1426112ba51f44f9d91f8510473071cd2c0a250e7510384e723d0",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Cloud Gate plaza and garden paths are illuminated within a dense occupied-window skyline.",
+        "The near Pavilion roof and parts of the park remain dark; plaza highlights and small glossy sampling speckles are visible. No foreground wall obscures the departure."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "d0a514b2b0c2c70aff46e088c5a0c66a14b21a8e71558bac68ddd5bba65a8e1f",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "day-gallery",
+      "findings": [
+        "Zoo roofs, public paths, trees and surrounding apartment blocks connect continuously into the neighborhood grid.",
+        "Context buildings, repeated windows, generic roofs and tree crowns remain visually simplified at this height."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "aa78f5cabf20685e9ec6fddb90a49058e0300c099eac62c8a537e13e579c58d1",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "renderJob": "night-gallery",
+      "findings": [
+        "Selected zoo entries and colored seasonal lights are visible against apartment windows and the dark park.",
+        "Large unlit lawns, roofs and road segments remain dark. No large terrain seam or blocking mass is apparent."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/docs/images/North-Side-Old-Town-Day.png",
+      "sha256": "2a77685fed3bdb5497a969e32ff3f57e417db3bd6b0e30616c9dd00d8c35032c",
+      "actuallyViewed": true,
+      "passed": true,
+      "width": 1920,
+      "height": 1200,
+      "samples": 256,
+      "renderJob": "North-Side-Old-Town-Day",
+      "findings": [
+        "The high-resolution hero keeps the complete cross/spire, two clock faces, louver stages, brick nave and downtown skyline in frame.",
+        "The nearest contextual roof partly masks the church ground entrance; the main architectural study is legible. Surrounding city facades remain procedural."
+      ]
+    }
+  ],
+  "findings": [
+    "All eleven current images were actually viewed; no newly blocking geometry or conspicuous land/water gap was found in this scoped review.",
+    "The Wells ground-floor refinement remains readable by day and selectively illuminated at night.",
+    "Simplified contextual buildings, stepped paving, sparse street activity and dark unlit areas remain visible limitations.",
+    "This report accepts these sampled stills only; corrected Nature movie review is separate."
+  ],
+  "documentationAudit": {
+    "passed": true,
+    "path": "/Users/william/dev/architecture/docs/NORTH-SIDE.md",
+    "sha256": "c98fde26786054e144195b75a57f429d2d927788628cdbcde9c0aeb73641cc2b",
+    "contextTriangles": 9004135,
+    "contextLights": 341,
+    "contextMaterials": 70,
+    "wellsAdditionalTriangles": 28970,
+    "wellsAdditionalLights": 12,
+    "legacyStreetFacingFrontages": 82,
+    "resourceCounts": {
+      "buildings": 31425,
+      "areas": 1360,
+      "paths": 19878,
+      "trees": 3752,
+      "piers": 709,
+      "breakwaters": 78,
+      "landmarks": 3961,
+      "boats": 104,
+      "trafficLanes": 6
+    }
+  },
+  "limits": [
+    "Sampled stills do not visually cover every route position or movie frame.",
+    "Stills cannot establish temporal noise, moving traffic continuity or sustained GPU performance.",
+    "Facades and lighting are authored interpretations; upper windows repeat and vegetation/ancillary buildings are simplified.",
+    "Night roofs, roads and pedestrian silhouettes remain dark; fine sampling grain is visible in glossy and shadowed areas.",
+    "These raw stills have no app interface or video captions; caption/control validation are outside this report."
+  ],
+  "reviewedAtUTC": "2026-09-08T17:42:54.629299+00:00",
+  "sourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "packageInputSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+  "packageInputPath": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+  "previousReviewPath": "/Users/william/dev/architecture/docs/validation/v1.7/wells-before-sixth-package-visual-review.json"
+}

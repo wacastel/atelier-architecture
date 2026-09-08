@@ -1,0 +1,1 @@
+PASS 12150363 checks; 1214333 triangles; 127 lights; exact mapped landmark and route fixtures

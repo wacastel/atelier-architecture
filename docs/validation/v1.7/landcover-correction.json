@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "scope": "Sampled stills only: four actual-viewed 1280x800 correction probes, not a complete animation or all views.",
+  "reviewedAtUTC": "2026-09-08T18:26:25.501993+00:00",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+  "sourceInput": {
+    "path": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+    "sha256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f"
+  },
+  "packageInput": {
+    "path": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+    "sha256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84"
+  },
+  "executable": {
+    "path": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "sha256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98"
+  },
+  "sourceInputCount": 143,
+  "contextSource": {
+    "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+    "sha256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f"
+  },
+  "contextResource": {
+    "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+    "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-75.png",
+      "sha256": "bc8a7fd0e230d68320e4baccd73f987433d42dd279d072c7dbf0898b9354a2a8",
+      "actuallyViewed": true,
+      "passed": true,
+      "scene": "North Side / Zoo to Wrigley flight",
+      "timeSeconds": 75.0,
+      "lighting": "day",
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "findings": [
+        "Previously pale northern park now reads as continuous green lawn on both sides of Lake Shore Drive. White footpaths, gray divided carriageways and vehicles remain distinct. The rocky/seawall edge stays pale and separates lawn from blue lake water. Sparse trees occupy selected belts; open playing areas remain open. No new foreground blockage is visible."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-105.png",
+      "sha256": "48a6152197102d022e80d3d421e262b2bc93d6064194ccdb09619789ad488429",
+      "actuallyViewed": true,
+      "passed": true,
+      "scene": "North Side / Zoo to Wrigley flight",
+      "timeSeconds": 105.0,
+      "lighting": "day",
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "findings": [
+        "Belmont headland and the long curved outer harbor loop now have green interiors bounded by pale promenades. Dark access drives, the yacht-club/service hardstand, slip fingers, water gaps and representative boats remain separately legible. The large missing-grass region seen in the failed movie sample is resolved."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-135.png",
+      "sha256": "8050b503c95d1a4e8dae9bdf7c0f335ae03357bcd41217e3821cf882948bc7d4",
+      "actuallyViewed": true,
+      "passed": true,
+      "scene": "North Side / Zoo to Wrigley flight",
+      "timeSeconds": 135.0,
+      "lighting": "day",
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "findings": [
+        "The north side of Belmont Harbor shows selective tree clusters near the mapped woodland/scrub reserve while adjacent recreation lawns remain open. Harbor fingers sit within water; access roads and promenade paths cut through the lawn without being painted green. Distant city and terrain retain continuous haze."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/night-105.png",
+      "sha256": "059e25fc1b78910b6f6aab29737c30107474d23816faba1559ba10d8ffbc4726",
+      "actuallyViewed": true,
+      "passed": true,
+      "scene": "North Side / Zoo to Wrigley flight",
+      "timeSeconds": 105.0,
+      "lighting": "night",
+      "width": 1280,
+      "height": 800,
+      "samples": 128,
+      "findings": [
+        "City window occupancy, distant shore lights and some road traffic lighting remain visible. The unlit park and harbor foreground are very dark: headland and water outlines are only faintly discernible, so this frame cannot establish fine boat, planting or paving detail. No bright material artifact or new illuminated grass patch is visible."
+      ]
+    }
+  ],
+  "findings": [
+    "The material omission is resolved in all three daytime probes: the northern mapped parent remainder renders as lawn while road, walkway, harbor and water boundaries stay distinct.",
+    "Canopy is localized to mapped wood/forest/scrub belts; the open lawns are not converted to a forest.",
+    "The night probe has no new material artifact, but its largely unlit foreground remains too dark for detailed landscape/boat assessment."
+  ],
+  "limits": [
+    "Only four stills were visually inspected; no temporal-noise or motion-continuity claim is made.",
+    "Representative tree positions, crown shapes and heights are authored samples, not a measured vegetation census.",
+    "Repeated distant building facades, sparse boat occupancy, angular road junctions and some stepped shore/paving edges remain simplified existing context.",
+    "This report accepts the bounded landcover correction; it does not certify photographic equivalence or a bright nighttime harbor showcase.",
+    "These diagnostic stills do not include exported-video captions or attribution overlays."
+  ],
+  "sourceEvidence": {
+    "osmRelationID": 11610689,
+    "encodedSurfaceID": -11610689,
+    "snapshotUTC": "2026-09-08T15:38:06Z",
+    "rawMap": {
+      "path": "/Users/william/dev/architecture/scripts/data/chicago-north-side-osm-2026-09-08.json",
+      "sha256": "0598f62a401eb021574c1c356a9017ac277aee8c2209a9eedf07cf9d4b406049"
+    },
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "license": "ODbL 1.0",
+    "licenseURL": "https://www.openstreetmap.org/copyright",
+    "preservedOriginalTaggedTreeCount": 3752,
+    "authoredCanopyCount": 248,
+    "restoredLawnAreaSquareMetres": 1946967.011,
+    "previousResourcesUnchanged": true,
+    "viewedAerialReference": {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-87.655,41.925,-87.625,41.95&bboxSR=4326&imageSR=3857&size=1100,1100&format=png&f=image",
+      "viewedByProjectTeamOn": "2026-09-08",
+      "acquisitionDate": "unknown",
+      "bundled": false
+    }
+  },
+  "cpuEvidence": [
+    {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/north-side-map-validation.json",
+      "sha256": "72b7796c30f5f38708adbf3567d2f1572fb0e782ddb97da499f33305334630ed"
+    },
+    {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/north-side-geometry-validation.json",
+      "sha256": "4ca3e3cf90c2bb22f9777574ecabff1cece4080eb7577f33698b9d790d65ff69"
+    }
+  ],
+  "priorFailedDiscovery": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/zoo-wrigley-flight-landcover-discovery.json",
+    "sha256": "8e5fdbd3908260674a3b3fa244d6e80c82a31c740f09ba814566ef1ed0b7d6c9"
+  },
+  "priorFailedDiscoveryPreserved": true,
+  "productionFilesEditedDuringReview": false
+}

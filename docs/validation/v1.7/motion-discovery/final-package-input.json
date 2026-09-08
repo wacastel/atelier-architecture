@@ -1,0 +1,30 @@
+{
+  "recordedAtUTC": "2026-09-08T16:42:02.339443+00:00",
+  "version": "1.7.0",
+  "build": 8,
+  "architecture": "arm64",
+  "physicalMemoryBytes": 549755813888,
+  "macOS": "26.6.2",
+  "packageFileSHA256": {
+    "Contents/Info.plist": "77645f7de5620a44dd9aaaeba837abad56158b67a0d12fd396ffe7d6809b9708",
+    "Contents/MacOS/ArchitectureEngine": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ATTRIBUTION.txt": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ChicagoContext.json": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal": "710403f7797f7ce38a45d11116b79ac7384e2d5064b3ad33b36474699254454e",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/ATTRIBUTION.txt": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/LakefrontContext.json": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/ATTRIBUTION.txt": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/MillenniumContext.json": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/MuseumCampus/MuseumCampusContext.json": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/ATTRIBUTION.txt": "a3432321ff587c32561bdb64d8fae4cb66735dd3c1f6455e6c4a80b6e41446c5",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/NorthSideContext.json": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ATTRIBUTION.txt": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ParisContext.json": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+    "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Sampling-LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "Contents/Resources/Atelier.icns": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd",
+    "Contents/_CodeSignature/CodeResources": "ba66a2062c22b5ae029c142a945ee0200d60c7cd0be7e10764b0b5eb1fe1f581"
+  },
+  "allPackagedResourcesMatchSource": true,
+  "strictSignatureVerified": true
+}

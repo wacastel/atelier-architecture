@@ -1,0 +1,9 @@
+{
+  "status": "Visual review failed despite decode/cadence passing",
+  "reason": "Fisher Bridge approach beam reference rotated its8.8m width into an upright wall. Daytour42s exposes it.",
+  "completedMovie": "Chicago-North-Side-Day-1080p.mp4",
+  "unfinishedFlight": "Millennium-Park-to-Lincoln-Park-Zoo-1080p.mp4",
+  "flightState": "Export intentionally stopped; no completed decode or timing claim",
+  "stoppedAtUTC": "2026-09-08T17:19:57.275416+00:00",
+  "scope": "Only these newly generated v1.7 movie files archived. Existing v1.6 and earlier artifacts untouched."
+}

@@ -21,7 +21,7 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / millennium / lakefront / campus (default paris)
+        --location paris           paris / chicago / millennium / lakefront / campus / northside (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
@@ -56,7 +56,8 @@ import CoreText
         case "millennium", "park": location = .millennium
         case "lakefront", "magmile", "grant": location = .lakefront
         case "campus", "museum", "museums": location = .campus
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront or campus.")
+        case "northside", "north", "wrigley", "zoo": location = .northside
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront, campus or northside.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -139,6 +140,21 @@ import CoreText
                 report["museumCampusLandmarksAndParts"] = MuseumCampusContext.database.landmarks.count
                 report["museumCampusAdditionalBoats"] = MuseumCampusContext.database.boats.count
                 report["museumCampusAdditionalTrees"] = MuseumCampusContext.database.trees.count
+                report["northSideMapTimestamp"] = NorthSideContext.database.timestamp
+                report["northSideAdditionalMappedBuildings"] = NorthSideContext.database.buildings.count
+                report["northSideMappedPaths"] = NorthSideContext.database.paths.count
+                report["northSideAdditionalBoats"] = NorthSideContext.database.boats.count
+                report["northSideAdditionalTrees"] = NorthSideContext.database.trees.count
+                report["northSideLandmarksAndParts"] = NorthSideContext.database.landmarks.count
+                for (label,lights) in [("night",scene.lights),("day",scene.lights.filter{$0.parameters.z>0.5})] {
+                    let grid=LightGrid(lights:lights)
+                    report[label+"LightGridEnabled"]=grid.enabled
+                    report[label+"LightGridCells"]=grid.ranges.count
+                    report[label+"LightGridIndices"]=grid.indices.count
+                    report[label+"LightGridMaximumCandidates"]=grid.ranges.map{$0.y}.max() ?? 0
+                }
+                report["vertexBufferBytes"]=renderer.vertexBuffer.length
+                report["deviceMaxBufferLengthBytes"]=device.maxBufferLength
                 report["frameUniformBytes"] = MemoryLayout<FrameUniforms>.stride
                 let fleet = TrafficFleet(lanes: scene.trafficLanes)
                 report["trafficLanes"] = fleet.paths.count
@@ -273,10 +289,11 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
     case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"
+    case .northside: heading = "A T E L I E R    /    C H I C A G O   N O R T H   S I D E"
     }
     text(heading,x:58,y:h-69,size:18,color:gold)
-    text(stop.title,x:58,y:h-115,size:32,color:ivory)
-    text("\(stop.subtitle)  ·  METAL HARDWARE RAY TRACING",x:58,y:h-148,size:13,color:ivory,maximumWidth:514)
+    text(stop.title,x:58,y:h-115,size:32,color:ivory,maximumWidth:514)
+    text(stop.subtitle,x:58,y:h-148,size:13,color:ivory,maximumWidth:514)
     context.setFillColor(CGColor(red:0.035,green:0.055,blue:0.07,alpha:0.65)); context.fill(CGRect(x:30,y:28,width:1860,height:34))
     text("Architectural reconstruction  ·  Map data © OpenStreetMap contributors",x:45,y:39,size:14,color:ivory)
     context.setFillColor(gold); context.fill(CGRect(x:30,y:24,width:1860*progress,height:3))

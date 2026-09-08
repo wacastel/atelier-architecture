@@ -1,0 +1,206 @@
+[
+  {
+    "variant": "spatial-only",
+    "case": "old-town-brick",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/spatial-only/old-town-brick",
+      "--motion-case",
+      "old-town-brick",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 11.139069080352783,
+    "shaderSHA256": "3bb61c086f49229fd772b0be7ab5d3d94a01d280ee653fdb7a890260d02f832b",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 9.206269264684408,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.485023439585348,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.022704636800580536,
+        "rawTemporalResidualRMSE": 0.03314142041336861,
+        "reconstructedRMSE": 0.020614386801150464,
+        "reconstructedTemporalResidualRMSE": 0.027207571501916605,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 17.904630632724494,
+        "view": "old-town-brick"
+      }
+    ]
+  },
+  {
+    "variant": "spatial-only",
+    "case": "north-avenue-beach",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/spatial-only/north-avenue-beach",
+      "--motion-case",
+      "north-avenue-beach",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 11.191440105438232,
+    "shaderSHA256": "3bb61c086f49229fd772b0be7ab5d3d94a01d280ee653fdb7a890260d02f832b",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 17.453916560067707,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 9.319661457993789,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.026236696262306472,
+        "rawTemporalResidualRMSE": 0.03837332456350309,
+        "reconstructedRMSE": 0.0216573651885651,
+        "reconstructedTemporalResidualRMSE": 0.02671070517919696,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 30.392517502636352,
+        "view": "north-avenue-beach"
+      }
+    ]
+  },
+  {
+    "variant": "temporal-only",
+    "case": "old-town-brick",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/temporal-only/old-town-brick",
+      "--motion-case",
+      "old-town-brick",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 10.74663519859314,
+    "shaderSHA256": "3902674626ddb0f9294b8aaf591291ca21e9ff59155252727bd3a52504c2d9fd",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 2.2617145090205404,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.329023437705473,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.02270472590488751,
+        "rawTemporalResidualRMSE": 0.03314149697770121,
+        "reconstructedRMSE": 0.022191209824863323,
+        "reconstructedTemporalResidualRMSE": 0.02684786626695032,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 18.990182353517316,
+        "view": "old-town-brick"
+      }
+    ]
+  },
+  {
+    "variant": "temporal-only",
+    "case": "north-avenue-beach",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/temporal-only/north-avenue-beach",
+      "--motion-case",
+      "north-avenue-beach",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 11.239545106887817,
+    "shaderSHA256": "3902674626ddb0f9294b8aaf591291ca21e9ff59155252727bd3a52504c2d9fd",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 1.8830191157009457,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 9.157070312539872,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.026236710668067268,
+        "rawTemporalResidualRMSE": 0.03837333252141518,
+        "reconstructedRMSE": 0.025742668390856413,
+        "reconstructedTemporalResidualRMSE": 0.022968578884203117,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 40.144424851855284,
+        "view": "north-avenue-beach"
+      }
+    ]
+  }
+]

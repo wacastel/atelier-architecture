@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "reviewedAtUTC": "2026-09-08T18:37:36.655330+00:00",
+  "scope": "Actual visual review of four corrected offscreen stills at day75/105/135seconds and night105seconds; this is not a re-review of the exported movie.",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-75.png",
+      "sha256": "bc8a7fd0e230d68320e4baccd73f987433d42dd279d072c7dbf0898b9354a2a8",
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": [
+        "Continuous green park cover now fills the previously broad pale terrain; distinct paths, shore edges and water remain visible.",
+        "This fixes the prominent landcover omission in the corresponding failed movie sample."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-105.png",
+      "sha256": "48a6152197102d022e80d3d421e262b2bc93d6064194ccdb09619789ad488429",
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": [
+        "Continuous green park cover now fills the previously broad pale terrain; distinct paths, shore edges and water remain visible.",
+        "This fixes the prominent landcover omission in the corresponding failed movie sample."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/day-135.png",
+      "sha256": "8050b503c95d1a4e8dae9bdf7c0f335ae03357bcd41217e3821cf882948bc7d4",
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": [
+        "Continuous green park cover now fills the previously broad pale terrain; distinct paths, shore edges and water remain visible.",
+        "This fixes the prominent landcover omission in the corresponding failed movie sample."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/night-105.png",
+      "sha256": "059e25fc1b78910b6f6aab29737c30107474d23816faba1559ba10d8ffbc4726",
+      "actuallyViewed": true,
+      "passed": true,
+      "findings": [
+        "The shoreline/park remain dark under nighttime illumination, with city windows and road lights visible.",
+        "No bright false paving field or obvious new silhouette/geometry corruption is apparent. Fine landcover cannot be judged fully in this dark still."
+      ]
+    }
+  ],
+  "renderCommands": {
+    "path": "/Users/william/dev/architecture/output/v8-review/landcover-correction/commands.json",
+    "sha256": "1387102fce17020f248b4a6c71a7aab90510402361bd707a64907de4c39d5827"
+  },
+  "originalFailedMovieDiscovery": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/zoo-wrigley-flight-landcover-discovery.json",
+    "sha256": "8e5fdbd3908260674a3b3fa244d6e80c82a31c740f09ba814566ef1ed0b7d6c9",
+    "preserved": true
+  },
+  "conclusion": "The broad pale park-landcover omission is corrected in the three daytime proof views. Wrigley still/motion comparisons also remain accepted in their separate records.",
+  "limits": [
+    "Regenerated Zoo-to-Wrigley video must receive a new actual sampled visual review before movie acceptance.",
+    "This confirms the visible landcover correction at four frames, not every geographic polygon or landscape species.",
+    "Night105is very dark and does not support a claim of fine-detail landscape readability. No GPU work or source changes were performed."
+  ]
+}

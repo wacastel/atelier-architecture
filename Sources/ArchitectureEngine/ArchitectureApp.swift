@@ -29,7 +29,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1440, height: 960),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                               backing: .buffered, defer: false)
-        window.title = "ATELIER / Museum Campus"
+        window.title = "ATELIER / Chicago North Side"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = false
@@ -105,8 +105,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "1.6 · Paris & Chicago",
-            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from the Loop to Museum Campus.\nReference-informed architecture and mapped surroundings.")
+            .applicationVersion: "1.7 · Paris & Chicago",
+            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from McCormick Place to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
@@ -212,6 +212,8 @@ private struct ArchitectureWorkspace: View {
                 Menu {
                     Button("Willis → Park → Art Institute") { engine.startChicagoFlyby() }
                     Button("Art Institute → Field Museum") { engine.startMuseumCampusFlyby() }
+                    Button("Millennium Park → Lincoln Park Zoo") { engine.startNorthSideFlyby() }
+                    Button("Lincoln Park Zoo → Wrigley Field") { engine.startNorthSideFlyby(toWrigley: true) }
                 } label: {
                     Label("Chicago connecting flights", systemImage: "airplane")
                         .font(.system(size: 11, weight: .medium))

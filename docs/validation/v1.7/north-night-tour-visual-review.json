@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "visualReviewPassed": true,
+  "scope": "sampled-only: all ten listed PNGs extracted from the final seventh-package 96-second night montage were actually viewed; no every-frame visual review or video playback is claimed",
+  "reviewedAtUTC": "2026-09-08T19:07:02.818213+00:00",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputPath": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+  "videoPath": "/Users/william/dev/architecture/output/Chicago-North-Side-Night-1080p.mp4",
+  "videoSHA256": "cce0b07c90a35a7162d5e42b86e97484c67f4296b304dd948d6c2b349d856429",
+  "mediaValidationPath": "/Users/william/dev/architecture/output/v8-review/north-night-tour-media.json",
+  "mediaValidationSHA256AtReview": "ec756781f1e4d26643ceb8160bd50e65f1c86b478a31b2968b3a968f9c751db0",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/0.png",
+      "sha256": "dfb428ee81d4353884394b0eda305abd076e0ccc46f10907cb8f3999925e027a",
+      "sampleTimeSeconds": 0.0,
+      "actuallyViewed": true,
+      "observation": "Millennium Park is visible below the camera: Cloud Gate sits within the brightly lit plaza, pavilion seating and overhead trellis appear at lower left, and the surrounding lit-window facades frame the opening. Some ground sampling grain and dark park patches remain."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/6.png",
+      "sha256": "75b90723b2ee21aa9ea78e58730befe1fa523e453743997a131de5bda8ec6a1f",
+      "sampleTimeSeconds": 6.0,
+      "actuallyViewed": true,
+      "observation": "The North Avenue shoreline and illuminated ship-shaped beach house are identifiable from the aerial. Sparse roadway lights and skyline windows provide orientation. The lake, beach and much of the park are very dark, limiting visible terrain detail."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/18.png",
+      "sha256": "2d82a39fd15056854e1b3471ff4df0d5586834809f992af8a22b7a58d1c35d38",
+      "sampleTimeSeconds": 18.0,
+      "actuallyViewed": true,
+      "observation": "St. Michael’s clock face, red masonry tower, narrow spire and cross are framed against the city. The tower wash is readable; most surrounding roofs and street surfaces remain dark. No foreground geometry blocks the clock."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/30.png",
+      "sha256": "a67a21fe56e00d26d645238cbeb0e97d91c6d826a2086353252089abdb873f99",
+      "sampleTimeSeconds": 30.0,
+      "actuallyViewed": true,
+      "observation": "North Avenue Beach House fills the foreground with red stacks, blue roof/rails, circular windows, deck furniture and broad pools of practical light. The skyline and lake sit behind it. Water and distant-window sampling noise remain visible, while the deck is readable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/42.png",
+      "sha256": "6e72265811b9933d8e8fc7dc1fd31df1fcc7d02adfc91484ee11e4da51f7b312",
+      "sampleTimeSeconds": 42.0,
+      "actuallyViewed": true,
+      "observation": "The corrected Fisher approach reads as a low diagonal silhouette, with illuminated Café Brauer beyond it. The former tall wall is absent. Foreground planting, bridge and pond paths remain very dark; this frame supports silhouette/sightline confirmation rather than detailed night deck inspection."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/54.png",
+      "sha256": "3879eb905c39a76f452d937955691d26cdb9d0d20f9b8608b7548d4259e0d5fa",
+      "sampleTimeSeconds": 54.0,
+      "actuallyViewed": true,
+      "observation": "Distinct red, magenta, blue and green seasonal lights illuminate tree structures, an arch and the public path beside historic brick architecture. Reflected color is visible on paving, and the entrance remains readable. Fine ground speckles and simplified geometric foliage/ornament remain visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/66.png",
+      "sha256": "f9ab9a2a22b03cbf575ac9ca6547c014ac5b85e111750bc3d4fe5bc50640d5a7",
+      "sampleTimeSeconds": 66.0,
+      "actuallyViewed": true,
+      "observation": "The Conservatory’s intersecting glasshouse roofs, fine framing, palms and interior planting beds are readable from above under practical lighting. Reflections and remaining glass/ground grain are visible. Plant forms are simplified; surrounding park and lake are dark."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/78.png",
+      "sha256": "129f4c8b549474ec281c03f9d02046dd0082f13b9bd2544df9e6a0cf60083995",
+      "sampleTimeSeconds": 78.0,
+      "actuallyViewed": true,
+      "observation": "The northern shoreline, access-road curves, sparse street lights and lit apartment blocks are discernible. Harbor water, park landcover and small dock/boat detail are mostly dark; the frame cannot establish detailed nighttime harbor or landcover fidelity."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/90.png",
+      "sha256": "9e81564d5a834580ba4199abe7e70990596505acda328c2ae8e28b9cc30c0e2d",
+      "sampleTimeSeconds": 90.0,
+      "actuallyViewed": true,
+      "observation": "Wrigley’s lit field, seating bowl, floodlight structures and one labeled video board are recognizable from above. Near roof/screen structures partly crop the lower and right edges, while the principal field remains visible. Seats and city windows are simplified and retain some grain."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-night-tour/95.9.png",
+      "sha256": "4d96c40d716c67bbe57142b253f777a9d39eb8d96e24a6d8a1a579319af9a5e7",
+      "sampleTimeSeconds": 95.9,
+      "actuallyViewed": true,
+      "observation": "The final field-level view shows bright turf, left-field seating, the ivy-colored wall, a readable Wrigley Field video board and the distant manual scoreboard. A second video board is partly cropped at the right edge. The composition is unobstructed at field level, with stylized grass and simplified seating/detail."
+    }
+  ],
+  "findings": {
+    "captionsAndAttribution": "All eight chapter titles and their subtitles fit in the upper-left card in these ten samples. The lower attribution is readable throughout, and the progress line remains within the bottom overlay.",
+    "seasonalZooLighting": "The 54-second sample preserves distinct colored lamps, architectural entry lighting and reflected paving color. It is an authored seasonal interpretation, not evidence of a current exact ZooLights display.",
+    "stadium": "The 90- and 95.9-second samples present the illuminated field and recognizable seating/scoreboard elements from elevated and field-level viewpoints.",
+    "materialBlockersObserved": []
+  },
+  "separateDecodeEvidence": {
+    "fullDecodePassed": true,
+    "decodedFrames": 2304,
+    "expectedFrames": 2304,
+    "fps": 24,
+    "maximumTimestampErrorSeconds": 3.333333342681044e-07,
+    "note": "These cadence and decode facts come from the separate automated media validator, not visual inspection of the ten stills."
+  },
+  "limits": [
+    "Only the listed sampled images were visually inspected. This does not prove absence of flicker, ghosting, transitions between samples or every-frame route clearance.",
+    "Lake, harbor, pond paths and large park regions remain very dark outside authored practical lights. No claim of detailed boat or landcover visibility is supported by the 78-second image.",
+    "Fine sampling grain remains on some water, ground, glazing and distant facades. Surface reconstruction and H.264 compression soften some small detail.",
+    "Vegetation, furniture, seating, distant building facades and seasonal ornaments remain procedural interpretations rather than surveyed replicas."
+  ]
+}

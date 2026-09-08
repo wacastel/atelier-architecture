@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "scope": "Four final-package silent H.264 videos; full decoding and timestamp checks plus sampled visual review, not every-frame visual review.",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "totalSeconds": 672.0,
+  "totalDecodedFrames": 16128,
+  "videos": [
+    {
+      "name": "north-day-tour",
+      "videoPath": "/Users/william/dev/architecture/output/Chicago-North-Side-Day-1080p.mp4",
+      "videoSHA256": "2d613f36c464bbf5fa95721f5d4e987477a2d0a28da1f1f991ff516d9c857656",
+      "seconds": 96.0,
+      "decodedFrames": 2304,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "fullDecodePassed": true,
+      "uniformTimingPassed": true,
+      "sampledVisualReviewPassed": true,
+      "mediaReport": "north-day-tour-media.json",
+      "visualReport": "north-day-tour-visual-review.json"
+    },
+    {
+      "name": "millennium-zoo-flight",
+      "videoPath": "/Users/william/dev/architecture/output/Millennium-Park-to-Lincoln-Park-Zoo-1080p.mp4",
+      "videoSHA256": "ac2b26ea1e8b57aebcc210bc7d505a3c5bb9cab6291dd044fc9dbc5c5f29d49a",
+      "seconds": 240.0,
+      "decodedFrames": 5760,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "fullDecodePassed": true,
+      "uniformTimingPassed": true,
+      "sampledVisualReviewPassed": true,
+      "mediaReport": "millennium-zoo-flight-media.json",
+      "visualReport": "millennium-zoo-flight-visual-review.json"
+    },
+    {
+      "name": "zoo-wrigley-flight",
+      "videoPath": "/Users/william/dev/architecture/output/Lincoln-Park-Zoo-to-Wrigley-Field-1080p.mp4",
+      "videoSHA256": "e6004847eefc78282cf066395d9ef1eee211dd9b347f2431f757eff3f848053f",
+      "seconds": 240.0,
+      "decodedFrames": 5760,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "fullDecodePassed": true,
+      "uniformTimingPassed": true,
+      "sampledVisualReviewPassed": true,
+      "mediaReport": "zoo-wrigley-flight-media.json",
+      "visualReport": "zoo-wrigley-flight-visual-review.json"
+    },
+    {
+      "name": "north-night-tour",
+      "videoPath": "/Users/william/dev/architecture/output/Chicago-North-Side-Night-1080p.mp4",
+      "videoSHA256": "cce0b07c90a35a7162d5e42b86e97484c67f4296b304dd948d6c2b349d856429",
+      "seconds": 96.0,
+      "decodedFrames": 2304,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "fullDecodePassed": true,
+      "uniformTimingPassed": true,
+      "sampledVisualReviewPassed": true,
+      "mediaReport": "north-night-tour-media.json",
+      "visualReport": "north-night-tour-visual-review.json"
+    }
+  ]
+}

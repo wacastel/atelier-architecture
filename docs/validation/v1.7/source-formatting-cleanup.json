@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "scope": "A git diff whitespace check found one trailing space in the zoo map preparation script after final package validation. Removing it leaves the parsed Python AST identical. The script is not a packaged runtime input; no app, resource, geometry, shader or test changed. Original measured source manifests remain immutable; release-source-input.json records the final repository state.",
+  "file": "scripts/prepare-lincoln-park-zoo-map.py",
+  "beforeSHA256": "159f2b501c3e70cdce8fa5a2b95fe2dce0e5f9cbcd98dc0666ca1180ef044d26",
+  "afterSHA256": "b42a9a9e70d7d026d1525b32693b59570f1c0a639b9e0821c120c25a3e1cda1b",
+  "pythonASTIdentical": true,
+  "validatedInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "releaseInputSHA256": "98ea3b9fc8bc14d17c2dd3ee3f5f6cb2e715261fb7071cfa1432e587d0ec5215"
+}

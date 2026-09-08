@@ -1,0 +1,32 @@
+{
+  "boats": 104,
+  "buildings": 31425,
+  "lights": 329,
+  "materials": 49,
+  "maximumNormalError": 2.384185791015625e-07,
+  "maximumY": 357.1199951171875,
+  "minimumY": -7.699999809265137,
+  "passed": true,
+  "scope": "CPU-only North Side context mesh; does not include authored zoo, Wrigley, St Michael or beach-house geometry",
+  "seconds": 1.838897943496704,
+  "trafficLanes": 6,
+  "triangles": 8975165,
+  "resourceSHA256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "4930f494aaca4075ddddd7d017ee5f902340c72090ba8e66345a074a7175abce",
+    "Tests/NorthSideGeometry/main.swift": "00ef15fa3f65f72ef5ef9fb43383ed1f81a2c375b89963ebb1ac9471be052b8a",
+    "scripts/validate-north-side-geometry.sh": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526"
+  },
+  "checks": [
+    "finite positions and unit normals",
+    "noncollapsed triangles",
+    "valid material indices",
+    "deterministic random state restored",
+    "exact previous six lane point sequences",
+    "authored-site exclusions",
+    "Art Institute parent and Modern Wing duplicate shells excluded",
+    "Wrigley interpreted marquee approach",
+    "Wells Street detail follows mapped axis",
+    "South Pond and Lily Pool shallow elevations"
+  ]
+}

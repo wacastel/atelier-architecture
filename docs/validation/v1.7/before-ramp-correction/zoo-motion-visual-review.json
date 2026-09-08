@@ -1,0 +1,180 @@
+{
+  "passed": true,
+  "scope": "sampled-only: actual visual inspection of nine saved final-frame PNGs from three moving test sequences; not a video or every-frame visual review",
+  "reviewedAtUTC": "2026-09-08T17:11:07.810770+00:00",
+  "sourceInput": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/nature-boardwalk-raw.png",
+      "sha256": "f8a34a4cf08baaae66b0352c543ef418bf08b216ff8ab0be201fcc760a39c499",
+      "actuallyViewed": true,
+      "case": "nature-boardwalk",
+      "presentation": "raw",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/nature-boardwalk-reconstructed.png",
+      "sha256": "d4ea3660230b416ae3381773753408132a58b2da0c3d46c9edec6bb0cbb4ee13",
+      "actuallyViewed": true,
+      "case": "nature-boardwalk",
+      "presentation": "reconstructed",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/nature-boardwalk-reference.png",
+      "sha256": "1ed2937952bf2a1442b5305140c27b9a4f593f857b052d80af4d275a527e2a81",
+      "actuallyViewed": true,
+      "case": "nature-boardwalk",
+      "presentation": "reference",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/zoolights-night-raw.png",
+      "sha256": "06a12d9e7d730523651ebe60647fb187756d9ace375f5e1da68cbdbb3a7d9c3e",
+      "actuallyViewed": true,
+      "case": "zoolights-night",
+      "presentation": "raw",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/zoolights-night-reconstructed.png",
+      "sha256": "df10069dd7098b072c09b22f9253ee99c602abd92b536e1e138b3fc1454c3c7f",
+      "actuallyViewed": true,
+      "case": "zoolights-night",
+      "presentation": "reconstructed",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/zoolights-night-reference.png",
+      "sha256": "29356dc8196d8197ce167648a872d53b0c044b768b36dfb8a07a88402db04eab",
+      "actuallyViewed": true,
+      "case": "zoolights-night",
+      "presentation": "reference",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/conservatory-glass-raw.png",
+      "sha256": "2f7571e111f7b5fbfb3440e1c2e47d7d644e7c1b6f50a599702d50230701d490",
+      "actuallyViewed": true,
+      "case": "conservatory-glass",
+      "presentation": "raw",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/conservatory-glass-reconstructed.png",
+      "sha256": "d23593e5725a5aa33d52ec7ed14f6ef04e7e97f7f88771aa433df5ca57a3e4db",
+      "actuallyViewed": true,
+      "case": "conservatory-glass",
+      "presentation": "reconstructed",
+      "frameIndex": 31
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/conservatory-glass-reference.png",
+      "sha256": "9f454e937232fe7f3b8eadc3c619cea95e3beca7d85f713a3616085a05f4fdee",
+      "actuallyViewed": true,
+      "case": "conservatory-glass",
+      "presentation": "reference",
+      "frameIndex": 31
+    }
+  ],
+  "observations": {
+    "nature-boardwalk": {
+      "findings": [
+        "Reconstruction visibly reduces the dense speckling on timber arches, paving and planted surroundings.",
+        "The open pavilion axis, crossed arch layers, pale caps and skyline framing remain readable in all three images.",
+        "The reconstructed deck shadows and small timber surface detail are softer than the independent 128-SPP reference. The reference remains sharper; this is a quality limitation rather than evidence of exact detail recovery."
+      ],
+      "remainingLimits": [
+        "Segmented arch geometry and simplified foliage are shared scene-model features, not denoiser defects.",
+        "Some distant facade noise remains in the reconstructed sample."
+      ]
+    },
+    "zoolights-night": {
+      "findings": [
+        "The same white/warm windows and yellow, blue, purple and magenta seasonal lamps remain visible in raw, reconstructed and reference images.",
+        "Reconstruction reduces grain on the building, bench, ground and lit tree canopy while retaining the arrangement of individual string lights and arches.",
+        "Small bright samples remain on the lawn/path and in the independent reference. This saved frame does not establish that moving night illumination is free of flicker."
+      ],
+      "remainingLimits": [
+        "Roof/brick/ground detail is smoother in reconstructed output than in the reference.",
+        "Most unlit foliage remains dark as part of the authored selective night lighting."
+      ]
+    },
+    "conservatory-glass": {
+      "findings": [
+        "The curved roof framing, transparent glass, visible palms and corner masonry remain aligned and recognizable across all three images.",
+        "Reconstruction reduces lawn and stone-base noise; the fine glasshouse framing remains present.",
+        "The reconstructed pale-stone joints, brick cap and shadow boundary are noticeably softer than in the 128-SPP reference. Fine stochastic noise remains within portions of the glazing."
+      ],
+      "remainingLimits": [
+        "This is an exterior glazing sample with visible planting; it does not certify a navigable surveyed Conservatory interior.",
+        "Reflection/transmission clarity is assessed only at this saved camera pose."
+      ]
+    }
+  },
+  "materialBlockersObserved": [],
+  "measuredEvidence": {
+    "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/metrics.json",
+    "sha256": "a129fe0fe63ba23e396c6fd94dac349aeff9cdb7d04f61ecfc69e38b283af441",
+    "suitePassed": true,
+    "measurement": "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+    "pairing": "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+    "cases": [
+      {
+        "view": "nature-boardwalk",
+        "frames": 32,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "referenceSamples": 128,
+        "rawRMSE": 0.05052659131950591,
+        "reconstructedRMSE": 0.03524892621679621,
+        "rawTemporalResidualRMSE": 0.07298357550695866,
+        "reconstructedTemporalResidualRMSE": 0.04204741263350571,
+        "imageErrorReductionPercent": 30.236880628065876,
+        "temporalNoiseReductionPercent": 42.387842276243816
+      },
+      {
+        "view": "zoolights-night",
+        "frames": 32,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "referenceSamples": 128,
+        "rawRMSE": 0.02490835513918992,
+        "reconstructedRMSE": 0.023906155287654923,
+        "rawTemporalResidualRMSE": 0.03516877784945126,
+        "reconstructedTemporalResidualRMSE": 0.02893267600818096,
+        "imageErrorReductionPercent": 4.0235489093303105,
+        "temporalNoiseReductionPercent": 17.73192650584985
+      },
+      {
+        "view": "conservatory-glass",
+        "frames": 32,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "referenceSamples": 128,
+        "rawRMSE": 0.033876755334808065,
+        "reconstructedRMSE": 0.031370603217191664,
+        "rawTemporalResidualRMSE": 0.048624434256854386,
+        "reconstructedTemporalResidualRMSE": 0.0434770812886634,
+        "imageErrorReductionPercent": 7.397851691662305,
+        "temporalNoiseReductionPercent": 10.585939038386627
+      }
+    ]
+  },
+  "limits": [
+    "Only frame index 31 of each 32-frame sequence is visually inspected here. The temporal-reduction numbers come from the separate numerical sequence test, not from watching these stills.",
+    "Test images are 640x400 at 8 current samples per frame; the independent reference uses 128 samples and still has finite sampling error. They are not final exported movie frames.",
+    "Visible smoothing of narrow shadow/stone/timber detail remains. Passing numerical error thresholds does not imply all fine detail is identical to the reference.",
+    "No FPS claim, complete-route review, temporal ghosting guarantee or current real-world seasonal-display claim is made."
+  ]
+}

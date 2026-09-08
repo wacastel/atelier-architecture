@@ -1,0 +1,50 @@
+PASS: one-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%
+PASS: one-pixel-shadow: full reconstruction retains useful diffuse noise reduction
+PASS: one-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control
+PASS: one-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result
+PASS: one-pixel-shadow: spatial passes retain each center's exact temporal confidence
+PASS: one-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB
+DETAIL one-pixel-shadow: edge raw 0.149998 / temporal 0.166177 / spatial 0.133808 / combined 0.167765 / confidence-lost 0.186743
+PASS: two-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%
+PASS: two-pixel-shadow: full reconstruction retains useful diffuse noise reduction
+PASS: two-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control
+PASS: two-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result
+PASS: two-pixel-shadow: spatial passes retain each center's exact temporal confidence
+PASS: two-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB
+DETAIL two-pixel-shadow: edge raw 0.150073 / temporal 0.197686 / spatial 0.162082 / combined 0.200257 / confidence-lost 0.231009
+PASS: four-pixel-shadow: valid history reduces flat-region RMS noise by more than 55%
+PASS: four-pixel-shadow: full reconstruction retains useful diffuse noise reduction
+PASS: four-pixel-shadow: preserving confidence improves edge RMSE over current-SPP-only negative control
+PASS: four-pixel-shadow: extra spatial passes add at most 8% edge-band RMS error to temporal-only result
+PASS: four-pixel-shadow: spatial passes retain each center's exact temporal confidence
+PASS: four-pixel-shadow: invalid history restores one-frame confidence and original spatial-only RGB
+DETAIL four-pixel-shadow: edge raw 0.150166 / temporal 0.174564 / spatial 0.142005 / combined 0.177528 / confidence-lost 0.214771
+PASS: sun-shadow-step: valid history reduces flat-region RMS noise by more than 55%
+PASS: sun-shadow-step: full reconstruction retains useful diffuse noise reduction
+PASS: sun-shadow-step: preserving confidence improves edge RMSE over current-SPP-only negative control
+PASS: sun-shadow-step: extra spatial passes add at most 8% edge-band RMS error to temporal-only result
+PASS: sun-shadow-step: spatial passes retain each center's exact temporal confidence
+PASS: sun-shadow-step: invalid history restores one-frame confidence and original spatial-only RGB
+DETAIL sun-shadow-step: edge raw 0.149770 / temporal 0.152308 / spatial 0.104454 / combined 0.153242 / confidence-lost 0.164326
+PASS: Lost-confidence GPU negative control exposes excessive edge error in at least two patterns
+PASS: Integer-pixel pan preserves noiseless same-material shadow history
+PASS: Step 1: all 25 coarse-night pixels within radius 2 preserve exact incoming RGBA
+PASS: Step 1: outer square ring including corners is actually exercised
+PASS: Step 1: ordinary noise beyond protected support still reduces
+PASS: Step 1 remains exactly equivalent to original radius-2 guard
+PASS: Step 1: coarse-day output is exactly unchanged by expanded coarse-night guard
+PASS: Step 1: near-night output is exactly unchanged by expanded coarse-night guard
+PASS: Step 2: all 81 coarse-night pixels within radius 4 preserve exact incoming RGBA
+PASS: Step 2: outer square ring including corners is actually exercised
+PASS: Step 2: ordinary noise beyond protected support still reduces
+PASS: Step 2: original radius-2 GPU control changes valid dark-center coverage outside its guard
+PASS: Step 2: coarse-day output is exactly unchanged by expanded coarse-night guard
+PASS: Step 2: near-night output is exactly unchanged by expanded coarse-night guard
+PASS: Step 4: all 289 coarse-night pixels within radius 8 preserve exact incoming RGBA
+PASS: Step 4: outer square ring including corners is actually exercised
+PASS: Step 4: ordinary noise beyond protected support still reduces
+PASS: Step 4: original radius-2 GPU control changes valid dark-center coverage outside its guard
+PASS: Step 4: coarse-day output is exactly unchanged by expanded coarse-night guard
+PASS: Step 4: near-night output is exactly unchanged by expanded coarse-night guard
+PASS: Expanded-support fixture exposes the original guard's coverage loss
+PASS: moving same-material temporal-detail fixture (0 failed checks)

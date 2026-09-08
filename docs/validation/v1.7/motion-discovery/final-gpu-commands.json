@@ -1,0 +1,57 @@
+[
+  {
+    "name": "self-test-chicago",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "exitCode": 0,
+    "seconds": 9.888837814331055,
+    "executableSHA256": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882"
+  },
+  {
+    "name": "self-test-paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "exitCode": 0,
+    "seconds": 1.7609739303588867,
+    "executableSHA256": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882"
+  },
+  {
+    "name": "motion-northside",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-northside",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 1,
+    "seconds": 58.17995500564575,
+    "executableSHA256": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882"
+  }
+]

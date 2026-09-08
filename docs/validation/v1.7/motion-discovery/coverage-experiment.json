@@ -1,0 +1,49 @@
+{
+  "arguments": [
+    "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--location",
+    "chicago",
+    "--motion-test",
+    "/Users/william/dev/architecture/output/v8-review/motion-discovery/coverage",
+    "--motion-case",
+    "willis-night",
+    "--width",
+    "640",
+    "--height",
+    "400",
+    "--frames",
+    "32",
+    "--samples",
+    "8",
+    "--reference-samples",
+    "128"
+  ],
+  "exitCode": 0,
+  "seconds": 15.468239068984985,
+  "shaderSHA256": "2241f679ead17f3f8cd8a4eb6c1f5b0d3e049ca1d3659c5a406bddb65bf9a375",
+  "scenes": [
+    {
+      "clearSkyRMSE": null,
+      "darkCityRMSE": null,
+      "darkCitySamples": 0,
+      "frames": 32,
+      "imageErrorReductionPercent": 0.25336561004434266,
+      "maximumUnsupportedDarkBrightness": null,
+      "maximumUnsupportedTemporalBrightness": null,
+      "meanReconstructedGPUms": 16.95602864401735,
+      "rawDarkCityRMSE": null,
+      "rawRMSE": 0.02758469665439278,
+      "rawTemporalResidualRMSE": 0.03958348604931773,
+      "reconstructedRMSE": 0.027514806519435494,
+      "reconstructedTemporalResidualRMSE": 0.039364872721672335,
+      "referenceSamples": 128,
+      "resolution": [
+        640,
+        400
+      ],
+      "samplesPerFrame": 8,
+      "temporalNoiseReductionPercent": 0.5522841706590009,
+      "view": "willis-night"
+    }
+  ]
+}

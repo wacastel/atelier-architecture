@@ -1,0 +1,60 @@
+Validating camera geometry: Eiffel Tower
+View 1: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 9: 560 steps, blocked=0, unsupported=0, near-surface=0
+Validating camera geometry: Willis Tower
+View 1: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 560 steps, blocked=0, unsupported=0, near-surface=0
+Validating camera geometry: Millennium Park
+View 1: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+Obstruction: view=8, seconds=221.0, position=SIMD3<Float>(1146.0, 2.0, -195.40665)
+Near surface: view=8, seconds=221.10000000000002, position=SIMD3<Float>(1146.0, 2.0, -195.03946)
+View 8: 2400 steps, blocked=2, unsupported=0, near-surface=1
+Validating camera geometry: Chicago Lakefront
+View 1: 900 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 560 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 1200 steps, blocked=0, unsupported=0, near-surface=0
+Validating camera geometry: Museum Campus
+View 1: 1800 steps, blocked=0, unsupported=0, near-surface=0
+View 2: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 1500 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 1800 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 900 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 900 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 1800 steps, blocked=0, unsupported=0, near-surface=0
+Validating camera geometry: Chicago North Side
+Obstruction: view=1, seconds=17.3, position=SIMD3<Float>(1329.1425, 151.14, -835.6304)
+Near surface: view=1, seconds=17.3, position=SIMD3<Float>(1329.1425, 151.14, -835.6304)
+View 1: 2400 steps, blocked=3, unsupported=0, near-surface=1
+View 2: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 3: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 4: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 5: 1500 steps, blocked=0, unsupported=0, near-surface=0
+View 6: 1200 steps, blocked=0, unsupported=0, near-surface=0
+View 7: 2400 steps, blocked=0, unsupported=0, near-surface=0
+View 8: 1500 steps, blocked=0, unsupported=0, near-surface=0
+Playback: 57515 checks; failures: ["View 8 has 2 obstructed camera steps", "View 8 has 1 camera positions too close to geometry", "View 1 has 3 obstructed camera steps", "View 1 has 1 camera positions too close to geometry"]

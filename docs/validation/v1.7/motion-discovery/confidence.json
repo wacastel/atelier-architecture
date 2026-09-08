@@ -1,0 +1,102 @@
+[
+  {
+    "case": "old-town-brick",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/confidence/old-town-brick",
+      "--motion-case",
+      "old-town-brick",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 10.65291690826416,
+    "shaderSHA256": "922f414621846a475eae2a2804a60f24187c4c4b452acd735dbe7d40252cf9fb",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 1.880154113318211,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 7.403835936202086,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.0227050323516304,
+        "rawTemporalResidualRMSE": 0.03314150619196712,
+        "reconstructedRMSE": 0.02227814275194099,
+        "reconstructedTemporalResidualRMSE": 0.026819996575806995,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 19.074297889612325,
+        "view": "old-town-brick"
+      }
+    ]
+  },
+  {
+    "case": "north-avenue-beach",
+    "arguments": [
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v8-review/motion-discovery/confidence/north-avenue-beach",
+      "--motion-case",
+      "north-avenue-beach",
+      "--width",
+      "640",
+      "--height",
+      "400",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "exitCode": 0,
+    "seconds": 11.255664110183716,
+    "shaderSHA256": "922f414621846a475eae2a2804a60f24187c4c4b452acd735dbe7d40252cf9fb",
+    "scenes": [
+      {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 1.8110510615850672,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 9.408480469573988,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.026236702725813296,
+        "rawTemporalResidualRMSE": 0.03837331626313543,
+        "reconstructedRMSE": 0.025761542642572535,
+        "reconstructedTemporalResidualRMSE": 0.022894342079265394,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 40.3378589375149,
+        "view": "north-avenue-beach"
+      }
+    ]
+  }
+]

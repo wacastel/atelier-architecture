@@ -192,6 +192,24 @@ campusFlight.advance(30)
 expect(campusFlight.time == domeTime && domeTime == 40, "Paused planetarium retains its absolute show time")
 expect(ArchitectureLocation.campus.world == ArchitectureLocation.chicago.world, "Museum Campus shares the resident Chicago world")
 
+// Both North Side connections retain one shared world and a complete transport clock.
+for view in [NorthSideWalkthrough.zooFlybyView, NorthSideWalkthrough.wrigleyFlybyView] {
+    var northFlight = WalkthroughPlayback(location: .northside)
+    northFlight.select(view)
+    expect(northFlight.duration == 240, "North Side connection has a four-minute timeline")
+    northFlight.seek(progress: 0.75)
+    expect(northFlight.time == 180, "North Side flight seek uses its full duration")
+    northFlight.transport(.reverse); northFlight.advance(5)
+    expect(northFlight.time == 170, "North Side flight rewinds on its own timeline")
+    northFlight.toggle(); let frozen = northFlight.pose; northFlight.advance(30)
+    expect(northFlight.time == 170 && samePose(northFlight.pose, frozen), "North Side flight pause is exact")
+    northFlight.transport(.forward); northFlight.advance(100)
+    expect(northFlight.time == 240 && northFlight.state == .paused, "North Side flight ends at its destination")
+}
+expect(ArchitectureLocation.northside.world == ArchitectureLocation.millennium.world, "North Side connections share the existing Chicago world")
+expect(samePose(NorthSideWalkthrough.pose(view:0,seconds:240),NorthSideScene.stops[3].pose), "Millennium–Zoo flight ends at the exact Nature Boardwalk bookmark")
+expect(samePose(NorthSideWalkthrough.pose(view:6,seconds:240),NorthSideScene.stops[7].pose), "Zoo–Wrigley flight ends at the exact Wrigley bookmark")
+
 // The day/night shortcut must not restart or resume a selected animation.
 for location in ArchitectureLocation.allCases {
     var lightingClock = WalkthroughPlayback(location: location)

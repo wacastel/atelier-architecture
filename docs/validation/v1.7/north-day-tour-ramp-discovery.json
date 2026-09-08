@@ -1,0 +1,218 @@
+{
+  "passed": false,
+  "visualReviewPassed": false,
+  "scope": "sampled-only",
+  "status": "FAILED visual discovery evidence before Fisher Bridge ramp correction",
+  "reviewedAtUTC": "2026-09-08T17:23:05.677350+00:00",
+  "videoPath": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/Chicago-North-Side-Day-1080p.mp4",
+  "videoSHA256": "90e5d2bb6f7dfd8abb14b098336c271740b26f99ac40d34132967368b5a0b728",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/final-input.json",
+  "sourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046",
+  "packageInputPath": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/final-package-input.json",
+  "packageInputSHA256": "d7306d2b7a8503704a1809ff8819b02273c8f64d3633efa40d41a955aaadd5d7",
+  "executableSHA256": "faa7337faf1d727c2aa9e8f722f1cb8542cc0292bd1311ef7495a50ab7d9d6e4",
+  "mediaValidationPath": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/north-day-tour-media.json",
+  "fullDecodePassed": true,
+  "decodedFrames": 2304,
+  "expectedFrames": 2304,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/0.png",
+      "sha256": "03f79daa137c585cfb9456c2b51aaeb95fc1da2053d0101df5b99887e6b8f983",
+      "actuallyViewed": true,
+      "seconds": 0.0,
+      "chapterIndex": 0,
+      "finding": "Millennium Park start includes plaza, Cloud Gate and Pavilion in continuous downtown context. The first frame is noticeably grainier than later samples; captions and attribution remain readable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/6.png",
+      "sha256": "c8557047a9db392518784708f208238ec927234a801759c8d5f0ec0be610edf7",
+      "actuallyViewed": true,
+      "seconds": 6.0,
+      "chapterIndex": 0,
+      "finding": "North Avenue beach house, sand, breakwaters, Lake Shore Drive and park form a continuous shoreline view. No gross water seam or obstructing foreground mass."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/18.png",
+      "sha256": "5c096848f17583d50fa2624c0a1201545b02e7f1223281311dfd5fa243149acb",
+      "actuallyViewed": true,
+      "seconds": 18.0,
+      "chapterIndex": 1,
+      "finding": "St Michael roof, clock and spire are readable within the Old Town street grid. This angle shows the church from behind/above rather than its main entrance."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/30.png",
+      "sha256": "7a1e70da56181314d91bd9c22a25a8162b136c2027577be0daf72c4419947508",
+      "actuallyViewed": true,
+      "seconds": 30.0,
+      "chapterIndex": 2,
+      "finding": "North Avenue Beach House broadside clearly shows white walls, blue portholes, railings, red funnels and roof seating against the skyline."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/42.png",
+      "sha256": "7d190abe914659dc9d6a3f9643ba99e989ce05621234b5ef65ea98cb7c59d616",
+      "actuallyViewed": true,
+      "seconds": 42.0,
+      "chapterIndex": 3,
+      "finding": "FAIL: a large upright pale stone slab from the incorrectly oriented Fisher Bridge approach ramp blocks the Cafe Brauer sightline and dominates the Nature Boardwalk midpoint."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/54.png",
+      "sha256": "adcf7074969356d241953c5e1eaa654ee2f44e64c9234bdc36beb40d46fa80b0",
+      "actuallyViewed": true,
+      "seconds": 54.0,
+      "chapterIndex": 4,
+      "finding": "Zoo brick buildings, public path and seasonal light structures are legible. No comparable frame obstruction."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/66.png",
+      "sha256": "878b214461f2a70c32b075789169e5c55cf5e9bda1b9c7ade50d8a0200c38d87",
+      "actuallyViewed": true,
+      "seconds": 66.0,
+      "chapterIndex": 5,
+      "finding": "Conservatory barrel vaults, glass framing and interior planting are visible; Lily Pool and lake context remain readable. Fine glass framing is partly undersampled."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/78.png",
+      "sha256": "f357087dc5cbc58be9d3b40098bf2288b5964cfa77b4b2e0466e2dbc3e29d2d4",
+      "actuallyViewed": true,
+      "seconds": 78.0,
+      "chapterIndex": 6,
+      "finding": "Belmont Harbor docks and representative boats connect to Lakeview, the road and lake. No large water triangle or obvious shoreline discontinuity; distant landscaping remains simplified."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/90.png",
+      "sha256": "52289fbdf3b5f0e758c35a43898a60709bdc6d45d70c8bd2333538048f5842c1",
+      "actuallyViewed": true,
+      "seconds": 90.0,
+      "chapterIndex": 7,
+      "finding": "Wrigley Field bowl, field and stands are recognizable above the roof. A scoreboard rear occupies part of the foreground without hiding the field."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour/95.9.png",
+      "sha256": "98af203d9d1975524bcd825de5c7ee25a5c000186edb5fc0bda9a5a1d91daffc",
+      "actuallyViewed": true,
+      "seconds": 95.9,
+      "chapterIndex": 7,
+      "finding": "The endpoint looks across turf toward ivy, scoreboard, screens and stands from inside the open ballpark; no obstructing wall. The right screen is cropped by the chosen framing."
+    }
+  ],
+  "neighboringFrames": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/40.png",
+      "sha256": "e3be9243577501746a5f57d7b898eaef674492215d1ccd115375f0ed6a3c4f09",
+      "actuallyViewed": true,
+      "seconds": 40.0,
+      "natureRouteSeconds": 40.0,
+      "finding": "The erroneous upright approach slab enters the principal bridge/Cafe sightline."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/41.png",
+      "sha256": "64a49cfd6920a05f912f3463ec78880013b89e86b2bf293276cc08aec2e9dd56",
+      "actuallyViewed": true,
+      "seconds": 41.0,
+      "natureRouteSeconds": 50.0,
+      "finding": "The pale slab is prominent across the approach and partially hides the intended Cafe view."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/43.png",
+      "sha256": "2e772fbc84fd414ff35ebdb98a0a679ad5e1ab941955ee1c79d6106cdd67374d",
+      "actuallyViewed": true,
+      "seconds": 43.0,
+      "natureRouteSeconds": 70.0,
+      "finding": "The upright slab remains one of the largest foreground objects and materially obstructs the view."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/44.png",
+      "sha256": "df9f4f4c7ff7e339aac7ca453b835c677cf218cc898640dec87c73a1cd8916de",
+      "actuallyViewed": true,
+      "seconds": 44.0,
+      "natureRouteSeconds": 80.0,
+      "finding": "Cafe detail becomes partly visible near/below the bridge, but the large pale vertical ramp still dominates the right side."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/45.png",
+      "sha256": "05a87e624b22c3c99bfb266b2418a3ef490060f7b22e6a9f8838c30f877cd4cd",
+      "actuallyViewed": true,
+      "seconds": 45.0,
+      "natureRouteSeconds": 90.0,
+      "finding": "The camera begins moving out of the worst alignment; the erroneously upright slab remains prominent."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/before-ramp-correction/media-review/north-day-tour-neighbors/46.png",
+      "sha256": "45a588de0300181f1d523fe90d23dc92b54ec3686229fb989d84c461d4f0c698",
+      "actuallyViewed": true,
+      "seconds": 46.0,
+      "natureRouteSeconds": 100.0,
+      "finding": "The pond and boardwalk composition opens again as the camera moves around the approach; the faulty slab remains visible more distantly."
+    }
+  ],
+  "allEightChaptersSampled": true,
+  "captionsAndAttributionReadableInAllTenPrimarySamples": true,
+  "blockers": [
+    {
+      "chapterIndex": 3,
+      "title": "Incorrectly oriented Fisher Bridge ramp obscures Nature Boardwalk chapter",
+      "sampledProminentIntervalSeconds": [
+        40,
+        45
+      ],
+      "sampledIntervalDurationSeconds": 5,
+      "chapterDurationSeconds": 12,
+      "strongestInspectedObstructionSeconds": [
+        42,
+        43,
+        44
+      ],
+      "broaderPondCompositionReturnsBySampleSeconds": 46,
+      "severity": "material visual defect; not an ordinary brief walking transition",
+      "diagnosis": {
+        "sourceFile": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+        "sourceSHA256FromRecordingManifest": "15d930319f8591caa57f855c427a8ae57c78fc8dc2ac0ccf6a3e56e591f5f9db",
+        "sourceLinesAtDiagnosis": [
+          165,
+          176
+        ],
+        "faultyCall": "beam(q-V(0,0.22,0),end-V(0,0.22,0),8.8,0.44,p.stone,normal:n)",
+        "beamBasisFile": "Sources/ArchitectureEngine/EiffelScene.swift",
+        "beamBasisSourceSHA256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+        "beamBasisLines": [
+          87,
+          101
+        ],
+        "cause": "The horizontal cross-bridge vector n was used as the beam reference normal, rotating its 8.8 m width nearly vertical. The intended broad ramp deck becomes a thin upright stone wall.",
+        "calculatedErroneousWidthVerticalSpanMetres": 8.594471307004792,
+        "intendedThicknessVerticalSpanMetres": 0.42972356535023953,
+        "routeFile": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+        "routeSourceSHA256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+        "routeLines": [
+          43,
+          48
+        ],
+        "movie42sRoute60sCamera": [
+          281.68,
+          1.92,
+          -4372.71
+        ],
+        "movie42sRoute60sTarget": [
+          167.304,
+          8,
+          -4479.127
+        ],
+        "routeRelation": "The 12-second Nature chapter compresses its 120-second route by 10; keys from i >= 4 aim at Cafe Brauer through this bridge approach.",
+        "boundedCorrection": "Use the proper upward reference/basis for the ramp deck and add a component-level orientation regression. Production correction assigned to the Zoo owner by root."
+      }
+    }
+  ],
+  "findings": [
+    "No additional material obstruction or shoreline discontinuity found in the other seven sampled chapters.",
+    "All primary sample captions, subtitles and OpenStreetMap attribution fit their panels and are readable.",
+    "Initial history-reset frame has visible residual grain; this review does not imply noise-free output."
+  ],
+  "limits": [
+    "Actually viewed ten main samples plus the six documented neighboring frames; the entire movie was not watched. Full decoding is a separate integrity check.",
+    "The obstruction interval is bounded by sampled frames, not frame-by-frame visibility measurement.",
+    "This failed report refers only to the archived first recording; it does not validate a corrected build or replacement movie.",
+    "Mapped massing, distant landscapes, representative business treatments and vegetation are interpretations rather than surveyed or photogrammetric replicas."
+  ]
+}

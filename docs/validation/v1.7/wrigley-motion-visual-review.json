@@ -1,0 +1,158 @@
+{
+  "passed": true,
+  "reviewedAtUTC": "2026-09-08T18:37:36.655330+00:00",
+  "scope": "Actual six-image visual comparison of the regenerated seventh-package raw, reconstructed and independent-reference final frames for Wrigley daylight and nighttime motion cases. All six PNGs were re-viewed after the shared-world park landcover correction. This is sampled frame inspection, not sequence or movie playback.",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "sourceSnapshot": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/final-input.json",
+    "sha256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f"
+  },
+  "packageSnapshot": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/final-package-input.json",
+    "sha256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84"
+  },
+  "denoisingShaderSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+  "wrigleyGeometrySHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-field-raw.png",
+      "sha256": "4cdcdeb26681c57a6d3a86335d6047b353e7227dd464e36db5eae79ce4acd825",
+      "actuallyViewed": true,
+      "case": "wrigley-field",
+      "variant": "raw",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-field-reconstructed.png",
+      "sha256": "003018120bcb36e2d2ab0ddbfba188ff75164224e0255ce22ded865dc03e5e14",
+      "actuallyViewed": true,
+      "case": "wrigley-field",
+      "variant": "reconstructed",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-field-reference.png",
+      "sha256": "fc081649b8a439b9cbde29aef9adace98d3804bb0d71c5268442e16786b109a0",
+      "actuallyViewed": true,
+      "case": "wrigley-field",
+      "variant": "reference",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-night-raw.png",
+      "sha256": "613fea9a881801fdb2fe6260eeb6db3ff3d0f4e61a70b250a746150f10ecd1a9",
+      "actuallyViewed": true,
+      "case": "wrigley-night",
+      "variant": "raw",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-night-reconstructed.png",
+      "sha256": "38c76adb3dc0c7b1d168bffe1e5d48b22f5f9c1a40f795835b14158d178af4f4",
+      "actuallyViewed": true,
+      "case": "wrigley-night",
+      "variant": "reconstructed",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/wrigley-night-reference.png",
+      "sha256": "52498366e94c4e35fc4ef65793c11463646822dc96106312b3ba36c75054f3f6",
+      "actuallyViewed": true,
+      "case": "wrigley-night",
+      "variant": "reference",
+      "role": "Matched comparison evidence; final frame of the32-frame motion case"
+    }
+  ],
+  "perCase": [
+    {
+      "case": "wrigley-field",
+      "passed": true,
+      "findings": [
+        "Field, seating bowl, roof supports and surrounding neighborhood remain aligned with the reference. No displaced geometry or conspicuous stale image trail appears in this sampled frame.",
+        "Reconstruction visibly reduces noise on grass and broad roof/facade surfaces. The irregular field boundary and main seating tiers remain clear.",
+        "Residual low-sample grain and some softening/blotchy shading remain in the dense shaded seat rows and roof-edge shadows. This is not a claim of reference-level fine-detail reconstruction."
+      ],
+      "metric": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 18.57536402007911,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 9.112080732847971,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.0388436852529502,
+        "rawTemporalResidualRMSE": 0.056072346008057494,
+        "reconstructedRMSE": 0.03162832931840091,
+        "reconstructedTemporalResidualRMSE": 0.03778296291020499,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 32.617474387863766,
+        "view": "wrigley-field"
+      }
+    },
+    {
+      "case": "wrigley-night",
+      "passed": true,
+      "findings": [
+        "The lit playing field, white lighting frames and blue screen retain their reference placement and color. Field lighting remains separated from the dark roof and surrounding city.",
+        "Reconstruction reduces bright stochastic speckles across the grass and dark surfaces without a conspicuous new bright halo or smear in this sampled frame.",
+        "A few low-sample points and dark-seat noise remain. The near scoreboard back naturally occupies part of the lower edge in this aerial route; it does not block the intended field view."
+      ],
+      "metric": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 6.498165924964205,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 17.62233072622621,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.01818740039838444,
+        "rawTemporalResidualRMSE": 0.02580840288705179,
+        "reconstructedRMSE": 0.017005552943059818,
+        "reconstructedTemporalResidualRMSE": 0.023735246857665992,
+        "referenceSamples": 128,
+        "resolution": [
+          640,
+          400
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 8.032872233352773,
+        "view": "wrigley-night"
+      }
+    }
+  ],
+  "metricsEvidence": {
+    "path": "/Users/william/dev/architecture/output/v8-review/motion-northside/metrics.json",
+    "sha256": "579f522dba9fcc1e18e50383bf0d243721f8f0cf41923958533f5ee94b46b9be"
+  },
+  "fullRegressionEvidence": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/motion-summary.json",
+    "sha256": "8590fcdd0b54f9af355b26084e9d23c8ed792a30f76c45d0586ae8b2335965a0"
+  },
+  "materialDefects": [],
+  "limits": [
+    "The visual review covers one final sampled frame per lighting mode at640x400; still comparisons cannot establish temporal behavior throughout a route.",
+    "The quantitative tests use32frames,8currentSPP and independent128SPP references, measured after warmup; image and temporal errors strictly improve for both cases.",
+    "Dense shaded rows remain noisy/soft at8SPP. The scene is an authored architectural reconstruction, not a surveyed seat inventory or exact game lighting reproduction.",
+    "Full movie encoding, captions, pacing and playback require the separate final-media checks. No GPU work was dispatched for this review."
+  ],
+  "historicalBeforeRampReview": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/before-ramp-correction/wrigley-motion-visual-review.json",
+    "sha256": "68e6c67920e4495178eda05f66475ffbaafce7badae011f22bc756321af63a47",
+    "preserved": true
+  },
+  "historicalBeforeLandcoverReview": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/before-landcover-correction/wrigley-motion-visual-review.json",
+    "sha256": "2c78ede918641a8fcbb382370eb18106f1332fe5a9c86ab928611b517ce586fc",
+    "preserved": true
+  }
+}

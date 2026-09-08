@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "scope": "CPU-only source/topology/placement checks; no renderer or visual claims",
+  "resourceSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+  "timestamp": "2026-09-08T15:38:06Z",
+  "counts": {
+    "buildings": 31425,
+    "areas": 1361,
+    "paths": 19878,
+    "trees": 3752,
+    "landcoverTrees": 248,
+    "piers": 709,
+    "breakwaters": 78,
+    "landmarks": 3961,
+    "boats": 104,
+    "trafficLanes": 6
+  },
+  "surfaceTriangles": 77901,
+  "diverseyPowerboats": 32,
+  "landcoverRestoration": {
+    "sourceParentID": -11610689,
+    "lawnSquareMetres": 1946967.232524502,
+    "taggedTreeCount": 3752,
+    "authoredCanopyCount": 248,
+    "plantingSourceAreaIDs": [
+      -19825132,
+      -19825127,
+      -11969258,
+      -11961162,
+      -11288290,
+      211196059,
+      1159544658,
+      1159544659,
+      1159544660,
+      1159544662,
+      1159544665,
+      1159544666,
+      1159544667,
+      1159544668,
+      1159730465,
+      1159730468
+    ],
+    "positiveLawnProbes": [
+      [
+        0,
+        -6300
+      ],
+      [
+        150,
+        -6700
+      ],
+      [
+        -200,
+        -7700
+      ],
+      [
+        -400,
+        -8200
+      ]
+    ],
+    "negativeSurfaceProbes": [
+      {
+        "sourceID": -12791944,
+        "point": [
+          404.133,
+          -6182.918
+        ]
+      },
+      {
+        "sourceID": 1295069087,
+        "point": [
+          4.794,
+          -5843.504
+        ]
+      },
+      {
+        "sourceID": 1296126328,
+        "point": [
+          45.777,
+          -6706.958
+        ]
+      },
+      {
+        "sourceID": 129582310,
+        "point": [
+          191.54,
+          -6294.628
+        ]
+      },
+      {
+        "sourceID": 23921848,
+        "point": [
+          220.745,
+          -6151.582
+        ]
+      },
+      {
+        "sourceID": 23989865,
+        "point": [
+          -362.045,
+          -7395.355
+        ]
+      }
+    ],
+    "preservedLayersSHA256": "aa6e3aa09330ee40d69569fc3dd994196e573e9e5af10e718d0922ba70e6fdc7",
+    "preservedAreasSHA256": "528d6b1f06c6ed9e1a8845b2ea107c4ddad36153c8ac4e0b2ffa03926861ed34"
+  },
+  "checks": [
+    "ODbL metadata and raw hashes",
+    "previous resources unchanged",
+    "constrained triangulation coverage and nonoverlap",
+    "old southern terrain/water unchanged",
+    "new land/water/beach disjointness",
+    "shallow ponds not covered by grass",
+    "ordered building outlines and roof area",
+    "no duplicate old building IDs",
+    "authored landmark/boardwalk exclusions",
+    "six exact old lane sample sequences with remote north extensions",
+    "harbor hull/dock/boat clearance",
+    "Diversey powerboats only",
+    "all pre-landcover derivative layers and 1360 earlier surfaces unchanged",
+    "restored northern Lincoln Park remains inside raw parent and outside mapped hard surfaces/roads/water/beaches",
+    "four formerly missing lawn probes and six mapped hard/beach negatives",
+    "authored sparse canopy source polygons, crown clearances and separation from tagged tree nodes"
+  ]
+}

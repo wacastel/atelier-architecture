@@ -5,8 +5,8 @@ import SwiftUI
 import simd
 
 @MainActor final class EngineController: ObservableObject {
-    @Published var status = "Preparing Museum Campus…"
-    @Published private(set) var location: ArchitectureLocation = .campus
+    @Published var status = "Preparing Chicago North Side…"
+    @Published private(set) var location: ArchitectureLocation = .northside
     @Published var isFullscreen = false
     @Published var isReady = false
     @Published var errorMessage: String?
@@ -44,7 +44,7 @@ import simd
     private var frameTimes: [Double] = []
     private var dirty = true
     private var historyDirty = true
-    private var playback = WalkthroughPlayback(location: .campus)
+    private var playback = WalkthroughPlayback(location: .northside)
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
@@ -92,6 +92,13 @@ import simd
         guard isReady, location.world == "chicago" else { return }
         let selectedLighting = lighting
         selectLocation(.campus); selectStop(MuseumCampusWalkthrough.flybyView)
+        setLighting(selectedLighting); toggleTour()
+    }
+    func startNorthSideFlyby(toWrigley: Bool = false) {
+        guard isReady, location.world == "chicago" else { return }
+        let selectedLighting = lighting
+        selectLocation(.northside)
+        selectStop(toWrigley ? NorthSideWalkthrough.wrigleyFlybyView : NorthSideWalkthrough.zooFlybyView)
         setLighting(selectedLighting); toggleTour()
     }
     private func loadLocation(_ selected: ArchitectureLocation, device: MTLDevice) {

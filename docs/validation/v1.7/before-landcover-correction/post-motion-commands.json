@@ -1,0 +1,83 @@
+[
+  {
+    "name": "denoiser",
+    "arguments": [
+      "xcrun",
+      "swift",
+      "scripts/validate-denoiser.swift"
+    ],
+    "seconds": 4.448622703552246,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "All source/test inputs identical except LincolnParkZoo.swift and Tests/LincolnParkZoo/main.swift, neither used by these isolated shader fixtures.",
+    "priorSourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+  },
+  {
+    "name": "temporal-detail",
+    "arguments": [
+      "xcrun",
+      "swift",
+      "scripts/validate-temporal-detail.swift",
+      "--report",
+      "/Users/william/dev/architecture/output/v8-review/temporal-detail.json"
+    ],
+    "seconds": 8.448101997375488,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "All source/test inputs identical except LincolnParkZoo.swift and Tests/LincolnParkZoo/main.swift, neither used by these isolated shader fixtures.",
+    "priorSourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+  },
+  {
+    "name": "paired-motion",
+    "arguments": [
+      "scripts/validate-paired-motion.sh"
+    ],
+    "seconds": 7.919801235198975,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "All source/test inputs identical except LincolnParkZoo.swift and Tests/LincolnParkZoo/main.swift, neither used by these isolated shader fixtures.",
+    "priorSourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+  },
+  {
+    "name": "adler",
+    "arguments": [
+      "scripts/validate-adler.sh",
+      "--gpu"
+    ],
+    "seconds": 12.38055968284607,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "All source/test inputs identical except LincolnParkZoo.swift and Tests/LincolnParkZoo/main.swift, neither used by these isolated shader fixtures.",
+    "priorSourceInputSHA256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+  },
+  {
+    "name": "standalone",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/standalone-check.py"
+    ],
+    "seconds": 12.897566795349121,
+    "exitCode": 0,
+    "carriedForward": false
+  },
+  {
+    "name": "heroes",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/release-heroes.py"
+    ],
+    "seconds": 24.033334016799927,
+    "exitCode": 0,
+    "carriedForward": false
+  },
+  {
+    "name": "gallery",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/third-visuals.py"
+    ],
+    "seconds": 73.10215711593628,
+    "exitCode": 0,
+    "carriedForward": false
+  }
+]

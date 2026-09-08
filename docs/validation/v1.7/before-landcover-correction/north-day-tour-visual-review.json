@@ -1,0 +1,199 @@
+{
+  "passed": true,
+  "visualReviewPassed": true,
+  "scope": "sampled-only",
+  "reviewedAtUTC": "2026-09-08T17:49:16.400845+00:00",
+  "videoPath": "/Users/william/dev/architecture/output/Chicago-North-Side-Day-1080p.mp4",
+  "videoSHA256": "aae2fd5540f4cabe3cbb5bc5eb831aee64fe3584248de431b9c5836756338dca",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+  "packageInputPath": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+  "packageInputSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+  "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea",
+  "mediaValidationPath": "/Users/william/dev/architecture/output/v8-review/north-day-tour-media.json",
+  "fullDecodePassed": true,
+  "expectedFrames": 2304,
+  "decodedFrames": 2304,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/0.png",
+      "sha256": "60f4ed0c40aadc75ea2414f66b177fc2e00d4563c32685dab6647b95f748f378",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 0.0,
+      "chapterIndex": 0,
+      "finding": "Millennium departure keeps the plaza, Cloud Gate, Pavilion and Loop facades in frame. This first history-reset frame is visibly grainier than later samples; no structural occlusion."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/6.png",
+      "sha256": "484dc18e1e731d65c0d195e90cfc5cf2d64bb51c9db63ff8b0483d6c88e53c1c",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 6.0,
+      "chapterIndex": 0,
+      "finding": "Beach house, sand, groynes, road and lakefront neighborhood connect into a smooth hazy horizon. No large water/terrain gap; broad park surfaces remain simplified."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/18.png",
+      "sha256": "d8acca70bc407795a222ab1c402b783d549f6d838aa79659a96fb2963571883d",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 18.0,
+      "chapterIndex": 1,
+      "finding": "St Michael roof, clock and spire are visible within the surrounding street grid from the rear/roof axis. No blocking structure; contextual facades repeat."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/30.png",
+      "sha256": "52919da09d6c9918602fd265049535b7bd4972c0ea6d66e845259a3fdfcd6c26",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 30.0,
+      "chapterIndex": 2,
+      "finding": "The Beach House broadside shows blue portholes/trim, white walls, red funnels, railings, furniture and flag with the downtown skyline behind it. No foreground obstruction."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/42.png",
+      "sha256": "049368ae3299adf4dd646ffc602aa01e32edcd092a270a73c19616b397d180bb",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 42.0,
+      "chapterIndex": 3,
+      "finding": "The previously upright Fisher approach is now a thin sloping ramp. Cafe massing is visible behind the bridge and tree canopy; its lower facade is partly overlapped by the real deck/rail in this walking view. The erroneous large stone wall is absent."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/54.png",
+      "sha256": "c827c627981a36ace8311453e58b8fdedd63ae9cab4b931e77545325a437993b",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 54.0,
+      "chapterIndex": 4,
+      "finding": "Historic zoo masonry, public paths and seasonal light structures remain legible. A pole/string and tree crown occupy part of the foreground without dominating the whole view."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/66.png",
+      "sha256": "d73b440ceb7de0258ea7f4d0f145211330b3e8e527b7cdff8693e16e2dc9c156",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 66.0,
+      "chapterIndex": 5,
+      "finding": "Conservatory glass-house volumes, fine roof framing and planted beds are visible with Lily Pool/park/lake context. Thin framing has residual sampling softness."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/78.png",
+      "sha256": "08d51598e53a6916cae12800daa3b9aa2bddfa3c98773f165d74d94d7d4412d4",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 78.0,
+      "chapterIndex": 6,
+      "finding": "Belmont Harbor, piers and sparse representative boats connect to Lakeview and the shoreline. No large lake wedge, terrain seam or obstructing mass; shore landscaping remains coarse at this distance."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/90.png",
+      "sha256": "3e38d796f793f22a6ef0fd04588e78711efc9c05f2bc9504129dd7b29aa00aa2",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 90.0,
+      "chapterIndex": 7,
+      "finding": "Wrigley bowl, turf and seats are broadly visible above the roof; the rear of one display occupies the lower foreground. No full-field obstruction."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour/95.9.png",
+      "sha256": "003dc71a6c796fd564633e587e2bada57a2ca33df8e825e732d76f5e0a5c06e0",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 95.9,
+      "chapterIndex": 7,
+      "finding": "The endpoint looks across open turf toward ivy, scoreboard, screens and stands. The right screen is cropped by framing; fine ivy/seat detail remains partly undersampled."
+    }
+  ],
+  "neighboringFrames": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/40.png",
+      "sha256": "675f141774db637a11314bcbb55377c8705fbde81dde50f80f99c534b2d2ac0f",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 40.0,
+      "routeSeconds": 40.0,
+      "finding": "Both approaches read as shallow sloping decks within the bridge and landscape. The previously upright slab is absent; Cafe roof and upper wall remain visible behind the bridge."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/41.png",
+      "sha256": "4e55281e769ecc23ee282926856c07d5317483c746badac1e41f2e9928e27228",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 41.0,
+      "routeSeconds": 50.0,
+      "finding": "The ramp remains narrow in vertical section as the camera advances; the middle foreground lamp is slim and does not hide the scene."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/43.png",
+      "sha256": "fc21774f2392dcd1371dcc5f572828736ed3e604132b9f369b147684d523d8d9",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 43.0,
+      "routeSeconds": 70.0,
+      "finding": "Close bridge approach shows a thin deck slope with open space below it. Cafe remains partly visible behind deck/rail/tree geometry, without the earlier wall."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/44.png",
+      "sha256": "f135cfbd87a8ee8ec74af92b75cec51c419df6a568e8908d8ea197cb0e6e5dae",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 44.0,
+      "routeSeconds": 80.0,
+      "finding": "Boardwalk and pond enter the foreground. The broad ramp slopes away to the right; no tall slab blocks the Cafe."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/45.png",
+      "sha256": "8a2cc8b41c3836b435d4097c56ab091faa9ccf856466e9780a3fb694c318cd3e",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 45.0,
+      "routeSeconds": 90.0,
+      "finding": "Pond, bridge and boardwalk are readable together; open space under the bridge remains visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/north-day-tour-final-neighbors/46.png",
+      "sha256": "5a6ec43170166663543a3ae83d23667cc6cfa1af466513c9e365a12bfeb16983",
+      "actuallyViewed": true,
+      "passed": true,
+      "seconds": 46.0,
+      "routeSeconds": 100.0,
+      "finding": "A wider view opens down the boardwalk with reflective pond water on the left. Correctly shallow bridge approaches remain in the background."
+    }
+  ],
+  "allEightChaptersSampled": true,
+  "captionsAndAttributionReadable": true,
+  "blockers": [],
+  "rampCorrection": {
+    "passed": true,
+    "inspectedMovieSeconds": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "finding": "The tall wall discovered in the first recording is absent. Fisher Bridge approaches now have broad horizontal width and a thin sloping vertical section.",
+    "sourcePath": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+    "sourceSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+    "priorFailedReviewPath": "/Users/william/dev/architecture/docs/validation/v1.7/north-day-tour-ramp-discovery.json",
+    "priorFailedReviewSHA256": "48f5d8a6071e98dbd9e44feb86e47b666af70f9986c9a6005dc918f2f5c981a5",
+    "remainingOcclusion": "The actual bridge deck/rail and trees partly overlap the Cafe at some angles; this is a limited walking-view overlap, not the former dominant erroneous wall."
+  },
+  "findings": [
+    "All ten primary movie samples and all six documented neighboring Nature frames were actually viewed from the corrected recording.",
+    "No additional material framing obstruction or large shoreline discontinuity was found in these samples.",
+    "Chapter titles, subtitles, heading and OpenStreetMap attribution remain legible within their panels.",
+    "Visible residual grain is strongest at the initial history-reset frame; fine reflected, glass, ivy and seating detail may remain soft."
+  ],
+  "limits": [
+    "The entire movie was not watched. Full decoding and presentation-timestamp validation are separate automated checks from the media report.",
+    "These sixteen sampled frames do not establish frame-by-frame continuity, universal noise elimination or sustained interactive performance.",
+    "The montaged recording compresses full routes into twelve-second chapters; it does not demonstrate their ordinary full-length pacing.",
+    "Context roofs, repeated facades, distant landscaping and representative tree/boat/street populations remain authored approximations.",
+    "Wells endpoint and broader beach/context stills were reviewed separately in wells-final-visual-review.json; the 18-second Old Town midpoint alone does not show its whole street route."
+  ]
+}

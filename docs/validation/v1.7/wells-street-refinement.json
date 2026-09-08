@@ -1,0 +1,30 @@
+{
+  "scope": "Pre-refinement sampled stills and post-refinement CPU geometry only; new rendering review pending",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-routes/route-1-107.png",
+      "sha256": "9d8c78b652c5ec86c7e69b4eea9758d88e725c656429cd05e6d7f7edc29bf41a",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/second-routes/route-1-120.png",
+      "sha256": "deff8e1e56cd64adf43444a6ad2e4691be45d43678185164007ba487798719aa",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Earlier legacy facades show pale generic ground-floor windows and little street activity in both actually inspected images.",
+    "Added a shallow ground-floor layer to82 street-facing legacy frontages with representative joinery, awnings, abstract signage, planters and12finite lights; original shells and upper facades retained.",
+    "Added sparse sidewalk benches and static people using geographic spacing and cross-street buffers."
+  ],
+  "addedTriangles": 28970,
+  "addedLights": 12,
+  "geometryValidationPassed": true,
+  "postRefinementVisualReviewPending": true,
+  "resourceSHA256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "ba928858231b9d16fa02e53ea35b0946ef54e5aabf51bb691c65f7c9959a05d6",
+    "Tests/NorthSideGeometry/main.swift": "35db1de81c6360a408358444cb511e27b8619d5a5d13ea9c050bec6226ce0dba",
+    "scripts/validate-north-side-geometry.sh": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526"
+  }
+}

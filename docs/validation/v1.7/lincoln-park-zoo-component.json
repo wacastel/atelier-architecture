@@ -1,0 +1,77 @@
+{
+  "component": "Lincoln Park Zoo / Nature Boardwalk / Conservatory / Lily Pool",
+  "scope": "CPU component geometry and map provenance; reference images separately documented in docs/LINCOLN-PARK-ZOO.md",
+  "passed": true,
+  "triangles": 1214333,
+  "lights": 127,
+  "checks": 12150363,
+  "command": "./scripts/validate-lincoln-park-zoo.sh",
+  "gpuTested": false,
+  "fullWorldVisualReviewPending": true,
+  "inputs": [
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "sha256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "sha256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Tests/LincolnParkZoo/main.swift",
+      "sha256": "822cfddeacc619282e598bef91ace66ef7babeecb0c69f19650c192e3cfd17b0"
+    },
+    {
+      "path": "/Users/william/dev/architecture/scripts/validate-lincoln-park-zoo.sh",
+      "sha256": "ada479447c556e2e972c208186fae66acf7889607521d8652387ca6920255594"
+    },
+    {
+      "path": "/Users/william/dev/architecture/scripts/data/chicago-north-side-osm-2026-09-08.json",
+      "sha256": "0598f62a401eb021574c1c356a9017ac277aee8c2209a9eedf07cf9d4b406049"
+    },
+    {
+      "path": "/Users/william/dev/architecture/scripts/data/chicago-north-side-landmarks-2026-09-08.json",
+      "sha256": "51351d8a57ee35045d2f133d089e5baf6cf3f5cfdcb9e5256e3f5e4e1000902c"
+    },
+    {
+      "path": "/Users/william/dev/architecture/scripts/prepare-lincoln-park-zoo-map.py",
+      "sha256": "159f2b501c3e70cdce8fa5a2b95fe2dce0e5f9cbcd98dc0666ca1180ef044d26"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "sha256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/EiffelScene.swift",
+      "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c"
+    }
+  ],
+  "addedPlantingTriangles": 888936,
+  "addedPlantingLights": 51,
+  "additionalChecks": [
+    "Actual foliage mesh watertight edge multiplicity2, noncollapsed faces, exact shared polar vertices and longitude seam",
+    "Legacy polar radius formula retained as a negative control with >0.30m pole-height spread",
+    "Tree and shrub candidates rejected across actual mapped road carriageway centerlines/halfwidths",
+    "Unchanged four component route arrays remain clear",
+    "Both actual Fisher approach meshes have horizontal 8.8m width, 0.44m graded depth and street-to-bridge height envelope; 30 downward cross-width support rays and outside-edge misses; original sideways-normal beam retained as tall-wall negative control"
+  ],
+  "log": {
+    "path": "/Users/william/dev/architecture/output/v8-review/fisher-ramp-correction/component.log",
+    "sha256": "f36e62256ea322c9e13b4a63fcf7adfda308f3a3a5028033bfd50b17b1fd9c75"
+  },
+  "lastCorrection": {
+    "recordedAtUTC": "2026-09-08T17:22:42.870321+00:00",
+    "description": "Fisher approach beam reference corrected from sideways vector to default world-up; same endpoints, dimensions, materials, cameras and all other geometry",
+    "sourceSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+    "testSHA256": "822cfddeacc619282e598bef91ace66ef7babeecb0c69f19650c192e3cfd17b0",
+    "sourceCountsUnchanged": true
+  }
+}

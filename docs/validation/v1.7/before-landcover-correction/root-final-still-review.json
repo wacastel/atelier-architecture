@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Six actually viewed third-package progressive stills. These renders bypass motion reconstruction; later Denoise.metal confidence correction changes preview/movies only. Geometry, cameras, traced shading and frame ABI remain identical. Night beach and pool surroundings are intentionally dark; contextual vegetation/facades remain simplified.",
+  "findings": [
+    "Beach starts landward with white/blue ship silhouette, rooftop furniture, promenade and lake visible; warm portholes and broad deck light pools readable at night.",
+    "Millennium departure includes Cloud Gate, Pritzker Pavilion and downtown context; zoo departure includes complete mapped neighborhoods behind authored zoo buildings.",
+    "St Michael night clock/louver/brick profile and complete spire fit frame.",
+    "Final Lily Pool t110 camera targets actual water and pavilion."
+  ],
+  "images": [
+    {
+      "path": "output/v8-review/third-day/00-from-millennium-park-to-the-zoo.png",
+      "sha256": "6301f28a2f5c8a453bd90cbdcdae3a1d94fe034611bd8c6b023594b7a6a0cc30"
+    },
+    {
+      "path": "output/v8-review/third-day/02-a-ship-beside-the-lake.png",
+      "sha256": "fa90a9c0b0066a78bedf670c8f950b9d4656f1e719c9eecb134cce97b0b5b198"
+    },
+    {
+      "path": "output/v8-review/third-night/02-a-ship-beside-the-lake.png",
+      "sha256": "04ba5dfbc34116844191d26e515d074a51aadbd8f26fed14d0da79370cbc6728"
+    },
+    {
+      "path": "output/v8-review/third-detail/day-route-5-110.png",
+      "sha256": "3fa4f091cace27031ee6609fa97579b06cac30ca797c0adadae7dfa2f276d55b"
+    },
+    {
+      "path": "output/v8-review/third-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "77e8817aa174b28dad376d0ecf10531b0b2f4b1031dac1be54e470af20ece446"
+    },
+    {
+      "path": "output/v8-review/third-night/01-the-streets-of-old-town.png",
+      "sha256": "392ce9d523fc18cfac49652c95e78963d5f5cbf88fe32696791660c4061662ad"
+    }
+  ],
+  "progressiveSourceInputSHA256": "ffba089050a2e7b97da8fe9d70f26a4c3c78261b37387c216fcd51d25f97f0a0",
+  "progressiveCommandManifestSHA256": "1b136942af05ab8c7de89aa69da208d60c8a23e72ff4324d67f7501bd1bbb814"
+}

@@ -406,6 +406,19 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
         float stain=(1.0f-smoothstep(-5.0f,-2.8f,p.y))*(0.6f+0.4f*smoothNoise(p*0.85f));
         s.color*=mix(float3(1),float3(0.50f,0.57f,0.40f),stain);
         s.color*=1.0f+(smoothNoise(p*86.0f)-0.5f)*0.13f*closeDetail;
+    } else if (pattern == 19) {
+        // Brick courses are integrated toward their mean as the pixel footprint
+        // grows. Subpixel mortar and per-brick variation must not shimmer in flight.
+        float2 coord=abs(n.y)>0.65f ? p.xz : (abs(n.x)>0.65f ? p.zy:p.xy);
+        float2 size=float2(0.245f,0.080f), q=coord/size;
+        q.x += (int(floor(q.y))&1) ? 0.5f:0.0f;
+        float2 edge=min(fract(q),1.0f-fract(q))*size;
+        float visibility=1.0f-smoothstep(0.022f,0.16f,footprint);
+        float mortar=1.0f-smoothstep(0.002f,0.004f+footprint*0.35f,min(edge.x,edge.y));
+        float variation=noiseCell(float3(floor(q),53));
+        s.color*=1.0f+(variation-0.5f)*0.22f*visibility;
+        s.color=mix(s.color,s.color*0.55f+float3(0.115f,0.105f,0.085f),mortar*visibility);
+        s.roughness=max(s.roughness,0.68f);
     } else if (pattern == 11) {
         s.color*=0.90f+0.20f*smoothNoise(p*2.7f);
         s.color*=1.0f+(noiseCell(p*130.0f)-0.5f)*0.19f*closeDetail;

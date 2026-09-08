@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "scope": "Three actually viewed1920\u00d71200 progressive stills from seventh package, including Fisher-ramp and northern-landcover corrections; day256/night384samples. No motion claim.",
+  "images": [
+    {
+      "name": "North-Side-Wrigley-Night",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/docs/images/North-Side-Wrigley-Night.png",
+        "--stop",
+        "7",
+        "--lighting",
+        "2",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "384"
+      ],
+      "seconds": 7.8985090255737305,
+      "imageSHA256": "025bb66d0dc8f2f30cdbe2767c32ae9fcd18fce3d6044572c6ec9f69913601a0",
+      "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "findings": "Mapped stadium bowl, visible white field banks, lit grass, readable blue boards and red marquee; Gallagher Way facade and footpath pools. Distant city and roof remain dark."
+    },
+    {
+      "name": "North-Side-Zoo-Night",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/docs/images/North-Side-Zoo-Night.png",
+        "--stop",
+        "4",
+        "--lighting",
+        "2",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "384"
+      ],
+      "seconds": 10.880573987960815,
+      "imageSHA256": "eeb11569428b2eaa0ddbff1a96ead2a7ac65d3a7282555b2ad7645a5c1670dd1",
+      "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "findings": "Colored arches, tree strings, historic brick houses and reflected colored light on the path are readable. Finite-sample grain and simplified planting remain."
+    },
+    {
+      "name": "North-Side-Old-Town-Day",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--render",
+        "/Users/william/dev/architecture/docs/images/North-Side-Old-Town-Day.png",
+        "--stop",
+        "1",
+        "--lighting",
+        "0",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "256"
+      ],
+      "seconds": 5.380712270736694,
+      "imageSHA256": "f5de168beaf5b345cc7c4423034a37db13b7e7cb96c7dcb8d4af61a75aad8d9d",
+      "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+      "visualReviewPending": false,
+      "actuallyViewed": true,
+      "findings": "Complete St Michael cross/spire, clocks, louver towers, masonry cornice/brickwork and surrounding roofs fit the camera; contextual facades remain procedural."
+    }
+  ]
+}

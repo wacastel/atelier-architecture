@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "scope": "sampled-only still-image visual review; acceptance of requested bookmarks 3\u20136 and targeted canopy/road corrections, with the explicit additional night-detail limitation below",
+  "reviewedAtUTC": "2026-09-08T16:45:23.329504+00:00",
+  "sourceInput": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "ffba089050a2e7b97da8fe9d70f26a4c3c78261b37387c216fcd51d25f97f0a0",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "4d0de17fd70a7f5f6b1033f8b26bf62d1585ef374a461c0c9b519884f031bfbf",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Open pavilion axis remains unobstructed. Layered timber ribs and pale caps are readable, with shrubs and trees framing the sides. No lower-canopy pole slivers are visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "b16cc5b0e649dc908238e900853207c48464e6ecc0b1ead650e3ef477173a494",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Mature trees frame the clear pedestrian mall. Previously visible black triangular lower-pole slivers are gone. Historic brick facades, windows, benches and seasonal arches remain visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "b8addc010fc5fd928a252d75b1ae21f637c5c3d2b5c07e87e348e2c58f6f21d9",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Glasshouse mullions, transparent roofs, interior palms and the foreground fountain remain readable. Tree crowns frame the upper corners with closed, smooth lower outlines; no pole slivers are visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "77e8817aa174b28dad376d0ecf10531b0b2f4b1031dac1be54e470af20ece446",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Aerial view shows the denser zoo planting and readable road/path network. Previously observed trees within the foreground vehicle carriageway are absent; visible trunks stand on the green verge."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "9ade34593d5de733dee90eee5bcba6975fc7fa79edada2e3a70f25c158a99a2d",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Warm practical light reveals the pavilion passage and layered timber, with restrained reflected light on the ground and surrounding foliage. No canopy-pole slivers are visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "0d2b4c59a7e93dbbf9b61681b302a78983246e5fb75ce54721baee4fb8491f20",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Blue, purple, green and amber seasonal arches retain distinct colors. Warm entries and paths remain readable beneath dark framing canopies. The pedestrian axis is clear."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "9dd06223f17ea478cae14f9c8f509264c5e579aeb46fc2703e7684f60a8150f0",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Practical lighting reveals actual glasshouse framing, interior plants, garden and fountain surfaces. The glasshouse is substantially more readable than the first candidate, with no observed canopy-pole slivers."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "34dfb1e04a7d7a3dcb3259cd99a9747b254df0ac44bc21d6bbe5740fa9362e28",
+      "actuallyViewed": true,
+      "role": "requested bookmark",
+      "observation": "Selective illumination identifies the glasshouse, mall arches, entries and a few trees. Much of the surrounding park remains dark; this is a selective landmark nightscape, not uniform park floodlighting."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-5-110.png",
+      "sha256": "3fa4f091cace27031ee6609fa97579b06cac30ca797c0adadae7dfa2f276d55b",
+      "actuallyViewed": true,
+      "role": "additional Lily Pool route sample at 110 seconds",
+      "observation": "The pool stretches across the middle of the composition, with twin low pavilions beyond it and the Conservatory behind to the left. The foreground path and near bank are clear, and the view has no close tree obstruction."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-5-110.png",
+      "sha256": "f2601fe2b0b1cf5ec5c74d713747daea640ec08b05acf910c151bedefcb2e8e7",
+      "actuallyViewed": true,
+      "role": "additional Lily Pool route sample at 110 seconds",
+      "observation": "The same composition retains lit Conservatory framing and selected tree accents with small water reflections. The pond-edge path, pond outline and low pavilions are very dark and cannot be described as clearly illuminated in this frame."
+    }
+  ],
+  "findings": {
+    "canopyCorrection": "Accepted: the previously visible triangular slivers at lower canopy poles are absent in the final close zoo and Conservatory views. Mesh watertightness is separately covered by the component fixture, not inferred from images.",
+    "roadClearanceCorrection": "Accepted in the daylight aerial: the earlier road-intruding trees are absent and foreground trunks are outside the visible carriageway. Complete numerical exclusion coverage belongs to the component fixture.",
+    "lilyPoolFraming": "Accepted daylight framing at the additional 110-second route sample; the eight bookmarks alone do not show the Lily Pool closely.",
+    "materialDefectsInRequestedBookmarks": [],
+    "nightDetailReadabilityLimitation": "The additional Lily Pool night sample has very dark pavilions and near-bank paths. Selected tree and Conservatory lights remain visible; this record does not certify strong nighttime readability of the pool itself."
+  },
+  "componentEvidence": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/lincoln-park-zoo-component.json",
+    "sha256": "661f0f7740ecdd7d3d2c6bd1b0ec19373bb92dad16c974a17f87130847d04ae0"
+  },
+  "supersedesCandidateFindings": [
+    "docs/validation/v1.7/zoo-first-visual-review.json",
+    "docs/validation/v1.7/zoo-second-visual-review.json"
+  ],
+  "limits": [
+    "Only the ten listed PNGs were inspected. This does not certify every camera angle or route frame.",
+    "Stills do not establish animation quality, temporal stability, collision clearance or light-timing correctness; those require separate tests.",
+    "Night stills retain visible stochastic grain on ground and foliage. No motion-noise conclusion is drawn from these images.",
+    "Vegetation is procedural and visibly stylized; architecture, planting and seasonal ZooLights accents are documented interpretations rather than surveyed replicas or claims of a current exact display."
+  ]
+}

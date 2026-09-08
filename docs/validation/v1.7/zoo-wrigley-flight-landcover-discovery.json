@@ -1,0 +1,201 @@
+{
+  "passed": false,
+  "visualReviewPassed": false,
+  "reviewedAtUTC": "2026-09-08T18:00:23.769319+00:00",
+  "scope": "Actual sampled visual review of all10provided1920x1080 PNG frames from the240-second Zoo-to-Wrigley day flight. Includes full-resolution final arrival and title/attribution inspection. Automated full decode/timing are separate; no movie playback or GPU work was performed by this reviewer.",
+  "videoPath": "/Users/william/dev/architecture/output/Lincoln-Park-Zoo-to-Wrigley-Field-1080p.mp4",
+  "videoSHA256": "0b68e2fd3f4ee4e63885926b9e704d31f3221a625e57d8c0038a6afe56be5090",
+  "packageInputSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+  "sourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+  "renderedExecutableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea",
+  "mediaMetadata": {
+    "path": "/Users/william/dev/architecture/output/v8-review/zoo-wrigley-flight-media.json",
+    "sha256": "8bc28c672f96c2b6933dd5ecd3ac0621d503f56b1b76637541f8feb70d7cdd51"
+  },
+  "sourceManifest": {
+    "path": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+    "sha256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+  },
+  "packageManifest": {
+    "path": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+    "sha256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749"
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/0.png",
+      "sha256": "4d7e716b9a790f21f4f534125d2ca3ae5b75d3d62e4d06b35e94168edd78d104",
+      "timeSeconds": 0,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Clear establishing aerial of zoo grounds, buildings, paths and surrounding city. Title and map attribution are readable."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/20.png",
+      "sha256": "56e93df7da027274adc7587f3802edb737648f932bb3798d54d173b2764432e6",
+      "timeSeconds": 20,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Flight proceeds toward the pond, Lake Shore Drive and harbor. Water, road alignment and caption remain legible; no foreground obstruction."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/45.png",
+      "sha256": "0bcd2b438387fd8acc98fc11db22526851d99896a1f01045f69672959f4c9cfe",
+      "timeSeconds": 45,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Harbor slips, representative boats and shoreline are visible. Near mapped lawns are present; broad pale ground becomes more apparent farther along the route."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/75.png",
+      "sha256": "ca9e5824981dc67b41014706dbeaf05057956d49fa223d26df195bd85c9718f4",
+      "timeSeconds": 75,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": true,
+      "observations": [
+        "Material visual defect: extensive nearly-white empty ground covers large waterfront park areas, interrupted by small green patches. The view reads as missing park land cover rather than realistic landscaped terrain.",
+        "Road and lake remain continuous and clearly framed; the problem is environment fidelity, not video corruption."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/105.png",
+      "sha256": "8e5cb428358e2a71087dec760d6696cf781741490ba6d55f7dfae8d92bbc199c",
+      "timeSeconds": 105,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": true,
+      "observations": [
+        "Material visual defect: the harbor entrance and long lakefront peninsula are surrounded by expansive pale unlandscaped surfaces. This omission occupies a prominent part of the frame.",
+        "Harbor water, piers, boats and breakwater shapes remain coherent."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/135.png",
+      "sha256": "7975e34f1cf1f2a7ab9444d85173655d2e5d520a51af3210e0ca608154fcb517",
+      "timeSeconds": 135,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": true,
+      "observations": [
+        "Material visual defect persists along the harbor/park frontage: disconnected green patches sit within large pale surfaces, making the park look unfinished.",
+        "The camera is clear of structures; title and attribution remain unobstructed."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/165.png",
+      "sha256": "722f8a59483c7e6df294aeb7e63267ea1f9c90d41d2c2c534e35b540555cac77",
+      "timeSeconds": 165,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Camera turns inland past mapped towers toward Wrigleyville. A tall foreground building naturally occupies the right side but does not obscure the flight destination; no clipped camera intersection apparent."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/195.png",
+      "sha256": "b94cf1abd8876f7bd8345dcc4ef355be60222e99f4713deedcc4c3ffaee21042",
+      "timeSeconds": 195,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Wrigley appears ahead in a clear neighborhood overview. Open green field, seating bowl and road grid are recognizable."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/220.png",
+      "sha256": "384e70590c3107c606cb84cf4c050de15d28de5c37a05df6c7cc0d09ebfc4605",
+      "timeSeconds": 220,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Unobstructed aerial arrival above the outfield: irregular playing field and stands are clearly readable. Rear faces of the boards are naturally visible from this side."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/media-review/zoo-wrigley-flight/239.9.png",
+      "sha256": "821125881958c348e4805a70d2d6ca316caacd539e1d609eca59870e1e0199e8",
+      "timeSeconds": 239.9,
+      "actuallyViewed": true,
+      "reviewedResolution": [
+        1920,
+        1080
+      ],
+      "materialLandcoverDefect": false,
+      "observations": [
+        "Final southwest arrival frames the red marquee, open ballpark, boards and Gallagher lawn. Marquee lettering and title/attribution are readable; no unintended building blocks the landmark."
+      ]
+    }
+  ],
+  "materialDefects": [
+    {
+      "severity": "Blocks visual acceptance",
+      "description": "Broad waterfront park landcover is absent or incorrectly represented as nearly-white empty ground near the harbors. Small separated green patches do not provide realistic continuous park landscaping.",
+      "confirmedSampleTimesSeconds": [
+        75,
+        105,
+        135
+      ],
+      "reviewDisposition": "Do not mark this movie visually passed. Parent independently viewed75/105and confirmed this is a serious land-cover omission; the context agent is diagnosing a targeted correction."
+    }
+  ],
+  "positiveFindings": [
+    "The ten samples show coherent progression from zoo to lakefront harbors, inland neighborhood and Wrigley arrival.",
+    "No conspicuous corrupted frame, unintended full-camera obstruction or clipped typography appears in the sampled frames.",
+    "The final Wrigley frame clearly presents the marquee and open ballpark.",
+    "Title and OpenStreetMap attribution are readable throughout the samples."
+  ],
+  "automatedMediaChecks": {
+    "reportedPassed": true,
+    "reportedFullDecodePassed": true,
+    "decodedFrames": 5760,
+    "expectedFrames": 5760,
+    "fps": 24,
+    "requestedSeconds": 240.0,
+    "scope": "Copied read-only from the parent-produced media JSON; successful decode does not override the failed visual review."
+  },
+  "limits": [
+    "Only the ten listed frames were actually viewed; exact onset/end of the land-cover defect between samples was not measured.",
+    "This discovery does not independently identify the offending map polygon or material assignment. The context agent owns diagnosis and correction.",
+    "Current media/source/package/image hashes are preserved as failure evidence. Parent is archiving this revision before any correction; this report does not authorize or perform media metadata changes."
+  ],
+  "status": "FAIL: await corrected landcover, regenerated affected media and a new actual visual review."
+}

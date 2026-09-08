@@ -1,0 +1,45 @@
+{
+  "authoredCanopyTreeCount": 248,
+  "boats": 104,
+  "buildings": 31425,
+  "lawnMeshHitHeights": [
+    -0.03999999910593033,
+    -0.03999999910593033,
+    -0.03999999910593033,
+    -0.03999999910593033
+  ],
+  "lawnMeshProbes": [
+    [
+      0,
+      -6300
+    ],
+    [
+      150,
+      -6700
+    ],
+    [
+      -200,
+      -7700
+    ],
+    [
+      -400,
+      -8200
+    ]
+  ],
+  "lights": 341,
+  "materials": 70,
+  "maximumNormalError": 2.384185791015625e-07,
+  "maximumY": 357.1199951171875,
+  "minimumY": -7.699999809265137,
+  "passed": true,
+  "scope": "CPU-only North Side context mesh; does not include authored zoo, Wrigley, St Michael or beach-house geometry",
+  "seconds": 2.0513850450515747,
+  "taggedTreeCount": 3752,
+  "trafficLanes": 6,
+  "triangles": 9029728,
+  "wellsAdditionalLights": 12,
+  "wellsAdditionalTriangles": 28970,
+  "sourceSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+  "resourceSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+  "testSHA256": "bd6e6e28c656b23a1082d229d45c0e9f39c2da8fd8ac05e53b2862dbb6f1c6ae"
+}

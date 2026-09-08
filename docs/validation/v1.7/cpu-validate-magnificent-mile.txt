@@ -1,0 +1,32 @@
+{
+  "boundsMax" : [
+    1158.27978515625,
+    457.20001220703125,
+    -2012.347900390625
+  ],
+  "boundsMin" : [
+    938.2274169921875,
+    -0.0993623286485672,
+    -2259.197021484375
+  ],
+  "cupolaBase" : 50.444400000000002,
+  "cupolaBaseVertices" : 72,
+  "degenerateTriangles" : 0,
+  "generationSeconds" : 0.01194298267364502,
+  "hancockTip" : 457.20001220703125,
+  "historicWaterTowerHeight" : 55.625999450683594,
+  "hotelRoofVertices" : 198,
+  "lights" : 54,
+  "materials" : 41,
+  "nonfiniteVertices" : 0,
+  "normalMaxError" : 1.7881393432617188e-07,
+  "observationFloor" : 46.177199999999999,
+  "observationRingVertices" : 72,
+  "passed" : true,
+  "podiumBoundaryVertices" : 1422,
+  "scope" : "CPU geometry only; elevations, finite normalized vertices, valid materials, and triangle\/light budget. No degenerate triangles. Integrated camera\/visual review is separate.",
+  "triangles" : 219434,
+  "waterTowerPlaceHotelPlinth" : 60,
+  "waterTowerPlacePodium" : 55,
+  "waterTowerPlaceRoof" : 261.90997314453125
+}

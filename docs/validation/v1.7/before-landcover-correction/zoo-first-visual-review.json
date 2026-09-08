@@ -1,0 +1,57 @@
+{
+  "scope": "Actual visual review of eight first-pass day/night images; this report precedes planting and illumination corrections",
+  "passed": false,
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-day/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "0df064a6a0f853abf85180c5140dfbba0558f37e0c7f88b0902b06883fb98a03",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-day/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "1b1f55243a4ec2062c59af2a10cfc1653af4aee73b01c5a960dcb0453a1daa7b",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-day/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "7693bf1f1f86923f6ef76fe756f084a44749681136bed4e2ed9f4320276fe306",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "1564a8dd721a313707e262916572e8ac6e5e65231526268b4e47bfe3864ca84b",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-night/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "9f45b8eb4acd7317dca0589dbf319233f9afcb30e52f4a3685b139d5d46c4a4d",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-night/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "b8add077cec7f3a463dea4eccd5bf955d2b4b1bbc91a9533dc04b1412c27e0ed",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-night/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "e8db159b7d5887b20111757b4254d5da4fab1e6665b706d5b63299d77e197d85",
+      "actuallyViewed": true
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/first-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "084a751cd943d70be5c6b218a96048b54874428b5cd630378b7f0c953a3bc2ca",
+      "actuallyViewed": true
+    }
+  ],
+  "findings": [
+    "Pavilion timber massing and open axis are visible, but the park outside is nearly devoid of mature tree canopy and low planting.",
+    "Zoo mall is flat and barren between simple masonry buildings; sparse seasonal arches preserve their colored light but lack the surrounding landscape.",
+    "Conservatory glass outline, palm silhouettes and fountain are visible by day; at night the foliage/framing and foreground garden are substantially too dark.",
+    "Aerial view shows the extent of vegetation omitted by the authored-site context mask."
+  ],
+  "plannedCorrection": "Bounded deterministic mature trees and native understory with full mapped path/building/water exclusions; broad practical white/warm illumination of Conservatory plants, framing and garden.",
+  "limits": [
+    "Still images only; no motion-noise claim.",
+    "Interpretive architecture and authored seasonal ZooLights composition; these are not reference photographs or a surveyed planting inventory."
+  ]
+}

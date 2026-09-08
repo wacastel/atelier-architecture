@@ -1,0 +1,9 @@
+{
+  "recordedAtUTC": "2026-09-08T17:59:59.517328+00:00",
+  "reason": "Actual final flight samples75/105 expose broad pale landcover around Belmont Harbor; preserve exact sixth package and completed movies before targeted mapped-landcover correction. Night movie still rendering and will be archived after completion.",
+  "packageSHA256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749",
+  "allFourCompletedMoviesArchived": true,
+  "nightFullDecodePassed": true,
+  "nightVisualReviewPending": true,
+  "sourcePackageUnchanged": true
+}

@@ -1,0 +1,3 @@
+Gateway checkpoint: 197877 triangles, 303 lights
+PASS: Gateway 197877 triangles, 38 materials, 303 lights; CPU build 0.08907902240753174s
+PASS: Wrigley129.54m, Tribune141.7m, mapped neighborhood bounds, finite/unit normals, four5.97m clocks with modeled hands/ticks, both connecting bridges

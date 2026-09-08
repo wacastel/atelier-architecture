@@ -1,0 +1,10 @@
+[out:json][timeout:240];(
+way(41.880,-87.670,41.962,-87.607)[~"^(building|building:part|highway|railway|landuse|leisure|natural|man_made|water|tourism|amenity)$"~"."];
+node(41.880,-87.670,41.962,-87.607)["natural"="tree"];
+relation(41.880,-87.670,41.962,-87.607)["building"];
+relation(41.880,-87.670,41.962,-87.607)["building:part"];
+relation(41.880,-87.670,41.962,-87.607)["leisure"];
+relation(41.880,-87.670,41.962,-87.607)["landuse"];
+relation(41.880,-87.670,41.962,-87.607)["natural"]["water"!="lake"];
+relation(41.880,-87.670,41.962,-87.607)["water"~"^(harbour|river|lagoon|pond)$"];
+);out geom;

@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "scope": "Actual sampled visual review of six final-candidate Wrigley still images from the third packaged build: day/night overview, field detail and route7 at50seconds. This is not a whole-movie motion review.",
+  "reviewedAtUTC": "2026-09-08T16:43:06.494885+00:00",
+  "renderedExecutableSHA256": "ad56e6cebc4028872728516a7d6cbdadf97d920a46b8bef351407778ec42c882",
+  "reviewedComponentSourceSHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/07-wrigley-field-under-the-lights.png",
+      "sha256": "fad24a3c20ae84f8c0295d46c14bc78898de95aeadc17d6c7f3474c6238d9d05",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "day-gallery",
+      "findings": [
+        "Southwest overview clearly shows the red marquee, open ballpark, green stands, outfield boards and Gallagher lawn.",
+        "The foreground neighboring roof is part of the mapped context and does not obscure the main landmark."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/07-wrigley-field-under-the-lights.png",
+      "sha256": "45e595b0102a01ec3b06cb316c1dd475c17af0a952450a68851a5d70e0390d9b",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "night-gallery",
+      "findings": [
+        "White field illumination, restrained roof surfaces, red marquee and warm plaza remain balanced.",
+        "Both blue video boards now show bright readable lettering; the manual board is visible as a lit green face. No renewed broad glowing roof band."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-wrigley-field.png",
+      "sha256": "fa0b090ca6a610d4007b453db3d530b23327f5afd4fab4ea03730cc50c7e6eb5",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "day-wrigley-field",
+      "findings": [
+        "Unobstructed view across the playing field toward the ivy wall, bleachers, manual scoreboard and two screens.",
+        "White field markings, grass and dirt are distinct. Screen lettering remains legible in daylight after the night-material refinement."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-wrigley-field.png",
+      "sha256": "54a7666779499205c0156801d5997e9d7fc4b6e5b749538ac50cf13d84e8903a",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "night-wrigley-field",
+      "findings": [
+        "Both video boards now have luminous blue faces and clearly readable white WRIGLEY FIELD text.",
+        "Manual scoreboard rows and green face are visibly illuminated across the board rather than only two small corner spots. Its small individual labels remain limited by viewing distance.",
+        "Field coverage remains even; the scoreboard adjustment does not create a new foreground hotspot or roof glow."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-7-50.png",
+      "sha256": "f18f0994d46d2980232cf6488d8138cef3c73b93aaafd1f4a202a61088093045",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "day-route-7-50",
+      "findings": [
+        "Elevated route view shows the exposed seating bowl, irregular outfield, light frames and nearby Gallagher plaza.",
+        "The nearer roof naturally occupies part of the lower frame during this aerial approach; the open field and opposite stands remain visible. No camera collision or corrupted geometry is apparent."
+      ]
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-7-50.png",
+      "sha256": "dd4dc5b27696bd36437bad10ed1ddae34290cbe509d84acfe910038b4897e093",
+      "actuallyViewed": true,
+      "passed": true,
+      "renderJob": "night-route-7-50",
+      "findings": [
+        "Night route frame retains the lit field, readable board faces, white light frames and warm plaza edge.",
+        "Roof remains subdued, with localized light falloff rather than the earlier overexposed continuous band. No conspicuous clipping, corruption or obstructing object crosses the camera."
+      ]
+    }
+  ],
+  "materialDefects": [],
+  "acceptance": [
+    "The original night roof/field imbalance is corrected.",
+    "The later scoreboard/screen readability issue is corrected while preserving field illumination.",
+    "All six reviewed images show coherent geometry and clear intended framing without conspicuous corruption."
+  ],
+  "limits": [
+    "The scene is an authored architectural interpretation, not a surveyed seat inventory, fixture schedule or current-game scoreboard.",
+    "Tiny manual-board labels are not individually readable from the wide field camera; the green face, clock and cell rows are visible.",
+    "Some night grain remains in dark surfaces in these96/128-sample stills. Motion stability, exported video compression and runtime performance require the root validation and media reviews.",
+    "Other North Side locations and full-duration routes are outside this six-image visual scope."
+  ],
+  "earlierFailureRecord": {
+    "path": "/Users/william/dev/architecture/output/v8-review/wrigley-visual-review.json",
+    "sha256": "1dddaae638f32ed70a89aee20243048b5c846d4ef7149d59256272f5473f9f27",
+    "preserved": true
+  },
+  "renderCommands": {
+    "path": "/Users/william/dev/architecture/output/v8-review/third-visual-commands.json",
+    "sha256": "1b136942af05ab8c7de89aa69da208d60c8a23e72ff4324d67f7501bd1bbb814"
+  }
+}

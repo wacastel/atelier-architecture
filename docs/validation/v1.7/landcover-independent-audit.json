@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "scope": "Read-only source/data audit against the preserved sixth-package snapshot; no GPU jobs, rendering or source changes. This does not certify every image or route.",
+  "reviewedAtUTC": "2026-09-08T18:46:41.361987+00:00",
+  "sourceInputPath": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "packageInputPath": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+  "packageInputSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+  "executableSHA256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+  "baselineSourceInputPath": "/Users/william/dev/architecture/output/v8-review/before-landcover-correction/final-input.json",
+  "baselineSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb",
+  "changedInputs": {
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": {
+      "beforeSHA256": "ba928858231b9d16fa02e53ea35b0946ef54e5aabf51bb691c65f7c9959a05d6",
+      "afterSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f"
+    },
+    "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt": {
+      "beforeSHA256": "a3432321ff587c32561bdb64d8fae4cb66735dd3c1f6455e6c4a80b6e41446c5",
+      "afterSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e"
+    },
+    "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json": {
+      "beforeSHA256": "85392246a2ef036bb013d8ff64c530385aa7fb9f6a647eefc6dd323110d3564c",
+      "afterSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+    },
+    "Tests/NorthSideGeometry/main.swift": {
+      "beforeSHA256": "35db1de81c6360a408358444cb511e27b8619d5a5d13ea9c050bec6226ce0dba",
+      "afterSHA256": "bd6e6e28c656b23a1082d229d45c0e9f39c2da8fd8ac05e53b2862dbb6f1c6ae"
+    },
+    "scripts/prepare-north-side-context.py": {
+      "beforeSHA256": "d61e3d66be6c3f7e9bca6d33c2bc1f7da2ed9490ad78a7bcde90576ed1fdc4e5",
+      "afterSHA256": "d15b522930553eadd1f501fd93ec474ed5cea37ecf02d92a01804b051a5926f8"
+    },
+    "scripts/validate-north-side-context.py": {
+      "beforeSHA256": "0756451c5e0eb4ff558b4668f003fe289c29c141064f9540623b41280393fb4e",
+      "afterSHA256": "1584dd1eab602ccc67d503f01215333b8cd2f819316f6ba766b108e84e501965"
+    }
+  },
+  "findings": [
+    "All 1360 prior areas remain an exact decoded prefix, and every other prior NorthSideContext JSON field is unchanged. The only additions are one park surface and separate landcoverRestoration/landcoverTrees metadata.",
+    "Restoration subtracts retained legacy Lincoln Park parent coverage, then clips to the northern region and removes mapped water, beaches, hard surfaces, circulation ribbons and authored sites. Existing traffic, boat, road, building and tagged-tree arrays remain identical.",
+    "The 248 new canopy positions are explicitly authored samples within mapped wood/forest/scrub, with source area IDs, deterministic spacing and heights. They remain distinct from the 3752 mapped tree nodes. Sports grounds, nearby tagged trees and a 3.9m eligible-region inset constrain placement.",
+    "Renderer inspection confirms restored park uses the existing grass material at y=-0.04 above base paving y=-0.065. Added trees use existing nonemissive bark/foliage and have maximum horizontal crown extent below the inset. No light-generating path was added; context lights remain 341.",
+    "Current topology validation verifies prior canonical layer hashes and exclusions; the component additions check actual mesh grass height/material/upward normal. No existing component assertions were removed in the reviewed diff."
+  ],
+  "nonBlockingRedundancy": {
+    "description": "Independent Shapely intersection found two earlier park surfaces partially overlapped by the new base lawn. These have the same existing grass material, upward normal and -0.04 height, so the added overlap has identical surface response. This is redundant geometry, not evidence of a visible material boundary or hard-surface coverage.",
+    "overlaps": [
+      {
+        "id": 1387134551,
+        "name": "Buena Park Neighborhood Association Garden",
+        "areaSquareMetres": 260.72789142559134
+      },
+      {
+        "id": 1387134566,
+        "name": "Peace Garden",
+        "areaSquareMetres": 2546.6145250533027
+      }
+    ],
+    "interpreter": "/tmp/atelier-lakefront-map/bin/python",
+    "shapelyVersion": "2.1.2"
+  },
+  "checks": {
+    "priorAreaCount": 1360,
+    "currentAreaCount": 1361,
+    "unchangedPriorFields": [
+      "attribution",
+      "license",
+      "licenseURL",
+      "timestamp",
+      "origin",
+      "mapBounds",
+      "worldBounds",
+      "ground",
+      "water",
+      "legacyGround",
+      "legacyWater",
+      "inlandWaters",
+      "beaches",
+      "replacedAreaIDs",
+      "namedHarbors",
+      "landmarks",
+      "replacementBuildingIDs",
+      "authoredMask",
+      "buildings",
+      "paths",
+      "piers",
+      "breakwaters",
+      "trees",
+      "roads",
+      "trafficLanes",
+      "boats",
+      "sourceSHA256",
+      "previousResourceSHA256",
+      "legacyAreas"
+    ],
+    "authoredCanopyCount": 248,
+    "mappedTreeCount": 3752,
+    "newLights": 0
+  },
+  "limits": [
+    "The archived baseline lacks a standalone copy of the earlier Python validator; its previous hash/results were preserved. The current validator was read, while exact text diffs were available for the generator, renderer and component fixture.",
+    "No independent full geometry or navigation suite was rerun in this audit. Parent-recorded successful suites and visual proofs are separate evidence.",
+    "Tree positions inside mapped vegetation polygons are procedural interpretations, not surveyed individual trees or an exact canopy census."
+  ]
+}

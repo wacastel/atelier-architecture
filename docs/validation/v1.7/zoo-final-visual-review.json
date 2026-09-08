@@ -1,0 +1,156 @@
+{
+  "passed": true,
+  "scope": "sampled-only final seventh-package still review: eight regenerated day/night bookmarks, four Fisher route details, two Lily Pool details and one documentation hero; not every animation frame",
+  "reviewedAtUTC": "2026-09-08T18:40:16.545052+00:00",
+  "sourceInput": "/Users/william/dev/architecture/output/v8-review/final-input.json",
+  "sourceInputSHA256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f",
+  "renderCommands": {
+    "path": "/Users/william/dev/architecture/output/v8-review/third-visual-commands.json",
+    "sha256": "9ee3c81a49b41d4c7b6d60abadbfd14d41f68a93c108806d788de2b9a29ac509",
+    "allExitCodesZero": true
+  },
+  "images": [
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "f7fe4ac0e4ba2ac6ad5b43d1226eb0eabe6453f2f5dfe95b6528c57ded892cae",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Open pavilion axis remains clear. Interlocking timber ribs, pale caps, deck shadows and surrounding planting are readable. The former upright Fisher approach slab is absent from the left background."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "41c4cbadfc6aa81095f14fedf9769216546aab0b07b61f0ee8dd92ac91d4964c",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Mature canopies and historic brick houses frame the clear pedestrian path and seasonal arches. Canopy poles remain closed; lobed and faceted foliage and polygonal path edges remain visible stylizations."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "69d30e95feea9191250ea1f46e9765fceeddc460868e4f29cd9a3a508d378ef8",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Glasshouse roof framing, visible palms, foreground fountain and framing tree crowns remain readable. No new foreground obstruction or canopy-pole sliver is observed."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-day/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "0e1cf16ebae477edc901d9ba3b6c27dd1c12e954c3ae52eb3b2be7438a276c61",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "The aerial shows wooded zoo grounds and readable roads/paths. Trees are outside the visible foreground vehicle carriageway; no new overlap is observed."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/03-south-pond-and-the-nature-boardwalk.png",
+      "sha256": "20873f33a32332feaccdaad802a00cebc6533afdcc56a93128a41d52dd290d13",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Warm practical lights reveal the pavilion ribs and deck, with reflections in the foreground. Fine stochastic grain remains visible on timber and ground; the open route remains readable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/04-a-walk-through-lincoln-park-zoo.png",
+      "sha256": "9bec4a9f138863d20ba23428ad2f871371308767d8a2461bd9b6992a1b701042",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Distinct blue, purple, green, orange and yellow seasonal lights form a readable procession along the path. Warm windows remain visible. Grain and bright samples remain on the ground and in some lit foliage."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/05-glasshouses-and-the-lily-pool.png",
+      "sha256": "8bb032ce81dcd0375d452b83ea11d7e11f79fbce9bff7bab3b02bb17d6d77c3b",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Actual glasshouse framing, interior palms and reflected planting are visible under broad practical illumination. The garden/fountain rim is readable, but large areas remain dark and the image retains visible stochastic grain."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-night/06-from-the-zoo-to-wrigley-field.png",
+      "sha256": "d5d7e5e4e87fc9aec997cd4efab1b342a95838778f07423136349f38c0ecd733",
+      "actuallyViewed": true,
+      "role": "final regenerated bookmark",
+      "observation": "Selective building entries, Conservatory lights and colored mall accents identify the zoo within the city. Most park ground is dark; this frame does not establish detailed route readability at night."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-3-60.png",
+      "sha256": "74cedfb61ad36578ae465f94e19553a4c72587ec72cfd8a427b4da92bae82a31",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "The near Fisher approach is now a broad, shallow graded deck descending from the bridge. The former tall slab is gone, revealing the Café Brauer massing behind it. Bridge piers and surrounding planting remain readable."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-3-90.png",
+      "sha256": "184b887ab5efa3d31f5ff9258833dc97f7e14a8aed4ab9bc615392b4dc865ce8",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "The lower timber boardwalk and rails lead toward the bridge; both sloped approaches are visible across the pond. The center span remains above the lower path, with no former wall obstructing the view."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-3-60.png",
+      "sha256": "f50e9f3d3c7781204e9f596363b581dc62c5c22a58df4df51d9513f76057a615",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "The approach reads as a low diagonal silhouette, with the illuminated Café Brauer and selected tree lighting visible behind it. The foreground and bridge itself are very dark; this is limited silhouette confirmation, not full nighttime deck-detail validation."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-3-90.png",
+      "sha256": "1aab9f8b6ad1125524589887cc353b2b57205f9483bc90ca4000821ac12cfad8",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "Café Brauer remains visible across the pond instead of being screened by a tall approach slab. Lower boardwalk rails, water and bridge are mostly dark silhouettes; daylight details provide the stronger geometry evidence."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/day-route-5-110.png",
+      "sha256": "c1fa10be3e7dea3fcd5035aaa67d8c30e072491c14cc19b5b57c6f7d718ebe70",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "The Lily Pool extends across the middle of the image, with twin low pavilions and Conservatory behind. The near-bank path remains clear. Surrounding planting and skyline are visible."
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v8-review/third-detail/night-route-5-110.png",
+      "sha256": "7e5db32670431811c44cd8b1b8bf87fb15a07d371b56c8564e649f8acc4027c8",
+      "actuallyViewed": true,
+      "role": "final regenerated route detail",
+      "observation": "Lit Conservatory framing and selected tree accents remain visible, with small reflections. The pool-edge path and twin pavilions are very dark; the image does not support a claim of strong night readability for the pool itself."
+    },
+    {
+      "path": "/Users/william/dev/architecture/docs/images/North-Side-Zoo-Night.png",
+      "sha256": "eeb11569428b2eaa0ddbff1a96ead2a7ac65d3a7282555b2ad7645a5c1670dd1",
+      "actuallyViewed": true,
+      "role": "final documentation hero",
+      "observation": "The larger hero clearly shows distinct colored arch lamps, decorative tree strings, warm windows and their ground reflections. Tree crowns frame the route. Fine ground speckles remain visible; no caption or attribution overlay is present in this still."
+    }
+  ],
+  "findings": {
+    "fisherApproaches": "Accepted: day route3 at 60 and 90 seconds shows horizontal-width sloping decks, the former upright walls are absent, and Café Brauer sightlines are restored. Night samples show the corrected low silhouette but have limited deck-detail readability. Component tests separately establish dimensions, grade and support; no numerical geometry claim is inferred solely from images.",
+    "canopyAndRoads": "Previously corrected canopy poles remain closed in the sampled close views, and trees clear the visible foreground roadway in the day aerial. Foliage remains visibly procedural and faceted.",
+    "nightLighting": "Pavilion, mall seasonal lights and Conservatory are readable. Pond-side paths, Fisher Bridge and Lily Pool remain quite dark outside selected accent lights.",
+    "materialBlockersObserved": []
+  },
+  "componentEvidence": {
+    "path": "/Users/william/dev/architecture/docs/validation/v1.7/lincoln-park-zoo-component.json",
+    "sha256": "74c103c0afa6a131b24996d6ace54b9be8012780fddc3eea8983fd96e096216c"
+  },
+  "limits": [
+    "Only the fifteen listed PNGs were actually viewed. This does not certify every route frame, camera angle or movie.",
+    "Static images cannot establish temporal stability, absence of ghosting, full collision clearance or live frame rate.",
+    "Visible stochastic grain and small bright ground samples remain in several night stills, including the documentation hero.",
+    "The architecture, procedural vegetation, relative elevations and seasonal installation are documented interpretations rather than surveyed replicas or a current exact ZooLights display.",
+    "Several polygonal path edges and visibly segmented/faceted landscape forms remain part of the current model fidelity."
+  ],
+  "package": {
+    "path": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "sha256": "47ea6617452f77115a523adb38e9c0fe6e276666fc7b2a3ed738290cd2056d98",
+    "manifestPath": "/Users/william/dev/architecture/output/v8-review/final-package-input.json",
+    "manifestSHA256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84",
+    "note": "Final seventh-package executable and manifest match the regenerated image commands; the sixth-package visual record is preserved separately."
+  },
+  "historicalReviews": [
+    {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/before-ramp-correction/zoo-final-visual-review.json",
+      "sha256": "372008b27358498db77939173e05d96e3269269bb1475c877d28315906b996f7",
+      "note": "Pre-ramp visual record preserved without modification; it did not include the later route samples that exposed the ramp orientation bug."
+    },
+    {
+      "path": "/Users/william/dev/architecture/docs/validation/v1.7/before-landcover-correction/zoo-final-visual-review.json",
+      "sha256": "b708a48199703ed0f70fa7998a1467d3cb0168481505c55f37b124867b9d087c",
+      "note": "Prior sixth-package visual record preserved before northern landcover correction."
+    }
+  ],
+  "finalReviewFindings": "All fifteen regenerated seventh-package images were freshly viewed. The Fisher approaches remain shallow graded decks with clear Café Brauer sightlines. Pavilion, Zoo mall and Conservatory compositions remain unobstructed in these samples; no new material blocker is observed. These Zoo poses do not inspect the farther northern Lincoln Park landcover correction, which has separate aerial evidence."
+}

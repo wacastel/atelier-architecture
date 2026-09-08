@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Actually viewed final-frame reconstructed images from three32-frame paired sequences; quantitative full-sequence evidence lives in motion-summary.json. Earlier raw/reference comparisons were also viewed and retained in motion discovery.",
+  "observations": [
+    "OldTown seams and cornice shadows are clearer than the original combined filter, with some temporal resampling softness remaining.",
+    "Beach roof furniture/rails and tree shadows remain readable; full-reference sharpness is not completely recovered at8currentSPP.",
+    "Willis nighttime skyline retains fine window coverage; no conspicuous bright trail is visible in sampled frame."
+  ],
+  "images": [
+    {
+      "path": "output/v8-review/motion-northside/old-town-brick-reconstructed.png",
+      "sha256": "2c1cef8314aca0973e8bbe9a4b8d403838d2d99dd67164e93c52cea7bdea0844"
+    },
+    {
+      "path": "output/v8-review/motion-northside/north-avenue-beach-reconstructed.png",
+      "sha256": "ba95b212897a47d72c0f5c7d6e1a5cb8a7163bf9f5c4c91b0095a2fa9fd6a264"
+    },
+    {
+      "path": "output/v8-review/motion-chicago/willis-night-reconstructed.png",
+      "sha256": "4fb0da5fc5e8588afe958a5ea7e5067d2134873d16d7892d2801972fea8c1d6d"
+    }
+  ],
+  "packageInputSHA256": "d7306d2b7a8503704a1809ff8819b02273c8f64d3633efa40d41a955aaadd5d7"
+}

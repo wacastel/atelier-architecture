@@ -47,7 +47,10 @@ extension EiffelBuilder {
         box(V(0,-9,0),V(100_000,1,100_000),concrete)
         // The lakefront builder supplies a constrained land complement around the
         // real lake, harbors and rivers. Only distant western land remains synthetic.
-        box(V(-26200,-0.13,0),V(47600,0.15,100000),pavement)
+        // Keep the old southern land support, but expose the mapped northern
+        // river/shoreline in the newly added western strip.
+        box(V(-26200,-0.13,24250),V(47600,0.15,51500),pavement)
+        box(V(-27000,-0.13,-25750),V(46000,0.15,48500),pavement)
         func inPark(_ points:[[Float]]) -> Bool {
             guard !points.isEmpty else { return false }
             let c=points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(points.count)
@@ -66,6 +69,7 @@ extension EiffelBuilder {
             // outline that otherwise fills the modeled courtyards and galleries.
             let center=b.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(b.points.count)
             if MuseumCampusContext.suppressesBuilding(b.id,center.x,center.y) {continue}
+            if NorthSideContext.suppressesBuilding(b.id,center.x,center.y) {continue}
             if LakefrontContext.containsAuthoredCampus(center.x,center.y) {continue}
             if center.x>=982 && center.x<=1231 && center.y>=(-200) && center.y<=48 { continue }
             chicagoBuilding(MuseumCampusContext.interpretedBuilding(b),masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
@@ -86,7 +90,7 @@ extension EiffelBuilder {
         // Sparse, low-cost distant context is expressly interpretive beyond mapped radius.
         for ix in -25...19 {for iz in -25...25 {
             let x=Float(ix)*118,z=Float(iz)*118,d=simd_length(SIMD2(x,z))
-            if d<1800 || abs(x+180)<180 || x > -500 {continue}
+            if d<1800 || abs(x+180)<180 || x > -500 || (z < -125 && x > -2830) {continue}
             let h:Float = 12+Float(abs(ix*29+iz*11)%19)*2.5
             box(V(x,h/2,z),V(60,h,73),ix%3==0 ? masonry:concrete)
             for yy in stride(from:Float(5),through:h-2,by:5){
@@ -146,7 +150,7 @@ extension EiffelBuilder {
         let p=b.points.map{V($0[0],0.12,$0[1])},c=p.reduce(V.zero,+)/Float(p.count),h=b.height
         // Detail follows both destinations, including the Michigan Avenue
         // facades that are visible in Cloud Gate's curved reflections.
-        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)),simd_distance(c,V(1010,0,-2110)))
+        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)),simd_distance(c,V(1010,0,-2110)),simd_distance(c,V(-300,0,-3700)),simd_distance(c,V(100,0,-3700)))
         let modern=b.material == "glass" || b.material == "steel" || (h>105 && b.material != "stone" && b.material != "brick" && b.material != "masonry")
         let near=d<440,medium=d<950,stone=b.id == 686318733 ? granite : b.material == "brick" ? masonry : b.id%4==0 ? pale:facade
         let material=modern ? gray:stone

@@ -1,4 +1,52 @@
-# Museum Campus — Atelier 1.6
+# Chicago North Side — Atelier 1.7
+
+The app opens on **Chicago North Side**, the sixth destination. Old Town, Lincoln Park, the zoo, the conservatory and lily pool, North Avenue Beach, the northern harbors and Wrigleyville extend the existing Chicago landscape. Both connecting flights stay inside that world; all earlier places remain available.
+
+Choose a card to hold its gentle idle animation. **Space** starts or pauses its full route. **← / →** cycle through three shuttle speeds; **N** toggles day/night. **Idle Play / I** cycles all eight studies and alternates daytime and nighttime after each pass. **[ / ]** changes idle pace, independently of walkthrough speed. Use **L** or the location menu to change places, and **⌃⌘F** for full screen. Window resizing updates the viewport.
+
+| View | Study | Duration at 1× |
+| --- | --- | --- |
+| 1 | Millennium Park → Lincoln Park Zoo, via the north lakefront | 240 seconds |
+| 2 | St. Michael's, Old Town rooftops and Wells Street | 120 seconds |
+| 3 | North Avenue Beach House, promenade and Lake Michigan | 120 seconds |
+| 4 | South Pond, woven pavilion and Nature Boardwalk | 120 seconds |
+| 5 | Lincoln Park Zoo's historic houses and public mall | 150 seconds |
+| 6 | Conservatory gardens and the Alfred Caldwell Lily Pool | 120 seconds |
+| 7 | Lincoln Park Zoo → Wrigley Field, via Diversey and Belmont harbors | 240 seconds |
+| 8 | Wrigley Field, Gallagher Way, marquee, ivy and the playing field | 150 seconds |
+
+The **Chicago connecting flights** menu contains four connections: Willis–Millennium–Art Institute, Art Institute–Field Museum, Millennium–Lincoln Park Zoo, and Zoo–Wrigley. Each keeps the selected lighting and starts its own full timeline. The five Chicago destinations share one resident world; Paris loads its independent scene.
+
+Zoo night lighting is an original **seasonal ZooLights-inspired interpretation**, not a claim about the current installed display or year-round zoo lighting. Wrigley's white field banks, red marquee and restrained blue accents follow the consulted nighttime references. The architecture follows dated map footprints, with photograph-informed details and representative planting, people and boats; it is not a surveyed digital twin.
+
+## Version 1.7 demonstration artifacts
+
+- [North Side by day](../output/Chicago-North-Side-Day-1080p.mp4): all eight routes in 96 seconds.
+- [Millennium Park to Lincoln Park Zoo](../output/Millennium-Park-to-Lincoln-Park-Zoo-1080p.mp4): the complete four-minute connecting flight.
+- [Lincoln Park Zoo to Wrigley Field](../output/Lincoln-Park-Zoo-to-Wrigley-Field-1080p.mp4): the complete four-minute flight through Diversey and Belmont harbors.
+- [North Side at night](../output/Chicago-North-Side-Night-1080p.mp4): all eight routes in 96 seconds, including colored zoo lights and the illuminated stadium.
+
+These silent recordings use the packaged renderer at 1920 × 1080 and 24 FPS. The day montage uses 16 samples per frame, each connecting flight uses 12, and the night montage uses 24. The montages accelerate the full routes into twelve-second chapters; both flights retain their ordinary four-minute timelines. Movies remain local in `output/` and are excluded from Git. The app retains the full routes and independent pace controls. [Validation and sampled visual reviews](VALIDATION.md).
+
+![Wrigley Field at night](images/North-Side-Wrigley-Night.png)
+
+## Export the North Side
+
+```sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location northside \
+  --video output/Millennium-Park-to-Lincoln-Park-Zoo.mp4 --single-view --stop 0 \
+  --seconds 240 --fps 24 --width 1920 --height 1080 --samples 16
+
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location northside \
+  --video output/Lincoln-Park-Zoo-to-Wrigley-Field.mp4 --single-view --stop 6 \
+  --seconds 240 --fps 24 --width 1920 --height 1080 --samples 16
+```
+
+The default 96-second multi-view export without `--single-view` compresses each complete route into a twelve-second chapter. A custom `--seconds` duration is divided evenly among the eight chapters. The live app retains the full timelines. All exports use uniform presentation timestamps independent of rendering wall time.
+
+---
+
+## Earlier release: Museum Campus 1.6
 
 The app opens on **Museum Campus**, the fifth destination. The Field Museum, Shedd Aquarium, Adler Planetarium, Soldier Field, Burnham Harbor and all four McCormick Place buildings inhabit the existing Chicago world. The lakefront continues south with mapped buildings, boats and light traffic.
 

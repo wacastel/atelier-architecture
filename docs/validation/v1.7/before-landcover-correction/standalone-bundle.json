@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "copiedApplication": "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v17-package-ek3vsc1w/Atelier.app",
+  "sourceRepositoryReadsDeniedBySandbox": "/Users/william/dev/architecture",
+  "records": [
+    {
+      "location": "northside",
+      "arguments": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+        "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v17-package-ek3vsc1w/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "northside",
+        "--self-test",
+        "--width",
+        "640",
+        "--height",
+        "400"
+      ],
+      "seconds": 11.00818681716919,
+      "passed": true
+    },
+    {
+      "location": "paris",
+      "arguments": [
+        "/usr/bin/sandbox-exec",
+        "-p",
+        "(version 1)(allow default)(deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+        "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v17-package-ek3vsc1w/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "paris",
+        "--self-test",
+        "--width",
+        "640",
+        "--height",
+        "400"
+      ],
+      "seconds": 1.8418421745300293,
+      "passed": true
+    }
+  ],
+  "executableSHA256": "ea4d3213bea02f7e5e471c47c921eac773170bd9f7bb4b19bdcaa6883c9577ea"
+}

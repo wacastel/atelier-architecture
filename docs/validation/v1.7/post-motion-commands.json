@@ -1,0 +1,83 @@
+[
+  {
+    "name": "denoiser",
+    "arguments": [
+      "xcrun",
+      "swift",
+      "scripts/validate-denoiser.swift"
+    ],
+    "seconds": 4.448622703552246,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "The only six changed source/resource/test inputs are northern landcover geometry, map resources/preparation and NorthSide component checks; none are inputs to these isolated shader fixtures. Renderer/Denoise source and fixture scripts remain byte-identical.",
+    "priorSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+  },
+  {
+    "name": "temporal-detail",
+    "arguments": [
+      "xcrun",
+      "swift",
+      "scripts/validate-temporal-detail.swift",
+      "--report",
+      "/Users/william/dev/architecture/output/v8-review/temporal-detail.json"
+    ],
+    "seconds": 8.448101997375488,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "The only six changed source/resource/test inputs are northern landcover geometry, map resources/preparation and NorthSide component checks; none are inputs to these isolated shader fixtures. Renderer/Denoise source and fixture scripts remain byte-identical.",
+    "priorSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+  },
+  {
+    "name": "paired-motion",
+    "arguments": [
+      "scripts/validate-paired-motion.sh"
+    ],
+    "seconds": 7.919801235198975,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "The only six changed source/resource/test inputs are northern landcover geometry, map resources/preparation and NorthSide component checks; none are inputs to these isolated shader fixtures. Renderer/Denoise source and fixture scripts remain byte-identical.",
+    "priorSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+  },
+  {
+    "name": "adler",
+    "arguments": [
+      "scripts/validate-adler.sh",
+      "--gpu"
+    ],
+    "seconds": 12.38055968284607,
+    "exitCode": 0,
+    "carriedForward": true,
+    "inputVerification": "The only six changed source/resource/test inputs are northern landcover geometry, map resources/preparation and NorthSide component checks; none are inputs to these isolated shader fixtures. Renderer/Denoise source and fixture scripts remain byte-identical.",
+    "priorSourceInputSHA256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+  },
+  {
+    "name": "standalone",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/standalone-check.py"
+    ],
+    "seconds": 12.75845980644226,
+    "exitCode": 0,
+    "carriedForward": false
+  },
+  {
+    "name": "heroes",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/release-heroes.py"
+    ],
+    "seconds": 24.19688606262207,
+    "exitCode": 0,
+    "carriedForward": false
+  },
+  {
+    "name": "gallery",
+    "arguments": [
+      "python3",
+      "/Users/william/dev/architecture/output/v8-review/third-visuals.py"
+    ],
+    "seconds": 73.47264623641968,
+    "exitCode": 0,
+    "carriedForward": false
+  }
+]

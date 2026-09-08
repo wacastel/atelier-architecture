@@ -1,6 +1,61 @@
 # Validation record
 
-Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.6.0 / build 7**. Earlier sections preserve their original measurements and limitations.
+Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.7.0 / build 8**. Earlier sections preserve their original measurements and limitations.
+
+## Version 1.7 Chicago North Side
+
+The sixth destination adds **eight animated studies** of Old Town, North Avenue Beach, Lincoln Park, the zoo, Conservatory/Lily Pool and Wrigley Field. Two continuous **240-second** flights connect Millennium Park to Lincoln Park Zoo and the zoo to Wrigley through the northern lakefront and harbors. All five Chicago destinations share one resident scene and navigation world. Selecting a view holds its gentle idle motion; the established walkthrough, shuttle, idle pace, day/night, full-screen and resize controls remain available.
+
+The signed native arm64 package contains **39,792,802 static Chicago triangles, 355 materials and 3,222 static lights**. Six mapped traffic lanes carry **168 vehicles / 161,812 moving triangles** in a separate refitted structure. At 640 × 400 / 16 samples, the self-test reports **7,255.92 MiB** of Metal allocations. The night light index remains enabled at **182,160 cells**, with at most **164 candidates** in a cell; the vertex buffer is **3,835,642,944 bytes**, below the device's **373,662,154,752-byte** single-buffer limit. These are scoped allocation/capacity measurements, not whole-process memory or a frame-rate guarantee. [Chicago](validation/v1.7/chicago-self-test.json) · [Paris](validation/v1.7/paris-self-test.json).
+
+A matched Field Hall benchmark records **38.84 ms** before expansion and **38.72 ms** with the complete North Side resident. These isolated paired-validation GPU durations include tracing, reconstruction and two presentations. They support retaining the continuous world for this trace; they do not establish a universal city-wide FPS. [Comparison](validation/v1.7/resident-world-comparison.json). A copied app also passes both-city self-tests while an OS sandbox denies reads from this repository. Package resources match source, the **144-byte** frame ABI remains intact and the strict local signature verifies. [Standalone proof](validation/v1.7/standalone-bundle.json) · [Package](validation/v1.7/final-package-input.json) · [Build](validation/v1.7/build-validation.txt).
+
+Production playback passes **57,517 checks across all 49 routes**, including complete new routes, supported walking poses, head/torso/leg clearance and sampled idle motion. Both northern flights end at the exact subsequent bookmark. The eight existing CPU geometry/navigation suites pass; their initial Modern Wing duplicate-shell failure remains recorded and was fixed by restoring authored-site suppression. [Playback](validation/v1.7/playback-validation.txt) · [CPU regressions](validation/v1.7/cpu-regression.json) · [Map/geometry](NORTH-SIDE.md).
+
+The dated OSM extract adds **31,425 building footprints/parts, 19,878 path segments, 3,752 tagged tree positions and 104 representative boats, plus 248 authored canopy trees inside mapped woodland and scrub belts**, with detailed Wells Street ground-floor frontage. Footprints and published measurements constrain the landmarks; actually viewed satellite/aerial images and architectural/night photographs inform roof shapes, details and light placement. Zoo lighting is an original seasonal ZooLights-inspired interpretation. Detailed focal structures coexist with simpler contextual facades and vegetation. [Old Town/beach](NORTH-SIDE-LANDMARKS.md) · [Zoo](LINCOLN-PARK-ZOO.md) · [Wrigley](WRIGLEY-FIELD.md).
+
+## Version 1.7 motion checks
+
+All **33 actual-scene motion cases pass**, including every previous case and seven northern cases. Each uses 640 × 400, 32 frames, eight current samples and an independent 128-sample reference, with the second half measured. Both reconstructed image RMSE and temporal residual must strictly improve over the paired raw trace. This release's resolution differs from the historical 960 × 600 reports; percentages describe reconstruction benefit over matching raw samples, not improvement over a past release. [Summary and exact source hashes](validation/v1.7/motion-summary.json).
+
+| North Side moving view | Raw image RMSE | Reconstructed image RMSE | Temporal residual reduction |
+| --- | ---: | ---: | ---: |
+| old-town-brick | 0.022705 | 0.022276 | 19.1% |
+| north-avenue-beach | 0.026237 | 0.025761 | 40.3% |
+| nature-boardwalk | 0.050577 | 0.035261 | 42.4% |
+| zoolights-night | 0.024908 | 0.023906 | 17.7% |
+| conservatory-glass | 0.033877 | 0.031371 | 10.6% |
+| wrigley-field | 0.038844 | 0.031628 | 32.6% |
+| wrigley-night | 0.018187 | 0.017006 | 8.0% |
+
+The first northern run exposed redundant filtering of accumulated roof seams and sun shadows. Spatial passes now preserve accepted temporal confidence and reduce their strength accordingly. Separate ablations showed a coarse-night window issue existed with the old shader too: the emitter guard covered only two pixels while later wavelet passes reached four and eight. The guard now follows the current pass's footprint. Original failures, ablations and unchanged acceptance criteria are preserved. [Discovery](validation/v1.7/motion-discovery-notes.json) · [Renderer method](MOTION.md).
+
+The production denoiser, new moving-shadow/detail fixture, paired-presentation fixture and Adler GPU suite pass. New tests separately measure edge error and diffuse noise, preserve per-pixel confidence/reset behavior, and deliberately discard confidence or shorten the emitter guard as negative controls. Fine grain, subpixel sampling and temporal resampling softness remain possible; neither fixtures nor sampled camera traces imply universal noise elimination. [Denoiser](validation/v1.7/denoiser-validation.txt) · [Detail and coverage](validation/v1.7/temporal-detail.json) · [Paired presentation](validation/v1.7/paired-motion-validation.txt) · [Adler](validation/v1.7/adler-validation.txt).
+
+## Version 1.7 visual and native review
+
+The final package's day/night galleries, selected route details and three 1920 × 1200 hero stills were actually inspected. Reviews cover the neighborhoods, beach house and lakefront, South Pond and zoo, Conservatory/Lily Pool and Wrigley Field. Colored zoo arches and tree lights, the red marquee and white stadium field banks remain readable at night. Repeated contextual facades, faceted vegetation and finite-sample ground grain remain visible. [Context](validation/v1.7/wells-final-visual-review.json) · [Zoo](validation/v1.7/zoo-final-visual-review.json) · [Wrigley](validation/v1.7/wrigley-final-visual-review.json) · [Hero stills](validation/v1.7/release-hero-visuals.json).
+
+Recording review caught an upright Fisher Bridge ramp caused by its beam reference axis. Corrected width/grade tests, thirty deck-support rays and a negative control detect the original defect; later day/night images confirm the unobstructed approach. A subsequent harbor flight exposed a clipped-map deduplication error: the old Lincoln Park outline suppressed its larger northern replacement. The missing mapped remainder now supplies 194.7 hectares of lawn and 248 separately identified representative woodland trees, preserving earlier geometry and excluding roads, paths, water, beaches and mapped hard surfaces. Both corrected components and the complete final camera/motion suites pass. The earlier failed drafts remain preserved. [Bridge discovery](validation/v1.7/north-day-tour-ramp-discovery.json) · [Bridge correction](validation/v1.7/fisher-ramp-correction.json) · [Harbor discovery](validation/v1.7/zoo-wrigley-flight-landcover-discovery.json) · [Landcover correction](validation/v1.7/landcover-correction.json).
+
+The unlit harbor and park foreground remains very dark in the sampled night flight. That view does not support a claim about fine nighttime boat or planting detail. [Independent landcover review](validation/v1.7/landcover-still-visual-followup.json). Final-frame comparisons from the motion sequences were also inspected separately from their quantitative metrics. [Neighborhoods/Willis](validation/v1.7/root-motion-visual-review.json) · [Zoo](validation/v1.7/zoo-motion-visual-review.json) · [Wrigley](validation/v1.7/wrigley-motion-visual-review.json).
+
+Actual native checks verified Space play/pause, both three-speed shuttles, paused lighting changes, manual view holds, idle pace/cycling and day/night wraps, independent walkthrough pace, all six locations and both new flight commands. Full-screen entry/exit and ordinary window zoom/resize were observed in screenshots. These checks used the package immediately before the landcover-only correction; all relevant current UI, controller, playback and renderer source files match exactly. The earlier record preserves its Mac-lock interruption. Once the Mac became accessible, the final package also passed an actual startup, night-mode, current-view play/pause and paused-lighting smoke check; it was left running the daytime idle cycle. [Final native smoke](validation/v1.7/native-final-smoke.json). [Native controls and exact scope](validation/v1.7/native-controls.json).
+
+The release source inventory differs from the measured package inventory only by removal of one trailing space in a map preparation script; its parsed Python AST is identical. Runtime source, resources and tests remain unchanged. [Release inventory](validation/v1.7/release-source-input.json) · [Formatting equivalence](validation/v1.7/source-formatting-cleanup.json).
+
+## Version 1.7 finished demonstrations
+
+Four final silent H.264 movies use **1920 × 1080 at 24 FPS**. Both connecting flights retain their complete four-minute timing; the day and night montages compress each full camera route and its scene clock into a twelve-second chapter. All **16,128 frames / 672 seconds** pass complete decoding and uniform presentation-timestamp checks. Sampled visual review covers all eight day/night chapters, eleven points along the first flight, ten along the second and six additional Fisher Bridge frames. This is complete automated decoding plus sampled visual inspection, not visual inspection of every frame. [Media summary](validation/v1.7/media-summary.json) · [Local movies and export commands](DEMO.md#version-17-demonstration-artifacts).
+
+| Final movie | Duration | Samples per frame | Media and visual evidence |
+| --- | ---: | ---: | --- |
+| North Side by day | 96 seconds | 16 | [Decode/timing](validation/v1.7/north-day-tour-media.json) · [Sampled review](validation/v1.7/north-day-tour-visual-review.json) |
+| Millennium Park → Lincoln Park Zoo | 240 seconds | 12 | [Decode/timing](validation/v1.7/millennium-zoo-flight-media.json) · [Sampled review](validation/v1.7/millennium-zoo-flight-visual-review.json) |
+| Lincoln Park Zoo → Wrigley Field | 240 seconds | 12 | [Decode/timing](validation/v1.7/zoo-wrigley-flight-media.json) · [Sampled review](validation/v1.7/zoo-wrigley-flight-visual-review.json) |
+| North Side at night | 96 seconds | 24 | [Decode/timing](validation/v1.7/north-night-tour-media.json) · [Sampled review](validation/v1.7/north-night-tour-visual-review.json) |
+
+The sampled final flights show clear tower and pavilion approaches, corrected bridge ramps and restored northern park lawns. The night tour keeps distinct colored zoo lamps and reflections, Wrigley's field lighting and boards, and readable captions and attribution. Unlit harbor/pond areas remain dark; finite-sample grain, repeated context facades and simplified planting remain visible. Movies stay local in `output/`; references, source data and validation records are committed. The final integrity audit verifies all **143 source inputs, 18 application files**, current movie hashes and their matching review reports. [Release verification](validation/v1.7/release-verification.json).
 
 ## Version 1.6 Museum Campus
 
