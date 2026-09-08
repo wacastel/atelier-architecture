@@ -1,0 +1,269 @@
+{
+  "date": "2026-09-08",
+  "scope": "Read-only visual inspection of the actual decoded gallery images listed below. No rendering or native app interaction was performed for this review.",
+  "reviewedImageCount": 12,
+  "requestedViews": [
+    0,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "viewsNotReviewedInThisReport": [
+    1,
+    2
+  ],
+  "method": "Each PNG was displayed through the image viewer at its full 1600 x 1000 image size and visually inspected. Observations describe visible content, not conclusions inferred from filenames.",
+  "overall": "The requested landmark, fountain, park, harbor and shoreline compositions are readable in the reviewed day and night stills. Vehicles, moored boats, lights and water reflections are visible where described below. No source change was requested by this bounded release review.",
+  "limits": [
+    "This review does not certify animation smoothness, temporal reconstruction, frame pacing, collision clearance or complete walkthrough coverage.",
+    "Only these twelve starting-gallery stills were reviewed; other views and intermediate camera poses are outside this report.",
+    "Procedural trees, distant facades, fountain jets and selected street junctions remain visibly simplified.",
+    "A rendered still cannot establish survey accuracy or faithful real-world photometry."
+  ],
+  "images": [
+    {
+      "path": "output/v6-review/release-night/00-the-magnificent-mile.png",
+      "sha256": "b8cb6f57ca978e80d31a197e6e52a03e2bab39f73f0f0ce845b74afd30685c2c",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 0,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "Wrigley clock faces, black hands, white facade relief, upper arches and dome are readable together.",
+        "Tribune has a warmer illuminated shaft and visible Gothic crown; the street corridor separates both landmarks."
+      ],
+      "limitations": [
+        "The foreground Wrigley body extends outside the left and bottom edges; this is an elevated gateway view rather than a complete elevation."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-night/03-the-hancock's-great-diagonals.png",
+      "sha256": "0b5cf8827bcef6fe5cb11194f0d39e08cada3cb61d59975d57b61d897b1c7208",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 3,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The dark tapered tower and both full antennas stand against the sky; lit windows reveal portions of the diagonal structure.",
+        "The shoreline curves away at right, with a sparse line of road lights."
+      ],
+      "limitations": [
+        "The lower tower is partly behind foreground buildings; night structural diagonals have less contrast than the daytime view."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-night/04-buckingham-fountain.png",
+      "sha256": "456cc57aaf6930e737e8e881d2aeefa19387bfdefa58b8604df5f513966b957d",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 4,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The complete central fountain basin and its arcing jets remain unobstructed.",
+        "Warm and pale cyan illumination reflects in the pool; surrounding path lights describe the radial landscape layout."
+      ],
+      "limitations": [
+        "Water jets read as smooth authored arc geometry; the image does not demonstrate spray simulation or water motion.",
+        "Foreground foliage is dark at night but does not hide the central fountain."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-night/05-chicago's-front-yard.png",
+      "sha256": "e260c41553d394be8058170b3f21c87d335f6a0771435e1d7a9502f6f833053d",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 5,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "A broad skyline sits above the landscaped park; the distant fountain remains visible above and beside foreground foliage.",
+        "Sparse cars occupy the right-hand divided road, with white headlights and red rear lights visible."
+      ],
+      "limitations": [
+        "Foreground trees partially hide the distant fountain; this is the wider park-and-road composition.",
+        "A still cannot verify vehicle speed, movement, spacing over time or freedom from temporal trails."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-night/06-harbors-on-lake-michigan.png",
+      "sha256": "5ebb0c8b47c0c84acf3f812084335b6288cf902af0a4d1f15fce32425f36c9e8",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 6,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "Finger piers, small white boat cabins and marina lights are visible against the dark water.",
+        "Broken vertical light reflections and surface ripples establish the harbor water plane."
+      ],
+      "limitations": [
+        "The water and foreground quay are dark in the nighttime frame; boats and piers are easier to distinguish by day.",
+        "The still does not demonstrate boat or water animation."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-night/07-along-lake-shore-drive.png",
+      "sha256": "f3fb4ce10e79746f2a9f97f5277a9f3efa514059e74fba6c56f4a401db34f2c8",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 7,
+      "lightingAppearance": "night",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The shoreline road bends clearly between the dark lake and illuminated city.",
+        "Sparse vehicle bodies and separated white/red lamps follow the visible road; the nearest car is at lower right."
+      ],
+      "limitations": [
+        "The large diagonal-braced tower extends beyond the top edge in this shoreline-focused composition.",
+        "Some minor street-junction surfaces and background facades remain visibly simplified.",
+        "A still cannot verify steering at bends, smooth motion or absence of spawn/wrap discontinuities."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/00-the-magnificent-mile.png",
+      "sha256": "8be4e49a53490b3c43e6a4e44b3bad4692da7cb5ee1697cbb8e2f43a01e91dcb",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 0,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "Both clock faces and the Wrigley upper loggia are legible; Tribune crown openings and facade piers are visible.",
+        "The elevated street-corridor composition separates the two principal buildings from surrounding masses."
+      ],
+      "limitations": [
+        "The foreground Wrigley body extends outside the left and bottom edges; this is an elevated gateway view rather than a complete elevation."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/03-the-hancock's-great-diagonals.png",
+      "sha256": "329f46a0c1eb1f71083937b9c5e1ff4a9b6992e8105bd729cdfe3a06e62febb3",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 3,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The dark tapered tower, diagonal facade members and both full antennas are clearly visible.",
+        "The lake, beach edge, curving road and surrounding roofs provide a broad geographic view."
+      ],
+      "limitations": [
+        "The lower tower is partly behind foreground buildings; night structural diagonals have less contrast than the daytime view."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/04-buckingham-fountain.png",
+      "sha256": "e4d07c16ccc6e9ee1f5126ea697e33e9bfbe6f4a400856b631d980fc0d5c7b55",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 4,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The entire fountain bowl and tiered center are visible, with multiple arcing jets and surrounding basin water.",
+        "Benches, radial paths, planted beds and trees surround the basin; foreground trees do not hide the fountain."
+      ],
+      "limitations": [
+        "Water jets read as smooth authored arc geometry; the image does not demonstrate spray simulation or water motion.",
+        "Foreground foliage is dark at night but does not hide the central fountain."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/05-chicago's-front-yard.png",
+      "sha256": "2b8f7540670eb044b883c0fbaaa8cd203985472dd35c67172fe0683078ab9bec",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 5,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The frame shows the park path network, tree rows, planted beds, distant fountain and full broad skyline.",
+        "Several sparse cars occupy the divided road on the right; the road remains visible into the distance."
+      ],
+      "limitations": [
+        "Foreground trees partially hide the distant fountain; this is the wider park-and-road composition.",
+        "A still cannot verify vehicle speed, movement, spacing over time or freedom from temporal trails."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/06-harbors-on-lake-michigan.png",
+      "sha256": "01a66e7198dd637337670f140a6778f2ff6857efffabb1ff22239fe234243bbf",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 6,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "Many moored boats, masts, cabins and finger piers are visible across the harbor.",
+        "Blue rippled water carries broad building and pier reflections; the quay and waterfront towers frame the marina."
+      ],
+      "limitations": [
+        "The water and foreground quay are dark in the nighttime frame; boats and piers are easier to distinguish by day.",
+        "The still does not demonstrate boat or water animation."
+      ]
+    },
+    {
+      "path": "output/v6-review/release-day/07-along-lake-shore-drive.png",
+      "sha256": "a08520263bc42da354a3af7af7701ec1a9209357ded1a06d46878f5afca37a88",
+      "dimensions": [
+        1600,
+        1000
+      ],
+      "view": 7,
+      "lightingAppearance": "day",
+      "actuallyViewed": true,
+      "review": "No blocking framing defect observed in this still.",
+      "observations": [
+        "The beach, seawall, lakefront paths and curving divided road are clearly visible.",
+        "Sparse cars occupy the lower-right lanes, with the city and large diagonal-braced tower behind the shoreline."
+      ],
+      "limitations": [
+        "The large diagonal-braced tower extends beyond the top edge in this shoreline-focused composition.",
+        "Some minor street-junction surfaces and background facades remain visibly simplified.",
+        "A still cannot verify steering at bends, smooth motion or absence of spawn/wrap discontinuities."
+      ]
+    }
+  ],
+  "releaseScopeUpdate": {
+    "daytime": "Superseded by day-gallery-corrected-visuals.json after two daylight atmosphere corrections. Earlier reviewed images and observations are retained as historical evidence; final visual acceptance uses the regenerated gallery.",
+    "nighttime": "Retained. Daylight-only shader changes preserve night lookup paths; controlled GPU comparisons are recorded in atmosphere-correction.json."
+  }
+}

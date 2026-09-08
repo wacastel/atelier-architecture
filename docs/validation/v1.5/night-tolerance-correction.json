@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-08",
+  "device": "Apple M3 Ultra",
+  "productionChange": "Night-only spatial absolute luminance tolerance0.03\u21920.0005. All existing local variance, relative luminance, sample strength, material/geometry/coverage guards and daytime arithmetic retained.",
+  "baseline": "docs/validation/v1.5/motion-before-correction-paired-chicago.json",
+  "method": "Complete five-case Chicago sequences; paired raw/reconstruction from one trace accumulation; independent high-SPP reference; existing image and temporal improvement criteria unchanged.",
+  "settings": {
+    "width": 960,
+    "height": 600,
+    "frames": 32,
+    "samples": 8,
+    "referenceSamples": 128
+  },
+  "command": [
+    "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-paired-night-mdu2ivh7/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--location",
+    "chicago",
+    "--motion-test",
+    "<distinct output folder>",
+    "--width",
+    "960",
+    "--height",
+    "600",
+    "--samples",
+    "8",
+    "--frames",
+    "32",
+    "--reference-samples",
+    "128"
+  ],
+  "trialExecutableSHA256": "013ee898924c5fe739e79acfcfd857049bb4bb29d80e2b336fcaeccec53e4527",
+  "trialDenoiseSHA256": "6234529d5357459020f4f1782c619d41707885f24bc2970d8419f00c5b1abd42",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "5b34060fddceffe00e93ab4171572374a560b7455446fcdc683c74c755cfcfb7",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "3fe14a012e7d5eac5422f79c019e9a6dd899f6f86cb5bddfbba55db6fecb4c12",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "13b2a357d5543e7f7ce4e7f35edfad5d480a30424c947c63d89ca86e3148d7a3",
+    "Sources/ArchitectureEngine/MotionValidation.swift": "a519416d7e1ab628554ae7f88172c3c41880197a6195b36b865d95e841e28c24",
+    "scripts/validate-denoiser.swift": "86712f7ff1d215cb94603fc13cb1ac552e5131b675c4276b17cecddae106650b"
+  },
+  "acceptedTrials": [
+    {
+      "report": "docs/validation/v1.5/motion-correction-paired-chicago-run1.json",
+      "sha256": "e9ce65ff3e67c1f32c442bd8b1f5841be4c85a3b04ed6902b57177b0f80aaa8c",
+      "passed": true,
+      "willisNight": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 0.05977080581508476,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 24.75809765746817,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.025002137900675275,
+        "rawTemporalResidualRMSE": 0.035549127791894106,
+        "reconstructedRMSE": 0.024987193921381042,
+        "reconstructedTemporalResidualRMSE": 0.03524079650444896,
+        "referenceSamples": 128,
+        "resolution": [
+          960,
+          600
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 0.8673385441413051,
+        "view": "willis-night"
+      },
+      "imagesSHA256": {
+        "willis-night-raw.png": "d791bf19afe483bcb701b6498c7c773cb2a88cf3a9078bbf3dd37214eb2bae35",
+        "willis-night-reconstructed.png": "856db741e0ffb6da114c06df20dec61949dfe43cc5a5de238ff00a3fcbbdad74",
+        "willis-night-reference.png": "280f8a78424ef1a57b47936c0f5372a9c236e92d370f63efe65a5e46efb9a48e"
+      }
+    },
+    {
+      "report": "docs/validation/v1.5/motion-correction-paired-chicago-run2.json",
+      "sha256": "b51a048b6823019fd4f2c89bfe3296b619f2e4185cfb633cf37234ed50063f14",
+      "passed": true,
+      "willisNight": {
+        "clearSkyRMSE": null,
+        "darkCityRMSE": null,
+        "darkCitySamples": 0,
+        "frames": 32,
+        "imageErrorReductionPercent": 0.06063461504272061,
+        "maximumUnsupportedDarkBrightness": null,
+        "maximumUnsupportedTemporalBrightness": null,
+        "meanReconstructedGPUms": 24.76854687483865,
+        "rawDarkCityRMSE": null,
+        "rawRMSE": 0.024976307412408586,
+        "rawTemporalResidualRMSE": 0.035548678239486,
+        "reconstructedRMSE": 0.024961163124557185,
+        "reconstructedTemporalResidualRMSE": 0.03524018252711308,
+        "referenceSamples": 128,
+        "resolution": [
+          960,
+          600
+        ],
+        "samplesPerFrame": 8,
+        "temporalNoiseReductionPercent": 0.8678120471727113,
+        "view": "willis-night"
+      },
+      "imagesSHA256": {
+        "willis-night-raw.png": "24a19f277afb8740990ac35020a23517dd34ca30dc1f2160ddff502fbe691a84",
+        "willis-night-reconstructed.png": "f15fbee4295b3106447e2bb9ccfb5926d798281379dc462ab00bc4e00060e8dc",
+        "willis-night-reference.png": "9356bbb16f15a1a32010212666fbf3565b47875ca61ea22dac53f5f168127e71"
+      }
+    }
+  ],
+  "fixture": {
+    "command": "swift scripts/validate-denoiser.swift",
+    "passed": true,
+    "log": "docs/validation/v1.5/denoiser-night-tolerance.txt",
+    "originalRelativeReflectionBias": [
+      0.16072679210662458,
+      0.20861356940367382
+    ],
+    "correctedRelativeReflectionBias": [
+      0.1591360995556359,
+      0.16175105257123118
+    ],
+    "radianceScales": [
+      1,
+      0.01
+    ],
+    "dimSmoothSurfaceRequirement": "More than50% RMS noise reduction, passed.",
+    "oldShaderNegativeControl": "Original shader exits at the new assertion: Dimming identical reflected detail to night levels increased relative spatial blur by more than ten percent.",
+    "oldShaderNegativeControlExit": -5
+  },
+  "limits": [
+    "The Willis-night gain is small and is not a claim of eliminating fine night motion noise.",
+    "Earlier independently traced diagnostic streams were inconclusive and were not used to accept this correction.",
+    "Paired timing includes both raw and reconstructed presentation passes; no normal-preview FPS claim is made.",
+    "Root final twenty-case release suite and package proof remain separate."
+  ]
+}

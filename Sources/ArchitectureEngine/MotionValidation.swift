@@ -2,10 +2,9 @@ import Foundation
 import Metal
 import simd
 
-/// Real-scene regression: matched 4spp camera trajectories versus independent
-/// 128spp references, with identical seeds for raw and reconstructed streams.
+/// Real-scene regression: paired presentations of one low-SPP trace accumulation
+/// versus independent high-SPP references along the same camera trajectory.
 func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,height:Int,frames:Int,samples:Int,referenceSamples:Int,nightOnly:Bool = false,location:ArchitectureLocation = .paris,regularization:Bool = true,lowDiscrepancySampling:Bool = true,indexedLighting:Bool = true,caseName:String? = nil) throws {
-    let raw = try MetalRenderer(scene:scene,device:device)
     let reconstructed = try MetalRenderer(scene:scene,device:device)
     let reference = try MetalRenderer(scene:scene,device:device)
     let spatialOnly = try MetalRenderer(scene:scene,device:device)
@@ -15,7 +14,10 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
     let cases: [(view: Int, night: Bool, tag: String)] = location == .paris ? [
         (0, false, "overview"), (2, false, "iron"), (0, true, "night-silhouette"),
         (8, false, "river-day"), (8, true, "river-night")
-    ] : location == .chicago ? [(0,false,"willis-overview"),(2,false,"willis-facade"),(0,true,"willis-night"),(7,false,"chicago-river"),(7,true,"chicago-river-night")] : [
+    ] : location == .chicago ? [(0,false,"willis-overview"),(2,false,"willis-facade"),(0,true,"willis-night"),(7,false,"chicago-river"),(7,true,"chicago-river-night")] : location == .lakefront ? [
+        (3,false,"hancock-braces"),(1,false,"historic-water-tower"),(4,true,"buckingham-night"),
+        (6,false,"harbor-reflections"),(7,true,"lakefront-traffic-night")
+    ] : [
         (1,false,"cloud-gate-idle"),(1,false,"cloud-gate-orbit"),(1,true,"cloud-gate-night"),
         (2,false,"beneath-cloud-gate"),(2,true,"beneath-cloud-gate-night")]
     let selected=cases.filter { (!nightOnly || $0.night) && (caseName == nil || $0.tag == caseName) }
@@ -23,7 +25,7 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
     for test in selected {
         let view = test.view, night = test.night
         let silhouette = location == .paris && night && view == 0
-        raw.frameSeed=0; reconstructed.frameSeed=0; reference.frameSeed=0; spatialOnly.frameSeed=0
+        reconstructed.frameSeed=0; reference.frameSeed=0; spatialOnly.frameSeed=0
         let rawOptions = RenderOptions(lighting:night ? 2 : 0,denoising:false,regularization:regularization,lowDiscrepancySampling:lowDiscrepancySampling,indexedLighting:indexedLighting), filteredOptions = RenderOptions(lighting:night ? 2 : 0,regularization:regularization,lowDiscrepancySampling:lowDiscrepancySampling,indexedLighting:indexedLighting)
         // Keep independent reference paths identical across sampling-mode
         // comparisons. Only the low-SPP stream changes when --random-sampling
@@ -41,8 +43,10 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
                 // Slow overview pivot; closer detail pan advances along its authored route.
                 let time = view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
                 let pose = test.tag == "cloud-gate-idle" ? location.idlePose(view:view,seconds:Double(frame)/30) : silhouette ? location.pose(view:0,seconds:Double(frame)/24) : view == 8 ? location.pose(view:view,seconds:16+Double(frame)/24) : view == 0 ? location.idlePose(view:view,seconds:time) : location.pose(view:view,seconds:time)
-                let a = try raw.renderPreviewOffscreen(pose:pose,options:rawOptions,width:width,height:height,samples:max(1,samples),resetHistory:frame==0)
-                let b = try reconstructed.renderPreviewOffscreen(pose:pose,options:filteredOptions,width:width,height:height,samples:max(1,samples),resetHistory:frame==0)
+                let sceneTime = test.tag == "cloud-gate-idle" ? Double(frame)/30 : silhouette ? Double(frame)/24 : view == 8 ? 16+Double(frame)/24 : time
+                for renderer in [reconstructed,reference,spatialOnly] { renderer.setSceneTime(sceneTime) }
+                let pair = try reconstructed.renderPreviewComparisonOffscreen(pose:pose,options:filteredOptions,width:width,height:height,samples:max(1,samples),resetHistory:frame==0)
+                let a=pair.raw,b=pair.reconstructed
                 let spatial = silhouette ? try spatialOnly.renderPreviewOffscreen(pose:pose,options:filteredOptions,width:width,height:height,samples:max(1,samples),resetHistory:true) : nil
                 gpuTimes.append(reconstructed.lastGPUTime)
                 let truth = try reference.renderOffscreen(pose:pose,options:referenceOptions,width:width,height:height,samples:referenceSamples)
@@ -113,7 +117,7 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
         }
         if filteredRMS >= rawRMS || filteredTemporal >= rawTemporal { failures.append("Actual-scene reconstruction regressed on \(tag)") }
     }
-    let data:[String:Any] = ["device":device.name,"location":location.rawValue,"pathRegularization":regularization,"indexedLighting":indexedLighting,"referenceSampling":"Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons","sampling":lowDiscrepancySampling ? "Fast Owen-scrambled Sobol" : "Independent hash RNG","glossyHistory":"View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.","passed":failures.isEmpty,"failures":failures,"rawPresentation":"Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.","measurement":"Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.","scenes":reports]
+    let data:[String:Any] = ["device":device.name,"location":location.rawValue,"pathRegularization":regularization,"indexedLighting":indexedLighting,"referenceSampling":"Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons","sampling":lowDiscrepancySampling ? "Fast Owen-scrambled Sobol" : "Independent hash RNG","glossyHistory":"View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.","passed":failures.isEmpty,"failures":failures,"pairing":"Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.","timingIncludes":"Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time.","rawPresentation":"Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.","measurement":"Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.","scenes":reports]
     try JSONSerialization.data(withJSONObject:data,options:[.prettyPrinted,.sortedKeys]).write(to:folder.appendingPathComponent("metrics.json"))
     if !failures.isEmpty { throw EngineError.message(failures.joined(separator:"; ")) }
 }

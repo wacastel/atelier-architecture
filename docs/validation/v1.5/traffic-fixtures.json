@@ -1,0 +1,62 @@
+{
+  "date": "2026-09-08",
+  "device": "Apple M3 Ultra",
+  "scope": "Focused traffic implementation fixtures; full-city motion measured separately",
+  "cpu": {
+    "mappedPlacements": 13944,
+    "lanes": 6,
+    "vehicles": 168,
+    "durationSeconds": 600,
+    "passed": [
+      "arc-length interpolation",
+      "wheelbase tangent continuity",
+      "bridge grade",
+      "deterministic negative and huge time",
+      "open-boundary contraction",
+      "invalid and overflowing road rejection",
+      "longitudinal spacing"
+    ]
+  },
+  "gpu": {
+    "passed": [
+      "vertex transform matches CPU (maximum error0.0m)",
+      "small traffic BLAS/TLAS build and refit",
+      "same-time pause preserves geometry and image with matched seeds",
+      "rewind reproduces image with matched seeds",
+      "stationary-camera traffic motion resets accumulation",
+      "all five traffic lighting variants",
+      "static indexed and linear light equality",
+      "dynamic direct and mirror guides",
+      "local moving light/shadow rejection",
+      "unrelated and paused surface guides preserved",
+      "two queued frame transforms remain independent"
+    ],
+    "nightRoadMeanDisplayByte": {
+      "withoutTraffic": 4.155056423611112,
+      "withTraffic": 30.624891493055557
+    },
+    "updateOnlySynthetic": {
+      "vehicles": 168,
+      "triangles": 161812,
+      "warmFrames": 30,
+      "cpuMedianMilliseconds": 0.144,
+      "gpuMedianMilliseconds": 0.325,
+      "excludes": "whole-city ray tracing, presentation, and reconstruction"
+    }
+  },
+  "regressions": {
+    "staticMetal": "passed",
+    "glass": "passed",
+    "indexedLights": "16384 pixels bit-identical; reverse-order negative control detected",
+    "denoiser": "all existing cases plus moving/disoccluded coverage passed",
+    "negativeControl": "Removing the dynamic spatial bypass failed: Moving traffic/reflection coverage blurred or left a trail"
+  },
+  "commands": [
+    "scripts/validate-traffic.sh --cpu",
+    "scripts/validate-traffic.sh --benchmark",
+    "swift scripts/validate-metal.swift",
+    "swift scripts/validate-denoiser.swift",
+    "scripts/validate-indexed-lighting.sh",
+    "swift scripts/validate-glass.swift"
+  ]
+}

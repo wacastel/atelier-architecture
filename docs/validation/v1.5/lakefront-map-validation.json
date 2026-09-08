@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "mapSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+  "snapshot": "2026-09-08T06:20:24Z",
+  "counts": {
+    "buildings": 2998,
+    "areas": 2307,
+    "paths": 9864,
+    "trees": 8807,
+    "piers": 254,
+    "breakwaters": 127,
+    "roads": 2,
+    "trafficLanes": 6,
+    "rails": 29,
+    "railCrossings": 41,
+    "railGuards": 24
+  },
+  "checks": [
+    "unique IDs and finite coordinates",
+    "positive nonoverlapping area triangles",
+    "land/water/rail void cover bounded world",
+    "known landmark land and harbor water classification",
+    "Grant Park multipolygon and sampled grass coverage",
+    "66 detailed DuSable hull envelopes within water and clear of all mapped docks",
+    "real railway void cut from ground and all old/new landscape",
+    "museum exclusion, mapped rail gauge/coverage and crossing guard gaps",
+    "source OSM directed-chain connectivity",
+    "all six lane indices and road surface grades match",
+    "lane separation, continuity and remote spawn limits",
+    "authored landmark exclusions",
+    "byte-identical offline regeneration"
+  ],
+  "laneLengthsMetres": [
+    10326.755,
+    10325.775,
+    10324.794,
+    10494.954,
+    10495.907,
+    10496.86
+  ],
+  "maximumRoadGrade": 0.05855026844913163,
+  "limits": [
+    "Road elevations near the upper-deck river crossing and railway floor depth are interpreted; OSM supplies plan geometry, not surveyed grades.",
+    "Representative boats and facade details are authored; boat occupancy is not a live harbor inventory."
+  ]
+}

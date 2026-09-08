@@ -1,0 +1,46 @@
+{
+  "boundsMax": [
+    1158.27978515625,
+    457.20001220703125,
+    -2012.347900390625
+  ],
+  "boundsMin": [
+    938.2274169921875,
+    -0.0993623286485672,
+    -2259.197021484375
+  ],
+  "cupolaBase": 50.4444,
+  "cupolaBaseVertices": 72,
+  "degenerateTriangles": 0,
+  "generationSeconds": 0.023356080055236816,
+  "hancockTip": 457.20001220703125,
+  "historicWaterTowerHeight": 55.625999450683594,
+  "hotelRoofVertices": 198,
+  "lights": 54,
+  "materials": 41,
+  "nonfiniteVertices": 0,
+  "normalMaxError": 1.7881393432617188e-07,
+  "observationFloor": 46.1772,
+  "observationRingVertices": 72,
+  "passed": true,
+  "podiumBoundaryVertices": 1422,
+  "scope": "CPU geometry only; elevations, finite normalized vertices, valid materials, and triangle/light budget. No degenerate triangles. Integrated camera/visual review is separate.",
+  "triangles": 219434,
+  "waterTowerPlaceHotelPlinth": 60,
+  "waterTowerPlacePodium": 55,
+  "waterTowerPlaceRoof": 261.90997314453125,
+  "sources": [
+    {
+      "path": "/Users/william/dev/architecture/Sources/ArchitectureEngine/MagnificentMile.swift",
+      "sha256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814"
+    },
+    {
+      "path": "/Users/william/dev/architecture/Tests/MagnificentMileGeometry/main.swift",
+      "sha256": "ff6f0a18a9b147a09a8ed5b827d06d34ee6ddf8c403fdd5e426187052b222900"
+    },
+    {
+      "path": "/Users/william/dev/architecture/scripts/validate-magnificent-mile.sh",
+      "sha256": "7871cbc39309774facaf805b5046604a71214939b89963315d0ef3760fa7ffc7"
+    }
+  ]
+}

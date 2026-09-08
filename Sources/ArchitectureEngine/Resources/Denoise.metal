@@ -22,6 +22,7 @@ bool validPixel(int2 p, uint2 size) {
 bool requiresCurrentCoverage(float materialGuide) {
     // Integer IDs describe reflecting surfaces; +0.5 identifies an emitter,
     // +0.75 an opaque surface viewed through glass (no shared reflection motion).
+    // +0.875 marks moving geometry or locally affected lighting/reflections.
     // Surface-lighting reconstruction cannot reliably track subpixel emitter
     // coverage. Preserve current coverage of sky and visible lights.
     return materialGuide < 0.0f || fract(materialGuide) > 0.25f;
@@ -207,7 +208,7 @@ kernel void spatialFilter(
     float4 albedo = currentAlbedo.read(tid);
     // Avoid spreading partially covered bright silhouette pixels into clear
     // analytic sky. Surface reconstruction remains fully edge-aware below.
-    if (world.w<0 || (fract(world.w)>0.25f && fract(world.w)<0.7f)) {
+    if (world.w<0 || (fract(world.w)>0.25f && fract(world.w)<0.7f) || fract(world.w)>0.8f) {
         outputHDR.write(float4(center, normalDepth.w), tid);
         return;
     }
@@ -267,7 +268,12 @@ kernel void spatialFilter(
     }
     float mean = sumLuma / max(totalMoment, 0.00001f);
     float variance = max(0.0f, sumLuma2 / max(totalMoment, 0.00001f) - mean * mean);
-    float lumaScale = 3.0f * sqrt(variance) + 0.03f + 0.04f * centerLuma;
+    // A daylight-sized absolute tolerance treats distinct dim reflections and
+    // fractional window coverage as interchangeable. Match the temporal clamp's
+    // low-radiance floor at night while retaining measured variance and relative
+    // luminance terms, so ordinary dim-surface sampling noise is still reduced.
+    float absoluteTolerance = u.currentOrigin.w > 0.5f ? 0.0005f : 0.03f;
+    float lumaScale = 3.0f * sqrt(variance) + absoluteTolerance + 0.04f * centerLuma;
     constexpr float wavelet[5] = { 1.0f, 4.0f, 6.0f, 4.0f, 1.0f };
     float3 result = 0.0f;
     float total = 0.0f;

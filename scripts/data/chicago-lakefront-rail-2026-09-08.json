@@ -1,0 +1,2486 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-09-08T06:48:57Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 56180131,
+  "bounds": {
+    "minlat": 41.8554482,
+    "minlon": -87.6221403,
+    "maxlat": 41.8702853,
+    "maxlon": -87.6170358
+  },
+  "geometry": [
+    { "lat": 41.8554482, "lon": -87.6170358 },
+    { "lat": 41.8556044, "lon": -87.6170441 },
+    { "lat": 41.8557362, "lon": -87.6170560 },
+    { "lat": 41.8559206, "lon": -87.6170865 },
+    { "lat": 41.8561395, "lon": -87.6171454 },
+    { "lat": 41.8562032, "lon": -87.6171704 },
+    { "lat": 41.8563400, "lon": -87.6172241 },
+    { "lat": 41.8570961, "lon": -87.6175181 },
+    { "lat": 41.8575366, "lon": -87.6176962 },
+    { "lat": 41.8577339, "lon": -87.6177691 },
+    { "lat": 41.8581967, "lon": -87.6179534 },
+    { "lat": 41.8585006, "lon": -87.6180636 },
+    { "lat": 41.8586944, "lon": -87.6181126 },
+    { "lat": 41.8589481, "lon": -87.6181635 },
+    { "lat": 41.8593366, "lon": -87.6182072 },
+    { "lat": 41.8599749, "lon": -87.6182681 },
+    { "lat": 41.8605352, "lon": -87.6183412 },
+    { "lat": 41.8607919, "lon": -87.6183888 },
+    { "lat": 41.8611175, "lon": -87.6184747 },
+    { "lat": 41.8614571, "lon": -87.6185927 },
+    { "lat": 41.8620664, "lon": -87.6188395 },
+    { "lat": 41.8627935, "lon": -87.6191479 },
+    { "lat": 41.8632550, "lon": -87.6193410 },
+    { "lat": 41.8636067, "lon": -87.6194733 },
+    { "lat": 41.8639002, "lon": -87.6195502 },
+    { "lat": 41.8640376, "lon": -87.6195964 },
+    { "lat": 41.8644317, "lon": -87.6197016 },
+    { "lat": 41.8647625, "lon": -87.6198074 },
+    { "lat": 41.8650377, "lon": -87.6199115 },
+    { "lat": 41.8651848, "lon": -87.6199722 },
+    { "lat": 41.8661675, "lon": -87.6203844 },
+    { "lat": 41.8680018, "lon": -87.6211598 },
+    { "lat": 41.8683524, "lon": -87.6213077 },
+    { "lat": 41.8687309, "lon": -87.6214673 },
+    { "lat": 41.8691853, "lon": -87.6216496 },
+    { "lat": 41.8692606, "lon": -87.6216803 },
+    { "lat": 41.8694618, "lon": -87.6217726 },
+    { "lat": 41.8696063, "lon": -87.6218320 },
+    { "lat": 41.8698037, "lon": -87.6219209 },
+    { "lat": 41.8699817, "lon": -87.6220011 },
+    { "lat": 41.8700690, "lon": -87.6220404 },
+    { "lat": 41.8702853, "lon": -87.6221403 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357343,
+  "bounds": {
+    "minlat": 41.8672360,
+    "minlon": -87.6220011,
+    "maxlat": 41.8699817,
+    "maxlon": -87.6208826
+  },
+  "geometry": [
+    { "lat": 41.8672360, "lon": -87.6208826 },
+    { "lat": 41.8680050, "lon": -87.6212167 },
+    { "lat": 41.8683538, "lon": -87.6213648 },
+    { "lat": 41.8687259, "lon": -87.6215179 },
+    { "lat": 41.8689019, "lon": -87.6215913 },
+    { "lat": 41.8689702, "lon": -87.6216197 },
+    { "lat": 41.8691863, "lon": -87.6217102 },
+    { "lat": 41.8695898, "lon": -87.6218698 },
+    { "lat": 41.8697488, "lon": -87.6219210 },
+    { "lat": 41.8697992, "lon": -87.6219383 },
+    { "lat": 41.8699817, "lon": -87.6220011 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357358,
+  "bounds": {
+    "minlat": 41.8711667,
+    "minlon": -87.6226519,
+    "maxlat": 41.8718096,
+    "maxlon": -87.6226168
+  },
+  "geometry": [
+    { "lat": 41.8711667, "lon": -87.6226168 },
+    { "lat": 41.8714598, "lon": -87.6226412 },
+    { "lat": 41.8718096, "lon": -87.6226519 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357376,
+  "bounds": {
+    "minlat": 41.8673828,
+    "minlon": -87.6227224,
+    "maxlat": 41.8718135,
+    "maxlon": -87.6216387
+  },
+  "geometry": [
+    { "lat": 41.8673828, "lon": -87.6216387 },
+    { "lat": 41.8677465, "lon": -87.6217899 },
+    { "lat": 41.8679540, "lon": -87.6218746 },
+    { "lat": 41.8680529, "lon": -87.6219168 },
+    { "lat": 41.8682005, "lon": -87.6219776 },
+    { "lat": 41.8683104, "lon": -87.6220359 },
+    { "lat": 41.8684406, "lon": -87.6221069 },
+    { "lat": 41.8685608, "lon": -87.6221556 },
+    { "lat": 41.8687602, "lon": -87.6222054 },
+    { "lat": 41.8690246, "lon": -87.6222673 },
+    { "lat": 41.8696634, "lon": -87.6223782 },
+    { "lat": 41.8698013, "lon": -87.6224058 },
+    { "lat": 41.8699258, "lon": -87.6224453 },
+    { "lat": 41.8700018, "lon": -87.6224729 },
+    { "lat": 41.8700426, "lon": -87.6224890 },
+    { "lat": 41.8701573, "lon": -87.6225340 },
+    { "lat": 41.8703771, "lon": -87.6225954 },
+    { "lat": 41.8703840, "lon": -87.6225973 },
+    { "lat": 41.8705761, "lon": -87.6226383 },
+    { "lat": 41.8706885, "lon": -87.6226575 },
+    { "lat": 41.8707543, "lon": -87.6226688 },
+    { "lat": 41.8712323, "lon": -87.6226973 },
+    { "lat": 41.8718135, "lon": -87.6227224 }
+  ],
+  "tags": {
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "spur"
+  }
+},
+{
+  "type": "way",
+  "id": 95357381,
+  "bounds": {
+    "minlat": 41.8624632,
+    "minlon": -87.6208826,
+    "maxlat": 41.8672360,
+    "maxlon": -87.6191245
+  },
+  "geometry": [
+    { "lat": 41.8672360, "lon": -87.6208826 },
+    { "lat": 41.8666152, "lon": -87.6206133 },
+    { "lat": 41.8661390, "lon": -87.6204215 },
+    { "lat": 41.8649266, "lon": -87.6199193 },
+    { "lat": 41.8647929, "lon": -87.6198686 },
+    { "lat": 41.8645408, "lon": -87.6197841 },
+    { "lat": 41.8640297, "lon": -87.6196426 },
+    { "lat": 41.8636091, "lon": -87.6195231 },
+    { "lat": 41.8632470, "lon": -87.6193866 },
+    { "lat": 41.8629323, "lon": -87.6192585 },
+    { "lat": 41.8628054, "lon": -87.6192176 },
+    { "lat": 41.8626366, "lon": -87.6191801 },
+    { "lat": 41.8625632, "lon": -87.6191566 },
+    { "lat": 41.8624632, "lon": -87.6191245 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357386,
+  "bounds": {
+    "minlat": 41.8554616,
+    "minlon": -87.6216925,
+    "maxlat": 41.8695079,
+    "maxlon": -87.6169749
+  },
+  "geometry": [
+    { "lat": 41.8554616, "lon": -87.6169749 },
+    { "lat": 41.8555993, "lon": -87.6169804 },
+    { "lat": 41.8557463, "lon": -87.6169980 },
+    { "lat": 41.8559263, "lon": -87.6170364 },
+    { "lat": 41.8561456, "lon": -87.6170974 },
+    { "lat": 41.8562133, "lon": -87.6171234 },
+    { "lat": 41.8563465, "lon": -87.6171745 },
+    { "lat": 41.8571076, "lon": -87.6174746 },
+    { "lat": 41.8574973, "lon": -87.6176276 },
+    { "lat": 41.8577393, "lon": -87.6177205 },
+    { "lat": 41.8582075, "lon": -87.6179066 },
+    { "lat": 41.8585088, "lon": -87.6180149 },
+    { "lat": 41.8587005, "lon": -87.6180653 },
+    { "lat": 41.8589521, "lon": -87.6181158 },
+    { "lat": 41.8593399, "lon": -87.6181606 },
+    { "lat": 41.8599778, "lon": -87.6182203 },
+    { "lat": 41.8605386, "lon": -87.6182962 },
+    { "lat": 41.8607981, "lon": -87.6183416 },
+    { "lat": 41.8611255, "lon": -87.6184279 },
+    { "lat": 41.8614668, "lon": -87.6185465 },
+    { "lat": 41.8620770, "lon": -87.6187936 },
+    { "lat": 41.8627679, "lon": -87.6190867 },
+    { "lat": 41.8628042, "lon": -87.6191021 },
+    { "lat": 41.8632653, "lon": -87.6192882 },
+    { "lat": 41.8636197, "lon": -87.6194138 },
+    { "lat": 41.8638867, "lon": -87.6194913 },
+    { "lat": 41.8640654, "lon": -87.6195408 },
+    { "lat": 41.8644466, "lon": -87.6196417 },
+    { "lat": 41.8647806, "lon": -87.6197499 },
+    { "lat": 41.8651335, "lon": -87.6198839 },
+    { "lat": 41.8661860, "lon": -87.6203258 },
+    { "lat": 41.8670685, "lon": -87.6206922 },
+    { "lat": 41.8680037, "lon": -87.6210617 },
+    { "lat": 41.8683519, "lon": -87.6212046 },
+    { "lat": 41.8687285, "lon": -87.6213623 },
+    { "lat": 41.8691878, "lon": -87.6215448 },
+    { "lat": 41.8692753, "lon": -87.6215823 },
+    { "lat": 41.8694784, "lon": -87.6216771 },
+    { "lat": 41.8695079, "lon": -87.6216925 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357388,
+  "bounds": {
+    "minlat": 41.8699584,
+    "minlon": -87.6223974,
+    "maxlat": 41.8705702,
+    "maxlon": -87.6221257
+  },
+  "geometry": [
+    { "lat": 41.8705702, "lon": -87.6223974 },
+    { "lat": 41.8702275, "lon": -87.6222398 },
+    { "lat": 41.8699584, "lon": -87.6221257 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 95357392,
+  "bounds": {
+    "minlat": 41.8733143,
+    "minlon": -87.6227541,
+    "maxlat": 41.8738709,
+    "maxlon": -87.6226745
+  },
+  "geometry": [
+    { "lat": 41.8738709, "lon": -87.6227541 },
+    { "lat": 41.8735679, "lon": -87.6227120 },
+    { "lat": 41.8733143, "lon": -87.6226745 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 231374144,
+  "bounds": {
+    "minlat": 41.8554301,
+    "minlon": -87.6220928,
+    "maxlat": 41.8698700,
+    "maxlon": -87.6171183
+  },
+  "geometry": [
+    { "lat": 41.8698700, "lon": -87.6220928 },
+    { "lat": 41.8697718, "lon": -87.6220615 },
+    { "lat": 41.8696219, "lon": -87.6220190 },
+    { "lat": 41.8695410, "lon": -87.6219861 },
+    { "lat": 41.8694173, "lon": -87.6219453 },
+    { "lat": 41.8687235, "lon": -87.6216577 },
+    { "lat": 41.8683504, "lon": -87.6214993 },
+    { "lat": 41.8680021, "lon": -87.6213555 },
+    { "lat": 41.8678749, "lon": -87.6213012 },
+    { "lat": 41.8669665, "lon": -87.6208944 },
+    { "lat": 41.8667450, "lon": -87.6208034 },
+    { "lat": 41.8662512, "lon": -87.6205952 },
+    { "lat": 41.8653394, "lon": -87.6202060 },
+    { "lat": 41.8645847, "lon": -87.6199215 },
+    { "lat": 41.8642459, "lon": -87.6198193 },
+    { "lat": 41.8638411, "lon": -87.6197217 },
+    { "lat": 41.8632949, "lon": -87.6196173 },
+    { "lat": 41.8627271, "lon": -87.6195543 },
+    { "lat": 41.8625256, "lon": -87.6195333 },
+    { "lat": 41.8622567, "lon": -87.6195053 },
+    { "lat": 41.8620434, "lon": -87.6194785 },
+    { "lat": 41.8618392, "lon": -87.6194449 },
+    { "lat": 41.8615001, "lon": -87.6193652 },
+    { "lat": 41.8614610, "lon": -87.6193540 },
+    { "lat": 41.8610515, "lon": -87.6192369 },
+    { "lat": 41.8608718, "lon": -87.6191855 },
+    { "lat": 41.8600218, "lon": -87.6189568 },
+    { "lat": 41.8594245, "lon": -87.6187839 },
+    { "lat": 41.8591653, "lon": -87.6186859 },
+    { "lat": 41.8588942, "lon": -87.6185578 },
+    { "lat": 41.8581589, "lon": -87.6181455 },
+    { "lat": 41.8578655, "lon": -87.6179784 },
+    { "lat": 41.8577107, "lon": -87.6178970 },
+    { "lat": 41.8575159, "lon": -87.6178031 },
+    { "lat": 41.8572583, "lon": -87.6176830 },
+    { "lat": 41.8570724, "lon": -87.6176077 },
+    { "lat": 41.8563250, "lon": -87.6173166 },
+    { "lat": 41.8561817, "lon": -87.6172615 },
+    { "lat": 41.8561467, "lon": -87.6172480 },
+    { "lat": 41.8559115, "lon": -87.6171775 },
+    { "lat": 41.8557462, "lon": -87.6171409 },
+    { "lat": 41.8555878, "lon": -87.6171228 },
+    { "lat": 41.8554301, "lon": -87.6171183 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 231374150,
+  "bounds": {
+    "minlat": 41.8554160,
+    "minlon": -87.6223974,
+    "maxlat": 41.8705702,
+    "maxlon": -87.6171823
+  },
+  "geometry": [
+    { "lat": 41.8705702, "lon": -87.6223974 },
+    { "lat": 41.8703992, "lon": -87.6223317 },
+    { "lat": 41.8702769, "lon": -87.6222955 },
+    { "lat": 41.8701521, "lon": -87.6222632 },
+    { "lat": 41.8700067, "lon": -87.6222319 },
+    { "lat": 41.8697840, "lon": -87.6221741 },
+    { "lat": 41.8697407, "lon": -87.6221619 },
+    { "lat": 41.8696738, "lon": -87.6221429 },
+    { "lat": 41.8695718, "lon": -87.6221060 },
+    { "lat": 41.8693961, "lon": -87.6220340 },
+    { "lat": 41.8691812, "lon": -87.6219499 },
+    { "lat": 41.8683499, "lon": -87.6216027 },
+    { "lat": 41.8678668, "lon": -87.6214006 },
+    { "lat": 41.8669420, "lon": -87.6209962 },
+    { "lat": 41.8665428, "lon": -87.6208216 },
+    { "lat": 41.8656884, "lon": -87.6204655 },
+    { "lat": 41.8648903, "lon": -87.6201427 },
+    { "lat": 41.8645749, "lon": -87.6200265 },
+    { "lat": 41.8642677, "lon": -87.6199284 },
+    { "lat": 41.8639504, "lon": -87.6198476 },
+    { "lat": 41.8636804, "lon": -87.6197898 },
+    { "lat": 41.8631850, "lon": -87.6196951 },
+    { "lat": 41.8625404, "lon": -87.6196012 },
+    { "lat": 41.8625284, "lon": -87.6195993 },
+    { "lat": 41.8618107, "lon": -87.6194886 },
+    { "lat": 41.8614901, "lon": -87.6194114 },
+    { "lat": 41.8614500, "lon": -87.6193997 },
+    { "lat": 41.8610461, "lon": -87.6192819 },
+    { "lat": 41.8608718, "lon": -87.6192311 },
+    { "lat": 41.8597951, "lon": -87.6189414 },
+    { "lat": 41.8595328, "lon": -87.6188669 },
+    { "lat": 41.8592817, "lon": -87.6187831 },
+    { "lat": 41.8591598, "lon": -87.6187348 },
+    { "lat": 41.8588882, "lon": -87.6186088 },
+    { "lat": 41.8581496, "lon": -87.6181913 },
+    { "lat": 41.8577051, "lon": -87.6179459 },
+    { "lat": 41.8574939, "lon": -87.6178343 },
+    { "lat": 41.8572478, "lon": -87.6177304 },
+    { "lat": 41.8570601, "lon": -87.6176546 },
+    { "lat": 41.8563165, "lon": -87.6173642 },
+    { "lat": 41.8561672, "lon": -87.6173100 },
+    { "lat": 41.8560940, "lon": -87.6172834 },
+    { "lat": 41.8558915, "lon": -87.6172263 },
+    { "lat": 41.8556584, "lon": -87.6171905 },
+    { "lat": 41.8555429, "lon": -87.6171853 },
+    { "lat": 41.8554160, "lon": -87.6171823 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 231374151,
+  "bounds": {
+    "minlat": 41.8821329,
+    "minlon": -87.6227952,
+    "maxlat": 41.8841628,
+    "maxlon": -87.6227032
+  },
+  "geometry": [
+    { "lat": 41.8841628, "lon": -87.6227167 },
+    { "lat": 41.8841465, "lon": -87.6227170 },
+    { "lat": 41.8828170, "lon": -87.6227059 },
+    { "lat": 41.8824637, "lon": -87.6227032 },
+    { "lat": 41.8821329, "lon": -87.6227952 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "13",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 231374152,
+  "bounds": {
+    "minlat": 41.8824133,
+    "minlon": -87.6229957,
+    "maxlat": 41.8841615,
+    "maxlon": -87.6229682
+  },
+  "geometry": [
+    { "lat": 41.8841615, "lon": -87.6229954 },
+    { "lat": 41.8841502, "lon": -87.6229957 },
+    { "lat": 41.8827635, "lon": -87.6229778 },
+    { "lat": 41.8824133, "lon": -87.6229682 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "9",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234064680,
+  "bounds": {
+    "minlat": 41.8838303,
+    "minlon": -87.6236508,
+    "maxlat": 41.8865459,
+    "maxlon": -87.6234873
+  },
+  "geometry": [
+    { "lat": 41.8865459, "lon": -87.6236505 },
+    { "lat": 41.8865287, "lon": -87.6236508 },
+    { "lat": 41.8850002, "lon": -87.6236491 },
+    { "lat": 41.8843170, "lon": -87.6236483 },
+    { "lat": 41.8841788, "lon": -87.6236209 },
+    { "lat": 41.8838303, "lon": -87.6234873 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "2",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234064682,
+  "bounds": {
+    "minlat": 41.8833793,
+    "minlon": -87.6232109,
+    "maxlat": 41.8865484,
+    "maxlon": -87.6231884
+  },
+  "geometry": [
+    { "lat": 41.8865484, "lon": -87.6232109 },
+    { "lat": 41.8865320, "lon": -87.6232108 },
+    { "lat": 41.8838729, "lon": -87.6232076 },
+    { "lat": 41.8833793, "lon": -87.6231884 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "6",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234064687,
+  "bounds": {
+    "minlat": 41.8836610,
+    "minlon": -87.6234319,
+    "maxlat": 41.8865459,
+    "maxlon": -87.6233590
+  },
+  "geometry": [
+    { "lat": 41.8836610, "lon": -87.6233590 },
+    { "lat": 41.8841815, "lon": -87.6234233 },
+    { "lat": 41.8865304, "lon": -87.6234319 },
+    { "lat": 41.8865459, "lon": -87.6234312 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "4",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234067739,
+  "bounds": {
+    "minlat": 41.8818369,
+    "minlon": -87.6228237,
+    "maxlat": 41.8841516,
+    "maxlon": -87.6226570
+  },
+  "geometry": [
+    { "lat": 41.8841516, "lon": -87.6226570 },
+    { "lat": 41.8828244, "lon": -87.6226607 },
+    { "lat": 41.8824623, "lon": -87.6226617 },
+    { "lat": 41.8821259, "lon": -87.6227607 },
+    { "lat": 41.8818369, "lon": -87.6228237 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "14",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234215897,
+  "bounds": {
+    "minlat": 41.8821329,
+    "minlon": -87.6228022,
+    "maxlat": 41.8841608,
+    "maxlon": -87.6227925
+  },
+  "geometry": [
+    { "lat": 41.8841608, "lon": -87.6227925 },
+    { "lat": 41.8841453, "lon": -87.6227929 },
+    { "lat": 41.8828191, "lon": -87.6227987 },
+    { "lat": 41.8825603, "lon": -87.6228022 },
+    { "lat": 41.8821329, "lon": -87.6227952 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "12",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234215900,
+  "bounds": {
+    "minlat": 41.8813333,
+    "minlon": -87.6229332,
+    "maxlat": 41.8822673,
+    "maxlon": -87.6229190
+  },
+  "geometry": [
+    { "lat": 41.8822673, "lon": -87.6229332 },
+    { "lat": 41.8813333, "lon": -87.6229190 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234215902,
+  "bounds": {
+    "minlat": 41.8807384,
+    "minlon": -87.6229773,
+    "maxlat": 41.8809648,
+    "maxlon": -87.6229659
+  },
+  "geometry": [
+    { "lat": 41.8809648, "lon": -87.6229773 },
+    { "lat": 41.8807384, "lon": -87.6229659 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "spur",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234319699,
+  "bounds": {
+    "minlat": 41.8810596,
+    "minlon": -87.6231061,
+    "maxlat": 41.8814845,
+    "maxlon": -87.6230368
+  },
+  "geometry": [
+    { "lat": 41.8814845, "lon": -87.6231061 },
+    { "lat": 41.8810596, "lon": -87.6230368 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234319755,
+  "bounds": {
+    "minlat": 41.8833793,
+    "minlon": -87.6233384,
+    "maxlat": 41.8865464,
+    "maxlon": -87.6231884
+  },
+  "geometry": [
+    { "lat": 41.8865464, "lon": -87.6233380 },
+    { "lat": 41.8865294, "lon": -87.6233384 },
+    { "lat": 41.8838746, "lon": -87.6233294 },
+    { "lat": 41.8833793, "lon": -87.6231884 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "5",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234328521,
+  "bounds": {
+    "minlat": 41.8819557,
+    "minlon": -87.6228275,
+    "maxlat": 41.8821329,
+    "maxlon": -87.6227952
+  },
+  "geometry": [
+    { "lat": 41.8821329, "lon": -87.6227952 },
+    { "lat": 41.8819557, "lon": -87.6228275 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234328526,
+  "bounds": {
+    "minlat": 41.8805917,
+    "minlon": -87.6230159,
+    "maxlat": 41.8807372,
+    "maxlon": -87.6230047
+  },
+  "geometry": [
+    { "lat": 41.8805917, "lon": -87.6230159 },
+    { "lat": 41.8807372, "lon": -87.6230047 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234331943,
+  "bounds": {
+    "minlat": 41.8824520,
+    "minlon": -87.6231810,
+    "maxlat": 41.8833529,
+    "maxlon": -87.6231092
+  },
+  "geometry": [
+    { "lat": 41.8833529, "lon": -87.6231810 },
+    { "lat": 41.8831118, "lon": -87.6231092 },
+    { "lat": 41.8824520, "lon": -87.6231245 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234331946,
+  "bounds": {
+    "minlat": 41.8818832,
+    "minlon": -87.6234873,
+    "maxlat": 41.8838303,
+    "maxlon": -87.6231620
+  },
+  "geometry": [
+    { "lat": 41.8838303, "lon": -87.6234873 },
+    { "lat": 41.8832972, "lon": -87.6232985 },
+    { "lat": 41.8824475, "lon": -87.6231634 },
+    { "lat": 41.8818832, "lon": -87.6231620 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234342835,
+  "bounds": {
+    "minlat": 41.8826505,
+    "minlon": -87.6231810,
+    "maxlat": 41.8833529,
+    "maxlon": -87.6231466
+  },
+  "geometry": [
+    { "lat": 41.8833529, "lon": -87.6231810 },
+    { "lat": 41.8831085, "lon": -87.6231551 },
+    { "lat": 41.8826505, "lon": -87.6231466 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "yard",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234343067,
+  "bounds": {
+    "minlat": 41.8817120,
+    "minlon": -87.6231245,
+    "maxlat": 41.8823651,
+    "maxlon": -87.6230481
+  },
+  "geometry": [
+    { "lat": 41.8817120, "lon": -87.6230481 },
+    { "lat": 41.8821171, "lon": -87.6230632 },
+    { "lat": 41.8823651, "lon": -87.6231245 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234347829,
+  "bounds": {
+    "minlat": 41.8807374,
+    "minlon": -87.6230368,
+    "maxlat": 41.8810596,
+    "maxlon": -87.6230209
+  },
+  "geometry": [
+    { "lat": 41.8807374, "lon": -87.6230209 },
+    { "lat": 41.8810596, "lon": -87.6230368 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234347832,
+  "bounds": {
+    "minlat": 41.8810596,
+    "minlon": -87.6230481,
+    "maxlat": 41.8817120,
+    "maxlon": -87.6230368
+  },
+  "geometry": [
+    { "lat": 41.8810596, "lon": -87.6230368 },
+    { "lat": 41.8817120, "lon": -87.6230481 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234349432,
+  "bounds": {
+    "minlat": 41.8838303,
+    "minlon": -87.6235061,
+    "maxlat": 41.8840391,
+    "maxlon": -87.6234873
+  },
+  "geometry": [
+    { "lat": 41.8840391, "lon": -87.6235061 },
+    { "lat": 41.8838303, "lon": -87.6234873 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234349438,
+  "bounds": {
+    "minlat": 41.8836610,
+    "minlon": -87.6235061,
+    "maxlat": 41.8840391,
+    "maxlon": -87.6233590
+  },
+  "geometry": [
+    { "lat": 41.8840391, "lon": -87.6235061 },
+    { "lat": 41.8836610, "lon": -87.6233590 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234350392,
+  "bounds": {
+    "minlat": 41.8822673,
+    "minlon": -87.6229358,
+    "maxlat": 41.8841613,
+    "maxlon": -87.6229332
+  },
+  "geometry": [
+    { "lat": 41.8841613, "lon": -87.6229344 },
+    { "lat": 41.8841500, "lon": -87.6229340 },
+    { "lat": 41.8824156, "lon": -87.6229358 },
+    { "lat": 41.8822673, "lon": -87.6229332 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "10",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234350393,
+  "bounds": {
+    "minlat": 41.8824133,
+    "minlon": -87.6230742,
+    "maxlat": 41.8841613,
+    "maxlon": -87.6229682
+  },
+  "geometry": [
+    { "lat": 41.8841613, "lon": -87.6230742 },
+    { "lat": 41.8841534, "lon": -87.6230737 },
+    { "lat": 41.8827548, "lon": -87.6230652 },
+    { "lat": 41.8824133, "lon": -87.6229682 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "8",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234351129,
+  "bounds": {
+    "minlat": 41.8819557,
+    "minlon": -87.6228577,
+    "maxlat": 41.8841623,
+    "maxlon": -87.6228275
+  },
+  "geometry": [
+    { "lat": 41.8841623, "lon": -87.6228576 },
+    { "lat": 41.8841458, "lon": -87.6228577 },
+    { "lat": 41.8824158, "lon": -87.6228374 },
+    { "lat": 41.8819557, "lon": -87.6228275 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "11",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234368934,
+  "bounds": {
+    "minlat": 41.8805917,
+    "minlon": -87.6230209,
+    "maxlat": 41.8807374,
+    "maxlon": -87.6230159
+  },
+  "geometry": [
+    { "lat": 41.8805917, "lon": -87.6230159 },
+    { "lat": 41.8807374, "lon": -87.6230209 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234369311,
+  "bounds": {
+    "minlat": 41.8815628,
+    "minlon": -87.6231149,
+    "maxlat": 41.8819948,
+    "maxlon": -87.6231064
+  },
+  "geometry": [
+    { "lat": 41.8819948, "lon": -87.6231149 },
+    { "lat": 41.8815628, "lon": -87.6231064 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 234369312,
+  "bounds": {
+    "minlat": 41.8817120,
+    "minlon": -87.6231149,
+    "maxlat": 41.8819948,
+    "maxlon": -87.6230481
+  },
+  "geometry": [
+    { "lat": 41.8819948, "lon": -87.6231149 },
+    { "lat": 41.8817120, "lon": -87.6230481 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 235149508,
+  "bounds": {
+    "minlat": 41.8706196,
+    "minlon": -87.6223429,
+    "maxlat": 41.8720878,
+    "maxlon": -87.6221594
+  },
+  "geometry": [
+    { "lat": 41.8720878, "lon": -87.6223308 },
+    { "lat": 41.8717159, "lon": -87.6223370 },
+    { "lat": 41.8713611, "lon": -87.6223429 },
+    { "lat": 41.8712053, "lon": -87.6223256 },
+    { "lat": 41.8710932, "lon": -87.6223050 },
+    { "lat": 41.8708593, "lon": -87.6222402 },
+    { "lat": 41.8706196, "lon": -87.6221594 }
+  ],
+  "tags": {
+    "electrified": "no",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding"
+  }
+},
+{
+  "type": "way",
+  "id": 605958645,
+  "bounds": {
+    "minlat": 41.8702853,
+    "minlon": -87.6224082,
+    "maxlat": 41.8707651,
+    "maxlon": -87.6221403
+  },
+  "geometry": [
+    { "lat": 41.8707651, "lon": -87.6224082 },
+    { "lat": 41.8705331, "lon": -87.6222904 },
+    { "lat": 41.8703716, "lon": -87.6221940 },
+    { "lat": 41.8702853, "lon": -87.6221403 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 605958646,
+  "bounds": {
+    "minlat": 41.8661468,
+    "minlon": -87.6208034,
+    "maxlat": 41.8667450,
+    "maxlon": -87.6204856
+  },
+  "geometry": [
+    { "lat": 41.8661468, "lon": -87.6204856 },
+    { "lat": 41.8663693, "lon": -87.6205971 },
+    { "lat": 41.8665343, "lon": -87.6206936 },
+    { "lat": 41.8667450, "lon": -87.6208034 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 606126164,
+  "bounds": {
+    "minlat": 41.8795039,
+    "minlon": -87.6231538,
+    "maxlat": 41.8807363,
+    "maxlon": -87.6231194
+  },
+  "geometry": [
+    { "lat": 41.8807363, "lon": -87.6231538 },
+    { "lat": 41.8798287, "lon": -87.6231297 },
+    { "lat": 41.8795039, "lon": -87.6231194 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 606126166,
+  "bounds": {
+    "minlat": 41.8733143,
+    "minlon": -87.6230982,
+    "maxlat": 41.8807370,
+    "maxlon": -87.6226745
+  },
+  "geometry": [
+    { "lat": 41.8807370, "lon": -87.6230982 },
+    { "lat": 41.8798342, "lon": -87.6230833 },
+    { "lat": 41.8796792, "lon": -87.6230795 },
+    { "lat": 41.8792334, "lon": -87.6230573 },
+    { "lat": 41.8789851, "lon": -87.6230410 },
+    { "lat": 41.8788651, "lon": -87.6230375 },
+    { "lat": 41.8784076, "lon": -87.6230285 },
+    { "lat": 41.8781644, "lon": -87.6230309 },
+    { "lat": 41.8780212, "lon": -87.6230265 },
+    { "lat": 41.8764764, "lon": -87.6229867 },
+    { "lat": 41.8756415, "lon": -87.6229656 },
+    { "lat": 41.8754061, "lon": -87.6229412 },
+    { "lat": 41.8751827, "lon": -87.6229009 },
+    { "lat": 41.8750091, "lon": -87.6228692 },
+    { "lat": 41.8745374, "lon": -87.6227804 },
+    { "lat": 41.8742975, "lon": -87.6227382 },
+    { "lat": 41.8741418, "lon": -87.6227177 },
+    { "lat": 41.8739176, "lon": -87.6226982 },
+    { "lat": 41.8733143, "lon": -87.6226745 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 606126167,
+  "bounds": {
+    "minlat": 41.8813333,
+    "minlon": -87.6229190,
+    "maxlat": 41.8817155,
+    "maxlon": -87.6228213
+  },
+  "geometry": [
+    { "lat": 41.8817155, "lon": -87.6228213 },
+    { "lat": 41.8813333, "lon": -87.6229190 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 606126168,
+  "bounds": {
+    "minlat": 41.8809648,
+    "minlon": -87.6229773,
+    "maxlat": 41.8813333,
+    "maxlon": -87.6229190
+  },
+  "geometry": [
+    { "lat": 41.8813333, "lon": -87.6229190 },
+    { "lat": 41.8809648, "lon": -87.6229773 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "service": "crossover",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 606126169,
+  "bounds": {
+    "minlat": 41.8804301,
+    "minlon": -87.6230159,
+    "maxlat": 41.8805917,
+    "maxlon": -87.6230095
+  },
+  "geometry": [
+    { "lat": 41.8804301, "lon": -87.6230095 },
+    { "lat": 41.8805917, "lon": -87.6230159 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952694,
+  "bounds": {
+    "minlat": 41.8815628,
+    "minlon": -87.6231620,
+    "maxlat": 41.8818832,
+    "maxlon": -87.6231064
+  },
+  "geometry": [
+    { "lat": 41.8818832, "lon": -87.6231620 },
+    { "lat": 41.8815628, "lon": -87.6231064 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "crossover",
+    "tunnel": "yes",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952695,
+  "bounds": {
+    "minlat": 41.8807363,
+    "minlon": -87.6231620,
+    "maxlat": 41.8818832,
+    "maxlon": -87.6231538
+  },
+  "geometry": [
+    { "lat": 41.8818832, "lon": -87.6231620 },
+    { "lat": 41.8807363, "lon": -87.6231538 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952696,
+  "bounds": {
+    "minlat": 41.8711880,
+    "minlon": -87.6230095,
+    "maxlat": 41.8804301,
+    "maxlon": -87.6224859
+  },
+  "geometry": [
+    { "lat": 41.8711880, "lon": -87.6224859 },
+    { "lat": 41.8714372, "lon": -87.6225400 },
+    { "lat": 41.8715659, "lon": -87.6225644 },
+    { "lat": 41.8716701, "lon": -87.6225786 },
+    { "lat": 41.8718145, "lon": -87.6225921 },
+    { "lat": 41.8724658, "lon": -87.6226222 },
+    { "lat": 41.8726174, "lon": -87.6226221 },
+    { "lat": 41.8739183, "lon": -87.6226533 },
+    { "lat": 41.8741425, "lon": -87.6226639 },
+    { "lat": 41.8743174, "lon": -87.6226829 },
+    { "lat": 41.8745387, "lon": -87.6227239 },
+    { "lat": 41.8748296, "lon": -87.6227649 },
+    { "lat": 41.8750170, "lon": -87.6228055 },
+    { "lat": 41.8751446, "lon": -87.6228227 },
+    { "lat": 41.8756480, "lon": -87.6228367 },
+    { "lat": 41.8758024, "lon": -87.6228408 },
+    { "lat": 41.8773738, "lon": -87.6228903 },
+    { "lat": 41.8780196, "lon": -87.6229240 },
+    { "lat": 41.8784099, "lon": -87.6229379 },
+    { "lat": 41.8788743, "lon": -87.6229615 },
+    { "lat": 41.8792293, "lon": -87.6229683 },
+    { "lat": 41.8796792, "lon": -87.6229876 },
+    { "lat": 41.8800500, "lon": -87.6230022 },
+    { "lat": 41.8804301, "lon": -87.6230095 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952697,
+  "bounds": {
+    "minlat": 41.8707651,
+    "minlon": -87.6226519,
+    "maxlat": 41.8718096,
+    "maxlon": -87.6224082
+  },
+  "geometry": [
+    { "lat": 41.8718096, "lon": -87.6226519 },
+    { "lat": 41.8715559, "lon": -87.6226208 },
+    { "lat": 41.8712144, "lon": -87.6225680 },
+    { "lat": 41.8711097, "lon": -87.6225418 },
+    { "lat": 41.8710060, "lon": -87.6225103 },
+    { "lat": 41.8708158, "lon": -87.6224301 },
+    { "lat": 41.8707651, "lon": -87.6224082 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952698,
+  "bounds": {
+    "minlat": 41.8711667,
+    "minlon": -87.6227224,
+    "maxlat": 41.8718135,
+    "maxlon": -87.6226168
+  },
+  "geometry": [
+    { "lat": 41.8718135, "lon": -87.6227224 },
+    { "lat": 41.8714293, "lon": -87.6226643 },
+    { "lat": 41.8711667, "lon": -87.6226168 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952700,
+  "bounds": {
+    "minlat": 41.8698700,
+    "minlon": -87.6221257,
+    "maxlat": 41.8699584,
+    "maxlon": -87.6220928
+  },
+  "geometry": [
+    { "lat": 41.8699584, "lon": -87.6221257 },
+    { "lat": 41.8698700, "lon": -87.6220928 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 762952702,
+  "bounds": {
+    "minlat": 41.8689702,
+    "minlon": -87.6220928,
+    "maxlat": 41.8698700,
+    "maxlon": -87.6216197
+  },
+  "geometry": [
+    { "lat": 41.8689702, "lon": -87.6216197 },
+    { "lat": 41.8691831, "lon": -87.6217255 },
+    { "lat": 41.8695375, "lon": -87.6219417 },
+    { "lat": 41.8696789, "lon": -87.6220079 },
+    { "lat": 41.8697761, "lon": -87.6220476 },
+    { "lat": 41.8698700, "lon": -87.6220928 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 765296912,
+  "bounds": {
+    "minlat": 41.8795039,
+    "minlon": -87.6231194,
+    "maxlat": 41.8804301,
+    "maxlon": -87.6230095
+  },
+  "geometry": [
+    { "lat": 41.8795039, "lon": -87.6231194 },
+    { "lat": 41.8798342, "lon": -87.6230833 },
+    { "lat": 41.8802339, "lon": -87.6230259 },
+    { "lat": 41.8804301, "lon": -87.6230095 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 765296927,
+  "bounds": {
+    "minlat": 41.8738709,
+    "minlon": -87.6231194,
+    "maxlat": 41.8795039,
+    "maxlon": -87.6227541
+  },
+  "geometry": [
+    { "lat": 41.8795039, "lon": -87.6231194 },
+    { "lat": 41.8792338, "lon": -87.6231139 },
+    { "lat": 41.8788620, "lon": -87.6230917 },
+    { "lat": 41.8787512, "lon": -87.6230847 },
+    { "lat": 41.8784123, "lon": -87.6230767 },
+    { "lat": 41.8781670, "lon": -87.6230742 },
+    { "lat": 41.8764766, "lon": -87.6230321 },
+    { "lat": 41.8756488, "lon": -87.6230084 },
+    { "lat": 41.8753859, "lon": -87.6229873 },
+    { "lat": 41.8751741, "lon": -87.6229544 },
+    { "lat": 41.8745343, "lon": -87.6228298 },
+    { "lat": 41.8742924, "lon": -87.6227890 },
+    { "lat": 41.8741437, "lon": -87.6227702 },
+    { "lat": 41.8739176, "lon": -87.6227561 },
+    { "lat": 41.8738709, "lon": -87.6227541 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465849,
+  "bounds": {
+    "minlat": 41.8718096,
+    "minlon": -87.6226745,
+    "maxlat": 41.8733143,
+    "maxlon": -87.6226519
+  },
+  "geometry": [
+    { "lat": 41.8733143, "lon": -87.6226745 },
+    { "lat": 41.8724887, "lon": -87.6226671 },
+    { "lat": 41.8719545, "lon": -87.6226552 },
+    { "lat": 41.8718096, "lon": -87.6226519 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465851,
+  "bounds": {
+    "minlat": 41.8718135,
+    "minlon": -87.6227541,
+    "maxlat": 41.8738709,
+    "maxlon": -87.6227224
+  },
+  "geometry": [
+    { "lat": 41.8738709, "lon": -87.6227541 },
+    { "lat": 41.8727886, "lon": -87.6227245 },
+    { "lat": 41.8726054, "lon": -87.6227254 },
+    { "lat": 41.8723412, "lon": -87.6227379 },
+    { "lat": 41.8721878, "lon": -87.6227406 },
+    { "lat": 41.8718135, "lon": -87.6227224 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465853,
+  "bounds": {
+    "minlat": 41.8807372,
+    "minlon": -87.6230047,
+    "maxlat": 41.8809648,
+    "maxlon": -87.6229773
+  },
+  "geometry": [
+    { "lat": 41.8809648, "lon": -87.6229773 },
+    { "lat": 41.8807372, "lon": -87.6230047 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465854,
+  "bounds": {
+    "minlat": 41.8818369,
+    "minlon": -87.6228275,
+    "maxlat": 41.8819557,
+    "maxlon": -87.6228237
+  },
+  "geometry": [
+    { "lat": 41.8819557, "lon": -87.6228275 },
+    { "lat": 41.8818369, "lon": -87.6228237 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465855,
+  "bounds": {
+    "minlat": 41.8807370,
+    "minlon": -87.6231061,
+    "maxlat": 41.8814845,
+    "maxlon": -87.6230982
+  },
+  "geometry": [
+    { "lat": 41.8814845, "lon": -87.6231061 },
+    { "lat": 41.8807370, "lon": -87.6230982 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465856,
+  "bounds": {
+    "minlat": 41.8814845,
+    "minlon": -87.6231064,
+    "maxlat": 41.8815628,
+    "maxlon": -87.6231061
+  },
+  "geometry": [
+    { "lat": 41.8815628, "lon": -87.6231064 },
+    { "lat": 41.8814845, "lon": -87.6231061 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465857,
+  "bounds": {
+    "minlat": 41.8826505,
+    "minlon": -87.6233590,
+    "maxlat": 41.8836610,
+    "maxlon": -87.6231466
+  },
+  "geometry": [
+    { "lat": 41.8826505, "lon": -87.6231466 },
+    { "lat": 41.8833039, "lon": -87.6232451 },
+    { "lat": 41.8836610, "lon": -87.6233590 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "4",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465859,
+  "bounds": {
+    "minlat": 41.8823651,
+    "minlon": -87.6231245,
+    "maxlat": 41.8824520,
+    "maxlon": -87.6231245
+  },
+  "geometry": [
+    { "lat": 41.8823651, "lon": -87.6231245 },
+    { "lat": 41.8824520, "lon": -87.6231245 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465860,
+  "bounds": {
+    "minlat": 41.8822673,
+    "minlon": -87.6229682,
+    "maxlat": 41.8824133,
+    "maxlon": -87.6229332
+  },
+  "geometry": [
+    { "lat": 41.8824133, "lon": -87.6229682 },
+    { "lat": 41.8822673, "lon": -87.6229332 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:track_ref": "8",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465861,
+  "bounds": {
+    "minlat": 41.8824520,
+    "minlon": -87.6231466,
+    "maxlat": 41.8826505,
+    "maxlon": -87.6231245
+  },
+  "geometry": [
+    { "lat": 41.8824520, "lon": -87.6231245 },
+    { "lat": 41.8826505, "lon": -87.6231466 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465862,
+  "bounds": {
+    "minlat": 41.8819948,
+    "minlon": -87.6231245,
+    "maxlat": 41.8823651,
+    "maxlon": -87.6231149
+  },
+  "geometry": [
+    { "lat": 41.8823651, "lon": -87.6231245 },
+    { "lat": 41.8819948, "lon": -87.6231149 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 769465863,
+  "bounds": {
+    "minlat": 41.8833529,
+    "minlon": -87.6231884,
+    "maxlat": 41.8833793,
+    "maxlon": -87.6231810
+  },
+  "geometry": [
+    { "lat": 41.8833793, "lon": -87.6231884 },
+    { "lat": 41.8833529, "lon": -87.6231810 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 902484042,
+  "bounds": {
+    "minlat": 41.8705702,
+    "minlon": -87.6226168,
+    "maxlat": 41.8711667,
+    "maxlon": -87.6223974
+  },
+  "geometry": [
+    { "lat": 41.8711667, "lon": -87.6226168 },
+    { "lat": 41.8710854, "lon": -87.6225958 },
+    { "lat": 41.8709902, "lon": -87.6225678 },
+    { "lat": 41.8707951, "lon": -87.6224908 },
+    { "lat": 41.8705702, "lon": -87.6223974 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 902484043,
+  "bounds": {
+    "minlat": 41.8699584,
+    "minlon": -87.6224082,
+    "maxlat": 41.8707651,
+    "maxlon": -87.6221257
+  },
+  "geometry": [
+    { "lat": 41.8707651, "lon": -87.6224082 },
+    { "lat": 41.8705864, "lon": -87.6223363 },
+    { "lat": 41.8704741, "lon": -87.6222888 },
+    { "lat": 41.8703932, "lon": -87.6222606 },
+    { "lat": 41.8702056, "lon": -87.6222077 },
+    { "lat": 41.8701101, "lon": -87.6221734 },
+    { "lat": 41.8699584, "lon": -87.6221257 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 902484044,
+  "bounds": {
+    "minlat": 41.8695079,
+    "minlon": -87.6221403,
+    "maxlat": 41.8702853,
+    "maxlon": -87.6216925
+  },
+  "geometry": [
+    { "lat": 41.8695079, "lon": -87.6216925 },
+    { "lat": 41.8696786, "lon": -87.6217754 },
+    { "lat": 41.8698221, "lon": -87.6218565 },
+    { "lat": 41.8702853, "lon": -87.6221403 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 902484045,
+  "bounds": {
+    "minlat": 41.8702853,
+    "minlon": -87.6224859,
+    "maxlat": 41.8711880,
+    "maxlon": -87.6221403
+  },
+  "geometry": [
+    { "lat": 41.8702853, "lon": -87.6221403 },
+    { "lat": 41.8706297, "lon": -87.6222917 },
+    { "lat": 41.8707747, "lon": -87.6223478 },
+    { "lat": 41.8708791, "lon": -87.6223860 },
+    { "lat": 41.8710758, "lon": -87.6224438 },
+    { "lat": 41.8711880, "lon": -87.6224859 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "name": "University Park Sub District",
+    "old_railway_operator": "IC",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:preferred_direction": "forward",
+    "railway:traffic_mode": "passenger",
+    "reporting_marks": "NIRC",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 1259494546,
+  "bounds": {
+    "minlat": 41.8817155,
+    "minlon": -87.6228237,
+    "maxlat": 41.8818369,
+    "maxlon": -87.6228213
+  },
+  "geometry": [
+    { "lat": 41.8818369, "lon": -87.6228237 },
+    { "lat": 41.8817155, "lon": -87.6228213 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "layer": "-2",
+    "level": "-2",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "tunnel": "yes",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 1259494547,
+  "bounds": {
+    "minlat": 41.8636780,
+    "minlon": -87.6208826,
+    "maxlat": 41.8672360,
+    "maxlon": -87.6195992
+  },
+  "geometry": [
+    { "lat": 41.8636780, "lon": -87.6195992 },
+    { "lat": 41.8641168, "lon": -87.6197204 },
+    { "lat": 41.8645150, "lon": -87.6198329 },
+    { "lat": 41.8647523, "lon": -87.6199128 },
+    { "lat": 41.8650978, "lon": -87.6200440 },
+    { "lat": 41.8661468, "lon": -87.6204856 },
+    { "lat": 41.8667330, "lon": -87.6207274 },
+    { "lat": 41.8668528, "lon": -87.6207717 },
+    { "lat": 41.8670139, "lon": -87.6208090 },
+    { "lat": 41.8672360, "lon": -87.6208826 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 1490354719,
+  "bounds": {
+    "minlat": 41.8719545,
+    "minlon": -87.6226552,
+    "maxlat": 41.8724658,
+    "maxlon": -87.6226222
+  },
+  "geometry": [
+    { "lat": 41.8724658, "lon": -87.6226222 },
+    { "lat": 41.8719545, "lon": -87.6226552 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "railway": "rail",
+    "service": "crossover",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 1490354727,
+  "bounds": {
+    "minlat": 41.8726174,
+    "minlon": -87.6226221,
+    "maxlat": 41.8731563,
+    "maxlon": -87.6225842
+  },
+  "geometry": [
+    { "lat": 41.8731563, "lon": -87.6225842 },
+    { "lat": 41.8726174, "lon": -87.6226221 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "usage": "main",
+    "voltage": "1500"
+  }
+},
+{
+  "type": "way",
+  "id": 1490354740,
+  "bounds": {
+    "minlat": 41.8695079,
+    "minlon": -87.6225842,
+    "maxlat": 41.8731563,
+    "maxlon": -87.6216925
+  },
+  "geometry": [
+    { "lat": 41.8695079, "lon": -87.6216925 },
+    { "lat": 41.8698303, "lon": -87.6218218 },
+    { "lat": 41.8701881, "lon": -87.6219749 },
+    { "lat": 41.8704485, "lon": -87.6220921 },
+    { "lat": 41.8706196, "lon": -87.6221594 },
+    { "lat": 41.8709307, "lon": -87.6222929 },
+    { "lat": 41.8711268, "lon": -87.6223706 },
+    { "lat": 41.8712791, "lon": -87.6224224 },
+    { "lat": 41.8714135, "lon": -87.6224589 },
+    { "lat": 41.8716751, "lon": -87.6225200 },
+    { "lat": 41.8719232, "lon": -87.6225534 },
+    { "lat": 41.8721684, "lon": -87.6225695 },
+    { "lat": 41.8722444, "lon": -87.6225633 },
+    { "lat": 41.8727895, "lon": -87.6225755 },
+    { "lat": 41.8731563, "lon": -87.6225842 }
+  ],
+  "tags": {
+    "electrified": "contact_line",
+    "frequency": "0",
+    "gauge": "1435",
+    "operator": "Metra",
+    "operator:wikidata": "Q1814208",
+    "passenger_lines": "4",
+    "railway": "rail",
+    "railway:traffic_mode": "passenger",
+    "service": "siding",
+    "voltage": "1500"
+  }
+}
+
+  ]
+}

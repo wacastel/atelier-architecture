@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "timestampUTC": "2026-09-08T07:34:27.072309+00:00",
+  "scope": "CPU-only construction and geometry checks for chicagoLakefront(), excluding pre-existing city, authored north landmarks and GPU traffic meshes.",
+  "command": "scripts/validate-lakefront-geometry.sh > output/v6-review/lakefront-geometry-validation.txt 2>&1",
+  "exitCode": 0,
+  "mapSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+  "counts": {
+    "triangles": 3708200,
+    "lights": 372,
+    "boatsAndFountainOrnaments": 247,
+    "trafficLanes": 6
+  },
+  "cpuBuildAndValidationSeconds": 0.42411601543426514,
+  "maximumNormalError": 3.5762787e-07,
+  "checks": [
+    "Vertex count equals three times triangle/material-index count",
+    "All material indices valid",
+    "All vertex positions and normals finite",
+    "Unit normals within 0.0001 tolerance",
+    "Zero collapsed triangles",
+    "Six scene traffic lanes match raw IDs, point counts and initial positions",
+    "Triangle count within expected mesh budget",
+    "Built rail-trench mesh remains open to -7.2 m ballast at (1100,300) and (1100,400)",
+    "Current map hash matches passing map-validation report"
+  ],
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/SceneTypes.swift": "e215d0c4926f5fa0809e0403662ab62fa099e718b84142fb116bc32a39328c6a",
+    "Sources/ArchitectureEngine/EiffelScene.swift": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+    "Sources/ArchitectureEngine/ParisEnvironment.swift": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+    "Sources/ArchitectureEngine/RiverEnvironment.swift": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+    "Sources/ArchitectureEngine/NightLighting.swift": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+    "Sources/ArchitectureEngine/MillenniumEnvironment.swift": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+    "Sources/ArchitectureEngine/ChicagoEnvironment.swift": "5fe99a7aad2e34a81ce8e0d811d145de795f896eca93609e8e8a3147d3296f62",
+    "Sources/ArchitectureEngine/LakefrontEnvironment.swift": "31d1e2f996605155ca845d1dc4e5af9fb6630fc0f9d55ffd3f9001fe6d14d935",
+    "Tests/LakefrontGeometry/main.swift": "2bcc0464332bd3ed7865900fc3c4368fb8667181e327718f1ab618453ce6f2aa"
+  },
+  "scriptSHA256": "afb3953817d7091633d24681267d6850035df326b425ce337c9c6cdafd35f138",
+  "textReportSHA256": "f35e7e6297ca88cbc408c4a6104102694bc03176a95190a983a9fb0380f414ff",
+  "limits": [
+    "This CPU result is not a GPU benchmark or visual approval.",
+    "243 authored boats plus four fountain ornaments share the geometry detail counter; the printed total is 247.",
+    "Boat clearance, OSM chain connectivity, topology and offline regeneration are covered separately in lakefront-map-validation.json."
+  ]
+}

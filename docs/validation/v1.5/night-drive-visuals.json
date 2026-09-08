@@ -1,0 +1,118 @@
+{
+  "visualReviewPassed": true,
+  "visualReviewPending": false,
+  "reviewedAtUTC": "2026-09-08T08:23:24.096664+00:00",
+  "scope": "Direct visual inspection of ten final PNG samples extracted from the completed two-minute night Lake Shore Drive recording. No new rendering or native app interaction.",
+  "movie": {
+    "path": "output/Lake-Shore-Drive-Night-1080p.mp4",
+    "sha256": "fe657edf729fd315819460020f96f8150d2ddbb942df2ddc4ac1908781b5a6b7",
+    "bytes": 313553115,
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": 24,
+    "durationSeconds": 120,
+    "decodedFrames": 2880,
+    "fullDecodePassed": true,
+    "decodeEvidence": "output/v6-review/night-drive-media.json",
+    "decodeEvidenceIndependentlyProduced": true
+  },
+  "frames": [
+    {
+      "seconds": 0.0,
+      "path": "output/v6-review/media-review/night-drive/0.png",
+      "sha256": "a29dd9e8302d62ee746851e8a34365ed579ec6022f0c7a623b63632f8abdabf9",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "Opening northern shoreline is framed with lake at left, the Hancock and neighboring illuminated facades at right, and the curving road below. White headlights and red rear lights are visible; the camera remains outside geometry."
+    },
+    {
+      "seconds": 10.0,
+      "path": "output/v6-review/media-review/night-drive/10.png",
+      "sha256": "696afd549ee2bb4992c59cb823c700ffd1f98a956137c0ed54f723c8d25b665c",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "The shoreline bend and parallel lanes remain readable. Headlight illumination follows road surfaces and the dark lake retains subtle reflections. Nearby facades occupy the right side without blocking the road corridor."
+    },
+    {
+      "seconds": 25.0,
+      "path": "output/v6-review/media-review/night-drive/25.png",
+      "sha256": "25693b570ab3058e1c2c4bb700645170a56f1509f9815fd4e0b9836028f81809",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "Straight roadway provides a clear view of lane markings, opposing traffic, headlight pools and the next lakefront bend. Nearby window articulation is readable; facade shadows retain fine sampling grain."
+    },
+    {
+      "seconds": 40.0,
+      "path": "output/v6-review/media-review/night-drive/40.png",
+      "sha256": "4e195ed7f454c255aa4be0ad6c6d0112232133fd379a80da8cda889b683c3784",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "Roadway curves toward the river crossing with multiple vehicles visible. The mapped shoreline and high-rise facades remain coherent, with water reflections at left and an unobstructed view along the road."
+    },
+    {
+      "seconds": 55.0,
+      "path": "output/v6-review/media-review/night-drive/55.png",
+      "sha256": "5c02a34fbdba315a9ae9378afac6acf790a30941d5da231d7320c5941c59bd4e",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "A nearby tower facade occupies a substantial central vertical strip during the detour. It partially obscures the forward road/skyline, while the road is visible at right and the illuminated marina emerges at left. This is a composition limitation, not visible penetration of the facade."
+    },
+    {
+      "seconds": 70.0,
+      "path": "output/v6-review/media-review/night-drive/70.png",
+      "sha256": "8abd4e75825e1890e5dd2eff5c424f8fd0a368bbaebeff8170e00fdd152ad615",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "DuSable piers, moored hulls and slender masts appear at left with reflected pedestal lights on water. The roadway and vehicle lights remain visible beneath the skyline at right. The image favors marina layout over close boat detail."
+    },
+    {
+      "seconds": 85.0,
+      "path": "output/v6-review/media-review/night-drive/85.png",
+      "sha256": "a8aeee97b51b62832d59d72d70f52439d6f8ebff5ba7fe9e1f734a26160304be",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "The view opens over Monroe moorings and the southbound road bend. A bus is clearly visible in the near lane with white headlights on the pavement; smaller cars and red rear lights remain separated. Willis Tower appears in the right-hand skyline."
+    },
+    {
+      "seconds": 100.0,
+      "path": "output/v6-review/media-review/night-drive/100.png",
+      "sha256": "6799b31340a21cb7b7e285f1a388b86688848134786b3ec2be4944d2bf284a42",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "Monroe boats and breakwater are visible at left, with the road crossing the right side and lit Grant Park paths ahead. Water and unlit vegetation are deliberately dark; boats at this distance mainly read as silhouettes."
+    },
+    {
+      "seconds": 115.0,
+      "path": "output/v6-review/media-review/night-drive/115.png",
+      "sha256": "5778b3feee0894d52ab3591290b11fb073ba6c679f15ec6db8a429e86b5ec134",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "Buckingham Fountain is centered beyond the foreground road, with distinct illuminated tiers, outward arcs and a central bouquet. Cars and their road illumination remain visible, and the skyline provides a clear backdrop."
+    },
+    {
+      "seconds": 119.9,
+      "path": "output/v6-review/media-review/night-drive/119.9.png",
+      "sha256": "ce0d84be491b31b3b766ec31b31af4a394ca33e3eed68349dd7afc5a26b907ff",
+      "actuallyViewed": true,
+      "captionAndAttributionReadable": true,
+      "observation": "The near-endpoint maintains the fountain, formal garden paths, lit skyline and foreground traffic in one open composition. The progress bar is nearly complete. No facade, tree or road structure covers the fountain; the park continues toward the visible pavilion lighting at right."
+    }
+  ],
+  "findings": [
+    "All ten supplied frames were actually viewed. The title, subtitle and OpenStreetMap attribution fit their panels and are readable.",
+    "The samples progress from the northern shoreline past the marina and Monroe moorings to the illuminated Buckingham Fountain endpoint.",
+    "Road lane markings, cars/buses, white headlight pools and red rear lights are visible; no gross detached light trails or obvious floating/buried vehicles were apparent in the samples.",
+    "The marina frame retains pier layout, moored boat silhouettes, masts and water reflections. Fountain endpoint frames retain tier and jet detail.",
+    "No sampled view is completely obstructed or visibly inside geometry. At 55 seconds a nearby tower partially obscures the central forward view."
+  ],
+  "limits": [
+    "This is sampled visual review of ten frames, not continuous real-time playback or inspection of all 2,880 frames; complete decode and timing were checked separately.",
+    "The 55-second tower pass reduces forward road/skyline visibility during the detour, although road and marina remain visible on either side.",
+    "Unlit water, vegetation and boats can be very dark at this night exposure; most harbor boats are too distant here for close cabin-detail assessment.",
+    "Fine sampling grain, distant window aliasing and reconstruction softness remain in difficult dark/reflected detail; this review does not establish noise-free animation or temporal correctness between samples.",
+    "The scene and lighting are authored architectural interpretations, not a surveyed or photometrically measured reconstruction."
+  ],
+  "blockers": []
+}

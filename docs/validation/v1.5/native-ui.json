@@ -1,0 +1,31 @@
+{
+  "app": "Atelier1.5.0/build6",
+  "freshInteractiveReviewCompleted": false,
+  "desktopCheck": {
+    "recordedAtUTC": "2026-09-08T08:35:38.742116+00:00",
+    "tool": "mcp__cua_repl.js",
+    "call": "await cua.getState();",
+    "result": "The Mac is locked and automatic unlock could not unlock it."
+  },
+  "checkedSeparately": [
+    "29,753 production playback and route-clearance checks across33 routes, including lighting toggle state preservation in all four destinations",
+    "Navigation regression suite",
+    "Self-test renders landscape, portrait and wide viewport sizes and checks camera aspect",
+    "Independent read-only integration review of location routing, lighting hotkey, transport and traffic clocks"
+  ],
+  "priorNativeUIScope": {
+    "record": "../v1.4/native-ui.json",
+    "note": "Earlier native review covers established full-screen, controls, transport, idle cycling and Chicago/Paris operation at its recorded v1.4 stage. It does not establish a new visual review of the v1.5 fourth-location interface."
+  },
+  "finalLaunchPending": false,
+  "finalLaunch": {
+    "recordedAtUTC": "2026-09-08T08:49:11.129626+00:00",
+    "command": "open /Users/william/dev/architecture/dist/Atelier.app",
+    "exitCode": 0,
+    "processObserved": true,
+    "process": "15565       00:46 /Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "executableSHA256": "bad337f67c17366fa6d227cd93e0eb2d90e8f02ac7bac164247b246f1fa0abb3",
+    "freshVisualCheckCompleted": false,
+    "reason": "The Mac remained locked at the final post-export check; native UI automation could not inspect the new interface. The app process is running. Current CPU controls, offscreen viewport tests, exports and standalone package checks passed separately."
+  }
+}

@@ -19,9 +19,18 @@ struct SceneData {
     var materialIndices: [UInt32] = [] // one per triangle
     var materials: [SceneMaterial] = []
     var lights: [SceneLight] = []
+    var trafficLanes: [SceneTrafficLane] = []
     var detailCount: Int = 0
     var name: String = "Eiffel Tower"
     var triangleCount: Int { vertices.count / 3 }
+}
+/// Road-centre paths in travel order; the surface builder supplies the same grade.
+/// Kept dependency-free so geometry/CPU validation can still import SceneTypes alone.
+struct SceneTrafficLane {
+    var id: Int64
+    var points: [SIMD3<Float>]
+    var speedMetresPerSecond: Float
+    var spawnFadeMetres: Float
 }
 // GPU light ABI: metres, linear RGB and luminous intensity in renderer units.
 struct SceneLight {

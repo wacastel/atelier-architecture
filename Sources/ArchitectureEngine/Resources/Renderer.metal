@@ -166,6 +166,32 @@ float3 skyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
     return sky;
 }
 
+// Atmospheric scattering remains continuous across the viewing horizon. The
+// environment's darker ground hemisphere is useful for illumination/reflection,
+// but using that branch for aerial perspective creates a screen-wide facade band.
+// Keep the upper-sky field below the horizon instead, without changing skyRadiance.
+float3 daylightAerialPerspective(float3 d, constant FrameUniforms &u) {
+    float h = max(d.y, 0.0f);
+    float3 horizon = float3(0.67f, 0.79f, 0.96f);
+    float3 zenith = float3(0.14f, 0.36f, 0.72f);
+    float3 sky = mix(horizon, zenith, pow(h, 0.45f));
+    float mu = clamp(dot(d, normalize(u.sunDirection.xyz)), -1.0f, 1.0f);
+    sky += float3(0.28f, 0.21f, 0.12f) * pow(max(mu, 0.0f), 28.0f);
+    return sky * max(u.settings.w, 0.0f);
+}
+
+// A camera ray beyond the finite terrain sees the same atmosphere as an
+// infinitely distant surface. Match the existing 0.8 haze asymptote, including
+// below the horizon; the darker environment hemisphere remains for secondary
+// lighting/reflection rays. Keep the directly visible solar disc unchanged.
+float3 daylightCameraBackground(float3 d, constant FrameUniforms &u) {
+    float3 sky = daylightAerialPerspective(d, u) * 0.8f;
+    float mu = clamp(dot(d, normalize(u.sunDirection.xyz)), -1.0f, 1.0f);
+    float angularRadius = max(u.settings.z, 0.002f);
+    float disk = smoothstep(cos(angularRadius * 1.15f), cos(angularRadius * 0.85f), mu);
+    return sky + u.sunColor.xyz * disk * 6.0f;
+}
+
 struct Surface { float3 color; float roughness; float metallic; float emission; float dielectricF0; float3 normal; };
 Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night) {
     Surface s;
@@ -254,6 +280,9 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
                 s.emission=0.12f+0.27f*room; s.metallic=0.04f;
             }
         }
+    } else if (pattern == 16) {
+        // Vehicle lamp lenses share the moving body and emit only at night.
+        s.emission=night ? s.emission:0.0f;
     } else if (pattern == 8) {
         s.emission = night ? 10.0f : 0.3f;
     } else if (pattern == 9) {
@@ -337,16 +366,43 @@ float thinSheetReflectance(float cosine) {
     float r = 0.5f*(rp*rp+rs*rs);
     return 2.0f*r/(1.0f+r);
 }
-float3 glassVisibility(ray visibility, primitive_acceleration_structure scene,
-                       const device SceneVertex *vertices,
-                       const device uint *materialIndices,
-                       const device SceneMaterial *materials) {
+// Static kernels retain their primitive-AS ABI. Traffic kernels use two
+// identity instances; both vertex arrays are already in world space. Resolve
+// the traffic primitive offset once at the traversal boundary, including every
+// shadow/glass ray, so all lighting and reflections see the same moving mesh.
+struct SceneHit {
+    intersection_type type;
+    uint primitive_id;
+    float2 triangle_barycentric_coord;
+    float distance;
+    bool dynamic;
+};
+SceneHit sceneIntersection(ray r, primitive_acceleration_structure scene, bool anyHit=false, uint staticTriangles=0) {
     intersector<triangle_data> trace;
     trace.assume_geometry_type(geometry_type::triangle);
     trace.force_opacity(forced_opacity::opaque);
+    trace.accept_any_intersection(anyHit);
+    auto hit=trace.intersect(r,scene);
+    return {hit.type,hit.primitive_id,hit.triangle_barycentric_coord,hit.distance,false};
+}
+SceneHit sceneIntersection(ray r, instance_acceleration_structure scene, bool anyHit=false, uint staticTriangles=0) {
+    intersector<triangle_data,instancing> trace;
+    trace.assume_geometry_type(geometry_type::triangle);
+    trace.force_opacity(forced_opacity::opaque);
+    trace.accept_any_intersection(anyHit);
+    auto hit=trace.intersect(r,scene,0xFF);
+    bool dynamic=hit.type!=intersection_type::none && hit.instance_id==1;
+    return {hit.type,hit.primitive_id+(dynamic ? staticTriangles:0),hit.triangle_barycentric_coord,hit.distance,dynamic};
+}
+
+template<typename Scene>
+float3 glassVisibility(ray visibility, Scene scene,
+                       const device SceneVertex *vertices,
+                       const device uint *materialIndices,
+                       const device SceneMaterial *materials, uint staticTriangles=0) {
     float3 transmission = 1;
     for (uint layer=0; layer<16; ++layer) {
-        auto hit = trace.intersect(visibility,scene);
+        auto hit = sceneIntersection(visibility,scene,false,staticTriangles);
         if (hit.type==intersection_type::none) return transmission;
         SceneMaterial m=materials[materialIndices[hit.primitive_id]];
         if (m.properties.w<=0) return 0;
@@ -370,25 +426,27 @@ float3 glassVisibility(ray visibility, primitive_acceleration_structure scene,
 // Deterministic center-pixel geometry guides. Radiance retains subpixel jitter;
 // these stable world-space guides enable motion reprojection without averaging
 // depth, normals or material IDs across edges of fine ironwork.
-kernel void primarySurface(texture2d<float, access::write> worldPosition [[texture(0)]],
-                           texture2d<float, access::write> normalDepth [[texture(1)]],
-                           texture2d<float, access::write> albedoRoughness [[texture(2)]],
-                           constant FrameUniforms &u [[buffer(0)]],
-                           const device SceneVertex *vertices [[buffer(1)]],
-                           const device uint *materialIndices [[buffer(2)]],
-                           const device SceneMaterial *materials [[buffer(3)]],
-                           primitive_acceleration_structure scene [[buffer(4)]],
-                           uint2 tid [[thread_position_in_grid]]) {
+template<bool HasTraffic=false,typename Scene=primitive_acceleration_structure>
+void writePrimarySurface(texture2d<float, access::write> worldPosition,
+                           texture2d<float, access::write> normalDepth,
+                           texture2d<float, access::write> albedoRoughness,
+                           constant FrameUniforms &u,
+                           const device SceneVertex *vertices,
+                           const device uint *materialIndices,
+                           const device SceneMaterial *materials,
+                           Scene scene, uint staticTriangles,
+                           uint2 tid, constant uint4 *traffic=nullptr,
+                           constant LightGridHeader *trafficGrid=nullptr,
+                           const device uint2 *trafficRanges=nullptr,
+                           const device uint *trafficIndices=nullptr,
+                           const device SceneLight *trafficLights=nullptr) {
     if (any(tid >= u.viewport.xy)) return;
     float2 screen = (float2(tid)+0.5f)/float2(u.viewport.xy)*2.0f-1.0f;
     ray primary;
     primary.origin = u.origin.xyz;
     primary.direction = normalize(u.forward.xyz+screen.x*u.right.xyz-screen.y*u.up.xyz);
     primary.min_distance = 0.001f; primary.max_distance = 100000.0f;
-    intersector<triangle_data> trace;
-    trace.assume_geometry_type(geometry_type::triangle);
-    trace.force_opacity(forced_opacity::opaque);
-    auto hit = trace.intersect(primary,scene);
+    auto hit = sceneIntersection(primary,scene,false,staticTriangles);
     bool throughGlass=false;
     for (uint layer=0; layer<16 && hit.type!=intersection_type::none; ++layer) {
         if (materials[materialIndices[hit.primitive_id]].properties.w<=0) break;
@@ -396,7 +454,7 @@ kernel void primarySurface(texture2d<float, access::write> worldPosition [[textu
         float3 p=primary.origin+primary.direction*hit.distance;
         float offset=max(0.001f,maxComponent(abs(p))*0.000008f);
         primary.origin=p+primary.direction*offset;
-        hit=trace.intersect(primary,scene);
+        hit=sceneIntersection(primary,scene,false,staticTriangles);
     }
     if (hit.type == intersection_type::none) {
         worldPosition.write(float4(primary.direction,-1.0f),tid);
@@ -423,9 +481,71 @@ kernel void primarySurface(texture2d<float, access::write> worldPosition [[textu
     // Emissive subpixel windows/fixtures need current coverage, not relit
     // surface history. Preserve the material ID with a half-unit guide flag.
     bool polished=s.metallic>=0.99f && s.roughness<=0.03f;
-    worldPosition.write(float4(p,float(material)+(s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:polished ? 0.125f:0.0f)),tid);
+    bool reactive=false;
+    if (HasTraffic && u.forward.w>0.5f) {
+        reactive=hit.dynamic;
+        // Only finite-support neighborhoods of current moving lamps/shadows
+        // reject static lighting history. Distant architecture keeps its full
+        // history even while traffic is advancing elsewhere in the city.
+        uint offset=0,count=traffic->z;
+        bool indexed=trafficGrid->dimensions.w!=0;
+        if (indexed) {
+            float3 cell=floor((p-trafficGrid->originCellSize.xyz)/trafficGrid->originCellSize.w);
+            if (all(cell>=0) && all(cell<float3(trafficGrid->dimensions.xyz))) {
+                uint3 c=uint3(cell);
+                uint flat=(c.z*trafficGrid->dimensions.y+c.y)*trafficGrid->dimensions.x+c.x;
+                uint2 range=trafficRanges[flat];offset=range.x;count=range.y;
+            } else count=0;
+        }
+        for(uint j=0;j<count && !reactive;++j) {
+            SceneLight light=trafficLights[indexed ? trafficIndices[offset+j]:j];
+            float radius=light.parameters.x;
+            reactive=distance_squared(p,light.positionRadius.xyz)<radius*radius;
+        }
+        // An object may move inside a stationary mirror's reflection. A smooth
+        // reflection guide catches that visibility without rejecting every
+        // polished building/sculpture merely because far-away traffic moves.
+        if(!reactive && s.roughness<0.25f) {
+            ray reflection;
+            float epsilon=max(0.001f,maxComponent(abs(p))*0.000008f);
+            reflection.origin=p+geometricNormal*epsilon;
+            reflection.direction=reflect(primary.direction,n);
+            reflection.min_distance=epsilon*0.25f;reflection.max_distance=100000;
+            reactive=sceneIntersection(reflection,scene,false,staticTriangles).dynamic;
+        }
+    }
+    worldPosition.write(float4(p,float(material)+(reactive ? 0.875f : s.emission>0.0f ? 0.5f : throughGlass ? 0.75f:polished ? 0.125f:0.0f)),tid);
     normalDepth.write(float4(n,depth),tid);
     albedoRoughness.write(float4(s.color,s.roughness),tid);
+}
+
+kernel void primarySurface(texture2d<float, access::write> worldPosition [[texture(0)]],
+                           texture2d<float, access::write> normalDepth [[texture(1)]],
+                           texture2d<float, access::write> albedoRoughness [[texture(2)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           primitive_acceleration_structure scene [[buffer(4)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    writePrimarySurface(worldPosition,normalDepth,albedoRoughness,u,vertices,materialIndices,materials,scene,0,tid);
+}
+
+kernel void primarySurfaceTraffic(texture2d<float, access::write> worldPosition [[texture(0)]],
+                           texture2d<float, access::write> normalDepth [[texture(1)]],
+                           texture2d<float, access::write> albedoRoughness [[texture(2)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           instance_acceleration_structure scene [[buffer(4)]],
+                           constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    writePrimarySurface<true>(worldPosition,normalDepth,albedoRoughness,u,vertices,materialIndices,materials,scene,traffic.x,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
 }
 
 float3 fresnelSchlick(float cosTheta, float3 f0) {
@@ -538,18 +658,22 @@ DirectSample evaluateLight(SceneLight light, Surface surface, float3 p, float3 v
 
 // Specialization keeps the sizable local-light reservoir out of the daylight
 // kernel's register allocation. Both entry points retain the identical GPU ABI.
-template <bool IsNight, bool HasLocalLights, bool IndexedLights=false>
+template <bool IsNight, bool HasLocalLights, bool IndexedLights=false, bool HasTraffic=false, typename Scene=primitive_acceleration_structure>
 void tracePaths(texture2d<float, access::read_write> accumulation,
                 constant FrameUniforms &u,
                 const device SceneVertex *vertices,
                 const device uint *materialIndices,
                 const device SceneMaterial *materials,
-                primitive_acceleration_structure scene,
+                Scene scene,
                 const device SceneLight *lights,
                 constant LightGridHeader *lightGrid,
                 const device uint2 *lightRanges,
                 const device uint *lightIndices,
-                uint2 tid) {
+                uint2 tid, constant uint4 *traffic=nullptr,
+                constant LightGridHeader *trafficGrid=nullptr,
+                const device uint2 *trafficRanges=nullptr,
+                const device uint *trafficIndices=nullptr,
+                const device SceneLight *trafficLights=nullptr) {
     if (tid.x >= u.viewport.x || tid.y >= u.viewport.y) return;
     uint pixelSeed=hashBits(tid.x + tid.y * u.viewport.x);
     uint rng = pixelSeed ^ hashBits(u.viewport.w + 67u);
@@ -566,13 +690,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
     float primaryDepth = 100000.0f;
     float3 radiance = 0.0f, throughput = 1.0f;
     float pixelCone = 2.0f * length(u.up.xyz) / float(u.viewport.y);
-    intersector<triangle_data> closest;
-    closest.assume_geometry_type(geometry_type::triangle);
-    closest.force_opacity(forced_opacity::opaque);
-    intersector<triangle_data> shadow;
-    shadow.assume_geometry_type(geometry_type::triangle);
-    shadow.force_opacity(forced_opacity::opaque);
-    shadow.accept_any_intersection(true);
+    uint staticTriangles=HasTraffic ? traffic->x:0;
     uint maxBounces = uint(clamp(u.settings.y, 1.0f, 8.0f));
     ray savedReflection;
     float3 savedThroughput=0;
@@ -588,9 +706,12 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
         path=savedReflection;throughput=savedThroughput;bounce=1;
     }
     for (uint interaction=0; interaction<maxBounces+17; ++interaction) {
-        auto hit = closest.intersect(path, scene);
+        auto hit = sceneIntersection(path,scene,false,staticTriangles);
         if (hit.type == intersection_type::none) {
-            radiance += throughput * skyRadiance(path.direction, u, bounce == 0);
+            float3 background = (!IsNight && branch == 0 && interaction == 0)
+                ? daylightCameraBackground(path.direction, u)
+                : skyRadiance(path.direction, u, bounce == 0);
+            radiance += throughput * background;
             break;
         }
         if (branch == 0 && interaction == 0) primaryDepth = hit.distance;
@@ -648,11 +769,11 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             shadowRay.direction = lightDirection;
             shadowRay.min_distance = offset * 0.25f;
             shadowRay.max_distance = 100000.0f;
-            float3 visibility=u.right.w>0.5f ? glassVisibility(shadowRay,scene,vertices,materialIndices,materials)
-                : float3(shadow.intersect(shadowRay,scene).type==intersection_type::none ? 1.0f:0.0f);
+            float3 visibility=u.right.w>0.5f ? glassVisibility(shadowRay,scene,vertices,materialIndices,materials,staticTriangles)
+                : float3(sceneIntersection(shadowRay,scene,true,staticTriangles).type==intersection_type::none ? 1.0f:0.0f);
             radiance += throughput * brdf(surface, v, lightDirection) * u.sunColor.xyz * noL * visibility;
         }
-        if (HasLocalLights && u.sunDirection.w > 0.0f) {
+        if (HasLocalLights && (u.sunDirection.w > 0.0f || (HasTraffic && IsNight))) {
             // Evaluate the four dominant lights every sample, then one weighted
             // reservoir sample of all remaining candidates with its exact PDF.
             // This keeps most direct lighting stable in motion without dropping
@@ -677,10 +798,30 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
                     lightOffset=range.x;count=range.y;
                 } else count=0;
             }
-            for (uint j=0;j<count;++j) {
-                uint index=indexed ? lightIndices[lightOffset+j]:j;
-                if (index>=activeCount) continue;
-                DirectSample candidate=evaluateLight(lights[index],surface,position,v,geometricNormal);
+            uint dynamicOffset=0,dynamicCount=0;
+            bool dynamicIndexed=false;
+            if (HasTraffic && IsNight) {
+                dynamicCount=traffic->z;
+                if (trafficGrid->dimensions.w!=0) {
+                    dynamicIndexed=true;
+                    float3 cell=floor((position-trafficGrid->originCellSize.xyz)/trafficGrid->originCellSize.w);
+                    if (all(cell>=0) && all(cell<float3(trafficGrid->dimensions.xyz))) {
+                        uint3 c=uint3(cell);
+                        uint flat=(c.z*trafficGrid->dimensions.y+c.y)*trafficGrid->dimensions.x+c.x;
+                        uint2 range=trafficRanges[flat]; dynamicOffset=range.x;dynamicCount=range.y;
+                    } else dynamicCount=0;
+                }
+            }
+            for (uint j=0;j<count+dynamicCount;++j) {
+                DirectSample candidate;
+                if (j<count) {
+                    uint index=indexed ? lightIndices[lightOffset+j]:j;
+                    if (index>=activeCount) continue;
+                    candidate=evaluateLight(lights[index],surface,position,v,geometricNormal);
+                } else {
+                    uint index=dynamicIndexed ? trafficIndices[dynamicOffset+j-count]:j-count;
+                    candidate=evaluateLight(trafficLights[index],surface,position,v,geometricNormal);
+                }
                 if (candidate.weight<=0.000001f) continue;
                 uint weakest=0;
                 for (uint k=1;k<4;++k) if (chosen[k].weight<chosen[weakest].weight) weakest=k;
@@ -701,8 +842,8 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
                 visibility.origin=rayOrigin; visibility.direction=sample.direction;
                 visibility.min_distance=offset*0.25f;
                 visibility.max_distance=max(visibility.min_distance,sample.distance-sample.radius*1.8f);
-                float3 transmittance=u.right.w>0.5f ? glassVisibility(visibility,scene,vertices,materialIndices,materials)
-                    : float3(shadow.intersect(visibility,scene).type==intersection_type::none ? 1.0f:0.0f);
+                float3 transmittance=u.right.w>0.5f ? glassVisibility(visibility,scene,vertices,materialIndices,materials,staticTriangles)
+                    : float3(sceneIntersection(visibility,scene,true,staticTriangles).type==intersection_type::none ? 1.0f:0.0f);
                 radiance+=throughput*sample.value*transmittance;
             }
         }
@@ -734,7 +875,9 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
     }
     if (primaryDepth < 99999.0f) {
         float haze = 1.0f - exp(-primaryDepth * (IsNight ? 0.00010f : 0.00028f));
-        radiance = mix(radiance, skyRadiance(primaryDirection, u, false) * 0.8f, haze);
+        float3 scattering = IsNight ? skyRadiance(primaryDirection, u, false)
+                                    : daylightAerialPerspective(primaryDirection, u);
+        radiance = mix(radiance, scattering * 0.8f, haze);
     }
     // A high sample luminance cap suppresses rare fireflies. This is a deliberate
     // variance-versus-bias tradeoff for a responsive architectural preview.
@@ -809,6 +952,101 @@ kernel void pathTraceDayInteriorsIndexed(texture2d<float, access::read_write> ac
                            const device uint *indices [[buffer(8)]],
                            uint2 tid [[thread_position_in_grid]]) {
     tracePaths<false,true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,&grid,ranges,indices,tid);
+}
+
+kernel void pathTraceTrafficDay(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                      constant FrameUniforms &u [[buffer(0)]],
+                      const device SceneVertex *vertices [[buffer(1)]],
+                      const device uint *materialIndices [[buffer(2)]],
+                      const device SceneMaterial *materials [[buffer(3)]],
+                      instance_acceleration_structure scene [[buffer(4)]],
+                      const device SceneLight *lights [[buffer(5)]],
+                      constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<false,false,false,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
+}
+kernel void pathTraceTrafficDayInteriors(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           instance_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<false,true,false,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
+}
+kernel void pathTraceTrafficNight(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           instance_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<true,true,false,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,nullptr,nullptr,nullptr,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
+}
+kernel void pathTraceTrafficNightIndexed(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           instance_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant LightGridHeader &grid [[buffer(6)]],
+                           const device uint2 *ranges [[buffer(7)]],
+                           const device uint *indices [[buffer(8)]],
+                           constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<true,true,true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,&grid,ranges,indices,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
+}
+kernel void pathTraceTrafficDayIndexed(texture2d<float, access::read_write> accumulation [[texture(0)]],
+                           constant FrameUniforms &u [[buffer(0)]],
+                           const device SceneVertex *vertices [[buffer(1)]],
+                           const device uint *materialIndices [[buffer(2)]],
+                           const device SceneMaterial *materials [[buffer(3)]],
+                           instance_acceleration_structure scene [[buffer(4)]],
+                           const device SceneLight *lights [[buffer(5)]],
+                           constant LightGridHeader &grid [[buffer(6)]],
+                           const device uint2 *ranges [[buffer(7)]],
+                           const device uint *indices [[buffer(8)]],
+                           constant uint4 &traffic [[buffer(9)]],
+                           constant LightGridHeader &trafficGrid [[buffer(10)]],
+                           const device uint2 *trafficRanges [[buffer(11)]],
+                           const device uint *trafficIndices [[buffer(12)]],
+                           const device SceneLight *trafficLights [[buffer(13)]],
+                           uint2 tid [[thread_position_in_grid]]) {
+    tracePaths<false,true,true,true>(accumulation,u,vertices,materialIndices,materials,scene,lights,&grid,ranges,indices,tid,&traffic,&trafficGrid,trafficRanges,trafficIndices,trafficLights);
+}
+
+kernel void transformTraffic(const device SceneVertex *local [[buffer(0)]],
+                             const device uint *owners [[buffer(1)]],
+                             const device float4x4 *transforms [[buffer(2)]],
+                             device SceneVertex *world [[buffer(3)]],
+                             constant uint &count [[buffer(4)]],
+                             uint tid [[thread_position_in_grid]]) {
+    if(tid>=count) return;
+    float4x4 matrix=transforms[owners[tid]];
+    SceneVertex localVertex=local[tid];
+    world[tid].position=matrix*float4(localVertex.position.xyz,1);
+    world[tid].normal=float4(normalize((matrix*float4(localVertex.normal.xyz,0)).xyz),0);
 }
 
 struct FullscreenOut { float4 position [[position]]; float2 uv; };

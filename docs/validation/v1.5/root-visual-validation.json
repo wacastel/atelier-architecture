@@ -1,0 +1,106 @@
+{
+  "date": "2026-09-08",
+  "scope": "Final release stills directly inspected; daytime entries were inspected again after the daylight atmosphere correction. Earlier phase views establish geometry and framing before the last lighting and daylight haze corrections. This is sampled visual review, not every animation frame.",
+  "releaseImages": [
+    {
+      "path": "output/v6-review/release-day-final/01-a-survivor-in-limestone.png",
+      "sha256": "a0402af72308128e32a7bafe184cc2abd4fe3f280e4792d29a864f978ede1c12"
+    },
+    {
+      "path": "output/v6-review/release-night/01-a-survivor-in-limestone.png",
+      "sha256": "668045749ca6a66f3c728ec94a28da63012c36e4ba69c3a6726f4c705159f8d1"
+    },
+    {
+      "path": "output/v6-review/release-day-final/02-water-tower-place.png",
+      "sha256": "3425dfeef6a198ea2d88df14c8e0792293d70aba8712af38c4e147fd6452667c"
+    },
+    {
+      "path": "output/v6-review/release-night/02-water-tower-place.png",
+      "sha256": "02a215c551889b4c93385a4bb168a2785903f690c4fc0ba2c56089a9230d4685"
+    },
+    {
+      "path": "output/v6-review/release-day-final/00-the-magnificent-mile.png",
+      "sha256": "f2a10991fa7e9b158f9acfbd513b3952dd9bfc2097a0fdce3beea579d3b915ad"
+    },
+    {
+      "path": "output/v6-review/release-night/04-buckingham-fountain.png",
+      "sha256": "456cc57aaf6930e737e8e881d2aeefa19387bfdefa58b8604df5f513966b957d"
+    },
+    {
+      "path": "output/v6-review/release-day-final/03-the-hancock's-great-diagonals.png",
+      "sha256": "ab094c369e3890d127aec9b15e624b5011c281c14843c2102061ce8dc184afdb"
+    }
+  ],
+  "observations": [
+    "Historic tower silhouette, octagonal shaft, stone relief and pointed entrances remain visible in daylight. Night shaft has broad continuous coverage, with darker castellated base and reflected pool lighting.",
+    "Water Tower Place corner framing includes the marble podium, recessed public frontage, tower and neighboring Hancock silhouette. Night frontage is softly illuminated; upper podium remains dark.",
+    "Gateway day composition retains Wrigley clocks and Tribune crown around Michigan Avenue.",
+    "Buckingham night basin, tiers and jets produce modeled reflections with garden paths and skyline in view.",
+    "Final Hancock aerial has a continuous sky/terrain haze boundary; the residual horizontal dark strip from the intermediate gallery is absent."
+  ],
+  "phaseImages": [
+    {
+      "path": "output/v6-review/phase-review/drive-around-lake-point.png",
+      "sha256": "1ab4a75172b8b37c18e2533d7c85aced8b53f401802e92e9ff308f4a8c0d02f8"
+    },
+    {
+      "path": "output/v6-review/phase-review/grant-arrival.png",
+      "sha256": "e179852d057066d78cc2a545479162948403c92db165773ca2382c4b0f0b3685"
+    },
+    {
+      "path": "output/v6-review/phase-review/harbor-close-day.png",
+      "sha256": "43d10e966eff7a4f915a52d94235bcaa68d2a1069552751592fbab87629f2409"
+    },
+    {
+      "path": "output/v6-review/phase-review/harbor-close-night.png",
+      "sha256": "3c6a5caa4fb048c32ac32abf2b1883dbb2375391709af0f32691179f72f5f541"
+    },
+    {
+      "path": "output/v6-review/phase-review/rail-cut.png",
+      "sha256": "75000a8bb0b860f63576ea3f2fec980335687b5ba53479bbb6339c2d8fa26cc1"
+    }
+  ],
+  "phaseObservations": [
+    "Boat close-up at12s shows hull, cabin, teak and standing rigging; moored boats are much darker than marina lights at night.",
+    "Grant approach ends with the fountain and skyline; rail corridor has an open trench and visible tracks beneath crossing decks.",
+    "Lake Shore Drive at57.5s clears Lake Point Tower, retaining the river and road in view."
+  ],
+  "limits": [
+    "Vegetation, facades, sculptural details, terrain elevations and photometry are authored approximations.",
+    "Fine grain remains in some shadowed stone and glossy reflections."
+  ],
+  "stillPipelineScope": "Progressively accumulated stills bypass motion reconstruction. Day entries are regenerated with the final continuous daylight atmosphere. Night stills predate that daylight-only change; the atmosphere GPU fixture verifies unchanged night kernels and environment lookup.",
+  "finalMovieSamples": [
+    {
+      "path": "output/v6-review/media-review/day-tour/0.png",
+      "sha256": "ddb6df960e37ffa1c5144866d7a5f6882f6693ab52acd41a6fb530ab1899f8ba",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/42.png",
+      "sha256": "5605d6a55ebcbf9d4853a4fa2b3b25531456aa1253ebe49cb4143bf78fa6aa45",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/78.png",
+      "sha256": "7c6b9891ae382c123594aa393ebd9815cddc5e6cb6ee5f9f1fc67fd41c874817",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/90.png",
+      "sha256": "173d0a2e461f69e138e4d174d23d2c5ce5afb2283e3b4816a2bdf4823b41f7ba",
+      "actuallyViewed": true
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/95.9.png",
+      "sha256": "86f4e938dc6176591d1716484da1bf9d3a49047ab8f1b3162d0e250f022d8cf9",
+      "actuallyViewed": true
+    }
+  ],
+  "finalMovieObservations": [
+    "Captions and attribution fit the reviewed frames without overflowing the title panel.",
+    "Hancock and southern lakefront skyline retain continuous haze without the earlier horizontal band.",
+    "Close harbor frame shows boats, masts, fenders, dock fittings and rippled water reflections.",
+    "Final Grant Park approach includes the fountain, path grid, planting and sparse road traffic."
+  ]
+}

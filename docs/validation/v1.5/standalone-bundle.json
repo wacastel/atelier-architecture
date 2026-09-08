@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "copiedApplication": "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v15-package-j1xt9tdj/Atelier.app",
+  "workingDirectories": [
+    "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v15-package-j1xt9tdj/lakefront",
+    "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v15-package-j1xt9tdj/paris"
+  ],
+  "sourceRepositoryReadsDeniedBySandbox": "/Users/william/dev/architecture",
+  "sourceAndBuildUntouched": true,
+  "locations": [
+    "lakefront",
+    "paris"
+  ]
+}

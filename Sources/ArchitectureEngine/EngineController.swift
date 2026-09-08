@@ -5,8 +5,8 @@ import SwiftUI
 import simd
 
 @MainActor final class EngineController: ObservableObject {
-    @Published var status = "Preparing Millennium Park…"
-    @Published private(set) var location: ArchitectureLocation = .millennium
+    @Published var status = "Preparing the Chicago lakefront…"
+    @Published private(set) var location: ArchitectureLocation = .lakefront
     @Published var isFullscreen = false
     @Published var isReady = false
     @Published var errorMessage: String?
@@ -44,11 +44,12 @@ import simd
     private var frameTimes: [Double] = []
     private var dirty = true
     private var historyDirty = true
-    private var playback = WalkthroughPlayback(location: .millennium)
+    private var playback = WalkthroughPlayback(location: .lakefront)
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
     private var movementSpeed: Float = 8
+    private var sceneSeconds = 0.0
     private var loaded = false
     var stops: [TourStop] { location.stops }
     var walkthroughDuration: Double { playback.duration }
@@ -197,6 +198,7 @@ import simd
     func resetView() { selectStop(0) }
     func setQuality(_ value: Int) { quality = max(0,min(2,value)); dirty = true; historyDirty = true }
     func setLighting(_ value: Int) { playback.setLighting(value); lighting = playback.lighting; dirty = true; historyDirty = true }
+    func toggleDayNight() { playback.toggleDayNight(); lighting = playback.lighting; dirty = true; historyDirty = true; focusViewport() }
     func setExposure(_ value: Double) { exposure = value; dirty = true; historyDirty = true }
     func moveKey(_ code: UInt16, pressed: Bool) {
         if pressed {
@@ -232,6 +234,12 @@ import simd
         if playback.view != previousStop { applyViewSelection(); synchronizePlayback() }
         if automaticMotion { pose = playback.pose; dirty = true }
         else if playback.state == .manual { updateMovement(Float(dt)) }
+        switch playback.state {
+        case .idle: sceneSeconds = playback.idleTime
+        case .playing, .paused: sceneSeconds = playback.time
+        case .manual: sceneSeconds += dt
+        }
+        renderer.setSceneTime(sceneSeconds)
         let width = min(Int(view.drawableSize.width), quality == 0 ? 960 : (quality == 2 ? 2560 : 1440))
         do {
             if try renderer.draw(view:view,pose:pose,options:options,renderWidth:max(64,width),reset:dirty,samplesPerFrame:quality == 2 ? 8 : 4,resetHistory:historyDirty) { dirty = false; historyDirty = false }

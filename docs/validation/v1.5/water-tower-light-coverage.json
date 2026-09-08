@@ -1,0 +1,298 @@
+{
+  "allSamplesHaveVisibleSources": true,
+  "continuousStoneCoverage": true,
+  "maximumIrradiance": 2.0261359214782715,
+  "minimumIrradiance": 1.309946894645691,
+  "samples": [
+    {
+      "faceDegrees": 0,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.3099499940872192,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 0,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.4878787994384766,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 0,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.026111602783203,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 0,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.5944879055023193,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 0,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7435911893844604,
+      "visibleLights": 8
+    },
+    {
+      "faceDegrees": 0,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715204000473022,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 45,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.309946894645691,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 45,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.487810492515564,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 45,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.026115894317627,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 45,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.9068964719772339,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 45,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7508172988891602,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 45,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3714994192123413,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 90,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.3099701404571533,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 90,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.4878828525543213,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 90,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.0261359214782715,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 90,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.5944960117340088,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 90,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.743603229522705,
+      "visibleLights": 8
+    },
+    {
+      "faceDegrees": 90,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715342283248901,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 135,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.3099576234817505,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 135,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.4878029823303223,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 135,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.026113271713257,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 135,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.9068870544433594,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 135,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.750813364982605,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 135,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715238571166992,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 180,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.3099501132965088,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 180,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.487878680229187,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 180,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.026111602783203,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 180,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.5944877862930298,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 180,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7435914278030396,
+      "visibleLights": 8
+    },
+    {
+      "faceDegrees": 180,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715204000473022,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 225,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.309946894645691,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 225,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.487810492515564,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 225,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.026115655899048,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 225,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.9068964719772339,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 225,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7508172988891602,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 225,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3714991807937622,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 270,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.3099701404571533,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 270,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.4878827333450317,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 270,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.0261356830596924,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 270,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.5944958925247192,
+      "visibleLights": 7
+    },
+    {
+      "faceDegrees": 270,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7436033487319946,
+      "visibleLights": 8
+    },
+    {
+      "faceDegrees": 270,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715342283248901,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 315,
+      "height": 24.5,
+      "unitDiffuseIrradiance": 1.309957504272461,
+      "visibleLights": 3
+    },
+    {
+      "faceDegrees": 315,
+      "height": 29.299999237060547,
+      "unitDiffuseIrradiance": 1.4878029823303223,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 315,
+      "height": 34.5,
+      "unitDiffuseIrradiance": 2.0261130332946777,
+      "visibleLights": 6
+    },
+    {
+      "faceDegrees": 315,
+      "height": 39.5,
+      "unitDiffuseIrradiance": 1.9068870544433594,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 315,
+      "height": 44.5,
+      "unitDiffuseIrradiance": 1.7508132457733154,
+      "visibleLights": 9
+    },
+    {
+      "faceDegrees": 315,
+      "height": 48.5,
+      "unitDiffuseIrradiance": 1.3715237379074097,
+      "visibleLights": 6
+    }
+  ],
+  "scope": "CPU authored-landmark geometry visibility and renderer-equivalent direct-light cosine/range/cone attenuation at 48 stone samples. No GPU dispatch or image-quality claim.",
+  "sourceSHA256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814"
+}

@@ -1,0 +1,126 @@
+{
+  "visualReviewPassed": true,
+  "visualReviewPending": false,
+  "reviewedAtUTC": "2026-09-08T08:39:33.231688+00:00",
+  "scope": "All eight final Chicago Lakefront daytime bookmark PNGs actually viewed, including a fresh inspection after the final daylight primary-background correction. This report covers these final still images only.",
+  "gallery": "output/v6-review/release-day-final",
+  "resolution": [
+    1600,
+    1000
+  ],
+  "frames": [
+    {
+      "view": 0,
+      "path": "output/v6-review/release-day-final/00-the-magnificent-mile.png",
+      "sha256": "f2a10991fa7e9b158f9acfbd513b3952dd9bfc2097a0fdce3beea579d3b915ad",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "Wrigley clock tower and Tribune crown frame the open Michigan Avenue corridor, with the Hancock visible farther north. Architectural crowns, clock faces and window articulation remain readable; the camera is not obscured by nearby buildings."
+    },
+    {
+      "view": 1,
+      "path": "output/v6-review/release-day-final/01-a-survivor-in-limestone.png",
+      "sha256": "a0402af72308128e32a7bafe184cc2abd4fe3f280e4792d29a864f978ede1c12",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "The historic Water Tower is fully visible from its entrance to its cupola, surrounded by much taller buildings. Stone courses, pointed arches and crenellations remain readable in shade; foreground trees frame the left side without hiding the tower."
+    },
+    {
+      "view": 2,
+      "path": "output/v6-review/release-day-final/02-water-tower-place.png",
+      "sha256": "3425dfeef6a198ea2d88df14c8e0792293d70aba8712af38c4e147fd6452667c",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "The authored Water Tower Place podium corner, storefront band and high-rise tower are clearly separated from surrounding buildings. Stone-panel joints and glazing remain visible, and the Hancock braces provide background context. No generic duplicate podium obscures the subject."
+    },
+    {
+      "view": 3,
+      "path": "output/v6-review/release-day-final/03-the-hancock's-great-diagonals.png",
+      "sha256": "ab094c369e3890d127aec9b15e624b5011c281c14843c2102061ce8dc184afdb",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "The complete Hancock silhouette, taper, X braces, roof and two antennas are visible against the sky. The previously observed straight dark horizontal band is absent; distant terrain, shoreline and sky now meet through a smooth pale haze transition."
+    },
+    {
+      "view": 4,
+      "path": "output/v6-review/release-day-final/04-buckingham-fountain.png",
+      "sha256": "072e3276f2dc81d2da5171a01adeffb492bf363c79f6317d260734a5dbb5ccae",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "Buckingham Fountain is unobstructed in the center of its pale circular plaza. Pink tiers, green ornaments, outward jets, cascades and basin reflections are visible. Grass, intersecting paths, nearby tree groups and harbor boats retain their layout. The lake horizon is soft without the previous thin hard line."
+    },
+    {
+      "view": 5,
+      "path": "output/v6-review/release-day-final/05-chicago's-front-yard.png",
+      "sha256": "a3e3260424b8d92e52ef009aef62ed3dfd1335f4d34e90a3519b4306edcff31f",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "The broad park view retains green lawns, formal paths, planted beds and tree allees, with Willis and the Loop skyline behind. Lake Shore Drive lanes and several vehicles are clearly readable at right. Trees partly screen the distant fountain, appropriate to this garden overview rather than the dedicated fountain study."
+    },
+    {
+      "view": 6,
+      "path": "output/v6-review/release-day-final/06-harbors-on-lake-michigan.png",
+      "sha256": "5409f7bbf032cd6ba21ee13fb3b51945a0833dbe1a8a0a5937b3cd3923a99314",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "DuSable Harbor has distinct finger docks, cabin roofs, dark hulls, masts and pedestal details. Rippled water reflects the mapped skyline and pier structures. The open foreground fairway is unobstructed; the composition shows the marina layout rather than close boat interiors."
+    },
+    {
+      "view": 7,
+      "path": "output/v6-review/release-day-final/07-along-lake-shore-drive.png",
+      "sha256": "874f2b48e8e39977fc9466de49d6a21b39673df5de6821037e8b78d6602048c0",
+      "width": 1600,
+      "height": 1000,
+      "actuallyViewed": true,
+      "visualReviewPassed": true,
+      "observation": "The northern shoreline bend, parallel road/trail geometry, lane markings, sparse traffic and Hancock skyline remain visible. The former straight horizon band at the open left side is absent; distant water and sky blend smoothly. Beach terrain remains an authored flat-height approximation."
+    }
+  ],
+  "priorFailedGallery": {
+    "path": "output/v6-review/release-day-corrected",
+    "allEightPreviouslyViewed": true,
+    "visualAcceptanceDeferred": true,
+    "finding": "A residual narrow dark horizontal horizon band was clearly visible in Hancock view 3 near image rows 447-453 and in Lake Shore Drive view 7 near row 386. The release coordinator confirmed the defect; final approval was withheld until the renderer correction and new gallery.",
+    "affectedEvidence": [
+      {
+        "path": "output/v6-review/release-day-corrected/03-the-hancock's-great-diagonals.png",
+        "sha256": "7a6867ce73c9ce5d7c34d8cff20acda53f5bcd306942d1a2f37506b3dc030787",
+        "status": "Superseded; visible residual horizon band found during actual inspection."
+      },
+      {
+        "path": "output/v6-review/release-day-corrected/07-along-lake-shore-drive.png",
+        "sha256": "c1a0077a4c60a67c94eed7edc26492c901b51f55942a437061d35433d6c2e871",
+        "status": "Superseded; visible residual horizon band found during actual inspection."
+      }
+    ],
+    "resolution": "Fresh final view 3 and view 7 images show smooth horizon haze without those strips. The other six final images were also viewed again; final image hashes above identify the accepted gallery."
+  },
+  "findings": [
+    "All eight final files were inspected, with special attention to the previously failed horizon transitions in views 3 and 7.",
+    "The narrow dark horizon strips from the preceding attempt are absent in the final images.",
+    "Landmark envelopes and framing remain intact; no sampled view is visibly inside geometry or completely obstructed.",
+    "Park lawns and formal paths, fountain jets and ornaments, harbor boat/dock separation, road markings and sparse traffic remain visible.",
+    "No additional release blocker was observed in these final stills."
+  ],
+  "limits": [
+    "This is visual review of eight still images, not a motion benchmark, continuous route inspection, or full-scene correctness proof.",
+    "Fine Monte Carlo grain remains visible in shaded stone, glazing and water; thin distant lines can alias at this resolution.",
+    "Vegetation, facade repetition, boats, beach/terrain elevation and atmosphere remain authored approximations rather than surveyed or photogrammetric detail.",
+    "Nighttime and movie validation retain their separate reports; this daylight gallery report does not supersede them."
+  ],
+  "blockers": []
+}

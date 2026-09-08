@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-08",
+  "scope": "Independent read-only integration review; excludes shader implementation and does not substitute for native UI execution.",
+  "concreteBlockers": [],
+  "reviewedBehaviors": [
+    "Fourth location routing and CLI lakefront/magmile/grant aliases",
+    "Chicago destinations reuse resident scene and navigation resources",
+    "N changes lighting/history without moving camera or changing selected view, transport or clocks",
+    "Traffic follows absolute playback time; pause, seek and rewind preserve deterministic placement",
+    "Movie camera and traffic share frame-derived route time",
+    "Lakefront 56/90/120-second duration handling"
+  ],
+  "reviewedSourceSHA256": {
+    "ArchitectureLocation.swift": "6c91acdcac84f4fa14802a3dd66125f2b56b1bc4a48238f00febb53e77161ed6",
+    "EngineController.swift": "404205e056b4414e61512d362d6ff6364da91ca0c2b01c1ff4aa72ce817db9a1",
+    "Walkthrough.swift": "60d14a9815cb5a16a3b29f65f60bfb05d1f86ac79dd41fcc855b025a001136a9",
+    "LakefrontWalkthrough.swift": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+    "CommandLine.swift": "604b16f6418f1bba12d9afcdcbbc50c37404501be937f47de7b9a700744d837b",
+    "ArchitectureApp.swift": "7a16204ee0f8afaa7903aed59fdb23b8b539f3010c5f527833bcc2789ae9ab92"
+  }
+}

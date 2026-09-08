@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-08",
+  "scope": "Focused Wrigley and Tribune geometry checks and final night still review; whole-scene navigation and temporal motion are validated separately.",
+  "sha256": {
+    "Sources/ArchitectureEngine/MagnificentGateway.swift": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+    "Tests/MagnificentGateway/main.swift": "aa2e42c3d3c1533d7daaba8bfb27c5f20fcb54ae07ca73bbd57907ee98ef51cf",
+    "scripts/validate-magnificent-gateway.sh": "2913fa7a293b464301a1520e69d83b9781c8d1b6f12a951298c384e757066c6c",
+    "output/v6-review/final-night/00-the-magnificent-mile.png": "668077a93076678069c75197e3ea9a62a0166097bece66be4ab68a9e09876d11"
+  },
+  "cpu": {
+    "command": "./scripts/validate-magnificent-gateway.sh",
+    "result": "PASS",
+    "triangles": 197877,
+    "materials": 38,
+    "architecturalLightSources": 303,
+    "fixtureSecondsExcludingSwiftCompilation": 0.11262202262878418,
+    "passed": [
+      "finite vertex positions and unit normals",
+      "material index validity",
+      "mapped neighborhood footprint envelope",
+      "Wrigley 129.54 m architectural height",
+      "Tribune 141.7 m architectural height",
+      "four actual 5.97 m clock meshes",
+      "black clock hands and minute ticks",
+      "both connecting bridge decks intersect CPU collision rays",
+      "mapped courtyard remains open below the lower bridge",
+      "positive finite light sources",
+      "bounded triangle count"
+    ]
+  },
+  "visual": {
+    "image": "output/v6-review/final-night/00-the-magnificent-mile.png",
+    "dimensions": [
+      1600,
+      1000
+    ],
+    "lighting": "night",
+    "status": "reviewed",
+    "observations": [
+      "Broad Wrigley white facade wash preserves visible window and terracotta relief.",
+      "Clock hands, upper loggia arches and dome remain readable together.",
+      "Tribune warmer limestone shaft, lancet crown and open flying buttresses are visible."
+    ],
+    "limits": [
+      "Still review does not establish temporal stability or certify motion-noise performance.",
+      "Architectural relief, glazing, ornament and photometric groups are interpretive reconstructions rather than survey data."
+    ]
+  }
+}

@@ -45,28 +45,27 @@ extension EiffelBuilder {
         let river=riverMaterial(V(0.021,0.076,0.065),roughness:0.115,pattern:9)
         // Ground follows the complement of the actual river, never spanning its surface.
         box(V(0,-9,0),V(100_000,1,100_000),concrete)
-        for strip in data.ground {let q=strip.map{V(min($0[0],1819),-0.06,$0[1])};quad(q[0],q[3],q[2],q[1],pavement)}
-        for s:Float in [-1,1] {
-            if s<0 {box(V(s*26200,-0.13,0),V(47600,0.15,4800),pavement)}
-            box(V(-24091,-0.13,s*26200),V(51820,0.15,47600),pavement)
-        }
+        // The lakefront builder supplies a constrained land complement around the
+        // real lake, harbors and rivers. Only distant western land remains synthetic.
+        box(V(-26200,-0.13,0),V(47600,0.15,100000),pavement)
         func inPark(_ points:[[Float]]) -> Bool {
             guard !points.isEmpty else { return false }
             let c=points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(points.count)
             return MillenniumContext.containsPark(c.x,c.y)
         }
-        for area in data.areas where area.kind != "water" && !inPark(area.points) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
-        for p in data.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 {chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)}
-        for b in data.buildings {
-            if MillenniumContext.suppressesGenericBuilding(b.id) { continue }
+        for area in LakefrontContext.database.legacyAreas where area.kind != "water" && !inPark(area.points) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
+        let mainRoadIDs=Set(LakefrontContext.database.roads.flatMap{$0.sourceIDs})
+        for p in data.paths+LakefrontContext.database.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 && !mainRoadIDs.contains(p.id) {chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)}
+        for b in data.buildings+LakefrontContext.database.buildings {
+            if MillenniumContext.suppressesGenericBuilding(b.id) || LakefrontContext.replacementBuildingIDs.contains(b.id) || [-174605391,-174605390,150407241].contains(b.id) { continue }
             // Replace every generic museum building part, including the parent
             // outline that otherwise fills the modeled courtyards and galleries.
             let center=b.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(b.points.count)
+            if LakefrontContext.containsAuthoredCampus(center.x,center.y) {continue}
             if center.x>=982 && center.x<=1231 && center.y>=(-200) && center.y<=48 { continue }
             chicagoBuilding(b,masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
         }
         for r in data.rivers {
-            chicagoArea(r,y:-5.7,material:river)
             chicagoQuays(r,concrete:concrete)
         }
         for a in data.areas where a.kind == "water" {
@@ -82,7 +81,7 @@ extension EiffelBuilder {
         // Sparse, low-cost distant context is expressly interpretive beyond mapped radius.
         for ix in -25...19 {for iz in -25...25 {
             let x=Float(ix)*118,z=Float(iz)*118,d=simd_length(SIMD2(x,z))
-            if d<1800 || abs(x+180)<180 || x>1650 {continue}
+            if d<1800 || abs(x+180)<180 || x > -500 {continue}
             let h:Float = 12+Float(abs(ix*29+iz*11)%19)*2.5
             box(V(x,h/2,z),V(60,h,73),ix%3==0 ? masonry:concrete)
             for yy in stride(from:Float(5),through:h-2,by:5){
@@ -90,8 +89,7 @@ extension EiffelBuilder {
                 box(V(x,yy,z+36.51),V(54,2,0.025),cityWindow)
             }
         }}
-        // Lake Michigan is a distant horizon surface, not a surveyed lakefront model.
-        quad(V(1820,-5.7,-14000),V(1820,-5.7,14000),V(22000,-5.7,14000),V(22000,-5.7,-14000),river)
+
     }
 
     private func chicagoArea(_ a:ChicagoContext.Area,y:Float,material:UInt32) {
@@ -129,7 +127,7 @@ extension EiffelBuilder {
         let p=b.points.map{V($0[0],0.12,$0[1])},c=p.reduce(V.zero,+)/Float(p.count),h=b.height
         // Detail follows both destinations, including the Michigan Avenue
         // facades that are visible in Cloud Gate's curved reflections.
-        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)))
+        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)),simd_distance(c,V(1010,0,-2110)))
         let modern=b.material == "glass" || b.material == "steel" || (h>105 && b.material != "stone" && b.material != "brick" && b.material != "masonry")
         let near=d<440,medium=d<950,stone=b.id == 686318733 ? granite : b.material == "brick" ? masonry : b.id%4==0 ? pale:facade
         let material=modern ? gray:stone
@@ -137,7 +135,7 @@ extension EiffelBuilder {
             let a=b.triangles[i],j=b.triangles[i+1],k=b.triangles[i+2]
             tri(p[a]+V(0,h,0),p[k]+V(0,h,0),p[j]+V(0,h,0),roof)
         }
-        let stories=max(1,min(90,Int(h/3.8))),floorHeight=h/Float(stories)
+        let stories=max(1,min(d>1400 ? 24:90,Int(h/(d>1400 ? 8.5:3.8)))),floorHeight=h/Float(stories)
         for i in p.indices {
             let a=p[i],z=p[(i+1)%p.count],len=simd_distance(a,z)
             if len<0.35{continue};let t=(z-a)/len,n=V(t.z,0,-t.x),middle=(a+z)/2
@@ -148,7 +146,7 @@ extension EiffelBuilder {
                 }
             }
             guard len>1.8,h>4.5 else {continue}
-            let bays=max(1,min(54,Int(len/(modern ? 2.2:3.15)))),spacing=len/Float(bays)
+            let bays=max(1,min(54,Int(len/(d>1400 ? 7.0:modern ? 2.2:3.15)))),spacing=len/Float(bays)
             for story in 0..<stories {
                 let wh=modern ? floorHeight*0.78:min(floorHeight*0.66,2.7),ww=spacing*(modern ? 0.88:0.62)
                 for j in 0..<bays {

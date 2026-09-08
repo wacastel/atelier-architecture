@@ -30,6 +30,8 @@ struct WalkthroughPlayback {
         speed = pace; idleSpeed = drift
     }
     mutating func setLighting(_ value: Int) { lighting = max(0, min(2, value)) }
+    /// Lighting changes preserve the selected view, transport and both clocks.
+    mutating func toggleDayNight() { lighting = lighting == 2 ? 0 : 2 }
 
     /// An explicit choice always holds that view until Idle Play is requested again.
     mutating func select(_ index: Int) {

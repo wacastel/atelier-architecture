@@ -174,11 +174,34 @@ flight.select(2)
 expect(flight.duration == 56 && flight.time == 0, "A park bookmark restores the short route duration")
 expect(ArchitectureLocation.chicago.world == ArchitectureLocation.millennium.world, "Chicago destinations identify the same resident world")
 expect(ArchitectureLocation.paris.world != ArchitectureLocation.chicago.world, "Paris remains an independent world")
+expect(ArchitectureLocation.lakefront.world == ArchitectureLocation.chicago.world, "The lakefront retains the resident Chicago world")
+
+// The day/night shortcut must not restart or resume a selected animation.
+for location in ArchitectureLocation.allCases {
+    var lightingClock = WalkthroughPlayback(location: location)
+    lightingClock.select(2); lightingClock.toggle(); lightingClock.advance(9)
+    lightingClock.toggle()
+    let frozenPose = lightingClock.pose, frozenTime = lightingClock.time
+    lightingClock.toggleDayNight(); lightingClock.advance(3)
+    expect(lightingClock.lighting == 2 && lightingClock.state == .paused && lightingClock.time == frozenTime && samePose(lightingClock.pose, frozenPose), "\(location.name) N changes to night while preserving pause and camera")
+    lightingClock.toggleDayNight()
+    expect(lightingClock.lighting == 0 && lightingClock.view == 2 && !lightingClock.idleCycling, "\(location.name) N restores day and preserves the manual view hold")
+    lightingClock.setLighting(1); lightingClock.toggleDayNight()
+    expect(lightingClock.lighting == 2, "\(location.name) neutral daylight toggles directly to night")
+    lightingClock.toggleIdleCycling(); lightingClock.advance(7)
+    let dwell = lightingClock.idleDwellTime, idleTime = lightingClock.idleTime
+    lightingClock.toggleDayNight()
+    expect(lightingClock.idleCycling && lightingClock.idleDwellTime == dwell && lightingClock.idleTime == idleTime, "\(location.name) N preserves the idle sequence and dwell clock")
+}
 
 // Verify actual production geometry, including intermediate positions and body clearance.
-for location in ArchitectureLocation.allCases {
+// All Chicago bookmark sets intentionally share the same resident geometry.
+// Build each world once so the larger map does not multiply validation cost.
+for worldName in ["paris", "chicago"] {
+let locations = ArchitectureLocation.allCases.filter { $0.world == worldName }
+let scene = locations[0].build(), world = CollisionWorld(scene: scene)
+for location in locations {
 print("Validating camera geometry: \(location.name)")
-let scene = location.build(), world = CollisionWorld(scene: scene)
 let walkingViews = location.walkingViews
 let axes: [SIMD3<Float>] = [SIMD3(1,0,0), SIMD3(-1,0,0), SIMD3(0,1,0), SIMD3(0,-1,0), SIMD3(0,0,1), SIMD3(0,0,-1)]
 for view in 0..<location.stops.count {
@@ -210,6 +233,7 @@ for view in 0..<location.stops.count {
         expect(!axes.contains(where: { world.distance(origin: idle.position, direction: $0, maximum: 0.18) != nil }), "View \(view + 1) idle has camera clearance at \(tick)s")
         previous = idle
     }
+}
 }
 }
 print("Playback: \(checks) checks; failures: \(failures)")

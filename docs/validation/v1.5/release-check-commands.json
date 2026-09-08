@@ -1,0 +1,90 @@
+[
+  {
+    "location": "chicago",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "chicago",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v6-review/motion-release/chicago",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 76.6013457775116,
+    "exitCode": 0
+  },
+  {
+    "location": "lakefront",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "lakefront",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v6-review/motion-release/lakefront",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 56.185094118118286,
+    "exitCode": 0
+  },
+  {
+    "location": "millennium",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "millennium",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v6-review/motion-release/millennium",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 93.623526096344,
+    "exitCode": 0
+  },
+  {
+    "location": "paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--motion-test",
+      "/Users/william/dev/architecture/output/v6-review/motion-release/paris",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--frames",
+      "32",
+      "--samples",
+      "8",
+      "--reference-samples",
+      "128"
+    ],
+    "elapsedSeconds": 74.161217212677,
+    "exitCode": 0
+  }
+]

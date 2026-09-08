@@ -1,0 +1,14 @@
+Chicago lakefront map derivative
+© OpenStreetMap contributors — https://www.openstreetmap.org/copyright
+Database license: Open Database License (ODbL) 1.0
+https://opendatacommons.org/licenses/odbl/1-0/
+
+Derived geometry uses the same local metre coordinate frame as Willis Tower:
+origin latitude 41.878876, longitude -87.635918; +X east, +Z south.
+Principal snapshot: 2026-09-08T06:20:24Z.
+Source and derivation documentation: docs/LAKEFRONT.md.
+
+Satellite imagery and reference photographs were viewed for modeling guidance.
+No remotely sourced photographs or satellite imagery are included in this app.
+Facade details, fountain sculpture profiles, boat designs/occupancy, lighting,
+and elevations where not mapped are authored architectural interpretations.

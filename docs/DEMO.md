@@ -1,4 +1,56 @@
-# Millennium Park and the continuous Chicago flight — Atelier 1.4
+# Chicago Lakefront — Atelier 1.5
+
+The app opens on **Chicago Lakefront**, a fourth destination covering the Magnificent Mile, Grant Park, harbors and DuSable Lake Shore Drive. It shares the same physical world as Willis Tower and Millennium Park. Use **L** or the location menu to select any destination.
+
+Each of the eight bookmarks has a gentle idle animation and a complete independent route. **Space** plays or pauses the current route. **N** switches day/night without changing the selected view, restarting the route or releasing pause. The moon button performs the same action. **Idle Play / I** cycles the bookmarks, alternating day and night after each complete pass; **[ / ]** changes idle speed. Choosing a bookmark holds it.
+
+| View | Study | Route duration at 1× |
+| --- | --- | --- |
+| 1 | The Magnificent Mile — Michigan Avenue's architectural corridor | 90 seconds |
+| 2 | A survivor in limestone — the historic Chicago Water Tower | 56 seconds |
+| 3 | Water Tower Place — retail frontage and tower | 56 seconds |
+| 4 | The Hancock's great diagonals — taper, X braces and antennas | 56 seconds |
+| 5 | Buckingham Fountain — tiers, sculpture, water and light | 56 seconds |
+| 6 | Chicago's front yard — Grant Park gardens | 56 seconds |
+| 7 | Harbors on Lake Michigan — piers and moored boats | 56 seconds |
+| 8 | Along Lake Shore Drive — lakefront flight with light traffic | 120 seconds |
+
+The three Chicago destinations retain one resident city scene. The **Willis → Park → Art Institute** button still starts the original continuous four-minute flight and preserves your lighting choice. All previous Eiffel, Willis and Millennium Park routes remain available.
+
+## Record the lakefront
+
+```sh
+# Eight full routes compressed into twelve-second chapters.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront \
+  --video output/Chicago-Lakefront-Tour.mp4 --seconds 96 --fps 24 \
+  --width 1920 --height 1080 --samples 16
+
+# The complete two-minute Lake Shore Drive route at night.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront \
+  --video output/Lake-Shore-Drive-Night.mp4 --single-view --stop 7 \
+  --lighting 2 --seconds 120 --fps 24 --width 1920 --height 1080 --samples 24
+
+# Freeze both camera and traffic at a selected route time for a still.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront \
+  --render output/Lakefront-At-40s.png --stop 7 --at 40 \
+  --width 1920 --height 1200 --samples 256
+```
+
+Chaptered exports compress each full route into its chapter. Camera and traffic both follow that compressed clock and reset together at each cut; the single-view two-minute recording retains the full Lake Shore Drive timeline.
+
+Traffic is deterministic at a given scene time. Rewind, fast forward and timeline seeking place vehicles at the corresponding route time; pausing lets the entire image converge. Moored harbor boats remain stationary. Fresh export filenames are required. [Lakefront geography and references](LAKEFRONT.md) · [Landmark architecture and references](MAGNIFICENT-MILE.md).
+
+## Version 1.5 demonstration artifacts
+
+- [Chicago Lakefront by day](../output/Chicago-Lakefront-Day-Walkthrough-1080p.mp4): all eight routes in a 96-second 1080p tour, with twelve-second chapters. Camera and traffic share the accelerated chapter clock. [Media proof](validation/v1.5/day-tour-media.json).
+- [Lake Shore Drive at night](../output/Lake-Shore-Drive-Night-1080p.mp4): the complete two-minute flight at 1080p, with moving traffic, shoreline lights and harbor reflections. [Media proof](validation/v1.5/night-drive-media.json).
+- [Magnificent Mile by day](images/Chicago-Magnificent-Mile-Day.png) and [Buckingham Fountain at night](images/Chicago-Buckingham-Fountain-Night.png): reviewed 1600 × 1000 stills included in the repository.
+
+Both movies use 24 FPS, three path interactions and the final motion reconstruction. Every frame decodes with uniform timing; sampled visual review covers all day chapters and ten points along the night flight. Videos remain local in `output/` and are excluded from Git. The app retains each route's full interactive duration and independent pace controls.
+
+The records below preserve preceding releases and their original demonstrations.
+
+## Millennium Park and the continuous Chicago flight — Atelier 1.4
 
 The app now opens on **Millennium Park**, the third destination. Willis Tower and the park occupy one continuous Chicago world; changing between their bookmark sets keeps the same scene resident. Paris remains available from the location menu or **L**.
 
@@ -43,7 +95,7 @@ The [README verification commands](../README.md#verify-and-reproduce) cover the 
 
 - [Willis → Millennium Park → Art Institute](../output/Chicago-Willis-Park-Art-Institute-1080p.mp4): the continuous four-minute daytime flight, 1920 × 1080, 24 FPS, 16 samples/frame and three path interactions. All **5,760 frames** decode successfully with uniform frame timing. [Media report](validation/v1.4/day-flyby-media.json).
 - [Cloud Gate at night](../output/Cloud-Gate-Night-Walkthrough-1080p.mp4): the complete 56-second orbit, 1920 × 1080, 24 FPS, 24 samples/frame and three path interactions. All **1,344 frames** decode successfully with uniform frame timing. [Media report](validation/v1.4/night-bean-media.json).
-- [Cloud Gate by day](../output/Millennium-Cloud-Gate-Day.png) and [by night](../output/Millennium-Cloud-Gate-Night.png): 1920 × 1200, respectively 256 and 512 samples. Visually reviewed copies are included in the repository's README.
+- [Cloud Gate by day](../output/Millennium-Cloud-Gate-Day.png) and [by night](../output/Millennium-Cloud-Gate-Night.png): 1920 × 1200, respectively 256 and 512 samples. Visually reviewed copies are retained in `docs/images/`.
 
 | Time | Continuous flight landmark |
 | --- | --- |

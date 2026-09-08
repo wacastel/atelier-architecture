@@ -41,6 +41,11 @@ final class MetalRenderer {
     private let nightLightIndices:MTLBuffer
     private let dayLightRanges:MTLBuffer
     private let dayLightIndices:MTLBuffer
+    private let traffic: TrafficMetal?
+    private(set) var sceneTime: Double = 0
+    private var trafficMoving = false
+    var trafficVehicleCount: Int { traffic?.fleet.vehicles.count ?? 0 }
+    var trafficUpdateCount: Int { traffic?.updateCount ?? 0 }
     let hasTransmission: Bool
     private var worldGuides: [MTLTexture] = []
     private var normalGuides: [MTLTexture] = []
@@ -88,7 +93,7 @@ final class MetalRenderer {
         let resourceBundle = Bundle.main.resourceURL.flatMap { Bundle(url: $0.appendingPathComponent("ArchitectureEngine_ArchitectureEngine.bundle")) } ?? Bundle.module
         guard let url = resourceBundle.url(forResource: "Renderer", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Renderer.metal is missing from the application resources.") }
         guard let denoiseURL = resourceBundle.url(forResource: "Denoise", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Denoising shader resource is missing.") }
-        let source = try String(contentsOf: url) + "\n" + String(contentsOf: denoiseURL)
+        let source = try String(contentsOf: url,encoding:.utf8) + "\n" + String(contentsOf: denoiseURL,encoding:.utf8)
         let options = MTLCompileOptions()
         options.languageVersion = .version3_1
         let library = try device.makeLibrary(source: source, options: options)
@@ -119,9 +124,22 @@ final class MetalRenderer {
             let result = values.withUnsafeBytes { device.makeBuffer(bytes: $0.baseAddress!, length: $0.count, options: .storageModeShared) }
             guard let result else { throw EngineError.message("Could not allocate scene buffer.") }; return result
         }
-        vertexBuffer = try buffer(scene.vertices); vertexBuffer.label = "Unified scene vertices"
-        indexBuffer = try buffer(scene.materialIndices); indexBuffer.label = "Triangle materials"
-        materialBuffer = try buffer(scene.materials); materialBuffer.label = "Architectural materials"
+        let fleet=TrafficFleet(lanes:scene.trafficLanes)
+        if fleet.vertices.isEmpty {
+            vertexBuffer=try buffer(scene.vertices)
+        } else {
+            let staticBytes=scene.vertices.count*MemoryLayout<SceneVertex>.stride
+            let trafficBytes=fleet.vertices.count*MemoryLayout<SceneVertex>.stride
+            guard let combined=device.makeBuffer(length:staticBytes+trafficBytes,options:.storageModeShared) else { throw EngineError.message("Scene and traffic vertex allocation failed.") }
+            _ = scene.vertices.withUnsafeBytes { memcpy(combined.contents(),$0.baseAddress!,staticBytes) }
+            // Traffic starts in local coordinates and is GPU-transformed before
+            // its first BLAS build. Static geometry always reads only the prefix.
+            _ = fleet.vertices.withUnsafeBytes { memcpy(combined.contents().advanced(by:staticBytes),$0.baseAddress!,trafficBytes) }
+            vertexBuffer=combined
+        }
+        vertexBuffer.label = "Unified static vertices and updateable vehicle tail"
+        indexBuffer = try buffer(scene.materialIndices + fleet.materialIndices.map{$0+UInt32(scene.materials.count)}); indexBuffer.label = "Triangle materials"
+        materialBuffer = try buffer(scene.materials + fleet.materials); materialBuffer.label = "Architectural materials"
         lightCount = scene.lights.count
         hasTransmission = scene.materials.contains { $0.properties.w > 0 }
         let lights = scene.lights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : scene.lights
@@ -136,12 +154,12 @@ final class MetalRenderer {
         nightLightIndices=try buffer(nightLightGrid.indices.isEmpty ? [UInt32(0)]:nightLightGrid.indices)
         dayLightRanges=try buffer(dayLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:dayLightGrid.ranges)
         dayLightIndices=try buffer(dayLightGrid.indices.isEmpty ? [UInt32(0)]:dayLightGrid.indices)
-        triangleCount = scene.triangleCount; detailCount = scene.detailCount
+        triangleCount = scene.triangleCount + fleet.triangleCount; detailCount = scene.detailCount + fleet.vehicles.count
         let geometry = MTLAccelerationStructureTriangleGeometryDescriptor()
         geometry.vertexBuffer = vertexBuffer
         geometry.vertexStride = MemoryLayout<SceneVertex>.stride
         geometry.vertexFormat = .float3
-        geometry.triangleCount = triangleCount
+        geometry.triangleCount = scene.triangleCount
         geometry.opaque = true
         let descriptor = MTLPrimitiveAccelerationStructureDescriptor()
         descriptor.geometryDescriptors = [geometry]
@@ -153,9 +171,18 @@ final class MetalRenderer {
         encoder.build(accelerationStructure: acceleration, descriptor: descriptor, scratchBuffer: scratch, scratchBufferOffset: 0)
         encoder.endEncoding(); command.commit(); command.waitUntilCompleted()
         if let error = command.error { throw error }
+        traffic = fleet.vertices.isEmpty ? nil : try TrafficMetal(fleet:fleet,staticTriangleCount:scene.triangleCount,staticAcceleration:acceleration,vertices:vertexBuffer,device:device,library:library)
         buildSeconds = Date().timeIntervalSince(start)
     }
 
+    /// Nonthrowing absolute timeline input. Calling with the same time is a
+    /// strict no-op, so paused views keep their BVH and progressive convergence.
+    func setSceneTime(_ seconds: Double) {
+        let seconds=seconds.isFinite ? seconds:0
+        guard seconds != sceneTime else { return }
+        sceneTime=seconds
+        if traffic != nil { trafficMoving=true; resetAccumulation() }
+    }
     func resetAccumulation() { sampleCount = 0 }
     /// Call after stopping submissions, before replacing a location's resources.
     func waitUntilIdle() {
@@ -199,23 +226,30 @@ final class MetalRenderer {
         let halfFov = tan(pose.fov * .pi / 360)
         let sun = options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
         let color = options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
-        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        return FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
     }
 
     private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
+        try traffic?.encodeUpdate(command,time:sceneTime,vertices:vertexBuffer)
         guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
         var u = uniforms(pose: pose, options: options)
         encoder.label = "Hardware path tracing"
         let night=options.lighting==2
         let grid=night ? nightLightGrid:dayLightGrid
         let indexed=options.indexedLighting && grid.enabled
-        encoder.setComputePipelineState(night ? (indexed ? indexedNightTracePipeline:nightTracePipeline) : dayInteriorLightCount>0 ? (indexed ? indexedDayInteriorTracePipeline:dayInteriorTracePipeline) : tracePipeline)
+        if let traffic {
+            let variant=night ? (indexed ? 4:2) : dayInteriorLightCount>0 ? (indexed ? 3:1):0
+            encoder.setComputePipelineState(traffic.tracePipelines[variant])
+            traffic.bind(encoder,moving:trafficMoving)
+        } else {
+            encoder.setComputePipelineState(night ? (indexed ? indexedNightTracePipeline:nightTracePipeline) : dayInteriorLightCount>0 ? (indexed ? indexedDayInteriorTracePipeline:dayInteriorTracePipeline) : tracePipeline)
+        }
         encoder.setTexture(texture, index: 0)
         encoder.setBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
         encoder.setBuffer(vertexBuffer, offset: 0, index: 1)
         encoder.setBuffer(indexBuffer, offset: 0, index: 2)
         encoder.setBuffer(materialBuffer, offset: 0, index: 3)
-        encoder.setAccelerationStructure(accelerationStructure, bufferIndex: 4)
+        encoder.setAccelerationStructure(traffic?.acceleration ?? accelerationStructure, bufferIndex: 4)
         encoder.setBuffer(options.lighting == 2 ? lightBuffer:dayInteriorLightBuffer, offset:0, index:5)
         if indexed {
             var header=grid.header
@@ -246,12 +280,13 @@ final class MetalRenderer {
         guard let surface = command.makeComputeCommandEncoder() else { throw EngineError.message("Surface guide encoder unavailable.") }
         var frame = uniforms
         surface.label = "Stable primary surfaces"
-        surface.setComputePipelineState(surfacePipeline)
+        surface.setComputePipelineState(traffic?.surfacePipeline ?? surfacePipeline)
+        traffic?.bind(surface,moving:trafficMoving)
         surface.setBytes(&frame,length:MemoryLayout<FrameUniforms>.stride,index:0)
         surface.setBuffer(vertexBuffer,offset:0,index:1)
         surface.setBuffer(indexBuffer,offset:0,index:2)
         surface.setBuffer(materialBuffer,offset:0,index:3)
-        surface.setAccelerationStructure(accelerationStructure,bufferIndex:4)
+        surface.setAccelerationStructure(traffic?.acceleration ?? accelerationStructure,bufferIndex:4)
         surface.setTexture(worldGuides[current],index:0)
         surface.setTexture(normalGuides[current],index:1)
         surface.setTexture(albedoGuide,index:2)
@@ -297,7 +332,7 @@ final class MetalRenderer {
         let scale = min(1,8192/requestedHeight)
         try resize(width:max(1,Int(requestedWidth*scale)),height:max(1,Int(requestedHeight*scale)))
         let moving = moved(pose)
-        if reset || moving || previousOptions != options { resetAccumulation() }
+        if reset || moving || trafficMoving || previousOptions != options { resetAccumulation() }
         if resetHistory || previousOptions != options { resetReconstruction() }
         semaphore.wait()
         guard let command = queue.makeCommandBuffer() else { semaphore.signal(); return false }
@@ -323,33 +358,60 @@ final class MetalRenderer {
                     self.semaphore.signal()
                 }
             }
-            command.commit(); previousPose = pose; previousOptions = options
+            command.commit(); previousPose = pose; previousOptions = options; trafficMoving=false
             return true
-        } catch { sampleCount = beforeSubmission; resetReconstruction(); semaphore.signal(); throw error }
+        } catch { traffic?.invalidate(); sampleCount = beforeSubmission; resetReconstruction(); semaphore.signal(); throw error }
     }
 
     /// Uses the interactive reconstruction path offscreen, retaining validated history between frames.
     func renderPreviewOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int, resetHistory: Bool = false) throws -> Data {
+        try renderPreviewCapture(pose:pose,options:options,width:width,height:height,samples:samples,resetHistory:resetHistory,captureRaw:false).image
+    }
+
+    /// Validation compares two presentations of exactly the same traced samples.
+    /// Independent AS builds/refits can resolve coplanar intersections differently;
+    /// equal random seeds alone do not guarantee identical raw radiance streams.
+    func renderPreviewComparisonOffscreen(pose:CameraPose,options:RenderOptions,width:Int,height:Int,samples:Int,resetHistory:Bool = false) throws -> (raw:Data,reconstructed:Data) {
+        let result=try renderPreviewCapture(pose:pose,options:options,width:width,height:height,samples:samples,resetHistory:resetHistory,captureRaw:true)
+        guard let raw=result.raw else { throw EngineError.message("Paired raw presentation unavailable.") }
+        return (raw,result.image)
+    }
+
+    private func renderPreviewCapture(pose:CameraPose,options:RenderOptions,width:Int,height:Int,samples:Int,resetHistory:Bool,captureRaw:Bool) throws -> (image:Data,raw:Data?) {
         try resize(width:width,height:height)
+        // Camera motion controls angular history. Traffic has separate local
+        // reactive guides and must not cap unrelated stationary mirror history.
         let moving = moved(pose)
         resetAccumulation()
         if resetHistory || previousOptions != options { resetReconstruction() }
         let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat:.bgra8Unorm,width:width,height:height,mipmapped:false)
         desc.storageMode = .shared; desc.usage = [.renderTarget,.shaderRead]
         guard let output = device.makeTexture(descriptor:desc), let command = queue.makeCommandBuffer() else { throw EngineError.message("Preview output unavailable.") }
+        let rawOutput=captureRaw ? device.makeTexture(descriptor:desc):nil
+        if captureRaw && rawOutput == nil { throw EngineError.message("Paired raw output unavailable.") }
+        var submitted=false
+        defer { if !submitted { traffic?.invalidate(); resetAccumulation(); resetReconstruction() } }
         var u = uniforms(pose:pose,options:options)
         for _ in 0..<max(1,samples) { u = try encodeTrace(command,pose:pose,options:options) }
+        if let rawOutput {
+            let rawPass=MTLRenderPassDescriptor()
+            rawPass.colorAttachments[0].texture=rawOutput;rawPass.colorAttachments[0].loadAction = .dontCare;rawPass.colorAttachments[0].storeAction = .store
+            try encodePresentation(command,descriptor:rawPass,uniforms:u)
+        }
         let texture = options.denoising ? try encodeReconstruction(command,uniforms:u,moving:moving) : nil
         let pass = MTLRenderPassDescriptor()
         pass.colorAttachments[0].texture = output; pass.colorAttachments[0].loadAction = .dontCare; pass.colorAttachments[0].storeAction = .store
         try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
-        command.commit(); command.waitUntilCompleted()
-        if let error = command.error { resetReconstruction(); throw error }
-        previousPose = pose; previousOptions = options
+        command.commit(); submitted=true; command.waitUntilCompleted()
+        if let error = command.error { traffic?.invalidate(); resetReconstruction(); throw error }
+        previousPose = pose; previousOptions = options; trafficMoving=false
         lastGPUTime = max(0,command.gpuEndTime-command.gpuStartTime)*1000
-        var data = Data(count:width*height*4)
-        data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!,bytesPerRow:width*4,from:MTLRegionMake2D(0,0,width,height),mipmapLevel:0) }
-        return data
+        func readback(_ texture:MTLTexture)->Data {
+            var data=Data(count:width*height*4)
+            data.withUnsafeMutableBytes { texture.getBytes($0.baseAddress!,bytesPerRow:width*4,from:MTLRegionMake2D(0,0,width,height),mipmapLevel:0) }
+            return data
+        }
+        return (readback(output),rawOutput.map(readback))
     }
 
     func renderOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int) throws -> Data {
@@ -376,11 +438,12 @@ final class MetalRenderer {
                         try encodePresentation(command, descriptor: pass, uniforms: u)
                     }
                 }
-            } catch { sampleCount = beforeSubmission; throw error }
+            } catch { traffic?.invalidate(); sampleCount = beforeSubmission; throw error }
             command.commit(); command.waitUntilCompleted()
-            if let error = command.error { resetAccumulation(); throw error }
+            if let error = command.error { traffic?.invalidate(); resetAccumulation(); throw error }
             lastGPUTime = max(0, command.gpuEndTime - command.gpuStartTime) * 1000 / Double(end-firstSample)
         }
+        trafficMoving=false
         var data = Data(count: width * height * 4)
         data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!, bytesPerRow: width * 4, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0) }
         return data

@@ -522,3 +522,54 @@ write(coarseWorld,worlds[0]);write(coarseDepth,normals[0]);write(coarseValues,ra
 let coarseResult=try render(frame:0,originX:0,previousX:0,valid:false,night:true)
 require(rmse(coarseResult.filtered,coarseTruth)<rmse(coarseValues,coarseTruth)*0.5,"Coarse night non-emissive surfaces lost spatial noise reduction")
 print("PASS: smooth distant night surfaces retain spatial noise reduction away from emissive coverage")
+
+
+// A moving vehicle can occupy the same screen/world-plane neighborhood while
+// its color, headlight pool or reflection moves. +0.875 must retain the exact
+// current signal; its disoccluded static pixel must reject the previous flag.
+for frame in 0..<4 {
+    _ = populate(frame:frame,originX:0,noise:false,roughness:0.022)
+    var points=read(worlds[frame%2]),values=read(raw)
+    for i in points.indices {
+        let active=frame<3
+        points[i].w=active ? 0.875:0
+        values[i]=SIMD4(active && ((i%width+frame)%5<2) ? SIMD3(0.65,0.015,0.005):background,values[i].w)
+    }
+    write(points,worlds[frame%2]);write(values,raw)
+    let result=try render(frame:frame,originX:0,previousX:0,valid:frame>0)
+    require(result.history.allSatisfy{$0.w==1},"Moving/disoccluded traffic retained stationary history")
+    for i in values.indices { require(simd_length(SIMD3(result.filtered[i].x-values[i].x,result.filtered[i].y-values[i].y,result.filtered[i].z-values[i].z))<0.00001,"Moving traffic/reflection coverage blurred or left a trail") }
+}
+print("PASS: moving vehicle/light/reflection guides preserve exact current coverage and clear immediately after disocclusion")
+
+// A reflected stripe can be visible in radiance without an albedo or primary
+// geometry edge. Scaling identical illumination down to night levels must not
+// turn its fixed absolute luminance tolerance into a much broader blur.
+var relativeReflectionBias:[Double]=[]
+for intensity:Float in [1,0.01] {
+    _ = populate(frame:0,originX:0,noise:false,roughness:0.6)
+    var points=read(worlds[0]),depths=read(normals[0]),values=read(raw)
+    for y in 0..<height { for x in 0..<width {
+        let i=y*width+x
+        points[i]=SIMD4(SIMD3(points[i].x,points[i].y,points[i].z)*100,0)
+        depths[i].w *= 100
+        let signal:Float=x%16<2 ? 1:0.02
+        values[i]=SIMD4(SIMD3(repeating:signal*intensity),depths[i].w)
+    } }
+    write(points,worlds[0]);write(depths,normals[0]);write(values,raw)
+    let result=try render(frame:0,originX:0,previousX:0,valid:false,spp:8,night:true)
+    relativeReflectionBias.append(rmse(result.filtered,values)/Double(intensity))
+}
+require(relativeReflectionBias[1]<=relativeReflectionBias[0]*1.1,"Dimming identical reflected detail to night levels increased relative spatial blur by more than ten percent")
+// This must remain a filter, not a bypass that passes the detail test by leaving
+// all low-radiance Monte Carlo noise untouched.
+let dimTruth=populate(frame:0,originX:0,noise:true).map{SIMD4($0.x*0.01,$0.y*0.01,$0.z*0.01,$0.w)}
+var dimPoints=read(worlds[0]),dimDepths=read(normals[0]),dimValues=read(raw)
+for i in dimValues.indices {
+    dimPoints[i]=SIMD4(SIMD3(dimPoints[i].x,dimPoints[i].y,dimPoints[i].z)*100,0);dimDepths[i].w *= 100
+    dimValues[i]=SIMD4(dimValues[i].x*0.01,dimValues[i].y*0.01,dimValues[i].z*0.01,dimDepths[i].w)
+}
+write(dimPoints,worlds[0]);write(dimDepths,normals[0]);write(dimValues,raw)
+let dimResult=try render(frame:0,originX:0,previousX:0,valid:false,spp:8,night:true)
+require(rmse(dimResult.filtered,dimTruth)<rmse(dimValues,dimTruth)*0.5,"Dim night surface noise reduction was lost")
+print("PASS: dim reflected detail retains comparable relative bias (\(relativeReflectionBias)); smooth dim surfaces retain more than 50 percent RMS noise reduction")

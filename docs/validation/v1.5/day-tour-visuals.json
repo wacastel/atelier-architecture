@@ -1,0 +1,239 @@
+{
+  "date": "2026-09-08",
+  "reviewStatus": "passed_sampled_visual_review",
+  "visualReviewPassed": true,
+  "movie": {
+    "path": "/Users/william/dev/architecture/output/Chicago-Lakefront-Day-Walkthrough-1080p.mp4",
+    "sha256": "c3188454c9da8937887f6faeca473be4dabc045c31f03f209796302a52643069",
+    "bytes": 254135688
+  },
+  "decodeEvidence": {
+    "source": "output/v6-review/day-tour-media.json",
+    "fullDecodePassed": true,
+    "decodedFrames": 2304,
+    "fps": 24,
+    "maximumTimestampErrorSeconds": 3.333333342681044e-07,
+    "scope": "Existing full-decode evidence supplied by the lead agent; this review independently hashed the movie and inspected all ten decoded PNGs, without replaying the complete movie."
+  },
+  "reviewedFrames": 10,
+  "chaptersActuallyRead": [
+    "The Magnificent Mile",
+    "A survivor in limestone",
+    "Water Tower Place",
+    "The Hancock's great diagonals",
+    "Buckingham Fountain",
+    "Chicago's front yard",
+    "Harbors on Lake Michigan",
+    "Along Lake Shore Drive"
+  ],
+  "method": "All ten final decoded PNGs were displayed in the image viewer and inspected. Observations derive from the actual displayed images, not filenames. Requested sample times may be rounded to a decoded frame boundary.",
+  "overall": "All eight chapter subjects are represented and captions fit their cards. The previously reported horizon/facade tonal discontinuity and first-chapter subtitle overrun are absent in the reviewed final samples. Harbor boats, fountain details, street-corridor framing and sparse lane traffic are visible. No blocking visual defect was observed in these ten frames.",
+  "previousFindingsResolved": [
+    {
+      "id": "horizon-tonal-boundary",
+      "sampleSeconds": [
+        42,
+        90,
+        95.9
+      ],
+      "observation": "The previously visible horizontal brightness break across distant facades is absent in these corrected final frames."
+    },
+    {
+      "id": "caption-card-overrun",
+      "sampleSeconds": [
+        0,
+        6
+      ],
+      "observation": "The long first-chapter subtitle now fits within the dark caption card with a right margin."
+    }
+  ],
+  "blockingFindings": [],
+  "limits": [
+    "Only ten sampled frames were visually reviewed; this is not an end-to-end motion or transition review.",
+    "Successful full decode and exact cadence are distinct from sampled image quality.",
+    "Still inspection cannot certify temporal denoising, animation smoothness, vehicle speed, water motion or complete collision clearance.",
+    "Procedural geometry and materials remain interpretive rather than survey-accurate or fully photorealistic."
+  ],
+  "images": [
+    {
+      "path": "output/v6-review/media-review/day-tour/0.png",
+      "sha256": "ddb6df960e37ffa1c5144866d7a5f6882f6693ab52acd41a6fb530ab1899f8ba",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 0.0,
+      "captionActuallyRead": "The Magnificent Mile",
+      "actuallyViewed": true,
+      "observations": [
+        "Wrigley clock faces, white crown and facade relief are visible at left; the Gothic Tribune crown is clearly framed across the street corridor.",
+        "The complete title and long subtitle fit within the dark caption card; footer attribution is readable."
+      ],
+      "limitations": [
+        "Foreground building bases extend below the frame; nearby generic facade grids are visibly simplified."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/6.png",
+      "sha256": "08c7b9a413881d7b80a5fbee05b1fe67fe034557efcdbbbad6799d5476a4e235",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 6.0,
+      "captionActuallyRead": "The Magnificent Mile",
+      "actuallyViewed": true,
+      "observations": [
+        "The route is farther north along the street corridor, with reflective nearby facades and the distant braced Hancock tower and both antenna tips visible.",
+        "The long first-chapter subtitle fits within its card with a visible right margin."
+      ],
+      "limitations": [
+        "Nearby generic buildings dominate this sample; the opening clock and Gothic towers are outside the frame."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/18.png",
+      "sha256": "ee4a2a18af682d33a8939abfa8203d8c20e441b6a3fbf52d7af6ccab0be9d38b",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 18.0,
+      "captionActuallyRead": "A survivor in limestone",
+      "actuallyViewed": true,
+      "observations": [
+        "The historic limestone tower is framed from entrance to upper lantern, with arched openings, buttresses and block joints readable in shade.",
+        "Trees and benches sit beside the front elevation; title, subtitle and attribution fit."
+      ],
+      "limitations": [
+        "The facade is shaded, openings are dark, and the masonry and rounded foliage remain procedural approximations."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/30.png",
+      "sha256": "b9b2a5cc227c36d92da76b548979f8f2b0ab2aceefe4b4d41fa51107a696bcae",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 30.0,
+      "captionActuallyRead": "Water Tower Place",
+      "actuallyViewed": true,
+      "observations": [
+        "A close upward facade study shows stone/glass panels, dark mullions, storefront framing and reflected light.",
+        "Title, subtitle, attribution and progress indicator are readable."
+      ],
+      "limitations": [
+        "The building top is outside the frame; dark storefront glazing reveals little interior detail."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/42.png",
+      "sha256": "5605d6a55ebcbf9d4853a4fa2b3b25531456aa1253ebe49cb4143bf78fa6aa45",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 42.0,
+      "captionActuallyRead": "The Hancock's great diagonals",
+      "actuallyViewed": true,
+      "observations": [
+        "The tapered dark tower, large exterior diagonals and rooftop structures remain legible against a hazy city backdrop.",
+        "The previous horizontal tonal break is absent from the visible horizon and nearby facades. The long title and subtitle fit their card."
+      ],
+      "limitations": [
+        "Antenna tips and the lower tower extend outside this close aerial composition; distant city blocks use repetitive simplified geometry."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/54.png",
+      "sha256": "49d47fbee3b3a1a73ba5a59cd7c2e3477d39b2d6d2e9f2a6f366f65ad75ddd65",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 54.0,
+      "captionActuallyRead": "Buckingham Fountain",
+      "actuallyViewed": true,
+      "observations": [
+        "The full outer basin, tiered center, sculptural green forms, arcing jets and rippled reflective water are visible without a foreground obstruction.",
+        "The title and long subtitle fit their card; surrounding paths, planted beds, benches and sparse distant traffic are readable."
+      ],
+      "limitations": [
+        "Jets are authored smooth arcs and sculptural forms are stylized; still inspection does not establish fluid simulation."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/66.png",
+      "sha256": "62261d1d1b0e591f79b49a1f27972deac64cb249101b1d32473e925af5d1470e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 66.0,
+      "captionActuallyRead": "Chicago's front yard",
+      "actuallyViewed": true,
+      "observations": [
+        "Tree rows, garden paths, planted beds and a broad skyline form an open park composition; sparse vehicles are visible on the road at right.",
+        "Fountain jets and part of the basin remain visible behind foreground tree crowns. Caption and attribution fit."
+      ],
+      "limitations": [
+        "Foreground trees partly obstruct the basin; repeated foliage and generic facades remain visibly simplified."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/78.png",
+      "sha256": "7c6b9891ae382c123594aa393ebd9815cddc5e6cb6ee5f9f1fc67fd41c874817",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 78.0,
+      "captionActuallyRead": "Harbors on Lake Michigan",
+      "actuallyViewed": true,
+      "observations": [
+        "Blue-and-white moored boats show cabins, decks, masts and hanging fenders beside clearly separated finger piers.",
+        "Rippled water reflects the skyline and a broad bright light streak. The long harbor subtitle fits within its card and attribution remains readable."
+      ],
+      "limitations": [
+        "The bright foreground water reflection is locally near white; fine grain and water motion cannot be judged from one still. Repeated boats are representative models."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/90.png",
+      "sha256": "173d0a2e461f69e138e4d174d23d2c5ce5afb2283e3b4816a2bdf4823b41f7ba",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 90.0,
+      "captionActuallyRead": "Along Lake Shore Drive",
+      "actuallyViewed": true,
+      "observations": [
+        "The elevated composition shows the river mouth, lake, road bridge, harbor slips and skyline; small vehicles occupy the bridge lanes.",
+        "The earlier horizontal facade-brightness boundary is absent; the lake fades into the hazy background without the dark sky strip. Caption and attribution remain readable."
+      ],
+      "limitations": [
+        "Some waterfront parcels are broad plain surfaces with sparse detail. The subtitle describes the full two-minute route, while this compilation chapter is shorter."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-tour/95.9.png",
+      "sha256": "86f4e938dc6176591d1716484da1bf9d3a49047ab8f1b3162d0e250f022d8cf9",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 95.9,
+      "captionActuallyRead": "Along Lake Shore Drive",
+      "actuallyViewed": true,
+      "observations": [
+        "The closing frame shows the park and fountain against the skyline, with multiple red, white and dark vehicles clearly placed within the foreground divided-road lanes.",
+        "The previous horizontal tonal boundary no longer crosses the skyline facades; caption, attribution and nearly complete progress fill remain readable."
+      ],
+      "limitations": [
+        "Trees, path details and distant building models remain simplified. A still cannot verify vehicle steering, speed or spawn transitions."
+      ]
+    }
+  ]
+}

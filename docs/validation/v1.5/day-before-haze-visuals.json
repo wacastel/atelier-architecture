@@ -1,0 +1,251 @@
+{
+  "date": "2026-09-08",
+  "reviewStatus": "completed_with_observations",
+  "movie": {
+    "path": "/Users/william/dev/architecture/output/v6-review/Chicago-Lakefront-Day-Before-Haze-Fix.mp4",
+    "sha256": "c662023d7ab48944666a632ebb2bae3e1d3b285aceb75e4e83d0674a8b3dda49",
+    "bytes": 253524379
+  },
+  "decodeEvidence": {
+    "source": "docs/validation/v1.5/day-before-haze-media.json",
+    "fullDecodePassed": true,
+    "decodedFrames": 2304,
+    "fps": 24,
+    "maximumTimestampErrorSeconds": 3.333333342681044e-07,
+    "scope": "Existing full-decode evidence supplied by the lead agent; this subtask independently hashed the movie and visually inspected decoded PNGs, without replaying the complete movie."
+  },
+  "reviewedFrames": 10,
+  "chaptersActuallyRead": [
+    "The Magnificent Mile",
+    "A survivor in limestone",
+    "Water Tower Place",
+    "The Hancock's great diagonals",
+    "Buckingham Fountain",
+    "Chicago's front yard",
+    "Harbors on Lake Michigan",
+    "Along Lake Shore Drive"
+  ],
+  "method": "All ten supplied decoded PNGs were displayed in the image viewer and inspected. Subject and caption observations come from those displayed images, not filename assumptions. Requested sample times may be rounded to a decoded frame boundary.",
+  "overall": "All eight chapter compositions are represented and readable. No complete landmark occlusion, blank frame or unreadable title was observed in these samples. Boats and sparse lane traffic are visible. A horizontal skyline tonal boundary in the final aerial samples and a minor chapter-zero caption-card overrun were flagged for lead-agent review.",
+  "findings": [
+    {
+      "id": "horizon-tonal-boundary",
+      "severity": "visible artifact for lead review",
+      "sampleSeconds": [
+        42,
+        90,
+        95.9
+      ],
+      "observation": "Building brightness changes across a horizontal boundary aligned approximately to the background horizon; most noticeable at90s and95.9s.",
+      "cause": "Not established by this visual-only review. Analytic sky/ground radiance used for atmospheric haze was suggested to the lead as a hypothesis."
+    },
+    {
+      "id": "caption-card-overrun",
+      "severity": "minor",
+      "sampleSeconds": [
+        0,
+        6
+      ],
+      "observation": "The long first-chapter subtitle slightly exceeds the dark card right edge; the title remains clear."
+    }
+  ],
+  "limits": [
+    "Only ten sampled frames were visually reviewed; this is not an end-to-end motion or transition review.",
+    "A successful full decode and exact cadence do not establish freedom from rendering artifacts.",
+    "Still inspection cannot certify temporal denoising, animation smoothness, vehicle speed, water motion or complete collision clearance.",
+    "Procedural geometry and materials remain interpretive rather than survey-accurate or fully photorealistic."
+  ],
+  "images": [
+    {
+      "path": "output/v6-review/media-review/day-before-haze/0.png",
+      "sha256": "3474af5dc960c017ce15d74bcf9f807a6c260c367a3ddf80372e29f7160394f1",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 0.0,
+      "captionActuallyRead": "The Magnificent Mile",
+      "actuallyViewed": true,
+      "observations": [
+        "The white clock tower and warm-stone Gothic tower are separated by a visible street corridor. Clock faces and crown silhouettes remain legible.",
+        "The title and footer attribution are readable."
+      ],
+      "limitations": [
+        "The long subtitle extends slightly past the right edge of its dark caption card.",
+        "Foreground building bodies extend below the frame; this is an elevated landmark composition."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/6.png",
+      "sha256": "3f83e7c64873caa4a8f8093f278581cefb88617cc087ab5eef9570210a6f331a",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 6.0,
+      "captionActuallyRead": "The Magnificent Mile",
+      "actuallyViewed": true,
+      "observations": [
+        "The camera is now farther along the street, between glass-fronted buildings, with a distant diagonal-braced tower and both antennas visible.",
+        "Title and attribution remain readable."
+      ],
+      "limitations": [
+        "Nearby generic facades dominate this sample; the opening clock/Gothic towers are no longer in frame.",
+        "The long subtitle extends slightly past the right edge of its dark caption card."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/18.png",
+      "sha256": "3fb8f184b82b7f975d498527345bc3972683bbfd9c098998b4c66cef12fcbec6",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 18.0,
+      "captionActuallyRead": "A survivor in limestone",
+      "actuallyViewed": true,
+      "observations": [
+        "The historic limestone tower is visible from its entrance and front plaza to the complete upper lantern, with surrounding towers providing scale.",
+        "Trees and street furniture sit beside the landmark rather than hiding its main elevation. Caption and footer fit."
+      ],
+      "limitations": [
+        "The elevation is shaded and visibly simpler than a photographic masonry survey; foliage is procedural."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/30.png",
+      "sha256": "c92fa10bb5f2e3342d10987c7d23692fdcdd8636dc9b3363080093fa242d0404",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 30.0,
+      "captionActuallyRead": "Water Tower Place",
+      "actuallyViewed": true,
+      "observations": [
+        "The sample is a close upward study of the stone/glass facade and dark storefront glazing, with mullions and stone joints visible.",
+        "The title, subtitle and attribution are legible."
+      ],
+      "limitations": [
+        "The close facade occupies most of the frame and the building top is outside it.",
+        "Ground-floor glazing is very dark and offers limited interior detail."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/42.png",
+      "sha256": "20e25aacba6f753c99d23fe28bde37c3afb8b128e775398677032ce7b36b669d",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 42.0,
+      "captionActuallyRead": "The Hancock's great diagonals",
+      "actuallyViewed": true,
+      "observations": [
+        "The dark tapered tower and large exterior diagonals dominate the center; the roof and antenna bases are visible above the surrounding city.",
+        "Caption text and the progress indicator remain readable."
+      ],
+      "limitations": [
+        "The antenna tips and lower tower extend beyond the frame.",
+        "Distant buildings form a visibly repetitive simplified grid.",
+        "A faint horizontal tonal transition is visible near the distant horizon."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/54.png",
+      "sha256": "015210581eda3f4c06a6e9bed1de03d755c85f8b26e28bf5072f1664fc32f948",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 54.0,
+      "captionActuallyRead": "Buckingham Fountain",
+      "actuallyViewed": true,
+      "observations": [
+        "The complete outer basin and tiered center are unobstructed, with many arcing jets, green sculptural forms, blue water and surrounding paths.",
+        "The title, subtitle and attribution remain clear."
+      ],
+      "limitations": [
+        "Jets are smooth authored arcs and the sculptural forms are stylized; this sample does not establish fluid or spray simulation."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/66.png",
+      "sha256": "27d54d251828b5ce12078c2a303f32422fbeea5ea0454551ab6695ab8009d165",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 66.0,
+      "captionActuallyRead": "Chicago's front yard",
+      "actuallyViewed": true,
+      "observations": [
+        "The frame covers tree rows, paths, planted beds, the fountain and a wide skyline. Sparse cars appear on the road at right.",
+        "Caption and footer remain legible."
+      ],
+      "limitations": [
+        "Foreground trees hide part of the fountain basin while the jets and wider park composition remain visible.",
+        "Repeated rounded trees and distant generic facades are visibly simplified."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/78.png",
+      "sha256": "51fddbb0ba22eb13cd080c33f18889070b782bd258cf7b15fd7385c5a4529699",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 78.0,
+      "captionActuallyRead": "Harbors on Lake Michigan",
+      "actuallyViewed": true,
+      "observations": [
+        "Moored blue-and-white boats show cabins, masts, deck surfaces and hanging fenders beside finger piers.",
+        "Rippled water has a broad bright reflection at left, and the pier layout remains unobstructed. Caption and attribution are readable."
+      ],
+      "limitations": [
+        "The bright water highlight is locally near white; sampled stills cannot assess whether its fine detail sparkles during motion.",
+        "The repeated boat model and surrounding facades remain interpretive."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/90.png",
+      "sha256": "2da664f0fbc794499316ccefb8526f074e1d0f552a1a2c225cd64044dc1fc82c",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 90.0,
+      "captionActuallyRead": "Along Lake Shore Drive",
+      "actuallyViewed": true,
+      "observations": [
+        "The lake/river-mouth view shows a road bridge, shoreline, harbor slips and skyline, with small cars visible on the crossing.",
+        "Water reflections, caption text and attribution are visible."
+      ],
+      "limitations": [
+        "A noticeable horizontal tonal boundary crosses building facades at approximately the sky/water horizon; it was flagged to the lead agent for review.",
+        "Some waterfront land parcels are broad plain surfaces with sparse detail.",
+        "This chapter subtitle describes the original two-minute route; the compilation chapter is shorter."
+      ]
+    },
+    {
+      "path": "output/v6-review/media-review/day-before-haze/95.9.png",
+      "sha256": "4adf3219294404f22167ec41131588e8d9dfb9397b502afe1fc9f2fe59cdb677",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "requestedSampleSeconds": 95.9,
+      "captionActuallyRead": "Along Lake Shore Drive",
+      "actuallyViewed": true,
+      "observations": [
+        "The closing sample frames the park, fountain and divided road against the skyline. Several colored cars visibly occupy the foreground lanes.",
+        "Caption, attribution and nearly complete progress fill remain readable."
+      ],
+      "limitations": [
+        "A noticeable horizontal tonal boundary crosses the skyline facades; it was flagged to the lead agent for review.",
+        "Trees, distant facades and portions of the path network remain simplified.",
+        "Still samples cannot verify vehicle steering, motion smoothness or spawn transitions."
+      ]
+    }
+  ]
+}

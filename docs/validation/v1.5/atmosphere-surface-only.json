@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-08",
+  "device": "Apple M3 Ultra",
+  "scope": "Daylight aerial-perspective continuity correction and controlled unchanged-night verification.",
+  "change": "Only daylight surface haze now samples a continuous horizon/upper-sky field. Ground/environment illumination and reflections retain skyRadiance; night haze coefficient and sky lookup are unchanged.",
+  "sourceSHA256": "e1e1c415515850d5c172900e0b2ce4037b5b3f3573f99e23a58236ef8f5a7205",
+  "preCorrectionRendererSHA256": "3fe14a012e7d5eac5422f79c019e9a6dd899f6f86cb5bddfbba55db6fecb4c12",
+  "skyRadianceFunctionByteIdentical": true,
+  "skyRadianceFunctionSHA256": "fd5ee80d0651d449a6847d4260f375b4e4048a690f6a76a82090586a2b8bf020",
+  "command": "swift scripts/validate-atmosphere.swift /tmp/atelier-before-horizon-Renderer.metal",
+  "repeatableCommand": "swift scripts/validate-atmosphere.swift",
+  "fixtureSHA256": "7d338b9ab6b6c150378ac71bec0a68b1bf6f9d51cc2b2e0d04cdfd0cd716e498",
+  "passed": true,
+  "horizonRadianceJump": {
+    "legacy": 0.36701074,
+    "corrected": 0.00089889765,
+    "directions": "16 azimuths, normalized elevation\u00b10.000001"
+  },
+  "actualTracedFacadeRowJump": {
+    "legacy": 0.08408582,
+    "corrected": 0.00087428093,
+    "depthMetres": 1200,
+    "samplesPerPixel": 32
+  },
+  "nightPaths": {
+    "componentsCompared": 32768,
+    "exactlyEqual": true,
+    "samplesPerPixel": [
+      1,
+      8
+    ],
+    "kernels": [
+      "pathTraceNight",
+      "pathTraceNightIndexed",
+      "pathTraceTrafficNight",
+      "pathTraceTrafficNightIndexed"
+    ],
+    "scene": "One shared distant-plane acceleration structure plus instance wrapper, static and dynamic local lights, indexed and linear traversal.",
+    "limitations": "Controlled GPU equality proves these tested paths; it is not a claim of cross-process full-city bit identity."
+  },
+  "negativeControl": "The exact pre-correction shader exceeds the same horizon and facade continuity criteria; the default fixture can also reconstruct the legacy haze lookup in memory.",
+  "visualProofPending": false,
+  "limits": [
+    "This is the existing analytic aerial-perspective approximation, not a volumetric atmosphere solver.",
+    "Daytime haze below the horizon becomes brighter and continuous; this is an intentional correction, not a change to reflected ground illumination.",
+    "Original day movie/image artifact reports remain preserved; corrected media must be reviewed separately."
+  ],
+  "visualProofs": [
+    {
+      "path": "output/v6-review/haze-corrected-60s.png",
+      "sha256": "aa08bd26774bb57f16ada1665a025dbe8be8c005057687fb9fc85139d80f69ad",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "actuallyViewed": true,
+      "location": "lakefront",
+      "view": 7,
+      "sceneTimeSeconds": 60,
+      "lighting": 0,
+      "samples": 64,
+      "observations": [
+        "The previously visible horizontal tonal boundary no longer crosses the building facades.",
+        "Harbor, bridge, shoreline and vehicle details remain readable."
+      ],
+      "command": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront --render output/v6-review/haze-corrected-60s.png --stop 7 --at 60 --lighting 0 --width 1600 --height 900 --samples 64",
+      "limits": "These are corrected still proofs, not a review of the re-exported movie or a pixel-matched quantitative comparison with earlier16SPP1080p movie samples."
+    },
+    {
+      "path": "output/v6-review/haze-corrected-119s.png",
+      "sha256": "10c70052664775781d9e7449584995e55e7937bad6499a3609b5ad57646c40e9",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "actuallyViewed": true,
+      "location": "lakefront",
+      "view": 7,
+      "sceneTimeSeconds": 119,
+      "lighting": 0,
+      "samples": 64,
+      "observations": [
+        "The previously visible horizontal tonal boundary no longer crosses the building facades.",
+        "Park paths, fountain, skyline and sparse foreground road traffic remain readable."
+      ],
+      "command": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront --render output/v6-review/haze-corrected-119s.png --stop 7 --at 119 --lighting 0 --width 1600 --height 900 --samples 64",
+      "limits": "These are corrected still proofs, not a review of the re-exported movie or a pixel-matched quantitative comparison with earlier16SPP1080p movie samples."
+    }
+  ]
+}

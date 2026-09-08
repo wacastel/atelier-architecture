@@ -1,0 +1,109 @@
+{
+  "date": "2026-09-08",
+  "device": "Apple M3 Ultra",
+  "command": "./scripts/validate-paired-motion.sh",
+  "passed": true,
+  "scope": "Real GPU fixture for paired raw and reconstructed presentation; separate actual-scene checks retain their existing thresholds.",
+  "channelsCompared": 55296,
+  "samplesPerFrame": [
+    1,
+    8,
+    32
+  ],
+  "maximumDisplayByteError": 0,
+  "allowedQuantizationError": 1,
+  "checks": [
+    "Raw presentation matches independent filmic/sRGB calculation from actual private GPU accumulation read back through a blit.",
+    "Trace sample count and random-seed increments equal exactly the requested SPP.",
+    "Each changed scene time causes only one traffic update.",
+    "Paused scene time and geometry remain unchanged during capture.",
+    "Both outputs are byte-identical when reconstruction is disabled.",
+    "The original single-output preview API retains its requested sample budget."
+  ],
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "13b2a357d5543e7f7ce4e7f35edfad5d480a30424c947c63d89ca86e3148d7a3",
+    "Sources/ArchitectureEngine/MotionValidation.swift": "a519416d7e1ab628554ae7f88172c3c41880197a6195b36b865d95e841e28c24",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "1a937c2c9d79dcf13ceb9a9cfa22308f7b773dfdb06fe9ea6570a9562dc9cedc",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "3fe14a012e7d5eac5422f79c019e9a6dd899f6f86cb5bddfbba55db6fecb4c12",
+    "Tests/PairedMotion/main.swift": "7e39572c52f5a8a905f236372ddc7280ec9d52e33802421a997442f32e408844",
+    "scripts/validate-paired-motion.sh": "1f19fb30562d77c4d3d0a2c25a4cd28ae926e0b2e7652364bebaf8f30fe83b5c"
+  },
+  "productionDenoiserChanged": false,
+  "diagnostics": {
+    "settings": {
+      "location": "chicago",
+      "width": 960,
+      "height": 600,
+      "samples": 8,
+      "frames": 32,
+      "referenceSamples": 128
+    },
+    "selectedCaseCommand": "<temporary copied app>/Contents/MacOS/ArchitectureEngine --location chicago --motion-test <distinct trial directory> --motion-case willis-night --width 960 --height 600 --samples 8 --frames 32 --reference-samples 128",
+    "input": "Same copied release executable, Renderer.metal, geometry and packaged map data. Only copied Denoise.metal varied in the temporary diagnostic app; production shader remained unchanged.",
+    "trialChanges": {
+      "temporal-only": "Spatial blend strength set to zero.",
+      "night-scale": "Only night spatial absolute luminance tolerance changed from 0.03 to 0.0005.",
+      "night-scale-repeat": "Identical repeat of night-scale.",
+      "emitter-temporal": "Original spatial filter; added a 3x3 emissive-neighbor current-history bypass at night."
+    },
+    "reasonDiscarded": "Opposing results in repeated equal-setting trials prevented acceptance of a marginal filter tweak. The old raw/reconstructed streams were independently traced through separate acceleration structures. The benchmark now captures both presentations from one actual accumulation. Exact origin of all cross-process differences was not established.",
+    "baselineModeCaveat": "The preserved baseline was the full five-case Chicago sequence, whereas the diagnostic runs selected Willis-night only. Seed reset does not erase differing prior AS refit histories. These are diagnostic records, not claims of paired filter improvement.",
+    "trials": [
+      {
+        "folder": "output/v6-review/motion-correction/baseline",
+        "metricsSHA256": "2917ca0b668baeef9d72b027240d9dbb7012be4b4b4a25af5d353d8142f920af",
+        "selectedCaseOnly": false,
+        "productionChangeAccepted": false,
+        "rawRMSE": 0.024962728395905097,
+        "reconstructedRMSE": 0.02496681137510043,
+        "rawTemporalResidualRMSE": 0.0355387053972714,
+        "reconstructedTemporalResidualRMSE": 0.03521045738872555,
+        "passed": false
+      },
+      {
+        "folder": "output/v6-review/motion-correction/temporal-only",
+        "metricsSHA256": "70e8133d9d4a2d9e451b7ef52b60e102739dbc519f1a0d539b3fd62481e0e7ec",
+        "selectedCaseOnly": true,
+        "productionChangeAccepted": false,
+        "rawRMSE": 0.024930081011983678,
+        "reconstructedRMSE": 0.025001302175203355,
+        "rawTemporalResidualRMSE": 0.035542632385390224,
+        "reconstructedTemporalResidualRMSE": 0.035552472352691544,
+        "passed": false
+      },
+      {
+        "folder": "output/v6-review/motion-correction/night-scale",
+        "metricsSHA256": "7547b1b13c34a4c700bbd0de2d4db277e3319862dc88eeda03bef7a6c56ad321",
+        "selectedCaseOnly": true,
+        "productionChangeAccepted": false,
+        "rawRMSE": 0.02499398211691674,
+        "reconstructedRMSE": 0.02493234118271299,
+        "rawTemporalResidualRMSE": 0.03555122213957252,
+        "reconstructedTemporalResidualRMSE": 0.035232839869353265,
+        "passed": true
+      },
+      {
+        "folder": "output/v6-review/motion-correction/night-scale-repeat",
+        "metricsSHA256": "614c40339186918c16e82651f7c8c842ca52a5029bea2c2a854e76ca16b9adf9",
+        "selectedCaseOnly": true,
+        "productionChangeAccepted": false,
+        "rawRMSE": 0.024919230165758196,
+        "reconstructedRMSE": 0.02510002968051573,
+        "rawTemporalResidualRMSE": 0.035546944801150525,
+        "reconstructedTemporalResidualRMSE": 0.035240318198238765,
+        "passed": false
+      },
+      {
+        "folder": "output/v6-review/motion-correction/emitter-temporal",
+        "metricsSHA256": "68e84d675d9f07d06ad859eb518ce650cb672f6bf57519ee1642156a854593dd",
+        "selectedCaseOnly": true,
+        "productionChangeAccepted": false,
+        "rawRMSE": 0.025030791296781426,
+        "reconstructedRMSE": 0.02504955786441146,
+        "rawTemporalResidualRMSE": 0.03554914406450853,
+        "reconstructedTemporalResidualRMSE": 0.03522062792147189,
+        "passed": false
+      }
+    ]
+  }
+}

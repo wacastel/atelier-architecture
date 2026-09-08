@@ -105,8 +105,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "03 · Paris & Chicago",
-            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nEiffel Tower, Paris · Willis Tower & Millennium Park, Chicago.\nReference-informed architecture and mapped surroundings.")
+            .applicationVersion: "1.5 · Paris & Chicago",
+            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · The Loop, Magnificent Mile & Chicago Lakefront.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
@@ -227,7 +227,7 @@ private struct ArchitectureWorkspace: View {
                 Text("METAL  /  RAY TRACING").font(.system(size: 9, weight: .semibold)).tracking(1.1)
             }.padding(.leading, 14).padding(.trailing, 9)
             Rectangle().fill(.white.opacity(0.13)).frame(width: 1, height: 18)
-            iconButton("moon.stars", help: "Night illumination", active: engine.lighting == 2) { engine.setLighting(engine.lighting == 2 ? 0 : 2); engine.focusViewport() }
+            iconButton("moon.stars", help: "Toggle day / night · N", active: engine.lighting == 2) { engine.toggleDayNight() }
             iconButton(engine.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", help: "Enter / exit full screen · ⌃⌘F", active: engine.isFullscreen) { engine.toggleFullscreen() }
             iconButton("slider.horizontal.3", help: "Render settings", active: settingsOpen) { settingsOpen.toggle() }
                 .popover(isPresented: $settingsOpen, arrowEdge: .bottom) { settingsPanel }
@@ -381,7 +381,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space  play     ↑ / ↓  views     I  idle     [ / ]  speed     L  location").lineLimit(1).minimumScaleFactor(0.8)
+                Text("Space  play     ↑ / ↓  views     I  idle     [ / ]  speed     L  location     N  day/night").lineLimit(1).minimumScaleFactor(0.8)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -459,7 +459,7 @@ private struct ArchitectureWorkspace: View {
                     Spacer()
                     iconButton("xmark", help: "Close controls") { engine.showHelp = false }
                 }
-                Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough (56 seconds, or four minutes for the Chicago flight). Idle speed changes both gentle motion and time per view; manual movement gives you the camera.")
+                Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough; the timeline shows its full duration. Idle speed changes both gentle motion and time per view. Press N to switch day and night without restarting your route.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")
@@ -474,7 +474,8 @@ private struct ArchitectureWorkspace: View {
                     helpRow("[  /  ]", "Slower / faster idle motion and view cycling")
                     helpRow("PACE / TIMELINE", "Set 0.25×–4× speed / seek to a time")
                     helpRow("1 – \(engine.stops.count)", "Select a view and its slow idle animation")
-                    helpRow("L", "Switch between Paris and Chicago")
+                    helpRow("L", "Cycle the four architectural destinations")
+                    helpRow("N", "Toggle day / night; preserve camera and playback")
                     helpRow("⌃ ⌘ F", "Enter / exit full screen; resize from any edge")
                     helpRow("H", "Show / hide the interface")
                     helpRow("ESC", "Release navigation / close this panel")
@@ -567,6 +568,7 @@ private final class ArchitectureMetalView: MTKView {
             case 125: engine.cycleView(1); return
             case 34: engine.toggleIdleCycling(); return
             case 37: engine.toggleLocation(); return
+            case 45: engine.toggleDayNight(); return
             case 33: engine.stepIdleSpeed(-1); return
             case 30: engine.stepIdleSpeed(1); return
             case 4: presentation?.chromeVisible.toggle(); return

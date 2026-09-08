@@ -21,13 +21,13 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / millennium (default paris)
+        --location paris           paris / chicago / millennium / lakefront (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
-        --single-view --stop 0      Export only the selected walkthrough (56s; Chicago flyby 240s)
+        --single-view --stop 0      Export one full route (56 / 90 / 120 / 240 seconds)
         --idle                     Export the selected view’s slow idle animation
         --raw                      Disable motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
@@ -54,7 +54,8 @@ import CoreText
         case "paris", "eiffel": location = .paris
         case "chicago", "willis": location = .chicago
         case "millennium", "park": location = .millennium
-        default: throw EngineError.message("Unknown location. Choose paris, chicago or millennium.")
+        case "lakefront", "magmile", "grant": location = .lakefront
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium or lakefront.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -77,6 +78,7 @@ import CoreText
         if args.contains("--at") {
             guard let seconds=Double(value("--at","0")),seconds.isFinite else { throw EngineError.message("--at requires finite seconds.") }
             pose=args.contains("--idle") ? location.idlePose(view:stop,seconds:seconds) : location.pose(view:stop,seconds:seconds)
+            renderer.setSceneTime(args.contains("--idle") ? max(0,seconds) : max(0,min(location.duration(view:stop),seconds)))
         }
         if args.contains("--obj") {
             var lo = SIMD3<Float>(repeating:.greatestFiniteMagnitude), hi = -lo
@@ -126,6 +128,16 @@ import CoreText
                 report["millenniumMappedAreas"] = MillenniumContext.database.areas.count
                 report["millenniumMappedPaths"] = MillenniumContext.database.paths.count
                 report["millenniumMappedTrees"] = MillenniumContext.database.trees.count
+                report["lakefrontMapTimestamp"] = LakefrontContext.database.timestamp
+                report["lakefrontAdditionalMappedBuildings"] = LakefrontContext.database.buildings.count
+                report["lakefrontMappedSurfaces"] = LakefrontContext.database.areas.count
+                report["lakefrontMappedTrees"] = LakefrontContext.database.trees.count
+                report["lakefrontMappedPiers"] = LakefrontContext.database.piers.count
+                let fleet = TrafficFleet(lanes: scene.trafficLanes)
+                report["trafficLanes"] = fleet.paths.count
+                report["trafficVehicles"] = fleet.vehicles.count
+                report["trafficTriangles"] = fleet.triangleCount
+                report["trafficClockSeconds"] = renderer.sceneTime
                 report["sharedChicagoWorld"] = true
             }
             try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:path.deletingLastPathComponent().appendingPathComponent("validation.json"))
@@ -189,14 +201,16 @@ private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,sec
     for frame in 0..<frameCount {
         try autoreleasepool {
             let time = Double(frame)/Double(frameCount)*duration
-            let shot: (pose:CameraPose,index:Int)
+            let shot: (pose:CameraPose,index:Int,seconds:Double)
             if let view = singleView {
                 let local = idle ? Double(frame)/Double(fps) : Double(frame)/Double(max(1,frameCount-1))*location.duration(view: view)
-                shot = (idle ? location.idlePose(view:view,seconds:local) : location.pose(view:view,seconds:local),view)
+                shot = (idle ? location.idlePose(view:view,seconds:local) : location.pose(view:view,seconds:local),view,local)
             } else {
                 let chapter=min(location.stops.count-1,Int(time/12))
-                shot=(location.pose(view:chapter,seconds:(time-Double(chapter)*12)/12*location.duration(view: chapter)),chapter)
+                let local=(time-Double(chapter)*12)/12*location.duration(view:chapter)
+                shot=(location.pose(view:chapter,seconds:local),chapter,local)
             }
+            renderer.setSceneTime(shot.seconds)
             let pixels = try renderer.renderPreviewOffscreen(pose:shot.pose,options:options,width:width,height:height,samples:samples,resetHistory:previousChapter != shot.index)
             previousChapter = shot.index
             while !input.isReadyForMoreMediaData {
@@ -231,16 +245,30 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     let h = CGFloat(height)/scale
     context.setFillColor(CGColor(red:0.035,green:0.055,blue:0.07,alpha:0.84))
     context.fill(CGRect(x:30,y:h-176,width:570,height:145))
-    func text(_ string:String,x:CGFloat,y:CGFloat,size:CGFloat,color:CGColor) {
-        let font = CTFontCreateWithName("HelveticaNeue" as CFString,size,nil)
-        let attributes:[NSAttributedString.Key:Any] = [.font:font,.foregroundColor:color]
-        let line = CTLineCreateWithAttributedString(NSAttributedString(string:string,attributes:attributes))
+    func text(_ string:String,x:CGFloat,y:CGFloat,size:CGFloat,color:CGColor,maximumWidth:CGFloat? = nil) {
+        func makeLine(_ fontSize:CGFloat)->CTLine {
+            let font = CTFontCreateWithName("HelveticaNeue" as CFString,fontSize,nil)
+            let attributes:[NSAttributedString.Key:Any] = [.font:font,.foregroundColor:color]
+            return CTLineCreateWithAttributedString(NSAttributedString(string:string,attributes:attributes))
+        }
+        var line = makeLine(size)
+        if let maximumWidth {
+            let width = CGFloat(CTLineGetTypographicBounds(line,nil,nil,nil))
+            if width > maximumWidth { line = makeLine(size * maximumWidth / width) }
+        }
         context.textPosition = CGPoint(x:x,y:y); CTLineDraw(line,context)
     }
     let ivory = CGColor(red:0.95,green:0.94,blue:0.90,alpha:1), gold = CGColor(red:0.86,green:0.71,blue:0.47,alpha:1)
-    text(location == .paris ? "A T E L I E R    /    E I F F E L" : location == .chicago ? "A T E L I E R    /    W I L L I S" : "A T E L I E R    /    M I L L E N N I U M",x:58,y:h-69,size:18,color:gold)
+    let heading: String
+    switch location {
+    case .paris: heading = "A T E L I E R    /    E I F F E L"
+    case .chicago: heading = "A T E L I E R    /    W I L L I S"
+    case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
+    case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
+    }
+    text(heading,x:58,y:h-69,size:18,color:gold)
     text(stop.title,x:58,y:h-115,size:32,color:ivory)
-    text("\(stop.subtitle)  ·  METAL HARDWARE RAY TRACING",x:58,y:h-148,size:13,color:ivory)
+    text("\(stop.subtitle)  ·  METAL HARDWARE RAY TRACING",x:58,y:h-148,size:13,color:ivory,maximumWidth:514)
     context.setFillColor(CGColor(red:0.035,green:0.055,blue:0.07,alpha:0.65)); context.fill(CGRect(x:30,y:28,width:1860,height:34))
     text("Architectural reconstruction  ·  Map data © OpenStreetMap contributors",x:45,y:39,size:14,color:ivory)
     context.setFillColor(gold); context.fill(CGRect(x:30,y:24,width:1860*progress,height:3))
