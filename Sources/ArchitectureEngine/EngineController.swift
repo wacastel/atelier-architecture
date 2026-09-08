@@ -4,6 +4,10 @@ import MetalKit
 import SwiftUI
 import simd
 
+@MainActor protocol ViewportInputResetting: AnyObject {
+    func cancelViewportInput()
+}
+
 @MainActor final class EngineController: ObservableObject {
     @Published var status = "Preparing Chicago North Side…"
     @Published private(set) var location: ArchitectureLocation = .northside
@@ -17,6 +21,9 @@ import simd
     @Published var memoryMB = 0.0
     @Published var deviceName = "Apple Silicon"
     @Published var tourPlaying = false
+    @Published private(set) var chicagoDemoActive = false
+    @Published private(set) var chicagoDemoTitle = ""
+    @Published private(set) var focusedObjectName: String?
     @Published var tourProgress = 0.0
     @Published var playbackSpeed = 1.0
     @Published var idleSpeed = 1.0
@@ -30,11 +37,18 @@ import simd
     @Published var lighting = 0
     @Published var exposure = 1.0
     @Published var navigationMode = 1
-    @Published var showHelp = false
+    @Published var showHelp = false {
+        didSet {
+            if showHelp { keys.removeAll(); (view as? ViewportInputResetting)?.cancelViewportInput() }
+        }
+    }
     @Published var statsVisible = true
     @Published var altitude: Float = 0
     private var renderer: MetalRenderer?
     private var collision: CollisionWorld?
+    private var focusCatalog: LandmarkFocusCatalog?
+    private var focusSelection = FocusSelection()
+    private var movingWindow = false
     private weak var view: MTKView?
     private var delegate: ViewDelegate?
     private var keys = Set<UInt16>()
@@ -67,7 +81,11 @@ import simd
         loadLocation(location, device: device)
     }
     func selectLocation(_ value: ArchitectureLocation) {
-        guard value != location, let device = view?.device else { return }
+        guard let device = view?.device else { return }
+        if value == location {
+            if playback.demoActive { playback.stopChicagoDemo(); synchronizePlayback() }
+            return
+        }
         if isReady && location.world == value.world {
             // The park and tower are bookmarks in the same world. Keep the GPU
             // scene resident, changing only the camera and its playback clock.
@@ -81,6 +99,25 @@ import simd
     func toggleLocation() {
         let locations = ArchitectureLocation.allCases
         selectLocation(locations[(locations.firstIndex(of: location)! + 1) % locations.count])
+    }
+    func toggleChicagoDemo() {
+        guard isReady, let device = view?.device else { return }
+        clearObjectFocus()
+        keys.removeAll()
+        if playback.demoActive {
+            playback.stopChicagoDemo()
+        } else {
+            let selectedLighting = lighting
+            if location.world != "chicago" { loadLocation(.chicago, device: device) }
+            playback.setLighting(selectedLighting)
+            playback.startChicagoDemo()
+            lighting = playback.lighting
+            location = playback.location
+            applyViewSelection()
+            view?.window?.title = "ATELIER / \(location.name)"
+        }
+        synchronizePlayback(); previousTime = CACurrentMediaTime()
+        dirty = true; focusViewport()
     }
     func startChicagoFlyby() {
         guard isReady, location.world == "chicago" else { return }
@@ -108,7 +145,7 @@ import simd
         // Main-thread drawing stops before the previous GPU queue is drained.
         isReady = false; view?.isPaused = true; keys.removeAll()
         previousRenderer?.waitUntilIdle()
-        renderer = nil; collision = nil; errorMessage = nil
+        renderer = nil; collision = nil; focusCatalog = nil; clearObjectFocus(); errorMessage = nil
         location = selected; playback.selectLocation(selected)
         lighting = playback.lighting; applyViewSelection(); synchronizePlayback()
         status = "Preparing \(selected.name) and \(selected.shortName)…"
@@ -124,10 +161,14 @@ import simd
                 let scene = selected.build()
                 guard DispatchQueue.main.sync(execute: { self?.loadGeneration == generation }) else { return }
                 let nextRenderer = try MetalRenderer(scene: scene, device: device)
-                let nextCollision = CollisionWorld(scene: scene)
+                let nextFocusCatalog = LandmarkFocusCatalog(world: selected.world)
+                let denseRegions = nextFocusCatalog.authored.filter { $0.id == "chicago:cloud-gate" }.map {
+                    CollisionWorld.PickingRegion(minimum: $0.bounds.minimum, maximum: $0.bounds.maximum)
+                }
+                let nextCollision = CollisionWorld(scene: scene, detailedPickingRegions: denseRegions)
                 DispatchQueue.main.async {
                     guard let self, self.loadGeneration == generation else { return }
-                    self.renderer = nextRenderer; self.collision = nextCollision
+                    self.renderer = nextRenderer; self.collision = nextCollision; self.focusCatalog = nextFocusCatalog
                     self.triangleCount = nextRenderer.triangleCount
                     self.memoryMB = nextRenderer.allocatedMB
                     self.status = "Hardware ray tracing ready"
@@ -146,6 +187,11 @@ import simd
     }
     func toggleFullscreen() { view?.window?.toggleFullScreen(nil); focusViewport() }
     func windowPresentationChanged() { isFullscreen = view?.window?.styleMask.contains(.fullScreen) ?? false }
+    func windowWillMove() {
+        // Native titlebar dragging runs its own event tracking loop. Hold both
+        // camera and scene clocks until the mouse is released, then resume exactly.
+        movingWindow = true; keys.removeAll(); previousTime = CACurrentMediaTime()
+    }
     func drawableSizeDidChange(_ size: CGSize) {
         guard size.width.isFinite, size.height.isFinite, size.width > 0, size.height > 0 else { return }
         dirty = true; historyDirty = true
@@ -153,6 +199,7 @@ import simd
     }
     var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting) }
     private func applyViewSelection() {
+        clearObjectFocus()
         currentStop = playback.view; pose = playback.pose; altitude = pose.position.y
         navigationMode = location.walkingViews.contains(playback.view) ? 0 : 1
         keys.removeAll(); dirty = true; historyDirty = true
@@ -163,6 +210,7 @@ import simd
         synchronizePlayback(); focusViewport()
     }
     func toggleTour() {
+        clearObjectFocus()
         let wasIdle = playback.state == .idle || playback.state == .manual
         let previousPlaybackTime = playback.time
         playback.toggle(); keys.removeAll(); previousTime = CACurrentMediaTime()
@@ -172,6 +220,7 @@ import simd
     }
     func cycleView(_ direction: Int) { selectStop((currentStop + direction + stops.count) % stops.count) }
     func toggleIdleCycling() {
+        clearObjectFocus()
         let enteringIdle = playback.state != .idle
         playback.toggleIdleCycling(); keys.removeAll(); previousTime = CACurrentMediaTime()
         if enteringIdle { applyViewSelection() }
@@ -180,17 +229,20 @@ import simd
     func setIdleSpeed(_ value: Double) { playback.setIdleSpeed(value); synchronizePlayback(); focusViewport() }
     func stepIdleSpeed(_ direction: Int) { playback.stepIdleSpeed(direction); synchronizePlayback(); focusViewport() }
     func shuttle(_ direction: WalkthroughPlayback.Direction) {
+        clearObjectFocus()
         if playback.state == .idle || playback.state == .manual { historyDirty = true }
         playback.transport(direction); pose = playback.pose; keys.removeAll()
         dirty = true; synchronizePlayback(); focusViewport()
     }
     func seekTour(_ progress: Double) {
+        clearObjectFocus()
         playback.seek(progress: progress); pose = playback.pose; keys.removeAll()
         dirty = true; historyDirty = true; synchronizePlayback()
     }
     func setPlaybackSpeed(_ value: Double) { playback.setSpeed(value); synchronizePlayback(); focusViewport() }
     func focusViewport() { if let view { view.window?.makeFirstResponder(view) } }
     private func synchronizePlayback() {
+        chicagoDemoActive = playback.demoActive; chicagoDemoTitle = playback.demoTitle
         tourPlaying = playback.state == .playing
         playbackState = playback.state; playbackSpeed = playback.speed
         idleCycling = playback.idleCycling; idleSpeed = playback.idleSpeed
@@ -205,8 +257,23 @@ import simd
             transportLabel = (playback.direction == .reverse ? "Rewind " : (playback.shuttle > 1 ? "Fast forward " : "Walkthrough ")) + rate
         }
     }
-    private func beginManualNavigation() {
+    private func beginManualNavigation(keepingFocus: Bool = false) {
+        if !keepingFocus { clearObjectFocus() }
         if playback.state != .manual { playback.manual(); synchronizePlayback() }
+    }
+    func clearObjectFocus() {
+        focusSelection = FocusSelection(); focusedObjectName = nil
+    }
+    func focusObject(at normalizedPoint: SIMD2<Float>, aspect: Float) {
+        guard isReady, !showHelp, !movingWindow, let collision, let focusCatalog,
+              let ray = FocusRay.make(normalized: normalizedPoint, aspect: aspect, pose: pose) else { return }
+        let hit = focusCatalog.pick(ray: ray, world: collision)
+        beginManualNavigation(keepingFocus: true); keys.removeAll()
+        focusSelection.toggle(hit, pose: pose)
+        if let orbit = focusSelection.orbit { pose = orbit.pose }
+        focusedObjectName = focusSelection.orbit?.focus.name
+        altitude = pose.position.y; dirty = true; historyDirty = true
+        focusViewport()
     }
     func resetView() { selectStop(0) }
     func setQuality(_ value: Int) { quality = max(0,min(2,value)); dirty = true; historyDirty = true }
@@ -215,20 +282,32 @@ import simd
     func setExposure(_ value: Double) { exposure = value; dirty = true; historyDirty = true }
     func moveKey(_ code: UInt16, pressed: Bool) {
         if pressed {
+            guard isReady, !showHelp, !movingWindow else { return }
             keys.insert(code)
             if [UInt16(13), 0, 1, 2, 12, 14].contains(code) { beginManualNavigation() }
         } else { keys.remove(code) }
     }
     func look(deltaX: Float, deltaY: Float) {
-        guard deltaX.isFinite, deltaY.isFinite, abs(deltaX) + abs(deltaY) > 0.01 else { return }
-        beginManualNavigation()
+        guard isReady, !showHelp, !movingWindow, deltaX.isFinite, deltaY.isFinite, abs(deltaX) + abs(deltaY) > 0.01 else { return }
+        beginManualNavigation(keepingFocus: true)
+        if var orbit = focusSelection.orbit {
+            orbit.rotate(yawDelta: -deltaX * 0.003, pitchDelta: deltaY * 0.003)
+            focusSelection.orbit = orbit; pose = orbit.pose; dirty = true
+            return
+        }
         let direction = simd_normalize(pose.target-pose.position)
         let yaw = atan2(direction.x,-direction.z) + deltaX*0.003
         let pitch = max(-1.50,min(1.50,asin(direction.y)-deltaY*0.003))
         pose.target = pose.position + SIMD3(sin(yaw)*cos(pitch),sin(pitch),-cos(yaw)*cos(pitch))
         dirty = true
     }
-    func scroll(_ amount: Float) { movementSpeed = max(1,min(80,movementSpeed * exp(-amount*0.035))) }
+    func scroll(_ amount: Float, precise: Bool = false) {
+        guard isReady, !showHelp, !movingWindow, amount.isFinite else { return }
+        if var orbit = focusSelection.orbit {
+            orbit.dolly(logScale: -amount * (precise ? 0.003 : 0.10))
+            focusSelection.orbit = orbit; pose = orbit.pose; dirty = true
+        } else { movementSpeed = max(1,min(80,movementSpeed * exp(-amount*0.035))) }
+    }
     func captureScreenshot() { captured = true }
     func draw(_ view: MTKView) {
         guard let renderer, isReady else { return }
@@ -237,20 +316,33 @@ import simd
             view.isPaused = true
             return
         }
-        let time = CACurrentMediaTime(), elapsed = max(0.001,time-previousTime)
+        let time = CACurrentMediaTime()
+        if movingWindow && NSEvent.pressedMouseButtons == 0 {
+            movingWindow = false; previousTime = time
+        }
+        let suspended = movingWindow || view.inLiveResize
+        let elapsed = max(0.001,time-previousTime)
         let dt = min(0.05,elapsed); previousTime = time
         frameTimes.append(elapsed); if frameTimes.count > 90 { frameTimes.removeFirst() }
         let automaticMotion = playback.state == .idle || playback.state == .playing
-        let previousStop = playback.view, previousLighting = playback.lighting
-        playback.advance(min(0.25, elapsed))
+        let previousLocation = playback.location, previousStop = playback.view, previousLighting = playback.lighting
+        if !suspended { playback.advance(min(0.25, elapsed)) }
         if playback.lighting != previousLighting { lighting = playback.lighting; dirty = true; historyDirty = true }
-        if playback.view != previousStop { applyViewSelection(); synchronizePlayback() }
-        if automaticMotion { pose = playback.pose; dirty = true }
-        else if playback.state == .manual { updateMovement(Float(dt)) }
-        switch playback.state {
-        case .idle: sceneSeconds = playback.idleTime
-        case .playing, .paused: sceneSeconds = playback.time
-        case .manual: sceneSeconds += dt
+        if playback.location != previousLocation || playback.view != previousStop {
+            // Every demo destination shares this resident Chicago scene. Adopting
+            // the playback location must not call selectLocation, which cancels demo.
+            location = playback.location
+            applyViewSelection(); synchronizePlayback()
+            view.window?.title = "ATELIER / \(location.name)"
+        }
+        if !suspended {
+            if automaticMotion { pose = playback.pose; dirty = true }
+            else if playback.state == .manual { updateMovement(Float(dt)) }
+            switch playback.state {
+            case .idle: sceneSeconds = playback.idleTime
+            case .playing, .paused: sceneSeconds = playback.time
+            case .manual: sceneSeconds += dt
+            }
         }
         renderer.setSceneTime(sceneSeconds)
         let width = min(Int(view.drawableSize.width), quality == 0 ? 960 : (quality == 2 ? 2560 : 1440))

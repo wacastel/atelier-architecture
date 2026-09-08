@@ -1,0 +1,34 @@
+[
+  {
+    "location": "northside",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "northside",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "passed": true,
+    "seconds": 10.230664014816284,
+    "executableSHA256": "6d77ba75fc9f6b356d50dcd5b14fd0530e5d7310c3799d9666ec38a5b04488aa"
+  },
+  {
+    "location": "paris",
+    "arguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "paris",
+      "--self-test",
+      "--width",
+      "640",
+      "--height",
+      "400"
+    ],
+    "passed": true,
+    "seconds": 1.7298619747161865,
+    "executableSHA256": "6d77ba75fc9f6b356d50dcd5b14fd0530e5d7310c3799d9666ec38a5b04488aa"
+  }
+]

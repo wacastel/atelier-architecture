@@ -80,6 +80,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         fullscreen.keyEquivalentModifierMask = [.command, .control]
         fullscreen.target = self
         viewMenu.addItem(withTitle: "Next Location", action: #selector(toggleLocation), keyEquivalent: "l").target = self
+        viewMenu.addItem(withTitle: "Start / Stop Chicago Demo", action: #selector(toggleChicagoDemo), keyEquivalent: "").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
         screenshot.keyEquivalentModifierMask = [.command, .shift]
@@ -98,6 +99,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
 
     @objc private func toggleFullscreen() { engine.toggleFullscreen() }
     @objc private func toggleLocation() { engine.toggleLocation() }
+    @objc private func toggleChicagoDemo() { engine.toggleChicagoDemo() }
     @objc private func resetView() { engine.resetView() }
     @objc private func toggleInterface() { presentation.chromeVisible.toggle() }
     @objc private func toggleHelp() { engine.showHelp.toggle() }
@@ -105,7 +107,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "1.7 · Paris & Chicago",
+            .applicationVersion: "1.8 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from McCormick Place to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -208,6 +210,21 @@ private struct ArchitectureWorkspace: View {
                 }
             }.pickerStyle(.menu).labelsHidden().frame(width: 280, alignment: .leading)
                 .help("Change the architectural location · L")
+            HStack(spacing: 10) {
+                Button { engine.toggleChicagoDemo() } label: {
+                    Label(engine.chicagoDemoActive ? "Stop Chicago Demo" : "Chicago Demo", systemImage: engine.chicagoDemoActive ? "stop.circle" : "play.rectangle")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(engine.chicagoDemoActive ? accent : .white.opacity(0.9))
+                        .padding(.horizontal, 12).padding(.vertical, 8)
+                }.buttonStyle(.plain).glassPanel(radius: 8)
+                    .help("Play all 40 Chicago walkthroughs in order · C. Space pauses or resumes.")
+                    .disabled(!engine.isReady)
+                if engine.chicagoDemoActive {
+                    Text(engine.chicagoDemoTitle).font(.system(size: 10)).foregroundStyle(accent)
+                        .lineLimit(2).frame(maxWidth: 215, alignment: .leading)
+                        .padding(.horizontal, 10).padding(.vertical, 8).glassPanel(radius: 8)
+                }
+            }
             if engine.location.world == "chicago" {
                 Menu {
                     Button("Willis → Park → Art Institute") { engine.startChicagoFlyby() }
@@ -221,6 +238,20 @@ private struct ArchitectureWorkspace: View {
                 }.menuStyle(.borderlessButton).fixedSize().glassPanel(radius: 8)
                     .help("Play a continuous flight through the shared Chicago world")
                     .disabled(!engine.isReady)
+            }
+            if let focused = engine.focusedObjectName {
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Focus: \(focused)").font(.system(size: 11, weight: .semibold)).foregroundStyle(accent)
+                            .lineLimit(1)
+                        Text("Drag to orbit · scroll to zoom · click again to release")
+                            .font(.system(size: 9)).foregroundStyle(.white.opacity(0.65))
+                    }
+                    Button { engine.clearObjectFocus(); engine.focusViewport() } label: {
+                        Image(systemName: "xmark.circle.fill").font(.system(size: 16))
+                    }.buttonStyle(.plain).accessibilityLabel("Clear object focus")
+                }.padding(.horizontal, 12).padding(.vertical, 9).glassPanel(radius: 9)
+                    .frame(maxWidth: 390, alignment: .leading)
             }
         }.shadow(color: .black.opacity(0.15), radius: 14, y: 3)
     }
@@ -286,7 +317,7 @@ private struct ArchitectureWorkspace: View {
             HStack(alignment: .bottom, spacing: 25) {
                 VStack(alignment: .leading, spacing: 7) {
                     HStack(spacing: 9) {
-                        Text(engine.playbackState == .idle ? (engine.idleCycling ? "SLOW VIEW CYCLE" : "SLOW VIEW STUDY") : (engine.playbackState == .manual ? "EXPLORE THE STRUCTURE" : "GUIDED WALKTHROUGH"))
+                        Text(engine.chicagoDemoActive ? "CHICAGO DEMO" : (engine.playbackState == .idle ? (engine.idleCycling ? "SLOW VIEW CYCLE" : "SLOW VIEW STUDY") : (engine.playbackState == .manual ? "EXPLORE THE STRUCTURE" : "GUIDED WALKTHROUGH")))
                             .font(.system(size: 9, weight: .semibold)).tracking(2.0).foregroundStyle(accent)
                         Text(String(format: "%02d / %02d", engine.currentStop + 1, engine.stops.count))
                             .font(.system(size: 9, design: .monospaced)).foregroundStyle(.white.opacity(0.44))
@@ -375,10 +406,12 @@ private struct ArchitectureWorkspace: View {
                     Picker("Idle speed", selection: Binding(get: { engine.idleSpeed }, set: { engine.setIdleSpeed($0) })) {
                         ForEach(WalkthroughPlayback.speeds, id: \.self) { speed in Text(String(format: "%g×", speed)).tag(speed) }
                     }.labelsHidden().frame(width: 74).help("Gentle motion and view cycling speed · [ slower / ] faster")
-                    Text(engine.idleCycling ? String(format: "\(engine.lighting == 2 ? "Night" : "Day") pass · next view in %.0fs", ceil(engine.idleSecondsRemaining)) : "Holding this view · Idle Play resumes")
+                    Text(engine.chicagoDemoActive ? "Full walkthroughs · day/night alternates after Chicago" : (engine.idleCycling ? String(format: "\(engine.lighting == 2 ? "Night" : "Day") pass · next view in %.0fs", ceil(engine.idleSecondsRemaining)) : "Holding this view · Idle Play resumes"))
                         .font(.system(size: 10)).monospacedDigit().foregroundStyle(.white.opacity(0.53))
                     Spacer(minLength: 0)
-                    Text(String(format: "%.0fs per view at %g×", WalkthroughPlayback.idleViewDuration / engine.idleSpeed, engine.idleSpeed))
+                    Text(engine.chicagoDemoActive
+                         ? String(format: "≈%.0fm per Chicago pass at %g×", WalkthroughPlayback.chicagoDemoDuration / engine.playbackSpeed / 60, engine.playbackSpeed)
+                         : String(format: "%.0fs per view at %g×", WalkthroughPlayback.idleViewDuration / engine.idleSpeed, engine.idleSpeed))
                         .font(.system(size: 9, design: .monospaced)).foregroundStyle(.white.opacity(0.4))
                 }.padding(.horizontal, 12).padding(.vertical, 7)
             }.glassPanel(radius: 14)
@@ -386,7 +419,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space  play     ↑ / ↓  views     I  idle     [ / ]  speed     L  location     N  day/night").lineLimit(1).minimumScaleFactor(0.8)
+                Text("Space  play     C  Chicago demo     ↑ / ↓  views     I  idle     L  location     N  day/night").lineLimit(1).minimumScaleFactor(0.8)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -466,12 +499,16 @@ private struct ArchitectureWorkspace: View {
                 }
                 Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough; the timeline shows its full duration. Idle speed changes both gentle motion and time per view. Press N to switch day and night without restarting your route.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
+                Text("Chicago Demo plays all 40 Chicago routes from Willis Tower to the North Side, then repeats with the opposite lighting. Space pauses and resumes. Selecting a view or taking manual control leaves the demo. Click a landmark to focus it, drag to orbit and scroll to zoom; click it again or press Escape to release focus. Window dragging holds the camera and animation in place.")
+                    .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")
                     helpRow("Q  /  E", "Descend / ascend in Fly mode")
                     helpRow("SHIFT", "Move faster")
-                    helpRow("DRAG", "Look around; take manual control")
-                    helpRow("SCROLL", "Adjust manual movement speed")
+                    helpRow("CLICK", "Focus a landmark / click again to release")
+                    helpRow("DRAG", "Orbit the focused object, or look around")
+                    helpRow("SCROLL", "Zoom toward focus; otherwise set movement speed")
+                    helpRow("C", "Start / stop the complete Chicago demo")
                     helpRow("SPACE", "Start / pause / resume this walkthrough")
                     helpRow("←  /  →", "Rewind / fast forward; repeat for 2× / 4× / 8×")
                     helpRow("↑  /  ↓", "Previous / next view; hold the selected view")
@@ -479,7 +516,7 @@ private struct ArchitectureWorkspace: View {
                     helpRow("[  /  ]", "Slower / faster idle motion and view cycling")
                     helpRow("PACE / TIMELINE", "Set 0.25×–4× speed / seek to a time")
                     helpRow("1 – \(engine.stops.count)", "Select a view and its slow idle animation")
-                    helpRow("L", "Cycle the five architectural destinations")
+                    helpRow("L", "Cycle the six architectural destinations")
                     helpRow("N", "Toggle day / night; preserve camera and playback")
                     helpRow("⌃ ⌘ F", "Enter / exit full screen; resize from any edge")
                     helpRow("H", "Show / hide the interface")
@@ -545,21 +582,69 @@ private struct MetalArchitectureViewport: NSViewRepresentable {
 }
 
 @MainActor
-private final class ArchitectureMetalView: MTKView {
+private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
     weak var engine: EngineController?
     weak var presentation: PresentationState?
     private var heldKeys = Set<UInt16>()
+    private var pointerGesture = ViewportPointerGesture()
     override var intrinsicContentSize: NSSize {
         NSSize(width: NSView.noIntrinsicMetric, height: NSView.noIntrinsicMetric)
     }
     override var acceptsFirstResponder: Bool { true }
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+    override var mouseDownCanMoveWindow: Bool { false }
 
-    override func mouseDown(with event: NSEvent) { window?.makeFirstResponder(self) }
-    override func mouseDragged(with event: NSEvent) { engine?.look(deltaX: Float(event.deltaX), deltaY: Float(event.deltaY)) }
-    override func rightMouseDown(with event: NSEvent) { window?.makeFirstResponder(self) }
-    override func rightMouseDragged(with event: NSEvent) { mouseDragged(with: event) }
-    override func scrollWheel(with event: NSEvent) { engine?.scroll(Float(event.scrollingDeltaY)) }
+    private func pointerPoint(_ event: NSEvent) -> SIMD2<Float> {
+        let local = convert(event.locationInWindow, from: nil)
+        return SIMD2(Float(local.x - bounds.minX), Float(bounds.maxY - local.y))
+    }
+    private var windowOrigin: SIMD2<Double> {
+        SIMD2(Double(window?.frame.minX ?? 0), Double(window?.frame.minY ?? 0))
+    }
+    private func isViewportEvent(_ event: NSEvent) -> Bool {
+        guard let window, engine?.isReady == true, engine?.showHelp == false, !inLiveResize else { return false }
+        // The full-size Metal view extends beneath the transparent native titlebar.
+        // Its pixels do not make the titlebar a camera interaction surface.
+        return window.contentLayoutRect.contains(event.locationInWindow)
+            && bounds.contains(convert(event.locationInWindow, from: nil))
+    }
+    private func beginPointer(_ event: NSEvent, button: ViewportPointerGesture.Button) {
+        let inside = isViewportEvent(event)
+        pointerGesture.begin(button: button, point: pointerPoint(event), windowOrigin: windowOrigin, insideViewport: inside)
+        if inside { window?.makeFirstResponder(self) }
+    }
+    private func dragPointer(_ event: NSEvent, button: ViewportPointerGesture.Button) {
+        guard engine?.showHelp == false else { pointerGesture.cancel(); return }
+        if let delta = pointerGesture.drag(button: button, point: pointerPoint(event), windowOrigin: windowOrigin) {
+            // View-local displacement never counts native window translation as a
+            // camera delta; ownership is also cancelled if the window origin moves.
+            engine?.look(deltaX: delta.x, deltaY: delta.y)
+        }
+    }
+    override func mouseDown(with event: NSEvent) {
+        if let window, !window.styleMask.contains(.fullScreen),
+           event.locationInWindow.y >= window.contentLayoutRect.maxY {
+            releaseKeys(); engine?.windowWillMove()
+            window.performDrag(with: event)
+            return
+        }
+        beginPointer(event, button: .left)
+    }
+    override func mouseDragged(with event: NSEvent) { dragPointer(event, button: .left) }
+    override func mouseUp(with event: NSEvent) {
+        guard let point = pointerGesture.end(button: .left, point: pointerPoint(event), windowOrigin: windowOrigin),
+              isViewportEvent(event), bounds.width > 0, bounds.height > 0 else { return }
+        engine?.focusObject(at: SIMD2(point.x / Float(bounds.width), point.y / Float(bounds.height)), aspect: Float(bounds.width / bounds.height))
+    }
+    override func rightMouseDown(with event: NSEvent) { beginPointer(event, button: .right) }
+    override func rightMouseDragged(with event: NSEvent) { dragPointer(event, button: .right) }
+    override func rightMouseUp(with event: NSEvent) {
+        _ = pointerGesture.end(button: .right, point: pointerPoint(event), windowOrigin: windowOrigin)
+    }
+    override func scrollWheel(with event: NSEvent) {
+        guard isViewportEvent(event) else { return }
+        engine?.scroll(Float(event.scrollingDeltaY), precise: event.hasPreciseScrollingDeltas)
+    }
 
     override func keyDown(with event: NSEvent) {
         if event.modifierFlags.contains(.command) { super.keyDown(with: event); return }
@@ -572,6 +657,7 @@ private final class ArchitectureMetalView: MTKView {
             case 126: engine.cycleView(-1); return
             case 125: engine.cycleView(1); return
             case 34: engine.toggleIdleCycling(); return
+            case 8: engine.toggleChicagoDemo(); return
             case 37: engine.toggleLocation(); return
             case 45: engine.toggleDayNight(); return
             case 33: engine.stepIdleSpeed(-1); return
@@ -581,7 +667,8 @@ private final class ArchitectureMetalView: MTKView {
             case 53:
                 releaseKeys()
                 engine.showHelp = false
-                window?.makeFirstResponder(nil)
+                engine.clearObjectFocus()
+                engine.focusViewport()
                 return
             default: break
             }
@@ -611,20 +698,26 @@ private final class ArchitectureMetalView: MTKView {
     override func resignFirstResponder() -> Bool { releaseKeys(); return super.resignFirstResponder() }
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        for name in [NSWindow.didResignKeyNotification, NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification] {
+        for name in [NSWindow.didResignKeyNotification, NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification, NSWindow.willMoveNotification] {
             NotificationCenter.default.removeObserver(self, name: name, object: nil)
         }
         if let window {
             NotificationCenter.default.addObserver(self, selector: #selector(windowLostFocus), name: NSWindow.didResignKeyNotification, object: window)
+            NotificationCenter.default.addObserver(self, selector: #selector(windowWillMove), name: NSWindow.willMoveNotification, object: window)
             for name in [NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification] {
                 NotificationCenter.default.addObserver(self, selector: #selector(windowPresentationChanged), name: name, object: window)
             }
             engine?.windowPresentationChanged()
         }
     }
-    @objc private func windowPresentationChanged() { engine?.windowPresentationChanged() }
+    @objc private func windowPresentationChanged() { releaseKeys(); engine?.windowPresentationChanged() }
+    @objc private func windowWillMove() { releaseKeys(); engine?.windowWillMove() }
     @objc private func windowLostFocus() { releaseKeys() }
+    func cancelViewportInput() { releaseKeys() }
+    override func viewWillStartLiveResize() { releaseKeys(); super.viewWillStartLiveResize() }
+    override func viewDidEndLiveResize() { super.viewDidEndLiveResize(); engine?.drawableSizeDidChange(drawableSize) }
     private func releaseKeys() {
+        pointerGesture.cancel()
         for key in heldKeys { engine?.moveKey(key, pressed: false) }
         heldKeys.removeAll()
     }

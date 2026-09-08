@@ -1,0 +1,217 @@
+{
+  "date": "2026-09-08",
+  "method": "Actual native Atelier operation using CUA accessibility and window screenshots.",
+  "initialPackageSHA256": "6d77ba75fc9f6b356d50dcd5b14fd0530e5d7310c3799d9666ec38a5b04488aa",
+  "passed": true,
+  "demo": {
+    "startFromChicago": "C started Willis route 1/40 from North Side without world reload.",
+    "observedConsecutiveTransitions": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        14
+      ],
+      [
+        14,
+        15
+      ],
+      [
+        15,
+        16
+      ],
+      [
+        16,
+        17
+      ],
+      [
+        17,
+        18
+      ],
+      [
+        18,
+        19
+      ],
+      [
+        19,
+        20
+      ],
+      [
+        20,
+        21
+      ],
+      [
+        21,
+        22
+      ],
+      [
+        22,
+        23
+      ],
+      [
+        25,
+        26
+      ],
+      [
+        26,
+        27
+      ],
+      [
+        27,
+        28
+      ],
+      [
+        28,
+        29
+      ],
+      [
+        29,
+        30
+      ],
+      [
+        30,
+        31
+      ],
+      [
+        31,
+        32
+      ],
+      [
+        32,
+        33
+      ],
+      [
+        33,
+        34
+      ],
+      [
+        34,
+        35
+      ],
+      [
+        35,
+        36
+      ],
+      [
+        36,
+        37
+      ],
+      [
+        37,
+        38
+      ],
+      [
+        38,
+        39
+      ],
+      [
+        39,
+        40
+      ],
+      [
+        40,
+        1
+      ]
+    ],
+    "scope": "Route 1 to 2 advanced naturally; other consecutive boundaries were sampled by seeking near the current timeline endpoint. During an unsampled interval the demo advanced from Lakefront route 23 to Museum Campus route 25; route 24 was not directly inspected. This is not a full 66-minute visual run.",
+    "locationOrder": [
+      "Willis Tower",
+      "Millennium Park",
+      "Chicago Lakefront",
+      "Museum Campus",
+      "Chicago North Side"
+    ],
+    "residentScene": "HUD retained 39,954,614 triangles and 7.31 GB Metal allocations through the sampled Chicago transitions at this viewport.",
+    "fullPassWrap": "Daytime route40 Wrigley screenshot followed by nighttime route1 Willis screenshot; demo remained active.",
+    "pauseLighting": "Space paused demo; N changed lighting while timeline retained exact value 0.0005403519348224758.",
+    "manualExit": "L destination changes and number4 selection left demo and restored ordinary view mode.",
+    "parisStartup": "Selected night and 2x walkthrough pace in Paris, then C. After city loading, observed Willis route1/40, night render, Walkthrough2x and complete Chicago triangle count."
+  },
+  "focus": {
+    "landmark": "Adler Planetarium",
+    "selection": "Short click on visible copper dome showed Focus: Adler Planetarium and Manual exploration.",
+    "orbit": "Viewport drag changed the azimuth/elevation around Adler while retaining selection and center target.",
+    "zoom": "Down scroll moved away; up scroll returned toward the selected object. These were CUA page-sized synthesized scrolls, not separate physical mouse and trackpad hardware trials.",
+    "toggle": "Clicking the visible selected dome again cleared focus without changing the pose.",
+    "escape": "Reselection followed by Escape cleared focus; Space immediately started the current route without another viewport click.",
+    "window": "Bottom-right resize retained focus and camera orientation while adapting projection. Titlebar drag then left landmark framing and elevation visibly unchanged in window-relative screenshots. No exact camera matrix or screen-window-origin telemetry was captured.",
+    "fullscreen": "Native Ctrl+Command+F entered and exited fullscreen with Adler focus retained and viewport refitted."
+  },
+  "subsequentChanges": [
+    "ArchitectureApp: glass background for demo counter and approximate whole-pass duration instead of idle-per-view timing.",
+    "EngineController: precise trackpad zoom coefficient .008 to .003; ordinary wheel remains .10.",
+    "All other controller logic, pointer helper, focus geometry/math, collision and playback implementation unchanged."
+  ],
+  "limits": [
+    "Screenshots were inspected in the tool session; no claim of per-frame visual review or sustained FPS benchmarking.",
+    "Cloud Gate picking is verified by actual-world CPU integration; not separately clicked in native QA.",
+    "Physical trackpad momentum, every titlebar gesture variant and exact event-clock timing are covered only by source/CPU contracts where applicable, not hardware telemetry."
+  ],
+  "finalPackageSmoke": {
+    "passed": true,
+    "observed": [
+      "Successful native launch of rebuilt package.",
+      "C starts Willis1/40 at1x; counter glass is readable and bottom row shows approximately67minutes perChicago pass.",
+      "Three L presses reach MuseumCampus; number4 selectsAdler.",
+      "Dome click selectsAdler; drag orbits; downscroll retreats and upscroll returns toward object. Focus remains selected throughout.",
+      "Escape clears focus and immediate C startsdemo without additional click.",
+      "App left playing day ChicagoDemo at1x."
+    ],
+    "scope": "CUA synthesized page scrolling checks zoom direction and retained focus; physical trackpad sensitivity was not separately measured."
+  },
+  "finalPackageSHA256": "26b8db9373b054fcd71707adcbf16032961ef4332cf3c9e60379eff95e2e5c25",
+  "finalSourceHashes": {
+    "Sources/ArchitectureEngine/ArchitectureApp.swift": "ecbc243fe5b28f0eb817ebe3e7785fee93be3600875f5332e09c93cb7068a4da",
+    "Sources/ArchitectureEngine/EngineController.swift": "8ad4fc18644f0ab21ecf76771e2d9211900c82cd0883504a171c16b601c4e81b",
+    "Sources/ArchitectureEngine/Walkthrough.swift": "be1edced98d5dab37e4ddb7951c3a677371db8e0c5fa15cd0e0dd9956f63a75c",
+    "Sources/ArchitectureEngine/LandmarkFocus.swift": "2c3c4f4d34c6c8711765793d956f0c9b88d0e2e5fdefd50f0342c203f2aaddd1",
+    "Sources/ArchitectureEngine/ViewportPointerGesture.swift": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+    "Sources/ArchitectureEngine/CollisionWorld.swift": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca"
+  }
+}

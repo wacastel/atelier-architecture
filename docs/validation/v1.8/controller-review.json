@@ -1,0 +1,55 @@
+{
+  "reviewDate": "2026-09-08",
+  "scope": "Bounded read-only source review of Chicago demo integration and native viewport/window input handling; not a runtime or GPU validation.",
+  "passed": true,
+  "reviewedInputs": [
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "sha256": "680f4ada75da6e18c60ee75ad651cb4460eea5c48a7f4a1a77a6a0a200e38cdb"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "sha256": "51106dc5b7739c82f8498ca7feb05b2f1d487fdfa4fd44d80396bdc25e832151"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "be1edced98d5dab37e4ddb7951c3a677371db8e0c5fa15cd0e0dd9956f63a75c"
+    }
+  ],
+  "findings": [
+    {
+      "status": "resolved",
+      "file": "Sources/ArchitectureEngine/EngineController.swift",
+      "line": 114,
+      "issue": "Starting Chicago Demo from Paris restored selected lighting only in WalkthroughPlayback, leaving the published controller lighting and render options at the load default.",
+      "resolution": "After restoring the selection and starting the demo, copy playback.lighting to the controller lighting property.",
+      "verification": "Confirmed assignment in the reviewed source; native Paris-to-Chicago loading and displayed lighting remain runtime smoke-test scope."
+    },
+    {
+      "status": "resolved",
+      "file": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "line": 668,
+      "issue": "Escape cleared focus/help but removed the viewport first responder, conflicting with immediate keyboard navigation after focus release.",
+      "resolution": "Call engine.focusViewport() after clearing focus/help instead of removing the first responder.",
+      "verification": "Confirmed updated Escape handler in the reviewed source; actual AppKit event delivery remains native smoke-test scope."
+    }
+  ],
+  "noRemainingSubstantiveFindings": true,
+  "reviewedBehavior": [
+    "Automatic demo route/location transitions adopt playback.location directly, retaining the existing Chicago renderer and navigation world instead of invoking location selection and cancelling the demo.",
+    "Paris-to-Chicago loading pauses drawing, drains the previous GPU queue, generation-guards asynchronous completion and retains the queued demo state when applying the camera after load.",
+    "Space, explicit stop, manual exits and destination/view HUD synchronization follow the playback contract; stop holds the current route pose.",
+    "Titlebar movement and live resizing suspend camera/playback advancement and sceneSeconds together; the resume path resets previousTime to avoid elapsed-time catch-up.",
+    "Escape retains the viewport responder after clearing focus; help cancels active pointer ownership and held movement keys."
+  ],
+  "limits": [
+    "Source review only: no tests, application build, GPU jobs or native UI operations were performed during this review.",
+    "The passed field means no remaining substantive findings within this bounded code-review scope, not certification of runtime behavior or the entire release.",
+    "Native titlebar tracking, live resize, responder delivery and asynchronous loading should be verified in the separate release smoke checks.",
+    "The listed hashes identify the exact reviewed revisions; later source changes require separate evidence."
+  ]
+}

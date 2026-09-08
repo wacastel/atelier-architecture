@@ -32,6 +32,10 @@ Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newe
 
 The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–240 seconds; North Side routes last 120–240 seconds. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), and **Lincoln Park Zoo → Wrigley Field** (four minutes), preserving the chosen day/night lighting.
 
+**Chicago Demo / C** starts all 40 full Chicago routes in order: Willis Tower → Millennium Park → Chicago Lakefront → Museum Campus → Chicago North Side, eight routes at each destination. One pass lasts **66 minutes 36 seconds at 1×**. Starting preserves the chosen lighting and walkthrough pace; after each complete Chicago pass, the sequence returns to Willis with the opposite day/night lighting. **Space** pauses and resumes without leaving the demo. **Stop Chicago Demo / C** ends it while holding the current camera pose. Manual view or location selection, idle cycling, and manual navigation leave the demo. The five Chicago destinations keep the same resident city throughout. [Demo instructions](docs/DEMO.md).
+
+Click visible landmark or building geometry to focus it, then drag to orbit and use a mouse wheel or two-finger trackpad scroll to move closer or farther away. Clicking the same object again, clicking sky, or pressing **Escape** releases focus. Selecting a focus takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
+
 | Control | Action |
 | --- | --- |
 | Location menu / **L** | Cycle all six locations; begin a fresh daytime idle cycle |
@@ -40,18 +44,25 @@ The opening idle cycle visits each view in order during daytime, switches to nig
 | **Idle Play / Idle Pause**, or **I** | Resume the view cycle / hold the current view |
 | **[ / ]** | Decrease / increase idle speed: 0.25×, 0.5×, 1×, 2×, 4× |
 | **Play / Space** | Start, pause, or resume the selected walkthrough |
+| **Chicago Demo / C** | Start all 40 Chicago routes / stop and hold the current pose |
 | **← / →** | Rewind / fast forward; distinct presses cycle 2×, 4×, 8× |
 | **Pace / timeline** | Set walkthrough pace independently / seek |
 | **N / Moon button** | Toggle day/night without restarting or resuming the animation |
 | **Lighting settings** | Choose warm daylight, neutral daylight or night; idle wraps alternate day/night |
 | **Full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode |
-| Window edges | Resize freely; viewport aspect and render targets update |
-| Mouse drag / WASD / Q–E | Manual look / movement / vertical flight |
-| Shift / mouse wheel | Faster movement / adjust manual speed |
-| **H / ? / Esc** | Hide interface / show controls / release keys and close help |
+| Window titlebar / edges | Move / resize; hold camera and scene clocks during the gesture, then resume without a time jump |
+| Click visible geometry | Focus a landmark or building; click the same object or sky to release |
+| Mouse drag | Orbit a focused object; otherwise look around manually |
+| **WASD / Q–E / Shift** | Manual movement / vertical flight / faster movement; movement clears focus |
+| Mouse wheel / two-finger scroll | Zoom toward or away from a focused object; otherwise adjust manual movement speed |
+| **H / ? / Esc** | Hide interface / show controls / clear focus, release keys and close help |
 | **⌘R / ⌘⇧S** | Return to the location’s opening view / save a render to Pictures/Atelier |
 
 Manual movement takes control of the camera; local traffic continues. Pausing a walkthrough freezes both its camera and traffic clock. Walk mode uses floor support and collision checks; Fly mode allows unrestricted inspection. Individual routes are authored architectural studies. Millennium Park’s eighth route connects Willis Tower, the park and an interpreted Modern Wing gallery without a scene cut or teleport. Full-screen and ordinary window sizes retain the same rendering and input controls. The view cards scroll horizontally when needed.
+
+Seeking and the arrow-key shuttles stay within the current route, including during the Chicago demo. A shuttle pauses at the route's beginning or end; **Space** resumes forward at a rewound beginning, or continues to the next demo route from a forward endpoint. Lighting and pace changes keep the demo active. Lighting changes, window moves, resizing and full screen retain an object focus; moving or resizing the window freezes both camera animation and the shared traffic/show clock until the gesture ends.
+
+[Robie House and a Hyde Park connection](docs/NEXT-CHICAGO-LANDMARK.md) is a proposal for a future addition; it is not included in the current scene.
 
 ## Rendering
 

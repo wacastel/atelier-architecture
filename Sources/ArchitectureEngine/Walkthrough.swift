@@ -7,6 +7,30 @@ struct WalkthroughPlayback {
     enum Direction: Int { case reverse = -1, forward = 1 }
     static let speeds: [Double] = [0.25, 0.5, 1, 2, 4]
     static let idleViewDuration = 20.0
+    static let chicagoDemoLocations = ArchitectureLocation.allCases.filter { $0.world == "chicago" }
+    private struct DemoRoute {
+        let location: ArchitectureLocation
+        let view: Int
+        let start: Double
+        let duration: Double
+    }
+    private static let chicagoDemoRoutes: [DemoRoute] = {
+        var routes: [DemoRoute] = [], start = 0.0
+        for location in chicagoDemoLocations {
+            for view in location.stops.indices {
+                let duration = location.duration(view: view)
+                routes.append(DemoRoute(location: location, view: view, start: start, duration: duration))
+                start += duration
+            }
+        }
+        return routes
+    }()
+    static var chicagoDemoRouteCount: Int { chicagoDemoRoutes.count }
+    /// Full route seconds at the ordinary 1x pace, before day/night repetition.
+    static var chicagoDemoDuration: Double {
+        guard let last = chicagoDemoRoutes.last else { return 0 }
+        return last.start + last.duration
+    }
     private(set) var location: ArchitectureLocation = .paris
     private(set) var lighting = 0
     private(set) var view = 0
@@ -19,11 +43,36 @@ struct WalkthroughPlayback {
     private(set) var speed = 1.0
     private(set) var direction: Direction = .forward
     private(set) var shuttle = 1
+    private(set) var demoActive = false
     var duration: Double { location.duration(view: view) }
     var progress: Double { time / duration }
     var effectiveRate: Double { speed * Double(shuttle * direction.rawValue) }
+    /// Zero-based route position; only meaningful while demoActive is true.
+    var demoRouteIndex: Int {
+        Self.chicagoDemoRoutes.firstIndex { $0.location == location && $0.view == view } ?? 0
+    }
+    var demoProgress: Double {
+        guard demoActive, Self.chicagoDemoDuration > 0 else { return 0 }
+        return (Self.chicagoDemoRoutes[demoRouteIndex].start + time) / Self.chicagoDemoDuration
+    }
+    var demoTitle: String {
+        "Chicago demo · \(location.name) · \(demoRouteIndex + 1)/\(Self.chicagoDemoRouteCount)"
+    }
 
     init(location: ArchitectureLocation = .paris) { self.location = location }
+    mutating func startChicagoDemo() {
+        let chosenLighting = lighting, pace = speed, drift = idleSpeed
+        self = WalkthroughPlayback(location: .chicago)
+        lighting = chosenLighting; speed = pace; idleSpeed = drift
+        state = .playing; idleCycling = false; demoActive = true
+    }
+    /// Exiting a demo holds the exact current pose; explicit navigation can then
+    /// select another location/view or enter manual/idle control normally.
+    mutating func stopChicagoDemo() {
+        guard demoActive else { return }
+        demoActive = false; idleCycling = false
+        if state == .playing { state = .paused }
+    }
     mutating func selectLocation(_ value: ArchitectureLocation) {
         let pace = speed, drift = idleSpeed
         self = WalkthroughPlayback(location: value)
@@ -35,6 +84,7 @@ struct WalkthroughPlayback {
 
     /// An explicit choice always holds that view until Idle Play is requested again.
     mutating func select(_ index: Int) {
+        demoActive = false
         view = ((index % location.stops.count) + location.stops.count) % location.stops.count
         time = 0; idleTime = 0; idleDwellTime = 0; state = .idle; direction = .forward; shuttle = 1
         idleCycling = false
@@ -53,6 +103,7 @@ struct WalkthroughPlayback {
         idleSpeed = Self.speeds[max(0, min(Self.speeds.count - 1, current + offset))]
     }
     mutating func toggleIdleCycling() {
+        stopChicagoDemo()
         if state == .idle && idleCycling { idleCycling = false; return }
         if state != .idle {
             time = 0; idleTime = 0; state = .idle; direction = .forward; shuttle = 1
@@ -64,7 +115,11 @@ struct WalkthroughPlayback {
         idleCycling = false
         if state == .playing { state = .paused; return }
         if state == .manual { time = 0; direction = .forward; shuttle = 1 }
-        if time >= duration && direction == .forward { time = 0 }
+        if time >= duration && direction == .forward {
+            // A route-local shuttle/seek can hold the endpoint. Space resumes
+            // normal sequencing from that endpoint instead of replaying it.
+            if demoActive { shuttle = 1 } else { time = 0 }
+        }
         if time <= 0 && direction == .reverse { direction = .forward; shuttle = 1 }
         state = .playing
     }
@@ -79,7 +134,7 @@ struct WalkthroughPlayback {
         idleCycling = false
         if state != .playing { state = .paused }
     }
-    mutating func manual() { state = .manual; idleCycling = false }
+    mutating func manual() { state = .manual; idleCycling = false; demoActive = false }
     mutating func advance(_ elapsed: Double) {
         guard elapsed.isFinite, elapsed > 0 else { return }
         if state == .idle {
@@ -110,8 +165,30 @@ struct WalkthroughPlayback {
             return
         }
         guard state == .playing else { return }
+        if demoActive && direction == .forward && shuttle == 1 {
+            advanceChicagoDemo(elapsed)
+            return
+        }
         time = min(duration, max(0, time + elapsed * effectiveRate))
         if (time == duration && direction == .forward) || (time == 0 && direction == .reverse) { state = .paused }
+    }
+    private mutating func advanceChicagoDemo(_ elapsed: Double) {
+        let pass = Self.chicagoDemoDuration
+        guard pass.isFinite, pass > 0 else { return }
+        // Reduce in wall-clock seconds BEFORE multiplication. This avoids
+        // overflow and unbounded route loops after very large suspended gaps.
+        // Two complete Chicago passes leave day/night parity unchanged.
+        let pairSeconds = pass * 2 / speed
+        let increment = elapsed.truncatingRemainder(dividingBy: pairSeconds) * speed
+        let absolute = Self.chicagoDemoRoutes[demoRouteIndex].start + time + increment
+        let wraps = Int(floor(absolute / pass))
+        if lighting == 1 && (wraps > 0 || elapsed >= pairSeconds) { lighting = 0 }
+        if wraps % 2 == 1 { toggleDayNight() }
+        let position = absolute.truncatingRemainder(dividingBy: pass)
+        guard let route = Self.chicagoDemoRoutes.last(where: { $0.start <= position }) else { return }
+        location = route.location; view = route.view
+        time = min(route.duration, max(0, position - route.start))
+        idleTime = 0; idleDwellTime = 0
     }
     var pose: CameraPose {
         state == .idle ? location.idlePose(view: view, seconds: idleTime) : location.pose(view: view, seconds: time)

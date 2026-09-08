@@ -1,0 +1,106 @@
+{
+  "collectedDate": "2026-09-08",
+  "scope": "Preserved completed CPU/build/packaged-GPU report files, plus a source snapshot taken while collecting the reports. No tests were rerun by this collection step.",
+  "copies": [
+    {
+      "sourcePath": "output/v9-review/chicago-demo-playback.log",
+      "retainedPath": "docs/validation/v1.8/playback-validation.txt",
+      "sha256": "0a84ff9020ab1c7daf2c19efb3b0ce3c73c544519d50561b38c1283ae7b722da",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/focus-navigation-unit.txt",
+      "retainedPath": "docs/validation/v1.8/focus-navigation-unit.txt",
+      "sha256": "ec46df4423d3b4612ae5f2a35f2072a29458b640600f4ec029d32aa4fd3c726b",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/focus-navigation-integration.json",
+      "retainedPath": "docs/validation/v1.8/focus-navigation-integration.json",
+      "sha256": "3fde188cc0c41cd7c6be2084a9b834682164b8c810210fd8e0517ea362236fef",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/viewport-input-validation.json",
+      "retainedPath": "docs/validation/v1.8/viewport-input-validation.json",
+      "sha256": "1d28cc14c159954459e91183b2a2d1f637f560bd2e8ac50a03aeca0614696aba",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/build-final.log",
+      "retainedPath": "docs/validation/v1.8/build-validation.txt",
+      "sha256": "d1027deea038d7ac34f03311781962c5cebffb4f499e8ceac80d5c36a929ab01",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/northside-self-test.log",
+      "retainedPath": "docs/validation/v1.8/northside-self-test.txt",
+      "sha256": "0f870230d04f315c0930017fb2be0d7dfbb0887cc15b2024502dc0c5fa53e1f3",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/paris-self-test.log",
+      "retainedPath": "docs/validation/v1.8/paris-self-test.txt",
+      "sha256": "bd82c0543dd2bacc015a70387a8156d671d3dab1f4227d31f35ff6b035ffd515",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/self-test-northside/output/validation.json",
+      "retainedPath": "docs/validation/v1.8/northside-self-test.json",
+      "sha256": "657d7ec03be6187291d4c74b18c016c768a8bff2f024d005f62c12a20ca8b3c1",
+      "byteIdenticalCopy": true
+    },
+    {
+      "sourcePath": "output/v9-review/self-test-paris/output/validation.json",
+      "retainedPath": "docs/validation/v1.8/paris-self-test.json",
+      "sha256": "856493aa04673b2c24e390f55858b7ca5b68b05435c7ca6ecdaf8dbe84a0cd78",
+      "byteIdenticalCopy": true
+    }
+  ],
+  "packageAtCollection": {
+    "version": "1.8.0",
+    "build": "9",
+    "executablePath": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "executableSHA256": "6d77ba75fc9f6b356d50dcd5b14fd0530e5d7310c3799d9666ec38a5b04488aa"
+  },
+  "currentCPUInputs": [
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "be1edced98d5dab37e4ddb7951c3a677371db8e0c5fa15cd0e0dd9956f63a75c"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "f9a76094bd9528656af5862c7ed7a454d9833445f75d4b9a0bdc244ce69e0a96"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "sha256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+      "sha256": "2c3c4f4d34c6c8711765793d956f0c9b88d0e2e5fdefd50f0342c203f2aaddd1"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29"
+    },
+    {
+      "path": "Tests/FocusNavigation/main.swift",
+      "sha256": "9715765cc0e970df8552be7726894218890999fe5e853c5ff407cd938f962832"
+    },
+    {
+      "path": "Tests/FocusNavigationIntegration/main.swift",
+      "sha256": "853b63f8f5a6f81b3ce11e252bd9f126029f193f733005838faa31334f95bf60"
+    },
+    {
+      "path": "Tests/ViewportInput/main.swift",
+      "sha256": "243a6c0dac64b7dd5a2cdbaeb93ed5e3fe23d4af16ad83fcdc9cb1b8279f16f0"
+    }
+  ],
+  "nativeValidation": "Pending separate root record; no native results are claimed by this report.",
+  "limits": [
+    "Source/package hashes are a collection-time snapshot; the original plain-text reports do not embed complete run manifests.",
+    "The playback log ran before the later picking-only CollisionWorld change. Playback and playback-test hashes match that run; subsequent focus evidence separately covers the picking addition.",
+    "gpuLastSampleMilliseconds in self-test JSON is a scoped single-sample measurement, not a sustained preview frame-rate result."
+  ]
+}

@@ -1,0 +1,465 @@
+{
+  "comparisonDate": "2026-09-08",
+  "baseCommit": "1826df1adce3ce03165cac6c3ef2b3adbe323fa8",
+  "scope": "Byte comparison of committed 1.7 runtime inputs with the current 1.8 working tree, plus exact unchanged sections in two modified files. No image or performance measurement.",
+  "passed": true,
+  "motionCasesRerun": 0,
+  "priorMotionCases": 33,
+  "priorMotionEvidence": "docs/validation/v1.7/motion-summary.json",
+  "summary": {
+    "unchangedExistingSourceAndResourceFiles": 55,
+    "unchangedResourceFiles": 14,
+    "modifiedExistingRuntimeFiles": 4,
+    "allResourcesByteIdentical": true,
+    "rendererAndShadersByteIdentical": true,
+    "geometryAndCameraDefinitionsByteIdentical": true
+  },
+  "rendererAndShaders": [
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "baseSHA256": "149fdc512143c8a70e6c233f0fca7c93283ee37b4ec4455660ace1483d7955dd",
+      "currentSHA256": "149fdc512143c8a70e6c233f0fca7c93283ee37b4ec4455660ace1483d7955dd",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "baseSHA256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb",
+      "currentSHA256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "baseSHA256": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+      "currentSHA256": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "baseSHA256": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d",
+      "currentSHA256": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "baseSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+      "currentSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "baseSHA256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "currentSHA256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "baseSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "currentSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "baseSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "currentSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "baseSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "currentSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "byteIdentical": true
+    }
+  ],
+  "unchangedFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+      "baseSHA256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+      "currentSHA256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "baseSHA256": "6d8cc154bf8497d68ac368e87fb565fdbfd7cc0fb16eff01f3c81e4eacd9f103",
+      "currentSHA256": "6d8cc154bf8497d68ac368e87fb565fdbfd7cc0fb16eff01f3c81e4eacd9f103",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "baseSHA256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "currentSHA256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "baseSHA256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "currentSHA256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "baseSHA256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+      "currentSHA256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "baseSHA256": "98c8ce0c623cdcb165ce7ca07cf6035e5e3f8a00ef24a3bc427bc8166781a098",
+      "currentSHA256": "98c8ce0c623cdcb165ce7ca07cf6035e5e3f8a00ef24a3bc427bc8166781a098",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "baseSHA256": "149fdc512143c8a70e6c233f0fca7c93283ee37b4ec4455660ace1483d7955dd",
+      "currentSHA256": "149fdc512143c8a70e6c233f0fca7c93283ee37b4ec4455660ace1483d7955dd",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "baseSHA256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "currentSHA256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+      "baseSHA256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+      "currentSHA256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+      "baseSHA256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+      "currentSHA256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+      "baseSHA256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+      "currentSHA256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "baseSHA256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb",
+      "currentSHA256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "baseSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+      "currentSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "baseSHA256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+      "currentSHA256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+      "baseSHA256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+      "currentSHA256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+      "baseSHA256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+      "currentSHA256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+      "baseSHA256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+      "currentSHA256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "baseSHA256": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+      "currentSHA256": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "baseSHA256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "currentSHA256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "baseSHA256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "currentSHA256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "baseSHA256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "currentSHA256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "baseSHA256": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d",
+      "currentSHA256": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+      "baseSHA256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+      "currentSHA256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+      "baseSHA256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+      "currentSHA256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+      "baseSHA256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+      "currentSHA256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+      "baseSHA256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+      "currentSHA256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "baseSHA256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "currentSHA256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+      "baseSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+      "currentSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+      "baseSHA256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+      "currentSHA256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+      "baseSHA256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+      "currentSHA256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+      "baseSHA256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+      "currentSHA256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/OBJScene.swift",
+      "baseSHA256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "currentSHA256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "baseSHA256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "currentSHA256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "baseSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "currentSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "baseSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "currentSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "baseSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+      "currentSHA256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "baseSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "currentSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "baseSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "currentSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "baseSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "currentSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "baseSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "currentSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "baseSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "currentSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "baseSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "currentSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "baseSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "currentSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "baseSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "currentSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "baseSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "currentSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "baseSHA256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "currentSHA256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "baseSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "currentSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "baseSHA256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "currentSHA256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "baseSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "currentSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SoldierField.swift",
+      "baseSHA256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+      "currentSHA256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "baseSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "currentSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "baseSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "currentSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "baseSHA256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "currentSHA256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "baseSHA256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "currentSHA256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+      "baseSHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+      "currentSHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+      "byteIdentical": true
+    }
+  ],
+  "modifiedFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "baseSHA256": "a4196645952bae32ddd37e213e077e8d224321583ec8ee32492901582f2bec91",
+      "currentSHA256": "81f2b334dfa01b36f4ff2748ba7ec2deafa2208cb58fe9e2a8a24c78b3becffb",
+      "byteIdentical": false
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "baseSHA256": "2d2fb56fef7a5f3b1444a86db85d1c047f59146218423cba012900a0bdda1030",
+      "currentSHA256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+      "byteIdentical": false
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "baseSHA256": "fe26b6c28fc81bf4a38f25e39e192361090855deead60022d8fbdd08d416ec84",
+      "currentSHA256": "680f4ada75da6e18c60ee75ad651cb4460eea5c48a7f4a1a77a6a0a200e38cdb",
+      "byteIdentical": false
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "baseSHA256": "60d14a9815cb5a16a3b29f65f60bfb05d1f86ac79dd41fcc855b025a001136a9",
+      "currentSHA256": "be1edced98d5dab37e4ddb7951c3a677371db8e0c5fa15cd0e0dd9956f63a75c",
+      "byteIdentical": false
+    }
+  ],
+  "unchangedSectionsInModifiedFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "scope": "All Paris route and idle-pose definitions after the playback controller",
+      "sectionStart": "enum EiffelWalkthrough {",
+      "baseSHA256": "e22088d44e750321b30418bec562021e1a6da4eadadd79f2f7854c3f93667703",
+      "currentSHA256": "e22088d44e750321b30418bec562021e1a6da4eadadd79f2f7854c3f93667703",
+      "byteIdentical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "scope": "Navigation BVH builder and all existing ray/movement/floor queries",
+      "sectionStart": "private func build(",
+      "baseSHA256": "70158e51ab82c7cca232a3b71128de4be2d1773afde30c75187ddc6153fb6266",
+      "currentSHA256": "70158e51ab82c7cca232a3b71128de4be2d1773afde30c75187ddc6153fb6266",
+      "byteIdentical": true
+    }
+  ],
+  "newRuntimeFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+      "sha256": "2c3c4f4d34c6c8711765793d956f0c9b88d0e2e5fdefd50f0342c203f2aaddd1"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29"
+    }
+  ],
+  "limits": [
+    "The 33 prior motion checks were not rerun for 1.8. Their original results remain historical evidence.",
+    "UI, camera control and scene-clock sequencing changed. Byte-identical route definitions and rendering inputs do not certify arbitrary new manual orbit paths or native event handling.",
+    "CollisionWorld adds a separate optional dense picking index; its existing navigation builder/query bodies remain byte-identical. Focus unit and full-world integration reports cover the separation.",
+    "The playback test log predates the dense picking supplement. Its production playback and test file hashes still match the completed run; the new picking behavior is covered separately."
+  ]
+}

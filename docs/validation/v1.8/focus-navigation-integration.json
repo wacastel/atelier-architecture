@@ -1,0 +1,40 @@
+{
+  "cloudGateTriangles" : 171264,
+  "cloudGateTrianglesOutsideCatalogBounds" : 0,
+  "collisionSeconds" : 5.725147008895874,
+  "detailNodes" : 39605,
+  "detailTriangles" : 171264,
+  "expectedDetailTriangles" : 171264,
+  "expectedOriginalNavigationTriangles" : 30019005,
+  "failures" : [
+
+  ],
+  "geometryAndMetadataSeconds" : 3.2347708940505981,
+  "navigationTriangles" : 30019005,
+  "passed" : true,
+  "probes" : [
+    {
+      "actual" : "chicago:adler-planetarium",
+      "expected" : "chicago:adler-planetarium",
+      "ordinaryDistance" : 8.8046865463256836,
+      "passed" : true,
+      "pickingDistance" : 8.8046865463256836
+    },
+    {
+      "actual" : "chicago:willis-tower",
+      "expected" : "chicago:willis-tower",
+      "ordinaryDistance" : 45.605003356933594,
+      "passed" : true,
+      "pickingDistance" : 45.605003356933594
+    },
+    {
+      "actual" : "chicago:cloud-gate",
+      "expected" : "chicago:cloud-gate",
+      "ordinaryDistance" : 313.5614013671875,
+      "passed" : true,
+      "pickingDistance" : 9.0599374771118164
+    }
+  ],
+  "scope" : "CPU actual shared Chicago geometry, three visible landmark picks, sky miss, unchanged original navigation count, and bounded optional dense picking index. No renderer\/GPU\/native UI operations.",
+  "triangles" : 39792802
+}

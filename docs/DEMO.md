@@ -1,4 +1,28 @@
-# Chicago North Side — Atelier 1.7
+# Exploring Chicago — Atelier 1.8
+
+The app opens on Chicago North Side. Select **Chicago Demo**, or press **C**, to begin the complete Chicago sequence at Willis Tower's first view. It plays every route at its full duration in this order:
+
+1. Willis Tower — eight routes.
+2. Millennium Park — eight routes, including the Willis–park–Art Institute flight.
+3. Chicago Lakefront — eight routes.
+4. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
+5. Chicago North Side — eight routes, including both four-minute connecting flights.
+
+The **40-route pass lasts 66 minutes 36 seconds at 1×**. Starting keeps your chosen lighting and walkthrough pace. After the final North Side route, the demo returns to Willis Tower and alternates day/night for the next complete pass. Automatic destination changes retain the same Chicago world and its GPU resources. Starting from Paris loads the Chicago world before playback begins.
+
+**Space** pauses or resumes without leaving the demo. **Stop Chicago Demo**, or **C** while it is active, exits while holding the current camera pose. Selecting a view or location, starting idle cycling, clicking an object to focus it, or taking manual camera control leaves the demo. Lighting and pace changes preserve it. The status shows the current destination and route number out of 40.
+
+The timeline seeks only within the current route. Rewind and fast-forward shuttles also remain within it: repeated **← / →** presses cycle 2×, 4× and 8×, then pause on reaching the route boundary. From a forward endpoint, **Space** continues the demo into its next route; from a rewound beginning, it resumes forward within that route. Pausing in the middle retains the current direction and shuttle speed.
+
+Click visible building or landmark geometry to focus it; drag to orbit, and scroll with the wheel or trackpad to move closer or farther away. Click the same object again, click sky, or press **Escape** to release focus. **WASD / Q–E** returns to ordinary manual navigation and clears focus. Lighting, resizing and full screen retain the selected focus. [Complete focus behavior and limitations](FOCUS.md).
+
+Drag the native titlebar to move the window, or its edges to resize it. Both camera animation and the traffic/show scene clock hold during these gestures, then resume without catching up to the elapsed wall time. Window resizing updates the viewport and render targets. **⌃⌘F** enters or leaves full screen.
+
+The recordings below were made for earlier releases. They remain useful tours of the included architecture, but do not demonstrate or validate the new 1.8 controls. The [Robie House / Hyde Park plan](NEXT-CHICAGO-LANDMARK.md) is a proposal only; those additions are not yet built.
+
+---
+
+## Earlier release: Chicago North Side 1.7
 
 The app opens on **Chicago North Side**, the sixth destination. Old Town, Lincoln Park, the zoo, the conservatory and lily pool, North Avenue Beach, the northern harbors and Wrigleyville extend the existing Chicago landscape. Both connecting flights stay inside that world; all earlier places remain available.
 
