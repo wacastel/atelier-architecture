@@ -1,12 +1,12 @@
-# Suggested next landmark: Chicago Cultural Center
+# Original landmark proposal: Chicago Cultural Center
 
-Research date: September 9, 2026. This is a recommendation for a future request. No building, route, renderer or map changes were made for this suggestion.
+Research date: September 9, 2026. The proposal below is preserved as its original research record. It was subsequently implemented for Atelier 2.3.0; see [Chicago Cultural Center architecture, routes and validation status](CULTURAL-CENTER.md). The recommendation-only research itself made no building, route, renderer or map changes. Statements below about a future project describe that earlier point in development.
 
 The **Chicago Cultural Center** would be a strong next addition. Its historic library exterior, marble and mosaic interiors, and Preston Bradley Hall’s Tiffany glass dome would create an intimate architectural walkthrough beside the existing Millennium Park scene. The City lists the building at **78 East Washington Street**, completed in **1897** by **Shepley, Rutan & Coolidge**, and designated a Chicago Landmark in 1976. [City landmark record](https://webapps1.chicago.gov/landmarksweb/web/landmarkdetails.htm?lanId=1274).
 
 ## Fit with the existing world
 
-Read-only inspection found the Cultural Center in the bundled Chicago map, but no dedicated Cultural Center geometry, interior model or destination in the Swift sources. It currently passes through the general mapped-building renderer. Tribune Tower, by comparison, already has a dedicated Gothic crown, facade and entrance model in `MagnificentGateway.swift`.
+At the time of the proposal, read-only inspection found the Cultural Center in the bundled Chicago map, but no dedicated Cultural Center geometry, interior model or destination in the Swift sources. It then passed through the general mapped-building renderer. Tribune Tower, by comparison, already had a dedicated Gothic crown, facade and entrance model in `MagnificentGateway.swift`.
 
 | Existing data | Value |
 | --- | --- |

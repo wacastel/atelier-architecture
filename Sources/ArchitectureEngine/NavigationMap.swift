@@ -198,6 +198,24 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
     let framingRadius: Float
     let detailLevel: Int
     var target: SIMD3<Float> { SIMD3(point.x, targetHeight, point.y) }
+    /// Stable architectural identities, independent of display labels. Districts
+    /// without one building use an explicit region focus in the controller.
+    var focusID: String? {
+        let names = ["robie":"robie-house","wrigley":"wrigley-field","willis":"willis-tower",
+            "adler":"adler-planetarium","hancock":"hancock-center","oldtown":"saint-michael",
+            "art":"art-institute","field":"field-museum","beach":"north-avenue-beach-house",
+            "cloud-gate":"cloud-gate","shedd":"shedd-aquarium","soldier":"soldier-field",
+            "water-tower":"historic-water-tower","buckingham":"buckingham-fountain",
+            "conservatory":"lincoln-park-conservatory","tribune":"tribune-tower",
+            "wrigley-building":"wrigley-building","pritzker":"pritzker-pavilion",
+            "crown":"crown-fountain","water-tower-place":"water-tower-place",
+            "pumping-station":"pumping-station","cafe-brauer":"cafe-brauer",
+            "nature-pavilion":"nature-boardwalk-pavilion","nichols":"nichols-bridgeway",
+            "lakeside-center":"mccormick-lakeside","mccormick-west":"mccormick-west",
+            "mccormick-north":"mccormick-north","mccormick-south":"mccormick-south",
+            "culturalcenter":"cultural-center"]
+        return names[id].map { "chicago:"+$0 }
+    }
 
     init(id: String, name: String, point: SIMD2<Float>, eastLabel: Bool,
          targetHeight: Float, framingRadius: Float, detailLevel: Int = 0) {
@@ -212,6 +230,7 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
         .init(id: "willis", name: "Willis Tower", point: SIMD2(-4, 10), eastLabel: false, targetHeight: 205, framingRadius: 325),
         .init(id: "zoo", name: "Lincoln Park Zoo", point: SIMD2(214.4, -4726.1), eastLabel: false, targetHeight: 7.5, framingRadius: 240),
         .init(id: "millennium", name: "Millennium Park", point: SIMD2(1130, -540), eastLabel: true, targetHeight: 15, framingRadius: 280),
+        .init(id: "culturalcenter", name: "Cultural Center", point: SIMD2(906.15, -557.02), eastLabel: false, targetHeight: 16.8, framingRadius: 66),
         .init(id: "adler", name: "Adler Planetarium", point: SIMD2(2421.7, 1393.2), eastLabel: true, targetHeight: 11, framingRadius: 65),
         .init(id: "mccormick", name: "McCormick Place", point: SIMD2(1800, 3000), eastLabel: false, targetHeight: 25, framingRadius: 650),
         .init(id: "point", name: "Promontory Point", point: SIMD2(4925, 9237), eastLabel: true, targetHeight: 3, framingRadius: 190),

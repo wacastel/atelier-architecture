@@ -10,6 +10,7 @@ enum ChicagoWorld {
         builder.willisTower()
         builder.millenniumPark()
         builder.artInstitute()
+        builder.culturalCenter()
         builder.magnificentMile()
         builder.magnificentGateway()
         builder.chicagoLakefront()

@@ -43,13 +43,28 @@ extension Bundle {
     }
 
     let engine = EngineController()
+    let authoredCatalog = LandmarkFocusCatalog(world:"chicago",includeMapped:false)
+    func expectedFocus(_ landmark: ChicagoMapLandmark) -> LandmarkFocus? {
+        if let id=landmark.focusID { return authoredCatalog.lookup(id:id) }
+        return LandmarkFocusCatalog.semanticTarget(center:landmark.target,radius:landmark.framingRadius,name:landmark.name,id:"map:"+landmark.id)
+    }
     let unready = engine.cameraPose
     engine.toggleMapMode()
     expect(!engine.isMapMode && same(engine.cameraPose, unready), "Unready controller entered Map")
+    engine.pointCameraDown()
+    expect(same(engine.cameraPose, unready), "Unready controller accepted normal straight-down command")
     engine.isReady = true
     engine.selectStop(2)
     engine.toggleTour()
     expect(engine.tourPlaying, "Test setup failed to start a real walkthrough")
+    let playingPose=engine.cameraPose
+    engine.pointCameraDown()
+    expect(engine.playbackState == .manual && !engine.tourPlaying && !engine.isMapMode
+           && engine.navigationMode==1 && engine.cameraPose.fov==playingPose.fov,
+           "Normal top-down from an active tour does not take manual control without entering Map")
+    engine.selectStop(2)
+    engine.toggleTour()
+    expect(engine.tourPlaying,"Test setup could not restore walkthrough after normal top-down")
     let entry = engine.cameraPose
     engine.setLighting(2)
     engine.toggleMapMode()
@@ -60,6 +75,7 @@ extension Bundle {
 
     let blocked: [(String, () -> Void)] = [
         ("look", { engine.look(deltaX: 120, deltaY: -65) }),
+        ("normal top-down", { engine.pointCameraDown() }),
         ("selectStop", { engine.selectStop(1) }),
         ("next view", { engine.cycleView(1) }),
         ("previous view", { engine.cycleView(-1) }),
@@ -138,6 +154,9 @@ extension Bundle {
     }
     for landmark in ChicagoMapLandmark.all {
         engine.navigateCity(to: landmark)
+        let expected=expectedFocus(landmark)
+        expect(expected != nil, "\(landmark.id): semantic focus ID does not resolve to its authored object")
+        expect(engine.focusedObjectName == expected?.name, "\(landmark.id): semantic map selection did not establish the expected object or district focus")
         expect(engine.cameraPose.target == SIMD3(landmark.point.x, 0, landmark.point.y),
                "\(landmark.id): Map landmark click did not center its authored location")
         expect(abs(engine.mapViewSpan - max(100, min(24_000, landmark.framingRadius * 3))) < 0.001,
@@ -145,6 +164,23 @@ extension Bundle {
         expect(engine.lighting == 2, "\(landmark.id): Map landmark click reset lighting")
         assertMap(engine, "landmark \(landmark.id)")
     }
+    let selectedMapPose=engine.cameraPose, selectedMapFocus=engine.focusedObjectName
+    engine.look(deltaX:50,deltaY:25)
+    engine.pointCameraDown()
+    expect(same(engine.cameraPose,selectedMapPose) && engine.focusedObjectName==selectedMapFocus,
+           "Focused Map look/top-down command tilted the camera or changed focus")
+    let selectedSpan=engine.mapViewSpan
+    engine.magnify(0.25)
+    expect(engine.focusedObjectName==selectedMapFocus && abs(engine.mapViewSpan-selectedSpan/1.25)<0.001,
+           "Focused Map pinch used object dolly or lost semantic identity")
+    assertMap(engine,"focused Map pinch")
+    engine.magnify(-0.2)
+    let selectedPanPose=engine.cameraPose
+    engine.pan(from:SIMD2(100,100),to:SIMD2(125,115),viewport:SIMD2(1000,800))
+    let selectedPanDelta=SIMD3<Float>(-25*engine.mapViewSpan/800,0,-15*engine.mapViewSpan/800)
+    expect(simd_distance(engine.cameraPose.position-selectedPanPose.position,selectedPanDelta)<0.001,
+           "A semantic Map focus restricted ground panning or invoked orbit")
+    assertMap(engine,"focused Map pan")
     for invalid in [Double.nan, .infinity, -.infinity, -1, -2] {
         let before = engine.cameraPose, span = engine.mapViewSpan
         engine.magnify(invalid)
@@ -176,6 +212,23 @@ extension Bundle {
     expect(engine.lighting == 2, "Leaving Map reset night mode")
     expect(engine.options.hazeDensity != 0.0000001, "Map haze override leaked into Flyover")
 
+    engine.clearObjectFocus()
+    let beforeDown=engine.cameraPose, beforeDownSpan=engine.mapViewSpan
+    engine.pointCameraDown()
+    let down=engine.cameraPose
+    expect(!engine.isMapMode && engine.navigationMode==1 && engine.playbackState == .manual,
+           "Normal top-down command entered restricted Map mode")
+    expect(down.position.x==beforeDown.position.x && down.position.z==beforeDown.position.z
+           && down.position.x==down.target.x && down.position.z==down.target.z && down.target.y<down.position.y,
+           "Unfocused normal top-down moved horizontal location or failed exact vertical orientation")
+    expect(down.fov==beforeDown.fov && down.position.y==max(beforeDown.position.y,40)
+           && engine.mapViewSpan==beforeDownSpan && engine.options.hazeDensity != 0.0000001,
+           "Normal top-down changed lens, adopted Map altitude, changed coverage or enabled Map haze")
+    engine.pointCameraDown()
+    expect(same(engine.cameraPose,down),"Repeated normal top-down command moved the camera")
+    expect(engine.mapCamera.position==SIMD2(down.position.x,down.position.z)
+           && engine.mapCamera.target==SIMD2(down.target.x,down.target.z),"Normal top-down left the camera marker stale")
+
     let normalBefore = engine.cameraPose
     engine.magnify(0.25)
     expect(engine.cameraPose.position == normalBefore.position && engine.cameraPose.target == normalBefore.target,
@@ -194,8 +247,45 @@ extension Bundle {
     expect(engine.cameraPose.fov == 1.5, "Normal pinch escaped narrow-lens clamp")
     let willis = ChicagoMapLandmark.all.first { $0.id == "willis" }!
     engine.navigateCity(to: willis)
-    expect(engine.cameraPose.fov == 50 && engine.cameraPose.target == willis.target && !engine.isMapMode,
+    let willisFocus=expectedFocus(willis)!
+    expect(engine.cameraPose.fov == 50 && engine.cameraPose.target == willisFocus.center && !engine.isMapMode,
            "Normal landmark click retained prior telephoto lens or missed whole-landmark center")
+    expect(engine.focusedObjectName==willisFocus.name,"Normal semantic navigation failed to focus the authored Willis Tower")
+    let focusedBefore=engine.cameraPose
+    engine.magnify(0.25)
+    expect(engine.cameraPose.target==willisFocus.center && engine.cameraPose.fov==focusedBefore.fov
+           && abs(simd_distance(engine.cameraPose.position,willisFocus.center)/simd_distance(focusedBefore.position,willisFocus.center)-0.8)<0.00001,
+           "Normal focused pinch did not dolly around the exact landmark center")
+    engine.magnify(-0.2)
+    expect(simd_distance(engine.cameraPose.position,focusedBefore.position)<0.001,"Focused pinch inverse failed")
+    engine.pan(from:SIMD2(100,100),to:SIMD2(125,110),viewport:SIMD2(1200,800))
+    expect(engine.cameraPose.target==willisFocus.center && engine.focusedObjectName==willisFocus.name
+           && simd_distance(engine.cameraPose.position,focusedBefore.position)>1,
+           "Normal focused pan did not orbit the semantic object")
+    let focusedBeforeDown=engine.cameraPose
+    engine.pointCameraDown()
+    let focusedDown=engine.cameraPose
+    expect(!engine.isMapMode && engine.navigationMode==1 && engine.playbackState == .manual
+           && engine.focusedObjectName==willisFocus.name,"Focused top-down entered Map mode or discarded focus")
+    expect(focusedDown.target==willisFocus.center && focusedDown.position.x==willisFocus.center.x
+           && focusedDown.position.z==willisFocus.center.z && focusedDown.position.y>willisFocus.center.y
+           && focusedDown.fov==focusedBeforeDown.fov,"Focused normal top-down missed exact vertical center or changed the lens")
+    engine.pointCameraDown()
+    expect(same(engine.cameraPose,focusedDown),"Repeated focused top-down reconstructed a tilted orbit")
+    engine.magnify(0.25)
+    let verticalPinch=engine.cameraPose
+    expect(verticalPinch.position.x==willisFocus.center.x && verticalPinch.position.z==willisFocus.center.z
+           && verticalPinch.target==willisFocus.center && verticalPinch.fov==focusedDown.fov,
+           "Focused pinch after normal top-down tilts the camera or changes its lens")
+    engine.magnify(-0.2)
+    expect(engine.cameraPose.position.x==willisFocus.center.x && engine.cameraPose.position.z==willisFocus.center.z,
+           "Inverse focused top-down pinch drifts horizontally")
+    engine.look(deltaX:20,deltaY:8)
+    expect(engine.cameraPose.target==willisFocus.center && engine.focusedObjectName==willisFocus.name
+           && !same(engine.cameraPose,focusedDown),"Orbit input after focused top-down lost the object or failed to move")
+    let beforeClear=engine.cameraPose
+    engine.clearObjectFocus()
+    expect(engine.focusedObjectName==nil && same(engine.cameraPose,beforeClear),"Explicit focus clear changed camera pose")
     for _ in 0..<20 { engine.magnify(-0.5) }
     expect(engine.cameraPose.fov == 100, "Normal pinch escaped wide-lens clamp")
     engine.toggleMapMode()
@@ -206,7 +296,7 @@ extension Bundle {
     let report: [String: Any] = [
         "passed": failures.isEmpty, "checks": checks, "failures": failures,
         "scope": "CPU actual EngineController methods and production camera/playback/map metadata. Only AmbientMusicController is replaced by an inert stub; the absent SwiftPM Bundle.module accessor traps if reached. No view attachment, Metal device, renderer construction, city geometry build or audio playback.",
-        "limitations": "No native event dispatch, rendered frame, collision/roof geometry or device-dependent location loading is exercised. Focus dispatch has no collision catalog; selected-object pinch is covered by the separate FocusOrbit tests.",
+        "limitations": "No native event dispatch, rendered frame, collision/roof geometry or device-dependent location loading is exercised. Semantic focus uses the real authored metadata/proxy path with renderer absent. Physical viewport picking requires the separate FocusNavigation fixture; W/S level motion is covered by pure production helper tests because updateMovement is private and actual draw requires Metal.",
         "landmarkClicks": ChicagoMapLandmark.all.count, "audioSynchronizationCalls": engine.music.selections.count
     ]
     FileHandle.standardOutput.write(try! JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]))

@@ -107,6 +107,30 @@ let finalTrace=renderer.rayTracingDispatchCount,finalGuides=renderer.surfaceGuid
 options.rayTracing=false
 _ = try renderer.renderOffscreen(pose:camera,options:options,width:width,height:height,samples:999)
 require(renderer.rayTracingDispatchCount==finalTrace && renderer.surfaceGuideDispatchCount==finalGuides && renderer.trafficUpdateCount==finalUpdates,"RT→raster must again bypass all ray/AS passes")
+// Selection uses the nearest surface distance, after color reconstruction.
+// A nearer red occluder and sky must remain byte-identical in each mode.
+let highlight=FocusHighlightData(volumes:[FocusHighlightVolume(minimum:SIMD3(-5,0,-0.25),maximum:SIMD3(5,8,0.25))])
+require(highlight.packed.count==3 && highlight.packed[0].x==1,"One box packs one header and two bounds")
+require(FocusHighlightData(volumes:[FocusHighlightVolume(minimum:SIMD3(.nan,0,0),maximum:SIMD3(1,1,1))]).isEmpty,"Malformed selection must never reach the shader")
+for rt in [false,true] {
+    options.rayTracing=rt;options.denoising=false;options.lighting=0
+    func captureSelection(_ data:FocusHighlightData)->Data {
+        renderer.focusHighlight=data;renderer.frameSeed=0;renderer.resetAccumulation();renderer.resetReconstruction()
+        return try! renderer.renderOffscreen(pose:camera,options:options,width:width,height:height,samples:rt ? 16:1)
+    }
+    let none=FocusHighlightData(volumes:[]),before=captureSelection(none)
+    let traceBefore=renderer.rayTracingDispatchCount,guidesBefore=renderer.surfaceGuideDispatchCount
+    let selected=captureSelection(highlight),plain=[UInt8](before),tinted=[UInt8](selected)
+    let changed=stride(from:0,to:plain.count,by:4).filter{Array(plain[$0..<$0+3]) != Array(tinted[$0..<$0+3])}.count
+    require(changed>100,"Selection must visibly highlight architecture in \(rt ? "RT":"raster")")
+    for pixel in [(42,91),(190,0)] {
+        let i=(pixel.1*width+pixel.0)*4
+        require(Array(plain[i..<i+4])==Array(tinted[i..<i+4]),"Selection must not tint an occluder or sky")
+    }
+    if !rt {require(renderer.rayTracingDispatchCount==traceBefore && renderer.surfaceGuideDispatchCount==guidesBefore,"Raster highlight must not add rays or surface guides")}
+    require(captureSelection(none)==before,"Clearing focus must restore the exact image without selection in history")
+    try writePNG(selected,width:width,height:height,to:out.appendingPathComponent(rt ? "focus-ray.png":"focus-raster.png"))
+}
 try writePNG(a,width:width,height:height,to:out.appendingPathComponent("day.png"))
 try writePNG(night,width:width,height:height,to:out.appendingPathComponent("night.png"))
 var report=renderer.rasterStatistics;report["checks"]=checks;report["status"]="PASS";report["gpu"]=device.name

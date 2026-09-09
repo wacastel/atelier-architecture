@@ -122,7 +122,7 @@ enum NavigationMapTests {
             check(size.cardSize(maximumHeight: .nan, maximumWidth: .infinity).width.isFinite, "Invalid size budget produces nonfinite layout")
         }
         check(Set(ChicagoMapLandmark.all.map(\.id)).count == ChicagoMapLandmark.all.count, "Semantic landmark IDs are not unique")
-        check(ChicagoMapLandmark.all.count >= 30, "Detailed map catalog omits the newly labeled authored landmarks")
+        check(ChicagoMapLandmark.all.count == 34, "Map catalog must include the Cultural Center as its 34th destination")
         for landmark in ChicagoMapLandmark.all {
             check(landmark.point.x >= minimum.x && landmark.point.x <= maximum.x && landmark.point.y >= minimum.y && landmark.point.y <= maximum.y,
                   "Landmark target lies outside actual navigation coverage")
@@ -134,6 +134,22 @@ enum NavigationMapTests {
         let bean = ChicagoMapLandmark.all.first { $0.id == "cloud-gate" }!
         check(willis.target == SIMD3(-4, 205, 10) && willis.framingRadius >= 325, "Willis selection targets pavement or omits the antenna envelope")
         check(bean.target == SIMD3(1042.46, 7.8, -424.15) && bean.framingRadius == 18, "Cloud Gate selection loses its authored center and close framing")
+        let focusIDs = ["willis":"chicago:willis-tower", "robie":"chicago:robie-house", "adler":"chicago:adler-planetarium",
+                        "cloud-gate":"chicago:cloud-gate", "hancock":"chicago:hancock-center", "water-tower":"chicago:historic-water-tower",
+                        "oldtown":"chicago:saint-michael", "beach":"chicago:north-avenue-beach-house",
+                        "nature-pavilion":"chicago:nature-boardwalk-pavilion", "lakeside-center":"chicago:mccormick-lakeside",
+                        "culturalcenter":"chicago:cultural-center"]
+        for (id,expectedID) in focusIDs {
+            check(ChicagoMapLandmark.all.first { $0.id==id }?.focusID == expectedID,
+                  "Semantic map identity \(id) does not resolve to its authored focus \(expectedID)")
+        }
+        for id in ["zoo","millennium","mccormick","point","harbor"] {
+            check(ChicagoMapLandmark.all.first { $0.id==id }?.focusID == nil,
+                  "A district map destination incorrectly claims one unrelated physical building")
+        }
+        let cultural=ChicagoMapLandmark.all.first { $0.id=="culturalcenter" }
+        check(cultural?.target == SIMD3(906.15,16.8,-557.02) && cultural?.framingRadius == 66,
+              "Cultural Center map target does not match its authored center and enclosing radius")
         var labelCounts: [String: Int] = [:]
         for mapSize in ChicagoMapSize.allCases {
             let card = mapSize.cardSize(maximumHeight: 410, maximumWidth: 430)

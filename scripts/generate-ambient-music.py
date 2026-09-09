@@ -53,6 +53,9 @@ TRACKS = [
     dict(location="skyline", title="The City Opens", slug="the-city-opens", bpm=61, seed=1908,
          key="G major", roots=[43, 40, 36, 38, 47, 40, 36, 43], qualities=[MAJ9, MIN9, MAJ9, SUS, MIN9, MIN9, SIX9, MAJ9],
          motif=[0, 2, 3, 4, 2, 1, 3, 0], piano=0.82, pluck=0.64, pad=0.92),
+    dict(location="culturalcenter", title="Light Beneath the Dome", slug="light-beneath-the-dome", bpm=57, seed=1909,
+         key="D-flat major", roots=[49, 46, 42, 44, 53, 46, 42, 49], qualities=[MAJ9, MIN9, SIX9, SUS, MIN9, MIN9, MAJ9, SIX9],
+         motif=[1, 4, 2, 3, 0, 2, 1, 0], piano=0.76, pluck=0.55, pad=0.90),
 ]
 
 

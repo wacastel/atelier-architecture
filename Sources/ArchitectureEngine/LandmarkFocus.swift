@@ -108,10 +108,16 @@ struct LandmarkFocusCatalog {
     let authored: [LandmarkFocus]
     let mapped: [LandmarkFocus]
     private let cells: [SIMD2<Int>: [Int]]
+    private let identities: [String: LandmarkFocus]
     private static let cellSize: Float = 100
 
     init(authored: [LandmarkFocus], mapped: [LandmarkFocus] = []) {
         self.authored=authored; self.mapped=mapped
+        // Authored envelopes win if a malformed resource repeats an identity.
+        var identities: [String: LandmarkFocus] = [:]
+        for item in mapped { if identities[item.id] == nil { identities[item.id] = item } }
+        for item in authored { identities[item.id] = item }
+        self.identities = identities
         var index: [SIMD2<Int>: [Int]] = [:]
         for (i,item) in mapped.enumerated() {
             let b=item.bounds
@@ -127,6 +133,24 @@ struct LandmarkFocusCatalog {
         let key=world == "paris" ? "paris":"chicago"
         let named=Self.authoredLandmarks(world:key)
         self.init(authored:named,mapped:includeMapped ? Self.loadMapped(world:key,authored:named):[])
+    }
+    /// Semantic map navigation resolves identity directly; it must not guess an
+    /// object by shooting a ground ray through a neighboring building.
+    func lookup(id: String) -> LandmarkFocus? { identities[id] }
+
+    /// A district framing proxy for semantic map selections that have no authored
+    /// object. This is not inserted into the physical picking catalog. Radius is
+    /// horizontal; a broad park/campus must not become a fictitious tall tower.
+    static func semanticTarget(center: SIMD3<Float>, radius: Float, name: String, id: String) -> LandmarkFocus? {
+        guard center.focusFinite, radius.isFinite, radius > 0, radius <= 50_000,
+              !id.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
+              !name.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty else { return nil }
+        let bottom = min(Float(0),center.y), top = max(Float(2),center.y*2)
+        let minimum = SIMD3(center.x-radius,bottom,center.z-radius)
+        let maximum = SIMD3(center.x+radius,top,center.z+radius)
+        guard minimum.focusFinite, maximum.focusFinite, maximum.x > minimum.x,
+              maximum.y > minimum.y, maximum.z > minimum.z else { return nil }
+        return LandmarkFocus(id:id,name:name,volumes:[FocusVolume(minimum:minimum,maximum:maximum)],center:center)
     }
     private static func cell(_ p: SIMD3<Float>) -> SIMD2<Int> {
         SIMD2(Int(floor(p.x/cellSize)),Int(floor(p.z/cellSize)))
@@ -214,8 +238,16 @@ struct FocusOrbit {
         return max(1,min(maximumRadius,exit.isFinite ? exit:maximumRadius))
     }
     private mutating func update(requestedRadius: Float) {
-        elevation=max(-Self.elevationLimit,min(Self.elevationLimit,elevation))
-        let direction=SIMD3(sin(azimuth)*cos(elevation),sin(elevation),cos(azimuth)*cos(elevation))
+        // Dolly preserves a normal-camera top-down view. Only rotate() imposes
+        // the 85-degree orbit limit after an explicit look/drag input.
+        elevation=max(-Float.pi/2,min(Float.pi/2,elevation))
+        func orbitDirection(at angle: Float) -> SIMD3<Float> {
+            // cos(Float.pi/2) is slightly nonzero; an exact pole must not drift
+            // sideways during repeated pinch/wheel zooms.
+            if abs(angle) >= Float.pi/2 { return SIMD3(0,angle >= 0 ? 1:-1,0) }
+            return SIMD3(sin(azimuth)*cos(angle),sin(angle),cos(azimuth)*cos(angle))
+        }
+        let direction=orbitDirection(at:elevation)
         radius=max(minimumRadius(direction:direction),min(maximumRadius,requestedRadius.isFinite ? requestedRadius:maximumRadius))
         // Clamping above grade makes the direction more horizontal, preserving
         // the side/top envelope exit already chosen above.
@@ -223,19 +255,30 @@ struct FocusOrbit {
         if focus.center.y + sin(elevation)*radius < ground {
             elevation=max(-Self.elevationLimit,min(Self.elevationLimit,asin(max(-1,min(1,(ground-focus.center.y)/radius)))))
         }
-        let adjusted=SIMD3(sin(azimuth)*cos(elevation),sin(elevation),cos(azimuth)*cos(elevation))
+        let adjusted=orbitDirection(at:elevation)
         pose=CameraPose(position:focus.center+adjusted*radius,target:focus.center,fov:pose.fov)
     }
 }
 
 struct FocusSelection {
     var orbit: FocusOrbit?
-    /// Return the retargeted camera for a new object, or the unchanged camera when
-    /// the same object/sky clears focus. Root retains ownership of playback state.
-    @discardableResult mutating func toggle(_ hit: LandmarkFocus?, pose: CameraPose) -> CameraPose {
-        guard let hit=hit,hit.id != orbit?.focus.id else { orbit=nil;return pose }
-        orbit=FocusOrbit(focus:hit,pose:pose)
-        return orbit?.pose ?? pose
+    /// A viewport click selects only when focus is empty. Clicking the same
+    /// object retains its current orbit; blank space or another object clears
+    /// focus without immediately selecting a replacement or changing the pose.
+    @discardableResult mutating func tap(_ hit: LandmarkFocus?, pose: CameraPose) -> CameraPose {
+        if let current = orbit {
+            if hit?.id != current.focus.id { orbit = nil }
+            return pose
+        }
+        guard let hit else { return pose }
+        return choose(hit,pose:pose)
+    }
+    /// An explicit semantic destination (e.g. Places) deliberately chooses or
+    /// replaces focus in one action. Invalid input leaves the old selection intact.
+    @discardableResult mutating func choose(_ hit: LandmarkFocus, pose: CameraPose) -> CameraPose {
+        guard let selected = FocusOrbit(focus:hit,pose:pose) else { return pose }
+        orbit = selected
+        return selected.pose
     }
     mutating func clear() { orbit=nil }
 }
@@ -291,6 +334,12 @@ private extension LandmarkFocusCatalog {
             return FocusVolume(points:corners,bottom:bottom,top:top)!
         }
         var result:[LandmarkFocus]=[
+            LandmarkFocus(id:"chicago:cultural-center",name:"Chicago Cultural Center",volumes:[
+                FocusVolume(points:[[-25.0,-59.0],[25.0,-59.0],[25.0,59.0],[-25.0,59.0]].map { p in
+                    let east=simd_normalize(V(1,0,-0.014)),south=simd_normalize(V(0.014,0,1))
+                    let q=V(906.15,0,-557.02)+east*Float(p[0])+south*Float(p[1]);return [q.x,q.z]
+                },bottom:0.08,top:33.6)!
+            ],center:V(906.15,16.8,-557.02)),
             LandmarkFocus(id:"chicago:robie-house",name:"Frank Lloyd Wright’s Robie House",volumes:[
                 robie(-19.4,-4.8,15.3,5.8,0.25,7.5),robie(-7.2,-10.9,26.3,-2.7,0.25,7.3),
                 robie(-7.1,-9.1,9.2,3.8,6.3,11.3),robie(6.9,-9.7,8.4,-8.5,0.25,10.7),

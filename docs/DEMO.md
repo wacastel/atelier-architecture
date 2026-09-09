@@ -1,6 +1,8 @@
-# Robie House and Chicago Demo — Atelier 1.9
+# Chicago Demo — Atelier 2.3.0
 
-The app opens on **Robie House**, the seventh destination. Its first seven views are two-minute architectural studies; its eighth view is the full **six-minute McCormick Place → Robie House flight**. The connection travels south through 31st Street Harbor, the Oakwood lakefront and Promontory Point, then through Hyde Park to the house’s opening bookmark. It uses the same resident Chicago world as all earlier Chicago landmarks.
+The app opens on **Willis Tower**. The location menu includes nine destinations: eight share Chicago, and Paris has its own world. The new **Chicago Cultural Center** adds eight two-minute studies, including the Washington entrance, mosaic stair, Tiffany dome, Preston Bradley Hall, restored Grand Army rooms and a connecting arrival from Cloud Gate. [Cultural Center routes and references](CULTURAL-CENTER.md).
+
+Robie House remains available with seven two-minute architectural studies and the full **six-minute McCormick Place → Robie House flight**. The connection travels south through 31st Street Harbor, the Oakwood lakefront and Promontory Point, then through Hyde Park to the house's opening bookmark. It uses the same resident Chicago world as all other Chicago landmarks.
 
 | View | Study | Duration at 1× |
 | --- | --- | --- |
@@ -20,23 +22,27 @@ Choose **McCormick Place → Robie House** from **Chicago connecting flights** t
 Select **Chicago Demo**, or press **C**, to begin at a **random Chicago location and view**. Randomness chooses only the opening; subsequent routes play sequentially through this fixed order:
 
 1. Willis Tower — eight routes.
-2. Millennium Park — eight routes, including the Willis–park–Art Institute flight.
-3. Chicago Lakefront — eight routes.
-4. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
-5. Chicago North Side — eight routes, including both four-minute connecting flights.
-6. Robie House — seven two-minute house studies and the six-minute McCormick Place connection.
+2. Chicago Skyline — eight two-minute lighting and viewpoint studies.
+3. Millennium Park — eight routes, including the Willis–park–Art Institute flight.
+4. Chicago Cultural Center — eight two-minute routes, including the Cloud Gate connection.
+5. Chicago Lakefront — eight routes.
+6. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
+7. Chicago North Side — eight routes, including both four-minute connecting flights.
+8. Robie House — seven two-minute house studies and the six-minute McCormick Place connection.
 
-The **48-route pass lasts 86 minutes 36 seconds at 1×**. Starting preserves your chosen lighting, walkthrough pace and idle pace. After Robie House’s final route, the demo returns to Willis Tower and changes day/night. A random opening partway through the city reaches that boundary before its first complete pass. Automatic destination changes retain the same city and GPU resources. Starting from Paris loads Chicago before playback begins; Paris is never part of the sequence.
+The **64-route pass lasts 118 minutes 36 seconds at 1×**. Starting preserves walkthrough and idle pace and the underlying day/night pass, while allowing Skyline's authored daylight, sunset and night studies. An explicit lighting override holds for the current pass; the next complete cycle resumes the automatic lighting presentation. After Robie House's final route, the demo returns to Willis Tower and changes day/night. A random opening partway through the city reaches that boundary before its first complete pass. Automatic destination changes retain the same city and GPU resources. Starting from Paris loads Chicago before playback begins; Paris is never part of the sequence.
 
 Selecting **any Chicago location or view keeps the demo active** and starts the chosen route from its beginning, including when the demo was paused or rewinding. A location choice begins its first view; a view card or number key begins that selected view. Ordinary forward playback resumes at your chosen pace. **L** cycles only the Chicago locations while the demo is active.
 
-Use **↑ / ↓**, or the previous/next buttons beside the demo status, to move between routes. From the last view, next advances to the first view in the next location. From the first view, previous goes to the last view in the previous location. Crossing the complete city boundary in either direction changes day/night. The status shows the current destination and route number out of 48.
+Use **↑ / ↓**, or the previous/next buttons beside the demo status, to move between routes. From the last view, next advances to the first view in the next location. From the first view, previous goes to the last view in the previous location. Crossing the complete city boundary in either direction changes day/night. The status shows the current destination and route number out of 64.
 
 **Space** pauses or resumes without leaving the demo. **Stop Chicago Demo**, or **C** while it is active, exits while holding the current pose. Selecting Paris, starting idle cycling, clicking an object to focus it, or taking manual camera control leaves the demo. Lighting and pace changes preserve it.
 
 The timeline seeks only within the current route. Rewind and fast-forward shuttles also remain within it: repeated **← / →** presses cycle 2×, 4× and 8×, then pause on reaching the route boundary. From a forward endpoint, **Space** continues the demo into its next route; from a rewound beginning, it resumes forward within that route. Pausing in the middle retains the current direction and shuttle speed.
 
-Click visible building or landmark geometry to focus it; drag to orbit, and scroll with the wheel or trackpad to move closer or farther away. Click the same object again, click sky, or press **Escape** to release focus. **WASD / Q–E** returns to ordinary manual navigation and clears focus. Lighting, resizing and full screen retain the selected focus. [Complete focus behavior and limitations](FOCUS.md).
+Click visible building or landmark geometry to focus it; drag to orbit, and pinch or scroll with the wheel or trackpad to move closer or farther away. Clicking the same object retains focus; clicking elsewhere clears it without selecting a replacement. **Escape** also clears it. **T** points the normal camera straight down and takes manual control. **WASD / Q–E** returns to ordinary manual navigation and clears focus. Lighting, resizing and full screen retain the selected focus. [Complete focus behavior and limitations](FOCUS.md).
+
+The **Millennium Park → Cultural Center** entry in Chicago connecting flights starts its full two-minute route, preserving the selected lighting. It stays in the shared world, begins at the exact Cloud Gate bookmark and finishes at the Cultural Center's opening exterior camera. In Chicago Demo it begins immediately and keeps the demo active. **B** enters fixed overhead Map mode and takes manual control; leave Map mode before starting a route.
 
 Drag the native titlebar to move the window, or its edges to resize it. Both camera animation and the traffic/show scene clock hold during these gestures, then resume without catching up to the elapsed wall time. Window resizing updates the viewport and render targets. **⌃⌘F** enters or leaves full screen.
 
@@ -50,6 +56,12 @@ To record another 1080p copy of the complete flight from the packaged app, choos
 
 Add `--lighting 2` and choose a different output filename for a night recording. Without `--single-view`, the default 96-second eight-view export compresses each route into a twelve-second chapter; the live app retains every full timeline.
 
+## Version 2.3 validation
+
+All 73 routes, including the 64-route Chicago sequence, pass [106,617 CPU playback checks](validation/v2.3/playback.txt) for transport state, boundaries, camera clearance, walking support and idle behavior. The [Cultural Center renderer review](validation/v2.3/cultural-rendering.json) covers 18 stills: its eight bookmarks in day/night and selected exteriors in both rendering modes. The [signed arm64 build 16 package](validation/v2.3/package.json) and [scoped native focus/map/T/music review](validation/v2.3/native-review.json) also pass their recorded checks. Native Play starts and pauses the Tiffany walkthrough, and its paused nighttime ray-traced interior was inspected.
+
+No new Cultural Center movie was exported for this release. Its full routes are available in the app and CLI; the recordings below remain historical artifacts. Still inspection and native control checks do not establish a continuous-motion noise result or a native frame-rate benchmark. Physical pinch and sustained W/S travel were not established by native automation.
+
 ## Version 1.9 demonstration artifacts
 
 - [Robie House day tour](../output/Robie-House-Day-Tour.mp4): all eight views in **96 seconds**, with seven house studies and the connecting flight compressed into twelve-second chapters. [Media proof](validation/v1.9/robie-house-day-tour-media.json).
@@ -59,7 +71,7 @@ Both recordings are silent H.264 at **1280 × 720, 24 FPS and eight samples per 
 
 Visual review covered eight chapter midpoints and ten flight samples, with no blocking spatial defect found in those frames. Residual grain, isolated bright speckles and simplified neighborhood/landscape detail remain visible. Sampled frames do not establish continuous motion stability. [Day sample review](validation/v1.9/robie-day-video-review.json) · [Flight sample review](validation/v1.9/robie-flight-video-review.json) · [Validation scope](VALIDATION.md).
 
-The recordings below were made for earlier releases. They remain useful tours of the included architecture, but do not demonstrate or validate the 1.9 additions or revised demo controls. Current check results belong in [validation](VALIDATION.md).
+These 1.9 recordings and the older recordings below remain useful tours of the included architecture, but do not demonstrate or validate the Cultural Center, Skyline or current 2.3 controls. Current check results belong in [validation](VALIDATION.md).
 
 ---
 

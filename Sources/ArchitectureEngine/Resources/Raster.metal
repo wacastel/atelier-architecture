@@ -35,7 +35,7 @@ vertex RasterOut rasterVertex(uint id [[vertex_id]],
 fragment float4 rasterSkyFragment(FullscreenOut in [[stage_in]],constant FrameUniforms &u [[buffer(0)]]) {
     float2 screen=in.uv*2-1;
     float3 direction=normalize(u.forward.xyz+screen.x*u.right.xyz-screen.y*u.up.xyz);
-    return float4(u.sunColor.w>0.5f ? skyRadiance(direction,u,true):daylightCameraBackground(direction,u),1);
+    return float4(u.sunColor.w>0.5f ? skyRadiance(direction,u,true):daylightCameraBackground(direction,u),60000);
 }
 float4 rasterShade(RasterOut in,bool front,constant FrameUniforms &u,
                    SceneMaterial material,const device SceneLight *lights,
@@ -92,7 +92,10 @@ fragment float4 rasterOpaqueFragment(RasterOut in [[stage_in]],bool front [[fron
                                      const device uint2 *ranges [[buffer(7)]],const device uint *indices [[buffer(8)]]) {
     SceneMaterial material=materials[in.material];
     if(material.properties.w>0)discard_fragment();
-    return rasterShade(in,front,u,material,lights,grid,ranges,indices);
+    float4 shaded=rasterShade(in,front,u,material,lights,grid,ranges,indices);
+    // The opaque distance supports selection presentation without a ray pass.
+    shaded.w=min(length(in.world-u.origin.xyz),60000.0f);
+    return shaded;
 }
 fragment float4 rasterGlassFragment(RasterOut in [[stage_in]],bool front [[front_facing]],
                                     constant FrameUniforms &u [[buffer(0)]],

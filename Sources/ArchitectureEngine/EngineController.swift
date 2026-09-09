@@ -41,6 +41,7 @@ import simd
     var isMapMode: Bool { navigationMode == 2 }
     var cameraPose: CameraPose { pose }
     private var mapEntryHeading = SIMD3<Float>(0,0,-1)
+    private var lastHorizontalHeading = SIMD3<Float>(0,0,-1)
     @Published private(set) var flySpeed = ManualCityNavigation.defaultFlySpeed
     @Published private(set) var rayTracingEnabled = true
     @Published private(set) var mapSelectionRevision = 0
@@ -146,6 +147,7 @@ import simd
     func startRobieFlyby() {
         startConnectingFlight(to: .robie, view: RobieWalkthrough.flybyView)
     }
+    func startCulturalCenterFlyby() { startConnectingFlight(to:.culturalcenter,view:7) }
     private func startConnectingFlight(to destination: ArchitectureLocation, view index: Int) {
         guard isReady, !isMapMode, location.world == "chicago" else { return }
         let selectedLighting = lighting
@@ -238,6 +240,17 @@ import simd
         pose = next; publishCamera(); previousTime = CACurrentMediaTime()
     }
     func toggleMapMode() { setNavigationMode(isMapMode ? 1:2) }
+    /// A normal-camera shortcut, independent of the restricted Map mode.
+    func pointCameraDown() {
+        guard isReady, !isMapMode, !showHelp, !movingWindow else { return }
+        lastHorizontalHeading=ManualCityNavigation.horizontalHeading(forward:pose.target-pose.position,fallback:lastHorizontalHeading)
+        guard let next=ManualCityNavigation.topDown(pose:pose,center:focusSelection.orbit?.focus.center,roof:roofHeight) else { return }
+        beginManualNavigation(keepingFocus:true);keys.removeAll();navigationMode=1
+        pose=next
+        if let focus=focusSelection.orbit?.focus { _ = focusSelection.choose(focus,pose:next) }
+        (view as? ViewportInputResetting)?.cancelViewportInput()
+        publishCamera();historyDirty=true;previousTime=CACurrentMediaTime();focusViewport()
+    }
     func setNavigationMode(_ value: Int) {
         guard isReady, (0...2).contains(value), value != navigationMode else { return }
         if value == 2 {
@@ -289,6 +302,14 @@ import simd
                 heading:pose.target-pose.position,aspect:aspect,roof:roofHeight) else { return }
             adoptCityDestination(point:landmark.point,destination:destination,mapMode:false)
         }
+        let authored = landmark.focusID.flatMap { id in
+            focusCatalog?.lookup(id:id) ?? LandmarkFocusCatalog(world:"chicago",includeMapped:false).lookup(id:id)
+        }
+        if let focus=authored ?? LandmarkFocusCatalog.semanticTarget(center:landmark.target,radius:landmark.framingRadius,name:landmark.name,id:"map:"+landmark.id) {
+            let focusedPose=focusSelection.choose(focus,pose:pose)
+            if !isMapMode { pose=focusedPose }
+            synchronizeFocus();publishCamera()
+        }
     }
     func navigateCity(to point: SIMD2<Float>) {
         guard isReady, !showHelp, !movingWindow, location.world == "chicago", point.x.isFinite, point.y.isFinite,
@@ -332,7 +353,7 @@ import simd
         let actual = ManualCityNavigation.mapTranslation(camera: SIMD2(pose.position.x,pose.position.z), requested: requested)
         guard simd_length_squared(actual) > 0 else { return .zero }
         let mode = navigationMode
-        beginManualNavigation(); keys.removeAll(); navigationMode = mode == 2 ? 2:1
+        beginManualNavigation(keepingFocus:mode == 2); keys.removeAll(); navigationMode = mode == 2 ? 2:1
         let translation = SIMD3(actual.x,0,actual.y)
         pose.position += translation; pose.target += translation
         mapCamera = ChicagoMapCamera(position:SIMD2(pose.position.x,pose.position.z),target:SIMD2(pose.target.x,pose.target.z))
@@ -420,15 +441,29 @@ import simd
     func clearObjectFocus() {
         guard focusedObjectName != nil || focusSelection.orbit != nil else { return }
         focusSelection = FocusSelection(); focusedObjectName = nil
+        renderer?.focusHighlight=FocusHighlightData(volumes:[]);dirty=true
+    }
+    private func synchronizeFocus() {
+        focusedObjectName=focusSelection.orbit?.focus.name
+        let volumes=(focusSelection.orbit?.focus.volumes ?? []).map { volume in
+            FocusHighlightVolume(minimum:volume.bounds.minimum,maximum:volume.bounds.maximum,
+                points:volume.triangles.isEmpty ? volume.points:volume.triangles.map { volume.points[$0] },
+                triangulated:!volume.triangles.isEmpty)
+        }
+        renderer?.focusHighlight=FocusHighlightData(volumes:volumes)
+        dirty=true
     }
     func focusObject(at normalizedPoint: SIMD2<Float>, aspect: Float) {
-        guard isReady, !isMapMode, !showHelp, !movingWindow, let collision, let focusCatalog,
+        guard isReady, !showHelp, !movingWindow, let collision, let focusCatalog,
               let ray = FocusRay.make(normalized: normalizedPoint, aspect: aspect, pose: pose) else { return }
-        let hit = focusCatalog.pick(ray: ray, world: collision)
+        var hit = focusCatalog.pick(ray: ray, world: collision)
+        if let current=focusSelection.orbit?.focus,current.id.hasPrefix("map:"),
+           let distance=collision.pickingDistance(origin:ray.origin,direction:ray.direction,maximum:50_000),
+           current.contains(ray.origin+ray.direction*distance) { hit=current }
         beginManualNavigation(keepingFocus: true); keys.removeAll()
-        focusSelection.toggle(hit, pose: pose)
-        if let orbit = focusSelection.orbit { pose = orbit.pose }
-        focusedObjectName = focusSelection.orbit?.focus.name
+        let selectedPose=focusSelection.tap(hit,pose:pose)
+        if !isMapMode { pose=selectedPose }
+        synchronizeFocus()
         altitude = pose.position.y; dirty = true; historyDirty = true
         focusViewport()
     }
@@ -554,8 +589,8 @@ import simd
             for _ in 0..<count { updateMovement(dt/Float(count)) }
             return
         }
-        var f = simd_normalize(pose.target-pose.position)
-        if navigationMode == 0 { f.y = 0; f = simd_normalize(f) }
+        let f = ManualCityNavigation.horizontalHeading(forward:pose.target-pose.position,fallback:lastHorizontalHeading)
+        lastHorizontalHeading=f
         let right = simd_normalize(simd_cross(f,SIMD3<Float>(0,1,0)))
         var delta = SIMD3<Float>.zero
         if keys.contains(13) { delta += f }; if keys.contains(1) { delta -= f }

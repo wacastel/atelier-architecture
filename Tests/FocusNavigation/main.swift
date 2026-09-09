@@ -105,17 +105,68 @@ check(paris.identify(hitPoint:V(45,280,0))==nil,"Eiffel base footprint is not ex
 check(chicago.identify(hitPoint:V(-23,210,-23))==nil,"Willis upper setback does not select air")
 
 var selection=FocusSelection()
-let selected=selection.toggle(building,pose:camera)
+let selected=selection.tap(building,pose:camera)
 check(selected.position==camera.position,"selection exactly preserves camera position")
 check(selected.target==building.center,"selection retargets to focus center")
 check(selection.orbit?.focus.id==building.id,"selection stores focus")
-let cleared=selection.toggle(building,pose:selected)
-check(selection.orbit==nil && cleared.position==selected.position && cleared.target==selected.target,"same object toggles off without changing camera")
-_ = selection.toggle(building,pose:camera)
-let changed=selection.toggle(other,pose:selected)
-check(selection.orbit?.focus.id==other.id && changed.position==selected.position && changed.target==other.center,"different object replaces focus without moving camera")
-let sky=selection.toggle(nil,pose:changed)
-check(selection.orbit==nil && sky.position==changed.position && sky.target==changed.target,"sky clears focus without changing camera")
+selection.orbit?.rotate(yawDelta:0.2,pitchDelta:0.1)
+let rotated=selection.orbit!.pose, rotatedRadius=selection.orbit!.radius
+let retained=selection.tap(building,pose:rotated)
+check(selection.orbit?.focus.id==building.id && retained.position==rotated.position && retained.target==rotated.target && selection.orbit?.radius==rotatedRadius,
+      "same object click must retain its current orbit and pose")
+let cleared=selection.tap(other,pose:retained)
+check(selection.orbit==nil && cleared.position==retained.position && cleared.target==retained.target,
+      "different object click clears current focus without selecting replacement or moving camera")
+let changed=selection.tap(other,pose:cleared)
+check(selection.orbit?.focus.id==other.id && changed.position==cleared.position && changed.target==other.center,
+      "a later click selects the other object once focus is empty")
+let sky=selection.tap(nil,pose:changed)
+check(selection.orbit==nil && sky.position==changed.position && sky.target==changed.target,"blank viewport clears focus without changing camera")
+check(selection.tap(nil,pose:sky).target==sky.target && selection.orbit==nil,"blank viewport when already clear is a no-op")
+_ = selection.choose(building,pose:camera)
+let semanticChoice=selection.choose(other,pose:camera)
+check(selection.orbit?.focus.id==other.id && semanticChoice.target==other.center && semanticChoice.position==camera.position,
+      "explicit semantic choice can replace focus in one action")
+_ = selection.choose(building,pose:CameraPose(position:V(.nan,0,0),target:.zero))
+check(selection.orbit?.focus.id==other.id,"invalid semantic camera loses previous valid focus")
+let verticalPose=CameraPose(position:other.center+V(0,200,0),target:other.center,fov:45)
+let verticalSelection=selection.choose(other,pose:verticalPose)
+check(verticalSelection.position==verticalPose.position && verticalSelection.target==verticalPose.target,
+      "selecting focus for a straight-down normal camera tilts it before any orbit input")
+for object in [building,adler,chicago.authored.first{$0.id=="chicago:willis-tower"}!] {
+    let distance=max(Float(200),object.bounds.extent.y*3)
+    let vertical=CameraPose(position:object.center+V(0,distance,0),target:object.center,fov:45)
+    var pole=FocusOrbit(focus:object,pose:vertical)!
+    for _ in 0..<5 {
+        pole.dolly(logScale:-0.02)
+        check(pole.pose.position.x==object.center.x && pole.pose.position.z==object.center.z && pole.pose.target==object.center,
+              "focused top-down dolly tilts or drifts sideways")
+        check(pole.pose.position.y>object.bounds.maximum.y,"top-down dolly enters the selected object's roof")
+    }
+    check(abs(pole.radius-distance*exp(-0.1))<0.002,"top-down dolly no longer follows logarithmic zoom")
+    pole.dolly(logScale:0.1)
+    check(abs(pole.radius-distance)<0.002 && pole.pose.fov==vertical.fov,"top-down dolly inverse changes distance or lens")
+    pole.rotate(yawDelta:0.1,pitchDelta:0)
+    check(abs(pole.elevation)<=FocusOrbit.elevationLimit && simd_length(SIMD2(pole.pose.position.x-object.center.x,pole.pose.position.z-object.center.z))>1,
+          "explicit orbit input fails to leave the exact pole for its safe 85-degree limit")
+}
+
+check(chicago.lookup(id:adler.id)?.center==adler.center,"direct authored identity lookup loses exact center")
+check(chicago.lookup(id:"missing:landmark")==nil,"unknown identity resolves to a guessed object")
+let mapProxy=LandmarkFocusCatalog.semanticTarget(center:V(1800,25,3000),radius:650,name:"McCormick Place",id:"map:mccormick")!
+check(mapProxy.center==V(1800,25,3000) && mapProxy.bounds.minimum==V(1150,0,2350) && mapProxy.bounds.maximum==V(2450,50,3650),
+      "district focus proxy invents a tall building or changes its semantic center")
+check(chicago.lookup(id:mapProxy.id)==nil,"creating a semantic focus mutates the physical catalog")
+let duplicate=LandmarkFocus(id:adler.id,name:"Duplicate mapped object",volumes:other.volumes)
+let lookupCatalog=LandmarkFocusCatalog(authored:[adler],mapped:[duplicate,building])
+check(lookupCatalog.lookup(id:adler.id)?.center==adler.center && lookupCatalog.lookup(id:building.id)?.center==building.center,
+      "identity lookup must prefer authored envelopes and still find mapped objects")
+for radius: Float in [0,-1,.nan,.infinity,50_001] {
+    check(LandmarkFocusCatalog.semanticTarget(center:.zero,radius:radius,name:"Park",id:"park")==nil,"invalid semantic framing radius accepted")
+}
+check(LandmarkFocusCatalog.semanticTarget(center:V(.infinity,0,0),radius:30,name:"Park",id:"park")==nil,"nonfinite semantic center accepted")
+check(LandmarkFocusCatalog.semanticTarget(center:.zero,radius:30,name:" ",id:"park")==nil,"empty semantic name accepted")
+check(LandmarkFocusCatalog.semanticTarget(center:.zero,radius:30,name:"Park",id:"")==nil,"empty semantic identity accepted")
 
 for object in [building,adler,chicago.authored.first{$0.id=="chicago:willis-tower"}!,target("tiny",V(0,1.1,0),V(0.2,0.2,0.2))] {
     let start=CameraPose(position:object.center+V(40,10,60),target:object.center,fov:55)

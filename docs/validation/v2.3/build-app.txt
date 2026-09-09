@@ -1,0 +1,12 @@
+Building Atelier for Apple Silicon…
+[0/1] Planning build
+Building for production...
+[0/4] Write sources
+[1/4] Write swift-version--1AB21518FC5DEDBE.txt
+[3/5] Compiling ArchitectureEngine AdlerPlanetarium.swift
+[3/5] Write Objects.LinkFileList
+[4/5] Linking ArchitectureEngine
+Build complete! (71.95s)
+/Users/william/dev/architecture/dist/.atelier-build.EuKYm5/Atelier.app/Contents/Info.plist: OK
+/Users/william/dev/architecture/dist/.atelier-build.EuKYm5/Atelier.app: replacing existing signature
+Built /Users/william/dev/architecture/dist/Atelier.app

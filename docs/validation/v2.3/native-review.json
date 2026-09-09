@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-09",
+  "method": "CUA native app pointer/key actions, accessibility trees and window screenshots",
+  "status": "Scoped native checks passed",
+  "finalExecutableSHA256": "e2d67668000f0dfe34924d95d4365cd7eb0422c3e73e3874181b66b88b56820c",
+  "observed": [
+    "Fresh build16 launch opens Willis Tower with the 400 m/s preset; Chicago Demo advertises64 routes.",
+    "A coordinate click on Cultural Center text in the Small navigation map selects its location, centers the actual building and shows Focus: Chicago Cultural Center with a gold ray-traced surface highlight.",
+    "An ordinary click/release on the selected roof preserves focus and camera; a subsequent R toggle shows the same selection in fast raster.",
+    "An ordinary click/release on the street outside the selected building clears the focus card and gold surface tint.",
+    "An unselected roof click selects the Cultural Center. T points straight down over its center while retaining focus, the normal transport controls and Fly mode.",
+    "B enters the separate fixed Map UI. A coordinate click on Cultural Center map text frames its overhead footprint at198 m N\u2013S, keeps it selected and highlights it.",
+    "T in fixed Map mode is ignored. Map button zoom changes198 m to158 m while preserving the vertical view and focus.",
+    "Exiting Map and selecting view4 clears focus and opens Under the Tiffany dome.",
+    "Changing to Lakefront and back through the Location menu shows NOW PLAYING Light Beneath the Dome at the unchanged16% volume, without a music error.",
+    "The native Tiffany walkthrough starts and pauses through Play; night and ray-tracing controls produce a visible, paused nighttime interior."
+  ],
+  "notVerified": [
+    "Physical trackpad pinch and hover-only native event delivery; these have production-controller/transform or shared hit-testing coverage.",
+    "Sustained native W/S key holds. A short W dispatch cleared focus but showed no measurable movement; heading/displacement math and production source routing have CPU coverage.",
+    "Native speaker output or a listening evaluation of the new track.",
+    "A sustained FPS or motion-noise benchmark. Visible sample/FPS counters are incidental observations, not comparative measurements."
+  ],
+  "performanceObservation": "The paused nighttime ray-traced Tiffany view displayed approximately5 FPS during this interaction; the selected exterior displayed roughly9\u201314 FPS in ray tracing and52\u201359 FPS in raster. UI polling affected responsiveness. These were uninstrumented observations with different cameras/modes, not a controlled benchmark. Ray-traced interior rendering remains demanding.",
+  "screenshots": [
+    {
+      "path": "native/cultural-music.jpg",
+      "sha256": "21045c3c19d438853d69dd73d0878f78d47d01793fba8ab8ff6eda7052db0504"
+    },
+    {
+      "path": "native/focus-released.jpg",
+      "sha256": "0b8a7e2f40ae78a467b059b25fd854f8fa4e339f04714bdcbb494d13785d4627"
+    },
+    {
+      "path": "native/map-label-focus.jpg",
+      "sha256": "041cad0563b125c05d55d40c0900615a996961145be1c42ccba87f71f30a9747"
+    },
+    {
+      "path": "native/map-mode-focus.jpg",
+      "sha256": "b9542fa58879a599c0ddf049961da10d1b8c70118c1a0a6dd936876acb1eb1c2"
+    },
+    {
+      "path": "native/normal-top-down-focused.jpg",
+      "sha256": "f1e2b018a87735168c6028217dcf1f7c2419f4255ad51fbd7ed012d24ec13255"
+    },
+    {
+      "path": "native/raster-focus.jpg",
+      "sha256": "32bfc02f795a5fefeaba57416826cd1f460d9c606e12c65efea07d6ba341228b"
+    }
+  ],
+  "finalView": "Cultural Center view4, Under the Tiffany dome; paused nighttime ray tracing. Final dome native view was inspected inline; committed rendered gallery supplies separately captured stills."
+}

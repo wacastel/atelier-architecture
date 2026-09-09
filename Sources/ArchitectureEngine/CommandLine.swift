@@ -21,7 +21,7 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / skyline / millennium / lakefront / campus / northside / robie (default paris)
+        --location paris           paris / chicago / skyline / millennium / culturalcenter / lakefront / campus / northside / robie (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
@@ -64,11 +64,12 @@ import CoreText
         case "chicago", "willis": location = .chicago
         case "skyline": location = .skyline
         case "millennium", "park": location = .millennium
+        case "culturalcenter", "cultural-center", "cultural": location = .culturalcenter
         case "lakefront", "magmile", "grant": location = .lakefront
         case "campus", "museum", "museums": location = .campus
         case "northside", "north", "wrigley", "zoo": location = .northside
         case "robie", "hydepark", "hyde-park": location = .robie
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, skyline, millennium, lakefront, campus, northside or robie.")
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, skyline, millennium, culturalcenter, lakefront, campus, northside or robie.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -325,6 +326,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     case .chicago: heading = "A T E L I E R    /    W I L L I S"
     case .skyline: heading = "A T E L I E R    /    C H I C A G O   S K Y L I N E"
     case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
+    case .culturalcenter: heading = "A T E L I E R    /    C U L T U R A L   C E N T E R"
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
     case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"
     case .northside: heading = "A T E L I E R    /    C H I C A G O   N O R T H   S I D E"

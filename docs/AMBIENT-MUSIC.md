@@ -1,6 +1,6 @@
 # Places in Quiet Light — Atelier's original soundtrack
 
-Atelier includes eight original ambient instrumental pieces, one opening piece for each location. The music is synthesized and bundled with the app. Playback needs no account, network connection, streaming service, or additional download.
+Atelier 2.3 includes nine original ambient instrumental pieces, one opening piece for each location. The music is synthesized and bundled with the app. Playback needs no account, network connection, streaming service, or additional download.
 
 The score uses soft piano-like tones, warm sustained harmonies, restrained bass, and occasional muted plucks. Every piece has a 32-bar arrangement with four sections: an opening motif, a countermelody, a modest rise in register, and a quieter return. These are original compositions and synthesized timbres, not recordings of a piano or licensed third-party music.
 
@@ -14,8 +14,9 @@ The score uses soft piano-like tones, warm sustained harmonies, restrained bass,
 | `northside` | Gardens After Rain | 2:07 | 63 BPM / C major |
 | `robie` | Light Through Amber | 2:25 | 55 BPM / A-flat major |
 | `skyline` | The City Opens | 2:11 | 61 BPM / G major |
+| `culturalcenter` | Light Beneath the Dome | 2:20 | 57 BPM / D-flat major |
 
-These are eight pieces total. Each location chooses its own opening piece, then playback continues through the shared playlist in the order above, wrapping from the last piece to the first.
+These are nine pieces total. Each location chooses its own opening piece, then playback continues through the shared playlist in the order above, wrapping from the last piece to the first. The Cultural Center track was generated on its own; all previous eight encoded audio files remain byte-for-byte unchanged.
 
 ## Playback and integration
 
@@ -45,14 +46,14 @@ The assets live in `Sources/ArchitectureEngine/Resources/Music/`. The existing S
 
 [`scripts/generate-ambient-music.py`](../scripts/generate-ambient-music.py) contains the complete musical plans, deterministic seeds, note scheduling, and synthesis. It uses NumPy and FFmpeg, with no network access or third-party samples. Pads use restrained harmonic partials and mild detuning; the piano-like voice has a soft attack and independently decaying partials; plucks are sparse and rounded. Chord tones move into nearby registers. A quiet stereo delay field gives the instruments space.
 
-The generator creates stereo 44.1 kHz PCM, then performs a two-pass loudness master targeting **−21 LUFS**, with a **−3 dBTP ceiling**. It encodes AAC LC at 128 kbit/s. The eight shipped files total **17,747,630 bytes** (about 16.9 MiB). Each track is under 2.4 MB.
+The generator creates stereo 44.1 kHz PCM, then performs a two-pass loudness master targeting **−21 LUFS**, with a **−3 dBTP ceiling**. It encodes AAC LC at 128 kbit/s. The nine shipped files total **20,019,519 bytes** (about 19.1 MiB). Each track is under 2.4 MB.
 
 ```bash
 # From the repository root, using a Python environment containing NumPy:
 python3 scripts/generate-ambient-music.py
 
 # Recompose a single piece, preserving the other manifest entries:
-python3 scripts/generate-ambient-music.py --location robie
+python3 scripts/generate-ambient-music.py --location culturalcenter
 
 # Generate an isolated set for comparison without changing shipped assets:
 python3 scripts/generate-ambient-music.py --output output/music-candidate
@@ -76,7 +77,15 @@ python3 scripts/validate-ambient-audio.py \
   --output output/ambient-music-review/audio-technical.json
 ```
 
-The initial accepted controller and codec run passed **287 checks**. It exercises all eight routes, same-location idempotence, playlist wrap, power continuity across ordinary fades, volume changes during overlap, off/resume/mute, persistent settings, failed-resource backoff and recovery, decoder bounds during 80 rapid changes, and actual AAC decoding with `AVAudioFile`.
+### Version 2.3.0
+
+The nine-track production controller and AAC-decode fixture passes [299 checks](validation/v2.3/ambient-music.json), and full-file audio measurement passes [165 checks](validation/v2.3/ambient-audio.json). The new piece is 139.737 seconds long and measures −21.02 LUFS and −8.36 dBTP. Its manifest includes the original composition seed, note-event hash, synthesized PCM hash and encoded file hash. The previous eight encoded files were compared before and after generation and are [unchanged](validation/v2.3/music-preservation.json). These checks do not play sound or establish native speaker output.
+
+The [final 2.3.0 native app review](validation/v2.3/native-review.json) confirms that selecting the Cultural Center displays **Light Beneath the Dome** as Now Playing at **16% volume**. The [package integrity report](validation/v2.3/package.json) verifies that its new AAC and the other 26 bundled resources match source. This establishes the new destination's native music assignment and displayed controls; it does not claim a subjective listening or speaker-output assessment. [Native music capture](validation/v2.3/native/cultural-music.jpg).
+
+### Historical version 2.1.0
+
+The initial accepted controller and codec run passed **287 checks**. It exercises all eight location assignments, same-location idempotence, playlist wrap, power continuity across ordinary fades, volume changes during overlap, off/resume/mute, persistent settings, failed-resource backoff and recovery, decoder bounds during 80 rapid changes, and actual AAC decoding with `AVAudioFile`.
 
 The audio measurement suite passed **147 checks** over every decoded sample. Encoded masters measured **−21.01 to −21.02 LUFS**, with true peaks between **−9.69 and −8.27 dBTP**, leaving substantial headroom. The checks include duration and channel count, manifest hashes, clipping/headroom, DC offset, quiet file edges, sample discontinuities, interior dropouts, stereo correlation, dynamic variation, and sampled high-frequency energy. Results are retained in [`validation/v2.1/ambient-music/`](validation/v2.1/ambient-music/).
 

@@ -45,6 +45,56 @@ for speed: Float in [-100,0,8,22,63,123,201,399,900] {
 expect(ManualCityNavigation.verticalDirection(keys:[12]) == 1, "Q must ascend")
 expect(ManualCityNavigation.verticalDirection(keys:[14]) == -1, "E must descend")
 expect(ManualCityNavigation.verticalDirection(keys:[12,14]) == 0, "Opposing vertical keys must cancel")
+// Keyboard W/S use the same compass direction and full speed at every pitch.
+// Exact vertical views reuse the last nonvertical compass direction.
+for yaw: Float in [-3,-1.2,0,0.7,2.8] {
+    let compass=SIMD3<Float>(sin(yaw),0,-cos(yaw))
+    for pitch: Float in [-89.99,-70,-20,0,20,70,89.99] {
+        let angle=pitch * .pi/180
+        let forward=compass*cos(angle)+SIMD3(0,sin(angle),0)
+        for scale: Float in [0.00000001,1,10000,1e30] {
+            let flat=ManualCityNavigation.horizontalHeading(forward:forward*scale,fallback:SIMD3(1,0,0))
+            expect(flat.y==0 && simd_distance(flat,compass)<0.000001,"Camera pitch changes keyboard travel direction or altitude")
+            let movement=ManualCityNavigation.displacement(direction:flat,speed:400,seconds:0.1,boosted:false)
+            let reverse=ManualCityNavigation.displacement(direction:-flat,speed:400,seconds:0.1,boosted:false)
+            expect(movement.y==0 && abs(simd_length(movement)-40)<0.00001,"Looking up/down reduces forward travel speed")
+            expect(simd_length(movement+reverse)<0.00001,"Forward and backward headings fail to cancel")
+        }
+    }
+    for forward in [SIMD3<Float>(0,1,0),SIMD3(0,-1,0),SIMD3(1e-8,1,-1e-8),.zero,SIMD3(.nan,0,0)] {
+        let flat=ManualCityNavigation.horizontalHeading(forward:forward,fallback:compass)
+        expect(simd_distance(flat,compass)<0.000001 && flat.y==0,"Vertical/invalid heading loses the stored compass direction")
+        let right=simd_cross(flat,SIMD3<Float>(0,1,0))
+        expect(abs(simd_length(right)-1)<0.000001,"Exact vertical camera produces undefined strafe direction")
+    }
+}
+expect(ManualCityNavigation.horizontalHeading(forward:SIMD3(0,-1,0),fallback:SIMD3(.nan,0,0))==SIMD3(0,0,-1),"Invalid fallback must resolve to stable north")
+let extremeFlat=ManualCityNavigation.horizontalHeading(forward:SIMD3(Float.greatestFiniteMagnitude,Float.greatestFiniteMagnitude,-Float.greatestFiniteMagnitude))
+expect(extremeFlat.x.isFinite && extremeFlat.y==0 && abs(simd_length(extremeFlat)-1)<0.000001,"Large finite heading overflows normalization")
+let subnormal=Float.leastNonzeroMagnitude*1024
+let tinyFlat=ManualCityNavigation.horizontalHeading(forward:SIMD3(subnormal,0,-subnormal))
+expect(abs(tinyFlat.x-Float(1/sqrt(2.0)))<0.000001,"Very small horizontal vector loses its compass direction")
+
+for fov: Float in [1.5,9,50,100] {
+    let normal=CameraPose(position:SIMD3(300,200,-100),target:SIMD3(100,90,-900),fov:fov)
+    let down=ManualCityNavigation.topDown(pose:normal,roof:{_,_ in 10})!
+    expect(down.position==normal.position && down.target==SIMD3(300,10,-100) && down.fov==fov,"Normal straight-down command changes horizontal location, altitude or lens unnecessarily")
+    expect(down.target.x==down.position.x && down.target.z==down.position.z && down.target.y<down.position.y,"Normal camera is not exactly vertical")
+    let again=ManualCityNavigation.topDown(pose:down,roof:{_,_ in 10})!
+    expect(again.position==down.position && again.target==down.target && again.fov==down.fov,"Repeated top-down command moves the camera")
+    let focused=ManualCityNavigation.topDown(pose:normal,center:SIMD3(40,205,20),roof:{_,_ in 528})!
+    expect(focused.target==SIMD3(40,205,20) && focused.position==SIMD3(40,568,20),"Focused top-down does not center the object above its highest surface")
+    expect(focused.fov==fov && down.position.y<ManualCityNavigation.minimumMapAltitude,"Normal top-down incorrectly adopts fixed Map-mode altitude/lens")
+}
+let neighboringRoof=ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(0,30,0),target:SIMD3(0,0,-20)),roof:{x,z in x>10 && z>10 ? 400:5})!
+expect(neighboringRoof.position.y==440 && neighboringRoof.target==SIMD3(0,5,0),"Straight-down clearance ignores a nearby roof")
+expect(ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(0,5,0),target:.zero),roof:{_,_ in -5.7})!.position.y>34,"Top-down over water lacks a positive viewing distance")
+for invalid: Float in [.nan,.infinity,-.infinity] {
+    expect(ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(invalid,30,0),target:.zero),roof:{_,_ in 0})==nil,"Nonfinite top-down camera accepted")
+    expect(ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(0,30,0),target:.zero),center:SIMD3(0,invalid,0),roof:{_,_ in 0})==nil,"Nonfinite top-down focus accepted")
+    expect(ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(0,30,0),target:.zero),roof:{_,_ in invalid})==nil,"Nonfinite top-down surface accepted")
+}
+expect(ManualCityNavigation.topDown(pose:CameraPose(position:SIMD3(0,30,0),target:.zero,fov:180),roof:{_,_ in 0})==nil,"Degenerate top-down lens accepted")
 for camera in [SIMD2<Float>(0,0),SIMD2(-3999,-11499),SIMD2(5999,10999)] {
     for request in [SIMD2<Float>(42,-17),SIMD2(-20_000,40_000),SIMD2(400,-700)] {
         let delta=ManualCityNavigation.mapTranslation(camera:camera,requested:request)
@@ -229,5 +279,5 @@ for invalid: Float in [.nan,.infinity,0,-1] {
 expect(ManualCityNavigation.landmarkOverview(target:SIMD3(.nan,0,0),radius:100,heading:.zero,roof:{_,_ in 0})==nil,"Invalid landmark target accepted")
 expect(ManualCityNavigation.landmarkOverview(target:landmarkTarget,radius:100,heading:SIMD3(0,.infinity,0),roof:{_,_ in 0})==nil,"Invalid landmark heading accepted")
 expect(ManualCityNavigation.landmarkOverview(target:landmarkTarget,radius:100,heading:.zero,roof:{_,_ in .nan})==nil,"Invalid roof accepted")
-let report:[String:Any]=["passed":true,"checks":checks,"scope":"CPU north-up map projection, pan and optical/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."]
+let report:[String:Any]=["passed":true,"checks":checks,"scope":"CPU pitch-independent horizontal heading and stable vertical fallback, normal straight-down focus/roof clearance/unchanged lens, north-up map projection, pan and optical/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."]
 print(String(data:try!JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]),encoding:.utf8)!)

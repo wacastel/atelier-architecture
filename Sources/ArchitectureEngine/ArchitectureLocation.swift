@@ -6,6 +6,7 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
     case chicago
     case skyline
     case millennium
+    case culturalcenter
     case lakefront
     case campus
     case northside
@@ -13,23 +14,23 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
     var name: String {
-        switch self { case .paris: return "Eiffel Tower"; case .chicago: return "Willis Tower"; case .skyline: return "Chicago Skyline"; case .millennium: return "Millennium Park"; case .lakefront: return "Chicago Lakefront"; case .campus: return "Museum Campus"; case .northside: return "Chicago North Side"; case .robie: return "Robie House & Hyde Park" }
+        switch self { case .paris: return "Eiffel Tower"; case .chicago: return "Willis Tower"; case .skyline: return "Chicago Skyline"; case .millennium: return "Millennium Park"; case .culturalcenter: return "Chicago Cultural Center"; case .lakefront: return "Chicago Lakefront"; case .campus: return "Museum Campus"; case .northside: return "Chicago North Side"; case .robie: return "Robie House & Hyde Park" }
     }
     var shortName: String { self == .paris ? "Paris" : "Chicago" }
     var subtitle: String {
-        switch self { case .paris: return "PARIS, FRANCE   ·   1889"; case .chicago: return "CHICAGO, ILLINOIS   ·   1973"; case .skyline: return "LAKEFRONT, RIVER & WESTERN HORIZON"; case .millennium: return "CHICAGO, ILLINOIS   ·   ART & LANDSCAPE"; case .lakefront: return "MICHIGAN AVENUE   ·   PARKS & HARBORS"; case .campus: return "MUSEUMS   ·   STARS   ·   THE SOUTH LAKEFRONT"; case .northside: return "OLD TOWN   ·   LINCOLN PARK   ·   WRIGLEYVILLE"; case .robie: return "FRANK LLOYD WRIGHT   ·   HYDE PARK   ·   1910" }
+        switch self { case .paris: return "PARIS, FRANCE   ·   1889"; case .chicago: return "CHICAGO, ILLINOIS   ·   1973"; case .skyline: return "LAKEFRONT, RIVER & WESTERN HORIZON"; case .millennium: return "CHICAGO, ILLINOIS   ·   ART & LANDSCAPE"; case .culturalcenter: return "THE PEOPLE’S PALACE   ·   MOSAIC, MARBLE & GLASS   ·   1897"; case .lakefront: return "MICHIGAN AVENUE   ·   PARKS & HARBORS"; case .campus: return "MUSEUMS   ·   STARS   ·   THE SOUTH LAKEFRONT"; case .northside: return "OLD TOWN   ·   LINCOLN PARK   ·   WRIGLEYVILLE"; case .robie: return "FRANK LLOYD WRIGHT   ·   HYDE PARK   ·   1910" }
     }
     var number: String { String(format:"%02d", (Self.allCases.firstIndex(of:self) ?? 0)+1) }
     /// Chicago locations share one physical scene and acceleration structure.
     var world: String { self == .paris ? "paris" : "chicago" }
     var stops: [TourStop] {
-        switch self { case .paris: return EiffelScene.stops; case .chicago: return WillisScene.stops; case .skyline: return SkylineScene.stops; case .millennium: return MillenniumScene.stops; case .lakefront: return LakefrontScene.stops; case .campus: return MuseumCampusScene.stops; case .northside: return NorthSideScene.stops; case .robie: return RobieScene.stops }
+        switch self { case .paris: return EiffelScene.stops; case .chicago: return WillisScene.stops; case .skyline: return SkylineScene.stops; case .millennium: return MillenniumScene.stops; case .culturalcenter: return CulturalCenterScene.stops; case .lakefront: return LakefrontScene.stops; case .campus: return MuseumCampusScene.stops; case .northside: return NorthSideScene.stops; case .robie: return RobieScene.stops }
     }
     func duration(view: Int) -> Double {
-        switch self { case .paris: return EiffelWalkthrough.duration; case .chicago: return WillisWalkthrough.duration; case .skyline: return SkylineWalkthrough.duration; case .millennium: return MillenniumWalkthrough.duration(view: view); case .lakefront: return LakefrontWalkthrough.duration(view: view); case .campus: return MuseumCampusWalkthrough.duration(view: view); case .northside: return NorthSideWalkthrough.duration(view: view); case .robie: return RobieWalkthrough.duration(view: view) }
+        switch self { case .paris: return EiffelWalkthrough.duration; case .chicago: return WillisWalkthrough.duration; case .skyline: return SkylineWalkthrough.duration; case .millennium: return MillenniumWalkthrough.duration(view: view); case .culturalcenter: return CulturalCenterWalkthrough.duration; case .lakefront: return LakefrontWalkthrough.duration(view: view); case .campus: return MuseumCampusWalkthrough.duration(view: view); case .northside: return NorthSideWalkthrough.duration(view: view); case .robie: return RobieWalkthrough.duration(view: view) }
     }
     var walkingViews: Set<Int> {
-        switch self { case .paris: return [1,3,4,5,6]; case .chicago: return WillisWalkthrough.walkingViews; case .skyline: return SkylineWalkthrough.walkingViews; case .millennium: return MillenniumWalkthrough.walkingViews; case .lakefront: return LakefrontWalkthrough.walkingViews; case .campus: return MuseumCampusWalkthrough.walkingViews; case .northside: return NorthSideWalkthrough.walkingViews; case .robie: return RobieWalkthrough.walkingViews }
+        switch self { case .paris: return [1,3,4,5,6]; case .chicago: return WillisWalkthrough.walkingViews; case .skyline: return SkylineWalkthrough.walkingViews; case .millennium: return MillenniumWalkthrough.walkingViews; case .culturalcenter: return CulturalCenterWalkthrough.walkingViews; case .lakefront: return LakefrontWalkthrough.walkingViews; case .campus: return MuseumCampusWalkthrough.walkingViews; case .northside: return NorthSideWalkthrough.walkingViews; case .robie: return RobieWalkthrough.walkingViews }
     }
 
     /// Authored lighting for this destination; nil keeps the ordinary day/night pass.
@@ -49,6 +50,7 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
         case .chicago: return WillisWalkthrough.pose(view: view, seconds: seconds)
         case .skyline: return SkylineWalkthrough.pose(view: view, seconds: seconds)
         case .millennium: return MillenniumWalkthrough.pose(view: view, seconds: seconds)
+        case .culturalcenter: return CulturalCenterWalkthrough.pose(view: view, seconds: seconds)
         case .lakefront: return LakefrontWalkthrough.pose(view: view, seconds: seconds)
         case .campus: return MuseumCampusWalkthrough.pose(view: view, seconds: seconds)
         case .northside: return NorthSideWalkthrough.pose(view: view, seconds: seconds)
@@ -63,6 +65,7 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
         case .chicago: return WillisWalkthrough.idlePose(view: view, seconds: safeSeconds)
         case .skyline: return SkylineWalkthrough.idlePose(view: view, seconds: safeSeconds)
         case .millennium: return MillenniumWalkthrough.idlePose(view: view, seconds: safeSeconds)
+        case .culturalcenter: return CulturalCenterWalkthrough.idlePose(view: view, seconds: safeSeconds)
         case .lakefront: return LakefrontWalkthrough.idlePose(view: view, seconds: safeSeconds)
         case .campus: return MuseumCampusWalkthrough.idlePose(view: view, seconds: safeSeconds)
         case .northside: return NorthSideWalkthrough.idlePose(view: view, seconds: safeSeconds)

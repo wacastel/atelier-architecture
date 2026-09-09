@@ -1232,3 +1232,57 @@ fragment float4 presentFragment(FullscreenOut in [[stage_in]],
     // every sample count so matched raw/reference measurements are meaningful.
     return float4(encodeSRGB(filmic(color * max(u.settings.x, 0.0f))), 1.0f);
 }
+
+// Selection is a presentation overlay on the nearest represented surface.
+// It never changes material energy, tracing, accumulation or denoiser history.
+float selectionCross(float2 a,float2 b) { return a.x*b.y-a.y*b.x; }
+bool selectionContains(float3 p,const device float4 *volumes) {
+    uint cursor=1;
+    for(uint v=0;v<uint(volumes[0].x);++v) {
+        float4 lo=volumes[cursor++],hi=volumes[cursor++];
+        uint count=uint(lo.w),kind=uint(hi.w),start=cursor;cursor+=count;
+        if(any(p<lo.xyz-0.2f) || any(p>hi.xyz+0.2f))continue;
+        if(kind==0)return true;
+        float2 q=p.xz;
+        if(kind==2) {
+            for(uint i=0;i+2<count;i+=3) {
+                float2 a=volumes[start+i].xy,b=volumes[start+i+1].xy,c=volumes[start+i+2].xy;
+                if(abs(selectionCross(b-a,c-a))<1e-7f)continue;
+                float x=selectionCross(b-a,q-a),y=selectionCross(c-b,q-b),z=selectionCross(a-c,q-c);
+                if((x>=0 && y>=0 && z>=0)||(x<=0 && y<=0 && z<=0))return true;
+            }
+        } else {
+            bool inside=false;
+            for(uint i=0,j=count-1;i<count;j=i++) {
+                float2 a=volumes[start+i].xy,b=volumes[start+j].xy;
+                if((a.y>q.y)!=(b.y>q.y) && q.x<(b.x-a.x)*(q.y-a.y)/(b.y-a.y)+a.x)inside=!inside;
+            }
+            if(inside)return true;
+        }
+    }
+    return false;
+}
+bool selectedPixel(int2 pixel,texture2d<float> depth,constant FrameUniforms &u,const device float4 *volumes) {
+    uint2 dimensions=uint2(depth.get_width(),depth.get_height());
+    if(any(pixel<0) || any(pixel>=int2(dimensions)))return false;
+    float distance=depth.read(uint2(pixel)).w;
+    if(!isfinite(distance) || distance<=0 || distance>=59999)return false;
+    float2 screen=(float2(pixel)+0.5f)/float2(dimensions)*2-1;
+    float3 direction=normalize(u.forward.xyz+screen.x*u.right.xyz-screen.y*u.up.xyz);
+    return selectionContains(u.origin.xyz+direction*distance,volumes);
+}
+fragment float4 focusedPresentFragment(FullscreenOut in [[stage_in]],
+                                      texture2d<float> radiance [[texture(0)]],
+                                      texture2d<float> depth [[texture(1)]],
+                                      constant FrameUniforms &u [[buffer(0)]],
+                                      const device float4 *volumes [[buffer(1)]]) {
+    constexpr sampler linearSampler(coord::normalized,address::clamp_to_edge,filter::linear);
+    float3 color=encodeSRGB(filmic(radiance.sample(linearSampler,in.uv).rgb*max(u.settings.x,0.0f)));
+    int2 pixel=int2(in.uv*float2(depth.get_width(),depth.get_height()));
+    if(selectedPixel(pixel,depth,u,volumes)) {
+        bool edge=!selectedPixel(pixel+int2(2,0),depth,u,volumes)||!selectedPixel(pixel-int2(2,0),depth,u,volumes)
+            ||!selectedPixel(pixel+int2(0,2),depth,u,volumes)||!selectedPixel(pixel-int2(0,2),depth,u,volumes);
+        color=mix(color,float3(1.0f,0.78f,0.27f),edge ? 0.86f:0.19f);
+    }
+    return float4(color,1);
+}

@@ -83,6 +83,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         viewMenu.addItem(withTitle: "Start / Stop Chicago Demo", action: #selector(toggleChicagoDemo), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Show / Hide Chicago Navigation Map", action: #selector(toggleNavigationMap), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Enter / Exit Top-down Map Mode", action: #selector(toggleMapMode), keyEquivalent: "").target = self
+        viewMenu.addItem(withTitle: "Point Normal Camera Straight Down (T)", action: #selector(pointCameraDown), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Toggle Ray Tracing", action: #selector(toggleRayTracing), keyEquivalent: "").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
@@ -105,6 +106,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func toggleChicagoDemo() { engine.toggleChicagoDemo() }
     @objc private func toggleNavigationMap() { engine.toggleNavigationMap() }
     @objc private func toggleMapMode() { engine.toggleMapMode() }
+    @objc private func pointCameraDown() { engine.pointCameraDown() }
     @objc private func toggleRayTracing() { engine.toggleRayTracing() }
     @objc private func resetView() { engine.resetView() }
     @objc private func toggleInterface() { presentation.chromeVisible.toggle() }
@@ -113,7 +115,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.2.0 · Paris & Chicago",
+            .applicationVersion: "2.3.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -221,6 +223,10 @@ private struct ArchitectureWorkspace: View {
             Text("ATELIER  /  CHICAGO").font(.system(size:11,weight:.semibold)).tracking(3).foregroundStyle(accent)
             Text("Map mode").font(.system(size:42,design:.serif))
             Text("NORTH UP  ·  PAN & ZOOM").font(.system(size:10,weight:.medium)).tracking(2).foregroundStyle(.white.opacity(0.7))
+            if let focused=engine.focusedObjectName {
+                Button { engine.clearObjectFocus() } label: { Label("Focus: \(focused)",systemImage:"xmark.circle") }
+                    .buttonStyle(.plain).font(.system(size:11)).foregroundStyle(accent).accessibilityLabel("Clear object focus")
+            }
             Button { engine.toggleMapMode() } label: { Label("Return to 3D view · B",systemImage:"cube") }
                 .buttonStyle(.plain).font(.system(size:12,weight:.medium)).padding(12).glassPanel(radius:9)
                 .accessibilityLabel("Exit map mode")
@@ -281,6 +287,7 @@ private struct ArchitectureWorkspace: View {
                     Button("Millennium Park → Lincoln Park Zoo") { engine.startNorthSideFlyby() }
                     Button("Lincoln Park Zoo → Wrigley Field") { engine.startNorthSideFlyby(toWrigley: true) }
                     Button("McCormick Place → Robie House") { engine.startRobieFlyby() }
+                    Button("Millennium Park → Cultural Center") { engine.startCulturalCenterFlyby() }
                 } label: {
                     Label("Chicago connecting flights", systemImage: "airplane")
                         .font(.system(size: 11, weight: .medium))
@@ -294,7 +301,7 @@ private struct ArchitectureWorkspace: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Focus: \(focused)").font(.system(size: 11, weight: .semibold)).foregroundStyle(accent)
                             .lineLimit(1)
-                        Text("Drag to orbit · pinch or scroll to zoom · click again to release")
+                        Text("Drag to orbit · pinch to zoom · click elsewhere to release")
                             .font(.system(size: 9)).foregroundStyle(.white.opacity(0.65))
                     }
                     Button { engine.clearObjectFocus(); engine.focusViewport() } label: {
@@ -490,7 +497,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   R ray tracing   F fly/walk   N day/night").lineLimit(1).minimumScaleFactor(0.7)
+                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   T look down   R ray tracing   F fly/walk   N day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -590,20 +597,21 @@ private struct ArchitectureWorkspace: View {
                 }
                 Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough; the timeline shows its full duration. Idle speed changes both gentle motion and time per view. Press N to switch day and night without restarting your route.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
-                Text("Chicago Demo starts at a random Chicago location and view, then plays all \(WalkthroughPlayback.chicagoDemoRouteCount) routes sequentially. Select any Chicago location or view to continue the demo there. ↑ and ↓ move to the previous or next route across location boundaries. Space pauses and resumes; city wraps alternate day/night. Selecting Paris, Idle Play or manual camera control leaves the demo. Click a landmark to focus it, drag to orbit and scroll to zoom; click it again or press Escape to release focus. Window dragging holds the camera and animation in place.")
+                Text("Chicago Demo starts at a random Chicago location and view, then plays all \(WalkthroughPlayback.chicagoDemoRouteCount) routes sequentially. Select any Chicago location or view to continue the demo there. ↑ and ↓ move to the previous or next route across location boundaries. Space pauses and resumes; city wraps alternate day/night. Selecting Paris, Idle Play or manual camera control leaves the demo. Click a landmark to focus it, drag to orbit and scroll to zoom; click elsewhere or press Escape to release focus. Window dragging holds the camera and animation in place.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
-                    helpRow("W  A  S  D", "Move forward, left, back, right")
+                    helpRow("W  A  S  D", "Move forward, left, back, right parallel to the ground")
                     helpRow("Q  /  E", "Ascend / descend in Fly mode")
                     helpRow("SHIFT", "Triple manual movement speed")
                     helpRow("F  /  −  /  +", "Walk/Fly · slower/faster flight (8–800 m/s)")
-                    helpRow("CLICK", "Focus a landmark / click again to release")
+                    helpRow("CLICK", "Focus a landmark; click elsewhere to release")
                     helpRow("LEFT DRAG", "Pan across the city; orbit if a landmark is focused")
                     helpRow("SHIFT + DRAG", "Hold Shift and left-drag to rotate the view")
                     helpRow("RIGHT DRAG", "Look around, or orbit a focused landmark")
                     helpRow("SCROLL", "Zoom toward focus; otherwise step flight presets")
-                    helpRow("M", "Show/hide inset map; labels and dots center landmarks")
+                    helpRow("M", "Show/hide inset map; labels and dots center and focus landmarks")
                     helpRow("B", "Enter or leave fixed north-up Map mode")
+                    helpRow("T", "Point the normal camera straight down; keep normal controls")
                     helpRow("PINCH", "Zoom the normal view, focused object, or city map")
                     helpRow("R", "Toggle ray tracing / fast raster at the same camera")
                     helpRow("MUSIC NOTE", "Ambient music on/off, volume and current song")
@@ -795,6 +803,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         guard let engine, ViewportPointerGesture.allowsKey(event.keyCode,mapMode:engine.isMapMode) else { return }
         if !event.isARepeat {
             switch event.keyCode {
+            case 17: engine.pointCameraDown(); return
             case 11: engine.toggleMapMode(); return
             case 49: engine.toggleTour(); return
             case 123: engine.shuttle(.reverse); return

@@ -1,0 +1,31 @@
+{
+  "artGlassTriangles" : 0,
+  "checks" : 2912,
+  "degenerateTriangles" : 0,
+  "detailCount" : 425,
+  "elapsedSeconds" : 0.10217297077178955,
+  "failures" : [
+    "Domes contain actual colored-glass tessellation",
+    "Both domes use five diffuse opal colors"
+  ],
+  "geometrySHA256" : "aaf62b7f8496e6c051d94c5594f636072df42340622c76ed3400abb1d7aa628d",
+  "lightCount" : 58,
+  "localMaximum" : [
+    24.170005798339844,
+    33.578304290771484,
+    58.300006866455078
+  ],
+  "localMinimum" : [
+    -24.170005798339844,
+    0,
+    -58.200042724609375
+  ],
+  "materialCount" : 47,
+  "navigationNodes" : 32137,
+  "navigationTriangles" : 124860,
+  "passed" : false,
+  "scope" : "Actual standalone Cultural Center mesh and navigation BVH, staircase support\/clearance and separate hollow halls\/domes. Exterior sidewalk support, full-city routes and rendered day\/night fidelity require separate integration checks.",
+  "sourceSHA256" : "7d471139cf7394e0f4451552312b41e74eead6f7503f6ba6040cde3990ca5fb2",
+  "staircaseSamples" : 704,
+  "triangleCount" : 482332
+}

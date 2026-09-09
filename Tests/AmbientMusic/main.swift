@@ -59,10 +59,10 @@ import AVFoundation
 }
 
 @MainActor func tests() throws {
-    let keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline"]
+    let keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline", "culturalcenter"]
     expect(AmbientMusicTrack.playlist.map(\.location) == keys, "Location routing catalog is incomplete")
-    expect(Set(AmbientMusicTrack.playlist.map(\.filename)).count == 8, "Locations share an opening asset")
-    expect(Set(AmbientMusicTrack.playlist.map(\.title)).count == 8, "Track titles are ambiguous")
+    expect(Set(AmbientMusicTrack.playlist.map(\.filename)).count == keys.count, "Locations share an opening asset")
+    expect(Set(AmbientMusicTrack.playlist.map(\.title)).count == keys.count, "Track titles are ambiguous")
     for (index, key) in keys.enumerated() {
         let h = Harness()
         expect(h.controller.isEnabled && h.controller.volume == 0.16, "Safe initial preferences changed")
@@ -114,13 +114,14 @@ import AVFoundation
     fade.finish()
 
     let playlist = Harness()
-    playlist.controller.selectLocation("skyline"); playlist.advance(127)
+    let lastLocation = keys.last!
+    playlist.controller.selectLocation(lastLocation); playlist.advance(127)
     expect(playlist.players.count == 2 && playlist.controller.currentTitle == AmbientMusicTrack.playlist[0].title,
            "Playlist does not wrap after its last piece")
     playlist.advance(3.1)
-    playlist.controller.selectLocation("skyline")
+    playlist.controller.selectLocation(lastLocation)
     expect(playlist.players.count == 2, "A same-location callback resets an advanced playlist")
-    for index in 1..<8 {
+    for index in 1..<keys.count {
         let active = playlist.players.last!
         active.currentTime = 127
         playlist.advance(0.01)
@@ -172,7 +173,7 @@ import AVFoundation
 
     let burst = Harness()
     for step in 0..<80 {
-        burst.controller.selectLocation(keys[step % 8])
+        burst.controller.selectLocation(keys[step % keys.count])
         burst.advance(0.01)
         expect(burst.players.filter(\.isPlaying).count <= 4, "Rapid locations create unbounded active decoders")
         expect(burst.players.allSatisfy { $0.volume >= 0 && $0.volume <= 1 }, "Burst produces invalid volume")
@@ -197,7 +198,7 @@ import AVFoundation
         }
     }
     let report: [String: Any] = ["passed": true, "checks": checks, "assets": assetReports,
-        "scope": "Actual controller with fake audio device and deterministic clock: all eight assignments, view idempotence, equal-power crossfade, interrupted fades, off/resume/mute, persisted preferences, playlist wrap, error recovery, bounded decoder lifecycle. Optional bundled AAC decoding uses AVAudioFile without opening audio playback."]
+        "scope": "Actual controller with fake audio device and deterministic clock: all \(keys.count) assignments, view idempotence, equal-power crossfade, interrupted fades, off/resume/mute, persisted preferences, playlist wrap, error recovery, bounded decoder lifecycle. Optional bundled AAC decoding uses AVAudioFile without opening audio playback."]
     print(String(data: try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]), encoding: .utf8)!)
 }
 

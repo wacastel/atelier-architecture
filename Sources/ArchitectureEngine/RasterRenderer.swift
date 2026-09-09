@@ -110,7 +110,9 @@ final class RasterRenderer {
                 let a=desc.colorAttachments[0]!
                 a.isBlendingEnabled=true;a.rgbBlendOperation = .add;a.alphaBlendOperation = .add
                 a.sourceRGBBlendFactor = .sourceAlpha;a.destinationRGBBlendFactor = .oneMinusSourceAlpha
-                a.sourceAlphaBlendFactor = .one;a.destinationAlphaBlendFactor = .oneMinusSourceAlpha
+                // Alpha retains opaque surface distance for selection; glass
+                // opacity still controls only the existing RGB blend factors.
+                a.sourceAlphaBlendFactor = .zero;a.destinationAlphaBlendFactor = .one
             }
             return try device.makeRenderPipelineState(descriptor:desc)
         }

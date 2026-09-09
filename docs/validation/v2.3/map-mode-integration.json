@@ -1,0 +1,11 @@
+{
+  "audioSynchronizationCalls" : 84,
+  "checks" : 662,
+  "failures" : [
+
+  ],
+  "landmarkClicks" : 34,
+  "limitations" : "No native event dispatch, rendered frame, collision\/roof geometry or device-dependent location loading is exercised. Semantic focus uses the real authored metadata\/proxy path with renderer absent. Physical viewport picking requires the separate FocusNavigation fixture; W\/S level motion is covered by pure production helper tests because updateMovement is private and actual draw requires Metal.",
+  "passed" : true,
+  "scope" : "CPU actual EngineController methods and production camera\/playback\/map metadata. Only AmbientMusicController is replaced by an inert stub; the absent SwiftPM Bundle.module accessor traps if reached. No view attachment, Metal device, renderer construction, city geometry build or audio playback."
+}

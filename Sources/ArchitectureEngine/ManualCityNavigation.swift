@@ -10,6 +10,43 @@ enum ManualCityNavigation {
     static let minimumMapAltitude: Float = 650
     static let opticalFOVRange: ClosedRange<Float> = 1.5...100
 
+    /// Pitch never changes keyboard travel altitude. At an exact/near-vertical
+    /// view, retain the caller's last compass heading instead of normalizing a
+    /// vanishing XZ vector. Double intermediates also handle very large/small
+    /// finite inputs without overflow or losing a valid horizontal direction.
+    static func horizontalHeading(forward: SIMD3<Float>, fallback: SIMD3<Float> = SIMD3(0,0,-1)) -> SIMD3<Float> {
+        func projected(_ value: SIMD3<Float>, rejectVertical: Bool) -> SIMD3<Float>? {
+            guard finite(value) else { return nil }
+            let x = Double(value.x), y = Double(value.y), z = Double(value.z)
+            let horizontal = hypot(x,z), length = hypot(horizontal,y)
+            guard horizontal > 0, !rejectVertical || horizontal > length*0.00001 else { return nil }
+            return SIMD3(Float(x/horizontal),0,Float(z/horizontal))
+        }
+        return projected(forward,rejectVertical:true) ?? projected(fallback,rejectVertical:false) ?? SIMD3(0,0,-1)
+    }
+
+    /// A normal camera command, independent of Map mode: preserve lens and
+    /// altitude, raising only for local roof clearance, and look exactly down.
+    /// Without a focus center, keep the eye's current horizontal position.
+    static func topDown(pose: CameraPose, center: SIMD3<Float>? = nil,
+                        roof: (Float,Float) -> Float) -> CameraPose? {
+        guard finite(pose.position), finite(pose.target), pose.fov.isFinite,
+              pose.fov > 0, pose.fov < 179, center.map(finite) ?? true else { return nil }
+        let x = center?.x ?? pose.position.x, z = center?.z ?? pose.position.z
+        let surface = roof(x,z)
+        guard surface.isFinite else { return nil }
+        let target = center ?? SIMD3(x,surface,z)
+        var ceiling = surface
+        for offset in [SIMD2<Float>(-12,-12),SIMD2(12,-12),SIMD2(-12,12),SIMD2(12,12)] {
+            let height = roof(x+offset.x,z+offset.y)
+            guard height.isFinite else { return nil }
+            ceiling = max(ceiling,height)
+        }
+        let altitude = Float(max(Double(pose.position.y), max(Double(ceiling),Double(target.y))+40))
+        guard altitude.isFinite, altitude > target.y else { return nil }
+        return CameraPose(position:SIMD3(x,altitude,z),target:target,fov:pose.fov)
+    }
+
     /// Exactly vertical, north-up map camera. Above 750 m of coverage, raise
     /// the eye at a fixed 60-degree FOV; closer zooms narrow the lens while
     /// remaining above every existing city roof/antenna. The two regimes meet

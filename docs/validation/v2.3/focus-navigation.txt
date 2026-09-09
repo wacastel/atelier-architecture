@@ -1,0 +1,3 @@
+Focus navigation: 1662 checks; authored Chicago 30, mapped Chicago 54927, Paris 2760.
+CPU metadata load 0.955s; 2000 queries 0.002s; maximum local candidates 51. No city geometry or GPU dispatch.
+PASS

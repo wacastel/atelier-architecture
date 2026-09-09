@@ -15,7 +15,8 @@ struct AmbientMusicTrack: Equatable, Sendable {
         .init(location: "campus", title: "Small Constellations", filename: "05-small-constellations.m4a"),
         .init(location: "northside", title: "Gardens After Rain", filename: "06-gardens-after-rain.m4a"),
         .init(location: "robie", title: "Light Through Amber", filename: "07-light-through-amber.m4a"),
-        .init(location: "skyline", title: "The City Opens", filename: "08-the-city-opens.m4a")
+        .init(location: "skyline", title: "The City Opens", filename: "08-the-city-opens.m4a"),
+        .init(location: "culturalcenter", title: "Light Beneath the Dome", filename: "09-light-beneath-the-dome.m4a")
     ]
 }
 
@@ -51,7 +52,7 @@ struct AmbientMusicTrack: Equatable, Sendable {
 }
 
 /// Offline soundtrack transport. A location chooses its own opening piece;
-/// afterward the eight pieces form a continuous playlist, independent of views.
+/// afterward the pieces form a continuous playlist, independent of views.
 @MainActor final class AmbientMusicController: ObservableObject {
     @Published private(set) var isEnabled: Bool
     @Published private(set) var volume: Double

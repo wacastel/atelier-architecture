@@ -30,6 +30,10 @@ final class MetalRenderer {
     let indexedNightTracePipeline: MTLComputePipelineState
     let indexedDayInteriorTracePipeline: MTLComputePipelineState
     let presentPipeline: MTLRenderPipelineState
+    private let focusedPresentPipeline: MTLRenderPipelineState
+    var focusHighlight = FocusHighlightData(volumes: [])
+    private var uploadedHighlight: FocusHighlightData?
+    private var highlightBuffer: MTLBuffer?
     let surfacePipeline: MTLComputePipelineState
     let temporalPipeline: MTLComputePipelineState
     let spatialPipeline: MTLComputePipelineState
@@ -136,6 +140,8 @@ final class MetalRenderer {
         presentation.vertexFunction = vertex; presentation.fragmentFunction = fragment
         presentation.colorAttachments[0].pixelFormat = .bgra8Unorm
         presentPipeline = try device.makeRenderPipelineState(descriptor: presentation)
+        presentation.fragmentFunction = library.makeFunction(name:"focusedPresentFragment")
+        focusedPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
         guard !scene.vertices.isEmpty, scene.vertices.count % 3 == 0,
               scene.materialIndices.count == scene.triangleCount,
               scene.materialIndices.allSatisfy({ Int($0) < scene.materials.count }) else { throw EngineError.message("Invalid scene triangle or material buffers.") }
@@ -298,13 +304,23 @@ final class MetalRenderer {
         return u
     }
 
-    private func encodePresentation(_ command: MTLCommandBuffer, descriptor: MTLRenderPassDescriptor, uniforms: FrameUniforms, texture: MTLTexture? = nil) throws {
+    private func encodePresentation(_ command: MTLCommandBuffer, descriptor: MTLRenderPassDescriptor, uniforms: FrameUniforms, texture: MTLTexture? = nil, selectionDepth: MTLTexture? = nil) throws {
+        if !focusHighlight.isEmpty, uploadedHighlight != focusHighlight {
+            let data=focusHighlight.packed
+            highlightBuffer=data.withUnsafeBytes { device.makeBuffer(bytes:$0.baseAddress!,length:$0.count,options:.storageModeShared) }
+            guard highlightBuffer != nil else { throw EngineError.message("Selection highlight allocation failed.") }
+            uploadedHighlight=focusHighlight
+        }
         guard let encoder = command.makeRenderCommandEncoder(descriptor: descriptor) else { throw EngineError.message("Presentation encoder unavailable.") }
         var u = uniforms
         encoder.label = "Filmic presentation"
-        encoder.setRenderPipelineState(presentPipeline)
+        encoder.setRenderPipelineState(focusHighlight.isEmpty ? presentPipeline:focusedPresentPipeline)
         encoder.setFragmentTexture(texture ?? accumulation, index: 0)
         encoder.setFragmentBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
+        if !focusHighlight.isEmpty {
+            encoder.setFragmentTexture(selectionDepth ?? accumulation,index:1)
+            encoder.setFragmentBuffer(highlightBuffer,offset:0,index:1)
+        }
         encoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
         encoder.endEncoding()
     }
@@ -386,7 +402,8 @@ final class MetalRenderer {
             } else {
                 texture = try encodeRaster(command,uniforms:u,options:options)
             }
-            try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture)
+            let selectionDepth = options.rayTracing ? (options.denoising ? normalGuides[historyIndex]:accumulation):texture
+            try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture,selectionDepth:selectionDepth)
             command.present(drawable)
             command.addCompletedHandler { [weak self] buffer in
                 if let self {
@@ -421,7 +438,7 @@ final class MetalRenderer {
         let texture=try encodeRaster(command,uniforms:u,options:options)
         let pass=MTLRenderPassDescriptor()
         pass.colorAttachments[0].texture=output;pass.colorAttachments[0].loadAction = .dontCare;pass.colorAttachments[0].storeAction = .store
-        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
+        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture,selectionDepth:texture)
         command.commit();command.waitUntilCompleted()
         if let error=command.error {rasterRenderer.invalidate();throw error}
         lastGPUTime=max(0,command.gpuEndTime-command.gpuStartTime)*1000
@@ -473,7 +490,8 @@ final class MetalRenderer {
         let texture = options.denoising ? try encodeReconstruction(command,uniforms:u,moving:moving) : nil
         let pass = MTLRenderPassDescriptor()
         pass.colorAttachments[0].texture = output; pass.colorAttachments[0].loadAction = .dontCare; pass.colorAttachments[0].storeAction = .store
-        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
+        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture,
+                               selectionDepth:options.denoising ? normalGuides[historyIndex]:accumulation)
         command.commit(); submitted=true; command.waitUntilCompleted()
         if let error = command.error { traffic?.invalidate(); resetReconstruction(); throw error }
         previousPose = pose; previousOptions = options; trafficMoving=false; projectionMoving=false

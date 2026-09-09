@@ -60,6 +60,36 @@ struct TourStop: Identifiable {
     let detail: String
     let pose: CameraPose
 }
+
+/// Compact surface-selection volumes for presentation only. A selected surface
+/// is tinted after reconstruction, so selection never enters lighting/history.
+/// Points are X/Z polygon vertices or triples preserving triangulated holes.
+struct FocusHighlightVolume {
+    var minimum: SIMD3<Float>
+    var maximum: SIMD3<Float>
+    var points: [SIMD2<Float>] = []
+    var triangulated: Bool = false
+}
+struct FocusHighlightData: Equatable {
+    let packed: [SIMD4<Float>]
+    init(volumes: [FocusHighlightVolume]) {
+        var data = [SIMD4<Float>.zero]
+        var count = 0
+        for volume in volumes {
+            let lo=volume.minimum,hi=volume.maximum
+            guard lo.x.isFinite,lo.y.isFinite,lo.z.isFinite,hi.x.isFinite,hi.y.isFinite,hi.z.isFinite,
+                  lo.x<=hi.x,lo.y<=hi.y,lo.z<=hi.z,volume.points.count<=65_536,
+                  volume.points.allSatisfy({$0.x.isFinite && $0.y.isFinite}),
+                  volume.points.isEmpty || (volume.points.count>=3 && (!volume.triangulated || volume.points.count%3==0)) else { continue }
+            data.append(SIMD4(lo,Float(volume.points.count)))
+            data.append(SIMD4(hi,volume.points.isEmpty ? 0:volume.triangulated ? 2:1))
+            data += volume.points.map { SIMD4($0.x,$0.y,0,0) }
+            count += 1
+        }
+        data[0].x=Float(count); packed=data
+    }
+    var isEmpty: Bool { packed[0].x==0 }
+}
 struct FrameUniforms {
     var origin: SIMD4<Float> // camera XYZ, selective path regularization enabled W
     var right: SIMD4<Float>

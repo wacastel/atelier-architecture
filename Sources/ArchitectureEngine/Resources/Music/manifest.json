@@ -264,6 +264,38 @@
         "normalization_type": "dynamic",
         "target_offset": "-0.13"
       }
+    },
+    {
+      "location": "culturalcenter",
+      "title": "Light Beneath the Dome",
+      "filename": "09-light-beneath-the-dome.m4a",
+      "tempoBPM": 57,
+      "key": "D-flat major",
+      "seed": 1909,
+      "durationSeconds": 139.736842,
+      "eventCount": 190,
+      "compositionEventSHA256": "fbb335f3b02735f33fa33d4dc3465d4f7ec4c4c20e99026767929fa3501f8b00",
+      "sourcePCMSHA256": "32e6adf81742fca69f49399204bb551a3c35b015b1e09645a7ee72ba7838cc0a",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "ea858c705abd1ad1da0426b5e542390fa99f368d89638cfe5de4ea5023bbffe3",
+      "bytes": 2271889,
+      "masteringInput": {
+        "input_i": "-16.31",
+        "input_tp": "-3.74",
+        "input_lra": "5.00",
+        "input_thresh": "-26.53",
+        "output_i": "-20.53",
+        "output_tp": "-8.39",
+        "output_lra": "4.30",
+        "output_thresh": "-30.64",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.47"
+      }
     }
   ]
 }

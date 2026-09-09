@@ -1,0 +1,30 @@
+{
+  "artGlassTriangles" : 30144,
+  "checks" : 2912,
+  "degenerateTriangles" : 0,
+  "detailCount" : 425,
+  "elapsedSeconds" : 0.089183926582336426,
+  "failures" : [
+
+  ],
+  "geometrySHA256" : "aaf62b7f8496e6c051d94c5594f636072df42340622c76ed3400abb1d7aa628d",
+  "lightCount" : 58,
+  "localMaximum" : [
+    24.170005798339844,
+    33.578304290771484,
+    58.300006866455078
+  ],
+  "localMinimum" : [
+    -24.170005798339844,
+    0,
+    -58.200042724609375
+  ],
+  "materialCount" : 47,
+  "navigationNodes" : 32137,
+  "navigationTriangles" : 124860,
+  "passed" : true,
+  "scope" : "Actual standalone Cultural Center mesh and navigation BVH, staircase support\/clearance and separate hollow halls\/domes. Exterior sidewalk support, full-city routes and rendered day\/night fidelity require separate integration checks.",
+  "sourceSHA256" : "225783cc61b22cb694d79a0822b3d23b606036fbe97a92b4850b6b01c7e2abfb",
+  "staircaseSamples" : 704,
+  "triangleCount" : 482332
+}

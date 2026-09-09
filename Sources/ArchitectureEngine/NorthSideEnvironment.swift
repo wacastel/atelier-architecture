@@ -51,7 +51,7 @@ enum NorthSideContext {
     static func suppressesPreviousLandmark(_ id:Int64,_ x:Float,_ z:Float)->Bool {
         MillenniumContext.suppressesGenericBuilding(id) ||
         LakefrontContext.replacementBuildingIDs.contains(id) ||
-        [-174605391,-174605390,150407241,-17460539].contains(id) ||
+        [-174605391,-174605390,150407241,-17460539,-158994370,-15899437].contains(id) ||
         LakefrontContext.containsAuthoredCampus(x,z) ||
         MuseumCampusContext.suppressesBuilding(id,x,z) ||
         (x>=982 && x<=1231 && z >= -200 && z<=48)

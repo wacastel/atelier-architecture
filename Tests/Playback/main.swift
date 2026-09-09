@@ -225,6 +225,20 @@ for view in ArchitectureLocation.robie.stops.indices where view != RobieWalkthro
     expect(ArchitectureLocation.robie.duration(view: view) == 120, "Robie house study \(view) retains its full two-minute timeline")
 }
 
+let cultural = ArchitectureLocation.culturalcenter
+expect(cultural.world == ArchitectureLocation.millennium.world, "Cultural Center and Millennium Park share one Chicago world")
+expect(cultural.walkingViews == Set([1,2,3,4,5,6]), "Cultural Center entrance, stair and room studies require walking support")
+expect(samePose(cultural.stops[CulturalCenterWalkthrough.flybyView].pose,MillenniumScene.stops[1].pose), "Cultural Center connection starts at the exact Cloud Gate bookmark")
+expect(samePose(cultural.pose(view:CulturalCenterWalkthrough.flybyView,seconds:120),cultural.stops[0].pose), "Cultural Center connection ends at its exact exterior bookmark")
+expect(simd_distance(CulturalCenterLayout.washingtonEyePath.last!,CulturalCenterLayout.mosaicStairEyePath[0])<0.0001, "Washington entrance route joins the mosaic stair at one shared eye position")
+for view in cultural.stops.indices {
+    expect(cultural.duration(view:view)==120, "Cultural Center view \(view) retains two minutes")
+    expect(cultural.preferredLighting(view:view)==nil, "Cultural Center view \(view) follows the standard day/night passes")
+    expect(samePose(cultural.pose(view:view,seconds:-1),cultural.stops[view].pose), "Cultural Center negative time clamps to its bookmark")
+    expect(samePose(cultural.pose(view:view,seconds:.nan),cultural.stops[view].pose), "Cultural Center invalid time cannot corrupt its camera")
+    expect(samePose(cultural.pose(view:view,seconds:1000),cultural.pose(view:view,seconds:120)), "Cultural Center route has an exact bounded endpoint")
+}
+
 // The day/night shortcut must not restart or resume a selected animation.
 for location in ArchitectureLocation.allCases {
     var lightingClock = WalkthroughPlayback(location: location)
@@ -288,7 +302,7 @@ expect(!skylineDemo.lightingOverridden && skylineDemo.effectiveLighting == 2, "F
 
 // Chicago demo sequences full route durations across every resident Chicago set.
 // Use an independent explicit order to catch accidental Paris inclusion/reordering.
-let demoLocations: [ArchitectureLocation] = [.chicago, .skyline, .millennium, .lakefront, .campus, .northside, .robie]
+let demoLocations: [ArchitectureLocation] = [.chicago, .skyline, .millennium, .culturalcenter, .lakefront, .campus, .northside, .robie]
 let demoRoutes = demoLocations.flatMap { location in location.stops.indices.map { (location, $0, location.duration(view: $0)) } }
 let demoPass = demoRoutes.reduce(0.0) { $0 + $1.2 }
 expect(WalkthroughPlayback.chicagoDemoLocations == demoLocations, "Demo follows Chicago enum order and excludes Paris")

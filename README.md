@@ -1,6 +1,8 @@
 # Atelier
 
-A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, Metal hardware ray tracing and a fast raster mode. Eight locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, Metal hardware ray tracing and a fast raster mode. Nine locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+
+- **Chicago Cultural Center** — eight two-minute studies of the limestone exterior, Washington entrance, mosaic stair, Tiffany dome, Preston Bradley Hall and restored Grand Army of the Republic rooms, including a connecting flight from Cloud Gate. [Architecture, references and routes](docs/CULTURAL-CENTER.md).
 
 - **Robie House and Hyde Park, Chicago** — seven architectural studies of Frank Lloyd Wright’s Prairie house and a six-minute connecting flight from McCormick Place through the south lakefront and Hyde Park. The house and the intervening neighborhoods extend the same resident Chicago world.
 - **Chicago North Side** — eight studies connecting Millennium Park, Old Town, North Avenue Beach, Lincoln Park Zoo, the conservatory and lily pool, Wrigleyville and Wrigley Field. Two four-minute flights connect Millennium Park to the zoo and the zoo to Wrigley, with mapped neighborhoods, beaches and harbors in the same resident world.
@@ -30,19 +32,21 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.2.0 keeps Willis Tower as its opening destination and adds a dedicated overhead Map mode. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All seven Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.3.0 adds the Cultural Center, visible object selection and a normal-camera look-down shortcut while retaining Willis Tower as the opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Cultural Center, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All eight Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
 ## Explore
 
-The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Outside Chicago Demo, selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–360 seconds. Robie House has seven two-minute studies and a six-minute connecting flight. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), **Lincoln Park Zoo → Wrigley Field** (four minutes), and **McCormick Place → Robie House** (six minutes), preserving the chosen day/night lighting.
+The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Outside Chicago Demo, selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–360 seconds. Robie House has seven two-minute studies and a six-minute connecting flight. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), **Lincoln Park Zoo → Wrigley Field** (four minutes), **McCormick Place → Robie House** (six minutes), and **Millennium Park → Cultural Center** (two minutes), preserving the chosen day/night lighting.
 
-**Chicago Demo / C** starts at a random view in a random Chicago location, then plays sequentially through Willis Tower → Chicago Skyline → Millennium Park → Chicago Lakefront → Museum Campus → Chicago North Side → Robie House. Each destination has eight routes; one complete **56-route pass lasts 102 minutes 36 seconds at 1×**. Starting preserves both pace preferences. Skyline views use their authored lighting during the automatic presentation; a manual lighting override holds for the current pass and resets at the next complete idle/demo cycle. The demo changes day/night when it wraps from Robie House’s final route to Willis Tower’s first route. A random opening partway through the sequence reaches that boundary before its first complete pass.
+**Chicago Demo / C** starts at a random view in a random Chicago location, then plays sequentially through Willis Tower → Chicago Skyline → Millennium Park → Chicago Cultural Center → Chicago Lakefront → Museum Campus → Chicago North Side → Robie House. Each destination has eight routes; one complete **64-route pass lasts 118 minutes 36 seconds at 1×**. Starting preserves both pace preferences. Skyline views use their authored lighting during the automatic presentation; a manual lighting override holds for the current pass and resets at the next complete idle/demo cycle. The demo changes day/night when it wraps from Robie House’s final route to Willis Tower’s first route. A random opening partway through the sequence reaches that boundary before its first complete pass.
 
 Selecting any Chicago location or view keeps the demo active and begins that route at normal forward playback. **↑ / ↓**, or the demo’s previous/next buttons, cross location boundaries: the last view advances to the first view in the next location, and the first view goes back to the final view in the previous location. A full-city wrap in either direction changes day/night. **Space** pauses and resumes; **Stop Chicago Demo / C** exits while holding the current pose. Selecting Paris, starting idle cycling, focusing an object, or taking manual camera control leaves the demo. [Demo instructions](docs/DEMO.md).
 
-Click visible landmark or building geometry to focus it, then drag to orbit and pinch, use a mouse wheel or scroll with two fingers to move closer or farther away. Focusing from a distant view preserves the camera’s entry distance, including the Oak Park panorama. Without a focus, pinching changes the lens field of view while leaving the camera position fixed. Clicking the same object again, clicking sky, or pressing **Escape** releases focus. Selecting a focus or pinching takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
+Click visible landmark or building geometry to focus it; a tint and outline mark the selected surfaces. Drag to orbit and pinch, use a mouse wheel or scroll with two fingers to move closer or farther away. Focusing from a distant view preserves the camera’s entry distance, including the Oak Park panorama. Without a focus, pinching changes the lens field of view while leaving the camera position fixed. Clicking the same object keeps it selected. Clicking elsewhere releases it without changing the pose or immediately selecting a replacement; a subsequent click can select another object. **Escape** or the focus clear button also releases it. Selecting a focus or pinching takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
+
+**T** points the normal camera straight down, above the selected object's centre when focused or at the current horizontal position otherwise. It retains the lens and normal Fly controls, raising the camera only as needed for roof clearance. Focused pinch and scroll keep this vertical view; an orbit drag changes its angle. **WASD** travels parallel to the ground even when looking up or down; **Q / E** changes altitude.
 
 **B / Map mode** switches the main Chicago viewport to a fixed, north-up perspective overhead view. Drag to pan and pinch, scroll or use **− / +** to zoom. **B** or **Escape** returns to a 3D overlook above the current map centre. This is separate from the compact navigation map shown with **M**; all three inset sizes now stay below one quarter of the viewport. [Map modes and controls](docs/MAP-MODE.md).
 
@@ -54,29 +58,30 @@ Click visible landmark or building geometry to focus it, then drag to orbit and 
 | **Idle Play / Idle Pause**, or **I** | Resume the view cycle / hold the current view |
 | **[ / ]** | Decrease / increase idle speed: 0.25×, 0.5×, 1×, 2×, 4× |
 | **Play / Space** | Start, pause, or resume the selected walkthrough |
-| **Chicago Demo / C** | Start the 56-route Chicago sequence at a random location/view / stop and hold the current pose |
+| **Chicago Demo / C** | Start the 64-route Chicago sequence at a random location/view / stop and hold the current pose |
 | **← / →** | Rewind / fast forward; distinct presses cycle 2×, 4×, 8× |
 | **Pace / timeline** | Set walkthrough pace independently / seek |
 | **N / Moon button** | Toggle day/night without restarting or resuming the animation |
 | **Lighting settings** | Choose warm daylight, neutral daylight, sunset or night; Skyline also has authored view presets |
 | **Full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode |
 | Window titlebar / edges | Move / resize; hold camera and scene clocks during the gesture, then resume without a time jump |
-| Click visible geometry | Focus a landmark or building; click the same object or sky to release; disabled in Map mode |
+| Click visible geometry | Select when unfocused; keep the same object selected; click elsewhere to clear; also available in Map mode |
 | Left mouse drag | Pan the city under the pointer; orbit when focused; always pan in Map mode |
 | Shift + left mouse drag / right mouse drag | Look around or orbit a focus; in Map mode Shift-left still pans and right drag is ignored |
 | **M / inset map button** | Show/hide the compact navigation map; S/M/L progressively add room and labels |
 | **B / Map mode button / Navigation → Map** | Enter the north-up overhead Chicago view; B or Escape exits to a 3D overlook at the current centre |
+| **T** | Point the normal camera straight down with roof clearance; preserve focus and normal Fly controls |
 | **F / speed menu / − / +** | In normal 3D exploration, toggle Walk/Fly or step flight speed from 8 to 800 m/s; −/+ zoom in Map mode |
 | **R / renderer badge** | Toggle ray tracing and fast raster at the same camera position |
-| **WASD / Q / E / Shift** | Manual movement / fly up / fly down / 3× speed boost; movement clears focus |
+| **WASD / Q / E / Shift** | Move parallel to ground / fly up / fly down / 3× speed boost; movement clears focus |
 | Pinch | Optical zoom in normal exploration; move toward/away from a focused object; change ground coverage in Map mode |
 | Mouse wheel / two-finger scroll | Zoom a focused object or Map mode; otherwise step the fixed flight-speed presets |
 | **H / ? / Esc** | Hide interface / show controls / clear focus, release keys and close help |
 | **⌘R / ⌘⇧S** | Return to the location’s opening view / save a render to Pictures/Atelier |
 
-The inset navigation map uses offline data and shows camera position and heading with a 24-point dotted marker. A camera beyond coverage has an explicit off-map direction and distance. All three sizes remain compact; larger sizes reveal more of the 33 named landmarks, with labels arranged to avoid overlap. Hovering a landmark’s dot or text highlights both. Clicking either frames that landmark around its fixed architectural centre, while clicking bare map ground chooses a roof-cleared overlook. In Map mode, those actions recenter the overhead view instead. The Places menu reaches every named landmark even when its label is hidden.
+The inset navigation map uses offline data and shows camera position and heading with a 24-point dotted marker. A camera beyond coverage has an explicit off-map direction and distance. All three sizes remain compact; larger sizes reveal more of the 34 named landmarks, including the Cultural Center, with labels arranged to avoid overlap. Hovering a landmark’s dot or text highlights both. Clicking either frames and focuses that landmark around its fixed architectural centre, while clicking bare map ground chooses a roof-cleared overlook and clears focus. In Map mode, landmark selection recentres the overhead view and retains selection without tilting the camera. The Places menu reaches every named landmark even when its label is hidden.
 
-Dragging the inset translates it and the real camera together; releasing a drag does not trigger a click. Landmark selection preserves lighting and associates the nearest architectural study with the Play button. It takes manual control, ending automatic playback. The main Map mode keeps the camera vertical and north-up: normal movement, look/orbit, view-selection and playback controls are inactive until it is exited. **R, N, M, H** and help remain available. The city geometry, music and map coverage are unchanged. [Current map behavior and limits](docs/MAP-MODE.md).
+Dragging the inset translates it and the real camera together; releasing a drag does not trigger a click. Landmark selection preserves lighting and associates the nearest architectural study with the Play button. It takes manual control, ending automatic playback. The main Map mode keeps the camera vertical and north-up: normal movement, look/orbit, view-selection, **T** and playback controls are inactive until it is exited. **R, N, M, H** and help remain available. Selection can be shown in Map mode while dragging still pans and pinch still changes ground coverage. [Current map behavior and limits](docs/MAP-MODE.md).
 
 In normal Fly mode, flight starts at 400 m/s. The speed menu, minus/plus keys and unfocused scrolling step through 8, 30, 80, 180, 400 and 800 m/s; Shift temporarily triples the chosen speed. Movement uses elapsed time, so a low rendering frame rate no longer reduces travel speed proportionally. Left dragging pans across the ground plane; Shift-left dragging or right dragging changes the viewing direction. Q flies up and E flies down. Focused-object orbit and zoom remain available.
 
@@ -88,7 +93,7 @@ Robie House’s eighth view connects McCormick Place to the house through 31st S
 
 ## Music
 
-Eight original ambient pieces form one shared playlist, with a distinct opening piece assigned to each location. Soft piano, pads and plucks accompany the views. Music starts enabled at volume 0.16 on first use; enable and volume preferences persist. A location change selects its opening piece with a three-second crossfade, and tracks advance through the shared playlist before wrapping. Turning music off fades and pauses it; turning it on resumes. Volume zero mutes while playback continues. The native player does not add an audio track to CLI movie exports. [Composition, playback and evidence](docs/AMBIENT-MUSIC.md).
+Nine original ambient pieces form one shared playlist, with a distinct opening piece assigned to each location. The Cultural Center adds **Light Beneath the Dome**, a D-flat-major composition at 57 BPM; the previous eight audio files are unchanged. Soft piano, pads and plucks accompany the views. Music starts enabled at volume 0.16 on first use; enable and volume preferences persist. A location change selects its opening piece with a three-second crossfade, and tracks advance through the shared playlist before wrapping. Turning music off fades and pauses it; turning it on resumes. Volume zero mutes while playback continues. The native player does not add an audio track to CLI movie exports. [Existing composition and playback system](docs/AMBIENT-MUSIC.md) · [Cultural Center track](docs/CULTURAL-CENTER.md#original-ambient-music).
 
 ## Rendering
 
@@ -122,15 +127,24 @@ Render dimensions preserve the actual drawable's aspect ratio, including portrai
 
 The reusable [city-building guide (Markdown)](docs/CITY-BUILDING-GUIDE.md), [offline HTML edition](docs/city-building-guide.html) and [PDF edition](docs/City-Building-Guide.pdf) document research, map preparation, architectural modeling, shared-world integration, eight-view routes, lighting, performance checks, release packaging and a starter brief for a fresh context window.
 
-The suggested next landmark is the **Chicago Cultural Center**, whose Tiffany dome, mosaic stair and marble interiors sit beside Millennium Park in the existing world. It is a proposal for the next request; no dedicated building or walkthrough has been added. [Recommendation and primary references](docs/NEXT-CHICAGO-LANDMARK.md).
+The **Chicago Cultural Center** now develops the earlier landmark proposal into an authored destination, using the existing mapped block beside Millennium Park. Its [architecture and route notes](docs/CULTURAL-CENTER.md) distinguish reference evidence from interpreted details; the [original recommendation](docs/NEXT-CHICAGO-LANDMARK.md) remains a historical research record.
 
 ## Render and record
 
-The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `skyline` for the lakefront, river and western panoramas, `millennium` for the park and museum, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
+The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `skyline` for the lakefront, river and western panoramas, `millennium` for the park and museum, `culturalcenter` for the Cultural Center, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
 
 Add `--raster` to render, gallery, video or self-test commands for the fast renderer. Ray sample counts are ignored in raster mode; the temporal ray-tracing benchmark intentionally requires ray tracing.
 
 ```sh
+# Cultural Center's two-minute arrival from Cloud Gate.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location culturalcenter \
+  --video output/Millennium-Park-to-Cultural-Center.mp4 --single-view --stop 7 \
+  --seconds 120 --fps 24 --width 1920 --height 1080 --samples 16
+
+# The eight Cultural Center bookmarks at night.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location culturalcenter \
+  --gallery output/cultural-center-night --lighting 2 --samples 128
+
 # Complete six-minute flight from McCormick Place to Robie House.
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie \
   --video output/McCormick-Place-to-Robie-House.mp4 --single-view --stop 7 \
@@ -218,7 +232,13 @@ Generated videos, high-resolution renders, build products and local reports stay
 
 ## Verify and reproduce
 
-### Version 2.2.0
+### Version 2.3.0
+
+The Cultural Center destination and all existing routes pass [106,617 CPU playback checks](docs/validation/v2.3/playback.txt), covering all 73 routes including Paris. The standalone Cultural Center passes [2,912 geometry and navigation checks](docs/validation/v2.3/cultural-center-geometry.json); the shared Chicago scene contains **45,953,309 static triangles**. The revised controls pass **25,015 map**, **6,765 manual navigation**, **1,662 focus**, **662 actual-controller** and **449 pointer/key** checks. The bounded raster/RT selection fixture passes **39,496 checks**; music controller and full-file audio checks pass **299** and **165** respectively. [Current evidence and scope](docs/validation/v2.3/README.md).
+
+The [full-city renderer check passes 37 assertions and 18 reviewed stills](docs/validation/v2.3/cultural-rendering.json): all eight Cultural Center bookmarks in day/night and selection in both rendering modes. The [2.3.0 build 16 package](docs/validation/v2.3/package.json) is signed native arm64, with all 27 bundled resources matching source. The [scoped native review](docs/validation/v2.3/native-review.json) confirms Cultural Center map-label selection, visible focus in both renderers, same-object retention, clearing elsewhere, normal-camera **T**, fixed **B** Map mode and focused button zoom, plus the new music title at 16% volume. Physical pinch and held W/S travel were not established by the native automation. These still and control checks do not establish native FPS or continuous-motion noise quality. Earlier release results remain historical. [Cultural Center scope](docs/CULTURAL-CENTER.md#validation-status).
+
+### Historical version 2.2.0
 
 Version **2.2.0 (build 15)** passed [24,864 map checks](docs/validation/v2.2/navigation-map.json), [6,260 manual-navigation and pinch-math checks](docs/validation/v2.2/manual-navigation.json), [544 actual-controller checks](docs/validation/v2.2/map-mode-integration.json), [449 pointer/key checks](docs/validation/v2.2/viewport-input.json) and [1,605 focus regression checks](docs/validation/v2.2/focus-navigation.txt). The [native arm64 package passed strict signature verification with all 26 resources matching source](docs/validation/v2.2/package.json).
 
@@ -228,7 +248,7 @@ The [scoped native review passed](docs/validation/v2.2/native-review.json), incl
 
 Version **2.1.1 (build 14)** passed [131 renderer checks with 24 stills and visual review](docs/SKYLINE.md#version-211), [92,867 playback checks across all 65 routes](docs/validation/v2.1.1/skyline/playback.txt), [21,434 map checks](docs/validation/v2.1.1/navigation-map.json), [1,605 focus checks](docs/validation/v2.1.1/focus-navigation.json), and the [39,485-check raster regression](docs/validation/v2.1.1/raster-regression.json). The focus suite includes 21 assertions exposing the old behavior. The [arm64 package passed strict signature verification and all 26 source/resource comparisons](docs/validation/v2.1.1/package.json). Its isolated Oak Park self-tests [passed in both ray-tracing and raster modes](docs/validation/v2.1.1/package-rendering/runs.json).
 
-[Native interaction checks for that release were blocked by the locked Mac](docs/validation/v2.1.1/native-review.json). Those CPU and offscreen results do not establish native off-map/focus behavior, continuous-motion quality or native FPS. [Complete release evidence](docs/validation/v2.1.1/README.md). The shared city remains at 45,496,818 static triangles; route counts and duration are unchanged: 56 Chicago routes, 65 including Paris, and 102 minutes 36 seconds for a Chicago pass at 1×.
+[Native interaction checks for that release were blocked by the locked Mac](docs/validation/v2.1.1/native-review.json). Those CPU and offscreen results do not establish native off-map/focus behavior, continuous-motion quality or native FPS. [Complete release evidence](docs/validation/v2.1.1/README.md). That version's shared city contained 45,496,818 static triangles and 56 Chicago routes, 65 including Paris, with 102 minutes 36 seconds for a Chicago pass at 1×.
 
 ### Historical version 2.1.0
 
@@ -286,7 +306,7 @@ swift scripts/validate-atmosphere.swift
   --width 960 --height 600 --samples 4 --reference-samples 128
 ```
 
-The playback suite covers all eight destinations in both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, the full 90/120/150/180/240/360-second routes, day/night hotkey state preservation and alternating day/night passes. Demo checks exercise every possible opening, reproducible seeded random starts, all Chicago next/previous boundaries, selection while paused or rewinding, preserved pace and lighting, and large elapsed-time jumps. Landmark checks validate finite geometry, Cloud Gate’s envelope and underside headroom. Light-grid CPU checks exercise conservative candidate coverage and fallbacks; GPU checks compare indexed and linear lighting and include negative controls. Sampling checks exercise the actual Sobol and polished-GGX shader routines. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
+The playback suite covers all nine destinations in both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, the full 90/120/150/180/240/360-second routes, day/night hotkey state preservation and alternating day/night passes. Demo checks exercise every possible opening, reproducible seeded random starts, all Chicago next/previous boundaries, selection while paused or rewinding, preserved pace and lighting, and large elapsed-time jumps. Landmark checks validate finite geometry, Cloud Gate’s envelope and underside headroom. Light-grid CPU checks exercise conservative candidate coverage and fallbacks; GPU checks compare indexed and linear lighting and include negative controls. Sampling checks exercise the actual Sobol and polished-GGX shader routines. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
 
 The default large-geometry GPU fixture checks production descriptor offsets and shader lookups across a vertex buffer larger than 4 GiB. It submits eight triangles in each of four separated sections, then probes four static sentinels and a traffic triangle beyond the boundary for correct hits, global IDs, vertices and materials. This bounded test covers 32 static triangles and one traffic triangle; full-city render checks are separate, and the fixture does not traverse every city triangle or each descriptor's full extent. `--legacy-sparse` and `--full-field` retain the original diagnostic modes.
 

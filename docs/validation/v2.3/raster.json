@@ -1,0 +1,18 @@
+{
+  "batches" : 2,
+  "checks" : 39496,
+  "cullingMilliseconds" : 0.0010728836059570312,
+  "frames" : 11,
+  "gpu" : "Apple M3 Ultra",
+  "localLightBudget" : 64,
+  "rasterSamples" : 4,
+  "rayDispatches" : 50,
+  "rayTracingTrafficUpdates" : 1,
+  "scope" : "Small actual-kernel multisample resolve\/geometry\/depth\/glass\/day-night\/traffic\/resize\/capture\/mode-switch fixture; deterministic same-time captures across one and2048requestedSPP. Device-supported sample count recorded; fallback devices not exercised onthishost. No full-city performance or visual-fidelity claim",
+  "status" : "PASS",
+  "surfaceGuideDispatches" : 0,
+  "trafficTransforms" : 2,
+  "transparentBatches" : 1,
+  "visibleBatches" : 1,
+  "visibleTriangles" : 1752
+}

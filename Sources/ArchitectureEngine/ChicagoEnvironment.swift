@@ -67,6 +67,7 @@ extension EiffelBuilder {
             chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)
         }
         for b in data.buildings+LakefrontContext.database.buildings+MuseumCampusContext.database.buildings {
+            if [-158994370,-15899437].contains(b.id) { continue } // Cultural Center: both extract ID conventions.
             if MillenniumContext.suppressesGenericBuilding(b.id) || LakefrontContext.replacementBuildingIDs.contains(b.id) || [-174605391,-174605390,150407241].contains(b.id) { continue }
             // Replace every generic museum building part, including the parent
             // outline that otherwise fills the modeled courtyards and galleries.
