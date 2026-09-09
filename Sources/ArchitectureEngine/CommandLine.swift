@@ -29,6 +29,7 @@ import CoreText
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
         --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
+        --raster                   Render with native rasterization, without ray tracing
         --raw                      Disable motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
         --random-sampling          Use independent random rays for sampler comparisons
@@ -41,6 +42,10 @@ import CoreText
     }
     if args.contains("--obj") && (!args.contains("--render") || args.contains("--video") || args.contains("--gallery") || args.contains("--self-test")) {
         fputs("OBJ scenes currently support --render. The guided tour, gallery and navigation self-test use the selected built-in location.\n", stderr)
+        exit(2)
+    }
+    if args.contains("--raster") && args.contains("--motion-test") {
+        fputs("--motion-test evaluates ray-tracing reconstruction. Use --raster with --render, --gallery, --video or --self-test.\n",stderr)
         exit(2)
     }
     func value(_ flag:String, _ fallback:String) -> String {
@@ -79,7 +84,7 @@ import CoreText
         let width = max(64,min(8192,integer("--width",args.contains("--self-test") ? 640 : 1920)))
         let height = max(64,min(8192,integer("--height",args.contains("--self-test") ? 400 : 1080)))
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(2,integer("--lighting",0))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(2,integer("--lighting",0))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         var pose = location.stops[stop].pose
         if args.contains("--at") {
@@ -123,13 +128,24 @@ import CoreText
                 luminance.append(Double(sum)/3.0)
             }
             let mean = luminance.reduce(0,+)/Double(luminance.count)
-            guard mean > 10 && mean < 250, (luminance.max()!-luminance.min()!) > 60, first != pixels, renderer.sampleCount == 16 else { throw EngineError.message("Rendered image is blank or progressive accumulation failed.") }
+            guard mean > 10 && mean < 250, (luminance.max()!-luminance.min()!) > 60 else { throw EngineError.message("Rendered image is blank or lacks range.") }
+            if options.rayTracing {
+                guard first != pixels, renderer.sampleCount == 16 else { throw EngineError.message("Progressive ray accumulation failed.") }
+            } else {
+                guard first == pixels, renderer.sampleCount == 0, renderer.rayTracingDispatchCount == 0,
+                      renderer.surfaceGuideDispatchCount == 0, renderer.rasterFrameCount > 0 else {
+                    throw EngineError.message("Ray-off path traced rays or failed deterministic raster rendering.")
+                }
+            }
             let path = URL(fileURLWithPath:FileManager.default.currentDirectoryPath).appendingPathComponent("output/self-test.png")
             try writePNG(pixels,width:width,height:height,to:path)
             let collision = CollisionWorld(scene:scene)
             guard collision.distance(origin:SIMD3(0,3,90),direction:SIMD3(0,-1,0),maximum:10) != nil else { throw EngineError.message("Navigation ground intersection failed.") }
             let importerChecks = try testOBJImporter()
             var report: [String:Any] = ["passed":true,"device":device.name,"unifiedMemory":device.hasUnifiedMemory,"rayTracing":device.supportsRaytracing,"triangleCount":scene.triangleCount,"geometricDetails":scene.detailCount,"materials":scene.materials.count,"lights":scene.lights.count,"location":location.rawValue,"mappedBuildingFootprints":location == .paris ? ParisContext.database.buildings.count:ChicagoContext.database.buildings.count,"mapTimestamp":location == .paris ? ParisContext.database.timestamp:ChicagoContext.database.timestamp,"thinGlass":renderer.hasTransmission,"allocatedMiB":renderer.allocatedMB,"gpuLastSampleMilliseconds":renderer.lastGPUTime,"imageMeanByte":mean,"resolution":[width,height],"samples":16,"abiValidated":true,"navigationBVHNodes":collision.nodes.count,"importerChecks":importerChecks,"elapsedSeconds":Date().timeIntervalSince(start)]
+            report["renderMode"] = options.rayTracing ? "rayTracing":"raster"
+            report["rasterStatistics"] = renderer.rasterStatistics
+            if !options.rayTracing { report["samples"] = 0 }
             if location.world == "chicago" {
                 report["millenniumMapTimestamp"] = MillenniumContext.database.timestamp
                 report["millenniumMappedAreas"] = MillenniumContext.database.areas.count
@@ -177,7 +193,7 @@ import CoreText
                 report["sharedChicagoWorld"] = true
             }
             try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:path.deletingLastPathComponent().appendingPathComponent("validation.json"))
-            print("PASS: geometry, ABI, acceleration structure, hardware dispatch, progressive accumulation, image range, navigation BVH and OBJ importer.")
+            print("PASS: geometry, ABI, acceleration structure, \(options.rayTracing ? "ray tracing and progressive accumulation":"ray-free raster rendering"), image range, navigation BVH and OBJ importer.")
             print("Validation: \(path.deletingLastPathComponent().appendingPathComponent("validation.json").path)")
         }
         if args.contains("--motion-test") {

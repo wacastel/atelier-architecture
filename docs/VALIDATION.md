@@ -1,6 +1,36 @@
 # Validation record
 
-Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.9.1 / build 11**. Earlier sections preserve their original measurements and limitations.
+Recorded 9 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **2.0.0 / build 12**. Earlier sections preserve their original measurements and limitations.
+
+## Version 2.0 navigation and render modes
+
+The Chicago picture-in-picture map uses all five bundled city context resources, with north-up coordinates, a camera heading marker, Small/Medium/Large settings and clickable landmarks or positions. Its detached loader retains 37,781 simplified vertices rather than constructing a second 3D world. Map clicks choose an elevated, roof-cleared overview, preserve compass heading and lighting, and enter manual Fly mode. The overhead pitch is deliberately chosen for the new overview. The camera marker updates at the existing 0.3-second statistics cadence.
+
+Left dragging now pans the ground plane; right dragging looks around. Both retain the existing focused-object orbit behavior. **F** toggles Walk/Fly, **− / +** step through 8, 30, 80, 180, 400 and 800 m/s, and Shift supplies a temporary 3× boost. Flight starts at 80 m/s. The old 0.05-second per-frame cap slowed travel when rendering was slow; flight now uses elapsed time, bounded to 0.5 seconds per frame for long stalls. Walking retains short collision/support substeps.
+
+The new navigation math passes **332 CPU checks**, including pan reprojection at multiple aspect ratios, safe roof clearance, invalid-input handling and equal one-second flight distances at 3–120 FPS. The map passes **300 checks**, including all five actual archives, coordinate round trips and distinct sizes under height constraints. Existing viewport ownership tests pass **187 checks across 45 event sequences**, and focus navigation passes **1,578 checks**. An independent source review checks native point conversion, state transitions, lighting retention and ray-mode resets. These CPU/source checks are distinct from the native observations recorded below. [Manual math](validation/v2.0/manual-navigation-validation.json) · [Map](validation/v2.0/navigation-map-validation.json) · [Focus](validation/v2.0/focus-navigation-validation.txt) · [Review scope](validation/v2.0/review-notes.json).
+
+**T** selects a true native raster renderer at the current camera, lighting and playback state. Raster reuses the city/traffic/material buffers, performs conservative batch frustum culling, uses reversed-Z depth and thin-sheet alpha glass, and evaluates bounded direct lights and environment reflections. Raster frames submit no trace or surface-guide dispatches, and update traffic transforms without refitting its ray-tracing acceleration structures. Ray-tracing structures remain allocated and are still built at startup for immediate switching. Raster omits traced shadows, local reflections, refraction and global illumination. Ray tracing remains the default; its reconstruction and sampling methods are unchanged.
+
+The initial one-sample raster fixture passed **39,484 CPU/GPU checks**. Its five-case, 140-frame complete-city comparison and ten inspected images are retained as the initial quality/performance record. Native review then identified distracting fine-edge aliasing, prompting the final anti-aliasing pass recorded separately. [Initial fixture](validation/v2.0/raster-fixture.json) · [Initial benchmark](validation/v2.0/render-modes-benchmark/metrics.json) · [Initial visual review](validation/v2.0/render-modes-benchmark/visual-review.json). Offscreen GPU times and synchronous wall times are reported separately; neither is a native frame-rate guarantee.
+
+The final renderer selects **4× MSAA** on this M3 Ultra, with 2×/1× fallbacks on devices that require them. Matching multisample color/depth attachments resolve into the existing HDR presentation. The actual GPU fixture passes **39,485 checks** after this change, retaining deterministic captures and the zero-ray contract. Final matched previews use the same 45,496,818-static-triangle Chicago world at **1280 × 850**, four current ray samples, three bounces, two warmup and twelve measured frames per mode/case. All five cases / 140 frames pass; all 70 raster frames have zero ray, guide and ray-tracing traffic-AS updates.
+
+| Final moving case | Median ray-tracing GPU time | Median 4× MSAA raster GPU time |
+| --- | ---: | ---: |
+| Robie exterior, day | 75.55 ms | 13.32 ms |
+| Robie exterior, night | 90.15 ms | 13.66 ms |
+| Robie living room, day | 297.32 ms | 13.47 ms |
+| Robie living room, night | 295.23 ms | 13.18 ms |
+| Willis skyline, day | 43.15 ms | 11.37 ms |
+
+The additional sample coverage visibly reduces the first raster pass's roof and masonry edge aliasing. Fine subpixel detail and glass ordering remain approximations; MSAA does not add traced shadows or local reflections. These bounded comparisons measure command-buffer GPU time. Wall measurements include synchronous image readback, and neither establishes native FPS or a universal performance guarantee. [Final fixture](validation/v2.0/raster-msaa-fixture-final/validation.json) · [Final matched benchmark](validation/v2.0/render-modes-benchmark-msaa-final/metrics.json).
+
+Native checks verified map labels and arbitrary water clicks, all three map sizes, map visibility, ground panning, retained landmark focus/orbit/scroll zoom, Walk/Fly and speed controls, vertical flight, day/night retention, fullscreen and smaller-window layout. A titlebar drag preserved the camera. Switching renderers kept paused playback or an active Chicago Demo intact. Native review caught a Wrigley district-label mismatch; matching all Chicago bookmarks now chooses the correct North Side study, and the final app verifies that Play starts its Wrigley walkthrough. The live UI reached roughly 58–60 FPS in several sampled raster navigation views; that observation is not a sustained benchmark. [Exact native scope and final confirmation](validation/v2.0/native-controls.json).
+
+The signed final **2.0.0 / build 12** package passes self-tests for both Chicago and Paris in both ray-tracing and raster modes from separate working directories. All **17 bundled resources** byte-match source. Its final executable is recorded separately from the standalone benchmark; benchmark inputs still match the production renderer/scene sources. All **79,253 playback checks across 57 routes** pass. Existing city geometry, map data and road corrections remain unchanged. [Final package tests](validation/v2.0/final-package/runs.json) · [Playback](validation/v2.0/playback-validation.txt) · [Release integrity](validation/v2.0/release-manifest.json).
+
+The reusable guide has **14 visually inspected PDF pages**, matching Markdown and offline HTML editions. Automated checks confirm 176 matching content blocks, 13 linked contents/outline entries, valid example syntax and no external HTML assets. The deterministic builder reproduces all three files from a separate working directory. [Guide proof](validation/v2.0/city-building-guide-proof.json) · [Guide in Markdown](CITY-BUILDING-GUIDE.md) · [HTML](city-building-guide.html) · [PDF](City-Building-Guide.pdf).
 
 ## Version 1.9.1 road geometry correction
 

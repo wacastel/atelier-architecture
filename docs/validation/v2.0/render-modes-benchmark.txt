@@ -1,0 +1,24 @@
+Building one complete Chicago world
+World 45496818 static triangles; scene build 3.9819929599761963s
+Renderer setup 13.046958923339844s; 8256.296875MiB
+robie-exterior-day raster starting
+robie-exterior-day raster: GPUmedian 13.156833330867812ms p95 20.524999999906868ms; wallmedian 15.932977199554443ms; counters ["rasterFrames": 14, "rasterTrafficTransforms": 14, "rayDispatches": 0, "surfaceGuideDispatches": 0, "rayTracingTrafficUpdates": 0]
+robie-exterior-day rayTracing starting
+robie-exterior-day rayTracing: GPUmedian 75.2621874853503ms p95 82.27724995231256ms; wallmedian 81.05742931365967ms; counters ["rasterFrames": 0, "surfaceGuideDispatches": 14, "rasterTrafficTransforms": 0, "rayTracingTrafficUpdates": 14, "rayDispatches": 56]
+robie-exterior-night rayTracing starting
+robie-exterior-night rayTracing: GPUmedian 89.35856248717755ms p95 105.41158332489431ms; wallmedian 94.97451782226562ms; counters ["rasterTrafficTransforms": 0, "rayDispatches": 56, "rayTracingTrafficUpdates": 14, "surfaceGuideDispatches": 14, "rasterFrames": 0]
+robie-exterior-night raster starting
+robie-exterior-night raster: GPUmedian 13.839666673447937ms p95 14.820999989751726ms; wallmedian 15.98447561264038ms; counters ["rasterFrames": 14, "rayDispatches": 0, "rasterTrafficTransforms": 14, "surfaceGuideDispatches": 0, "rayTracingTrafficUpdates": 0]
+robie-living-room-day raster starting
+robie-living-room-day raster: GPUmedian 13.634229195304215ms p95 14.539875031914562ms; wallmedian 16.030967235565186ms; counters ["rasterFrames": 14, "rayDispatches": 0, "rasterTrafficTransforms": 14, "rayTracingTrafficUpdates": 0, "surfaceGuideDispatches": 0]
+robie-living-room-day rayTracing starting
+robie-living-room-day rayTracing: GPUmedian 297.2988333494868ms p95 306.1374999815598ms; wallmedian 303.2904267311096ms; counters ["surfaceGuideDispatches": 14, "rasterTrafficTransforms": 0, "rayDispatches": 56, "rayTracingTrafficUpdates": 14, "rasterFrames": 0]
+robie-living-room-night rayTracing starting
+robie-living-room-night rayTracing: GPUmedian 282.8915208228864ms p95 291.08549997908995ms; wallmedian 288.86646032333374ms; counters ["surfaceGuideDispatches": 14, "rayDispatches": 56, "rasterFrames": 0, "rasterTrafficTransforms": 0, "rayTracingTrafficUpdates": 14]
+robie-living-room-night raster starting
+robie-living-room-night raster: GPUmedian 13.606124994112179ms p95 19.579250016249716ms; wallmedian 16.0825252532959ms; counters ["rayTracingTrafficUpdates": 0, "rasterTrafficTransforms": 14, "rasterFrames": 14, "rayDispatches": 0, "surfaceGuideDispatches": 0]
+willis-skyline-day raster starting
+willis-skyline-day raster: GPUmedian 11.934062495129183ms p95 13.89762497274205ms; wallmedian 15.866518020629883ms; counters ["rayTracingTrafficUpdates": 0, "surfaceGuideDispatches": 0, "rasterFrames": 14, "rasterTrafficTransforms": 14, "rayDispatches": 0]
+willis-skyline-day rayTracing starting
+willis-skyline-day rayTracing: GPUmedian 42.46085416525602ms p95 49.2343750083819ms; wallmedian 48.0155348777771ms; counters ["rayDispatches": 56, "surfaceGuideDispatches": 14, "rayTracingTrafficUpdates": 14, "rasterFrames": 0, "rasterTrafficTransforms": 0]
+PASS: matched full-city renderer benchmark, 5 cases / 140 rendered frames

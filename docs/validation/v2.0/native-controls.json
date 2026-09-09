@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-09",
+  "reviewExecutableSHA256": "fa7bcd9ed1aee3b90e77e4c2b1d6c2fa9c5e4018b02626fe0772d5d40acc3c3b",
+  "controlsObserved": [
+    "M toggled map visibility; S/M/L maps rendered at distinct sizes with the complete modeled corridor.",
+    "Clicking the Adler map label moved the same resident scene from Robie House to an overhead Adler view at182.7m, retaining daytime.",
+    "Left drag translated the ground view without rotating it or changing182.7m camera elevation.",
+    "Clicking Adler selected its named focus; scroll zoom and left-drag orbit moved the camera while retaining focus. N changed lighting without dropping focus.",
+    "Clicking Wrigley from the night map reached the stadium and retained night. This exposed the initial district-label mismatch described below.",
+    "Plus/plus/plus/minus changed80m/s to400m/s via180/400/800/400 presets; F enteredWalk, and another map click restoredFly. E andShift+E raised the camera; quantitative boost/time-step properties were tested separately on CPU.",
+    "Clicking Willis reached its high roof-cleared overview; native full-screen entry/exit and a smaller ordinary window retained the view and resized the viewport/map.",
+    "An ordinary titlebar drag left the same city composition and670.4m elevation unchanged.",
+    "T switched modes with the camera paused. C startedChicagoDemo; T switched back to ray tracing whileStopChicagoDemo, route6/48 and forward playback remainedactive.",
+    "Clicking an unlabelled water point entered manualFly at148.3m, exitedDemo and placed the camera over water without loading a second city."
+  ],
+  "observedNativeRasterFPS": "UI snapshots reached approximately58\u201360FPS in sampled campus, Wrigley and Willis navigation states; this is observational, not a sustained FPS benchmark.",
+  "limits": [
+    "Right-drag look was source-reviewed and retains the existing event path; no native right-drag gesture is claimed in this review.",
+    "CPU checks establish the exact clock/boost and pan projection properties; screenshots were qualitative native observations.",
+    "Native screenshots were viewed through computer-use tooling in this task; they are not separately archived PNG artifacts."
+  ],
+  "foundAndCorrected": "The initial map association compared only district opening targets, so Wrigley displayed the Lakefront tour. EngineController now compares all48Chicago bookmarks and also selects the closest study, soPlay starts a nearby route. Final native confirmation is recorded after rebuilding.",
+  "finalNativeConfirmation": {
+    "executableSHA256": "58847e9007b2432f954ce83f5fe1020b502f9b500b7e874aa78da297395a725b",
+    "passed": true,
+    "observations": [
+      "Wrigley map selection now opens Chicago North Side and study08/08, Wrigley Field under the lights.",
+      "The map stays open at Large size; night and fast raster are retained.",
+      "Space starts that Wrigley walkthrough with forward playback; selecting Wrigley again returns to a manual overhead view at154.1m.",
+      "Final app left open at Wrigley at night, fast raster enabled,80m/s flight speed and Large map."
+    ]
+  }
+}

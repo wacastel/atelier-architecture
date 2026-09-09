@@ -1,0 +1,6 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Chicago · Robie House to Wrigleyville | 45496818 triangles | 29335 geometric details | 408 materials
+Metal pipelines + acceleration structure: 10.75s | allocated 8256.3 MiB
+PASS: geometry, ABI, acceleration structure, ray-free raster rendering, image range, navigation BVH and OBJ importer.
+Validation: /Users/william/dev/architecture/output/v12-review/final-package/robie-raster/output/validation.json
+Completed in 21.87s

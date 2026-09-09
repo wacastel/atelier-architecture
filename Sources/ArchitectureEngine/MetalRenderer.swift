@@ -12,6 +12,7 @@ struct RenderOptions: Equatable {
     var regularization: Bool = true
     var lowDiscrepancySampling: Bool = true
     var indexedLighting: Bool = true
+    var rayTracing: Bool = true
 }
 
 enum EngineError: LocalizedError {
@@ -42,6 +43,19 @@ final class MetalRenderer {
     private let dayLightRanges:MTLBuffer
     private let dayLightIndices:MTLBuffer
     private let traffic: TrafficMetal?
+    private let rasterRenderer: RasterRenderer
+    private(set) var rayTracingDispatchCount = 0
+    private(set) var surfaceGuideDispatchCount = 0
+    var rasterFrameCount: Int { rasterRenderer.frameCount }
+    var rasterTrafficTransformCount: Int { rasterRenderer.trafficTransformCount }
+    var rasterStatistics: [String: Any] {
+        ["frames":rasterRenderer.frameCount,"batches":rasterRenderer.batchCount,"rasterSamples":rasterRenderer.rasterSampleCount,
+         "visibleBatches":rasterRenderer.visibleBatchCount,"visibleTriangles":rasterRenderer.visibleTriangleCount,
+         "transparentBatches":rasterRenderer.transparentBatchCount,"cullingMilliseconds":rasterRenderer.cullingMilliseconds,
+         "trafficTransforms":rasterRenderer.trafficTransformCount,"localLightBudget":64,
+         "rayDispatches":rayTracingDispatchCount,"surfaceGuideDispatches":surfaceGuideDispatchCount,
+         "rayTracingTrafficUpdates":trafficUpdateCount]
+    }
     private(set) var sceneTime: Double = 0
     private var trafficMoving = false
     private let hasAnimatedProjection: Bool
@@ -96,7 +110,8 @@ final class MetalRenderer {
         let resourceBundle = Bundle.main.resourceURL.flatMap { Bundle(url: $0.appendingPathComponent("ArchitectureEngine_ArchitectureEngine.bundle")) } ?? Bundle.module
         guard let url = resourceBundle.url(forResource: "Renderer", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Renderer.metal is missing from the application resources.") }
         guard let denoiseURL = resourceBundle.url(forResource: "Denoise", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Denoising shader resource is missing.") }
-        let source = try String(contentsOf: url,encoding:.utf8) + "\n" + String(contentsOf: denoiseURL,encoding:.utf8)
+        guard let rasterURL = resourceBundle.url(forResource: "Raster", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Raster shader resource is missing.") }
+        let source = try String(contentsOf: url,encoding:.utf8) + "\n" + String(contentsOf: denoiseURL,encoding:.utf8) + "\n" + String(contentsOf:rasterURL,encoding:.utf8)
         let options = MTLCompileOptions()
         options.languageVersion = .version3_1
         let library = try device.makeLibrary(source: source, options: options)
@@ -173,6 +188,7 @@ final class MetalRenderer {
         encoder.endEncoding(); command.commit(); command.waitUntilCompleted()
         if let error = command.error { throw error }
         traffic = fleet.vertices.isEmpty ? nil : try TrafficMetal(fleet:fleet,staticTriangleCount:scene.triangleCount,staticAcceleration:acceleration,vertices:vertexBuffer,device:device,library:library)
+        rasterRenderer = try RasterRenderer(scene:scene,fleet:fleet,device:device,library:library)
         buildSeconds = Date().timeIntervalSince(start)
     }
 
@@ -193,9 +209,15 @@ final class MetalRenderer {
     }
     func resetReconstruction() { historyValid = false; finalFiltered = nil; previousFrame = nil }
 
-    func resize(width: Int, height: Int) throws {
-        guard width != self.width || height != self.height else { return }
+    func resize(width: Int, height: Int, rayTracing: Bool = true) throws {
         guard width > 0 && height > 0 && width <= 8192 && height <= 8192 else { throw EngineError.message("Render size must be between 1 and 8192 pixels per axis.") }
+        if !rayTracing {
+            try rasterRenderer.resize(width:width,height:height)
+            if width != self.width || height != self.height { resetAccumulation();resetReconstruction() }
+            self.width=width;self.height=height
+            return
+        }
+        guard width != self.width || height != self.height || accumulation?.width != width || accumulation?.height != height else { return }
         let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba32Float, width: width, height: height, mipmapped: false)
         desc.storageMode = .private; desc.usage = [.shaderRead, .shaderWrite]
         guard let texture = device.makeTexture(descriptor: desc) else { throw EngineError.message("Could not allocate HDR accumulation texture.") }
@@ -237,6 +259,7 @@ final class MetalRenderer {
     }
 
     private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
+        rayTracingDispatchCount += 1
         try traffic?.encodeUpdate(command,time:sceneTime,vertices:vertexBuffer)
         guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
         var u = uniforms(pose: pose, options: options)
@@ -283,6 +306,7 @@ final class MetalRenderer {
     }
 
     private func encodeReconstruction(_ command: MTLCommandBuffer, uniforms: FrameUniforms, moving: Bool) throws -> MTLTexture {
+        surfaceGuideDispatchCount += 1
         let current = 1-historyIndex
         guard let surface = command.makeComputeCommandEncoder() else { throw EngineError.message("Surface guide encoder unavailable.") }
         var frame = uniforms
@@ -337,7 +361,7 @@ final class MetalRenderer {
         let requestedWidth = Double(max(1,min(8192,renderWidth)))
         let requestedHeight = max(1,requestedWidth*aspect)
         let scale = min(1,8192/requestedHeight)
-        try resize(width:max(1,Int(requestedWidth*scale)),height:max(1,Int(requestedHeight*scale)))
+        try resize(width:max(1,Int(requestedWidth*scale)),height:max(1,Int(requestedHeight*scale)),rayTracing:options.rayTracing)
         let moving = moved(pose)
         if reset || moving || trafficMoving || projectionMoving || previousOptions != options { resetAccumulation() }
         if resetHistory || previousOptions != options { resetReconstruction() }
@@ -346,14 +370,18 @@ final class MetalRenderer {
         let beforeSubmission = sampleCount
         do {
             var u = uniforms(pose: pose, options: options)
-            let tracing = sampleCount < 4096
-            if tracing {
-                for _ in 0..<max(1,samplesPerFrame) { u = try encodeTrace(command, pose: pose, options: options) }
-            }
             let texture:MTLTexture?
-            if options.denoising {
-                texture = tracing || finalFiltered == nil ? try encodeReconstruction(command,uniforms:u,moving:moving) : finalFiltered
-            } else { texture = nil; resetReconstruction() }
+            if options.rayTracing {
+                let tracing = sampleCount < 4096
+                if tracing {
+                    for _ in 0..<max(1,samplesPerFrame) { u = try encodeTrace(command, pose: pose, options: options) }
+                }
+                if options.denoising {
+                    texture = tracing || finalFiltered == nil ? try encodeReconstruction(command,uniforms:u,moving:moving) : finalFiltered
+                } else { texture = nil; resetReconstruction() }
+            } else {
+                texture = try encodeRaster(command,uniforms:u,options:options)
+            }
             try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture)
             command.present(drawable)
             command.addCompletedHandler { [weak self] buffer in
@@ -368,6 +396,35 @@ final class MetalRenderer {
             command.commit(); previousPose = pose; previousOptions = options; trafficMoving=false; projectionMoving=false
             return true
         } catch { traffic?.invalidate(); sampleCount = beforeSubmission; resetReconstruction(); semaphore.signal(); throw error }
+    }
+
+    private func encodeRaster(_ command:MTLCommandBuffer, uniforms:FrameUniforms, options:RenderOptions) throws -> MTLTexture {
+        resetAccumulation();resetReconstruction();lastUniforms=uniforms
+        return try rasterRenderer.encode(command,frame:uniforms,sceneTime:sceneTime,
+            vertices:vertexBuffer,indices:indexBuffer,materials:materialBuffer,
+            lights:options.lighting == 2 ? lightBuffer:dayInteriorLightBuffer,
+            lightGrid:options.lighting == 2 ? nightLightGrid:dayLightGrid,
+            lightRanges:options.lighting == 2 ? nightLightRanges:dayLightRanges,
+            lightIndices:options.lighting == 2 ? nightLightIndices:dayLightIndices)
+    }
+
+    private func renderRasterOffscreen(pose:CameraPose,options:RenderOptions,width:Int,height:Int) throws -> Data {
+        try resize(width:width,height:height,rayTracing:false)
+        let desc=MTLTextureDescriptor.texture2DDescriptor(pixelFormat:.bgra8Unorm,width:width,height:height,mipmapped:false)
+        desc.storageMode = .shared;desc.usage = [.renderTarget,.shaderRead]
+        guard let output=device.makeTexture(descriptor:desc),let command=queue.makeCommandBuffer() else {throw EngineError.message("Raster export unavailable.")}
+        let u=uniforms(pose:pose,options:options)
+        let texture=try encodeRaster(command,uniforms:u,options:options)
+        let pass=MTLRenderPassDescriptor()
+        pass.colorAttachments[0].texture=output;pass.colorAttachments[0].loadAction = .dontCare;pass.colorAttachments[0].storeAction = .store
+        try encodePresentation(command,descriptor:pass,uniforms:u,texture:texture)
+        command.commit();command.waitUntilCompleted()
+        if let error=command.error {rasterRenderer.invalidate();throw error}
+        lastGPUTime=max(0,command.gpuEndTime-command.gpuStartTime)*1000
+        previousPose=pose;previousOptions=options;trafficMoving=false;projectionMoving=false
+        var data=Data(count:width*height*4)
+        data.withUnsafeMutableBytes {output.getBytes($0.baseAddress!,bytesPerRow:width*4,from:MTLRegionMake2D(0,0,width,height),mipmapLevel:0)}
+        return data
     }
 
     /// Uses the interactive reconstruction path offscreen, retaining validated history between frames.
@@ -385,6 +442,10 @@ final class MetalRenderer {
     }
 
     private func renderPreviewCapture(pose:CameraPose,options:RenderOptions,width:Int,height:Int,samples:Int,resetHistory:Bool,captureRaw:Bool) throws -> (image:Data,raw:Data?) {
+        if !options.rayTracing {
+            let image=try renderRasterOffscreen(pose:pose,options:options,width:width,height:height)
+            return (image,captureRaw ? image:nil)
+        }
         try resize(width:width,height:height)
         // Camera motion controls angular history. Traffic has separate local
         // reactive guides and must not cap unrelated stationary mirror history.
@@ -422,6 +483,7 @@ final class MetalRenderer {
     }
 
     func renderOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int) throws -> Data {
+        if !options.rayTracing { return try renderRasterOffscreen(pose:pose,options:options,width:width,height:height) }
         // Same command queue serializes this with any preceding interactive frames.
         try resize(width: width, height: height); resetAccumulation(); resetReconstruction()
         let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)

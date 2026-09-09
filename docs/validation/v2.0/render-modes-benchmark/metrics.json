@@ -1,0 +1,2222 @@
+{
+  "cameraStepSeconds" : 0.033333333333333333,
+  "cases" : [
+    {
+      "gpuMedianRTOverRasterRatio" : 5.7203876945658685,
+      "idle" : true,
+      "location" : "robie",
+      "modes" : {
+        "raster" : {
+          "allocatedMiB" : 8269.234375,
+          "counterDeltas" : {
+            "rasterFrames" : 14,
+            "rasterTrafficTransforms" : 14,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 12.810708314646035,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.23806095123291016,
+                "frames" : 3,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 3,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 16.041994094848633
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 12.696708319708705,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.25892257690429688,
+                "frames" : 4,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 4,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 16.021013259887695
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 12.678499973844737,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.26190280914306641,
+                "frames" : 5,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 5,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 15.833020210266113
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 13.92624998698011,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.20098686218261719,
+                "frames" : 6,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 6,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 16.62600040435791
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 12.44229165604338,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15902519226074219,
+                "frames" : 7,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 7,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 14.904022216796875
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 13.502958347089589,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15199184417724609,
+                "frames" : 8,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 8,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 15.938043594360352
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 20.524999999906868,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.17702579498291016,
+                "frames" : 9,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 9,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 22.961020469665527
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 7.5995833612978458,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.16200542449951172,
+                "frames" : 10,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 10,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 9.9769830703735352
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 12.654583319090307,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15401840209960938,
+                "frames" : 11,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 11,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 15.031933784484863
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 13.604874955490232,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14901161193847656,
+                "frames" : 12,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 12,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 15.927910804748535
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 13.691749947611243,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14698505401611328,
+                "frames" : 13,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 13,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 16.178011894226074
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 13.533624995034188,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13995170593261719,
+                "frames" : 14,
+                "localLightBudget" : 64,
+                "rayDispatches" : 0,
+                "rayTracingTrafficUpdates" : 0,
+                "surfaceGuideDispatches" : 0,
+                "trafficTransforms" : 14,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 15.897989273071289
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 20.524999999906868,
+            "mean" : 13.30556943139527,
+            "median" : 13.156833330867812,
+            "minimum" : 7.5995833612978458,
+            "p95" : 20.524999999906868
+          },
+          "lastCamera" : {
+            "fov" : [
+              60
+            ],
+            "position" : [
+              3282.179443359375,
+              8,
+              9940.6708984375
+            ],
+            "target" : [
+              3309.719970703125,
+              4,
+              9918.099609375
+            ]
+          },
+          "lastImage" : "robie-exterior-day-raster.png",
+          "lastImageSHA256" : "431226f70482199680d2c31ce4a2adb78b300a7a0ee640b4bacd7fa37139eca4",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13995170593261719,
+            "frames" : 14,
+            "localLightBudget" : 64,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0,
+            "trafficTransforms" : 14,
+            "transparentBatches" : 18,
+            "visibleBatches" : 1703,
+            "visibleTriangles" : 2548742
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 22.961020469665527,
+            "mean" : 15.944828589757284,
+            "median" : 15.932977199554443,
+            "minimum" : 9.9769830703735352,
+            "p95" : 22.961020469665527
+          }
+        },
+        "rayTracing" : {
+          "allocatedMiB" : 8434.796875,
+          "counterDeltas" : {
+            "rasterFrames" : 0,
+            "rasterTrafficTransforms" : 0,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 81.225750036537647,
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 86.848020553588867
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 75.144874979741871,
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 81.103920936584473
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 74.099250021390617,
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 79.941987991333008
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 73.153375007677823,
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 78.999042510986328
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 82.277249952312559,
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 87.926030158996582
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 74.376791715621948,
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 80.041050910949707
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 74.377583339810371,
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 80.018997192382812
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 82.243499986361712,
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 87.931990623474121
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 74.401666701305658,
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 80.006957054138184
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 75.37949999095872,
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 81.010937690734863
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 81.420166708994657,
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 87.044954299926758
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 76.407375046983361,
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 81.921100616455078
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 82.277249952312559,
+            "mean" : 77.042256957308084,
+            "median" : 75.262187485350296,
+            "minimum" : 73.153375007677823,
+            "p95" : 82.277249952312559
+          },
+          "lastCamera" : {
+            "fov" : [
+              60
+            ],
+            "position" : [
+              3282.179443359375,
+              8,
+              9940.6708984375
+            ],
+            "target" : [
+              3309.719970703125,
+              4,
+              9918.099609375
+            ]
+          },
+          "lastImage" : "robie-exterior-day-rayTracing.png",
+          "lastImageSHA256" : "ecb6a84be921225bd1a573309df1783a72979fba9064c3299a57635e94ca5a52",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13995170593261719,
+            "frames" : 14,
+            "localLightBudget" : 64,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14,
+            "trafficTransforms" : 14,
+            "transparentBatches" : 18,
+            "visibleBatches" : 1703,
+            "visibleTriangles" : 2548742
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 87.931990623474121,
+            "mean" : 82.732915878295898,
+            "median" : 81.057429313659668,
+            "minimum" : 78.999042510986328,
+            "p95" : 87.931990623474121
+          }
+        }
+      },
+      "name" : "robie-exterior-day",
+      "night" : false,
+      "routeStartSeconds" : 0,
+      "view" : 0
+    },
+    {
+      "gpuMedianRTOverRasterRatio" : 6.4566990373125268,
+      "idle" : true,
+      "location" : "robie",
+      "modes" : {
+        "raster" : {
+          "allocatedMiB" : 8434.796875,
+          "counterDeltas" : {
+            "rasterFrames" : 14,
+            "rasterTrafficTransforms" : 14,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 12.717124947812408,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.16796588897705078,
+                "frames" : 17,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 17,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 14.896988868713379
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 13.830583309754729,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15103816986083984,
+                "frames" : 18,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 18,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 15.959024429321289
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 13.89825000660494,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14400482177734375,
+                "frames" : 19,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 19,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 16.054034233093262
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 13.735083339270204,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.19097328186035156,
+                "frames" : 20,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 20,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 15.951991081237793
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 14.812875015195459,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14197826385498047,
+                "frames" : 21,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 21,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 16.942024230957031
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 12.924083333928138,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13899803161621094,
+                "frames" : 22,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 22,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 15.06495475769043
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 14.820999989751726,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13709068298339844,
+                "frames" : 23,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 23,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 16.965031623840332
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 13.848750037141144,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13601779937744141,
+                "frames" : 24,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 24,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 16.009926795959473
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 13.895374955609441,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13506412506103516,
+                "frames" : 25,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 25,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1702,
+                "visibleTriangles" : 2548230
+              },
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 16.048908233642578
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 12.83187500666827,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14102458953857422,
+                "frames" : 26,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 26,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 15.030026435852051
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 14.771374990232289,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.18298625946044922,
+                "frames" : 27,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 27,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 16.960024833679199
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 13.777166663203388,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15997886657714844,
+                "frames" : 28,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 28,
+                "transparentBatches" : 18,
+                "visibleBatches" : 1703,
+                "visibleTriangles" : 2548742
+              },
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 15.936017036437988
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 14.820999989751726,
+            "mean" : 13.821961799597679,
+            "median" : 13.839666673447937,
+            "minimum" : 12.717124947812408,
+            "p95" : 14.820999989751726
+          },
+          "lastCamera" : {
+            "fov" : [
+              60
+            ],
+            "position" : [
+              3282.179443359375,
+              8,
+              9940.6708984375
+            ],
+            "target" : [
+              3309.719970703125,
+              4,
+              9918.099609375
+            ]
+          },
+          "lastImage" : "robie-exterior-night-raster.png",
+          "lastImageSHA256" : "c72abceabd2a7f58a0b68777cb1cb580f5cbca39bc8b81048b79ab957f255713",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.15997886657714844,
+            "frames" : 28,
+            "localLightBudget" : 64,
+            "rayDispatches" : 112,
+            "rayTracingTrafficUpdates" : 28,
+            "surfaceGuideDispatches" : 28,
+            "trafficTransforms" : 28,
+            "transparentBatches" : 18,
+            "visibleBatches" : 1703,
+            "visibleTriangles" : 2548742
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 16.965031623840332,
+            "mean" : 15.984912713368734,
+            "median" : 15.984475612640381,
+            "minimum" : 14.896988868713379,
+            "p95" : 16.965031623840332
+          }
+        },
+        "rayTracing" : {
+          "allocatedMiB" : 8434.796875,
+          "counterDeltas" : {
+            "rasterFrames" : 0,
+            "rasterTrafficTransforms" : 0,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 90.28449998004362,
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 95.883965492248535
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 88.432624994311482,
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 94.065070152282715
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 92.337499954737723,
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 97.895026206970215
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 90.474333323072642,
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 95.955967903137207
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 97.461375000420958,
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 103.07490825653076
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 105.41158332489431,
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 111.0529899597168
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 83.368999999947846,
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 88.902950286865234
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 90.496749966405332,
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 96.027970314025879
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 74.321500025689602,
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 80.121994018554688
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 83.105625002644956,
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 88.998913764953613
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 88.282833341509104,
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 93.945026397705078
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 76.339750026818365,
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 81.988930702209473
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 105.41158332489431,
+            "mean" : 88.359781245041333,
+            "median" : 89.358562487177551,
+            "minimum" : 74.321500025689602,
+            "p95" : 105.41158332489431
+          },
+          "lastCamera" : {
+            "fov" : [
+              60
+            ],
+            "position" : [
+              3282.179443359375,
+              8,
+              9940.6708984375
+            ],
+            "target" : [
+              3309.719970703125,
+              4,
+              9918.099609375
+            ]
+          },
+          "lastImage" : "robie-exterior-night-rayTracing.png",
+          "lastImageSHA256" : "4c37597da8f1a5ea9da29e06a00bb04a50107191cd578710513f04bf38003399",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13995170593261719,
+            "frames" : 14,
+            "localLightBudget" : 64,
+            "rayDispatches" : 112,
+            "rayTracingTrafficUpdates" : 28,
+            "surfaceGuideDispatches" : 28,
+            "trafficTransforms" : 14,
+            "transparentBatches" : 18,
+            "visibleBatches" : 1703,
+            "visibleTriangles" : 2548742
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 111.0529899597168,
+            "mean" : 93.992809454600021,
+            "median" : 94.974517822265625,
+            "minimum" : 80.121994018554688,
+            "p95" : 111.0529899597168
+          }
+        }
+      },
+      "name" : "robie-exterior-night",
+      "night" : true,
+      "routeStartSeconds" : 0,
+      "view" : 0
+    },
+    {
+      "gpuMedianRTOverRasterRatio" : 21.805327539299395,
+      "idle" : false,
+      "location" : "robie",
+      "modes" : {
+        "raster" : {
+          "allocatedMiB" : 8434.796875,
+          "counterDeltas" : {
+            "rasterFrames" : 14,
+            "rasterTrafficTransforms" : 14,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 13.362791680265218,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.19299983978271484,
+                "frames" : 31,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 31,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.06666666666667,
+              "wallMilliseconds" : 15.769004821777344
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 12.738958350382745,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15807151794433594,
+                "frames" : 32,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 32,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.100000000000001,
+              "wallMilliseconds" : 15.200018882751465
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 14.398999977856874,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.19299983978271484,
+                "frames" : 33,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 33,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.133333333333333,
+              "wallMilliseconds" : 16.857028007507324
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 13.631375040858984,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15008449554443359,
+                "frames" : 34,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 34,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.166666666666664,
+              "wallMilliseconds" : 16.083002090454102
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 12.542749987915158,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.17797946929931641,
+                "frames" : 35,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 35,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.200000000000003,
+              "wallMilliseconds" : 14.949917793273926
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 14.539875031914562,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15997886657714844,
+                "frames" : 36,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 36,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.233333333333334,
+              "wallMilliseconds" : 16.932010650634766
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 13.637083349749446,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.17297267913818359,
+                "frames" : 37,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 37,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.266666666666666,
+              "wallMilliseconds" : 16.005992889404297
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 13.664958358276635,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14901161193847656,
+                "frames" : 38,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 38,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.299999999999997,
+              "wallMilliseconds" : 16.073942184448242
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 13.574583339504898,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.1430511474609375,
+                "frames" : 39,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 39,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.333333333333336,
+              "wallMilliseconds" : 15.838027000427246
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 13.701291638426483,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15091896057128906,
+                "frames" : 40,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 40,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.366666666666667,
+              "wallMilliseconds" : 16.055941581726074
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 13.688999984879047,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.1430511474609375,
+                "frames" : 41,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 41,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.399999999999999,
+              "wallMilliseconds" : 16.085028648376465
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 13.569208327680826,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13899803161621094,
+                "frames" : 42,
+                "localLightBudget" : 64,
+                "rayDispatches" : 112,
+                "rayTracingTrafficUpdates" : 28,
+                "surfaceGuideDispatches" : 28,
+                "trafficTransforms" : 42,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.43333333333333,
+              "wallMilliseconds" : 15.935063362121582
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 14.539875031914562,
+            "mean" : 13.58757292230924,
+            "median" : 13.634229195304215,
+            "minimum" : 12.542749987915158,
+            "p95" : 14.539875031914562
+          },
+          "lastCamera" : {
+            "fov" : [
+              75.826957702636719
+            ],
+            "position" : [
+              3304.571044921875,
+              4.8499999046325684,
+              9919.109375
+            ],
+            "target" : [
+              3310.497802734375,
+              4.6181116104125977,
+              9916.984375
+            ]
+          },
+          "lastImage" : "robie-living-room-day-raster.png",
+          "lastImageSHA256" : "e575094d50e8e6de4332790ad31f47c768ddba31ef73f79027338c2dc0376e2d",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13899803161621094,
+            "frames" : 42,
+            "localLightBudget" : 64,
+            "rayDispatches" : 112,
+            "rayTracingTrafficUpdates" : 28,
+            "surfaceGuideDispatches" : 28,
+            "trafficTransforms" : 42,
+            "transparentBatches" : 17,
+            "visibleBatches" : 1690,
+            "visibleTriangles" : 2494982
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 16.932010650634766,
+            "mean" : 15.982081492741903,
+            "median" : 16.030967235565186,
+            "minimum" : 14.949917793273926,
+            "p95" : 16.932010650634766
+          }
+        },
+        "rayTracing" : {
+          "allocatedMiB" : 8434.8125,
+          "counterDeltas" : {
+            "rasterFrames" : 0,
+            "rasterTrafficTransforms" : 0,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 289.69608334591612,
+              "routeSeconds" : 35.06666666666667,
+              "wallMilliseconds" : 295.78292369842529
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 282.03362500062212,
+              "routeSeconds" : 35.100000000000001,
+              "wallMilliseconds" : 288.20407390594482
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 296.85466666705906,
+              "routeSeconds" : 35.133333333333333,
+              "wallMilliseconds" : 302.73294448852539
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 299.13762502837926,
+              "routeSeconds" : 35.166666666666664,
+              "wallMilliseconds" : 305.11701107025146
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 297.74300003191456,
+              "routeSeconds" : 35.200000000000003,
+              "wallMilliseconds" : 303.95996570587158
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 297.87937499349937,
+              "routeSeconds" : 35.233333333333334,
+              "wallMilliseconds" : 303.96997928619385
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 305.99479167722166,
+              "routeSeconds" : 35.266666666666666,
+              "wallMilliseconds" : 311.95104122161865
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 306.13749998155981,
+              "routeSeconds" : 35.299999999999997,
+              "wallMilliseconds" : 312.10696697235107
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 297.95350000495091,
+              "routeSeconds" : 35.333333333333336,
+              "wallMilliseconds" : 303.84790897369385
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 289.96779164299369,
+              "routeSeconds" : 35.366666666666667,
+              "wallMilliseconds" : 296.09191417694092
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 290.03350000130013,
+              "routeSeconds" : 35.399999999999999,
+              "wallMilliseconds" : 295.88007926940918
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 291.10874998150393,
+              "routeSeconds" : 35.43333333333333,
+              "wallMilliseconds" : 296.98503017425537
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 306.13749998155981,
+            "mean" : 295.37835069641005,
+            "median" : 297.29883334948681,
+            "minimum" : 282.03362500062212,
+            "p95" : 306.13749998155981
+          },
+          "lastCamera" : {
+            "fov" : [
+              75.826957702636719
+            ],
+            "position" : [
+              3304.571044921875,
+              4.8499999046325684,
+              9919.109375
+            ],
+            "target" : [
+              3310.497802734375,
+              4.6181116104125977,
+              9916.984375
+            ]
+          },
+          "lastImage" : "robie-living-room-day-rayTracing.png",
+          "lastImageSHA256" : "e91531f05329b09e5acb10108ec65bd3ff6c72f70cca3523980aee447d565ce4",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13899803161621094,
+            "frames" : 42,
+            "localLightBudget" : 64,
+            "rayDispatches" : 168,
+            "rayTracingTrafficUpdates" : 42,
+            "surfaceGuideDispatches" : 42,
+            "trafficTransforms" : 42,
+            "transparentBatches" : 17,
+            "visibleBatches" : 1690,
+            "visibleTriangles" : 2494982
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 312.10696697235107,
+            "mean" : 301.38581991195679,
+            "median" : 303.29042673110962,
+            "minimum" : 288.20407390594482,
+            "p95" : 312.10696697235107
+          }
+        }
+      },
+      "name" : "robie-living-room-day",
+      "night" : false,
+      "routeStartSeconds" : 35,
+      "view" : 4
+    },
+    {
+      "gpuMedianRTOverRasterRatio" : 20.791483316910796,
+      "idle" : false,
+      "location" : "robie",
+      "modes" : {
+        "raster" : {
+          "allocatedMiB" : 8434.8125,
+          "counterDeltas" : {
+            "rasterFrames" : 14,
+            "rasterTrafficTransforms" : 14,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 13.36345833260566,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.18298625946044922,
+                "frames" : 45,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 45,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.06666666666667,
+              "wallMilliseconds" : 15.823006629943848
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 19.579250016249716,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14603137969970703,
+                "frames" : 46,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 46,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.100000000000001,
+              "wallMilliseconds" : 22.063970565795898
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 13.412208354566246,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.19502639770507812,
+                "frames" : 47,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 47,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.133333333333333,
+              "wallMilliseconds" : 15.946030616760254
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 13.594083313364536,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.17404556274414062,
+                "frames" : 48,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 48,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.166666666666664,
+              "wallMilliseconds" : 16.084074974060059
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 14.44687502225861,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15795230865478516,
+                "frames" : 49,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 49,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.200000000000003,
+              "wallMilliseconds" : 16.920924186706543
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 14.525458333082497,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.15103816986083984,
+                "frames" : 50,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 50,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.233333333333334,
+              "wallMilliseconds" : 16.991019248962402
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 13.499250053428113,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.19407272338867188,
+                "frames" : 51,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 51,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.266666666666666,
+              "wallMilliseconds" : 16.022920608520508
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 12.627833348233253,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14698505401611328,
+                "frames" : 52,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 52,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.299999999999997,
+              "wallMilliseconds" : 15.060067176818848
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 14.453499985393137,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14293193817138672,
+                "frames" : 53,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 53,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.333333333333336,
+              "wallMilliseconds" : 16.831040382385254
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 13.618166674859822,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14102458953857422,
+                "frames" : 54,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 54,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.366666666666667,
+              "wallMilliseconds" : 16.080975532531738
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 13.556208345107734,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.14197826385498047,
+                "frames" : 55,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 55,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.399999999999999,
+              "wallMilliseconds" : 15.999913215637207
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 19.543708360288292,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 0.13792514801025391,
+                "frames" : 56,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 56,
+                "transparentBatches" : 17,
+                "visibleBatches" : 1690,
+                "visibleTriangles" : 2494982
+              },
+              "routeSeconds" : 35.43333333333333,
+              "wallMilliseconds" : 21.973013877868652
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 19.579250016249716,
+            "mean" : 14.685000011619801,
+            "median" : 13.606124994112179,
+            "minimum" : 12.627833348233253,
+            "p95" : 19.579250016249716
+          },
+          "lastCamera" : {
+            "fov" : [
+              75.826957702636719
+            ],
+            "position" : [
+              3304.571044921875,
+              4.8499999046325684,
+              9919.109375
+            ],
+            "target" : [
+              3310.497802734375,
+              4.6181116104125977,
+              9916.984375
+            ]
+          },
+          "lastImage" : "robie-living-room-night-raster.png",
+          "lastImageSHA256" : "a65a63c4b2ed5d1a67b7a80271f01bb4cec3b7c7c16299bd685cde230611f393",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13792514801025391,
+            "frames" : 56,
+            "localLightBudget" : 64,
+            "rayDispatches" : 224,
+            "rayTracingTrafficUpdates" : 56,
+            "surfaceGuideDispatches" : 56,
+            "trafficTransforms" : 56,
+            "transparentBatches" : 17,
+            "visibleBatches" : 1690,
+            "visibleTriangles" : 2494982
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 22.063970565795898,
+            "mean" : 17.149746417999268,
+            "median" : 16.082525253295898,
+            "minimum" : 15.060067176818848,
+            "p95" : 22.063970565795898
+          }
+        },
+        "rayTracing" : {
+          "allocatedMiB" : 8434.8125,
+          "counterDeltas" : {
+            "rasterFrames" : 0,
+            "rasterTrafficTransforms" : 0,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 282.8319999971427,
+              "routeSeconds" : 35.06666666666667,
+              "wallMilliseconds" : 288.78295421600342
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 281.11220832215622,
+              "routeSeconds" : 35.100000000000001,
+              "wallMilliseconds" : 287.06395626068115
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 282.95104164863005,
+              "routeSeconds" : 35.133333333333333,
+              "wallMilliseconds" : 288.94996643066406
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 282.12637500837445,
+              "routeSeconds" : 35.166666666666664,
+              "wallMilliseconds" : 288.18202018737793
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 289.85124995233491,
+              "routeSeconds" : 35.200000000000003,
+              "wallMilliseconds" : 295.83895206451416
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 290.15045828418806,
+              "routeSeconds" : 35.233333333333334,
+              "wallMilliseconds" : 307.15596675872803
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 278.71995832538232,
+              "routeSeconds" : 35.266666666666666,
+              "wallMilliseconds" : 284.83998775482178
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 282.03900001244619,
+              "routeSeconds" : 35.299999999999997,
+              "wallMilliseconds" : 288.00499439239502
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 282.08887495566159,
+              "routeSeconds" : 35.333333333333336,
+              "wallMilliseconds" : 287.99200057983398
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 290.13604164356366,
+              "routeSeconds" : 35.366666666666667,
+              "wallMilliseconds" : 295.99201679229736
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 289.02437502983958,
+              "routeSeconds" : 35.399999999999999,
+              "wallMilliseconds" : 295.02308368682861
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 291.08549997908995,
+              "routeSeconds" : 35.43333333333333,
+              "wallMilliseconds" : 296.93102836608887
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 291.08549997908995,
+            "mean" : 285.17642359656747,
+            "median" : 282.89152082288638,
+            "minimum" : 278.71995832538232,
+            "p95" : 291.08549997908995
+          },
+          "lastCamera" : {
+            "fov" : [
+              75.826957702636719
+            ],
+            "position" : [
+              3304.571044921875,
+              4.8499999046325684,
+              9919.109375
+            ],
+            "target" : [
+              3310.497802734375,
+              4.6181116104125977,
+              9916.984375
+            ]
+          },
+          "lastImage" : "robie-living-room-night-rayTracing.png",
+          "lastImageSHA256" : "08e9c4738b47ac85700e4d63d22fe7aeb8f8acc0da9b5ba36509ac4234cbea7a",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 0.13899803161621094,
+            "frames" : 42,
+            "localLightBudget" : 64,
+            "rayDispatches" : 224,
+            "rayTracingTrafficUpdates" : 56,
+            "surfaceGuideDispatches" : 56,
+            "trafficTransforms" : 42,
+            "transparentBatches" : 17,
+            "visibleBatches" : 1690,
+            "visibleTriangles" : 2494982
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 307.15596675872803,
+            "mean" : 292.06307729085285,
+            "median" : 288.86646032333374,
+            "minimum" : 284.83998775482178,
+            "p95" : 307.15596675872803
+          }
+        }
+      },
+      "name" : "robie-living-room-night",
+      "night" : true,
+      "routeStartSeconds" : 35,
+      "view" : 4
+    },
+    {
+      "gpuMedianRTOverRasterRatio" : 3.5579547352451164,
+      "idle" : true,
+      "location" : "chicago",
+      "modes" : {
+        "raster" : {
+          "allocatedMiB" : 8434.8125,
+          "counterDeltas" : {
+            "rasterFrames" : 14,
+            "rasterTrafficTransforms" : 14,
+            "rayDispatches" : 0,
+            "rayTracingTrafficUpdates" : 0,
+            "surfaceGuideDispatches" : 0
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 10.057999985292554,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.3530254364013672,
+                "frames" : 59,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 59,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14900,
+                "visibleTriangles" : 26740756
+              },
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 14.147043228149414
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 12.647291645407677,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.3159513473510742,
+                "frames" : 60,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 60,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14901,
+                "visibleTriangles" : 26742804
+              },
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 16.610980033874512
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 11.822499975096434,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.3550519943237305,
+                "frames" : 61,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 61,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14903,
+                "visibleTriangles" : 26743828
+              },
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 15.836000442504883
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 11.342499987222254,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.3220310211181641,
+                "frames" : 62,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 62,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14906,
+                "visibleTriangles" : 26754068
+              },
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 15.282988548278809
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 13.897624972742051,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.3070106506347656,
+                "frames" : 63,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 63,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14910,
+                "visibleTriangles" : 26766356
+              },
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 17.71998405456543
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 10.456291667651385,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.2840032577514648,
+                "frames" : 64,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 64,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14912,
+                "visibleTriangles" : 26767380
+              },
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 14.350056648254395
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 12.82212499063462,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.2600421905517578,
+                "frames" : 65,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 65,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14919,
+                "visibleTriangles" : 26785812
+              },
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 16.682028770446777
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 12.296375003643334,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.1990070343017578,
+                "frames" : 66,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 66,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14918,
+                "visibleTriangles" : 26782740
+              },
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 16.052007675170898
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 12.045625015161932,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.2170076370239258,
+                "frames" : 67,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 67,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14923,
+                "visibleTriangles" : 26785812
+              },
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 15.897035598754883
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 11.447416676674038,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.1789798736572266,
+                "frames" : 68,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 68,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14929,
+                "visibleTriangles" : 26794516
+              },
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 15.152931213378906
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 13.039749988820404,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.1630058288574219,
+                "frames" : 69,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 69,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14931,
+                "visibleTriangles" : 26795540
+              },
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 16.855955123901367
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 11.440499976743013,
+              "raster" : {
+                "batches" : 31089,
+                "cullingMilliseconds" : 1.2650489807128906,
+                "frames" : 70,
+                "localLightBudget" : 64,
+                "rayDispatches" : 224,
+                "rayTracingTrafficUpdates" : 56,
+                "surfaceGuideDispatches" : 56,
+                "trafficTransforms" : 70,
+                "transparentBatches" : 35,
+                "visibleBatches" : 14934,
+                "visibleTriangles" : 26804756
+              },
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 15.336990356445312
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 13.897624972742051,
+            "mean" : 11.942999990424141,
+            "median" : 11.934062495129183,
+            "minimum" : 10.057999985292554,
+            "p95" : 13.897624972742051
+          },
+          "lastCamera" : {
+            "fov" : [
+              49
+            ],
+            "position" : [
+              -468.86468505859375,
+              310,
+              600.8875732421875
+            ],
+            "target" : [
+              -8,
+              238,
+              0
+            ]
+          },
+          "lastImage" : "willis-skyline-day-raster.png",
+          "lastImageSHA256" : "0a2554704b830358fee3efa7e30606fbed260ef3a79beb86a73b79f02e495577",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 1.2650489807128906,
+            "frames" : 70,
+            "localLightBudget" : 64,
+            "rayDispatches" : 224,
+            "rayTracingTrafficUpdates" : 56,
+            "surfaceGuideDispatches" : 56,
+            "trafficTransforms" : 70,
+            "transparentBatches" : 35,
+            "visibleBatches" : 14934,
+            "visibleTriangles" : 26804756
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 17.71998405456543,
+            "mean" : 15.827000141143799,
+            "median" : 15.866518020629883,
+            "minimum" : 14.147043228149414,
+            "p95" : 17.71998405456543
+          }
+        },
+        "rayTracing" : {
+          "allocatedMiB" : 8434.796875,
+          "counterDeltas" : {
+            "rasterFrames" : 0,
+            "rasterTrafficTransforms" : 0,
+            "rayDispatches" : 56,
+            "rayTracingTrafficUpdates" : 14,
+            "surfaceGuideDispatches" : 14
+          },
+          "frames" : [
+            {
+              "frame" : 0,
+              "gpuMilliseconds" : 49.234375008381903,
+              "routeSeconds" : 0.066666666666666666,
+              "wallMilliseconds" : 54.811954498291016
+            },
+            {
+              "frame" : 1,
+              "gpuMilliseconds" : 43.438208347652107,
+              "routeSeconds" : 0.10000000000000001,
+              "wallMilliseconds" : 49.129009246826172
+            },
+            {
+              "frame" : 2,
+              "gpuMilliseconds" : 49.22083334531635,
+              "routeSeconds" : 0.13333333333333333,
+              "wallMilliseconds" : 55.022001266479492
+            },
+            {
+              "frame" : 3,
+              "gpuMilliseconds" : 42.330041702371091,
+              "routeSeconds" : 0.16666666666666666,
+              "wallMilliseconds" : 47.883987426757812
+            },
+            {
+              "frame" : 4,
+              "gpuMilliseconds" : 42.405124986544251,
+              "routeSeconds" : 0.20000000000000001,
+              "wallMilliseconds" : 47.942996025085449
+            },
+            {
+              "frame" : 5,
+              "gpuMilliseconds" : 42.462333338335156,
+              "routeSeconds" : 0.23333333333333334,
+              "wallMilliseconds" : 48.017024993896484
+            },
+            {
+              "frame" : 6,
+              "gpuMilliseconds" : 42.45937499217689,
+              "routeSeconds" : 0.26666666666666666,
+              "wallMilliseconds" : 47.917962074279785
+            },
+            {
+              "frame" : 7,
+              "gpuMilliseconds" : 42.563750001136214,
+              "routeSeconds" : 0.29999999999999999,
+              "wallMilliseconds" : 48.110008239746094
+            },
+            {
+              "frame" : 8,
+              "gpuMilliseconds" : 42.265291674993932,
+              "routeSeconds" : 0.33333333333333331,
+              "wallMilliseconds" : 48.014044761657715
+            },
+            {
+              "frame" : 9,
+              "gpuMilliseconds" : 42.375208344310522,
+              "routeSeconds" : 0.36666666666666664,
+              "wallMilliseconds" : 47.952055931091309
+            },
+            {
+              "frame" : 10,
+              "gpuMilliseconds" : 42.453249974641949,
+              "routeSeconds" : 0.40000000000000002,
+              "wallMilliseconds" : 47.955989837646484
+            },
+            {
+              "frame" : 11,
+              "gpuMilliseconds" : 43.509833340067416,
+              "routeSeconds" : 0.43333333333333335,
+              "wallMilliseconds" : 49.039006233215332
+            }
+          ],
+          "gpuMilliseconds" : {
+            "maximum" : 49.234375008381903,
+            "mean" : 43.726468754660651,
+            "median" : 42.460854165256023,
+            "minimum" : 42.265291674993932,
+            "p95" : 49.234375008381903
+          },
+          "lastCamera" : {
+            "fov" : [
+              49
+            ],
+            "position" : [
+              -468.86468505859375,
+              310,
+              600.8875732421875
+            ],
+            "target" : [
+              -8,
+              238,
+              0
+            ]
+          },
+          "lastImage" : "willis-skyline-day-rayTracing.png",
+          "lastImageSHA256" : "7c729e0b405e7e664ddcaee8949400d6d1b551be0a5141e78f9b9badc2640a12",
+          "rasterFinalStatistics" : {
+            "batches" : 31089,
+            "cullingMilliseconds" : 1.2650489807128906,
+            "frames" : 70,
+            "localLightBudget" : 64,
+            "rayDispatches" : 280,
+            "rayTracingTrafficUpdates" : 70,
+            "surfaceGuideDispatches" : 70,
+            "trafficTransforms" : 70,
+            "transparentBatches" : 35,
+            "visibleBatches" : 14934,
+            "visibleTriangles" : 26804756
+          },
+          "status" : "PASS",
+          "wallMilliseconds" : {
+            "maximum" : 55.022001266479492,
+            "mean" : 49.316336711247764,
+            "median" : 48.0155348777771,
+            "minimum" : 47.883987426757812,
+            "p95" : 55.022001266479492
+          }
+        }
+      },
+      "name" : "willis-skyline-day",
+      "night" : false,
+      "routeStartSeconds" : 0,
+      "view" : 0
+    }
+  ],
+  "changedInputs" : [
+
+  ],
+  "device" : "Apple M3 Ultra",
+  "elapsedSeconds" : 30.205829977989197,
+  "executableSHA256" : "8ec72bf2bb1329d8c56e0ad1ef3117a66a1560976a44eb166f69fa96271eb21d",
+  "inputsStable" : true,
+  "measuredFrames" : 12,
+  "modeOrder" : "Alternated per case; each mode receives2warmup frames before12measured frames. Both modes start identical pose\/time\/seed sequences; RT history resets at each mode\/case start.",
+  "os" : "Version 26.6.2 (Build 25G83)",
+  "rayBounces" : 3,
+  "rendererBuildSeconds" : 13.046958923339844,
+  "resolution" : [
+    1280,
+    850
+  ],
+  "rtSamplesPerFrame" : 4,
+  "sceneBuildSeconds" : 3.9819929599761963,
+  "sceneLights" : 4003,
+  "scope" : "One complete shared Chicago scene\/renderer, serial matched moving cameras. Wall includes synchronous offscreen readback; GPU is command-buffer time. These are not native window FPS or a universal performance guarantee.",
+  "sourceAndResourceSHA256" : {
+    "scripts\/benchmark-render-modes.sh" : "3da02a9e9186e6c476b7f148d607b381bc256e11b0c7317ed7025a02972374f2",
+    "Sources\/ArchitectureEngine\/AdlerPlanetarium.swift" : "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources\/ArchitectureEngine\/ArchitectureLocation.swift" : "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+    "Sources\/ArchitectureEngine\/ArtInstitute.swift" : "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+    "Sources\/ArchitectureEngine\/CameraTrack.swift" : "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+    "Sources\/ArchitectureEngine\/ChicagoEnvironment.swift" : "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+    "Sources\/ArchitectureEngine\/ChicagoWorld.swift" : "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+    "Sources\/ArchitectureEngine\/CollisionWorld.swift" : "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+    "Sources\/ArchitectureEngine\/EiffelScene.swift" : "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+    "Sources\/ArchitectureEngine\/GeometryPartition.swift" : "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources\/ArchitectureEngine\/HydeParkEnvironment.swift" : "b044f0360a56348f8d8f80d5349315192c937da0edc09f07cd3f02e856169e01",
+    "Sources\/ArchitectureEngine\/LakefrontEnvironment.swift" : "af7f5e2858d9a8c36b7e04e9aa4a8e8d113838bc7c3032c93ddc8820b189672e",
+    "Sources\/ArchitectureEngine\/LakefrontScene.swift" : "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+    "Sources\/ArchitectureEngine\/LakefrontWalkthrough.swift" : "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+    "Sources\/ArchitectureEngine\/LightGrid.swift" : "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+    "Sources\/ArchitectureEngine\/LincolnParkZoo.swift" : "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+    "Sources\/ArchitectureEngine\/LincolnParkZooMap.swift" : "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+    "Sources\/ArchitectureEngine\/MagnificentGateway.swift" : "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+    "Sources\/ArchitectureEngine\/MagnificentMile.swift" : "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+    "Sources\/ArchitectureEngine\/McCormickPlace.swift" : "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+    "Sources\/ArchitectureEngine\/MetalRenderer.swift" : "045575a1cb35a454086971b32c19c0266d9f633f72835d18176052e818dcaf20",
+    "Sources\/ArchitectureEngine\/MillenniumEnvironment.swift" : "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+    "Sources\/ArchitectureEngine\/MillenniumScene.swift" : "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+    "Sources\/ArchitectureEngine\/MillenniumWalkthrough.swift" : "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+    "Sources\/ArchitectureEngine\/MuseumBuildings.swift" : "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+    "Sources\/ArchitectureEngine\/MuseumCampusEnvironment.swift" : "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources\/ArchitectureEngine\/MuseumCampusScene.swift" : "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+    "Sources\/ArchitectureEngine\/MuseumCampusWalkthrough.swift" : "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "Sources\/ArchitectureEngine\/NightLighting.swift" : "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+    "Sources\/ArchitectureEngine\/NorthSideEnvironment.swift" : "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+    "Sources\/ArchitectureEngine\/NorthSideLandmarks.swift" : "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+    "Sources\/ArchitectureEngine\/NorthSideScene.swift" : "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+    "Sources\/ArchitectureEngine\/NorthSideWalkthrough.swift" : "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+    "Sources\/ArchitectureEngine\/ParisEnvironment.swift" : "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+    "Sources\/ArchitectureEngine\/RasterRenderer.swift" : "1fc08c3f48ad28b7e53ea938eaffcc2701eaa30ffbdb87cb274be41c3c201c9d",
+    "Sources\/ArchitectureEngine\/Resources\/Chicago\/ATTRIBUTION.txt" : "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+    "Sources\/ArchitectureEngine\/Resources\/Chicago\/ChicagoContext.json" : "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+    "Sources\/ArchitectureEngine\/Resources\/Denoise.metal" : "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+    "Sources\/ArchitectureEngine\/Resources\/HydePark\/ATTRIBUTION.txt" : "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+    "Sources\/ArchitectureEngine\/Resources\/HydePark\/HydeParkContext.json" : "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+    "Sources\/ArchitectureEngine\/Resources\/Lakefront\/ATTRIBUTION.txt" : "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+    "Sources\/ArchitectureEngine\/Resources\/Lakefront\/LakefrontContext.json" : "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+    "Sources\/ArchitectureEngine\/Resources\/Millennium\/ATTRIBUTION.txt" : "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+    "Sources\/ArchitectureEngine\/Resources\/Millennium\/MillenniumContext.json" : "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+    "Sources\/ArchitectureEngine\/Resources\/MuseumCampus\/MuseumCampusContext.json" : "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+    "Sources\/ArchitectureEngine\/Resources\/NorthSide\/ATTRIBUTION.txt" : "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+    "Sources\/ArchitectureEngine\/Resources\/NorthSide\/NorthSideContext.json" : "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+    "Sources\/ArchitectureEngine\/Resources\/Paris\/ATTRIBUTION.txt" : "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+    "Sources\/ArchitectureEngine\/Resources\/Paris\/ParisContext.json" : "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+    "Sources\/ArchitectureEngine\/Resources\/Raster.metal" : "c2f1966fffa1f2da26bdf1e7ef02f823bcd0b5537d6f4773d6a15a662e4c4b42",
+    "Sources\/ArchitectureEngine\/Resources\/Renderer.metal" : "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "Sources\/ArchitectureEngine\/Resources\/Sampling-LICENSE.txt" : "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "Sources\/ArchitectureEngine\/RiverEnvironment.swift" : "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+    "Sources\/ArchitectureEngine\/RobieHouse.swift" : "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources\/ArchitectureEngine\/RobieScene.swift" : "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources\/ArchitectureEngine\/RobieWalkthrough.swift" : "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources\/ArchitectureEngine\/SceneTypes.swift" : "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+    "Sources\/ArchitectureEngine\/SoldierField.swift" : "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+    "Sources\/ArchitectureEngine\/Traffic.swift" : "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+    "Sources\/ArchitectureEngine\/TrafficMetal.swift" : "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+    "Sources\/ArchitectureEngine\/Walkthrough.swift" : "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+    "Sources\/ArchitectureEngine\/WillisScene.swift" : "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+    "Sources\/ArchitectureEngine\/WillisWalkthrough.swift" : "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+    "Sources\/ArchitectureEngine\/WrigleyField.swift" : "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+    "Tests\/RenderModesBenchmark\/main.swift" : "732efc8b10426754a3047421daf9309c17605abd8d3896658ca14dd258294db9"
+  },
+  "staticTriangles" : 45496818,
+  "status" : "PASS",
+  "totalTrianglesIncludingTraffic" : 45658630,
+  "trafficVehicles" : 168,
+  "warmupFrames" : 2
+}

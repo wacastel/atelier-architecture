@@ -1,0 +1,320 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Building a city section in Atelier</title><style>
+:root{--ink:#19313c;--muted:#536975;--accent:#176a73;--paper:#fff;--rule:#d9e2e5}
+*{box-sizing:border-box}body{margin:0;background:#edf1f2;color:var(--ink);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{max-width:920px;margin:40px auto;background:var(--paper);box-shadow:0 8px 34px #17313b15;padding:48px 68px}
+.brand{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.2em;border-top:5px solid var(--accent);padding-top:18px}
+h1{font-size:46px;line-height:1.13;letter-spacing:-.035em;margin:25px 0}h2{font-size:29px;line-height:1.24;margin:35px 0 20px;letter-spacing:-.025em}h3{font-size:19px;margin:26px 0 10px}
+p{margin:0 0 17px}a{color:var(--accent);text-underline-offset:3px}a:hover{color:#0b4850}code{font: .88em/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f5f6;border-radius:3px;padding:.08em .2em;overflow-wrap:anywhere}
+pre{background:#f0f5f6;border-left:3px solid var(--accent);padding:16px 18px;overflow-x:auto;border-radius:0 5px 5px 0;line-height:1.45}pre code{font-size:13px;padding:0;background:none;overflow-wrap:normal}
+ul,ol{padding-left:25px;margin:10px 0 20px}li{margin:0 0 10px}.chapter{border-top:1px solid var(--rule);padding-top:22px;margin-top:42px;scroll-margin-top:22px}.footer{border-top:1px solid var(--rule);font-size:13px;color:var(--muted);padding-top:18px;margin-top:32px}
+@media(max-width:650px){main{margin:0;padding:28px 24px;box-shadow:none}h1{font-size:35px}h2{font-size:25px}body{font-size:16px}}
+@media print{@page{size:letter;margin:17mm}body{background:white;font-size:10pt;line-height:1.45}main{max-width:none;margin:0;padding:0;box-shadow:none}h1{font-size:29pt}h2{font-size:19pt}h3{font-size:12pt}a{color:inherit}pre{white-space:pre-wrap}pre code{font-size:8pt}.chapter{break-before:page;border:0;padding:0;margin:0}h2,h3{break-after:avoid}li,pre{break-inside:avoid}.brand{padding-top:10px}li{margin-bottom:6px}}
+</style></head><body><main><div class="brand">ATELIER / CITY BUILDING GUIDE</div><section>
+<h1>Building a city section in Atelier</h1>
+<p><b>A practical field guide for extending the shared architectural world</b></p>
+<p>Prepared 9 September 2026. Based on repository workflows through the 1.9.1 road correction, commit <code>91fd5b7</code>, with a 2.0 navigation/render-mode integration appendix. Figures retain their recorded release scope. Examples are not a promise that a future location will fit the same budget. Read current source, validation evidence and <code>--help</code> before applying them to a later release.</p>
+<p>Atelier turns dated map data and inspected architectural references into original, metre-scale geometry, then tests that geometry in one navigable city. The aim is convincing architecture at walking distance, coherent surroundings in flight, and honest evidence about what is modeled and measured.</p>
+<p>This guide is available as Markdown, an offline HTML document, and a printable PDF. All commands assume the repository root. On the development Mac that is <code>/Users/william/dev/architecture</code>. Paths in backticks are repository-relative.</p>
+<h2>Contents</h2>
+<ol>
+<li><a href="#scope">Define the section and hand off context</a></li>
+<li><a href="#research">Research a place and preserve the evidence</a></li>
+<li><a href="#coordinates">Keep one coordinate system</a></li>
+<li><a href="#world">Extend the resident world without duplicates</a></li>
+<li><a href="#transport">Make roads, sidewalks and shorelines continuous</a></li>
+<li><a href="#model">Spend detail on architecture people can inspect</a></li>
+<li><a href="#routes">Author eight studies and a connecting flight</a></li>
+<li><a href="#cpu">Prove geometry, navigation and controls</a></li>
+<li><a href="#motion">Review images and measure motion</a></li>
+<li><a href="#capacity">Protect renderer capacity and compare performance</a></li>
+<li><a href="#release">Package, reproduce and publish a release</a></li>
+<li><a href="#starter">Start the next location in a fresh context</a></li>
+<li><a href="#navigation">Extend the map and both rendering modes</a></li>
+</ol>
+<p><b>The working sequence</b></p>
+<p>Evidence and boundaries; mapped context; landmark geometry; routes and lighting; CPU checks; serial GPU review; signed package and recorded release.</p>
+<p>The same Chicago scene currently supplies six destination menus. Paris is a separate world. A destination is a camera and playback entry point, not automatically another loaded city.</p>
+</section><section class="chapter">
+<a id="scope"></a>
+<h2>1. Define the section and hand off context</h2>
+<p>Begin with a bounded geographical area and one architectural story. Name the main landmark, its surrounding blocks, the link to an existing destination, and the places a visitor must be able to enter. Reserve seven or eight focal studies before spending effort on distant detail. A connecting flight can occupy one of those eight slots, as it does at Robie House.</p>
+<p><b>Write a short scope note before implementation.</b> Include the requested date or restored condition, reference quality, intended interiors, known omissions, proposed world bounds, and a first budget. Distinguish features required for the tour from optional finishing work. Do not expand a road repair into a surveyed tunnel project merely because a bridge tag appears.</p>
+<h3>Handoff checklist</h3>
+<ul>
+<li>Record repository path, current commit, branch, dirty files and ownership of active edits. Run <code>git status --short</code>, <code>git branch --show-current</code>, and <code>git log -1 --oneline</code>.</li>
+<li>Read <code>README.md</code>, <code>docs/VALIDATION.md</code>, the neighboring location document, and the actual builder, route and context files. Older overview prose can lag behind source.</li>
+<li>Preserve accepted user decisions: geographic scope, eight views, interior access, day/night treatment, connecting endpoints, demo behavior and release authorization.</li>
+<li>Name source snapshots, their timestamps and SHA-256 hashes, authored exclusion masks, local transforms, and any deliberate grade interpretation.</li>
+<li>List tests already run with exact inputs and result paths. Distinguish a source check, a CPU mesh test, a packaged GPU check and an image someone actually inspected.</li>
+<li>State who owns the GPU, which process is running, what is frozen, and which source changes would invalidate existing evidence.</li>
+<li>Keep unresolved issues visible. Record rejected camera candidates and failed rendering experiments when they explain a remaining limitation.</li>
+</ul>
+<h3>Divide work by stable interfaces</h3>
+<p>Useful independent work packages are map/context preparation, the landmark model, route/controller integration, and validation/documentation. Give the model a stable <code>Layout.point(_:)</code> transform and safe local camera coordinates early. Agree on context schema and the authored-site mask before either worker places trees or masonry.</p>
+<p>Use one integration owner for shared files such as <code>ChicagoWorld.swift</code>, <code>ArchitectureLocation.swift</code>, <code>EngineController.swift</code>, and playback code. Parallel CPU reads and isolated component work are useful; concurrent edits to the same switch statement and overlapping GPU jobs make results harder to trust.</p>
+<p><b>Exit condition:</b> another collaborator can identify what to build, what to preserve, where the data came from, and how completion will be demonstrated without reconstructing the conversation.</p>
+</section><section class="chapter">
+<a id="research"></a>
+<h2>2. Research a place and preserve the evidence</h2>
+<p>Use maps for position and topology, photographs for architectural character, and measured drawings or published dimensions for proportions. These sources answer different questions. A satellite mosaic does not establish an interior plan; a historic elevation may show a condition that restoration has since changed.</p>
+<h3>A reference set that can support the model</h3>
+<ul>
+<li>Obtain a dated OpenStreetMap extract containing building and building-part ways/relations, relevant roads and paths, parks, water, shorelines, docks and tree features. Include the entire flight corridor, not only the final landmark.</li>
+<li>Save the exact query and raw response under <code>scripts/data/</code>. Preserve the OSM database timestamp, source IDs, relation roles, tags and a SHA-256 digest. The Hyde Park example is <code>chicago-hyde-park-osm-2026-09-08.json</code>.</li>
+<li>Inspect actual satellite/aerial pixels to reconcile block orientation, roof massing, water boundaries, planted areas and access routes. Record the provider credit, viewer URL and viewing date; acquisition dates may vary within a mosaic.</li>
+<li>Inspect daytime, nighttime and close-detail photographs. Record specific observations: mullion rhythm, masonry joints, roof edges, soffits, entrance depth, lit window patterns and where darkness remains.</li>
+<li>Prefer the owner, architect, conservator, official park/harbor body, HABS/Library of Congress or published measured plans for decisive facts. Resolve conflicting dates and conditions explicitly.</li>
+</ul>
+<h3>Write an evidence ledger</h3>
+<p>For each important feature, retain: <b>feature / source URL or source ID / inspected page or image / fact used / interpretation / confidence</b>. Example: Robie House&#x27;s 86-foot-9-inch prow span comes from conservation/measured-plan references; individual brick placement, fixture powers and furniture arrangement remain authored interpretations. The source map fixes the site, not every roof pitch.</p>
+<p>The Robie workflow and original reference links are in <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/ROBIE-HOUSE.md">ROBIE-HOUSE.md</a>. The wider map, harbor, satellite and nighttime observations are in <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/HYDE-PARK.md">HYDE-PARK.md</a>. Keep working reference imagery outside tracked assets unless its redistribution is separately permitted. The existing project does not bundle third-party photographs or satellite tiles as textures.</p>
+<h3>Attribution travels with the data</h3>
+<p>Retain <b>© OpenStreetMap contributors</b> and the ODbL notice in raw/derived data, project documentation and visible map/export credits. Follow the <a href="https://www.openstreetmap.org/copyright">OSM attribution and license guidance</a> for the medium being distributed. Keep imagery-provider credits separate from OSM provenance. Viewing an image does not make it a freely redistributable asset.</p>
+<p><b>Exit condition:</b> the model&#x27;s major spatial and architectural decisions have traceable evidence, and estimated details are labeled before they become polished renders.</p>
+</section><section class="chapter">
+<a id="coordinates"></a>
+<h2>3. Keep one coordinate system</h2>
+<p>Chicago uses the Willis Tower origin at latitude <b>41.878876</b>, longitude <b>-87.635918</b>. World units are metres: <b>+x east, +y up, +z south</b>. A latitude increase therefore makes z smaller. Use the existing projection for every extension; recentering a new district would break camera flights, reflections, traffic and picking.</p>
+<pre><code>import math
+LAT0, LON0 = 41.878876, -87.635918
+
+def project(lat, lon):
+    x = (lon - LON0) * 111320 * math.cos(math.radians(LAT0))
+    z = (LAT0 - lat) * 111320
+    return round(x, 3), round(z, 3)</code></pre>
+<p>This is the repository&#x27;s local equirectangular approximation. Millimetre rounding stabilizes computation; it does not confer millimetre survey accuracy. Upper street grade is approximately zero. Lake Michigan is at y = -5.7 in this world, not an absolute geographic elevation datum.</p>
+<h3>Separate local architecture from global placement</h3>
+<p>A landmark&#x27;s <code>Layout</code> should expose its mapped center, orientation, floor elevations and a local-to-world transform. Robie&#x27;s local origin is <code>(3309.7, 0, 9917.1)</code> with a roughly 1.15-degree block skew. <code>RobieHouseLayout.point(_:)</code> transforms both model geometry and route poses; tests also verify its inverse. One shared transform prevents a camera from quietly using a different rotation than the building.</p>
+<h3>Make the derivative reproducible</h3>
+<p>The existing <code>scripts/prepare-hyde-park-context.py</code> reads saved inputs and previous derivatives offline, preserving earlier resources. It writes <code>Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json</code>, including hashes, height sources, road policies and the authored mask. Use it as a schema and topology reference, not a generic command that fetches a new neighborhood.</p>
+<pre><code>python3 -m venv .venv-gis
+.venv-gis/bin/python -m pip install &#x27;shapely==2.1.2&#x27;
+.venv-gis/bin/python scripts/prepare-hyde-park-context.py
+.venv-gis/bin/python scripts/validate-hyde-park-context.py</code></pre>
+<p>These reproduce the existing Hyde Park derivative. For a new district, create a separately named preparer with explicit saved inputs and destination. Pin dependencies and record versions. Keep the app independent of Python and network access.</p>
+<p>Preserve polygon holes, multipart relations and building-part provenance. A broad parent footprint must not become a second solid shell over detailed setbacks or a courtyard. Keep explicit tagged heights separate from storey-based conversions and estimates; record each conversion assumption.</p>
+<p><b>Exit condition:</b> known landmarks and connecting nodes align in the shared frame, and rerunning the derivative yields the same data and provenance.</p>
+</section><section class="chapter">
+<a id="world"></a>
+<h2>4. Extend the resident world without duplicates</h2>
+<p><code>ChicagoWorld.build()</code> creates one <code>EiffelBuilder</code>, adds the existing environments and landmarks, and returns a single <code>SceneData</code>. <code>ArchitectureLocation.world</code> maps every Chicago destination to <code>&quot;chicago&quot;</code>; its <code>build()</code> reaches the shared city through <code>WillisScene.build()</code>. <code>EngineController</code> reuses resident resources for Chicago location changes.</p>
+<h3>Integrate a district through explicit layers</h3>
+<ul>
+<li>Add a context loader and environment builder for the new offline derivative. Use existing palette and geometry APIs where they express the intended material and scale.</li>
+<li>Add the detailed landmark builder, then call both builders from <code>ChicagoWorld.swift</code> in the intended order. Do not build the whole city a second time inside a landmark.</li>
+<li>Register metadata, bookmarks, route dispatch, duration and walking-view sets in <code>ArchitectureLocation.swift</code>. Update CLI location parsing in <code>CommandLine.swift</code> and any enumerated test/source lists.</li>
+<li>Extend the actual focus catalog in <code>LandmarkFocus.swift</code> with named authored volumes or mapped footprints. Selection must relate to visible geometry, including courtyard holes.</li>
+<li>Add resource notices and documentation. <code>Package.swift</code> copies the <code>Resources</code> tree; the release still needs to prove the new file is present and loadable from the copied app.</li>
+</ul>
+<h3>Reconcile overlapping source extracts</h3>
+<p>Before emitting geometry, compare OSM IDs with every prior resource that overlaps the new area. Handle relation members and parent building footprints, not only identical top-level way IDs. Preserve the established road/traffic node sequence when extending it. A connection should share an exact endpoint, not merely look close in an aerial image.</p>
+<p>Reserve an <b>authored-site exclusion mask</b> for detailed grounds. Robie&#x27;s example is x = 3288-3339, z = 9904-9928. Generic building shells, paths, trees and ground overlays must not fill its interiors or terraces. The same mask must guide context preparation and runtime suppression. Include a small, documented clearance margin where needed.</p>
+<p>Keep existing terrain and water ownership explicit. Extend only uncovered land/water regions; subtract previously emitted coverage and preserve shoreline holes. Maintain deterministic seeds, and restore a builder&#x27;s shared random state after local generation so adding a district does not reshuffle trees or materials elsewhere.</p>
+<h3>Growth is a measured decision</h3>
+<p>Prefer the continuous Chicago world while geometry, light indices, navigation construction and representative rendering remain within tested limits. Split a remote district into another world only after measurements or scope justify the tradeoff; then describe the loading transition and omit a purported continuous flight through unloaded geometry.</p>
+<p><b>Exit condition:</b> one physical building occupies each authored site, previous resources remain accounted for, and a location switch changes the visitor&#x27;s viewpoint without duplicating the city.</p>
+</section><section class="chapter">
+<a id="transport"></a>
+<h2>5. Make roads, sidewalks and shorelines continuous</h2>
+<p>The 57th Street correction is a useful warning: independent rectangles along a curved path can overlap on the inside, leave wedges on the outside and carry sidewalks straight through junctions. Correct centerline coordinates alone do not prove correct visible road geometry.</p>
+<h3>The corrected Hyde Park pattern</h3>
+<ol>
+<li>Sanitize path points and retain width, lane, bridge, layer and sidewalk provenance. Respect explicit one-lane tags and <code>sidewalk:both=separate</code>; do not generate a second sidewalk over a mapped one.</li>
+<li>Form connected road strokes with flat end caps and bounded miter joins. Union compatible ground-level carriageways and reconcile coverage with retained roads.</li>
+<li>Subtract carriageways from explicit pedestrian pavement. Subtract both from generated sidewalk bands, following a stated material precedence.</li>
+<li>Node all material boundaries together on a common precision grid, polygonize the common faces and assign materials before triangulation. Independently rounding already-subtracted boundaries reintroduced thin overlaps in the first attempted fix.</li>
+<li>Test the emitted triangle meshes, not just their input polygons. At large world coordinates, repeat winding checks with the actual Float32 arithmetic used by Swift.</li>
+</ol>
+<p>The current Hyde Park transport resource uses 512-metre tiles, a 0.01-metre numeric grid and a miter limit of 2. Ground asphalt is y = 0.12; walking surfaces are y = 0.19. These are renderer conventions for this flat model, not surveyed road elevations. Its validated transport tops total 218,062 triangles under a 250,000-triangle component budget.</p>
+<h3>Relative layers are not metres</h3>
+<p>Six short bridge-tagged sections once floated at y = 7 while adjoining paths stayed near zero. Their tags now remain in the derivative, but an explicit grade interpretation places the visible surface segments at adjoining model grade. The <a href="https://www.chicagoparkdistrict.com/parks-facilities/57th-street-underpass-mural-artwork">Chicago Park District documents two pedestrian underpasses</a>; this world still omits the depressed tunnel/approach geometry. Do not claim clearance or accurate underground reconstruction from this repair.</p>
+<pre><code>.venv-gis/bin/python scripts/validate-hyde-park-roads.py
+.venv-gis/bin/python scripts/validate-hyde-park-roads.py \
+  --negative-controls</code></pre>
+<p>The independent oracle checks actual coverage, disjoint material areas, Float32 winding, six adjoining crossings, lane widths, bend wedges and full highway tails. Its damaged-data controls restore the old kinds of defects. Coverage includes the new Lake Shore Drive centerline through z = 10927.527, beyond the base terrain&#x27;s z = 10800 boundary; road markings must never outlive the asphalt below them.</p>
+<p><b>Exit condition:</b> ground, water, road and pavement surfaces have deliberate ownership, complete joins and verified visible coverage at both district boundaries and local junctions.</p>
+</section><section class="chapter">
+<a id="model"></a>
+<h2>6. Spend detail on architecture people can inspect</h2>
+<p>Build the silhouette and physical rooms first: massing, slabs, roofs, openings, terraces and circulation. Test standing height and entrances before adding ornament. A beautiful facade does not compensate for a roof missing from the interior or a decorative beam occupying the walking aisle.</p>
+<h3>Use distance and purpose to allocate detail</h3>
+<ul>
+<li><b>Focal geometry:</b> model features that alter silhouettes, cast nearby shadows or are approached in a route: masonry relief, mullions, joints, railings, structural braces, art-glass came and roof returns.</li>
+<li><b>Nearby context:</b> preserve mapped footprints and roof massing; add windows, cornices, entrances, storefront depth and selected roof equipment where visitors see them.</li>
+<li><b>Distant context:</b> reduce bays, floors represented by detail, roof props and vegetation complexity. The current code uses authored distance-based detail at build time; it is not a general streaming or automatic runtime-LOD system.</li>
+<li><b>Navigation geometry:</b> inspect what <code>CollisionWorld</code> retains. Tiny visible ornament may be omitted from its BVH; meaningful slabs and barriers must survive. Rendered and navigation triangle counts are different budgets.</li>
+</ul>
+<p>Use <code>EiffelBuilder</code> primitives and <code>SceneMaterial</code> deliberately. Smooth normals suit curved metal and foliage; hard architectural edges need appropriate face normals. Use actual geometry for close shadow-forming detail and filtered procedural patterns for economical surface variation. Repeated deterministic materials are preferable to a changing world-space pattern that makes window brightness crawl during movement.</p>
+<h3>Light the place, including its darkness</h3>
+<p>Match the role and distribution of reference lights: warm practicals through glazing, restrained masonry washes, dock fixtures, readable entrances and occasional justified color. Pair visible emissive fixtures with bounded explicit lights when they must illuminate surrounding surfaces. Interior practicals can remain active by day; exterior accents follow night mode. Authored powers and ranges are not calibrated photometry.</p>
+<p>Glossy metal, water and thin glass need enough surrounding geometry to reflect. Reuse the actual shared-world materials. In ray-tracing mode, Cloud Gate reflects modeled surroundings; water uses filtered analytic ripple normals and Fresnel response. Thin-sheet glass does not reproduce thick refracting tank volumes, caustics or fluid simulation.</p>
+<h3>Keep a component budget</h3>
+<p>Robie&#x27;s standalone house is a useful scoped example: 438,350 rendered triangles, 190 art-glass panels and 38 lights, under a 500,000-triangle house test cap. Hyde Park&#x27;s separate context remains under its 7-million-triangle test cap. Treat these as recorded examples, not automatic allowances for every new landmark.</p>
+<p><b>Exit condition:</b> close studies reveal physical architectural detail, walking spaces stay usable, daytime and nighttime materials remain readable, and all estimates and incomplete interiors are documented.</p>
+</section><section class="chapter">
+<a id="routes"></a>
+<h2>7. Author eight studies and a connecting flight</h2>
+<p>Pick focal points that reveal different architectural relationships, rather than eight nearly identical exterior angles. A useful sequence is: full composition, structural feature, landscape/approach, material detail, principal interior, secondary interior, roof or neighborhood overview, and a connecting flight.</p>
+<p><code>RobieScene.swift</code> supplies eight <code>TourStop</code> values. <code>RobieWalkthrough.swift</code> supplies duration, <code>walkingViews</code>, full-route <code>pose(view:seconds:)</code>, and gentle <code>idlePose(view:seconds:)</code>. Its first seven studies last 120 seconds; the McCormick connection lasts 360 seconds. These are examples, not a required duration for every location.</p>
+<h3>Route construction rules</h3>
+<ul>
+<li>Start at the exact bookmark pose. Use <code>CameraTrack.Key</code> and the existing bounded Hermite interpolation, with time, position, target and field of view. Clamp invalid or out-of-range time inputs consistently.</li>
+<li>Use local layout transforms for close architecture and mapped world coordinates along a connecting flight. Add intermediate keys near roofs, trees, bridge structures, stairs and doorway turns.</li>
+<li>Check the whole path, not only keyframes. Smooth interpolation can intersect geometry between safe endpoints. Walking routes need body clearance and supported floors; a flyover still needs intentional visual clearance.</li>
+<li>Keep idle motion much smaller and slower than the walkthrough. Robie&#x27;s ground and interior idle shifts are centimeters, helping prevent a gentle sway from entering nearby walls or glass.</li>
+<li>End a connecting flight at a real destination bookmark. Robie&#x27;s final flight key equals <code>RobieScene.stops[0].pose</code>; it does not approximate the arrival with a separate duplicate camera constant.</li>
+</ul>
+<h3>Preserve the established playback contract</h3>
+<p>Manual view selection holds a softly animated view outside demo mode. Idle Play resumes the ordered cycle, switching day/night after each complete pass. Guided Play starts the current view&#x27;s route. Walkthrough pace and idle speed stay independent.</p>
+<p>Chicago Demo starts at a random Chicago location/view, then proceeds sequentially. Choosing a Chicago view or location keeps it running there. Previous/next crosses location boundaries; a full-city wrap changes day/night. Paris is excluded. Extend the actual demo routing and tests when adding a destination rather than relying on a hard-coded total from this guide.</p>
+<p>Manual movement and object focus take camera control. Pausing freezes the common scene clock used by traffic and Adler&#x27;s show; seeking and exporting use deterministic absolute time. Window moving/resizing must hold the camera and scene clocks, then resume without a catch-up jump.</p>
+<p><b>Exit condition:</b> each view has a clear purpose, its idle and full route are separately usable, and the connecting flight proves continuity in both geometry and playback.</p>
+</section><section class="chapter">
+<a id="cpu"></a>
+<h2>8. Prove geometry, navigation and controls</h2>
+<p>Use small component checks to locate defects, then validate the complete world. A derivative can be geometrically valid while the renderer omits it; a room can have the right dimensions while a camera clips its furniture.</p>
+<h3>Check the data and the actual mesh</h3>
+<p>Validate input hashes, duplicate IDs, relation holes, heights and their provenance, authored masks, water/land coverage, shoreline continuity and deterministic regeneration. For harbors, test boat footprints against water, docks and other boats; occupancy remains representative rather than a live inventory.</p>
+<p>Build the actual <code>SceneData</code> and check finite vertices, unit normals, noncollapsed triangles, material indices and component budgets. Add meaningful rays: a room has a floor and ceiling, a balcony is supported, a window is a physical surface, a hearth opening remains open. Do not substitute a duplicate formula for checking the emitted geometry.</p>
+<pre><code>./scripts/validate-robie-house.sh
+./scripts/validate-hyde-park-geometry.sh
+./scripts/validate-navigation.sh
+./scripts/validate-playback.sh
+./scripts/validate-focus-navigation.sh
+./scripts/validate-focus-navigation-integration.sh
+./scripts/validate-viewport-input.sh
+./scripts/validate-traffic.sh --cpu
+./scripts/validate-light-grid.sh</code></pre>
+<p>These are existing CPU checks, not a universal one-command acceptance suite for an unregistered new district. Add the new builder/routes to their actual source lists and cases as needed, then retain complete reports.</p>
+<h3>Exercise behavior, not only initial state</h3>
+<ul>
+<li>Sweep head, torso and leg clearance in both directions along walking aisles; check floor support and near-surface samples between route keys.</li>
+<li>Test every demo boundary, starting index, manual selection while paused or shuttling, and independent speed/lighting preferences. Include large elapsed-time changes and nonfinite inputs where supported.</li>
+<li>Pick the first represented visible surface, then associate it with the intended landmark. Check occlusion, footprint holes, repeated-click deselection, sky deselection and retention across lighting/window changes.</li>
+<li>Separate click from drag. Move and resize the native window with the viewport still; test focus loss, key release, portrait/wide aspect ratios and full-screen transitions.</li>
+</ul>
+<p>Focus orbit uses the selected object&#x27;s envelope; it is not a collision-checked pedestrian route around the rest of the city. Tiny detail and traffic can be absent from picking/navigation. Record those limits rather than implying every rendered triangle is selectable.</p>
+<p><b>Exit condition:</b> component and full-world tests pass, and the report says which navigation geometry, routes and UI behaviors were actually exercised.</p>
+</section><section class="chapter">
+<a id="motion"></a>
+<h2>9. Review images and measure motion</h2>
+<p>First inspect low-cost stills of all eight bookmarks by day and night. Look for missing structures, blocked compositions, implausible scale, floating surfaces, doubled shells, black interiors and lights that erase material detail. Then inspect intermediate route frames and motion. A high-sample still can look clean while the same material sparkles or smears during movement.</p>
+<pre><code>./scripts/build-app.sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location robie --gallery output/review-robie-day \
+  --width 960 --height 600 --samples 128 --lighting 1
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location robie --gallery output/review-robie-night \
+  --width 960 --height 600 --samples 128 --lighting 2
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location millennium --motion-test output/review-bean \
+  --motion-case cloud-gate-orbit --frames 32 \
+  --width 640 --height 400 --samples 8 --reference-samples 128</code></pre>
+<p>Run rendering jobs <b>serially</b>, including shader fixtures and app previews. Independent CPU work can continue, but record overlap if it affects setup or wall-time comparisons. The motion example selects an existing case; add representative named cases for a new district in the actual motion test harness.</p>
+<h3>Understand the two motion measurements</h3>
+<p>The paired harness presents raw and reconstructed results from the same current trace and compares them with independent higher-sample references. Image RMSE measures image error. Temporal residual measures consecutive error differences after subtracting reference motion. Require the acceptance criteria for both; lower noise with blurred shadows is not an automatic improvement.</p>
+<p>The renderer combines sampling, filtered material detail, selective glossy-path regularization and temporal/spatial reconstruction. These are separate causes and should be tested separately. <code>--raw</code>, <code>--random-sampling</code> and <code>--no-regularization</code> enable controlled comparisons. Preserve actual-kernel fixtures such as <code>validate-denoiser.swift</code>, <code>validate-sampling.swift</code> and <code>validate-regularization.swift</code> when changing those paths.</p>
+<p>The fast Hyde Park flight exposed blur from repeated bilinear history reprojection. A screen-displacement history cap improved that case, while compatible slow views could retain longer accumulation. This is a documented tradeoff, not proof that all moving glass, fine ironwork, water or night silhouettes are noiseless. See <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/MOTION.md">MOTION.md</a> and the release evidence in <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/VALIDATION.md">VALIDATION.md</a>.</p>
+<p><b>Exit condition:</b> every delivered view is visually reviewed, relevant motion cases pass, original failures remain traceable, and sampled-frame review is not described as a full movie review.</p>
+</section><section class="chapter">
+<a id="capacity"></a>
+<h2>10. Protect renderer capacity and compare performance</h2>
+<p>Large unified memory removes one constraint, not every implementation boundary. Check triangle counts, actual buffer byte ranges, shader indexing, light-index coverage, build time and representative render cost after extending the world. Allocating all 512 GB is neither necessary nor a useful performance target.</p>
+<h3>The observed 4 GiB lesson</h3>
+<p>The expanded city first rendered only part of Robie&#x27;s grounds beyond a vertex-data boundary. CPU geometry checks had passed. Widening shader indices alone did not restore the missing house. <code>GeometryPartition.swift</code> now limits each descriptor to <code>1 &lt;&lt; 24</code> triangles; with 32-byte vertices and three vertices per triangle, each full descriptor spans 1.5 GiB. Shader intersection helpers combine the geometry ID and local primitive ID into the shared global index, while traffic retains its separate instance offset.</p>
+<p>This is an observed compatibility failure and tested workaround on this machine, not a claimed published Apple 4 GiB limit. <a href="https://developer.apple.com/documentation/metal/ray-tracing-with-acceleration-structures">Apple&#x27;s acceleration-structure documentation</a> describes the underlying API.</p>
+<pre><code>./scripts/validate-large-geometry-gpu.sh
+./scripts/validate-indexed-lighting.sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location chicago --self-test</code></pre>
+<p>Run these GPU jobs one after another. The bounded large-buffer fixture uses production offsets and shader lookup code over a buffer larger than 4 GiB, but submits only 32 static triangles plus a traffic triangle. Full-city images separately establish representative scene coverage. Earlier huge synthetic fixture failures remain recorded; the smaller test does not retroactively prove them resolved.</p>
+<h3>Check that local-light indexing remains enabled</h3>
+<p>Extending Chicago exceeded a previous dense grid budget. <code>LightGrid.swift</code> uses 64-metre cells, a 1,048,576-cell cap and an 8 MiB range array. Finite support and ordered candidate lists preserve the defined lighting behavior. If bounds exceed the budget it falls back to the complete linear list rather than silently dropping lights. Require day and night index status in packaged checks; compare actual pixels with <code>--linear-lights</code> when changing the index.</p>
+<h3>Compare like with like</h3>
+<p>Freeze executable, shader/model hashes, scene, camera/time sequence, resolution, samples, references, lighting and reconstruction options. Run A/B jobs serially in the same device state; report build/setup time, paired GPU time and wall time separately. Keep failed ablations and outliers. A scoped CLI activity token did not explain away the historical slowdown investigation.</p>
+<p>The 1.9.1 record contains 45,496,818 static city triangles and an 8,283.47 MiB Metal allocation in one 640×400 self-test. These are dated, scoped measurements. Paired GPU timings include tracing, reconstruction and both presentations; reference renders also add wall time. Never invert these timings into native preview FPS or claim a city-wide frame-rate guarantee.</p>
+</section><section class="chapter">
+<a id="release"></a>
+<h2>11. Package, reproduce and publish a release</h2>
+<p>Freeze source and resource inputs before the final review. Record exact commands, executable and resource hashes, device, quality settings, result paths and review scope under a new <code>docs/validation/</code> release directory. If an edit changes geometry, routes or shaders, rerun affected checks. Retaining old navigation evidence needs a demonstrated identity of the defined navigation data, not an assumption that a fixture is small.</p>
+<pre><code>./scripts/build-app.sh
+codesign --verify --deep --strict dist/Atelier.app
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --help
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location robie --video output/Robie-Review-New.mp4 \
+  --seconds 96 --fps 24 --width 1280 --height 720 --samples 8
+python3 scripts/validate-video-timing.py output/Robie-Review-New.mp4 \
+  --seconds 96 --fps 24 --report output/robie-timing.json</code></pre>
+<p>The movie command compresses all eight complete routes into chapters; it does not record every route at normal speed. A six-minute connecting-route export instead uses <code>--single-view --stop 7 --seconds 360</code>. View numbers are zero-based in the CLI. Video output requires a new filename. Timing validation needs FFmpeg and FFprobe on PATH and checks complete decoding, frame count and uniform timestamps; visual/motion review remains separate.</p>
+<h3>Verify the artifact people will launch</h3>
+<p>The build script produces native arm64 code, copies offline resources, writes version/build metadata, verifies an ad-hoc signature and replaces the generated app only after staging succeeds. Test a copied app from outside the repository with repository reads denied, as the release evidence does. Verify every bundled resource against its source hash. Confirm the launcher detects source/resource changes and that About, build metadata and release notes agree.</p>
+<p>The app is locally signed, not notarized for distribution to arbitrary Macs. Include that packaging scope. Do not present an older movie as footage of a later geometry correction; the 1.9 recordings are explicitly historical after the 1.9.1 road fix.</p>
+<h3>GitHub and version workflow</h3>
+<p>The existing remote is <a href="https://github.com/wacastel/atelier-architecture">wacastel/atelier-architecture</a>. Inspect <code>git remote -v</code> and the working diff first. Preserve unrelated changes. Stage named source, map, documentation and validation artifacts; review <code>git diff --cached --stat</code> and <code>git diff --cached</code> before committing. Keep temporary references, scratch builds and large intermediate frames out of tracked files.</p>
+<p>Use the user&#x27;s authorized publication scope to decide branch push, pull request or release. A push command sends committed history; verify branch, remote and included commits before sending it. Record the final commit and any tag after publication. Never claim the repository was pushed merely because the local app built or a commit exists.</p>
+<p><b>Exit condition:</b> the signed, copied package reproduces the reviewed world, its limitations are current, and publication state is verified independently of local completion.</p>
+</section><section class="chapter">
+<a id="starter"></a>
+<h2>12. Start the next location in a fresh context</h2>
+<p>Copy the prompt below and fill the bracketed values. Attach this guide and the current scope/evidence note when starting with a new collaborator or a fresh context. Treat the bracketed values as planning inputs, not invented source facts.</p>
+<pre><code>Extend Atelier at [repository path], starting from [branch/commit].
+Build [landmark + surrounding district] in the existing Chicago world,
+with a connection from [existing bookmark] to [arrival bookmark].
+The required interiors are [rooms]; omit [explicit exclusions].
+
+Read docs/CITY-BUILDING-GUIDE.md, README.md, docs/VALIDATION.md,
+the neighboring location docs and actual source before editing.
+Preserve current controls, demo semantics and previous source data.
+Inspect dated OSM data, satellite/aerial views, day/night photos
+and official plans. Record inspected references and estimates.
+Use the Willis east/up/south metre frame; agree on the authored
+mask, layout transform and source ownership before adding context.
+
+Author eight distinct focal views, gentle idle motion, full routes,
+day/night lighting and the connecting flight. Use shared materials
+and bounded detail. Reconcile road/sidewalk topology and grades;
+retain source tags and explicitly document omitted underground work.
+
+Validate actual data, triangles, navigation, focus and playback.
+Run GPU jobs serially; inspect every day/night view and relevant
+motion cases. Compare performance only with matched inputs.
+Package and test a copied offline app, record hashes and evidence,
+and deliver updated docs, review images and a walkthrough movie.
+Publication authorization: [local only / branch push / PR / release].
+Active owners or frozen files: [list]. GPU owner: [name or free].
+Known failures and evidence paths: [list].</code></pre>
+<h3>Keep these repository references close</h3>
+<ul>
+<li><b>Integration:</b> <code>ChicagoWorld.swift</code>, <code>ArchitectureLocation.swift</code>, <code>EngineController.swift</code>, <code>CommandLine.swift</code> under <code>Sources/ArchitectureEngine/</code>.</li>
+<li><b>Architecture and routes:</b> <code>RobieHouse.swift</code>, <code>RobieScene.swift</code>, <code>RobieWalkthrough.swift</code>, <code>CameraTrack.swift</code>; <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/ROBIE-HOUSE.md">Robie evidence</a>.</li>
+<li><b>Maps and transport:</b> <code>scripts/prepare-hyde-park-context.py</code>, <code>scripts/validate-hyde-park-roads.py</code>; <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/HYDE-PARK.md">Hyde Park methodology</a>.</li>
+<li><b>Rendering:</b> <code>MetalRenderer.swift</code>, <code>GeometryPartition.swift</code>, <code>LightGrid.swift</code>, <code>Resources/Renderer.metal</code>, <code>Resources/Denoise.metal</code>; <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/MOTION.md">motion notes</a>, <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/GLASS.md">glass limits</a>.</li>
+<li><b>Behavior and proof:</b> <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/DEMO.md">demo contract</a>, <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/FOCUS.md">focus limits</a>, <a href="https://github.com/wacastel/atelier-architecture/blob/main/docs/VALIDATION.md">current validation record</a>, and the exact <code>Tests/</code> fixture behind each validation script.</li>
+</ul>
+<p>This workflow produces a referenced architectural reconstruction. It does not imply photogrammetry, surveyed terrain, complete collections/interiors, BIM ingestion, automatic city streaming, live traffic/boat inventories or universally noiseless rendering. Preserve those distinctions as the world grows.</p>
+</section><section class="chapter">
+<a id="navigation"></a>
+<h2>13. Extend the map and both rendering modes</h2>
+<p>The 2.0 navigation contract adds an offline map, panning, flight speeds and native raster rendering. Extend these alongside the tours. Native acceptance and package results belong in <code>docs/VALIDATION.md</code>.</p>
+<h3>Map and manual movement</h3>
+<ul>
+<li><b>M</b> toggles the Chicago map overlay. Its <b>S / M / L</b> buttons select map size. Clicking the map takes manual Fly control and chooses an elevated overview using local roof-height queries, preserving day/night.</li>
+<li>Update bounds in all three places: <code>ChicagoMapProjection</code>, <code>ManualCityNavigation.overview</code> and <code>EngineController.navigateCity</code>. Extend the map catalog/geometry in <code>NavigationMap.swift</code>, then test clicks beyond the old extent; changing only the map bounds leaves navigation rejecting those clicks. This lightweight north-up 2D map uses the shared east/south frame and simplified footprints/paths, without another <code>SceneData</code> or renderer.</li>
+<li><b>Left drag</b> pans the ground plane unless an object is focused, in which case it orbits that object. <b>Right drag</b> looks around or orbits a focused object. Continue distinguishing a click from a drag.</li>
+<li><b>F</b> selects Walk/Fly. Minus/plus and keypad minus/plus step flight speeds through <b>8, 30, 80, 180, 400 and 800 m/s</b>, starting at <b>80 m/s</b>. Shift multiplies movement by three. Unfocused scroll adjusts speed; focused scroll zooms toward the object.</li>
+</ul>
+<p><code>ManualCityNavigation.swift</code> supplies pan, displacement and overview math. Test coordinate round trips, margins, roof clearance, state retention and invalid input. Movement uses elapsed time. Map overviews and flying do not certify pedestrian clearance.</p>
+<h3>A real alternative to tracing rays</h3>
+<p><b>T</b> switches mode while retaining the camera. <code>RenderOptions.rayTracing</code> defaults to true. <code>RasterRenderer.swift</code> and <code>Resources/Raster.metal</code> provide depth-tested raster drawing; disabling denoising alone would not disable tracing.</p>
+<p>Raster frames use no ray queries or traffic acceleration-structure refits. Startup still builds ray-tracing structures for mode switching, retaining that memory cost and hardware requirement. Raster lighting/reflections are approximate, without traced global illumination or shadows. Review its fidelity separately.</p>
+<pre><code>./scripts/validate-manual-city-navigation.sh
+./scripts/validate-navigation-map.sh
+./scripts/validate-raster.sh --cpu
+./scripts/validate-raster.sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location chicago --raster --self-test
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
+  --location robie --raster --render output/Robie-Raster-Review.png \
+  --stop 0 --width 960 --height 600 --lighting 1</code></pre>
+<p>The first three commands are CPU only; run the rest serially on the GPU. Check batching, conservative visibility, depth/glass and zero ray/guide dispatches or ray-tracing traffic updates during raster frames. Inspect matching day/night views. <code>--motion-test</code> measures ray-tracing reconstruction and rejects <code>--raster</code>. Compare modes with matched inputs; do not claim native FPS from offscreen timings.</p>
+</section><div class="footer">Prepared 9 September 2026 · Offline document; external source links require a connection. Repository links open the current project documentation.</div></main></body></html>

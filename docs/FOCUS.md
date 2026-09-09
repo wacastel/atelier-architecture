@@ -1,4 +1,4 @@
-# Object focus — Atelier 1.9
+# Object focus — Atelier 2.0
 
 Click visible geometry on a landmark or mapped building to focus the camera on that object. The focus name appears in the interface. Selection keeps the camera's position and turns its view toward the object's center; it takes manual control and leaves any active walkthrough, Chicago demo or idle cycle.
 
@@ -12,9 +12,9 @@ Click visible geometry on a landmark or mapped building to focus the camera on t
 | **Escape** or the focus label's clear button | Release focus; keyboard navigation remains available |
 | **WASD / Q–E** | Clear focus and move manually |
 
-A drag is distinct from a click, so finishing an orbit does not select an object beneath the pointer. Without focus, dragging looks around and scrolling changes manual movement speed. Orbit distance and elevation have limits around the selected object's envelope. Selecting from inside that envelope retains the starting position; the first orbit or zoom can move the camera outward to its clearance boundary. Orbiting is not a collision-checked pedestrian route around neighboring buildings.
+A drag is distinct from a click, so finishing an orbit does not select an object beneath the pointer. Without focus, left dragging pans over the ground plane, right dragging looks around, and scrolling changes flight speed. Orbit distance and elevation have limits around the selected object's envelope. Selecting from inside that envelope retains the starting position; the first orbit or zoom can move the camera outward to its clearance boundary. Orbiting is not a collision-checked pedestrian route around neighboring buildings.
 
-Changing day/night lighting, exposure or rendering quality retains focus. Moving the window, resizing it or entering full screen also retains focus. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
+Changing day/night lighting, exposure, rendering quality or ray-tracing mode retains focus. Moving the window, resizing it or entering full screen also retains focus. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
 
 Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain the complete 48-route sequence.
 

@@ -1,0 +1,55 @@
+{
+  "executableSHA256": "6d8d2a85cc9a4552f6ef681a3c4b595582a0ca97f1ec0a0d0d0059d44a62fc37",
+  "runs": [
+    {
+      "location": "robie",
+      "mode": "rayTracing",
+      "exitCode": 0,
+      "elapsedSeconds": 24.061321258544922,
+      "command": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "robie",
+        "--self-test"
+      ]
+    },
+    {
+      "location": "robie",
+      "mode": "raster",
+      "exitCode": 0,
+      "elapsedSeconds": 21.472025871276855,
+      "command": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "robie",
+        "--self-test",
+        "--raster"
+      ]
+    },
+    {
+      "location": "paris",
+      "mode": "raster",
+      "exitCode": 0,
+      "elapsedSeconds": 7.5031187534332275,
+      "command": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "paris",
+        "--self-test",
+        "--raster"
+      ]
+    },
+    {
+      "location": "paris",
+      "mode": "rayTracing",
+      "exitCode": 0,
+      "elapsedSeconds": 5.876518964767456,
+      "command": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "paris",
+        "--self-test"
+      ]
+    }
+  ]
+}

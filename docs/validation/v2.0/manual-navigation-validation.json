@@ -1,0 +1,5 @@
+{
+  "checks" : 332,
+  "passed" : true,
+  "scope" : "CPU ground-pan reprojection across aspect ratios, sky fallback, safe overhead placement and equal flight distance at3–120FPS; native event dispatch verified separately."
+}

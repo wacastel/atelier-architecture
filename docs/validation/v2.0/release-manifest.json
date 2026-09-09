@@ -1,0 +1,168 @@
+{
+  "version": "2.0.0",
+  "build": "12",
+  "executableSHA256": "58847e9007b2432f954ce83f5fe1020b502f9b500b7e874aa78da297395a725b",
+  "resources": [
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+      "sha256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Raster.metal",
+      "sha256": "c2f1966fffa1f2da26bdf1e7ef02f823bcd0b5537d6f4773d6a15a662e4c4b42",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "bundleMatches": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bundleMatches": true
+    }
+  ],
+  "allBundledResourcesMatchSource": true,
+  "resourceCount": 17,
+  "signatureVerified": true,
+  "benchmarkInputsStillMatchSource": true,
+  "changedBenchmarkInputs": [],
+  "runtimeSources": {
+    "Sources/ArchitectureEngine/AdlerPlanetarium.swift": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources/ArchitectureEngine/ArchitectureApp.swift": "3345da031e27bb5858a36e6486fccff6eada994d531373cd7759385a8109e4dc",
+    "Sources/ArchitectureEngine/ArchitectureLocation.swift": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+    "Sources/ArchitectureEngine/ArtInstitute.swift": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+    "Sources/ArchitectureEngine/CameraTrack.swift": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+    "Sources/ArchitectureEngine/ChicagoEnvironment.swift": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+    "Sources/ArchitectureEngine/ChicagoWorld.swift": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+    "Sources/ArchitectureEngine/CollisionWorld.swift": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+    "Sources/ArchitectureEngine/CommandLine.swift": "c9a1d3f4f70222a7890d36ad8783e725d994849cbba03ca8e7a71485db4fb8a6",
+    "Sources/ArchitectureEngine/EiffelScene.swift": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+    "Sources/ArchitectureEngine/EngineController.swift": "437ea83bfec8fab1a63d190dafd97aa7927710b5ed0618eabe06d47fb356accd",
+    "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources/ArchitectureEngine/HydeParkEnvironment.swift": "b044f0360a56348f8d8f80d5349315192c937da0edc09f07cd3f02e856169e01",
+    "Sources/ArchitectureEngine/LakefrontEnvironment.swift": "af7f5e2858d9a8c36b7e04e9aa4a8e8d113838bc7c3032c93ddc8820b189672e",
+    "Sources/ArchitectureEngine/LakefrontScene.swift": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+    "Sources/ArchitectureEngine/LakefrontWalkthrough.swift": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+    "Sources/ArchitectureEngine/LandmarkFocus.swift": "919752dce29892950b44b2ab75bf7efaa9832ec194bed4f8394d09c586427d7e",
+    "Sources/ArchitectureEngine/LightGrid.swift": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+    "Sources/ArchitectureEngine/LincolnParkZoo.swift": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+    "Sources/ArchitectureEngine/LincolnParkZooMap.swift": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+    "Sources/ArchitectureEngine/MagnificentGateway.swift": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+    "Sources/ArchitectureEngine/MagnificentMile.swift": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+    "Sources/ArchitectureEngine/ManualCityNavigation.swift": "1fce56e376484aaf9b5d310a8bca8142536087f48eba5bf046ff1b169f74b753",
+    "Sources/ArchitectureEngine/McCormickPlace.swift": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "350ac50b6ce5018506c9af79c2cd6cb25e5f83ee18b34e6377a4cb949a617671",
+    "Sources/ArchitectureEngine/MillenniumEnvironment.swift": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+    "Sources/ArchitectureEngine/MillenniumScene.swift": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+    "Sources/ArchitectureEngine/MillenniumWalkthrough.swift": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+    "Sources/ArchitectureEngine/MotionValidation.swift": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+    "Sources/ArchitectureEngine/MuseumBuildings.swift": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+    "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources/ArchitectureEngine/MuseumCampusScene.swift": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+    "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "Sources/ArchitectureEngine/NavigationMap.swift": "e6e107ff7fb5e480c7d06768caac4b40d324e0eda9ad7a7ec8ee7aa4ff35bfdb",
+    "Sources/ArchitectureEngine/NightLighting.swift": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+    "Sources/ArchitectureEngine/NorthSideLandmarks.swift": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+    "Sources/ArchitectureEngine/NorthSideScene.swift": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+    "Sources/ArchitectureEngine/NorthSideWalkthrough.swift": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+    "Sources/ArchitectureEngine/OBJScene.swift": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+    "Sources/ArchitectureEngine/ParisEnvironment.swift": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+    "Sources/ArchitectureEngine/RasterRenderer.swift": "f389fb5241366f7699a0dc60a4045ef2de9c6b44290cd4258142fd6c4edf1b4d",
+    "Sources/ArchitectureEngine/RiverEnvironment.swift": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+    "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources/ArchitectureEngine/SceneTypes.swift": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+    "Sources/ArchitectureEngine/SoldierField.swift": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+    "Sources/ArchitectureEngine/Traffic.swift": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+    "Sources/ArchitectureEngine/TrafficMetal.swift": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+    "Sources/ArchitectureEngine/ViewportPointerGesture.swift": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+    "Sources/ArchitectureEngine/Walkthrough.swift": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+    "Sources/ArchitectureEngine/WillisScene.swift": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+    "Sources/ArchitectureEngine/WillisWalkthrough.swift": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+    "Sources/ArchitectureEngine/WrigleyField.swift": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586"
+  },
+  "packageTestScope": "Both cities and both modes tested with packaged executable from separate working directories. Repository filesystem access was not denied; resource hashes independently prove bundled bytes match source.",
+  "guideArtifacts": {
+    "docs/CITY-BUILDING-GUIDE.md": "f3e9e2e5fecdafc730a9f1d177ceac2acb40653c348248acfdeae4504dea7aa6",
+    "docs/city-building-guide.html": "13ad7c4b7440f800177cda5b0e94b376206056d581d42a83e7b246772b764515",
+    "docs/City-Building-Guide.pdf": "4f1f9b2d7e02d5c4c6de504e382c937e49417f11057c67c50b6b63411f0bd6a5"
+  },
+  "nativeReviewBuildRelationship": {
+    "extensiveReviewExecutableSHA256": "fa7bcd9ed1aee3b90e77e4c2b1d6c2fa9c5e4018b02626fe0772d5d40acc3c3b",
+    "changedRuntimeFiles": [
+      "Sources/ArchitectureEngine/EngineController.swift"
+    ],
+    "reason": "Nearest-map destination association now considers every bookmark and selects the nearby study, rather than only district opening views. New build receives a final Wrigley/map/native check; all other input/rendering paths are unchanged."
+  },
+  "finalPackageSelfTests": "final-package/runs.json"
+}

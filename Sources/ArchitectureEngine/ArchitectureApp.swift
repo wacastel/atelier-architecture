@@ -81,6 +81,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         fullscreen.target = self
         viewMenu.addItem(withTitle: "Next Location", action: #selector(toggleLocation), keyEquivalent: "l").target = self
         viewMenu.addItem(withTitle: "Start / Stop Chicago Demo", action: #selector(toggleChicagoDemo), keyEquivalent: "").target = self
+        viewMenu.addItem(withTitle: "Show / Hide Chicago Navigation Map", action: #selector(toggleNavigationMap), keyEquivalent: "").target = self
+        viewMenu.addItem(withTitle: "Toggle Ray Tracing", action: #selector(toggleRayTracing), keyEquivalent: "").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
         screenshot.keyEquivalentModifierMask = [.command, .shift]
@@ -100,6 +102,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func toggleFullscreen() { engine.toggleFullscreen() }
     @objc private func toggleLocation() { engine.toggleLocation() }
     @objc private func toggleChicagoDemo() { engine.toggleChicagoDemo() }
+    @objc private func toggleNavigationMap() { engine.toggleNavigationMap() }
+    @objc private func toggleRayTracing() { engine.toggleRayTracing() }
     @objc private func resetView() { engine.resetView() }
     @objc private func toggleInterface() { presentation.chromeVisible.toggle() }
     @objc private func toggleHelp() { engine.showHelp.toggle() }
@@ -107,7 +111,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "1.9.1 · Paris & Chicago",
+            .applicationVersion: "2.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -138,8 +142,12 @@ private struct ArchitectureWorkspace: View {
                         VStack(alignment: .trailing, spacing: 16) {
                             toolbar
                             if engine.statsVisible {
-                                if geometry.size.height >= 790 { performancePanel }
+                                if geometry.size.height >= 790 && !(engine.location.world == "chicago" && engine.navigationMapVisible) { performancePanel }
                                 else { compactPerformancePanel }
+                            }
+                            if engine.location.world == "chicago" {
+                                ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
+                                    maximumHeight:max(180,min(540,geometry.size.height-570)),onNavigate:engine.navigateCity)
                             }
                         }
                     }
@@ -152,6 +160,10 @@ private struct ArchitectureWorkspace: View {
                 .transition(.opacity)
             } else {
                 VStack {
+                    if engine.location.world == "chicago" {
+                        HStack { Spacer(); ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
+                            maximumHeight:max(180,min(540,geometry.size.height-100)),onNavigate:engine.navigateCity) }
+                    }
                     Spacer()
                     HStack {
                         Spacer()
@@ -258,15 +270,29 @@ private struct ArchitectureWorkspace: View {
                 }.padding(.horizontal, 12).padding(.vertical, 9).glassPanel(radius: 9)
                     .frame(maxWidth: 390, alignment: .leading)
             }
+            HStack(spacing: 8) {
+                Button { engine.setNavigationMode(engine.navigationMode == 1 ? 0:1) } label: {
+                    Label(engine.navigationMode == 1 ? "Fly":"Walk",systemImage:engine.navigationMode == 1 ? "airplane":"figure.walk")
+                        .font(.system(size: 10,weight:.medium))
+                }.buttonStyle(.plain).help("Toggle Walk / Fly · F").accessibilityLabel("Toggle Walk / Fly")
+                if engine.navigationMode == 1 {
+                    Button { engine.stepFlySpeed(-1) } label: { Image(systemName:"minus.circle") }.buttonStyle(.plain).help("Slower flight · −").accessibilityLabel("Slower flight")
+                    Text(String(format:"%.0f m/s",engine.flySpeed)).font(.system(size:10,design:.monospaced)).monospacedDigit().frame(minWidth:56)
+                    Button { engine.stepFlySpeed(1) } label: { Image(systemName:"plus.circle") }.buttonStyle(.plain).help("Faster flight · +").accessibilityLabel("Faster flight")
+                    Text("Shift ×3").font(.system(size:9)).foregroundStyle(.white.opacity(0.5))
+                }
+            }.padding(.horizontal,12).padding(.vertical,8).glassPanel(radius:8).foregroundStyle(accent)
+                .disabled(!engine.isReady)
         }.shadow(color: .black.opacity(0.15), radius: 14, y: 3)
     }
 
     private var toolbar: some View {
         HStack(spacing: 4) {
-            HStack(spacing: 7) {
+            Button { engine.toggleRayTracing() } label: { HStack(spacing: 7) {
                 Circle().fill(engine.isReady ? accent : .gray).frame(width: 5, height: 5)
-                Text("METAL  /  RAY TRACING").font(.system(size: 9, weight: .semibold)).tracking(1.1)
-            }.padding(.leading, 14).padding(.trailing, 9)
+                Text(engine.rayTracingEnabled ? "METAL  /  RAY TRACING":"METAL  /  FAST RASTER").font(.system(size: 9, weight: .semibold)).tracking(1.1)
+            }.padding(.leading, 14).padding(.trailing, 9) }.buttonStyle(.plain)
+                .help("Toggle ray tracing · T").accessibilityLabel(engine.rayTracingEnabled ? "Ray tracing on":"Ray tracing off — fast raster").disabled(!engine.isReady)
             Rectangle().fill(.white.opacity(0.13)).frame(width: 1, height: 18)
             iconButton("moon.stars", help: "Toggle day / night · N", active: engine.lighting == 2) { engine.toggleDayNight() }
             iconButton(engine.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", help: "Enter / exit full screen · ⌃⌘F", active: engine.isFullscreen) { engine.toggleFullscreen() }
@@ -295,7 +321,7 @@ private struct ArchitectureWorkspace: View {
             }
             Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
             metric("Triangles", value: engine.triangleCount.formatted())
-            metric("Accumulated samples", value: engine.samples.formatted())
+            metric(engine.rayTracingEnabled ? "Accumulated samples":"Rendering", value: engine.rayTracingEnabled ? engine.samples.formatted():"Raster · ray tracing off")
             metric("Metal allocations", value: engine.memoryMB >= 1024 ? String(format: "%.2f GB", engine.memoryMB / 1024) : String(format: "%.0f MiB", engine.memoryMB))
         }.padding(17).frame(width: 234).glassPanel(radius: 13)
     }
@@ -424,7 +450,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space  play     C  Chicago demo     ↑ / ↓  views     I  idle     L  location     N  day/night").lineLimit(1).minimumScaleFactor(0.8)
+                Text("Space  play     C  demo     ↑ / ↓  views     M  map     T  ray tracing     F  fly/walk     − / +  fly speed     N  day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -434,12 +460,15 @@ private struct ArchitectureWorkspace: View {
     private var settingsPanel: some View {
         VStack(alignment: .leading, spacing: 21) {
             Text("Render settings").font(.system(size: 21, weight: .regular, design: .serif))
+            Toggle("Ray tracing · T",isOn:Binding(get:{engine.rayTracingEnabled},set:{ _ in engine.toggleRayTracing() }))
+            Text(engine.rayTracingEnabled ? "Ray-traced shadows, reflections and indirect light. Switch off for faster city navigation.":"Fast raster uses direct lighting and environment reflections, without traced shadows, local reflections, refraction or indirect light. Toggle back at the same camera position.")
+                .font(.system(size:10)).foregroundStyle(.secondary).lineSpacing(3)
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("QUALITY", value: ["Responsive exploration", "Balanced detail", "Maximum refinement"][min(max(engine.quality, 0), 2)])
                 Picker("Quality", selection: Binding(get: { engine.quality }, set: { engine.setQuality($0) })) {
                     Text("Interactive").tag(0); Text("Balanced").tag(1); Text("Ultra").tag(2)
                 }.pickerStyle(.segmented).labelsHidden()
-                Text("Hold the camera still to progressively refine reflections, shadows, and indirect light.")
+                Text(engine.rayTracingEnabled ? "Hold the camera still to progressively refine reflections, shadows, and indirect light.":"Quality changes the viewport resolution. Raster renders one image per frame; ray sample settings apply when ray tracing is on.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
             }
             VStack(alignment: .leading, spacing: 9) {
@@ -455,11 +484,14 @@ private struct ArchitectureWorkspace: View {
             }
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("NAVIGATION", value: "")
-                Picker("Navigation", selection: $engine.navigationMode) {
+                Picker("Navigation", selection: Binding(get:{engine.navigationMode},set:{engine.setNavigationMode($0)})) {
                     Text("Walk").tag(0); Text("Fly").tag(1)
                 }.pickerStyle(.segmented).labelsHidden()
                 Text("Walk follows solid floors and avoids the structure. Fly follows the camera pitch and lets you move freely.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
+                settingLabel("FLY SPEED",value:String(format:"%.0f m/s · Shift ×3",engine.flySpeed))
+                Slider(value:Binding(get:{log2(Double(engine.flySpeed))},set:{engine.setFlySpeed(Float(pow(2,$0)))}),in:3...log2(800))
+                    .tint(accent).accessibilityLabel("Manual flight speed")
             }
             Button { engine.resetView(); settingsOpen = false } label: {
                 Label("Return to the opening view", systemImage: "arrow.counterclockwise").font(.system(size: 11))
@@ -509,10 +541,14 @@ private struct ArchitectureWorkspace: View {
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")
                     helpRow("Q  /  E", "Descend / ascend in Fly mode")
-                    helpRow("SHIFT", "Move faster")
+                    helpRow("SHIFT", "Triple manual movement speed")
+                    helpRow("F  /  −  /  +", "Walk/Fly · slower/faster flight (8–800 m/s)")
                     helpRow("CLICK", "Focus a landmark / click again to release")
-                    helpRow("DRAG", "Orbit the focused object, or look around")
-                    helpRow("SCROLL", "Zoom toward focus; otherwise set movement speed")
+                    helpRow("LEFT DRAG", "Pan across the city; orbit if a landmark is focused")
+                    helpRow("RIGHT DRAG", "Look around, or orbit a focused landmark")
+                    helpRow("SCROLL", "Zoom toward focus; otherwise adjust flight speed")
+                    helpRow("M", "Show/hide the Chicago map; click it to fly there")
+                    helpRow("T", "Toggle ray tracing / fast raster at the same camera")
                     helpRow("C", "Start / stop the complete Chicago demo")
                     helpRow("SPACE", "Start / pause / resume this walkthrough")
                     helpRow("←  /  →", "Rewind / fast forward; repeat for 2× / 4× / 8×")
@@ -623,7 +659,10 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         if let delta = pointerGesture.drag(button: button, point: pointerPoint(event), windowOrigin: windowOrigin) {
             // View-local displacement never counts native window translation as a
             // camera delta; ownership is also cancelled if the window origin moves.
-            engine?.look(deltaX: delta.x, deltaY: delta.y)
+            if button == .left {
+                let point = pointerPoint(event)
+                engine?.pan(from:point-delta,to:point,viewport:SIMD2(Float(bounds.width),Float(bounds.height)))
+            } else { engine?.look(deltaX: delta.x, deltaY: delta.y) }
         }
     }
     override func mouseDown(with event: NSEvent) {
@@ -665,6 +704,11 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             case 8: engine.toggleChicagoDemo(); return
             case 37: engine.toggleLocation(); return
             case 45: engine.toggleDayNight(); return
+            case 46: engine.toggleNavigationMap(); return
+            case 17: engine.toggleRayTracing(); return
+            case 3: engine.setNavigationMode(engine.navigationMode == 1 ? 0:1); return
+            case 27, 78: engine.stepFlySpeed(-1); return
+            case 24, 69: engine.stepFlySpeed(1); return
             case 33: engine.stepIdleSpeed(-1); return
             case 30: engine.stepIdleSpeed(1); return
             case 4: presentation?.chromeVisible.toggle(); return

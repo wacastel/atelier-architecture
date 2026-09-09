@@ -15,7 +15,7 @@ xcrun swiftc -O "$adler_root/Sources/ArchitectureEngine/SceneTypes.swift" \
   "$adler_root/Sources/ArchitectureEngine/Traffic.swift" \
   "$adler_root/Sources/ArchitectureEngine/TrafficMetal.swift" \
   "$adler_root/Sources/ArchitectureEngine/GeometryPartition.swift" \
-  "$adler_root/Sources/ArchitectureEngine/MetalRenderer.swift" \
+  "$adler_root/Sources/ArchitectureEngine/RasterRenderer.swift" "$adler_root/Sources/ArchitectureEngine/MetalRenderer.swift" \
   "$adler_root/Tests/Adler/ProjectionReconstruction.swift" \
   "$adler_root/Tests/Adler/main.swift" -o "$adler_tmp/validate-adler"
 "$adler_tmp/validate-adler" "$@"

@@ -37,6 +37,11 @@ import simd
     @Published var lighting = 0
     @Published var exposure = 1.0
     @Published var navigationMode = 1
+    @Published private(set) var flySpeed = ManualCityNavigation.defaultFlySpeed
+    @Published private(set) var rayTracingEnabled = true
+    @Published var navigationMapVisible = true
+    @Published var navigationMapSize: ChicagoMapSize = .small
+    @Published private(set) var mapCamera = ChicagoMapCamera(position: SIMD2(3300,9917), target: SIMD2(3315,9917))
     @Published var showHelp = false {
         didSet {
             if showHelp { keys.removeAll(); (view as? ViewportInputResetting)?.cancelViewportInput() }
@@ -62,7 +67,6 @@ import simd
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
-    private var movementSpeed: Float = 8
     private var sceneSeconds = 0.0
     private var loaded = false
     var stops: [TourStop] { location.stops }
@@ -201,7 +205,61 @@ import simd
         dirty = true; historyDirty = true
         previousTime = CACurrentMediaTime()
     }
-    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting) }
+    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled) }
+    func toggleRayTracing() {
+        guard isReady else { return }
+        rayTracingEnabled.toggle(); dirty = true; historyDirty = true; samples = 0
+        status = rayTracingEnabled ? "Ray tracing enabled" : "Fast raster rendering enabled"
+        previousTime = CACurrentMediaTime(); focusViewport()
+    }
+    func toggleNavigationMap() { navigationMapVisible.toggle(); focusViewport() }
+    func setFlySpeed(_ value: Float) {
+        guard value.isFinite else { return }
+        flySpeed = max(8,min(800,value))
+    }
+    func stepFlySpeed(_ direction: Int) { setFlySpeed(ManualCityNavigation.steppedSpeed(flySpeed,direction:direction)); focusViewport() }
+    func setNavigationMode(_ value: Int) {
+        guard isReady else { return }
+        beginManualNavigation(); keys.removeAll(); navigationMode = value == 0 ? 0 : 1
+        if navigationMode == 0, let distance = collision?.distance(origin:pose.position+SIMD3(0,0.3,0),direction:SIMD3(0,-1,0),maximum:1500) {
+            let shift = SIMD3<Float>(0,0.3-distance+1.75,0)
+            pose.position += shift; pose.target += shift
+        }
+        dirty = true; historyDirty = true; focusViewport()
+    }
+    func navigateCity(to point: SIMD2<Float>) {
+        guard isReady, !showHelp, !movingWindow, location.world == "chicago", point.x.isFinite, point.y.isFinite,
+              point.x >= -4000, point.x <= 6000, point.y >= -11500, point.y <= 11000 else { return }
+        let selectedLighting = lighting
+        let heading = pose.target-pose.position
+        func roof(_ x: Float, _ z: Float) -> Float {
+            guard let hit = collision?.distance(origin:SIMD3(x,1500,z),direction:SIMD3(0,-1,0),maximum:1600) else { return 0 }
+            return 1500-hit
+        }
+        guard let destination = ManualCityNavigation.overview(point:point,heading:heading,roof:roof) else { return }
+        // A district's opening route may start in another district (the North
+        // Side opens near Millennium Park). Match every bookmark so Wrigley
+        // selects its own tour, and Play starts the nearby architectural study.
+        var nearestLocation = location, nearestView = currentStop
+        var nearestDistance = Float.greatestFiniteMagnitude
+        for candidate in WalkthroughPlayback.chicagoDemoLocations {
+            for (index, stop) in candidate.stops.enumerated() {
+                let anchor = stop.pose.target
+                let distance = simd_distance_squared(SIMD2(anchor.x,anchor.z),point)
+                if distance < nearestDistance {
+                    nearestDistance = distance; nearestLocation = candidate; nearestView = index
+                }
+            }
+        }
+        beginManualNavigation()
+        if nearestLocation != location { selectLocation(nearestLocation) }
+        selectStop(nearestView)
+        beginManualNavigation(); setLighting(selectedLighting); keys.removeAll(); navigationMode = 1
+        pose = destination
+        mapCamera = ChicagoMapCamera(position:SIMD2(pose.position.x,pose.position.z),target:point)
+        altitude = pose.position.y; dirty = true; historyDirty = true
+        previousTime = CACurrentMediaTime(); focusViewport()
+    }
     private func applyViewSelection() {
         clearObjectFocus()
         currentStop = playback.view; pose = playback.pose; altitude = pose.position.y
@@ -273,6 +331,7 @@ import simd
         if playback.state != .manual { playback.manual(); synchronizePlayback() }
     }
     func clearObjectFocus() {
+        guard focusedObjectName != nil || focusSelection.orbit != nil else { return }
         focusSelection = FocusSelection(); focusedObjectName = nil
     }
     func focusObject(at normalizedPoint: SIMD2<Float>, aspect: Float) {
@@ -312,12 +371,19 @@ import simd
         pose.target = pose.position + SIMD3(sin(yaw)*cos(pitch),sin(pitch),-cos(yaw)*cos(pitch))
         dirty = true
     }
+    func pan(from: SIMD2<Float>, to: SIMD2<Float>, viewport: SIMD2<Float>) {
+        guard isReady, !showHelp, !movingWindow else { return }
+        if focusSelection.orbit != nil { look(deltaX:to.x-from.x,deltaY:to.y-from.y); return }
+        guard let delta = ManualCityNavigation.pan(pose:pose,from:from,to:to,viewport:viewport) else { return }
+        beginManualNavigation(); navigationMode = 1
+        pose.position += delta; pose.target += delta; dirty = true
+    }
     func scroll(_ amount: Float, precise: Bool = false) {
         guard isReady, !showHelp, !movingWindow, amount.isFinite else { return }
         if var orbit = focusSelection.orbit {
             orbit.dolly(logScale: -amount * (precise ? 0.003 : 0.10))
             focusSelection.orbit = orbit; pose = orbit.pose; dirty = true
-        } else { movementSpeed = max(1,min(80,movementSpeed * exp(-amount*0.035))) }
+        } else { setFlySpeed(flySpeed * exp(-amount*(precise ? 0.0035:0.08))) }
     }
     func captureScreenshot() { captured = true }
     func draw(_ view: MTKView) {
@@ -333,11 +399,11 @@ import simd
         }
         let suspended = movingWindow || view.inLiveResize
         let elapsed = max(0.001,time-previousTime)
-        let dt = min(0.05,elapsed); previousTime = time
+        let dt = Double(ManualCityNavigation.frameSeconds(elapsed)); previousTime = time
         frameTimes.append(elapsed); if frameTimes.count > 90 { frameTimes.removeFirst() }
         let automaticMotion = playback.state == .idle || playback.state == .playing
         let previousLocation = playback.location, previousStop = playback.view, previousLighting = playback.lighting
-        if !suspended { playback.advance(min(0.25, elapsed)) }
+        if !suspended { playback.advance(min(0.5, elapsed)) }
         if playback.lighting != previousLighting { lighting = playback.lighting; dirty = true; historyDirty = true }
         if playback.location != previousLocation || playback.view != previousStop {
             // Every demo destination shares this resident Chicago scene. Adopting
@@ -374,11 +440,21 @@ import simd
             fps = Double(frameTimes.count) / max(0.001,frameTimes.reduce(0,+))
             gpuMilliseconds = renderer.lastGPUTime; samples = Int(renderer.sampleCount)
             memoryMB = renderer.allocatedMB; altitude = pose.position.y
+            if location.world == "chicago" {
+                mapCamera = ChicagoMapCamera(position:SIMD2(pose.position.x,pose.position.z),target:SIMD2(pose.target.x,pose.target.z))
+            }
             synchronizePlayback()
         }
     }
     private func updateMovement(_ dt: Float) {
         if keys.isEmpty { return }
+        // Walking retains short collision/support steps; flight uses elapsed
+        // wall time so a slow render does not silently slow the camera too.
+        if navigationMode == 0 && dt > 0.05 {
+            let count = Int(ceil(dt/0.05))
+            for _ in 0..<count { updateMovement(dt/Float(count)) }
+            return
+        }
         var f = simd_normalize(pose.target-pose.position)
         if navigationMode == 0 { f.y = 0; f = simd_normalize(f) }
         let right = simd_normalize(simd_cross(f,SIMD3<Float>(0,1,0)))
@@ -387,8 +463,7 @@ import simd
         if keys.contains(0) { delta -= right }; if keys.contains(2) { delta += right }
         if navigationMode == 1 { if keys.contains(14) { delta.y += 1 }; if keys.contains(12) { delta.y -= 1 } }
         guard simd_length_squared(delta) > 0 else { return }
-        let speed = (navigationMode == 0 ? min(movementSpeed,4) : movementSpeed) * ((keys.contains(56) || keys.contains(60)) ? 3 : 1)
-        delta = simd_normalize(delta)*speed*dt
+        delta = ManualCityNavigation.displacement(direction:delta,speed:navigationMode == 0 ? 4:flySpeed,seconds:dt,boosted:keys.contains(56) || keys.contains(60))
         var destination = pose.position + delta
         destination.y = max(1.8,destination.y)
         if navigationMode == 0 {

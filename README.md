@@ -1,6 +1,6 @@
 # Atelier
 
-A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, and Metal hardware ray tracing. Seven locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, Metal hardware ray tracing and a fast raster mode. Seven locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
 
 - **Robie House and Hyde Park, Chicago** — seven architectural studies of Frank Lloyd Wright’s Prairie house and a six-minute connecting flight from McCormick Place through the south lakefront and Hyde Park. The house and the intervening neighborhoods extend the same resident Chicago world.
 - **Chicago North Side** — eight studies connecting Millennium Park, Old Town, North Avenue Beach, Lincoln Park Zoo, the conservatory and lily pool, Wrigleyville and Wrigley Field. Two four-minute flights connect Millennium Park to the zoo and the zoo to Wrigley, with mapped neighborhoods, beaches and harbors in the same resident world.
@@ -59,11 +59,19 @@ Click visible landmark or building geometry to focus it, then drag to orbit and 
 | **Full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode |
 | Window titlebar / edges | Move / resize; hold camera and scene clocks during the gesture, then resume without a time jump |
 | Click visible geometry | Focus a landmark or building; click the same object or sky to release |
-| Mouse drag | Orbit a focused object; otherwise look around manually |
-| **WASD / Q–E / Shift** | Manual movement / vertical flight / faster movement; movement clears focus |
+| Left mouse drag | Pan the city under the pointer; orbit when an object is focused |
+| Right mouse drag | Look around; orbit when an object is focused |
+| **M / map button** | Show/hide the Chicago navigation map; choose S/M/L and click a point or landmark to move there |
+| **F / − / +** | Toggle Walk/Fly; decrease/increase flight speed (8–800 m/s) |
+| **T / renderer badge** | Toggle ray tracing and fast raster at the same camera position |
+| **WASD / Q–E / Shift** | Manual movement / vertical flight / 3× speed boost; movement clears focus |
 | Mouse wheel / two-finger scroll | Zoom toward or away from a focused object; otherwise adjust manual movement speed |
 | **H / ? / Esc** | Hide interface / show controls / clear focus, release keys and close help |
 | **⌘R / ⌘⇧S** | Return to the location’s opening view / save a render to Pictures/Atelier |
+
+The north-up picture-in-picture map uses the existing offline map data and shows the camera position and heading. Small, Medium and Large settings fit the available window space. Clicking a landmark label or mapped position places the camera above that point with roof clearance and enters manual Fly mode, preserving day/night. It selects the nearest architectural study for the Play button and reuses the resident Chicago world. The map covers the currently modeled corridor; peripheral context remains less detailed.
+
+Flight starts at 80 m/s, with 8, 30, 80, 180, 400 and 800 m/s keyboard presets; Shift temporarily triples the chosen speed. Settings and unfocused scrolling also adjust speed. Movement uses elapsed time, so a low rendering frame rate no longer reduces travel speed proportionally. Left dragging pans across the ground plane; right dragging changes the viewing direction. Focused-object orbit and zoom remain available.
 
 Manual movement takes control of the camera; local traffic continues. Pausing a walkthrough freezes both its camera and traffic clock. Walk mode uses floor support and collision checks; Fly mode allows unrestricted inspection. Individual routes are authored architectural studies. Millennium Park’s eighth route connects Willis Tower, the park and an interpreted Modern Wing gallery without a scene cut or teleport. Full-screen and ordinary window sizes retain the same rendering and input controls. The view cards scroll horizontally when needed.
 
@@ -72,6 +80,10 @@ Seeking and the arrow-key shuttles stay within the current route, including duri
 Robie House’s eighth view connects McCormick Place to the house through 31st Street Harbor, the Oakwood lakefront, Promontory Point and Hyde Park. The full six-minute flight stays in the shared Chicago world and finishes at the house’s opening bookmark.
 
 ## Rendering
+
+**T** switches between ray tracing and **Fast Raster**, preserving the current camera, lighting and playback. Raster draws the same city and moving traffic using a depth buffer, frustum culling, direct lighting, procedural materials, glass and approximate environment reflections. It submits no ray-tracing or surface-guide dispatches and no traffic acceleration-structure updates per frame. Four-sample anti-aliasing smooths fine geometry edges on this Mac (with a lower-sample fallback on other devices). It omits traced shadows, local reflections, refraction and indirect lighting; subpixel detail can still alias. It is useful for fast navigation, while ray tracing retains the more accurate architectural lighting. The initial acceleration structures are still built so switching back is immediate; raster does not eliminate the resident scene or startup memory cost.
+
+A matched 1280 × 850 offscreen test on this M3 Ultra measured median GPU frame times of **13–14 ms in raster versus 76–90 ms in ray tracing for the Robie exterior**, and **about 14 ms versus 295–297 ms in the living room**, using four ray samples and three bounces. These are bounded GPU measurements, not a native app FPS guarantee. [Exact validation and limitations](docs/VALIDATION.md#version-20-navigation-and-render-modes).
 
 The engine traces the actual modeled triangles using Metal acceleration structures, GGX reflections, direct-light shadow rays, and multibounce lighting. Cloud Gate’s polished shell and concave underside reflect the shared Chicago scene, including reflected reflections; they do not use a painted skyline. Water uses filtered analytic ripple normals and dielectric Fresnel reflections. Selected Chicago glazing uses thin-sheet transmission and reflection; the first camera pane traces both branches to reduce movement noise. [Glass implementation and limits](docs/GLASS.md).
 
@@ -93,9 +105,15 @@ Motion reconstruction uses deterministic world position, depth, normal, material
 
 Render dimensions preserve the actual drawable's aspect ratio, including portrait windows and full-screen displays; both axes are bounded by the renderer's 8192-pixel limit. GPU memory usage is scene- and viewport-dependent. Unified memory and native ray-tracing acceleration are used directly; allocating all 512 GB is unnecessary for these models.
 
+## Building more city sections
+
+The reusable [city-building guide (Markdown)](docs/CITY-BUILDING-GUIDE.md), [offline HTML edition](docs/city-building-guide.html) and [PDF edition](docs/City-Building-Guide.pdf) document research, map preparation, architectural modeling, shared-world integration, eight-view routes, lighting, performance checks, release packaging and a starter brief for a fresh context window.
+
 ## Render and record
 
 The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `millennium` for the park and museum, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
+
+Add `--raster` to render, gallery, video or self-test commands for the fast renderer. Ray sample counts are ignored in raster mode; the temporal ray-tracing benchmark intentionally requires ray tracing.
 
 ```sh
 # Complete six-minute flight from McCormick Place to Robie House.

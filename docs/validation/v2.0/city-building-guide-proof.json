@@ -1,0 +1,378 @@
+{
+  "passed": true,
+  "recordedAtUTC": "2026-09-09T07:03:17.162167+00:00",
+  "scope": "Documentation creation and QA only; no application GPU work or application source edits by guide author.",
+  "pageCount": 14,
+  "formatContentParityBlocks": 176,
+  "contentsAndOutlineEntries": 13,
+  "outputs": {
+    "docs/CITY-BUILDING-GUIDE.md": {
+      "bytes": 40565,
+      "sha256": "f3e9e2e5fecdafc730a9f1d177ceac2acb40653c348248acfdeae4504dea7aa6"
+    },
+    "docs/city-building-guide.html": {
+      "bytes": 46747,
+      "sha256": "13ad7c4b7440f800177cda5b0e94b376206056d581d42a83e7b246772b764515"
+    },
+    "docs/City-Building-Guide.pdf": {
+      "bytes": 105652,
+      "sha256": "4f1f9b2d7e02d5c4c6de504e382c937e49417f11057c67c50b6b63411f0bd6a5"
+    }
+  },
+  "fontSHA256": {
+    "Ubuntu-R.ttf": "52c1afa489ae7bfd893af6cdd9f1af258005703600449e70d338caabcff507e5",
+    "Ubuntu-B.ttf": "c90e629e932f768909bdce1481ccd259d8aff1490a4bc1cf94d5413492317336",
+    "Ubuntu-RI.ttf": "0626647f11d9c911f934715d1060b590744887224601abaeb22ac8f582b57118",
+    "Ubuntu-BI.ttf": "2c33de34d51065a5e56bae5e1c7c13cd128268b26569838a38db038e6ac9723d",
+    "UbuntuMono-R.ttf": "b35dd9d2131d5d83a9b87fe9ad22c6288fa3d17688d43302c14da29812417d63"
+  },
+  "dependencies": {
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0",
+    "pdfplumber": "0.11.9"
+  },
+  "python": "3.12.14",
+  "helpers": {
+    "scripts/docs/build-city-building-guide.py": "a830b537b2c9ca4a604c266bc1a899cc71132deb8bdf3feaaf1b6483794825f9",
+    "scripts/docs/verify-city-building-guide.py": "688c677c887acfcf1a8caccb80348a10f581bd21b1621ca818cbd0ef29cad22f",
+    "scripts/docs/README.md": "410267685639ac39254b4ae7e8eb83e8b649930948fbef8bade946c1881d3a91"
+  },
+  "recordedRepositoryBase": "91fd5b72f57a73dd592dfbb3918bccf544da8058",
+  "referencePathsExist": [
+    "Sources/ArchitectureEngine/",
+    "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+    "docs/CITY-BUILDING-GUIDE.md",
+    "docs/VALIDATION.md",
+    "docs/validation/",
+    "scripts/build-app.sh",
+    "scripts/data/",
+    "scripts/prepare-hyde-park-context.py",
+    "scripts/validate-focus-navigation-integration.sh",
+    "scripts/validate-focus-navigation.sh",
+    "scripts/validate-hyde-park-context.py",
+    "scripts/validate-hyde-park-geometry.sh",
+    "scripts/validate-hyde-park-roads.py",
+    "scripts/validate-indexed-lighting.sh",
+    "scripts/validate-large-geometry-gpu.sh",
+    "scripts/validate-light-grid.sh",
+    "scripts/validate-manual-city-navigation.sh",
+    "scripts/validate-navigation-map.sh",
+    "scripts/validate-navigation.sh",
+    "scripts/validate-playback.sh",
+    "scripts/validate-raster.sh",
+    "scripts/validate-robie-house.sh",
+    "scripts/validate-traffic.sh",
+    "scripts/validate-video-timing.py",
+    "scripts/validate-viewport-input.sh"
+  ],
+  "visualReview": [
+    {
+      "page": 1,
+      "path": "output/city-building-guide-review/page-01.png",
+      "sha256": "13fcb5be753c3549f854a9f06fd50b862a42e5485b779e4ceabf7eb1cdf008dd",
+      "visuallyInspected": true,
+      "findings": "Cover,13 linked contents entries, long repository path and final workflow paragraph fit; the original missing arrow was replaced with punctuation."
+    },
+    {
+      "page": 2,
+      "path": "output/city-building-guide-review/page-02.png",
+      "sha256": "d64fae94b2f71b54b988d3b04a237c9f49563fb87bd9171467594f9ac2f93771",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 3,
+      "path": "output/city-building-guide-review/page-03.png",
+      "sha256": "24bbc0118839b986726d0ee04ba4f7fec9e6dbb7489e1833836fcc003a4471b8",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 4,
+      "path": "output/city-building-guide-review/page-04.png",
+      "sha256": "af3c29bc71858e591335596dd8ae4e6aeb79af7a81147e172a9361a0b72db4d2",
+      "visuallyInspected": true,
+      "findings": "Projection and setup code preserve indentation and readable monospace; long resource paths wrap within margins."
+    },
+    {
+      "page": 5,
+      "path": "output/city-building-guide-review/page-05.png",
+      "sha256": "987317681b963b951958f43df617e93d7279c5ee28d3ce08b8563e3553916340",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 6,
+      "path": "output/city-building-guide-review/page-06.png",
+      "sha256": "9c9a8da01f963b012493288e3129fcab56898115571ff24fef3b354fe697161e",
+      "visuallyInspected": true,
+      "findings": "Road topology list, provenance paragraph and commands remain on one page with no clipping."
+    },
+    {
+      "page": 7,
+      "path": "output/city-building-guide-review/page-07.png",
+      "sha256": "a9eedf3488f9f40cf0f07d9de2cd22ef860e7061b66f6fa7c592e7e33bad5e95",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 8,
+      "path": "output/city-building-guide-review/page-08.png",
+      "sha256": "0d1e969528698493c90f864842b28aacc4e165690867a95daf07bc99da9a42f0",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 9,
+      "path": "output/city-building-guide-review/page-09.png",
+      "sha256": "5a8778c992058486c288eed61b2c5997a0593888d1f52f0fbf5a34583a5cbcbd",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 10,
+      "path": "output/city-building-guide-review/page-10.png",
+      "sha256": "c91444ba48921536d77435a19279127ad150f2d980436481febc2312f310f520",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 11,
+      "path": "output/city-building-guide-review/page-11.png",
+      "sha256": "b404759314ef728ddc0095fe49be8fbfc8d3fac6ae1234559b8df1e868dd778a",
+      "visuallyInspected": true,
+      "findings": "Capacity and timing distinctions fit; historical figures remain explicitly scoped."
+    },
+    {
+      "page": 12,
+      "path": "output/city-building-guide-review/page-12.png",
+      "sha256": "1ace75f240cf77545ee04d0cbe51cbbacee219647bb0349b2a4f306c1b37c48b",
+      "visuallyInspected": true,
+      "findings": "Readable headings, body, lists and code where present; consistent margins, no clipping, overlaps, missing glyphs or stranded continuation."
+    },
+    {
+      "page": 13,
+      "path": "output/city-building-guide-review/page-13.png",
+      "sha256": "414965f672760bc43ff9c9f74f9a951c9ec074526a87b62582daf07048944260",
+      "visuallyInspected": true,
+      "findings": "The complete reusable starter prompt and source index fit on one page."
+    },
+    {
+      "page": 14,
+      "path": "output/city-building-guide-review/page-14.png",
+      "sha256": "79bf54e448195f764c79f19a9ce69d9f5e497d935d089c0703f03e3708b38cb8",
+      "visuallyInspected": true,
+      "findings": "Reinspected after the bounds clarification: all three code locations and beyond-old-extent click test are readable; the appendix remains one page without clipping or overlap."
+    }
+  ],
+  "reproduction": {
+    "reproductionPassed": true,
+    "outsideRepositoryWorkingDirectoryPassed": true,
+    "finalPagePNGsByteIdenticalToInspectedImages": true,
+    "pagesUnchangedFromPriorVisualAudit": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "SHA256": {
+      "CITY-BUILDING-GUIDE.md": "f3e9e2e5fecdafc730a9f1d177ceac2acb40653c348248acfdeae4504dea7aa6",
+      "city-building-guide.html": "13ad7c4b7440f800177cda5b0e94b376206056d581d42a83e7b246772b764515",
+      "City-Building-Guide.pdf": "4f1f9b2d7e02d5c4c6de504e382c937e49417f11057c67c50b6b63411f0bd6a5"
+    },
+    "pagesChangedFromPriorAudit": [
+      14
+    ],
+    "pagesNewlyVisuallyInspected": [
+      14
+    ]
+  },
+  "structuralChecks": {
+    "passed": true,
+    "pages": 14,
+    "semanticParagraphsCheckedAcrossThreeFormats": 176,
+    "linkedContentsEntries": 13,
+    "pdfOutlineEntries": 13,
+    "htmlExternalAssets": [],
+    "syntaxChecks": [
+      {
+        "language": "python",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      }
+    ],
+    "pageTextBounds": [
+      {
+        "page": 1,
+        "textCharacters": 1731,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 65.85000000000002,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 2,
+        "textCharacters": 2403,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 3,
+        "textCharacters": 2479,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 4,
+        "textCharacters": 2277,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 5,
+        "textCharacters": 2593,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 6,
+        "textCharacters": 2487,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 7,
+        "textCharacters": 2630,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 8,
+        "textCharacters": 2488,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 9,
+        "textCharacters": 2413,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 10,
+        "textCharacters": 2413,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 11,
+        "textCharacters": 2599,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 12,
+        "textCharacters": 2653,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 13,
+        "textCharacters": 2514,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 14,
+        "textCharacters": 2661,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      }
+    ],
+    "limits": [
+      "Commands were inspected and syntax-checked, not executed to rebuild/render the app by the guide author.",
+      "HTML content, links and offline dependency structure were checked; no browser screenshot review is claimed.",
+      "PDF raster visual review is recorded separately after every final page is inspected."
+    ]
+  },
+  "finalRenderCommand": "pdftoppm -r 120 -png docs/City-Building-Guide.pdf output/city-building-guide-review/page",
+  "revisionNotes": [
+    "Initial PDF arrow glyph was missing and replaced with punctuation.",
+    "The first 2.0 appendix overflowed onto a continuation page; prose was tightened without reducing body type size.",
+    "PDF deterministic metadata was set on the document template; regeneration then matched every output byte.",
+    "At original finalization, all 14 rendered PNGs matched the individually inspected page images after metadata-only reproducibility changes.",
+    "Final bounds clarification rebuilt all formats: pages 1-13 remained byte-identical; page 14 alone changed and was visually reinspected. Content parity, outlines, page bounds and deterministic reproduction pass."
+  ],
+  "limits": [
+    "HTML was checked for complete matching content, anchors and absence of external assets; no browser screenshot review is claimed.",
+    "Command examples were source-inspected and syntax-checked, not executed to rebuild or GPU-render the app.",
+    "Native application acceptance and renderer-performance evidence remain the responsibility of their separate release validation records."
+  ],
+  "boundsSourceLocations": {
+    "Sources/ArchitectureEngine/NavigationMap.swift": "ChicagoMapProjection.worldMinimum/worldMaximum",
+    "Sources/ArchitectureEngine/ManualCityNavigation.swift": "ManualCityNavigation.overview guard",
+    "Sources/ArchitectureEngine/EngineController.swift": "EngineController.navigateCity guard"
+  }
+}

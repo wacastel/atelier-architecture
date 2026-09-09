@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-09",
+  "rootManualChecks": 332,
+  "existingViewportInputChecks": 187,
+  "existingViewportInputSequences": 45,
+  "mapChecks": 300,
+  "independentCodeReview": "Viewport/pan coordinate basis matches renderer. Map click intentionally chooses a safe downward overview while preserving compass heading and lighting. Manual map/pan exits demo. RT toggle retains camera and paused/playback state. Map marker publishes at0.3s. Individual frame gaps are capped0.5s to limit long-stall motion.",
+  "previousRoadResourceUnchangedSHA256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+  "playbackRegression": {
+    "checks": 79253,
+    "routes": 57,
+    "failures": [],
+    "evidence": "playback-validation.txt"
+  }
+}

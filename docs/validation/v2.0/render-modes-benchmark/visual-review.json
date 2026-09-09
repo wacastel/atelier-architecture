@@ -1,0 +1,125 @@
+{
+  "createdUTC": "2026-09-09T06:45:20.431521+00:00",
+  "status": "PASS with limitations",
+  "metricsSHA256": "3ed39204c82ab520fe0836b6fb2f3371b4c8b0805e9b73fe1281610a3005aa28",
+  "reviewedImageCount": 10,
+  "cases": [
+    {
+      "case": "robie-exterior-day",
+      "rasterImage": "robie-exterior-day-raster.png",
+      "rasterImageSHA256": "431226f70482199680d2c31ce4a2adb78b300a7a0ee640b4bacd7fa37139eca4",
+      "rayTracingImage": "robie-exterior-day-rayTracing.png",
+      "rayTracingImageSHA256": "ecb6a84be921225bd1a573309df1783a72979fba9064c3299a57635e94ca5a52",
+      "status": "PASS with documented raster fidelity limits",
+      "visualScope": "Both final1280x850frames manually viewed; matching orientation, landmark silhouette, framing and visible architectural geometry. Single-frame review only, not continuous-motion or nativeUI QA.",
+      "visibleStaticTriangleCandidates": 2386930,
+      "staticTrianglesCulled": 43109888,
+      "visibleBatchCount": 1703,
+      "totalBatchCount": 31089,
+      "transparentSecondPassBatches": 18,
+      "geometryDrawCalls": 1722,
+      "skyDrawCalls": 1,
+      "presentationDrawCalls": 1,
+      "drawCountDerivation": "Exact source draw-loop counts using recorded visible and transparent batch counts plus one traffic draw; candidate triangle count excludes duplicate transparent-pass vertex submissions. No claim that visible candidates are all visible pixels.",
+      "observations": [
+        "Brick courses, art-glass frames, cantilevers, landscaping, street and context geometry remain present.",
+        "Daylight is flatter/brighter under eaves because no raster shadow map or indirect occlusion is implemented; night retains warm interior/landscape/street lighting but omits local reflected geometry."
+      ]
+    },
+    {
+      "case": "robie-exterior-night",
+      "rasterImage": "robie-exterior-night-raster.png",
+      "rasterImageSHA256": "c72abceabd2a7f58a0b68777cb1cb580f5cbca39bc8b81048b79ab957f255713",
+      "rayTracingImage": "robie-exterior-night-rayTracing.png",
+      "rayTracingImageSHA256": "4c37597da8f1a5ea9da29e06a00bb04a50107191cd578710513f04bf38003399",
+      "status": "PASS with documented raster fidelity limits",
+      "visualScope": "Both final1280x850frames manually viewed; matching orientation, landmark silhouette, framing and visible architectural geometry. Single-frame review only, not continuous-motion or nativeUI QA.",
+      "visibleStaticTriangleCandidates": 2386930,
+      "staticTrianglesCulled": 43109888,
+      "visibleBatchCount": 1703,
+      "totalBatchCount": 31089,
+      "transparentSecondPassBatches": 18,
+      "geometryDrawCalls": 1722,
+      "skyDrawCalls": 1,
+      "presentationDrawCalls": 1,
+      "drawCountDerivation": "Exact source draw-loop counts using recorded visible and transparent batch counts plus one traffic draw; candidate triangle count excludes duplicate transparent-pass vertex submissions. No claim that visible candidates are all visible pixels.",
+      "observations": [
+        "Brick courses, art-glass frames, cantilevers, landscaping, street and context geometry remain present.",
+        "Daylight is flatter/brighter under eaves because no raster shadow map or indirect occlusion is implemented; night retains warm interior/landscape/street lighting but omits local reflected geometry."
+      ]
+    },
+    {
+      "case": "robie-living-room-day",
+      "rasterImage": "robie-living-room-day-raster.png",
+      "rasterImageSHA256": "e575094d50e8e6de4332790ad31f47c768ddba31ef73f79027338c2dc0376e2d",
+      "rayTracingImage": "robie-living-room-day-rayTracing.png",
+      "rayTracingImageSHA256": "e91531f05329b09e5acb10108ec65bd3ff6c72f70cca3523980aee447d565ce4",
+      "status": "PASS with documented raster fidelity limits",
+      "visualScope": "Both final1280x850frames manually viewed; matching orientation, landmark silhouette, framing and visible architectural geometry. Single-frame review only, not continuous-motion or nativeUI QA.",
+      "visibleStaticTriangleCandidates": 2333170,
+      "staticTrianglesCulled": 43163648,
+      "visibleBatchCount": 1690,
+      "totalBatchCount": 31089,
+      "transparentSecondPassBatches": 17,
+      "geometryDrawCalls": 1708,
+      "skyDrawCalls": 1,
+      "presentationDrawCalls": 1,
+      "drawCountDerivation": "Exact source draw-loop counts using recorded visible and transparent batch counts plus one traffic draw; candidate triangle count excludes duplicate transparent-pass vertex submissions. No claim that visible candidates are all visible pixels.",
+      "observations": [
+        "Hearth, rug motifs, wood ceiling trim, glazing and outside context retain alignment.",
+        "Raster interiors lack the traced sun/shadow pattern and reflected local geometry in windows; emissive ceiling fixtures and bounded local-light illumination remain."
+      ]
+    },
+    {
+      "case": "robie-living-room-night",
+      "rasterImage": "robie-living-room-night-raster.png",
+      "rasterImageSHA256": "a65a63c4b2ed5d1a67b7a80271f01bb4cec3b7c7c16299bd685cde230611f393",
+      "rayTracingImage": "robie-living-room-night-rayTracing.png",
+      "rayTracingImageSHA256": "08e9c4738b47ac85700e4d63d22fe7aeb8f8acc0da9b5ba36509ac4234cbea7a",
+      "status": "PASS with documented raster fidelity limits",
+      "visualScope": "Both final1280x850frames manually viewed; matching orientation, landmark silhouette, framing and visible architectural geometry. Single-frame review only, not continuous-motion or nativeUI QA.",
+      "visibleStaticTriangleCandidates": 2333170,
+      "staticTrianglesCulled": 43163648,
+      "visibleBatchCount": 1690,
+      "totalBatchCount": 31089,
+      "transparentSecondPassBatches": 17,
+      "geometryDrawCalls": 1708,
+      "skyDrawCalls": 1,
+      "presentationDrawCalls": 1,
+      "drawCountDerivation": "Exact source draw-loop counts using recorded visible and transparent batch counts plus one traffic draw; candidate triangle count excludes duplicate transparent-pass vertex submissions. No claim that visible candidates are all visible pixels.",
+      "observations": [
+        "Hearth, rug motifs, wood ceiling trim, glazing and outside context retain alignment.",
+        "Raster interiors lack the traced sun/shadow pattern and reflected local geometry in windows; emissive ceiling fixtures and bounded local-light illumination remain."
+      ]
+    },
+    {
+      "case": "willis-skyline-day",
+      "rasterImage": "willis-skyline-day-raster.png",
+      "rasterImageSHA256": "0a2554704b830358fee3efa7e30606fbed260ef3a79beb86a73b79f02e495577",
+      "rayTracingImage": "willis-skyline-day-rayTracing.png",
+      "rayTracingImageSHA256": "7c729e0b405e7e664ddcaee8949400d6d1b551be0a5141e78f9b9badc2640a12",
+      "status": "PASS with documented raster fidelity limits",
+      "visualScope": "Both final1280x850frames manually viewed; matching orientation, landmark silhouette, framing and visible architectural geometry. Single-frame review only, not continuous-motion or nativeUI QA.",
+      "visibleStaticTriangleCandidates": 26642944,
+      "staticTrianglesCulled": 18853874,
+      "visibleBatchCount": 14934,
+      "totalBatchCount": 31089,
+      "transparentSecondPassBatches": 35,
+      "geometryDrawCalls": 14970,
+      "skyDrawCalls": 1,
+      "presentationDrawCalls": 1,
+      "drawCountDerivation": "Exact source draw-loop counts using recorded visible and transparent batch counts plus one traffic draw; candidate triangle count excludes duplicate transparent-pass vertex submissions. No claim that visible candidates are all visible pixels.",
+      "observations": [
+        "Willis silhouette, antennas and surrounding city geometry align with the traced view.",
+        "Fine facade grids and antennas exhibit deterministic raster edge aliasing; analytic sky reflection is less faithful than traced facade reflections."
+      ]
+    }
+  ],
+  "limitations": [
+    "Single final frame per mode/case manually inspected; no continuous raster animation or native fullscreen/window-resize interaction inspected here.",
+    "No shadows, local traced reflections/refraction or indirect GI in ray-off. Transparent layers use batch-order alpha blending.",
+    "One-sample rasterization may show geometric edge aliasing/moire during motion, especially brick courses and distant facade grids; this is separate from stochastic path-tracing noise.",
+    "Local lighting budget64perfragment; most scene geometry lies outside the close Robie frustum, but the broad skyline still submits26.8million candidate triangles.",
+    "GPU timing does not directly equal native windowFPS."
+  ]
+}

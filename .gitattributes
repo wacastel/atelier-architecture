@@ -1,0 +1,2 @@
+# Generated documents retain their binary byte layout and PDF cross-reference offsets.
+*.pdf binary

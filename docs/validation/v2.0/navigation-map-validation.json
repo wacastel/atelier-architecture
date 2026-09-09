@@ -1,0 +1,12 @@
+{
+  "arterials" : 5037,
+  "checks" : 300,
+  "footprintRings" : 3635,
+  "loadSeconds" : 1.2436649799346924,
+  "passed" : true,
+  "resources" : 5,
+  "scope" : "CPU coordinate\/aspect\/resize\/heading and complete offline vector-data loading; no native UI or GPU execution",
+  "streets" : 1549,
+  "vertices" : 37781,
+  "waterPolygons" : 57
+}

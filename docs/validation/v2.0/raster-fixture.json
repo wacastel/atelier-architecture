@@ -1,0 +1,17 @@
+{
+  "batches" : 2,
+  "checks" : 39484,
+  "cullingMilliseconds" : 0.0010728836059570312,
+  "frames" : 8,
+  "gpu" : "Apple M3 Ultra",
+  "localLightBudget" : 64,
+  "rayDispatches" : 2,
+  "rayTracingTrafficUpdates" : 1,
+  "scope" : "Small actual-kernel geometry\/depth\/glass\/day-night\/traffic\/resize\/capture\/mode-switch fixture; no full-city performance or visual-fidelity claim",
+  "status" : "PASS",
+  "surfaceGuideDispatches" : 0,
+  "trafficTransforms" : 2,
+  "transparentBatches" : 1,
+  "visibleBatches" : 1,
+  "visibleTriangles" : 1752
+}

@@ -1,0 +1,6 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Eiffel Tower · Paris | 8645884 triangles | 12743 geometric details | 41 materials
+Metal pipelines + acceleration structure: 5.03s | allocated 1561.6 MiB
+PASS: geometry, ABI, acceleration structure, ray-free raster rendering, image range, navigation BVH and OBJ importer.
+Validation: /Users/william/dev/architecture/output/v12-review/final-package/paris-raster/output/validation.json
+Completed in 6.66s

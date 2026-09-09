@@ -1,0 +1,3 @@
+PASS CPU: 14892 geometry coverage and conservative frustum checks
+Glass center BGRA: [238, 191, 158, 255]
+PASS GPU: 39484 total checks; true ray-off across all capture paths, traffic without AS updates, deterministic frames, transparent depth, resize and RT restoration

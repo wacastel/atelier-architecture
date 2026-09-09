@@ -1,0 +1,84 @@
+{
+  "status": "PASS: source audit, small actual-kernel fixture, matched full-city benchmark and10final-image visual review",
+  "createdUTC": "2026-09-09T06:39:04.760331+00:00",
+  "inputs": {
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "045575a1cb35a454086971b32c19c0266d9f633f72835d18176052e818dcaf20",
+    "Sources/ArchitectureEngine/RasterRenderer.swift": "1fc08c3f48ad28b7e53ea938eaffcc2701eaa30ffbdb87cb274be41c3c201c9d",
+    "Sources/ArchitectureEngine/Resources/Raster.metal": "c2f1966fffa1f2da26bdf1e7ef02f823bcd0b5537d6f4773d6a15a662e4c4b42",
+    "Tests/Raster/main.swift": "b5c8f119536eec07a8a2ded266074f473bc56a63ae8b3ed2ae5a5edf21534c4d",
+    "scripts/validate-raster.sh": "4e5d1944828e6df4adb00bae3461c129b3a0ebdbc1f596beeb0f688ae747dcb8"
+  },
+  "pathTracingCost": [
+    {
+      "quality": "Responsive",
+      "assumedAspect": "16:9, drawable at least preset width",
+      "width": 960,
+      "height": 540,
+      "samplesPerFrame": 4,
+      "maximumBounces": 2,
+      "primaryPathSamplesPerFrame": 2073600,
+      "additionalReconstructionGuideRaysPerFrame": 518400,
+      "description": "Primary counts only; secondary paths, sunlight visibility, local-light visibility, and glass interactions add workload. The guide pass is conditional on denoising."
+    },
+    {
+      "quality": "Balanced",
+      "assumedAspect": "16:9, drawable at least preset width",
+      "width": 1440,
+      "height": 810,
+      "samplesPerFrame": 4,
+      "maximumBounces": 3,
+      "primaryPathSamplesPerFrame": 4665600,
+      "additionalReconstructionGuideRaysPerFrame": 1166400,
+      "description": "Primary counts only; secondary paths, sunlight visibility, local-light visibility, and glass interactions add workload. The guide pass is conditional on denoising."
+    },
+    {
+      "quality": "Maximum",
+      "assumedAspect": "16:9, drawable at least preset width",
+      "width": 2560,
+      "height": 1440,
+      "samplesPerFrame": 8,
+      "maximumBounces": 5,
+      "primaryPathSamplesPerFrame": 29491200,
+      "additionalReconstructionGuideRaysPerFrame": 3686400,
+      "description": "Primary counts only; secondary paths, sunlight visibility, local-light visibility, and glass interactions add workload. The guide pass is conditional on denoising."
+    }
+  ],
+  "maximumVersusBalancedPrimarySampleRatio": 6.320987654320987,
+  "independentWorkPerFrame": [
+    "SPP full image path-trace dispatches",
+    "One primary-surface ray dispatch when denoising",
+    "One temporal resolve compute dispatch",
+    "Three surface-aware spatial filter dispatches",
+    "One presentation draw",
+    "When scene time changes, traffic vertex transforms and traffic BLAS/TLAS updates; static city BLAS unchanged"
+  ],
+  "rasterPath": {
+    "trianglePolicy": "All source triangles retained in contiguous conservative AABB batches. No triangle-size LOD or distance cutoff. Full-batch rejection only outside 5-plane infinite-far frustum.",
+    "depth": "Infinite reversed-Z, 0.04m near, two-sided native Metal geometry",
+    "samples": "One deterministic native raster frame; requested Monte Carlo SPP ignored, progressive sampleCount stays zero",
+    "rayWork": "No pathTrace, primarySurface, reconstruction, or TrafficMetal.encodeUpdate call in ray-off branch. GPU fixture asserts counters unchanged across draw-independent capture paths.",
+    "traffic": "Immutable local fleet vertices with per-timeline matrices in the vertex shader; no shared world-tail mutation or AS refit.",
+    "staticMemory": "Reuses unified source vertex, global material-index and material buffers, including 64-bit vertex address arithmetic beyond4GiB; additional small batch bounds + HDR/depth targets and local fleet data.",
+    "lighting": "Authored procedural surface, emissive, planetarium and analytic atmosphere/BRDF functions. Maximum64 deterministic indexed finite-range local lights per fragment.",
+    "limitations": [
+      "RT resources still build once on initialization for mode switching.",
+      "No raster shadow map, occlusion test, traced local reflection, refraction or indirect bounce lighting.",
+      "Analytic sky reflections approximate reflective surfaces; transparent layers blend at batch sort granularity.",
+      "No MSAA in this initial fast path; deterministic raster edge aliasing can remain during motion.",
+      "Matched full-city140frame offscreen comparison is complete; actual nativewindowFPS and interactiveUI remain outside this audit."
+    ]
+  },
+  "evidence": {
+    "cpu": "output/v12-raster-review/cpu-validation.txt",
+    "GPU": "output/v12-review/raster-fixture-validation-4.txt",
+    "fixture": "output/v12-raster-review/fixture/validation.json",
+    "checks": 39484,
+    "device": "Apple M3 Ultra",
+    "fullCityBenchmark": "output/v12-review/render-modes-benchmark/metrics.json",
+    "fullCityImageReview": "output/v12-review/render-modes-benchmark/visual-review.json"
+  },
+  "primaryReferences": [
+    "https://developer.apple.com/documentation/Metal/calculating-primitive-visibility-using-depth-testing",
+    "https://developer.apple.com/documentation/Metal/tailor-your-apps-for-apple-gpus-and-tile-based-deferred-rendering"
+  ]
+}
