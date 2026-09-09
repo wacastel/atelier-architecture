@@ -115,13 +115,48 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.4.0 · Paris & Chicago",
+            .applicationVersion: "2.4.1 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
 
 @MainActor
+/// Menu tracking must not depend on the continuously published frame statistics
+/// and playback timeline. Only selection/readiness changes update this control.
+private struct RendererSelectionMenu: View, Equatable {
+    let engine: EngineController
+    let selection: ArchitectureRendererMode
+    let isReady: Bool
+    private let accent = Color(red: 0.84, green: 0.75, blue: 0.55)
+
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.engine === rhs.engine && lhs.selection == rhs.selection && lhs.isReady == rhs.isReady
+    }
+
+    var body: some View {
+        Menu {
+            // A Picker inside Menu creates a second native hover menu. Direct
+            // actions keep every renderer selectable in the first open menu.
+            ForEach(ArchitectureRendererMode.allCases) { mode in
+                Button { engine.setRendererMode(mode) } label: {
+                    if mode == selection { Label(mode.title, systemImage: "checkmark") }
+                    else { Text(mode.title) }
+                }
+            }
+            Divider()
+            Button("Toggle ray tracing · R") { engine.toggleRayTracing() }
+        } label: {
+            HStack(spacing: 7) {
+                Circle().fill(isReady ? accent : .gray).frame(width: 5, height: 5)
+                Text(selection.title.uppercased()).font(.system(size: 9, weight: .semibold)).tracking(1.1)
+            }.padding(.leading, 14).padding(.trailing, 9)
+        }.menuStyle(.borderlessButton).fixedSize()
+            .help("Choose renderer · R toggles the last ray tracer and Fast Raster")
+            .accessibilityLabel("Renderer: \(selection.title)").disabled(!isReady)
+    }
+}
+
 private struct ArchitectureWorkspace: View {
     @ObservedObject var engine: EngineController
     @ObservedObject var presentation: PresentationState
@@ -332,17 +367,8 @@ private struct ArchitectureWorkspace: View {
 
     private var toolbar: some View {
         HStack(spacing: 4) {
-            Menu {
-                Picker("Renderer",selection:Binding(get:{engine.rendererMode},set:{engine.setRendererMode($0)})) {
-                    ForEach(ArchitectureRendererMode.allCases) { mode in Text(mode.title).tag(mode) }
-                }
-                Divider()
-                Button("Toggle ray tracing · R") { engine.toggleRayTracing() }
-            } label: { HStack(spacing: 7) {
-                Circle().fill(engine.isReady ? accent : .gray).frame(width: 5, height: 5)
-                Text(engine.rendererMode.title.uppercased()).font(.system(size: 9, weight: .semibold)).tracking(1.1)
-            }.padding(.leading, 14).padding(.trailing, 9) }.menuStyle(.borderlessButton).fixedSize()
-                .help("Choose renderer · R toggles the last ray tracer and Fast Raster").accessibilityLabel("Renderer: \(engine.rendererMode.title)").disabled(!engine.isReady)
+            RendererSelectionMenu(engine: engine, selection: engine.rendererMode, isReady: engine.isReady)
+                .equatable()
             Rectangle().fill(.white.opacity(0.13)).frame(width: 1, height: 18)
             AmbientMusicControls(music: engine.music, restoreFocus: engine.focusViewport)
             iconButton("moon.stars", help: "Toggle day / night · N", active: engine.lighting == 2) { engine.toggleDayNight() }

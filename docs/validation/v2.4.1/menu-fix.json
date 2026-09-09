@@ -1,0 +1,23 @@
+{
+  "version": "2.4.1",
+  "build": 18,
+  "date": "2026-09-09",
+  "issue": "Renderer choices disappeared while entering the native hover submenu.",
+  "changes": [
+    "Replaced the nested Picker with three direct menu actions.",
+    "Made the menu equatable using controller identity, renderer selection and readiness, isolating it from frame statistics and playback publications.",
+    "Retained the active-renderer checkmark and R toggle action."
+  ],
+  "validation": {
+    "releaseBuild": "Passed without compiler warnings; signed arm64 application.",
+    "nativeApp": "Atelier.app 2.4.1 (18), shared Chicago scene on Apple M3 Ultra.",
+    "menuItems": ["Path Tracing", "Direct Ray Tracing", "Fast Raster", "Toggle ray tracing · R"],
+    "noNestedRendererMenu": true,
+    "allThreeSelectionsVerified": true,
+    "allThreeActiveCheckmarksVerified": true,
+    "stability": "Menu remained open across a 3.5-second explicit wait and repeated accessibility reads during idle view cycling. It also remained open across a subsequent 35-second accessibility operation in Path Tracing.",
+    "playback": "Idle view cycling continued during renderer selection checks.",
+    "finalAppState": "Chicago Skyline opening view, Direct Ray Tracing, holding the selected view.",
+    "scope": "Native UI validation and release build. Rendering shaders are unchanged from 2.4.0; no new rendering benchmark was run."
+  }
+}
