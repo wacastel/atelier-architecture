@@ -33,6 +33,13 @@ struct WalkthroughPlayback {
     }
     private(set) var location: ArchitectureLocation = .paris
     private(set) var lighting = 0
+    private(set) var lightingOverridden = false
+    /// Renderer-facing lighting. A normal Skyline pass follows its authored
+    /// studies; a night pass stays night. Explicit changes hold until pass wrap.
+    var effectiveLighting: Int {
+        if !lightingOverridden && lighting != 2, let authored = location.preferredLighting(view:view) { return authored }
+        return lighting
+    }
     private(set) var view = 0
     private(set) var state: State = .idle
     private(set) var time = 0.0
@@ -63,6 +70,7 @@ struct WalkthroughPlayback {
     /// Choose a fresh random location and view for each new demo. An explicit
     /// flattened route index is useful for reproducible exports and validation.
     mutating func startChicagoDemo(routeIndex: Int? = nil) {
+        lightingOverridden = false
         if let routeIndex {
             beginDemoRoute(routeIndex)
         } else {
@@ -73,6 +81,7 @@ struct WalkthroughPlayback {
     /// Location and view are separate random draws, so locations keep equal
     /// weight if a future destination has a different number of bookmarks.
     mutating func startChicagoDemo<R: RandomNumberGenerator>(using generator: inout R) {
+        lightingOverridden = false
         guard let chosenLocation = Self.chicagoDemoLocations.randomElement(using: &generator),
               let chosenView = chosenLocation.stops.indices.randomElement(using: &generator),
               let index = Self.chicagoDemoRoutes.firstIndex(where: { $0.location == chosenLocation && $0.view == chosenView }) else { return }
@@ -103,9 +112,15 @@ struct WalkthroughPlayback {
         self = WalkthroughPlayback(location: value)
         speed = pace; idleSpeed = drift
     }
-    mutating func setLighting(_ value: Int) { lighting = max(0, min(2, value)) }
+    mutating func setLighting(_ value: Int) { lighting = max(0, min(3, value)); lightingOverridden = true }
     /// Lighting changes preserve the selected view, transport and both clocks.
-    mutating func toggleDayNight() { lighting = lighting == 2 ? 0 : 2 }
+    mutating func toggleDayNight() { lighting = effectiveLighting == 2 ? 0 : 2; lightingOverridden = true }
+    private mutating func completeLightingPasses(_ wraps: Int, crossedPair: Bool = false) {
+        guard wraps != 0 || crossedPair else { return }
+        lightingOverridden = false
+        if lighting != 2 { lighting = 0 }
+        if wraps % 2 != 0 { lighting = lighting == 2 ? 0 : 2 }
+    }
 
     /// During a demo, explicit Chicago choices immediately play that route and
     /// keep sequencing. Outside a demo they hold the selected idle view.
@@ -128,8 +143,7 @@ struct WalkthroughPlayback {
         var wraps = offset / count
         if destination < 0 { destination += count; wraps -= 1 }
         if destination >= count { destination -= count; wraps += 1 }
-        if lighting == 1 && wraps != 0 { lighting = 0 }
-        if wraps % 2 != 0 { toggleDayNight() }
+        completeLightingPasses(wraps)
         beginDemoRoute(destination)
     }
     mutating func setSpeed(_ value: Double) {
@@ -193,8 +207,7 @@ struct WalkthroughPlayback {
                 let wraps = next / count
                 // A manually chosen neutral daylight (1) joins the normal day
                 // preset (0) after its first completed day/night pair.
-                if lighting == 1 && (wraps > 0 || increment >= period) { lighting = 0 }
-                if wraps % 2 == 1 { lighting = lighting == 2 ? 0 : 2 }
+                completeLightingPasses(wraps, crossedPair:increment >= period)
                 view = next % count
                 let crossedView = increment >= Self.idleViewDuration - idleDwellTime
                 idleDwellTime = total.truncatingRemainder(dividingBy: Self.idleViewDuration)
@@ -224,8 +237,7 @@ struct WalkthroughPlayback {
         let increment = elapsed.truncatingRemainder(dividingBy: pairSeconds) * speed
         let absolute = Self.chicagoDemoRoutes[demoRouteIndex].start + time + increment
         let wraps = Int(floor(absolute / pass))
-        if lighting == 1 && (wraps > 0 || elapsed >= pairSeconds) { lighting = 0 }
-        if wraps % 2 == 1 { toggleDayNight() }
+        completeLightingPasses(wraps, crossedPair:elapsed >= pairSeconds)
         let position = absolute.truncatingRemainder(dividingBy: pass)
         guard let route = Self.chicagoDemoRoutes.last(where: { $0.start <= position }) else { return }
         location = route.location; view = route.view

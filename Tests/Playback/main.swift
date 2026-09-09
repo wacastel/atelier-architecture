@@ -243,9 +243,43 @@ for location in ArchitectureLocation.allCases {
     expect(lightingClock.idleCycling && lightingClock.idleDwellTime == dwell && lightingClock.idleTime == idleTime, "\(location.name) N preserves the idle sequence and dwell clock")
 }
 
+// Skyline lighting uses authored per-view studies unless the user overrides a pass.
+let skylinePresets = [1,0,3,2,3,1,0,2]
+expect(ArchitectureLocation.skyline.walkingViews.isEmpty, "Offshore skyline cameras do not claim walking support")
+for (view,preset) in skylinePresets.enumerated() {
+    var study = WalkthroughPlayback(location:.skyline)
+    study.select(view)
+    expect(study.effectiveLighting == preset && study.lighting == 0, "Skyline study \(view) selects authored lighting without changing base day-pass parity")
+    expect(study.duration == 120, "Skyline study \(view) retains its full two-minute route")
+    study.toggle(); study.advance(8); study.toggle()
+    study.toggleDayNight()
+    expect(study.effectiveLighting == (preset == 2 ? 0:2) && study.time == 8 && study.state == .paused, "Skyline N toggles from the displayed preset and preserves pause/time")
+    study.select((view+1)%8)
+    expect(study.effectiveLighting == (preset == 2 ? 0:2), "Skyline manual lighting holds across selected views")
+}
+var skylineCycle = WalkthroughPlayback(location:.skyline)
+skylineCycle.setLighting(3)
+skylineCycle.advance(160)
+expect(skylineCycle.view == 0 && skylineCycle.effectiveLighting == 2 && !skylineCycle.lightingOverridden, "A complete Skyline idle pass clears explicit sunset and starts all-night pass")
+skylineCycle.advance(160)
+expect(skylineCycle.effectiveLighting == 1 && skylineCycle.lighting == 0, "The following Skyline pass restores authored daylight")
+skylineCycle.advance(3*20)
+expect(skylineCycle.view == 3 && skylineCycle.effectiveLighting == 2 && skylineCycle.lighting == 0, "An authored night study does not flip the base pass")
+skylineCycle.toggleDayNight(); skylineCycle.advance(5*20)
+expect(skylineCycle.effectiveLighting == 2 && skylineCycle.lighting == 2, "N from an authored night study does not reverse full-pass parity")
+var skylineDemo = WalkthroughPlayback(location:.skyline)
+skylineDemo.setLighting(3); skylineDemo.startChicagoDemo(routeIndex:8)
+expect(!skylineDemo.lightingOverridden && skylineDemo.location == .skyline && skylineDemo.effectiveLighting == 1, "A fresh demo clears manual override and permits authored Skyline studies")
+skylineDemo.setLighting(3); skylineDemo.navigateDemoView(offset:7)
+expect(skylineDemo.effectiveLighting == 3, "Demo navigation within a pass preserves explicit sunset")
+skylineDemo.selectLocation(.chicago); skylineDemo.selectLocation(.skyline)
+expect(skylineDemo.effectiveLighting == 3 && skylineDemo.demoActive, "In-demo Chicago selections preserve deliberate lighting override")
+skylineDemo.navigateDemoView(offset:WalkthroughPlayback.chicagoDemoRouteCount)
+expect(!skylineDemo.lightingOverridden && skylineDemo.effectiveLighting == 2, "Full demo pass clears the override and advances night parity")
+
 // Chicago demo sequences full route durations across every resident Chicago set.
 // Use an independent explicit order to catch accidental Paris inclusion/reordering.
-let demoLocations: [ArchitectureLocation] = [.chicago, .millennium, .lakefront, .campus, .northside, .robie]
+let demoLocations: [ArchitectureLocation] = [.chicago, .skyline, .millennium, .lakefront, .campus, .northside, .robie]
 let demoRoutes = demoLocations.flatMap { location in location.stops.indices.map { (location, $0, location.duration(view: $0)) } }
 let demoPass = demoRoutes.reduce(0.0) { $0 + $1.2 }
 expect(WalkthroughPlayback.chicagoDemoLocations == demoLocations, "Demo follows Chicago enum order and excludes Paris")

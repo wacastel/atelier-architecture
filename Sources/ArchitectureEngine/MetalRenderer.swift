@@ -248,13 +248,15 @@ final class MetalRenderer {
         right = simd_normalize(right)
         let up = simd_normalize(simd_cross(right, forward))
         let halfFov = tan(pose.fov * .pi / 360)
-        let sun = options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
-        let color = options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
-        var frame = FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting == 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting == 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        let sun = options.lighting == 3 ? simd_normalize(SIMD3<Float>(-0.862, 0.07, -0.5)) : options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
+        let color = options.lighting == 3 ? SIMD3<Float>(3.4,1.25,0.40) : options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
+        var frame = FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting >= 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting >= 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
         if hasAnimatedProjection {
             let period=180.0, phase=sceneTime.truncatingRemainder(dividingBy:period)
             frame.animation=SIMD4(Float(phase<0 ? phase+period:phase),projectionMoving ? 1:0,0,0)
         }
+        // Reserved component: sunset changes atmosphere without changing the shared ABI.
+        frame.animation.z = options.lighting == 3 ? 1 : 0
         return frame
     }
 
@@ -264,7 +266,7 @@ final class MetalRenderer {
         guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
         var u = uniforms(pose: pose, options: options)
         encoder.label = "Hardware path tracing"
-        let night=options.lighting==2
+        let night=options.lighting>=2
         let grid=night ? nightLightGrid:dayLightGrid
         let indexed=options.indexedLighting && grid.enabled
         if let traffic {
@@ -280,7 +282,7 @@ final class MetalRenderer {
         encoder.setBuffer(indexBuffer, offset: 0, index: 2)
         encoder.setBuffer(materialBuffer, offset: 0, index: 3)
         encoder.setAccelerationStructure(traffic?.acceleration ?? accelerationStructure, bufferIndex: 4)
-        encoder.setBuffer(options.lighting == 2 ? lightBuffer:dayInteriorLightBuffer, offset:0, index:5)
+        encoder.setBuffer(options.lighting >= 2 ? lightBuffer:dayInteriorLightBuffer, offset:0, index:5)
         if indexed {
             var header=grid.header
             encoder.setBytes(&header,length:MemoryLayout<LightGrid.Header>.stride,index:6)
@@ -402,10 +404,10 @@ final class MetalRenderer {
         resetAccumulation();resetReconstruction();lastUniforms=uniforms
         return try rasterRenderer.encode(command,frame:uniforms,sceneTime:sceneTime,
             vertices:vertexBuffer,indices:indexBuffer,materials:materialBuffer,
-            lights:options.lighting == 2 ? lightBuffer:dayInteriorLightBuffer,
-            lightGrid:options.lighting == 2 ? nightLightGrid:dayLightGrid,
-            lightRanges:options.lighting == 2 ? nightLightRanges:dayLightRanges,
-            lightIndices:options.lighting == 2 ? nightLightIndices:dayLightIndices)
+            lights:options.lighting >= 2 ? lightBuffer:dayInteriorLightBuffer,
+            lightGrid:options.lighting >= 2 ? nightLightGrid:dayLightGrid,
+            lightRanges:options.lighting >= 2 ? nightLightRanges:dayLightRanges,
+            lightIndices:options.lighting >= 2 ? nightLightIndices:dayLightIndices)
     }
 
     private func renderRasterOffscreen(pose:CameraPose,options:RenderOptions,width:Int,height:Int) throws -> Data {

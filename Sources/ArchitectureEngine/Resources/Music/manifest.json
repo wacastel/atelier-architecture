@@ -1,0 +1,269 @@
+{
+  "compositionVersion": 1,
+  "album": "Places in Quiet Light",
+  "composer": "Atelier original procedural score",
+  "provenance": "All notes, arrangements and synthesized timbres are original project work. No recordings, samples, downloaded music or third-party melodies are used.",
+  "synthesis": "Seeded NumPy additive synthesis, original 32-bar arrangements, voice-led pads, soft piano, sparse muted plucks, diffuse stereo delays.",
+  "encoding": "AAC LC, 128 kbit/s stereo, 44.1 kHz; two-pass target -21 LUFS, -3 dBTP, LRA 7.",
+  "ffmpegVersion": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers",
+  "numpyVersion": "2.3.5",
+  "generator": "scripts/generate-ambient-music.py",
+  "tracks": [
+    {
+      "location": "paris",
+      "title": "Lanterns on the Seine",
+      "filename": "01-lanterns-on-the-seine.m4a",
+      "tempoBPM": 58,
+      "key": "D major",
+      "seed": 1901,
+      "durationSeconds": 137.413793,
+      "eventCount": 190,
+      "compositionEventSHA256": "bb93dbf28a6d466ef376e66ab4fb7dd726268c119d7bbaf0358a0de22d57b83b",
+      "sourcePCMSHA256": "db2d21ea508c4aaa28b9d5d2d9858b7d2e8d5c09c3116af635a6994f391680c5",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "dc9d110d3748c2b104d70324ecdb60c9104708bdb10ea521e430b31070d4f551",
+      "bytes": 2235064,
+      "masteringInput": {
+        "input_i": "-15.45",
+        "input_tp": "-3.74",
+        "input_lra": "3.80",
+        "input_thresh": "-25.66",
+        "output_i": "-20.60",
+        "output_tp": "-8.81",
+        "output_lra": "3.70",
+        "output_thresh": "-30.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.40"
+      }
+    },
+    {
+      "location": "chicago",
+      "title": "Between Steel and Sky",
+      "filename": "02-between-steel-and-sky.m4a",
+      "tempoBPM": 56,
+      "key": "B-flat major",
+      "seed": 1902,
+      "durationSeconds": 142.142857,
+      "eventCount": 190,
+      "compositionEventSHA256": "b3fcb96bdea4de553bc8f8df2d24eba7932576517cfb1d88a57620a941107bf4",
+      "sourcePCMSHA256": "e8f8165c83c82ac84e0ba63187b46288c3e89d5a4138d110b5327e7e76a2a031",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "12d2960e04913977ef0eb63d28749d1404d74c80926b6aa744cb86740d28c544",
+      "bytes": 2313155,
+      "masteringInput": {
+        "input_i": "-16.40",
+        "input_tp": "-3.74",
+        "input_lra": "4.10",
+        "input_thresh": "-26.60",
+        "output_i": "-20.51",
+        "output_tp": "-8.45",
+        "output_lra": "3.70",
+        "output_thresh": "-30.61",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.49"
+      }
+    },
+    {
+      "location": "millennium",
+      "title": "Clouds in Silver",
+      "filename": "03-clouds-in-silver.m4a",
+      "tempoBPM": 62,
+      "key": "E-flat major",
+      "seed": 1903,
+      "durationSeconds": 128.870968,
+      "eventCount": 190,
+      "compositionEventSHA256": "cbe0fa82c8767a362bc29b383bec6cdc8b9f8171f7e88de361baa818359ee607",
+      "sourcePCMSHA256": "de0f12484b9b092f33d20e74ff5d24adedba0ceab3eb7759accb8605610437ee",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "9cd988fd203cfdaeef2e0adb5cbddc6b430bca7c9c3c39e157734c76a390cc76",
+      "bytes": 2094397,
+      "masteringInput": {
+        "input_i": "-16.56",
+        "input_tp": "-3.74",
+        "input_lra": "4.20",
+        "input_thresh": "-26.78",
+        "output_i": "-20.68",
+        "output_tp": "-8.36",
+        "output_lra": "4.10",
+        "output_thresh": "-30.79",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.32"
+      }
+    },
+    {
+      "location": "lakefront",
+      "title": "A Longer Shore",
+      "filename": "04-a-longer-shore.m4a",
+      "tempoBPM": 54,
+      "key": "F major",
+      "seed": 1904,
+      "durationSeconds": 147.222222,
+      "eventCount": 190,
+      "compositionEventSHA256": "c2297a1fe534d65624b29da08264f56ff84619bca2c12ec5b9e0bf8bb293da39",
+      "sourcePCMSHA256": "2e5fe4799f1c79a38bde4d38f3943d429ac7a28953a3e6a7932ee92497548635",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "f0f2b35999631cf830f6d2ed7240ec905683cab65ccac3085df525c90dff3da5",
+      "bytes": 2393442,
+      "masteringInput": {
+        "input_i": "-15.81",
+        "input_tp": "-3.74",
+        "input_lra": "3.70",
+        "input_thresh": "-26.00",
+        "output_i": "-20.68",
+        "output_tp": "-8.78",
+        "output_lra": "4.00",
+        "output_thresh": "-30.78",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.32"
+      }
+    },
+    {
+      "location": "campus",
+      "title": "Small Constellations",
+      "filename": "05-small-constellations.m4a",
+      "tempoBPM": 60,
+      "key": "A major",
+      "seed": 1905,
+      "durationSeconds": 133.0,
+      "eventCount": 190,
+      "compositionEventSHA256": "4add93893bbe80a9ed83ea55905d98b576969a644236d1836d80df145723b646",
+      "sourcePCMSHA256": "c7b33373600b80f13e97bb5a04d0ad7047badd4f1935300c2bb36a53be519f0b",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "32e261afafbe45228b16b571537c0eb11fa0f681bbcafd448ad1670583c5e174",
+      "bytes": 2163705,
+      "masteringInput": {
+        "input_i": "-15.10",
+        "input_tp": "-3.74",
+        "input_lra": "3.80",
+        "input_thresh": "-25.33",
+        "output_i": "-20.67",
+        "output_tp": "-9.23",
+        "output_lra": "3.80",
+        "output_thresh": "-30.77",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.33"
+      }
+    },
+    {
+      "location": "northside",
+      "title": "Gardens After Rain",
+      "filename": "06-gardens-after-rain.m4a",
+      "tempoBPM": 63,
+      "key": "C major",
+      "seed": 1906,
+      "durationSeconds": 126.904762,
+      "eventCount": 190,
+      "compositionEventSHA256": "2e97012c37171617f3644e8f10d31d56076235726ef4e55fa08c9c84ef3075ac",
+      "sourcePCMSHA256": "2551e9959edbfe5059a601ad588e48ed5f2348f70aee12418d2d6d0fe31cd7da",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "e7bee3367c8b868276def1c3879c95da3d706a23c4786a11d24dfe90e16bf215",
+      "bytes": 2065570,
+      "masteringInput": {
+        "input_i": "-15.23",
+        "input_tp": "-3.74",
+        "input_lra": "4.20",
+        "input_thresh": "-25.47",
+        "output_i": "-20.76",
+        "output_tp": "-9.29",
+        "output_lra": "4.20",
+        "output_thresh": "-30.86",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.24"
+      }
+    },
+    {
+      "location": "robie",
+      "title": "Light Through Amber",
+      "filename": "07-light-through-amber.m4a",
+      "tempoBPM": 55,
+      "key": "A-flat major",
+      "seed": 1907,
+      "durationSeconds": 144.636364,
+      "eventCount": 190,
+      "compositionEventSHA256": "fb2d8d001fc22e5e36633ec34b236996c57e164b30d94572d60faa94c27316b7",
+      "sourcePCMSHA256": "a0674b32a38237e75ce2202b72a944a387f6a60ddd31b80f986bcf0cb1a44cd5",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "7efb97bef4231ee730fb21545c2b1329bb35c3153df46d4c6c1c02354795763e",
+      "bytes": 2352036,
+      "masteringInput": {
+        "input_i": "-16.04",
+        "input_tp": "-3.74",
+        "input_lra": "4.60",
+        "input_thresh": "-26.24",
+        "output_i": "-20.52",
+        "output_tp": "-8.56",
+        "output_lra": "4.30",
+        "output_thresh": "-30.60",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.48"
+      }
+    },
+    {
+      "location": "skyline",
+      "title": "The City Opens",
+      "filename": "08-the-city-opens.m4a",
+      "tempoBPM": 61,
+      "key": "G major",
+      "seed": 1908,
+      "durationSeconds": 130.901639,
+      "eventCount": 190,
+      "compositionEventSHA256": "e10a531cf0b85ed10693e2dc4427b9bb415fab03d20a2bd4bebca699f35d25fa",
+      "sourcePCMSHA256": "c5928c04ff28597da454908af7ad739eecda534cfd34ce2f8b7120722facf470",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "5d43981b8a8a8594014af7b7df02b632005abfd833f4637f31da19797589f7af",
+      "bytes": 2130261,
+      "masteringInput": {
+        "input_i": "-15.06",
+        "input_tp": "-3.74",
+        "input_lra": "3.20",
+        "input_thresh": "-25.29",
+        "output_i": "-20.87",
+        "output_tp": "-9.65",
+        "output_lra": "3.30",
+        "output_thresh": "-30.97",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.13"
+      }
+    }
+  ]
+}

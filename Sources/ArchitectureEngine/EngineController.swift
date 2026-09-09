@@ -9,8 +9,8 @@ import simd
 }
 
 @MainActor final class EngineController: ObservableObject {
-    @Published var status = "Preparing Robie House and Hyde Park…"
-    @Published private(set) var location: ArchitectureLocation = .robie
+    @Published var status = "Preparing Willis Tower and Chicago…"
+    @Published private(set) var location: ArchitectureLocation = .chicago
     @Published var isFullscreen = false
     @Published var isReady = false
     @Published var errorMessage: String?
@@ -39,9 +39,10 @@ import simd
     @Published var navigationMode = 1
     @Published private(set) var flySpeed = ManualCityNavigation.defaultFlySpeed
     @Published private(set) var rayTracingEnabled = true
+    @Published private(set) var mapSelectionRevision = 0
     @Published var navigationMapVisible = true
     @Published var navigationMapSize: ChicagoMapSize = .small
-    @Published private(set) var mapCamera = ChicagoMapCamera(position: SIMD2(3300,9917), target: SIMD2(3315,9917))
+    @Published private(set) var mapCamera = ChicagoMapCamera(position: SIMD2(230,275), target: SIMD2(0,0))
     @Published var showHelp = false {
         didSet {
             if showHelp { keys.removeAll(); (view as? ViewportInputResetting)?.cancelViewportInput() }
@@ -57,13 +58,15 @@ import simd
     private weak var view: MTKView?
     private var delegate: ViewDelegate?
     private var keys = Set<UInt16>()
+    private var flightScroll: Float = 0
+    let music = AmbientMusicController()
     private var pose = CameraPose(position: SIMD3(230,105,275),target:SIMD3(0,141,0))
     private var previousTime = CACurrentMediaTime()
     private var lastStats = 0.0
     private var frameTimes: [Double] = []
     private var dirty = true
     private var historyDirty = true
-    private var playback = WalkthroughPlayback(location: .robie)
+    private var playback = WalkthroughPlayback(location: .chicago)
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
@@ -97,7 +100,7 @@ import simd
         if isReady && location.world == value.world {
             // The park and tower are bookmarks in the same world. Keep the GPU
             // scene resident, changing only the camera and its playback clock.
-            location = value; playback.selectLocation(value); lighting = playback.lighting
+            location = value; playback.selectLocation(value); lighting = playback.effectiveLighting
             applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
             view?.window?.title = "ATELIER / \(value.name)"; focusViewport()
             return
@@ -115,11 +118,11 @@ import simd
         if playback.demoActive {
             playback.stopChicagoDemo()
         } else {
-            let selectedLighting = lighting
+            let selectedLighting = location.world == "chicago" ? playback.lighting : lighting
             if location.world != "chicago" { loadLocation(.chicago, device: device) }
             playback.setLighting(selectedLighting)
             playback.startChicagoDemo()
-            lighting = playback.lighting
+            lighting = playback.effectiveLighting
             location = playback.location
             applyViewSelection()
             view?.window?.title = "ATELIER / \(location.name)"
@@ -155,7 +158,7 @@ import simd
         previousRenderer?.waitUntilIdle()
         renderer = nil; collision = nil; focusCatalog = nil; clearObjectFocus(); errorMessage = nil
         location = selected; playback.selectLocation(selected)
-        lighting = playback.lighting; applyViewSelection(); synchronizePlayback()
+        lighting = playback.effectiveLighting; applyViewSelection(); synchronizePlayback()
         status = "Preparing \(selected.name) and \(selected.shortName)…"
         view?.window?.title = "ATELIER / \(selected.name)"
         triangleCount = 0; memoryMB = 0; samples = 0; fps = 0
@@ -215,7 +218,7 @@ import simd
     func toggleNavigationMap() { navigationMapVisible.toggle(); focusViewport() }
     func setFlySpeed(_ value: Float) {
         guard value.isFinite else { return }
-        flySpeed = max(8,min(800,value))
+        flySpeed = ManualCityNavigation.nearestSpeed(value)
     }
     func stepFlySpeed(_ direction: Int) { setFlySpeed(ManualCityNavigation.steppedSpeed(flySpeed,direction:direction)); focusViewport() }
     func setNavigationMode(_ value: Int) {
@@ -242,7 +245,7 @@ import simd
         // selects its own tour, and Play starts the nearby architectural study.
         var nearestLocation = location, nearestView = currentStop
         var nearestDistance = Float.greatestFiniteMagnitude
-        for candidate in WalkthroughPlayback.chicagoDemoLocations {
+        for candidate in WalkthroughPlayback.chicagoDemoLocations where candidate != .skyline {
             for (index, stop) in candidate.stops.enumerated() {
                 let anchor = stop.pose.target
                 let distance = simd_distance_squared(SIMD2(anchor.x,anchor.z),point)
@@ -260,7 +263,19 @@ import simd
         altitude = pose.position.y; dirty = true; historyDirty = true
         previousTime = CACurrentMediaTime(); focusViewport()
     }
+    func panCityMap(_ requested: SIMD2<Float>) -> SIMD2<Float> {
+        guard isReady, !showHelp, !movingWindow, location.world == "chicago" else { return .zero }
+        let actual = ManualCityNavigation.mapTranslation(camera: SIMD2(pose.position.x,pose.position.z), requested: requested)
+        guard simd_length_squared(actual) > 0 else { return .zero }
+        beginManualNavigation(); keys.removeAll(); navigationMode = 1
+        let translation = SIMD3(actual.x,0,actual.y)
+        pose.position += translation; pose.target += translation
+        mapCamera = ChicagoMapCamera(position:SIMD2(pose.position.x,pose.position.z),target:SIMD2(pose.target.x,pose.target.z))
+        dirty = true; previousTime = CACurrentMediaTime(); focusViewport()
+        return actual
+    }
     private func applyViewSelection() {
+        mapSelectionRevision &+= 1
         clearObjectFocus()
         currentStop = playback.view; pose = playback.pose; altitude = pose.position.y
         navigationMode = location.walkingViews.contains(playback.view) ? 0 : 1
@@ -283,7 +298,7 @@ import simd
     func cycleView(_ direction: Int) {
         if playback.demoActive {
             playback.navigateDemoView(offset: direction)
-            location = playback.location; lighting = playback.lighting
+            location = playback.location; lighting = playback.effectiveLighting
             applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
             view?.window?.title = "ATELIER / \(location.name)"; focusViewport()
         } else { selectStop((currentStop + direction + stops.count) % stops.count) }
@@ -311,6 +326,8 @@ import simd
     func setPlaybackSpeed(_ value: Double) { playback.setSpeed(value); synchronizePlayback(); focusViewport() }
     func focusViewport() { if let view { view.window?.makeFirstResponder(view) } }
     private func synchronizePlayback() {
+        lighting = playback.effectiveLighting
+        music.selectLocation(location.rawValue)
         chicagoDemoActive = playback.demoActive; chicagoDemoTitle = playback.demoTitle
         tourPlaying = playback.state == .playing
         playbackState = playback.state; playbackSpeed = playback.speed
@@ -347,8 +364,8 @@ import simd
     }
     func resetView() { selectStop(0) }
     func setQuality(_ value: Int) { quality = max(0,min(2,value)); dirty = true; historyDirty = true }
-    func setLighting(_ value: Int) { playback.setLighting(value); lighting = playback.lighting; dirty = true; historyDirty = true }
-    func toggleDayNight() { playback.toggleDayNight(); lighting = playback.lighting; dirty = true; historyDirty = true; focusViewport() }
+    func setLighting(_ value: Int) { playback.setLighting(value); lighting = playback.effectiveLighting; dirty = true; historyDirty = true }
+    func toggleDayNight() { playback.toggleDayNight(); lighting = playback.effectiveLighting; dirty = true; historyDirty = true; focusViewport() }
     func setExposure(_ value: Double) { exposure = value; dirty = true; historyDirty = true }
     func moveKey(_ code: UInt16, pressed: Bool) {
         if pressed {
@@ -383,7 +400,14 @@ import simd
         if var orbit = focusSelection.orbit {
             orbit.dolly(logScale: -amount * (precise ? 0.003 : 0.10))
             focusSelection.orbit = orbit; pose = orbit.pose; dirty = true
-        } else { setFlySpeed(flySpeed * exp(-amount*(precise ? 0.0035:0.08))) }
+        } else {
+            flightScroll -= amount
+            let threshold: Float = precise ? 48 : 1
+            if abs(flightScroll) >= threshold {
+                setFlySpeed(ManualCityNavigation.steppedSpeed(flySpeed,direction:flightScroll > 0 ? 1 : -1))
+                flightScroll = 0
+            }
+        }
     }
     func captureScreenshot() { captured = true }
     func draw(_ view: MTKView) {
@@ -402,9 +426,9 @@ import simd
         let dt = Double(ManualCityNavigation.frameSeconds(elapsed)); previousTime = time
         frameTimes.append(elapsed); if frameTimes.count > 90 { frameTimes.removeFirst() }
         let automaticMotion = playback.state == .idle || playback.state == .playing
-        let previousLocation = playback.location, previousStop = playback.view, previousLighting = playback.lighting
+        let previousLocation = playback.location, previousStop = playback.view, previousLighting = playback.effectiveLighting
         if !suspended { playback.advance(min(0.5, elapsed)) }
-        if playback.lighting != previousLighting { lighting = playback.lighting; dirty = true; historyDirty = true }
+        if playback.effectiveLighting != previousLighting { lighting = playback.effectiveLighting; dirty = true; historyDirty = true }
         if playback.location != previousLocation || playback.view != previousStop {
             // Every demo destination shares this resident Chicago scene. Adopting
             // the playback location must not restart its first route via selectLocation.
@@ -461,7 +485,7 @@ import simd
         var delta = SIMD3<Float>.zero
         if keys.contains(13) { delta += f }; if keys.contains(1) { delta -= f }
         if keys.contains(0) { delta -= right }; if keys.contains(2) { delta += right }
-        if navigationMode == 1 { if keys.contains(14) { delta.y += 1 }; if keys.contains(12) { delta.y -= 1 } }
+        if navigationMode == 1 { delta.y += ManualCityNavigation.verticalDirection(keys: keys) }
         guard simd_length_squared(delta) > 0 else { return }
         delta = ManualCityNavigation.displacement(direction:delta,speed:navigationMode == 0 ? 4:flySpeed,seconds:dt,boosted:keys.contains(56) || keys.contains(60))
         var destination = pose.position + delta

@@ -19,55 +19,96 @@ enum ChicagoMapSize: String, CaseIterable, Identifiable, Sendable {
     var id: String { rawValue }
     var abbreviation: String { String(rawValue.prefix(1)).uppercased() }
 
-    /// Keep the choices distinct even when a short application window limits the card.
-    func cardSize(maximumHeight: CGFloat) -> CGSize {
-        let available = maximumHeight.isFinite ? max(180, min(540, maximumHeight)) : 540
-        let fraction: CGFloat = self == .small ? 0.52 : self == .medium ? 0.76 : 1
-        let height = 140 + (available - 140) * fraction
-        let width: CGFloat = self == .small ? 212 : self == .medium ? 266 : 324
-        return CGSize(width: width, height: height)
+    /// Large uses the supplied application viewport; PiP sizes stay useful and distinct.
+    func cardSize(maximumHeight: CGFloat, maximumWidth: CGFloat = 620) -> CGSize {
+        let height = maximumHeight.isFinite ? max(180, maximumHeight) : 540
+        let width = maximumWidth.isFinite ? max(220, maximumWidth) : 620
+        switch self {
+        case .small: return CGSize(width: min(260, width * 0.72), height: min(300, 140 + (height - 140) * 0.46))
+        case .medium: return CGSize(width: min(420, width * 0.86), height: min(520, 140 + (height - 140) * 0.72))
+        case .large: return CGSize(width: width, height: height)
+        }
     }
 }
 
 struct ChicagoMapProjection: Equatable, Sendable {
     static let worldMinimum = SIMD2<Float>(-4000, -11500)
     static let worldMaximum = SIMD2<Float>(6000, 11000)
+    static let worldCenter = (worldMinimum + worldMaximum) / 2
     let canvasSize: CGSize
-    let inset: CGFloat
+    let center: SIMD2<Float>
+    let zoom: CGFloat
 
-    init(canvasSize: CGSize, inset: CGFloat = 8) {
+    init(canvasSize: CGSize, center: SIMD2<Float> = Self.worldCenter, zoom: CGFloat = 1) {
         self.canvasSize = canvasSize
-        self.inset = max(0, inset.isFinite ? inset : 0)
+        self.center = center.x.isFinite && center.y.isFinite ? center : Self.worldCenter
+        self.zoom = zoom.isFinite ? max(1, min(16, zoom)) : 1
     }
 
     var scale: CGFloat {
-        guard canvasSize.width.isFinite, canvasSize.height.isFinite else { return 0 }
-        let width = max(0, canvasSize.width - inset * 2)
-        let height = max(0, canvasSize.height - inset * 2)
-        return min(width / 10000, height / 22500)
+        guard canvasSize.width.isFinite, canvasSize.height.isFinite,
+              canvasSize.width > 0, canvasSize.height > 0 else { return 0 }
+        // Fill, rather than fit: one metre has the same scale on both axes.
+        // The north/south corridor is explored by dragging or choosing a landmark.
+        return max(canvasSize.width / 10000, canvasSize.height / 22500) * zoom
     }
-
-    var fittedRect: CGRect {
-        let extent = CGSize(width: 10000 * scale, height: 22500 * scale)
-        return CGRect(x: (canvasSize.width - extent.width) / 2,
-                      y: (canvasSize.height - extent.height) / 2,
-                      width: extent.width, height: extent.height)
+    var canvasRect: CGRect { CGRect(origin: .zero, size: canvasSize) }
+    var coverageRect: CGRect {
+        let a = point(for: Self.worldMinimum), b = point(for: Self.worldMaximum)
+        return CGRect(x: a.x, y: a.y, width: b.x-a.x, height: b.y-a.y)
     }
-
+    /// Initial/recenter placement avoids empty margins near Robie or Wrigley.
+    func centered(on point: SIMD2<Float>) -> ChicagoMapProjection {
+        guard scale > 0, point.x.isFinite, point.y.isFinite else { return self }
+        let half = SIMD2(Float(canvasSize.width / (2*scale)), Float(canvasSize.height / (2*scale)))
+        let low = Self.worldMinimum + half, high = Self.worldMaximum - half
+        let adjusted = SIMD2(max(low.x, min(high.x, point.x)), max(low.y, min(high.y, point.y)))
+        return ChicagoMapProjection(canvasSize: canvasSize, center: adjusted, zoom: zoom)
+    }
     func point(for world: SIMD2<Float>) -> CGPoint {
-        let rect = fittedRect
-        return CGPoint(x: rect.minX + CGFloat(world.x - Self.worldMinimum.x) * scale,
-                       y: rect.minY + CGFloat(world.y - Self.worldMinimum.y) * scale)
+        CGPoint(x: canvasSize.width/2 + CGFloat(world.x-center.x)*scale,
+                y: canvasSize.height/2 + CGFloat(world.y-center.y)*scale)
     }
-
     /// Z increases south, exactly like a top-down screen's Y. Do not invert this axis.
     func world(at point: CGPoint) -> SIMD2<Float>? {
-        guard scale > 0, point.x.isFinite, point.y.isFinite else { return nil }
-        let rect = fittedRect
-        guard point.x >= rect.minX, point.x <= rect.maxX,
-              point.y >= rect.minY, point.y <= rect.maxY else { return nil }
-        return SIMD2(Float((point.x - rect.minX) / scale) + Self.worldMinimum.x,
-                     Float((point.y - rect.minY) / scale) + Self.worldMinimum.y)
+        // World positions are Float metres; tolerate their ~1 mm quantization
+        // when an exact city-boundary anchor projects just beyond a canvas edge.
+        let edge = max(0.001, scale*0.0015)
+        guard scale > 0, point.x.isFinite, point.y.isFinite,
+              point.x >= -edge, point.x <= canvasSize.width+edge,
+              point.y >= -edge, point.y <= canvasSize.height+edge else { return nil }
+        let x = max(0, min(canvasSize.width, point.x)), y = max(0, min(canvasSize.height, point.y))
+        let result = center + SIMD2(Float((x-canvasSize.width/2)/scale), Float((y-canvasSize.height/2)/scale))
+        guard result.x >= Self.worldMinimum.x-0.002, result.x <= Self.worldMaximum.x+0.002,
+              result.y >= Self.worldMinimum.y-0.002, result.y <= Self.worldMaximum.y+0.002 else { return nil }
+        return SIMD2(max(Self.worldMinimum.x, min(Self.worldMaximum.x, result.x)),
+                     max(Self.worldMinimum.y, min(Self.worldMaximum.y, result.y)))
+    }
+    /// Incremental grab-pan translation for both the map center and real 3D camera.
+    func panDelta(screenDelta: CGSize) -> SIMD2<Float>? {
+        guard scale > 0, screenDelta.width.isFinite, screenDelta.height.isFinite else { return nil }
+        return SIMD2(-Float(screenDelta.width/scale), -Float(screenDelta.height/scale))
+    }
+}
+
+/// Shared by the SwiftUI gesture and CPU tests: once dragged, release cannot click.
+struct ChicagoMapDrag: Sendable {
+    static let threshold: CGFloat = 4
+    private(set) var isDragging = false
+    private var previous = CGSize.zero
+    mutating func update(translation: CGSize) -> CGSize? {
+        guard translation.width.isFinite, translation.height.isFinite else { return nil }
+        if !isDragging && hypot(translation.width, translation.height) <= Self.threshold { return nil }
+        isDragging = true
+        let delta = CGSize(width: translation.width-previous.width, height: translation.height-previous.height)
+        previous = translation
+        return delta
+    }
+    mutating func end(translation: CGSize) -> Bool {
+        let clicked = !isDragging && translation.width.isFinite && translation.height.isFinite
+            && hypot(translation.width, translation.height) <= Self.threshold
+        self = ChicagoMapDrag()
+        return clicked
     }
 }
 
@@ -293,8 +334,9 @@ private struct ChicagoMapLabel {
     static func layout(projection: ChicagoMapProjection) -> [ChicagoMapLabel] {
         var labels: [ChicagoMapLabel] = []
         let limit = projection.canvasSize.height < 150 ? 4 : projection.canvasSize.height < 240 ? 8 : 14
-        for landmark in ChicagoMapLandmark.all.prefix(limit) {
+        for landmark in ChicagoMapLandmark.all {
             let p = projection.point(for: landmark.point)
+            guard projection.canvasRect.insetBy(dx: 5, dy: 5).contains(p), labels.count < limit else { continue }
             let width = CGFloat(landmark.name.count) * 5.0 + 8
             let x = landmark.eastLabel ? min(projection.canvasSize.width - width - 3, p.x + 8) : max(3, p.x - width - 8)
             let rect = CGRect(x: x, y: max(3, min(projection.canvasSize.height - 17, p.y - 7)), width: width, height: 14)
@@ -308,12 +350,12 @@ private struct ChicagoMapLabel {
 
 private struct ChicagoMapBasemap: View, Equatable {
     let geometry: ChicagoMapGeometry
-    let canvasSize: CGSize
-    static func == (lhs: Self, rhs: Self) -> Bool { lhs.canvasSize == rhs.canvasSize }
+    let projection: ChicagoMapProjection
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs.projection == rhs.projection }
     var body: some View {
-        Canvas { context, size in
-            let projection = ChicagoMapProjection(canvasSize: size)
-            context.fill(Path(projection.fittedRect), with: .color(Color(red: 0.24, green: 0.29, blue: 0.27)))
+        Canvas { context, _ in
+            context.fill(Path(projection.canvasRect), with: .color(Color(red: 0.16, green: 0.19, blue: 0.20)))
+            context.fill(Path(projection.coverageRect), with: .color(Color(red: 0.24, green: 0.29, blue: 0.27)))
             func path(_ lines: [[SIMD2<Float>]], closed: Bool) -> Path {
                 var result = Path()
                 for line in lines {
@@ -324,7 +366,7 @@ private struct ChicagoMapBasemap: View, Equatable {
                 }
                 return result
             }
-            context.clip(to: Path(projection.fittedRect))
+            context.clip(to: Path(projection.canvasRect))
             context.fill(path(geometry.parks, closed: true), with: .color(Color(red: 0.24, green: 0.37, blue: 0.29)), style: FillStyle(eoFill: true))
             for polygon in geometry.water {
                 context.fill(path(polygon, closed: true), with: .color(Color(red: 0.10, green: 0.23, blue: 0.30)), style: FillStyle(eoFill: true))
@@ -332,9 +374,9 @@ private struct ChicagoMapBasemap: View, Equatable {
             context.fill(path(geometry.footprints, closed: true), with: .color(.white.opacity(0.20)), style: FillStyle(eoFill: true))
             context.stroke(path(geometry.streets, closed: false), with: .color(.white.opacity(0.20)), lineWidth: 0.45)
             context.stroke(path(geometry.arterials, closed: false), with: .color(Color(red: 0.75, green: 0.76, blue: 0.65).opacity(0.65)), lineWidth: 0.8)
-            context.stroke(Path(projection.fittedRect), with: .color(.white.opacity(0.45)), style: StrokeStyle(lineWidth: 0.8, dash: [3, 3]))
+            context.stroke(Path(projection.coverageRect), with: .color(.white.opacity(0.45)), style: StrokeStyle(lineWidth: 0.8, dash: [3, 3]))
         }
-        .frame(width: canvasSize.width, height: canvasSize.height)
+        .frame(width: projection.canvasSize.width, height: projection.canvasSize.height)
         .allowsHitTesting(false)
     }
 }
@@ -345,7 +387,12 @@ struct ChicagoNavigationMap: View {
     @Binding var isVisible: Bool
     @Binding var size: ChicagoMapSize
     var maximumHeight: CGFloat = 540
+    var maximumWidth: CGFloat = 620
     let onNavigate: (SIMD2<Float>) -> Void
+    var onPan: (SIMD2<Float>) -> SIMD2<Float> = { _ in .zero }
+    @State private var mapCenter: SIMD2<Float>?
+    @State private var mapZoom: CGFloat = 1
+    @State private var drag = ChicagoMapDrag()
     @StateObject private var store = ChicagoMapStore.shared
     private let accent = Color(red: 0.84, green: 0.75, blue: 0.55)
 
@@ -365,9 +412,9 @@ struct ChicagoNavigationMap: View {
     }
 
     private var expanded: some View {
-        let card = size.cardSize(maximumHeight: maximumHeight)
-        let canvas = CGSize(width: card.width - 16, height: card.height - 64)
-        return VStack(spacing: 5) {
+        let card = size.cardSize(maximumHeight: maximumHeight, maximumWidth: maximumWidth)
+        let canvas = CGSize(width: card.width, height: card.height - 66)
+        return VStack(spacing: 0) {
             HStack(spacing: 6) {
                 Image(systemName: "map").foregroundStyle(accent)
                 Text("CHICAGO").font(.system(size: 10, weight: .semibold)).tracking(1.2)
@@ -385,29 +432,48 @@ struct ChicagoNavigationMap: View {
                     .buttonStyle(.plain).help("Hide map (M)").accessibilityLabel("Hide Chicago map")
                     .accessibilityIdentifier("chicago.map.hide")
             }
+            .padding(.horizontal, 9).frame(height: 34)
             mapCanvas(size: canvas)
-            HStack(spacing: 3) {
+            HStack(spacing: 5) {
                 Text("N ↑").foregroundStyle(accent)
-                Text("· Click to fly")
+                Menu {
+                    ForEach(ChicagoMapLandmark.all) { landmark in
+                        Button(landmark.name) { navigate(landmark.point) }
+                    }
+                } label: { Text("Places") }.menuStyle(.borderlessButton).fixedSize()
+                    .help("Choose any Chicago landmark")
+                Button { mapZoom = max(1, mapZoom/1.5) } label: { Image(systemName: "minus.magnifyingglass") }
+                    .disabled(mapZoom <= 1).accessibilityLabel("Zoom map out")
+                Button { mapZoom = min(16, mapZoom*1.5) } label: { Image(systemName: "plus.magnifyingglass") }
+                    .disabled(mapZoom >= 16).accessibilityLabel("Zoom map in")
+                Button { mapCenter = nil; mapZoom = 1 } label: { Image(systemName: "location") }
+                    .help("Recenter map on camera").accessibilityLabel("Recenter map on camera")
                 Spacer(minLength: 0)
-                Text("© OpenStreetMap").foregroundStyle(.white.opacity(0.5))
-            }.font(.system(size: 8))
+                if card.width >= 400 { Text("Drag to move · Click to fly").foregroundStyle(.white.opacity(0.65)) }
+                Text("© OSM").foregroundStyle(.white.opacity(0.5)).help("© OpenStreetMap contributors · ODbL 1.0")
+            }.font(.system(size: 10)).buttonStyle(.plain).padding(.horizontal, 9).frame(height: 32)
         }
-        .padding(8).frame(width: card.width, height: card.height)
+        .frame(width: card.width, height: card.height)
         .background(Color(red: 0.075, green: 0.105, blue: 0.115).opacity(0.96), in: RoundedRectangle(cornerRadius: 11))
         .overlay(RoundedRectangle(cornerRadius: 11).stroke(.white.opacity(0.16), lineWidth: 1))
         .shadow(color: .black.opacity(0.25), radius: 12, y: 4)
-        .foregroundStyle(.white)
+        .foregroundStyle(.white).clipShape(RoundedRectangle(cornerRadius: 11))
         .accessibilityIdentifier("chicago.navigation-map")
     }
 
+    private func navigate(_ point: SIMD2<Float>) {
+        mapCenter = nil
+        onNavigate(point)
+    }
     private func mapCanvas(size: CGSize) -> some View {
-        let projection = ChicagoMapProjection(canvasSize: size)
+        let base = ChicagoMapProjection(canvasSize: size, zoom: mapZoom)
+        let projection = mapCenter.map { ChicagoMapProjection(canvasSize: size, center: $0, zoom: mapZoom) }
+            ?? base.centered(on: camera.position)
         let labels = ChicagoMapLabel.layout(projection: projection)
         return ZStack {
             Color.black.opacity(0.15)
             if let geometry = store.geometry {
-                ChicagoMapBasemap(geometry: geometry, canvasSize: size).equatable()
+                ChicagoMapBasemap(geometry: geometry, projection: projection).equatable()
                 Canvas { context, _ in
                     for landmark in ChicagoMapLandmark.all {
                         let p = projection.point(for: landmark.point)
@@ -424,7 +490,7 @@ struct ChicagoNavigationMap: View {
                     }
                     let finite = camera.position.x.isFinite && camera.position.y.isFinite
                     if finite {
-                        let rect = projection.fittedRect, point = projection.point(for: camera.position)
+                        let rect = projection.canvasRect, point = projection.point(for: camera.position)
                         let p = CGPoint(x: max(rect.minX, min(rect.maxX, point.x)), y: max(rect.minY, min(rect.maxY, point.y)))
                         let forward = CGPoint(x: CGFloat(camera.heading.x), y: CGFloat(camera.heading.y))
                         let right = CGPoint(x: -forward.y, y: forward.x)
@@ -446,17 +512,23 @@ struct ChicagoNavigationMap: View {
             }
         }
         .frame(width: size.width, height: size.height).clipped().contentShape(Rectangle())
-        .gesture(SpatialTapGesture().onEnded { tap in
-            guard store.geometry != nil else { return }
-            if let label = labels.first(where: { $0.rect.insetBy(dx: -2, dy: -2).contains(tap.location) }) {
-                onNavigate(label.landmark.point)
-            } else if let world = projection.world(at: tap.location) { onNavigate(world) }
+        .gesture(DragGesture(minimumDistance: 0).onChanged { value in
+            guard store.geometry != nil, let pixels = drag.update(translation: value.translation),
+                  let requested = projection.panDelta(screenDelta: pixels) else { return }
+            let applied = onPan(requested)
+            guard applied.x.isFinite, applied.y.isFinite else { return }
+            mapCenter = projection.center + applied
+        }.onEnded { value in
+            guard drag.end(translation: value.translation), store.geometry != nil else { return }
+            if let label = labels.first(where: { $0.rect.insetBy(dx: -2, dy: -2).contains(value.location) }) {
+                navigate(label.landmark.point)
+            } else if let world = projection.world(at: value.location) { navigate(world) }
         })
         .accessibilityLabel("Chicago navigation map, north up")
-        .accessibilityHint("Select a landmark or map position to fly there. The arrow shows your camera position and heading.")
+        .accessibilityHint("Drag to move the map and camera together. Select a landmark or map position to fly there. Zoom or use Places to reach the whole city.")
         .accessibilityChildren {
             ForEach(ChicagoMapLandmark.all) { landmark in
-                Button("Fly to \(landmark.name)") { onNavigate(landmark.point) }
+                Button("Fly to \(landmark.name)") { navigate(landmark.point) }
             }
         }
     }

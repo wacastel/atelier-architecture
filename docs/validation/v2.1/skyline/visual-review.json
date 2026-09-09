@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "scope": "All 13 completed stills manually viewed: 8 authored raster compositions and 5 ray-traced images. Composition/material/lighting review only; no continuous-motion, native-FPS or survey-accuracy claim. Root independently accepted the three principal RT day/sunset/night stills.",
+  "images": [
+    {
+      "file": "view-0-lighting-1-raster.png",
+      "sha256": "ef559baa38bf0c7cc98655c2f070407950c9fab2f3828ddf000afd1507693a82",
+      "view": 0,
+      "lighting": 1,
+      "mode": "raster"
+    },
+    {
+      "file": "view-1-lighting-0-raster.png",
+      "sha256": "ef34ba496de6a42a275b095d3513ac042a47923c626138e50b4064ac94a9cb4a",
+      "view": 1,
+      "lighting": 0,
+      "mode": "raster"
+    },
+    {
+      "file": "view-2-lighting-3-raster.png",
+      "sha256": "6c16dbbbe1e9e1425da7c27f35913f0a4418e323261ea7fc6b22b1339846b148",
+      "view": 2,
+      "lighting": 3,
+      "mode": "raster"
+    },
+    {
+      "file": "view-3-lighting-2-raster.png",
+      "sha256": "b658be2dba4fe1877a16683a22a22f754dfc0bc0f87345732f53673181fa4bfe",
+      "view": 3,
+      "lighting": 2,
+      "mode": "raster"
+    },
+    {
+      "file": "view-4-lighting-3-raster.png",
+      "sha256": "a20c5a50b59dca88a0161c2034c1a134151d7e2405a10c0d848dda1297728e0f",
+      "view": 4,
+      "lighting": 3,
+      "mode": "raster"
+    },
+    {
+      "file": "view-5-lighting-1-raster.png",
+      "sha256": "92f94c1f807eb67d747d46767f520428a6b4a4833d49068856a1674da23c656f",
+      "view": 5,
+      "lighting": 1,
+      "mode": "raster"
+    },
+    {
+      "file": "view-6-lighting-0-raster.png",
+      "sha256": "91f40ff3e00319c6abbb1a4984c4f814effa1299764b1b9f0cb3b053c9bcdc7c",
+      "view": 6,
+      "lighting": 0,
+      "mode": "raster"
+    },
+    {
+      "file": "view-7-lighting-2-raster.png",
+      "sha256": "551d311c537c45fe767a07680777b3f5e920795a572ac7fe5ab7255fe29a8717",
+      "view": 7,
+      "lighting": 2,
+      "mode": "raster"
+    },
+    {
+      "file": "view-0-lighting-1-raytracing.png",
+      "sha256": "8bc181bba3ba3c1c5a0ab3b479afe54ff89b25c154b7c4172ca731d571d0fb14",
+      "view": 0,
+      "lighting": 1,
+      "mode": "rayTracing"
+    },
+    {
+      "file": "view-2-lighting-3-raytracing.png",
+      "sha256": "53d755f54aacc3d2b7f455a80e428fd1ff2f30f72d5f42a3f31af6efa4a4f1fd",
+      "view": 2,
+      "lighting": 3,
+      "mode": "rayTracing"
+    },
+    {
+      "file": "view-3-lighting-2-raytracing.png",
+      "sha256": "5d8ff016fea648d7c23550e29b8ac236cd401e2dcd374fc4b428016e0a490a80",
+      "view": 3,
+      "lighting": 2,
+      "mode": "rayTracing"
+    },
+    {
+      "file": "view-2-lighting-1-raytracing.png",
+      "sha256": "07e11f80b3b39e12da6c8f230e1a7b2c39c7a982868047b525585d71a1f1b0db",
+      "view": 2,
+      "lighting": 1,
+      "mode": "rayTracing"
+    },
+    {
+      "file": "view-2-lighting-2-raytracing.png",
+      "sha256": "f6f94252996652bfedea83aabd6199604ed2492630e69047a54e58ee700def31",
+      "view": 2,
+      "lighting": 2,
+      "mode": "rayTracing"
+    }
+  ],
+  "findings": [
+    "All eight compositions show the intended skyline from a distinct shore/offshore angle, without blocking camera geometry.",
+    "Adler day/sunset/night keep Willis Tower and the northern silhouette readable; vertical fields of view were narrowed before this only gallery run.",
+    "The matched view-2 sunset has an amber/rose sky and warm RT water reflections; day and night at exactly the same camera differ coherently.",
+    "North Avenue view emphasizes Hancock; Burnham harbor and elevated offshore views show the lakefront context.",
+    "No duplicate skyline geometry or separate world introduced."
+  ],
+  "limitations": [
+    "Existing daylight aerial haze reduces distant facade contrast.",
+    "Night water is restrained/dark; RT reflections retain some finite-sample grain.",
+    "Distant skyline facades and some heights remain procedural interpretations, rather than a photogrammetric replica.",
+    "Raster reflections show the analytic atmosphere/sun rather than local building reflections and occlusion; sunset sun glare is therefore stronger than in RT.",
+    "Sunset is a smooth analytic gradient without the reference photograph cloud shapes, not an ephemeris or measured atmosphere."
+  ]
+}

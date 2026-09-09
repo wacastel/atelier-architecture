@@ -1,0 +1,401 @@
+{
+  "passed": true,
+  "recordedAtUTC": "2026-09-09T12:34:38.466189+00:00",
+  "version": "2.1.0 (13)",
+  "scope": "Documentation authoring and verification; release behavior is attributed to the separately recorded native, CPU, audio and GPU checks. No application GPU or native UI tests were run by the guide author.",
+  "pageCount": 15,
+  "formatContentParityBlocks": 188,
+  "contentsAndOutlineEntries": 14,
+  "outputs": {
+    "docs/CITY-BUILDING-GUIDE.md": {
+      "bytes": 43827,
+      "sha256": "54745a8924ac1b8ea13b67e07aaee147607b607d4374fe7c7b0419ea69aff20f"
+    },
+    "docs/city-building-guide.html": {
+      "bytes": 50497,
+      "sha256": "837b8ed89c901e6aadc29cea371dcea888abd0a8c231d7a1c9856a7e24e5794a"
+    },
+    "docs/City-Building-Guide.pdf": {
+      "bytes": 110310,
+      "sha256": "536c7d959e475205c9f9fa2304280332b66c930b9a8b7be954b4b1502a0482c3"
+    }
+  },
+  "readme": {
+    "bytes": 32540,
+    "sha256": "7d759679169ecd287d906ff4c85e2abcc7c3597d6bb48888e901d165303bfcbd"
+  },
+  "fontSHA256": {
+    "Ubuntu-R.ttf": "52c1afa489ae7bfd893af6cdd9f1af258005703600449e70d338caabcff507e5",
+    "Ubuntu-B.ttf": "c90e629e932f768909bdce1481ccd259d8aff1490a4bc1cf94d5413492317336",
+    "Ubuntu-RI.ttf": "0626647f11d9c911f934715d1060b590744887224601abaeb22ac8f582b57118",
+    "Ubuntu-BI.ttf": "2c33de34d51065a5e56bae5e1c7c13cd128268b26569838a38db038e6ac9723d",
+    "UbuntuMono-R.ttf": "b35dd9d2131d5d83a9b87fe9ad22c6288fa3d17688d43302c14da29812417d63"
+  },
+  "dependencies": {
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0",
+    "pdfplumber": "0.11.9"
+  },
+  "python": "3.12.14",
+  "helpers": {
+    "scripts/docs/build-city-building-guide.py": "a830b537b2c9ca4a604c266bc1a899cc71132deb8bdf3feaaf1b6483794825f9",
+    "scripts/docs/verify-city-building-guide.py": "688c677c887acfcf1a8caccb80348a10f581bd21b1621ca818cbd0ef29cad22f",
+    "scripts/docs/README.md": "410267685639ac39254b4ae7e8eb83e8b649930948fbef8bade946c1881d3a91"
+  },
+  "referencePathsExist": [
+    "docs/ADLER.md",
+    "docs/AMBIENT-MUSIC.md",
+    "docs/ART-INSTITUTE.md",
+    "docs/CHICAGO.md",
+    "docs/CITY-BUILDING-GUIDE.md",
+    "docs/City-Building-Guide.pdf",
+    "docs/DEMO.md",
+    "docs/ENGINE.md",
+    "docs/FOCUS.md",
+    "docs/GLASS.md",
+    "docs/HYDE-PARK.md",
+    "docs/LAKEFRONT.md",
+    "docs/LINCOLN-PARK-ZOO.md",
+    "docs/MAGNIFICENT-GATEWAY.md",
+    "docs/MAGNIFICENT-MILE.md",
+    "docs/MCCORMICK-PLACE.md",
+    "docs/MILLENNIUM.md",
+    "docs/MOTION.md",
+    "docs/MUSEUM-BUILDINGS.md",
+    "docs/MUSEUM-CAMPUS.md",
+    "docs/NAVIGATION-MAP.md",
+    "docs/NORTH-SIDE-LANDMARKS.md",
+    "docs/NORTH-SIDE.md",
+    "docs/PARIS.md",
+    "docs/ROBIE-HOUSE.md",
+    "docs/SKYLINE.md",
+    "docs/VALIDATION.md",
+    "docs/WILLIS.md",
+    "docs/WRIGLEY-FIELD.md",
+    "docs/city-building-guide.html",
+    "docs/images/North-Side-Wrigley-Night.png",
+    "docs/images/North-Side-Zoo-Night.png",
+    "docs/images/Robie-House-Day.png",
+    "docs/images/Robie-House-Living-Room.png",
+    "docs/validation/v2.1/native-review.json",
+    "docs/validation/v2.1/package-rendering/runs.json",
+    "docs/validation/v2.1/package.json"
+  ],
+  "visualReview": [
+    {
+      "page": 1,
+      "path": "output/city-building-guide-review/v2.1/page-01.png",
+      "sha256": "0083c3f89e44ab53d95596c73f2cfe001d3df11af36a5b843298334700790cf0",
+      "visuallyInspected": true,
+      "findings": "Final 2.1 release-scope introduction, all 14 contents links and workflow fit; individually reinspected after acceptance update."
+    },
+    {
+      "page": 2,
+      "path": "output/city-building-guide-review/v2.1/page-02.png",
+      "sha256": "8f52df1df993c1c75baeb1b52511eb2c90395cf90b23f920623c5dbae5a48dae",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 3,
+      "path": "output/city-building-guide-review/v2.1/page-03.png",
+      "sha256": "28869851e445071de910b08980777378eae5f555526ddd4dbf31d4396b854b9f",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 4,
+      "path": "output/city-building-guide-review/v2.1/page-04.png",
+      "sha256": "e94b9ffd40d5b0c2f90af7ad0bbf2645ea527229909371ccbee4260d260409a9",
+      "visuallyInspected": true,
+      "findings": "Projection and setup code retains indentation; resource paths wrap within margins."
+    },
+    {
+      "page": 5,
+      "path": "output/city-building-guide-review/v2.1/page-05.png",
+      "sha256": "e30af3c73b597b658203d1bac636b5ca637850b9ff58ae9d9d3e566ddf2bd170",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 6,
+      "path": "output/city-building-guide-review/v2.1/page-06.png",
+      "sha256": "801713ac889bc1cd7f237da69b9bd51ea9e2cb60c402dd4f0af5419778f86fc7",
+      "visuallyInspected": true,
+      "findings": "Road topology list and exact grade/mesh provenance fit cleanly on one page."
+    },
+    {
+      "page": 7,
+      "path": "output/city-building-guide-review/v2.1/page-07.png",
+      "sha256": "b69d47d87d5f5ec2f844d40cc6bb99974782eedad88aa3486c697a0d1545aaa6",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 8,
+      "path": "output/city-building-guide-review/v2.1/page-08.png",
+      "sha256": "695355107680e128d0f14e02fc56769cd32dea129c60f32be6a3294c35e0a050",
+      "visuallyInspected": true,
+      "findings": "Updated seven-location/56-route playback contract fits; no stranded paragraph."
+    },
+    {
+      "page": 9,
+      "path": "output/city-building-guide-review/v2.1/page-09.png",
+      "sha256": "91ddd9adcb3ffdef4cd83181cfd4864e2ca124b0d23a49e9fe9935c72e0f96ae",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 10,
+      "path": "output/city-building-guide-review/v2.1/page-10.png",
+      "sha256": "a04f3d92203e056c30c48597c9d5c13be9d721c71ecf9e88b9c3fba8cf272498",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 11,
+      "path": "output/city-building-guide-review/v2.1/page-11.png",
+      "sha256": "02afd47ac10a4cf3e006b79bdbc7444629aebf5f1a0a574d238b044ec88a7e49",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 12,
+      "path": "output/city-building-guide-review/v2.1/page-12.png",
+      "sha256": "8d96a7eeae89a793bffb4ae6cd3010a86eb0d85a79612cfb6cb7e8eb34d1a6b9",
+      "visuallyInspected": true,
+      "findings": "Readable headings, paragraphs, lists and code with consistent margins, footer separation and no clipping or overlaps."
+    },
+    {
+      "page": 13,
+      "path": "output/city-building-guide-review/v2.1/page-13.png",
+      "sha256": "6f51c86f3672a3b2c7d9fac246bc6d98df01ef641f917a9b44e92f53cb3731a1",
+      "visuallyInspected": true,
+      "findings": "Complete starter prompt and source index fit; command text remains readable."
+    },
+    {
+      "page": 14,
+      "path": "output/city-building-guide-review/v2.1/page-14.png",
+      "sha256": "ddf446086fc53dfbc6ad05ca05d48475d13e61cb68bcafe0477bf86ab8b591c2",
+      "visuallyInspected": true,
+      "findings": "Final map bounds, full-window sizing, drag contract, 400 m/s presets, Q/E and R controls fit cleanly; individually reinspected."
+    },
+    {
+      "page": 15,
+      "path": "output/city-building-guide-review/v2.1/page-15.png",
+      "sha256": "d2480298ff70311f5d80c59985ade60372e3e51e6f51c568aaed17e418bb4d98",
+      "visuallyInspected": true,
+      "findings": "Final Skyline parity, shared eight-track music, CPU/GPU/native/package results and explicit input/listening limits fit one page; individually reinspected."
+    }
+  ],
+  "renderDPI": 100,
+  "reproduction": {
+    "passed": true,
+    "outsideRepositoryWorkingDirectoryPassed": true,
+    "allArtifactHashesIdentical": true,
+    "pagesByteIdenticalToPriorFullVisualReview": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "changedPagesIndividuallyReinspected": [
+      1,
+      14,
+      15
+    ]
+  },
+  "structuralChecks": {
+    "passed": true,
+    "pages": 15,
+    "semanticParagraphsCheckedAcrossThreeFormats": 188,
+    "linkedContentsEntries": 14,
+    "pdfOutlineEntries": 14,
+    "htmlExternalAssets": [],
+    "syntaxChecks": [
+      {
+        "language": "python",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      },
+      {
+        "language": "sh",
+        "passed": true
+      }
+    ],
+    "pageTextBounds": [
+      {
+        "page": 1,
+        "textCharacters": 1551,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 65.85000000000002,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 2,
+        "textCharacters": 2403,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 3,
+        "textCharacters": 2479,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 4,
+        "textCharacters": 2277,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 5,
+        "textCharacters": 2593,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 6,
+        "textCharacters": 2487,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 7,
+        "textCharacters": 2630,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 8,
+        "textCharacters": 2742,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 9,
+        "textCharacters": 2413,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 10,
+        "textCharacters": 2413,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 11,
+        "textCharacters": 2599,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 12,
+        "textCharacters": 2653,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 13,
+        "textCharacters": 2514,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 14,
+        "textCharacters": 2497,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      },
+      {
+        "page": 15,
+        "textCharacters": 2706,
+        "minX": 48.0,
+        "maxX": 564.0,
+        "minTop": 26.480000000000018,
+        "maxBottom": 767.48
+      }
+    ],
+    "limits": [
+      "Commands were inspected and syntax-checked, not executed to rebuild/render the app by the guide author.",
+      "HTML content, links and offline dependency structure were checked; no browser screenshot review is claimed.",
+      "PDF raster visual review is recorded separately after every final page is inspected."
+    ]
+  },
+  "releaseEvidence": {
+    "executableSHA256": "6fe38898baec184f860421ee8336b33ceb417b426e134a73c7301853f60b6ca7",
+    "nativeReview": "docs/validation/v2.1/native-review.json",
+    "package": "docs/validation/v2.1/package.json",
+    "packageRendering": "docs/validation/v2.1/package-rendering/runs.json",
+    "packageRenderingPassed": true,
+    "resourceCount": 26,
+    "musicTracks": 8
+  },
+  "limits": [
+    "HTML content, links and offline dependency structure passed; no browser screenshot review is claimed.",
+    "PDF pages were rendered and individually viewed; document proof does not establish application behavior.",
+    "Physical sustained Q/E and Shift-held drag have CPU and wiring coverage; native simulation of those gestures is not claimed.",
+    "Audio decoding, transport and native UI were checked separately; subjective listening quality is not claimed.",
+    "Version 2.0 GPU timing remains explicitly historical; no 2.1 benchmark or city-wide FPS guarantee is inferred."
+  ]
+}

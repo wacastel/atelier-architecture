@@ -1,0 +1,17 @@
+{
+  "scope": "Exact same existing bounded MSAA raster fixture, prior accepted 2.0 vs sunset integration; PNG bytes compared, not full-city exhaustive equivalence.",
+  "images": [
+    {
+      "image": "day.png",
+      "previousSHA256": "04707bf56c24091128840ee2d098a3d9dcfea4875335ca778c149c00b5a17251",
+      "currentSHA256": "04707bf56c24091128840ee2d098a3d9dcfea4875335ca778c149c00b5a17251",
+      "identical": true
+    },
+    {
+      "image": "night.png",
+      "previousSHA256": "26fe332e9a63ebb409eefa13bbc6baf6b7d2de73c72f491eb85a3f567b6ea275",
+      "currentSHA256": "26fe332e9a63ebb409eefa13bbc6baf6b7d2de73c72f491eb85a3f567b6ea275",
+      "identical": true
+    }
+  ]
+}

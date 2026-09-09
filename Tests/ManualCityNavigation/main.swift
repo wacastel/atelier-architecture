@@ -32,6 +32,37 @@ expect(ManualCityNavigation.steppedSpeed(80,direction:-1)==30,"Slower flight pre
 expect(ManualCityNavigation.steppedSpeed(800,direction:1)==800,"Flight maximum")
 expect(ManualCityNavigation.steppedSpeed(8,direction:-1)==8,"Flight minimum")
 
+expect(ManualCityNavigation.defaultFlySpeed == 400, "Default flight must cross city distances promptly")
+expect(ManualCityNavigation.nearestSpeed(63) == 80, "Arbitrary speed must resolve to a dropdown choice")
+expect(ManualCityNavigation.nearestSpeed(.nan) == 400, "Invalid speed fallback")
+for speed: Float in [-100,0,8,22,63,123,201,399,900] {
+    expect(ManualCityNavigation.flySpeeds.contains(ManualCityNavigation.nearestSpeed(speed)), "Non-preset flight speed escaped")
+}
+expect(ManualCityNavigation.verticalDirection(keys:[12]) == 1, "Q must ascend")
+expect(ManualCityNavigation.verticalDirection(keys:[14]) == -1, "E must descend")
+expect(ManualCityNavigation.verticalDirection(keys:[12,14]) == 0, "Opposing vertical keys must cancel")
+for camera in [SIMD2<Float>(0,0),SIMD2(-3999,-11499),SIMD2(5999,10999)] {
+    for request in [SIMD2<Float>(42,-17),SIMD2(-20_000,40_000),SIMD2(400,-700)] {
+        let delta=ManualCityNavigation.mapTranslation(camera:camera,requested:request)
+        let actual=camera+delta
+        expect(actual.x >= -4000 && actual.x <= 6000 && actual.y >= -11500 && actual.y <= 11000, "Map drag left modeled city")
+        if camera == .zero && abs(request.x) < 1000 && abs(request.y) < 1000 {
+            expect(delta == request, "Map drag did not preserve exact incremental displacement")
+        }
+    }
+}
+expect(ManualCityNavigation.mapTranslation(camera:.zero,requested:SIMD2(.nan,0)) == .zero, "Nonfinite map delta propagated")
+
+for camera in [SIMD2<Float>(7000,12000),SIMD2(-5000,-12500)] {
+    for request in [SIMD2<Float>(10,10),SIMD2(-10,-10),SIMD2(500,-2000)] {
+        let actual=ManualCityNavigation.mapTranslation(camera:camera,requested:request)
+        for axis in 0..<2 {
+            expect(actual[axis]*request[axis] >= 0, "Outside-city drag reversed direction")
+            expect(abs(actual[axis]) <= abs(request[axis]), "Outside-city drag snapped farther than requested")
+        }
+    }
+}
+
 let poses=[CameraPose(position:SIMD3(0,100,150),target:.zero,fov:60),
            CameraPose(position:SIMD3(4500,500,9800),target:SIMD3(4400,0,9400),fov:66),
            CameraPose(position:SIMD3(-20,10,25),target:.zero,fov:52)]

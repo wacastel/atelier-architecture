@@ -141,7 +141,31 @@ float3 sunSample(float3 direction, float radius, float2 xi) {
 
 // Analytic clear daylight. The solar disc is evaluated only for camera rays:
 // direct-light next-event estimation already accounts for sunlight at surfaces.
+// Directional late-day atmosphere: westward amber horizon, rose transition and
+// blue zenith. The same radiance feeds camera, reflection and diffuse rays.
+// animation.z is reserved for this preset; modes 0/1/2 keep their exact paths.
+float3 sunsetSkyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
+    float h=max(d.y,0.0f);
+    float3 sun=normalize(u.sunDirection.xyz);
+    float azimuth=dot(normalize(float2(d.x,d.z)+float2(1e-8f)),normalize(sun.xz));
+    float west=pow(clamp(azimuth*0.5f+0.5f,0.0f,1.0f),3.0f);
+    float3 horizon=mix(float3(0.24f,0.19f,0.29f),float3(1.04f,0.31f,0.075f),west);
+    float3 rose=mix(float3(0.13f,0.13f,0.25f),float3(0.56f,0.18f,0.22f),west);
+    float3 sky=mix(horizon,rose,smoothstep(0.0f,0.14f,h));
+    sky=mix(sky,float3(0.026f,0.064f,0.18f),smoothstep(0.08f,0.72f,h));
+    float mu=clamp(dot(d,sun),-1.0f,1.0f);
+    sky+=float3(0.65f,0.16f,0.025f)*pow(max(mu,0.0f),72.0f);
+    // Retain the colored horizon below water-level reflection directions.
+    if(d.y<0.0f) sky=mix(sky,horizon*0.38f,min(-d.y*2.0f,1.0f));
+    sky*=max(u.settings.w,0.0f);
+    if(cameraRay) {
+        float radius=max(u.settings.z,0.002f);
+        sky+=u.sunColor.xyz*smoothstep(cos(radius*1.15f),cos(radius*0.85f),mu)*6.0f;
+    }
+    return sky;
+}
 float3 skyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
+    if(u.animation.z>0.5f) return sunsetSkyRadiance(d,u,cameraRay);
     if (u.sunColor.w > 0.5f) {
         // Photographic night: navy zenith, restrained amber urban horizon.
         // Values are linear radiance, not a blue daylight sky with lower exposure.
@@ -888,7 +912,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
         if (stratified) sunXi=pathSample2D(u.viewport.w,sampleDomain,pixelSeed);
         float3 lightDirection = sunSample(normalize(u.sunDirection.xyz), max(u.settings.z, 0.001f), sunXi);
         float noL = max(dot(surface.normal, lightDirection), 0.0f);
-        if (!IsNight && noL > 0.0f && dot(geometricNormal, lightDirection) > 0.0f) {
+        if ((!IsNight || u.animation.z > 0.5f) && noL > 0.0f && dot(geometricNormal, lightDirection) > 0.0f) {
             ray shadowRay;
             shadowRay.origin = rayOrigin;
             shadowRay.direction = lightDirection;

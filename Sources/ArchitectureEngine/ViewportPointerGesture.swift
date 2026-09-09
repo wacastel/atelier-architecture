@@ -4,6 +4,10 @@ import Foundation
 /// began there. Window translation cancels ownership instead of becoming look input.
 struct ViewportPointerGesture {
     enum Button { case left, right }
+    enum Action { case pan, look }
+    static func action(button: Button, shift: Bool) -> Action {
+        button == .right || shift ? .look : .pan
+    }
     private struct Capture {
         var button: Button
         var origin: SIMD2<Double>

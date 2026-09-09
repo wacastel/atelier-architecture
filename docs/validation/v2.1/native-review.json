@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "date": "2026-09-09",
+  "version": "2.1.0 (13)",
+  "executableSHA256": "6fe38898baec184f860421ee8336b33ceb417b426e134a73c7301853f60b6ca7",
+  "method": "CUA native accessibility actions and screenshots; no direct renderer instrumentation. Screenshots were inspected inline in the task.",
+  "observed": [
+    "Fresh launch opened Willis Tower; flight dropdown initially400 m/s.",
+    "R changed toolbar from ray tracing on to fast raster. Subsequent T left raster selected.",
+    "Dropdown displayed only8,30,80,180,400,800 m/s. Selected800; minus shortcut restored400 and keyboard focus remained usable.",
+    "Music popover displayed Between Steel and Sky at16%; volume Increment produced26%, Decrement restored16%; toggle changed MUSIC PAUSED/NOW PLAYING.",
+    "Track title advanced naturally to Clouds in Silver while staying at Willis; changing destination to Skyline started The City Opens.",
+    "Skyline selection exposed eight views; view3 displayed the authored sunset, view4 the night skyline; N changed the authored night view to daylight.",
+    "Space started the selected120-second Skyline walkthrough and its timeline advanced.",
+    "Small-map drag visibly translated the city view, kept12m altitude and the same view metadata, and entered manual mode without triggering click navigation on release.",
+    "Large map filled the application content window without letterboxing; its drag changed the underlying camera; M returned to the translated viewport.",
+    "Medium returned to a floating map. Clicking the visible Willis label selected Willis and placed the camera above its roof at670.4m.",
+    "Full-screen entry/exit worked; Large map filled the full-screen viewport and adapted after native window resize.",
+    "Chicago demo showed56 routes; selected Skyline view8 was16/56, Down continued to Millennium view1 at17/56, Up returned to Skyline8, Space paused."
+  ],
+  "separateValidation": [
+    "Shift-left versus ordinary-left/right routing is covered by CPU viewport tests plus inspection of NSEvent modifier wiring; CUA has no modifier-hold drag operation.",
+    "Q/E signs and equal flight distance are covered by CPU navigation tests plus keycode wiring review. CUA emits taps too short to reliably span a rendered frame, so sustained native Q/E movement is not claimed.",
+    "Audio assets decoded and transport tests passed; subjective listening quality was not assessed by this native UI check."
+  ],
+  "performanceScope": "Observed fast-raster HUD values typically50\u201360FPS across these navigation views; these are interactive observations, not a controlled benchmark or a whole-city performance guarantee."
+}

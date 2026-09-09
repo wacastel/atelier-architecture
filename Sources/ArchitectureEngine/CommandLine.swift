@@ -21,12 +21,12 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / millennium / lakefront / campus / northside / robie (default paris)
+        --location paris           paris / chicago / skyline / millennium / lakefront / campus / northside / robie (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
-        --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
+        --lighting 0                0 golden hour, 1 daylight, 2 illuminated night, 3 sunset (Skyline defaults to authored lighting)
         --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
         --raster                   Render with native rasterization, without ray tracing
@@ -62,12 +62,13 @@ import CoreText
         switch locationName {
         case "paris", "eiffel": location = .paris
         case "chicago", "willis": location = .chicago
+        case "skyline": location = .skyline
         case "millennium", "park": location = .millennium
         case "lakefront", "magmile", "grant": location = .lakefront
         case "campus", "museum", "museums": location = .campus
         case "northside", "north", "wrigley", "zoo": location = .northside
         case "robie", "hydepark", "hyde-park": location = .robie
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront, campus, northside or robie.")
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, skyline, millennium, lakefront, campus, northside or robie.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -84,8 +85,9 @@ import CoreText
         let width = max(64,min(8192,integer("--width",args.contains("--self-test") ? 640 : 1920)))
         let height = max(64,min(8192,integer("--height",args.contains("--self-test") ? 400 : 1080)))
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(2,integer("--lighting",0))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
+        let defaultLighting = location.preferredLighting(view: stop) ?? 0
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"))
         var pose = location.stops[stop].pose
         if args.contains("--at") {
             guard let seconds=Double(value("--at","0")),seconds.isFinite else { throw EngineError.message("--at requires finite seconds.") }
@@ -206,8 +208,10 @@ import CoreText
         }
         if args.contains("--gallery") {
             let folder = URL(fileURLWithPath:value("--gallery","output/gallery"))
-            for stop in location.stops {
-                let pixels = try renderer.renderOffscreen(pose:stop.pose,options:options,width:width,height:height,samples:samples)
+            for (index, stop) in location.stops.enumerated() {
+                var shotOptions = options
+                if !args.contains("--lighting"), let lighting = location.preferredLighting(view:index) { shotOptions.lighting = lighting }
+                let pixels = try renderer.renderOffscreen(pose:stop.pose,options:shotOptions,width:width,height:height,samples:samples)
                 let url = folder.appendingPathComponent(String(format:"%02d",stop.id)+"-"+stop.title.lowercased().replacingOccurrences(of:" ",with:"-")+".png")
                 try writePNG(pixels,width:width,height:height,to:url)
                 print("Saved \(url.path)"); fflush(stdout)
@@ -219,14 +223,14 @@ import CoreText
             guard let requestedSeconds=Double(value("--seconds",String(defaultSeconds))),requestedSeconds.isFinite else { throw EngineError.message("--seconds requires a finite duration.") }
             let seconds = max(6,min(600,requestedSeconds))
             let fps = max(12,min(60,integer("--fps",24)))
-            try exportVideo(renderer:renderer,url:url,width:width,height:height,seconds:seconds,fps:fps,samples:samples,options:options,singleView:args.contains("--single-view") || args.contains("--idle") ? stop : nil,idle:args.contains("--idle"),location:location)
+            try exportVideo(renderer:renderer,url:url,width:width,height:height,seconds:seconds,fps:fps,samples:samples,options:options,singleView:args.contains("--single-view") || args.contains("--idle") ? stop : nil,idle:args.contains("--idle"),location:location,authoredLighting:!args.contains("--lighting"))
         }
         print(String(format:"Completed in %.2fs",Date().timeIntervalSince(start)))
     } catch { fputs("ERROR: \(error.localizedDescription)\n",stderr); exit(1) }
     return true
 }
 
-private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,seconds:Double,fps:Int,samples:Int,options:RenderOptions,singleView:Int? = nil,idle:Bool = false,location:ArchitectureLocation) throws {
+private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,seconds:Double,fps:Int,samples:Int,options:RenderOptions,singleView:Int? = nil,idle:Bool = false,location:ArchitectureLocation,authoredLighting:Bool = true) throws {
     guard width % 2 == 0 && height % 2 == 0 else { throw EngineError.message("H.264 dimensions must be even.") }
     try FileManager.default.createDirectory(at:url.deletingLastPathComponent(),withIntermediateDirectories:true)
     // A fresh export never silently replaces an existing recording.
@@ -263,7 +267,9 @@ private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,sec
                 shot=(location.pose(view:chapter,seconds:local),chapter,local)
             }
             renderer.setSceneTime(shot.seconds)
-            let pixels = try renderer.renderPreviewOffscreen(pose:shot.pose,options:options,width:width,height:height,samples:samples,resetHistory:previousChapter != shot.index)
+            var shotOptions = options
+            if authoredLighting, let lighting = location.preferredLighting(view:shot.index) { shotOptions.lighting = lighting }
+            let pixels = try renderer.renderPreviewOffscreen(pose:shot.pose,options:shotOptions,width:width,height:height,samples:samples,resetHistory:previousChapter != shot.index)
             previousChapter = shot.index
             while !input.isReadyForMoreMediaData {
                 if writer.status == .failed { throw writer.error ?? EngineError.message("Video encoder failed.") }
@@ -315,6 +321,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     switch location {
     case .paris: heading = "A T E L I E R    /    E I F F E L"
     case .chicago: heading = "A T E L I E R    /    W I L L I S"
+    case .skyline: heading = "A T E L I E R    /    C H I C A G O   S K Y L I N E"
     case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
     case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"

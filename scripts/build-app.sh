@@ -39,8 +39,8 @@ atelier_staged_app="$atelier_stage_dir/Atelier.app"
     <key>CFBundleDisplayName</key><string>Atelier</string>
     <key>CFBundleIconFile</key><string>Atelier.icns</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>2.0.0</string>
-    <key>CFBundleVersion</key><string>12</string>
+    <key>CFBundleShortVersionString</key><string>2.1.0</string>
+    <key>CFBundleVersion</key><string>13</string>
     <key>CFBundleSupportedPlatforms</key><array><string>MacOSX</string></array>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>LSArchitecturePriority</key><array><string>arm64</string></array>

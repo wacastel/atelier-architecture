@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "executableSHA256": "6fe38898baec184f860421ee8336b33ceb417b426e134a73c7301853f60b6ca7",
+  "runs": [
+    {
+      "name": "skyline-sunset-raytracing",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--self-test",
+        "--location",
+        "skyline",
+        "--stop",
+        "2",
+        "--lighting",
+        "3",
+        "--width",
+        "640",
+        "--height",
+        "400"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 13.88197291601682,
+      "isolatedWorkingDirectory": true
+    },
+    {
+      "name": "skyline-sunset-raster",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--self-test",
+        "--location",
+        "skyline",
+        "--stop",
+        "2",
+        "--lighting",
+        "3",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--raster"
+      ],
+      "returncode": 0,
+      "elapsedSeconds": 15.801930874993559,
+      "isolatedWorkingDirectory": true
+    }
+  ]
+}

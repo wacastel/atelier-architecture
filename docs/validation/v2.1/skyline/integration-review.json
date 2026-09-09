@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "scope": "Source-only final Skyline/playback integration audit after root fresh-demo parity correction. No native runtime or package validation asserted.",
+  "filesSHA256": {
+    "Sources/ArchitectureEngine/ArchitectureLocation.swift": "e7017eff92978a36334d75dabe6336f294a8ea799fc6e24052b71d62d712cc04",
+    "Sources/ArchitectureEngine/Walkthrough.swift": "d969bae94611ed65757c68f48f0b3be9064695b1f0efee104a881788cdcf064c",
+    "Sources/ArchitectureEngine/SkylineScene.swift": "1a571aab557aaa4c673f234d9a87f57827893c8f607caf2f18a7393dc169d565",
+    "Sources/ArchitectureEngine/SkylineWalkthrough.swift": "60ea885bb37d65c61eb3ce34b816dbfca907e8e1de9103a022485e2ecde6d819",
+    "Sources/ArchitectureEngine/EngineController.swift": "2d7ec1a264187b59028a0474b86710acc4cbb9a75ca9547a42d73017edb099d8",
+    "Sources/ArchitectureEngine/ArchitectureApp.swift": "d448e80ee05dac1c8b940266c459d1e10197f6c4e5bd62f7598578cae499ef46",
+    "Sources/ArchitectureEngine/CommandLine.swift": "44bb4973ad290fbc1e99819dfc3b913775bda390ec1903031dc458884b44ffb4"
+  },
+  "resolvedFindings": [
+    {
+      "file": "Sources/ArchitectureEngine/EngineController.swift",
+      "symbol": "toggleChicagoDemo",
+      "finding": "Starting a demo from an authored Skyline night view must preserve its base pass, not promote displayed night to the base.",
+      "resolution": "Current code captures playback.lighting for Chicago, displayed lighting only when entering from Paris; startChicagoDemo clears temporary override."
+    }
+  ],
+  "checked": [
+    "Menu order comes from .skyline immediately after .chicago; all 7 Chicago destinations enter the demo and Paris remains excluded.",
+    "Controller renderer/UI lighting reads effectiveLighting; view or automatic lighting changes reset reconstruction history.",
+    "Manual N switches from displayed lighting and preserves clocks/pause.",
+    "Manual per-pass override persists through Chicago demo selections and navigation; a complete pass restores authored policy with flipped base parity.",
+    "CLI uses authored per-view lighting when --lighting is absent and explicit lighting overrides all shots; video resets reconstruction at chapter changes.",
+    "All new route initial poses match bookmark poses; 8 routes\u00d7120 seconds; routes do not require pedestrian support."
+  ]
+}

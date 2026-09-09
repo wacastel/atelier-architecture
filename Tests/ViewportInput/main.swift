@@ -260,6 +260,12 @@ for lifecycle in ["mouse exit/release loss", "window resigns key", "first respon
     }
 }
 
+group("Shift-left drag rotation keeps ordinary pan and right look") {
+    expect(Gesture.action(button:.left,shift:false) == .pan, "Ordinary left drag must pan")
+    expect(Gesture.action(button:.left,shift:true) == .look, "Shift-left drag must rotate")
+    expect(Gesture.action(button:.right,shift:false) == .look, "Right drag must retain rotation")
+    expect(Gesture.action(button:.right,shift:true) == .look, "Shift must not turn right drag into pan")
+}
 let passed = failures.isEmpty
 let report: [String: Any] = [
     "passed": passed, "checks": checks, "sequenceGroups": groups,

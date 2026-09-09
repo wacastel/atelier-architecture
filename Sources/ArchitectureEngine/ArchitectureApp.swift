@@ -29,7 +29,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1440, height: 960),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                               backing: .buffered, defer: false)
-        window.title = "ATELIER / Robie House & Hyde Park"
+        window.title = "ATELIER / Willis Tower"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = false
@@ -111,7 +111,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.0 · Paris & Chicago",
+            .applicationVersion: "2.1 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -145,9 +145,9 @@ private struct ArchitectureWorkspace: View {
                                 if geometry.size.height >= 790 && !(engine.location.world == "chicago" && engine.navigationMapVisible) { performancePanel }
                                 else { compactPerformancePanel }
                             }
-                            if engine.location.world == "chicago" {
+                            if engine.location.world == "chicago" && !(engine.navigationMapVisible && engine.navigationMapSize == .large) {
                                 ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
-                                    maximumHeight:max(180,min(540,geometry.size.height-570)),onNavigate:engine.navigateCity)
+                                    maximumHeight:max(180,min(540,geometry.size.height-570)),maximumWidth:min(460,geometry.size.width*0.43),onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision)
                             }
                         }
                     }
@@ -160,9 +160,9 @@ private struct ArchitectureWorkspace: View {
                 .transition(.opacity)
             } else {
                 VStack {
-                    if engine.location.world == "chicago" {
+                    if engine.location.world == "chicago" && !(engine.navigationMapVisible && engine.navigationMapSize == .large) {
                         HStack { Spacer(); ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
-                            maximumHeight:max(180,min(540,geometry.size.height-100)),onNavigate:engine.navigateCity) }
+                            maximumHeight:max(180,min(540,geometry.size.height-100)),maximumWidth:min(460,geometry.size.width*0.43),onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision) }
                     }
                     Spacer()
                     HStack {
@@ -174,6 +174,11 @@ private struct ArchitectureWorkspace: View {
                         }.buttonStyle(.plain).glassPanel(radius: 10)
                     }
                 }.padding(25)
+            }
+            if engine.location.world == "chicago", engine.navigationMapVisible, engine.navigationMapSize == .large {
+                ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
+                    maximumHeight:geometry.size.height,maximumWidth:geometry.size.width,
+                    onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision)
             }
             if !engine.isReady { loadingPanel }
             if engine.showHelp { helpPanel }
@@ -213,7 +218,7 @@ private struct ArchitectureWorkspace: View {
                 Rectangle().fill(accent.opacity(0.7)).frame(width: 25, height: 1)
                 Text("ARCHITECTURE  /  \(engine.location.number)").font(.system(size: 9, weight: .medium)).tracking(2.0).foregroundStyle(accent)
             }
-            Text(engine.location.name).font(.system(size: 44, weight: .regular, design: .serif)).tracking(-1.1)
+            Text(engine.location.name).font(.system(size: 44, weight: .regular, design: .serif)).tracking(-1.1).lineLimit(1).minimumScaleFactor(0.6)
             Text(engine.location.subtitle).font(.system(size: 10, weight: .medium)).tracking(2.4)
                 .foregroundStyle(.white.opacity(0.68))
             Picker("Location", selection: Binding(get: { engine.location }, set: { engine.selectLocation($0) })) {
@@ -277,7 +282,7 @@ private struct ArchitectureWorkspace: View {
                 }.buttonStyle(.plain).help("Toggle Walk / Fly · F").accessibilityLabel("Toggle Walk / Fly")
                 if engine.navigationMode == 1 {
                     Button { engine.stepFlySpeed(-1) } label: { Image(systemName:"minus.circle") }.buttonStyle(.plain).help("Slower flight · −").accessibilityLabel("Slower flight")
-                    Text(String(format:"%.0f m/s",engine.flySpeed)).font(.system(size:10,design:.monospaced)).monospacedDigit().frame(minWidth:56)
+                    flySpeedPicker.frame(width:110)
                     Button { engine.stepFlySpeed(1) } label: { Image(systemName:"plus.circle") }.buttonStyle(.plain).help("Faster flight · +").accessibilityLabel("Faster flight")
                     Text("Shift ×3").font(.system(size:9)).foregroundStyle(.white.opacity(0.5))
                 }
@@ -292,8 +297,9 @@ private struct ArchitectureWorkspace: View {
                 Circle().fill(engine.isReady ? accent : .gray).frame(width: 5, height: 5)
                 Text(engine.rayTracingEnabled ? "METAL  /  RAY TRACING":"METAL  /  FAST RASTER").font(.system(size: 9, weight: .semibold)).tracking(1.1)
             }.padding(.leading, 14).padding(.trailing, 9) }.buttonStyle(.plain)
-                .help("Toggle ray tracing · T").accessibilityLabel(engine.rayTracingEnabled ? "Ray tracing on":"Ray tracing off — fast raster").disabled(!engine.isReady)
+                .help("Toggle ray tracing · R").accessibilityLabel(engine.rayTracingEnabled ? "Ray tracing on":"Ray tracing off — fast raster").disabled(!engine.isReady)
             Rectangle().fill(.white.opacity(0.13)).frame(width: 1, height: 18)
+            AmbientMusicControls(music: engine.music, restoreFocus: engine.focusViewport)
             iconButton("moon.stars", help: "Toggle day / night · N", active: engine.lighting == 2) { engine.toggleDayNight() }
             iconButton(engine.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", help: "Enter / exit full screen · ⌃⌘F", active: engine.isFullscreen) { engine.toggleFullscreen() }
             iconButton("slider.horizontal.3", help: "Render settings", active: settingsOpen) { settingsOpen.toggle() }
@@ -437,7 +443,7 @@ private struct ArchitectureWorkspace: View {
                     Picker("Idle speed", selection: Binding(get: { engine.idleSpeed }, set: { engine.setIdleSpeed($0) })) {
                         ForEach(WalkthroughPlayback.speeds, id: \.self) { speed in Text(String(format: "%g×", speed)).tag(speed) }
                     }.labelsHidden().frame(width: 74).help("Gentle motion and view cycling speed · [ slower / ] faster")
-                    Text(engine.chicagoDemoActive ? "Full walkthroughs · day/night alternates after Chicago" : (engine.idleCycling ? String(format: "\(engine.lighting == 2 ? "Night" : "Day") pass · next view in %.0fs", ceil(engine.idleSecondsRemaining)) : "Holding this view · Idle Play resumes"))
+                    Text(idleStatus)
                         .font(.system(size: 10)).monospacedDigit().foregroundStyle(.white.opacity(0.53))
                     Spacer(minLength: 0)
                     Text(engine.chicagoDemoActive
@@ -450,17 +456,31 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space  play     C  demo     ↑ / ↓  views     M  map     T  ray tracing     F  fly/walk     − / +  fly speed     N  day/night").lineLimit(1).minimumScaleFactor(0.7)
+                Text("Space  play     C  demo     ↑ / ↓  views     M  map     R  ray tracing     F  fly/walk     − / +  fly speed     N  day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
         }
     }
 
+    private var idleStatus: String {
+        if engine.chicagoDemoActive { return "Full walkthroughs · day/night alternates after Chicago" }
+        guard engine.idleCycling else { return "Holding this view · Idle Play resumes" }
+        let description = engine.location == .skyline ? "Daylight, sunset & night" : (engine.lighting == 2 ? "Night pass" : "Day pass")
+        return String(format:"%@ · next view in %.0fs",description,ceil(engine.idleSecondsRemaining))
+    }
+    private var flySpeedPicker: some View {
+        Picker("Flight speed",selection:Binding(get:{engine.flySpeed},set:{engine.setFlySpeed($0);engine.focusViewport()})) {
+            ForEach(ManualCityNavigation.flySpeeds,id: \.self) { speed in
+                Text(String(format:"%.0f m/s",speed)).tag(speed)
+            }
+        }.pickerStyle(.menu).labelsHidden().help("Flight speed · default 400 m/s · Shift triples speed · − / + step presets")
+    }
+
     private var settingsPanel: some View {
         VStack(alignment: .leading, spacing: 21) {
             Text("Render settings").font(.system(size: 21, weight: .regular, design: .serif))
-            Toggle("Ray tracing · T",isOn:Binding(get:{engine.rayTracingEnabled},set:{ _ in engine.toggleRayTracing() }))
+            Toggle("Ray tracing · R",isOn:Binding(get:{engine.rayTracingEnabled},set:{ _ in engine.toggleRayTracing() }))
             Text(engine.rayTracingEnabled ? "Ray-traced shadows, reflections and indirect light. Switch off for faster city navigation.":"Fast raster uses direct lighting and environment reflections, without traced shadows, local reflections, refraction or indirect light. Toggle back at the same camera position.")
                 .font(.system(size:10)).foregroundStyle(.secondary).lineSpacing(3)
             VStack(alignment: .leading, spacing: 9) {
@@ -474,7 +494,7 @@ private struct ArchitectureWorkspace: View {
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("LIGHTING", value: "")
                 Picker("Lighting", selection: Binding(get: { engine.lighting }, set: { engine.setLighting($0) })) {
-                    Text("Golden hour").tag(0); Text("Daylight").tag(1); Text("Night").tag(2)
+                    Text("Golden").tag(0); Text("Daylight").tag(1); Text("Sunset").tag(3); Text("Night").tag(2)
                 }.pickerStyle(.segmented).labelsHidden()
             }
             VStack(alignment: .leading, spacing: 9) {
@@ -490,8 +510,7 @@ private struct ArchitectureWorkspace: View {
                 Text("Walk follows solid floors and avoids the structure. Fly follows the camera pitch and lets you move freely.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
                 settingLabel("FLY SPEED",value:String(format:"%.0f m/s · Shift ×3",engine.flySpeed))
-                Slider(value:Binding(get:{log2(Double(engine.flySpeed))},set:{engine.setFlySpeed(Float(pow(2,$0)))}),in:3...log2(800))
-                    .tint(accent).accessibilityLabel("Manual flight speed")
+                flySpeedPicker
             }
             Button { engine.resetView(); settingsOpen = false } label: {
                 Label("Return to the opening view", systemImage: "arrow.counterclockwise").font(.system(size: 11))
@@ -540,15 +559,17 @@ private struct ArchitectureWorkspace: View {
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")
-                    helpRow("Q  /  E", "Descend / ascend in Fly mode")
+                    helpRow("Q  /  E", "Ascend / descend in Fly mode")
                     helpRow("SHIFT", "Triple manual movement speed")
                     helpRow("F  /  −  /  +", "Walk/Fly · slower/faster flight (8–800 m/s)")
                     helpRow("CLICK", "Focus a landmark / click again to release")
                     helpRow("LEFT DRAG", "Pan across the city; orbit if a landmark is focused")
+                    helpRow("SHIFT + DRAG", "Hold Shift and left-drag to rotate the view")
                     helpRow("RIGHT DRAG", "Look around, or orbit a focused landmark")
-                    helpRow("SCROLL", "Zoom toward focus; otherwise adjust flight speed")
-                    helpRow("M", "Show/hide the Chicago map; click it to fly there")
-                    helpRow("T", "Toggle ray tracing / fast raster at the same camera")
+                    helpRow("SCROLL", "Zoom toward focus; otherwise step flight presets")
+                    helpRow("M", "Show/hide map; click to fly, drag to move the camera")
+                    helpRow("R", "Toggle ray tracing / fast raster at the same camera")
+                    helpRow("MUSIC NOTE", "Ambient music on/off, volume and current song")
                     helpRow("C", "Start / stop the complete Chicago demo")
                     helpRow("SPACE", "Start / pause / resume this walkthrough")
                     helpRow("←  /  →", "Rewind / fast forward; repeat for 2× / 4× / 8×")
@@ -588,6 +609,37 @@ private struct ArchitectureWorkspace: View {
                 .background(active ? .white.opacity(0.08) : .clear, in: RoundedRectangle(cornerRadius: 8))
                 .contentShape(Rectangle())
         }.buttonStyle(.plain).help(help)
+    }
+}
+
+@MainActor
+private struct AmbientMusicControls: View {
+    @ObservedObject var music: AmbientMusicController
+    let restoreFocus: () -> Void
+    @State private var isOpen = false
+    private let accent = Color(red:0.84,green:0.75,blue:0.55)
+    var body: some View {
+        Button { isOpen.toggle() } label: {
+            Image(systemName: music.isEnabled ? "music.note" : "speaker.slash")
+                .font(.system(size:12,weight:.medium)).foregroundStyle(music.isEnabled ? accent : .white.opacity(0.6))
+                .frame(width:33,height:32).contentShape(Rectangle())
+        }.buttonStyle(.plain).help("Ambient music · on/off and volume").accessibilityLabel("Ambient music settings")
+        .popover(isPresented:$isOpen,arrowEdge:.bottom) {
+            VStack(alignment:.leading,spacing:18) {
+                Text("Music for the city").font(.system(size:22,design:.serif))
+                Toggle("Ambient music",isOn:Binding(get:{music.isEnabled},set:{music.setEnabled($0)}))
+                VStack(alignment:.leading,spacing:6) {
+                    Text(music.errorMessage != nil ? "MUSIC UNAVAILABLE" : (music.isEnabled ? "NOW PLAYING" : "MUSIC PAUSED")).font(.system(size:9,weight:.semibold)).tracking(1.5).foregroundStyle(accent)
+                    Text(music.currentTitle).font(.system(size:12))
+                }
+                if let error = music.errorMessage { Text(error).font(.system(size:10)).foregroundStyle(.secondary) }
+                HStack { Text("Volume"); Spacer(); Text(String(format:"%.0f%%",music.volume*100)).monospacedDigit() }.font(.system(size:11))
+                Slider(value:Binding(get:{music.volume},set:{music.setVolume($0)}),in:0...1).tint(accent).accessibilityLabel("Music volume")
+                Text("An original ambient piece for each destination. Songs blend into the next; changing locations starts its assigned piece.")
+                    .font(.system(size:10)).foregroundStyle(.secondary).lineSpacing(3)
+            }.padding(24).frame(width:300).preferredColorScheme(.dark)
+        }
+        .onChange(of:isOpen) { _,value in if !value { restoreFocus() } }
     }
 }
 
@@ -659,7 +711,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         if let delta = pointerGesture.drag(button: button, point: pointerPoint(event), windowOrigin: windowOrigin) {
             // View-local displacement never counts native window translation as a
             // camera delta; ownership is also cancelled if the window origin moves.
-            if button == .left {
+            if ViewportPointerGesture.action(button:button,shift:event.modifierFlags.contains(.shift)) == .pan {
                 let point = pointerPoint(event)
                 engine?.pan(from:point-delta,to:point,viewport:SIMD2(Float(bounds.width),Float(bounds.height)))
             } else { engine?.look(deltaX: delta.x, deltaY: delta.y) }
@@ -705,7 +757,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             case 37: engine.toggleLocation(); return
             case 45: engine.toggleDayNight(); return
             case 46: engine.toggleNavigationMap(); return
-            case 17: engine.toggleRayTracing(); return
+            case 15: engine.toggleRayTracing(); return
             case 3: engine.setNavigationMode(engine.navigationMode == 1 ? 0:1); return
             case 27, 78: engine.stepFlySpeed(-1); return
             case 24, 69: engine.stepFlySpeed(1); return

@@ -1,0 +1,47 @@
+{
+  "assets" : [
+    {
+      "channels" : 2,
+      "durationSeconds" : 137.41399092970522,
+      "location" : "paris"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 142.14299319727891,
+      "location" : "chicago"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 128.8709977324263,
+      "location" : "millennium"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 147.2219954648526,
+      "location" : "lakefront"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 133,
+      "location" : "campus"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 126.90399092970522,
+      "location" : "northside"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 144.63598639455782,
+      "location" : "robie"
+    },
+    {
+      "channels" : 2,
+      "durationSeconds" : 130.9009977324263,
+      "location" : "skyline"
+    }
+  ],
+  "checks" : 287,
+  "passed" : true,
+  "scope" : "Actual controller with fake audio device and deterministic clock: all eight assignments, view idempotence, equal-power crossfade, interrupted fades, off\/resume\/mute, persisted preferences, playlist wrap, error recovery, bounded decoder lifecycle. Optional bundled AAC decoding uses AVAudioFile without opening audio playback."
+}

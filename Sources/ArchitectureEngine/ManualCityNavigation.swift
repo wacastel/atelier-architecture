@@ -4,7 +4,27 @@ import simd
 /// View-point input and wall-clock flight math, independent of AppKit/Metal.
 enum ManualCityNavigation {
     static let flySpeeds: [Float] = [8, 30, 80, 180, 400, 800]
-    static let defaultFlySpeed: Float = 80
+    static let defaultFlySpeed: Float = 400
+
+    static func nearestSpeed(_ speed: Float) -> Float {
+        guard speed.isFinite else { return defaultFlySpeed }
+        return flySpeeds.min { abs($0-speed) < abs($1-speed) }!
+    }
+    static func verticalDirection(keys: Set<UInt16>) -> Float {
+        (keys.contains(12) ? 1 : 0) - (keys.contains(14) ? 1 : 0)
+    }
+    /// Map dragging translates eye and target together and stays in the modeled corridor.
+    static func mapTranslation(camera: SIMD2<Float>, requested: SIMD2<Float>) -> SIMD2<Float> {
+        guard finite(camera), finite(requested) else { return .zero }
+        let destination = camera + requested
+        guard finite(destination) else { return .zero }
+        // Free flight can start beyond coverage. Permit gradual movement back
+        // without snapping against the drag or moving farther outside the city.
+        let lower = simd_min(camera, SIMD2(-4000,-11500))
+        let upper = simd_max(camera, SIMD2(6000,11000))
+        let bounded = simd_clamp(destination, lower, upper)
+        return bounded-camera
+    }
 
     static func frameSeconds(_ elapsed: Double) -> Float {
         elapsed.isFinite ? Float(max(0, min(0.5, elapsed))) : 0

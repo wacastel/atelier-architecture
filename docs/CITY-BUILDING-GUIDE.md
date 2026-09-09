@@ -2,7 +2,7 @@
 
 **A practical field guide for extending the shared architectural world**
 
-Prepared 9 September 2026. Based on repository workflows through the 1.9.1 road correction, commit `91fd5b7`, with a 2.0 navigation/render-mode integration appendix. Figures retain their recorded release scope. Examples are not a promise that a future location will fit the same budget. Read current source, validation evidence and `--help` before applying them to a later release.
+Updated 9 September 2026 for version 2.1.0. Scoped native, CPU, GPU and signed-package evidence is recorded for this release. Historical measurements retain their release scope. Check current source and validation before reusing a budget.
 
 Atelier turns dated map data and inspected architectural references into original, metre-scale geometry, then tests that geometry in one navigable city. The aim is convincing architecture at walking distance, coherent surroundings in flight, and honest evidence about what is modeled and measured.
 
@@ -23,12 +23,13 @@ This guide is available as Markdown, an offline HTML document, and a printable P
 11. [Package, reproduce and publish a release](#release)
 12. [Start the next location in a fresh context](#starter)
 13. [Extend the map and both rendering modes](#navigation)
+14. [Add Skyline lighting and ambient playlists](#presentation)
 
 **The working sequence**
 
 Evidence and boundaries; mapped context; landmark geometry; routes and lighting; CPU checks; serial GPU review; signed package and recorded release.
 
-The same Chicago scene currently supplies six destination menus. Paris is a separate world. A destination is a camera and playback entry point, not automatically another loaded city.
+Seven Chicago destinations share one city. Paris is separate.
 
 <!-- page -->
 <a id="scope"></a>
@@ -226,7 +227,7 @@ Pick focal points that reveal different architectural relationships, rather than
 
 Manual view selection holds a softly animated view outside demo mode. Idle Play resumes the ordered cycle, switching day/night after each complete pass. Guided Play starts the current view's route. Walkthrough pace and idle speed stay independent.
 
-Chicago Demo starts at a random Chicago location/view, then proceeds sequentially. Choosing a Chicago view or location keeps it running there. Previous/next crosses location boundaries; a full-city wrap changes day/night. Paris is excluded. Extend the actual demo routing and tests when adding a destination rather than relying on a hard-coded total from this guide.
+Chicago Demo starts at a random Chicago location/view, then proceeds sequentially. The 2.1.0 order is Willis, Skyline, Millennium, Lakefront, Campus, North Side and Robie: 56 Chicago routes, or 65 including Paris separately. Choosing a Chicago view or location keeps it running there. Previous/next crosses location boundaries; a full-city wrap changes day/night. Skyline views apply their authored lighting unless a manual override is active for the current pass; the next complete idle/demo cycle resets that override. Paris is excluded. Extend the actual demo routing and tests when adding a destination rather than relying on a hard-coded total from this guide.
 
 Manual movement and object focus take camera control. Pausing freezes the common scene clock used by traffic and Adler's show; seeking and exporting use deterministic absolute time. Window moving/resizing must hold the camera and scene clocks, then resume without a catch-up jump.
 
@@ -414,20 +415,20 @@ This workflow produces a referenced architectural reconstruction. It does not im
 <a id="navigation"></a>
 ## 13. Extend the map and both rendering modes
 
-The 2.0 navigation contract adds an offline map, panning, flight speeds and native raster rendering. Extend these alongside the tours. Native acceptance and package results belong in `docs/VALIDATION.md`.
+Version 2.1.0 refines the map, controls and rendering modes introduced in 2.0 and starts at Willis Tower. Record acceptance in `docs/VALIDATION.md`.
 
 ### Map and manual movement
 
-- **M** toggles the Chicago map overlay. Its **S / M / L** buttons select map size. Clicking the map takes manual Fly control and chooses an elevated overview using local roof-height queries, preserving day/night.
-- Update bounds in all three places: `ChicagoMapProjection`, `ManualCityNavigation.overview` and `EngineController.navigateCity`. Extend the map catalog/geometry in `NavigationMap.swift`, then test clicks beyond the old extent; changing only the map bounds leaves navigation rejecting those clicks. This lightweight north-up 2D map uses the shared east/south frame and simplified footprints/paths, without another `SceneData` or renderer.
-- **Left drag** pans the ground plane unless an object is focused, in which case it orbits that object. **Right drag** looks around or orbits a focused object. Continue distinguishing a click from a drag.
-- **F** selects Walk/Fly. Minus/plus and keypad minus/plus step flight speeds through **8, 30, 80, 180, 400 and 800 m/s**, starting at **80 m/s**. Shift multiplies movement by three. Unfocused scroll adjusts speed; focused scroll zooms toward the object.
+- **M** toggles the Chicago map. **S / M** retain picture-in-picture overlays; **L** uses the application window. The aspect-preserving basemap fills its canvas. Zoom, Places and recenter controls keep the whole corridor accessible. A click selects an elevated overview using roof queries and preserves day/night.
+- Extend bounds in `ChicagoMapProjection`, `ManualCityNavigation.overview`/`mapTranslation` and `EngineController.navigateCity`, plus the `NavigationMap.swift` catalog. Test navigation beyond the old extent. This north-up 2D map shares the city frame and simplified data without another scene or renderer.
+- **Left drag** in the 3D viewport pans the ground plane or orbits a focused object. **Shift-left drag** and **right drag** look around or orbit. Map dragging translates both the map and real camera continuously; its `onPan` callback returns the applied world delta. A drag release must never also click.
+- **F** selects Walk/Fly. Minus/plus and keypad minus/plus step flight speeds through **8, 30, 80, 180, 400 and 800 m/s**, starting at **400 m/s**. The speed menu and unfocused scrolling select these same fixed presets. **Q** flies up, **E** flies down and Shift multiplies speed by three. Focused scroll zooms toward the object.
 
 `ManualCityNavigation.swift` supplies pan, displacement and overview math. Test coordinate round trips, margins, roof clearance, state retention and invalid input. Movement uses elapsed time. Map overviews and flying do not certify pedestrian clearance.
 
 ### A real alternative to tracing rays
 
-**T** switches mode while retaining the camera. `RenderOptions.rayTracing` defaults to true. `RasterRenderer.swift` and `Resources/Raster.metal` provide depth-tested raster drawing; disabling denoising alone would not disable tracing.
+**R** switches mode while retaining the camera; T is retired and Command-R still resets the view. `RenderOptions.rayTracing` defaults to true. `RasterRenderer.swift` and `Resources/Raster.metal` provide depth-tested raster drawing; disabling denoising alone would not disable tracing.
 
 Raster frames use no ray queries or traffic acceleration-structure refits. Startup still builds ray-tracing structures for mode switching, retaining that memory cost and hardware requirement. Raster lighting/reflections are approximate, without traced global illumination or shadows. Review its fidelity separately.
 
@@ -438,9 +439,33 @@ Raster frames use no ray queries or traffic acceleration-structure refits. Start
 ./scripts/validate-raster.sh
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
   --location chicago --raster --self-test
-./dist/Atelier.app/Contents/MacOS/ArchitectureEngine \
-  --location robie --raster --render output/Robie-Raster-Review.png \
-  --stop 0 --width 960 --height 600 --lighting 1
 ```
 
-The first three commands are CPU only; run the rest serially on the GPU. Check batching, conservative visibility, depth/glass and zero ray/guide dispatches or ray-tracing traffic updates during raster frames. Inspect matching day/night views. `--motion-test` measures ray-tracing reconstruction and rejects `--raster`. Compare modes with matched inputs; do not claim native FPS from offscreen timings.
+The first three commands are CPU only; run the rest serially on the GPU. Verify batching, depth/glass and zero ray/guide dispatches or traffic refits in raster frames. Inspect matched day/night views. `--motion-test` rejects `--raster`. Offscreen timings do not establish native FPS.
+
+
+<!-- page -->
+<a id="presentation"></a>
+## 14. Add Skyline lighting and ambient playlists
+
+Version 2.1.0 adds Chicago Skyline immediately after Willis Tower. Its eight two-minute aerial studies reuse the existing resident city instead of constructing another copy. The catalog totals 56 Chicago demo routes and 65 routes including Paris. The initial app view is Willis Tower.
+
+### Preserve authored presentation without breaking controls
+
+Skyline studies use authored daylight, golden-hour, sunset and night lighting. The new sunset mode adds a low west-northwest sun and an amber, rose and blue sky; earlier modes retain their indices. Keep view lighting explicit in selection, idle and demo routing. A normal pass uses authored presets, followed by an all-night pass. A manual override holds until a full wrap clears it and flips day/night parity. N toggles from the displayed mode. See [SKYLINE.md](SKYLINE.md) for references and final parameters.
+
+Continue the existing evidence workflow: inspect each aerial composition, sample complete camera paths and check both bright and dark states. A dramatic sky cannot hide omitted geometry or certify a route's clearance. When a new visual theme is added, preserve the basic architecture and compare its actual output with the reference purpose.
+
+### Keep sound independent of city geometry
+
+Eight original ambient pieces form a shared playlist, with one assigned opening piece per location. First use starts enabled at volume 0.16; enable and volume preferences persist. Destination changes use a three-second crossfade, and the playlist wraps. Off fades and pauses; on resumes; zero volume mutes without stopping transport. These are authored pieces, not site recordings. See [AMBIENT-MUSIC.md](AMBIENT-MUSIC.md).
+
+Keep playlist identity, volume and fades separate from scene construction. Test wrapping, rapid location changes and missing resources without GPU work. Package every audio asset and review native sound before claiming listening quality. Walkthrough pause does not pause the music clock.
+
+### Report the new release honestly
+
+The prior 2.0 Robie raster comparison measured roughly 13-14 ms versus 76-90 ms ray-traced exterior GPU frames and roughly 14 ms versus 295-297 ms interior frames at 1280 x 850. Those are scoped historical measurements, not 2.1 performance results or native FPS guarantees.
+
+Current 2.1 evidence includes 92,743 playback checks across 65 routes, 383 manual-navigation, 191 viewport, 4,657 map and 39,485 raster checks. Audio controller/decode and technical suites pass 287 and 147 checks. Skyline's 38-check renderer run produced 13 reviewed stills; these do not certify every continuous motion path.
+
+The [native review](validation/v2.1/native-review.json) observed map sizes, live dragging, resize/full screen, R, speed selection, music controls/track changes, Skyline lighting and a demo boundary. Sustained Q/E and Shift-held drag retain CPU/wiring coverage; subjective listening was not assessed. The [signed 2.1.0 package](validation/v2.1/package.json), build 13, matches all 26 bundled resources, including eight music files. Packaged sunset [RT and raster self-tests](validation/v2.1/package-rendering/runs.json) also pass from an isolated working directory. These records remain distinct from document-format checks.

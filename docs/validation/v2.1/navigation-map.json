@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": 4657,
+  "resources": 5,
+  "vertices": 37781,
+  "footprintRings": 3635,
+  "streets": 1549,
+  "arterials": 5037,
+  "waterPolygons": 57,
+  "loadSeconds": 1.3469749689102173,
+  "scope": "CPU fill/aspect/inverse/zoom/recenter/resize, incremental anchored pan, click-vs-drag, heading and complete offline data loading; no native UI or GPU execution",
+  "resultOrigin": "Captured successful scripts/validate-navigation-map.sh stdout in this agent tool run",
+  "sourceSHA256": "b212ecc66738d4ad65e9317ed6e0becaf0e975f6fd229dc62f75d7f7cf65ef20"
+}
