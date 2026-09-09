@@ -1,0 +1,48 @@
+{
+  "checks" : 27,
+  "device" : "Apple M3 Ultra",
+  "edgeCases" : [
+    {
+      "filteredRMSE" : 0.01321838313446177,
+      "flatChangedPixels" : 0,
+      "rawRMSE" : 0.026388238436494908,
+      "slope" : 0.1875
+    },
+    {
+      "filteredRMSE" : 0.013352683455744753,
+      "flatChangedPixels" : 0,
+      "rawRMSE" : 0.026689259052319961,
+      "slope" : 0.4375
+    },
+    {
+      "filteredRMSE" : 0.0078587789012131964,
+      "flatChangedPixels" : 0,
+      "rawRMSE" : 0.02206689638607344,
+      "slope" : 1.375
+    },
+    {
+      "filteredRMSE" : 0.0098284636685817568,
+      "flatChangedPixels" : 0,
+      "rawRMSE" : 0.027017326553745308,
+      "slope" : -0.625
+    }
+  ],
+  "failures" : [
+
+  ],
+  "fixtureSHA256" : "ae5c1c10cf6e0d4d253cd6ef97b7c689096f885021e1e2ae54940c32bd7d9116",
+  "height" : 128,
+  "inputsStable" : true,
+  "invalidHighlights" : 0,
+  "legacyRendererSHA256" : "3edff4d4ba4a73ee76a89ec7724782498ce94a9cc347c68579b026a94def18bd",
+  "missingHighlights" : 0,
+  "passed" : true,
+  "scope" : "Actual production presentation fragments, four synthetic HDR slanted edges against independent32x32 LDR area coverage, one-pixel bright\/dark rail survival, deterministic repeats, exact flat regions, original Path\/Raster plain\/focused byte equality against committed legacy source, and analytic center-depth focus\/foreground\/sky classification. No city ray tracing, performance benchmark or native input.",
+  "sourceSHA256" : {
+    "Denoise.metal" : "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+    "DirectRay.metal" : "b0770242af492fdd7f9a76c03d17f94f25bba828426098766452b9ee45d4ea97",
+    "Raster.metal" : "fd4e5286933ebc8d27b72bc3fb5d2414910cd0a2948d4676f6be633fcae752bf",
+    "Renderer.metal" : "a920f13fc443937a68d24bc6667864fede8a31b945009574e977567e344eddf9"
+  },
+  "width" : 192
+}

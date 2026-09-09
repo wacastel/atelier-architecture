@@ -1,0 +1,37 @@
+{
+  "commit": "e930a238ff46eb0fd4c5c020c88cb8ff3afc6d01",
+  "capturedUTC": "2026-09-09T22:07:26.065930+00:00",
+  "files": [
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "bytes": 18461
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "sha256": "3edff4d4ba4a73ee76a89ec7724782498ce94a9cc347c68579b026a94def18bd",
+      "bytes": 80644
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "sha256": "e9ecca1c511054cd73b7add84b273402400cd0cf3dc6614221d9ff4684e5681b",
+      "bytes": 38854
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "sha256": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+      "bytes": 13165
+    },
+    {
+      "path": "scripts/validate-denoiser.swift",
+      "sha256": "4244f7d6a3e0ea1172dd6748b04c3daff647131d2163e19069cad61f1fb08a10",
+      "bytes": 45966
+    },
+    {
+      "path": "docs/MOTION.md",
+      "sha256": "1ec4bb183298ef0c49fb1009c7915de177018664f7a1274e45207bf23658fd7b",
+      "bytes": 52220
+    }
+  ],
+  "scope": "Source snapshot before path-tracer denoiser investigation; no GPU execution"
+}

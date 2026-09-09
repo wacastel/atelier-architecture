@@ -25,4 +25,9 @@ scene_sources+=(
 )
 printf '%s\n' "${scene_sources[@]}" "$project_dir/scripts/benchmark-render-modes.sh" > "$benchmark_tmp/inputs.txt"
 xcrun swiftc -O -whole-module-optimization "${scene_sources[@]}" -o "$benchmark_tmp/render-modes"
+if [[ -n "${ATELIER_BENCHMARK_BUILD_ONLY:-}" ]]; then
+  mkdir -p "$ATELIER_BENCHMARK_BUILD_ONLY"
+  cp "$benchmark_tmp/render-modes" "$benchmark_tmp/inputs.txt" "$ATELIER_BENCHMARK_BUILD_ONLY/"
+  exit 0
+fi
 (cd "$project_dir" && ATELIER_BENCHMARK_INPUTS="$benchmark_tmp/inputs.txt" "$benchmark_tmp/render-modes")

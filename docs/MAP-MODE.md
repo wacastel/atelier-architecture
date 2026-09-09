@@ -1,4 +1,4 @@
-# Map navigation — Atelier 2.3.0
+# Map navigation — Atelier 2.4.0
 
 Chicago has two map controls: **M** shows or hides a compact navigation inset, and **B** changes the main viewport to a fixed overhead Map mode. Both use the existing resident Chicago world. Paris retains normal 3D navigation; the overhead mode is available only in Chicago. The separate **T** shortcut points the normal camera straight down while retaining its usual Fly controls.
 
@@ -18,16 +18,23 @@ Press **B**, use the **Map mode** button, or choose **Map** in the Navigation pi
 
 | Control in Map mode | Behavior |
 | --- | --- |
+| **W / A / S / D** | Pan north / west / south / east at a speed proportional to visible ground span |
+| **Shift + WASD** | Triple keyboard pan speed; diagonals retain the same total speed |
 | Left drag, including Shift-left drag | Pan while preserving the north-up orientation |
 | Pinch or mouse wheel / two-finger scroll | Zoom the overhead view |
 | **− / +** or the main map’s magnifier buttons | Zoom out / in |
 | Inset landmark dot, text or Places selection | Recenter the overhead view, fit the named landmark and select it without tilting the camera |
 | Click visible main-viewport geometry | Select while unfocused; retain the same object; clear when clicking elsewhere |
 | Bare inset-map click | Recenter the overhead view at that point |
-| **R / N / M / H / ?** | Rendering mode / day-night / inset visibility / interface visibility / help |
+| **G / ⌃⌘F** | Enter / exit native full screen without leaving Map mode |
+| **R / N / M / H / ?** | Last ray tracer ↔ Fast Raster / day-night / inset visibility / interface visibility / help |
 | **B / Escape / Return to 3D view** | Exit to a 3D overlook above the current map centre |
 
-Right dragging is ignored. Fly/Walk movement keys, camera rotation, **T**, view-selection shortcuts and animation transport are inactive. Exit Map mode before resuming a guided route or ordinary camera exploration. Entering Map mode takes manual control and clears the entry focus. A subsequent viewport or map selection can display the selected name and surface highlight while the camera remains north-up: pan stays pan, and pinch stays ground-span zoom. Clicking the same object retains its selection; clicking blank space or another object clears it without immediately selecting a replacement. Exiting clears the selection and uses the current map centre, with camera height adjusted for nearby roofs; it does not jump back to the entry position.
+Right dragging is ignored. Altitude keys **Q / E**, the Walk/Fly toggle, camera rotation, **T**, view-selection shortcuts and animation transport are inactive. Exit Map mode before resuming a guided route or ordinary camera exploration. Entering Map mode takes manual control and clears the entry focus. A subsequent viewport or map selection can display the selected name and surface highlight while the camera remains north-up: WASD and drag pan, and pinch changes ground span. Clicking the same object retains its selection; clicking blank space or another object clears it without immediately selecting a replacement. Exiting clears the selection and uses the current map centre, with camera height adjusted for nearby roofs; it does not jump back to the entry position.
+
+Keyboard pan moves at 35% of the visible north–south ground span per second, or three times that while Shift is held. It translates eye and target together, preserving exact north-up orientation, height, field of view and any selected landmark. The inset camera marker updates with each step. Opposing keys cancel and the existing geographic bounds apply. Releasing the keys stops movement; mode changes, help, window focus changes, full-screen transitions and resizing clear held movement so it cannot restart from an old key repeat.
+
+The renderer menu remains available in Map mode. It selects Path Tracing, Direct Ray Tracing or Fast Raster without changing map framing or focus. **R** remembers the most recently selected ray tracer when switching back from Fast Raster. **G** and the existing **Control–Command–F** menu shortcut both toggle native full screen; this does not switch between normal exploration and fixed Map mode.
 
 Zoom controls the visible **vertical span at ground level**, from 50 m to 24 km. The camera stays at least 650 m above the scene’s ground origin. Close zooms narrow the lens while wider views raise the camera; the centre and north-up orientation remain fixed. Roofs are elevated above the reference ground plane, so their apparent size follows perspective. Panning stays within the established Chicago navigation bounds; Map mode does not add geographic coverage or buildings.
 
@@ -39,9 +46,13 @@ Without object focus, pinching changes the optical field of view between 1.5° a
 
 Press **T** while exploring normally to point the camera exactly down. It keeps the horizontal position when unfocused or moves above the focused object's centre, preserving the lens and existing height unless roof clearance requires raising it. Normal Fly movement remains available. **WASD** moves parallel to the ground at all pitches; **Q / E** changes altitude. Focused pinch and scroll keep the exact downward direction, while an orbit drag changes the angle. This shortcut is available in both cities and does not enter fixed Map mode.
 
-Version 2.3 also adds the [Chicago Cultural Center](CULTURAL-CENTER.md), a ninth original music track and eight routes in the existing Chicago world. The complete Chicago demo now contains 64 routes; the inset's geographic coverage is unchanged.
+The [Chicago Cultural Center](CULTURAL-CENTER.md), nine original music tracks and all 64 Chicago demo routes remain available. This control update does not extend the inset's geographic coverage.
 
 ## Validation
+
+Version 2.4.0 passes [6,824 navigation checks](validation/v2.4/manual-city-navigation.json), [755 actual-controller checks](validation/v2.4/map-mode-integration.json) and [449 pointer/key checks](validation/v2.4/viewport-input.json). These exercise Map cardinal movement and geographic bounds, span-scaled speed, both Shift keys, normalized diagonals, retained selection/height/lens, key release and mode changes, and the three-way renderer selection. The controller fixture advances actual held-key movement without GPU submission. [Native checks](validation/v2.4/native.json) separately verified G full-screen entry/exit in Map and normal views, renderer selection and day/night appearance. Sustained physical keyboard input and the existing ⌃⌘F chord were not separately exercised by native automation. Historical results below retain their original scope.
+
+### Historical version 2.3.0
 
 Version 2.3.0 passes [25,015 map checks](validation/v2.3/navigation-map.json), [6,765 manual-navigation checks](validation/v2.3/manual-city-navigation.json), [1,662 focus checks](validation/v2.3/focus-navigation.txt), [662 actual-controller checks](validation/v2.3/map-mode-integration.json) and [449 pointer/key checks](validation/v2.3/viewport-input.txt). The controller fixture verifies all 34 semantic destinations, focused Map pan/pinch without tilt, normal T and exact-vertical focused zoom. It does not construct a city collision world or dispatch native input.
 

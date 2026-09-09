@@ -1,0 +1,80 @@
+{
+  "checks" : 48,
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "fixtureSHA256" : "f11f6154ae63a0f3cdfea5c3124de0d923be67b5e8762194fe4bd682fe0f360c",
+  "height" : 128,
+  "inputsStable" : true,
+  "metalFXDenoisedScalerSupported" : true,
+  "observations" : [
+    {
+      "case" : "visibility",
+      "centerRGB" : [
+        227,
+        14,
+        15
+      ],
+      "glassRGB" : [
+        14,
+        26,
+        223
+      ]
+    },
+    {
+      "blueRGB" : [
+        13,
+        27,
+        226
+      ],
+      "case" : "offscreen-reflection",
+      "redRGB" : [
+        226,
+        13,
+        14
+      ]
+    },
+    {
+      "case" : "sun-shadow",
+      "highHere" : 203.64871215820312,
+      "highLit" : 204.37019348144531,
+      "lowLit" : 171.78620910644531,
+      "lowShadow" : 66.81719970703125
+    },
+    {
+      "blocked" : 2.9358000755310059,
+      "case" : "local-light-shadow",
+      "open" : 63.620468139648438
+    },
+    {
+      "case" : "traffic-TLAS-headlights",
+      "emptyRoadLuminance" : 2.1484000682830811,
+      "farDepth" : 29.325014114379883,
+      "headlightLuminance" : 13.098933219909668,
+      "nearDepth" : 25.685569763183594,
+      "trafficUpdates" : 3,
+      "vehicles" : 1
+    }
+  ],
+  "operatingSystem" : "Version 26.6.2 (Build 25G83)",
+  "passed" : true,
+  "scope" : "Actual production-kernel direct\/path\/raster selection, nearest occlusion and focus depth, offscreen specular reflection with raster negative control, directional and local hard shadows, thin-sheet transmission, seed\/SPP\/settings independence, motion return\/resize, and one moving TLAS vehicle with dynamic headlights and empty-road control. Small fixtures; does not establish full-city speed, every traffic layout, native FPS, soft shadows or absence of geometric aliasing.",
+  "scriptSHA256" : "3728c24ef7d9e48c0c8d75e5785b4e7923d8b053995724683e5231db7db8641d",
+  "sourceSHA256" : {
+    "CollisionWorld.swift" : "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+    "GeometryPartition.swift" : "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "LightGrid.swift" : "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+    "MetalRenderer.swift" : "7f88a39d825e3c135eaa9d64523b47535b77c8afe51fc126b9eac431b6b0445c",
+    "RasterRenderer.swift" : "3567241a9e3129bb74f2aa76382b767a4c4c47f2d18b8d3b0f0346f104c189cb",
+    "Resources\/Denoise.metal" : "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+    "Resources\/DirectRay.metal" : "b0770242af492fdd7f9a76c03d17f94f25bba828426098766452b9ee45d4ea97",
+    "Resources\/Raster.metal" : "fd4e5286933ebc8d27b72bc3fb5d2414910cd0a2948d4676f6be633fcae752bf",
+    "Resources\/Renderer.metal" : "a920f13fc443937a68d24bc6667864fede8a31b945009574e977567e344eddf9",
+    "SceneTypes.swift" : "a82d40b1eabf044a8a512be65218e5dded3d9353f4fb72afc02f924e5773aab0",
+    "Traffic.swift" : "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+    "TrafficMetal.swift" : "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6"
+  },
+  "visibilityImageSHA256" : "0e4ee6937ff7f8681ec4df7f81cf8166f1336d7ea5c9776efa353707ef23c438",
+  "width" : 192
+}

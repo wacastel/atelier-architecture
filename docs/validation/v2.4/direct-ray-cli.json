@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "args": [
+        "--self-test"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: path\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "path"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: path\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "direct"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: direct\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "raster"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: raster\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--raster"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: raster\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--raster",
+        "--renderer",
+        "raster"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: raster\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "DIRECT"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: direct\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "Specify --renderer once, followed by path, direct or raster.\n"
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "--raw"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "Unknown renderer. Choose --renderer path, direct or raster.\n"
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "invalid"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "Unknown renderer. Choose --renderer path, direct or raster.\n"
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "direct",
+        "--raster"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "--raster conflicts with --renderer direct. Choose one renderer.\n"
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "path",
+        "--raster"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "--raster conflicts with --renderer path. Choose one renderer.\n"
+    },
+    {
+      "args": [
+        "--self-test",
+        "--renderer",
+        "path",
+        "--renderer",
+        "direct"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "Specify --renderer once, followed by path, direct or raster.\n"
+    },
+    {
+      "args": [
+        "--motion-test",
+        "output/test",
+        "--renderer",
+        "direct"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "--motion-test evaluates the original path-tracing reconstruction. Use --renderer path; direct and raster support --render, --gallery, --video and --self-test.\n"
+    },
+    {
+      "args": [
+        "--motion-test",
+        "output/test",
+        "--raster"
+      ],
+      "passed": true,
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "--motion-test evaluates the original path-tracing reconstruction. Use --renderer path; direct and raster support --render, --gallery, --video and --self-test.\n"
+    },
+    {
+      "args": [
+        "--motion-test",
+        "output/test",
+        "--renderer",
+        "path"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "SELECTED: path\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "ATELIER \u2014 native Apple Silicon architectural renderer\n--self-test                 Validate geometry, selected renderer and image output\n--render image.png          Render a still\n--gallery directory         Render every tour bookmark\n--video walkthrough.mp4     Export the guided walkthrough (native H.264)\n--location paris           paris / chicago / skyline / millennium / culturalcenter / lakefront / campus / northside / robie (default paris)\n--width 1920 --height 1080 --samples 64 --stop 0\n--at 28                    Render selected walkthrough at this second\n--camera x,y,z --target x,y,z --fov 60   Override a still camera\n--seconds 108 --fps 24       Video duration and frame rate\n--lighting 0                0 golden hour, 1 daylight, 2 illuminated night, 3 sunset (Skyline defaults to authored lighting)\n--single-view --stop 0      Export one full route (56\u2013360 seconds)\n--idle                     Export the selected view\u2019s slow idle animation\n--renderer path|direct|raster  Select renderer (default path)\n--raster                   Compatibility alias for --renderer raster\n                           Direct/raster render once; --samples applies to path tracing\n--raw                      Disable path-tracing motion reconstruction for comparison\n--no-regularization        Disable secondary glossy path regularization\n--random-sampling          Use independent random rays for sampler comparisons\n--linear-lights            Disable spatial light indexing for exact comparisons\n--motion-test directory    Measure actual moving-scene noise against 128spp references\n--motion-case name         Limit the moving-scene benchmark to one named case\n--obj building.obj --scale 1 Load another structure; scale converts units to meters\n",
+      "stderr": ""
+    }
+  ],
+  "sourceSHA256": "5ca30bda5b8acb5509eb2fcba63ff4a8519d2db4f075dd9215703bc02c040a65",
+  "scope": "Exact source prefix of runCommandLine through renderer parsing compiled with a terminal selected-mode print. No export/self-test rendering body or Metal device used; full packaged CLI still needs integration validation."
+}

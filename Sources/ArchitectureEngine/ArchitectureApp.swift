@@ -76,7 +76,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         viewMenu.addItem(withTitle: "Show / Hide Interface", action: #selector(toggleInterface), keyEquivalent: "h").target = self
         viewMenu.addItem(withTitle: "Keyboard Controls", action: #selector(toggleHelp), keyEquivalent: "/").target = self
         viewMenu.addItem(.separator())
-        let fullscreen = viewMenu.addItem(withTitle: "Enter / Exit Full Screen", action: #selector(toggleFullscreen), keyEquivalent: "f")
+        let fullscreen = viewMenu.addItem(withTitle: "Enter / Exit Full Screen (G)", action: #selector(toggleFullscreen), keyEquivalent: "f")
         fullscreen.keyEquivalentModifierMask = [.command, .control]
         fullscreen.target = self
         viewMenu.addItem(withTitle: "Next Location", action: #selector(toggleLocation), keyEquivalent: "l").target = self
@@ -115,7 +115,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.3.0 · Paris & Chicago",
+            .applicationVersion: "2.4.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -222,7 +222,7 @@ private struct ArchitectureWorkspace: View {
         VStack(alignment:.leading,spacing:12) {
             Text("ATELIER  /  CHICAGO").font(.system(size:11,weight:.semibold)).tracking(3).foregroundStyle(accent)
             Text("Map mode").font(.system(size:42,design:.serif))
-            Text("NORTH UP  ·  PAN & ZOOM").font(.system(size:10,weight:.medium)).tracking(2).foregroundStyle(.white.opacity(0.7))
+            Text("NORTH UP  ·  WASD OR DRAG TO PAN  ·  SHIFT ×3").font(.system(size:10,weight:.medium)).tracking(2).foregroundStyle(.white.opacity(0.7))
             if let focused=engine.focusedObjectName {
                 Button { engine.clearObjectFocus() } label: { Label("Focus: \(focused)",systemImage:"xmark.circle") }
                     .buttonStyle(.plain).font(.system(size:11)).foregroundStyle(accent).accessibilityLabel("Clear object focus")
@@ -332,15 +332,21 @@ private struct ArchitectureWorkspace: View {
 
     private var toolbar: some View {
         HStack(spacing: 4) {
-            Button { engine.toggleRayTracing() } label: { HStack(spacing: 7) {
+            Menu {
+                Picker("Renderer",selection:Binding(get:{engine.rendererMode},set:{engine.setRendererMode($0)})) {
+                    ForEach(ArchitectureRendererMode.allCases) { mode in Text(mode.title).tag(mode) }
+                }
+                Divider()
+                Button("Toggle ray tracing · R") { engine.toggleRayTracing() }
+            } label: { HStack(spacing: 7) {
                 Circle().fill(engine.isReady ? accent : .gray).frame(width: 5, height: 5)
-                Text(engine.rayTracingEnabled ? "METAL  /  RAY TRACING":"METAL  /  FAST RASTER").font(.system(size: 9, weight: .semibold)).tracking(1.1)
-            }.padding(.leading, 14).padding(.trailing, 9) }.buttonStyle(.plain)
-                .help("Toggle ray tracing · R").accessibilityLabel(engine.rayTracingEnabled ? "Ray tracing on":"Ray tracing off — fast raster").disabled(!engine.isReady)
+                Text(engine.rendererMode.title.uppercased()).font(.system(size: 9, weight: .semibold)).tracking(1.1)
+            }.padding(.leading, 14).padding(.trailing, 9) }.menuStyle(.borderlessButton).fixedSize()
+                .help("Choose renderer · R toggles the last ray tracer and Fast Raster").accessibilityLabel("Renderer: \(engine.rendererMode.title)").disabled(!engine.isReady)
             Rectangle().fill(.white.opacity(0.13)).frame(width: 1, height: 18)
             AmbientMusicControls(music: engine.music, restoreFocus: engine.focusViewport)
             iconButton("moon.stars", help: "Toggle day / night · N", active: engine.lighting == 2) { engine.toggleDayNight() }
-            iconButton(engine.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", help: "Enter / exit full screen · ⌃⌘F", active: engine.isFullscreen) { engine.toggleFullscreen() }
+            iconButton(engine.isFullscreen ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right", help: "Enter / exit full screen · G or ⌃⌘F", active: engine.isFullscreen) { engine.toggleFullscreen() }
             iconButton("slider.horizontal.3", help: "Render settings", active: settingsOpen) { settingsOpen.toggle() }
                 .popover(isPresented: $settingsOpen, arrowEdge: .bottom) { settingsPanel }
             iconButton("chart.bar.xaxis", help: "Show performance", active: engine.statsVisible) { engine.statsVisible.toggle() }
@@ -366,7 +372,7 @@ private struct ArchitectureWorkspace: View {
             }
             Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
             metric("Triangles", value: engine.triangleCount.formatted())
-            metric(engine.rayTracingEnabled ? "Accumulated samples":"Rendering", value: engine.rayTracingEnabled ? engine.samples.formatted():"Raster · ray tracing off")
+            metric(engine.rendererMode == .pathTracing ? "Accumulated samples":"Rendering", value: engine.rendererMode == .pathTracing ? engine.samples.formatted():engine.rendererMode.title)
             metric("Metal allocations", value: engine.memoryMB >= 1024 ? String(format: "%.2f GB", engine.memoryMB / 1024) : String(format: "%.0f MiB", engine.memoryMB))
         }.padding(17).frame(width: 234).glassPanel(radius: 13)
     }
@@ -497,7 +503,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   T look down   R ray tracing   F fly/walk   N day/night").lineLimit(1).minimumScaleFactor(0.7)
+                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   T look down   R ray toggle   G full screen   N day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -521,15 +527,17 @@ private struct ArchitectureWorkspace: View {
     private var settingsPanel: some View {
         VStack(alignment: .leading, spacing: 21) {
             Text("Render settings").font(.system(size: 21, weight: .regular, design: .serif))
-            Toggle("Ray tracing · R",isOn:Binding(get:{engine.rayTracingEnabled},set:{ _ in engine.toggleRayTracing() }))
-            Text(engine.rayTracingEnabled ? "Ray-traced shadows, reflections and indirect light. Switch off for faster city navigation.":"Fast raster uses direct lighting and environment reflections, without traced shadows, local reflections, refraction or indirect light. Toggle back at the same camera position.")
+            Picker("Renderer",selection:Binding(get:{engine.rendererMode},set:{engine.setRendererMode($0)})) {
+                ForEach(ArchitectureRendererMode.allCases) { mode in Text(mode.title).tag(mode) }
+            }.pickerStyle(.menu)
+            Text(engine.rendererMode.explanation + " R switches Fast Raster and the last selected ray tracer.")
                 .font(.system(size:10)).foregroundStyle(.secondary).lineSpacing(3)
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("QUALITY", value: ["Responsive exploration", "Balanced detail", "Maximum refinement"][min(max(engine.quality, 0), 2)])
                 Picker("Quality", selection: Binding(get: { engine.quality }, set: { engine.setQuality($0) })) {
                     Text("Interactive").tag(0); Text("Balanced").tag(1); Text("Ultra").tag(2)
                 }.pickerStyle(.segmented).labelsHidden()
-                Text(engine.rayTracingEnabled ? "Hold the camera still to progressively refine reflections, shadows, and indirect light.":"Quality changes the viewport resolution. Raster renders one image per frame; ray sample settings apply when ray tracing is on.")
+                Text(engine.rendererMode == .pathTracing ? "Hold the camera still to progressively refine reflections, shadows, and indirect light.":"Quality changes the viewport resolution. \(engine.rendererMode.title) draws each view without progressive indirect-light refinement.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
             }
             VStack(alignment: .leading, spacing: 9) {
@@ -549,7 +557,7 @@ private struct ArchitectureWorkspace: View {
                     Text("Walk").tag(0); Text("Fly").tag(1)
                     if engine.location.world == "chicago" { Text("Map").tag(2) }
                 }.pickerStyle(.segmented).labelsHidden()
-                Text("Map stays north-up and only pans or zooms. Walk follows solid floors; Fly moves freely. Pinch zoom works in every mode.")
+                Text("Map stays north-up: WASD or drag pans, Shift triples key speed, and pinch or scroll zooms. Walk follows solid floors; Fly moves freely.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
                 settingLabel("FLY SPEED",value:String(format:"%.0f m/s · Shift ×3",engine.flySpeed))
                 flySpeedPicker.disabled(engine.isMapMode)
@@ -601,6 +609,7 @@ private struct ArchitectureWorkspace: View {
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right parallel to the ground")
+                    helpRow("MAP + WASD", "Pan north, west, south, east · Shift triples speed")
                     helpRow("Q  /  E", "Ascend / descend in Fly mode")
                     helpRow("SHIFT", "Triple manual movement speed")
                     helpRow("F  /  −  /  +", "Walk/Fly · slower/faster flight (8–800 m/s)")
@@ -613,7 +622,8 @@ private struct ArchitectureWorkspace: View {
                     helpRow("B", "Enter or leave fixed north-up Map mode")
                     helpRow("T", "Point the normal camera straight down; keep normal controls")
                     helpRow("PINCH", "Zoom the normal view, focused object, or city map")
-                    helpRow("R", "Toggle ray tracing / fast raster at the same camera")
+                    helpRow("R", "Toggle last ray tracer / Fast Raster at the same camera")
+                    helpRow("G / ⌃⌘F", "Enter or exit full screen, including in Map mode")
                     helpRow("MUSIC NOTE", "Ambient music on/off, volume and current song")
                     helpRow("C", "Start / stop the complete Chicago demo")
                     helpRow("SPACE", "Start / pause / resume this walkthrough")
@@ -787,10 +797,16 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         _ = pointerGesture.end(button: .right, point: pointerPoint(event), windowOrigin: windowOrigin)
     }
     override func magnify(with event: NSEvent) {
+        // A gesture can finish outside the content rectangle. Always release
+        // its scroll suppression even when the final event cannot change zoom.
+        defer {
+            if event.phase.contains(.ended) || event.phase.contains(.cancelled) {
+                magnifying = false; pointerGesture.cancel()
+            }
+        }
         guard isViewportEvent(event) else { return }
         if event.phase.contains(.began) { releaseKeys(); magnifying = true; pointerGesture.cancel() }
         engine?.magnify(event.magnification)
-        if event.phase.contains(.ended) || event.phase.contains(.cancelled) { magnifying = false; pointerGesture.cancel() }
     }
     override func rotate(with event: NSEvent) { /* Orientation belongs to explicit viewport drags. */ }
     override func scrollWheel(with event: NSEvent) {
@@ -803,6 +819,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         guard let engine, ViewportPointerGesture.allowsKey(event.keyCode,mapMode:engine.isMapMode) else { return }
         if !event.isARepeat {
             switch event.keyCode {
+            case 5: engine.toggleFullscreen(); return
             case 17: engine.pointCameraDown(); return
             case 11: engine.toggleMapMode(); return
             case 49: engine.toggleTour(); return
@@ -838,7 +855,12 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             }
         }
         let movement: Set<UInt16> = [13, 0, 1, 2, 12, 14]
-        if movement.contains(event.keyCode), !engine.showHelp {
+        if movement.contains(event.keyCode), !engine.showHelp, !event.isARepeat {
+            // Continuous motion comes from the held set, not repeat events.
+            // After a lifecycle reset, require a fresh press before moving.
+            let shifted = event.modifierFlags.contains(.shift)
+            engine.moveKey(56, pressed: shifted)
+            if shifted { heldKeys.insert(56) } else { heldKeys.remove(56) }
             heldKeys.insert(event.keyCode)
             engine.moveKey(event.keyCode, pressed: true)
         }
@@ -856,8 +878,9 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
 
     override func resignFirstResponder() -> Bool { releaseKeys(); return super.resignFirstResponder() }
     override func viewDidMoveToWindow() {
+        releaseKeys()
         super.viewDidMoveToWindow()
-        for name in [NSWindow.didResignKeyNotification, NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification, NSWindow.willMoveNotification] {
+        for name in [NSWindow.didResignKeyNotification, NSWindow.willEnterFullScreenNotification, NSWindow.willExitFullScreenNotification, NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification, NSWindow.willMoveNotification] {
             NotificationCenter.default.removeObserver(self, name: name, object: nil)
         }
         if let window {
@@ -866,10 +889,14 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             for name in [NSWindow.didEnterFullScreenNotification, NSWindow.didExitFullScreenNotification] {
                 NotificationCenter.default.addObserver(self, selector: #selector(windowPresentationChanged), name: name, object: window)
             }
+            for name in [NSWindow.willEnterFullScreenNotification, NSWindow.willExitFullScreenNotification] {
+                NotificationCenter.default.addObserver(self, selector: #selector(windowTransitionStarted), name: name, object: window)
+            }
             engine?.windowPresentationChanged()
         }
     }
     @objc private func windowPresentationChanged() { releaseKeys(); engine?.windowPresentationChanged() }
+    @objc private func windowTransitionStarted() { releaseKeys() }
     @objc private func windowWillMove() { releaseKeys(); engine?.windowWillMove() }
     @objc private func windowLostFocus() { releaseKeys() }
     func cancelViewportInput() { releaseKeys() }

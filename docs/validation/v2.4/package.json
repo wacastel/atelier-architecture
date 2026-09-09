@@ -1,0 +1,14 @@
+{
+  "version": "2.4.0",
+  "build": "17",
+  "executableSHA256": "49ec7928a1ff30219ce472cef26966fba7bf7921f8ca5d1869c15b4dc9c5e4c6",
+  "shaderSHA256": {
+    "DirectRay.metal": "b0770242af492fdd7f9a76c03d17f94f25bba828426098766452b9ee45d4ea97",
+    "Renderer.metal": "a920f13fc443937a68d24bc6667864fede8a31b945009574e977567e344eddf9",
+    "Raster.metal": "fd4e5286933ebc8d27b72bc3fb5d2414910cd0a2948d4676f6be633fcae752bf",
+    "Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+  },
+  "bundledShadersMatch": true,
+  "architecture": "arm64",
+  "codeSignVerified": true
+}

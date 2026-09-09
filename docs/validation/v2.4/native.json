@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-09",
+  "package": "package.json",
+  "method": "Native app launched and operated through CUA; accessibility states and screenshots inspected. No app test hooks or injected UI events outside CUA.",
+  "checks": [
+    {
+      "check": "Fresh launch opens Willis Tower with Path Tracing available",
+      "passed": true
+    },
+    {
+      "check": "Renderer menu selects Direct Ray Tracing",
+      "passed": true
+    },
+    {
+      "check": "G enters full screen and G restores window in normal view; toolbar changes Enter/Exit; native titlebar buttons disappear/reappear",
+      "passed": true
+    },
+    {
+      "check": "B enters north-up Map mode; G enters and exits full screen while retaining Map mode; B returns to normal exploration after transition",
+      "passed": true
+    },
+    {
+      "check": "R switches Direct to Fast Raster and back to Direct during the active Cultural Hall walkthrough; playback timeline continues",
+      "passed": true
+    },
+    {
+      "check": "N switches the active Direct walkthrough to night; warm fixtures and moving camera visually inspected",
+      "passed": true
+    },
+    {
+      "check": "Navigation map Cultural Center selection frames and visibly highlights the landmark; focus survives R mode changes",
+      "passed": true
+    },
+    {
+      "check": "Clear focus and return to Preston Bradley Hall night view in Direct mode",
+      "passed": true
+    }
+  ],
+  "observedHUD": "Willis Direct roughly45\u201359 FPS; Cultural Direct roughly44\u201357 FPS in sampled accessibility/HUD states, depending on scene/transition. These are observations, not a controlled native-frame-rate benchmark.",
+  "scopeLimits": [
+    "CUA sends immediate key taps, not sustained physical holds; W taps produced no resolvable map displacement. Actual held WASD, Shift, normalized diagonals, bounds and focus retention are validated by the755-check controller fixture and6824 navigation checks instead.",
+    "G was delivered natively; Control\u2013Command\u2013F remains the existing menu binding and was not separately sent during this session.",
+    "Full-screen transition resize was checked; arbitrary manual window-edge resize was not repeated this release.",
+    "No claim of zero geometric aliasing, complete GI equivalence or photographic fidelity."
+  ],
+  "finalState": {
+    "location": "Chicago Cultural Center",
+    "view": "Preston Bradley Hall",
+    "lighting": "night",
+    "renderer": "Direct Ray Tracing",
+    "fullscreen": false,
+    "focus": null,
+    "playback": "holding view with idle motion"
+  },
+  "screenshots": [
+    {
+      "path": "native/cultural-focused-direct.jpg",
+      "sha256": "0b2b3d8be2289273473b34a5895d1fb6970e5bc80052ea0c095e49d8275f42db"
+    },
+    {
+      "path": "native/cultural-hall-day-direct.jpg",
+      "sha256": "243c1e39a08bd9efc5d434aa962c7ecde9a54f82f7d3804da1a7069740f0d253"
+    },
+    {
+      "path": "native/cultural-hall-night-final.jpg",
+      "sha256": "8bb2fc786d58d43bc76b661ca8005080469b9c8864cf826f9a4cf215d593b92b"
+    },
+    {
+      "path": "native/cultural-hall-night-walkthrough.jpg",
+      "sha256": "85956121742966502a44cde2c0eebc8ed2b9b231bf6034641a28a1371716d2a9"
+    },
+    {
+      "path": "native/map-fullscreen.jpg",
+      "sha256": "9dc490edddc31dbe2c655a66205db40ecff6a40235f6ef488e7fbb5791889f7f"
+    },
+    {
+      "path": "native/willis-fullscreen.jpg",
+      "sha256": "728ffc133d78e306aa67cc0867bc9d3a4ecc06b6e79b5a9417506d08aebe27b5"
+    },
+    {
+      "path": "native/willis-windowed.jpg",
+      "sha256": "ad369950041927cf8e3e9a400587615394dc629a1e639bbaf39874a82192ff00"
+    }
+  ]
+}

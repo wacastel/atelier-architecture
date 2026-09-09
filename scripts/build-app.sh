@@ -16,7 +16,7 @@ echo "Building Atelier for Apple Silicon…"
 atelier_bin_dir="$("$atelier_swift" build --package-path "$atelier_project_dir" --configuration release --arch arm64 --show-bin-path)"
 atelier_bundle="ArchitectureEngine_ArchitectureEngine.bundle"
 [[ -x "$atelier_bin_dir/ArchitectureEngine" ]] || { echo "Release executable is missing." >&2; exit 1; }
-[[ -f "$atelier_bin_dir/$atelier_bundle/Resources/Renderer.metal" && -f "$atelier_bin_dir/$atelier_bundle/Resources/Denoise.metal" && -f "$atelier_bin_dir/$atelier_bundle/Resources/Raster.metal" ]] || { echo "Metal shader resource bundle is missing." >&2; exit 1; }
+[[ -f "$atelier_bin_dir/$atelier_bundle/Resources/Renderer.metal" && -f "$atelier_bin_dir/$atelier_bundle/Resources/Denoise.metal" && -f "$atelier_bin_dir/$atelier_bundle/Resources/Raster.metal" && -f "$atelier_bin_dir/$atelier_bundle/Resources/DirectRay.metal" ]] || { echo "Metal shader resource bundle is missing." >&2; exit 1; }
 
 /bin/mkdir -p "$atelier_project_dir/dist"
 atelier_stage_dir="$(/usr/bin/mktemp -d "$atelier_project_dir/dist/.atelier-build.XXXXXX")"
@@ -39,8 +39,8 @@ atelier_staged_app="$atelier_stage_dir/Atelier.app"
     <key>CFBundleDisplayName</key><string>Atelier</string>
     <key>CFBundleIconFile</key><string>Atelier.icns</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>2.3.0</string>
-    <key>CFBundleVersion</key><string>16</string>
+    <key>CFBundleShortVersionString</key><string>2.4.0</string>
+    <key>CFBundleVersion</key><string>17</string>
     <key>CFBundleSupportedPlatforms</key><array><string>MacOSX</string></array>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>LSArchitecturePriority</key><array><string>arm64</string></array>

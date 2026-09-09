@@ -6,7 +6,7 @@ import CryptoKit
 let root=URL(fileURLWithPath:#filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 extension Bundle { static var module:Bundle { Bundle(url:root.appendingPathComponent("Sources/ArchitectureEngine"))! } }
 let benchmarkEnvironment=ProcessInfo.processInfo.environment
-let output=URL(fileURLWithPath:benchmarkEnvironment["ATELIER_BENCHMARK_OUTPUT"] ?? "output/v12-review/render-modes-benchmark",relativeTo:root).standardizedFileURL
+let output=URL(fileURLWithPath:benchmarkEnvironment["ATELIER_BENCHMARK_OUTPUT"] ?? "output/v17-review/render-modes-benchmark",relativeTo:root).standardizedFileURL
 try FileManager.default.createDirectory(at:output,withIntermediateDirectories:true)
 func hash(_ url:URL)throws->String {var h=SHA256();let file=try FileHandle(forReadingFrom:url);defer{try? file.close()};while let bytes=try file.read(upToCount:4*1024*1024),!bytes.isEmpty {h.update(data:bytes)};return h.finalize().map{String(format:"%02x",$0)}.joined()}
 let sourceList=ProcessInfo.processInfo.environment["ATELIER_BENCHMARK_INPUTS"]!
@@ -18,7 +18,9 @@ if let files=FileManager.default.enumerator(at:resources,includingPropertiesForK
 let unique=Array(Set(inputs.map(\.path))).sorted()
 func inventory()throws->[String:String] {try Dictionary(uniqueKeysWithValues:unique.map{($0.replacingOccurrences(of:root.path+"/",with:""),try hash(URL(fileURLWithPath:$0)))})}
 let before=try inventory()
-let width=1280,height=850,spp=4,warmup=2,measured=12
+let width=max(64,Int(benchmarkEnvironment["ATELIER_BENCHMARK_WIDTH"] ?? "1280") ?? 1280)
+let height=max(64,Int(benchmarkEnvironment["ATELIER_BENCHMARK_HEIGHT"] ?? "850") ?? 850)
+let spp=4,warmup=2,measured=max(2,Int(benchmarkEnvironment["ATELIER_BENCHMARK_FRAMES"] ?? "12") ?? 12)
 let start=Date()
 guard let device=MTLCreateSystemDefaultDevice() else {fatalError("Metal device unavailable")}
 print("Building one complete Chicago world");fflush(stdout)
@@ -31,7 +33,12 @@ let cases=[Case(name:"robie-exterior-day",location:.robie,view:0,start:0,idle:tr
            Case(name:"robie-exterior-night",location:.robie,view:0,start:0,idle:true,night:true),
            Case(name:"robie-living-room-day",location:.robie,view:4,start:35,idle:false,night:false),
            Case(name:"robie-living-room-night",location:.robie,view:4,start:35,idle:false,night:true),
-           Case(name:"willis-skyline-day",location:.chicago,view:0,start:0,idle:true,night:false)]
+           Case(name:"willis-skyline-day",location:.chicago,view:0,start:0,idle:true,night:false),
+           Case(name:"willis-catalog-day",location:.chicago,view:1,start:0,idle:true,night:false),
+           Case(name:"cultural-exterior-day",location:.culturalcenter,view:0,start:0,idle:true,night:false),
+           Case(name:"cultural-stair-day",location:.culturalcenter,view:2,start:0,idle:true,night:false),
+           Case(name:"cultural-hall-day",location:.culturalcenter,view:4,start:0,idle:true,night:false),
+           Case(name:"cultural-hall-night",location:.culturalcenter,view:4,start:0,idle:true,night:true)]
 func stats(_ values:[Double])->[String:Double] {let sorted=values.sorted();return ["median":(sorted[(sorted.count-1)/2]+sorted[sorted.count/2])/2,"p95":sorted[Int(ceil(Double(sorted.count)*0.95))-1],"minimum":sorted.first!,"maximum":sorted.last!,"mean":values.reduce(0,+)/Double(values.count)]}
 func vector(_ v:SIMD3<Float>)->[Float] {[v.x,v.y,v.z]}
 var reports:[[String:Any]]=[]
@@ -40,7 +47,7 @@ var report:[String:Any]=["status":"RUNNING","device":device.name,"os":ProcessInf
     "sceneBuildSeconds":sceneSeconds,"rendererBuildSeconds":renderer.buildSeconds,"staticTriangles":scene.triangleCount,"totalTrianglesIncludingTraffic":renderer.triangleCount,
     "sceneLights":scene.lights.count,"trafficVehicles":renderer.trafficVehicleCount,"sourceAndResourceSHA256":before,"executableSHA256":try hash(URL(fileURLWithPath:CommandLine.arguments[0])),
     "scope":"One complete shared Chicago scene/renderer, serial matched moving cameras. Wall includes synchronous offscreen readback; GPU is command-buffer time. These are not native window FPS or a universal performance guarantee.",
-    "modeOrder":"Alternated per case; each mode receives2warmup frames before12measured frames. Both modes start identical pose/time/seed sequences; RT history resets at each mode/case start."]
+    "modeOrder":"Rotated per case; each mode receives the reported warmup/measured frame count. All modes start identical pose/time/seed sequences; history resets at each mode/case start."]
 func save()throws {report["cases"]=reports;try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:output.appendingPathComponent("metrics.json"),options:.atomic)}
 try save()
 var failed=false
@@ -49,12 +56,14 @@ let selectedCases=cases.filter{requestedCases?.contains($0.name) ?? true}
 for (caseIndex,c) in selectedCases.enumerated() {
     var caseReport:[String:Any]=["name":c.name,"location":c.location.rawValue,"view":c.view,"night":c.night,"idle":c.idle,"routeStartSeconds":c.start]
     var modes:[String:[String:Any]]=[:]
-    let modeOrder=caseIndex % 2 == 0 ? [false,true]:[true,false]
-    let selectedModes=modeOrder.filter{rt in benchmarkEnvironment["ATELIER_BENCHMARK_MODE"].map{$0 == (rt ? "rayTracing":"raster")} ?? true}
-    for rt in selectedModes {
-        let mode=rt ? "rayTracing":"raster"
-        var options=RenderOptions(lighting:c.night ? 2:0);options.rayTracing=rt
+    let allModes=["rayTracing","directRayTracing","raster"]
+    let modeOrder=(0..<3).map{allModes[($0+caseIndex)%3]}
+    let selectedModes=modeOrder.filter{mode in benchmarkEnvironment["ATELIER_BENCHMARK_MODE"].map{$0.split(separator:",").contains(Substring(mode))} ?? true}
+    for mode in selectedModes {
+        let rt=mode != "raster",direct=mode == "directRayTracing"
+        var options=RenderOptions(lighting:c.night ? 2:0);options.rayTracing=rt;options.directRayTracing=direct
         let traceBefore=renderer.rayTracingDispatchCount,guideBefore=renderer.surfaceGuideDispatchCount,updatesBefore=renderer.trafficUpdateCount,rasterBefore=renderer.rasterFrameCount,transformsBefore=renderer.rasterTrafficTransformCount
+        let directBefore=renderer.directRayDispatchCount
         renderer.frameSeed=0;renderer.resetAccumulation();renderer.resetReconstruction()
         var gpu:[Double]=[],wall:[Double]=[],frames:[[String:Any]]=[],last=Data(),lastPose=c.location.stops[c.view].pose
         print("\(c.name) \(mode) starting");fflush(stdout)
@@ -73,10 +82,11 @@ for (caseIndex,c) in selectedCases.enumerated() {
                 frames.append(f)
             }
         }
-        let counters:[String:Int]=["rayDispatches":renderer.rayTracingDispatchCount-traceBefore,"surfaceGuideDispatches":renderer.surfaceGuideDispatchCount-guideBefore,
+        let counters:[String:Int]=["rayDispatches":renderer.rayTracingDispatchCount-traceBefore,"directRayDispatches":renderer.directRayDispatchCount-directBefore,"surfaceGuideDispatches":renderer.surfaceGuideDispatchCount-guideBefore,
             "rayTracingTrafficUpdates":renderer.trafficUpdateCount-updatesBefore,"rasterFrames":renderer.rasterFrameCount-rasterBefore,"rasterTrafficTransforms":renderer.rasterTrafficTransformCount-transformsBefore]
-        let modePassed=rt ? counters["rayDispatches"]==(warmup+measured)*spp && counters["surfaceGuideDispatches"]==warmup+measured && counters["rasterFrames"]==0
-            : counters["rayDispatches"]==0 && counters["surfaceGuideDispatches"]==0 && counters["rayTracingTrafficUpdates"]==0 && counters["rasterFrames"]==warmup+measured
+        let modePassed=direct ? counters["directRayDispatches"]==warmup+measured && counters["rayDispatches"]==0 && counters["surfaceGuideDispatches"]==0 && counters["rasterFrames"]==0
+            : rt ? counters["directRayDispatches"]==0 && counters["rayDispatches"]==(warmup+measured)*spp && counters["surfaceGuideDispatches"]==warmup+measured && counters["rasterFrames"]==0
+            : counters["directRayDispatches"]==0 && counters["rayDispatches"]==0 && counters["surfaceGuideDispatches"]==0 && counters["rayTracingTrafficUpdates"]==0 && counters["rasterFrames"]==warmup+measured
         failed = failed || !modePassed
         let name=c.name+"-"+mode+".png"
         try writePNG(last,width:width,height:height,to:output.appendingPathComponent(name))
@@ -89,6 +99,9 @@ for (caseIndex,c) in selectedCases.enumerated() {
     if let rtMode=modes["rayTracing"],let rasterMode=modes["raster"] {
         let rt=(rtMode["gpuMilliseconds"] as! [String:Double])["median"]!,raster=(rasterMode["gpuMilliseconds"] as! [String:Double])["median"]!
         caseReport["gpuMedianRTOverRasterRatio"]=rt/raster
+    }
+    if let rtMode=modes["rayTracing"],let directMode=modes["directRayTracing"] {
+        caseReport["gpuMedianPathOverDirectRatio"]=(rtMode["gpuMilliseconds"] as! [String:Double])["median"]! / (directMode["gpuMilliseconds"] as! [String:Double])["median"]!
     }
     reports.append(caseReport);report.removeValue(forKey:"activeCase");try save()
 }

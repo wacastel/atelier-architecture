@@ -1,4 +1,4 @@
-# Object focus — Atelier 2.3.0
+# Object focus — Atelier 2.4.0
 
 Click visible geometry on a landmark or mapped building to focus the camera on that object. The focus name appears in the interface, and a tint and outline mark its selected visible surfaces. Normal 3D selection keeps the camera's position and turns its view toward the object's center; it takes manual control and leaves any active walkthrough, Chicago demo or idle cycle. Fixed Map mode can show the same selection while retaining its vertical camera.
 
@@ -13,7 +13,9 @@ Click visible geometry on a landmark or mapped building to focus the camera on t
 | Trackpad pinch | Move closer to or farther from the focused object while retaining focus |
 | **T** in normal 3D exploration | Look exactly down at the selected object's centre, preserving focus and lens, with roof clearance |
 | **Escape** or the focus label's clear button | Release focus; keyboard navigation remains available |
-| **WASD / Q–E** | Clear focus and move manually |
+| **WASD / Q–E** in normal exploration | Clear focus and move manually |
+| **WASD** in fixed Map | Pan cardinally while retaining selection, height and lens; Shift triples speed |
+| **G / ⌃⌘F** | Toggle full screen while retaining focus and resetting held movement |
 
 A drag is distinct from a click, so finishing an orbit does not select an object beneath the pointer. These orbit and dolly controls apply to the normal 3D camera. Fixed Map mode always pans and zooms its ground coverage, including while an object is selected. Without focus in normal exploration, left dragging pans over the ground plane, right dragging or Shift-left dragging looks around, and scrolling changes flight speed. Pinching without a focus changes the optical field of view, preserving camera position and direction. Pinching with a focus changes the camera’s distance from the object instead. It takes manual control and ends any guided playback, but retains the selected object.
 
@@ -23,7 +25,7 @@ Orbit distance and elevation have limits around the selected object's envelope. 
 
 A distant selection, such as Willis Tower from Oak Park, retains its entry distance as the outward orbit limit when it exceeds the usual object-relative limit. Rotation preserves that radius; scrolling or pinching moves inward gradually. Nearby selections retain their established limits. The historical [2.1.1 CPU regression](validation/v2.1.1/focus-navigation.json) covers the original distant orbit/scroll change; it does not validate the new pinch input.
 
-Changing day/night lighting, exposure, rendering quality or ray-tracing mode retains focus. Moving the window, resizing it or entering full screen also retains focus. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
+Changing day/night lighting, exposure, rendering quality or the renderer retains focus. The renderer menu selects Path Tracing, Direct Ray Tracing or Fast Raster; **R** switches Fast Raster and the last selected ray tracer. Moving the window, resizing it or entering full screen with **G**, **⌃⌘F** or the button also retains focus. Held movement is cleared for window/full-screen transitions and mode changes. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
 
 Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain its transport controls; the current sequence includes 64 Chicago routes.
 
@@ -53,6 +55,10 @@ Cloud Gate needs a special case: its finely tessellated shell was entirely absen
 The focus catalog and picking structures are retained across all eight Chicago destinations along with the shared world. Switching between Chicago and Paris loads the appropriate independent world and catalog.
 
 ## Validation
+
+Version 2.4.0 passes [755 actual-controller checks](validation/v2.4/map-mode-integration.json), including selection retention during repeated Map WASD steps, full-screen input reset, all three renderer choices and remembered ray-tracer toggling. [6,824 navigation checks](validation/v2.4/manual-city-navigation.json) verify compass directions, speed and framing math, while [449 pointer/key checks](validation/v2.4/viewport-input.json) cover pointer ownership and the updated key allowlist. No native window, Metal device or city collision world is constructed by these fixtures. The [Direct GPU fixture](validation/v2.4/direct-ray.json) and [presentation fixture](validation/v2.4/direct-presentation.json) separately verify primary-depth selection and occluder/sky exclusion. [Native app checks](validation/v2.4/native.json) verify the Cultural Center highlight and focus retention through R mode switches. The older checks below remain evidence for their original scope.
+
+### Historical version 2.3.0
 
 Version 2.3.0 passes [1,662 focus checks](validation/v2.3/focus-navigation.txt), [6,765 manual-navigation checks](validation/v2.3/manual-city-navigation.json) and [662 actual-controller checks](validation/v2.3/map-mode-integration.json). These cover same-object retention, clearing a different hit without replacement, semantic map selection, horizontal travel, T and exact-pole focused zoom. The [39,496-check GPU fixture](validation/v2.3/raster.json) includes selected-surface changes in both render modes, unchanged foreground/sky and exact output restoration after clearing selection. No added ray pass is used for raster selection.
 

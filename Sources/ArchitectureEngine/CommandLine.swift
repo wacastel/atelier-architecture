@@ -16,8 +16,8 @@ import CoreText
     }
     if args.contains("--help") {
         print("""
-        ATELIER — native Apple Silicon architectural path tracer
-        --self-test                 Validate geometry, Metal RT and image output
+        ATELIER — native Apple Silicon architectural renderer
+        --self-test                 Validate geometry, selected renderer and image output
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
@@ -29,8 +29,10 @@ import CoreText
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night, 3 sunset (Skyline defaults to authored lighting)
         --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
-        --raster                   Render with native rasterization, without ray tracing
-        --raw                      Disable motion reconstruction for comparison
+        --renderer path|direct|raster  Select renderer (default path)
+        --raster                   Compatibility alias for --renderer raster
+                                   Direct/raster render once; --samples applies to path tracing
+        --raw                      Disable path-tracing motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
         --random-sampling          Use independent random rays for sampler comparisons
         --linear-lights            Disable spatial light indexing for exact comparisons
@@ -44,14 +46,24 @@ import CoreText
         fputs("OBJ scenes currently support --render. The guided tour, gallery and navigation self-test use the selected built-in location.\n", stderr)
         exit(2)
     }
-    if args.contains("--raster") && args.contains("--motion-test") {
-        fputs("--motion-test evaluates ray-tracing reconstruction. Use --raster with --render, --gallery, --video or --self-test.\n",stderr)
-        exit(2)
-    }
     func value(_ flag:String, _ fallback:String) -> String {
         if let i = args.firstIndex(of:flag), i+1 < args.count { return args[i+1] }; return fallback
     }
     func integer(_ flag:String, _ fallback:Int) -> Int { Int(value(flag,String(fallback))) ?? fallback }
+    if args.filter({$0=="--renderer"}).count>1 || (args.last=="--renderer") {
+        fputs("Specify --renderer once, followed by path, direct or raster.\n",stderr);exit(2)
+    }
+    let rendererName=value("--renderer",args.contains("--raster") ? "raster":"path").lowercased()
+    guard ["path","direct","raster"].contains(rendererName) else {
+        fputs("Unknown renderer. Choose --renderer path, direct or raster.\n",stderr);exit(2)
+    }
+    if args.contains("--raster") && rendererName != "raster" {
+        fputs("--raster conflicts with --renderer \(rendererName). Choose one renderer.\n",stderr);exit(2)
+    }
+    if args.contains("--motion-test") && rendererName != "path" {
+        fputs("--motion-test evaluates the original path-tracing reconstruction. Use --renderer path; direct and raster support --render, --gallery, --video and --self-test.\n",stderr);exit(2)
+    }
+    let rendererTitle=rendererName=="path" ? "Path Tracing":rendererName=="direct" ? "Direct Ray Tracing":"Fast Raster"
     do {
         // An offscreen export is user-requested work even when its app has no
         // visible window. Keep it eligible to run until this command completes.
@@ -88,7 +100,8 @@ import CoreText
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         let defaultLighting = location.preferredLighting(view: stop) ?? 0
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"),hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:rendererName != "raster",directRayTracing:rendererName=="direct",hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
+        print("Renderer: \(rendererTitle)\(rendererName=="path" ? "":" · one deterministic frame; requested SPP is ignored")")
         var pose = location.stops[stop].pose
         if args.contains("--at") {
             guard let seconds=Double(value("--at","0")),seconds.isFinite else { throw EngineError.message("--at requires finite seconds.") }
@@ -132,11 +145,17 @@ import CoreText
             }
             let mean = luminance.reduce(0,+)/Double(luminance.count)
             guard mean > 10 && mean < 250, (luminance.max()!-luminance.min()!) > 60 else { throw EngineError.message("Rendered image is blank or lacks range.") }
-            if options.rayTracing {
-                guard first != pixels, renderer.sampleCount == 16 else { throw EngineError.message("Progressive ray accumulation failed.") }
+            if options.directRayTracing {
+                guard first == pixels, renderer.sampleCount == 1, renderer.directRayDispatchCount > 0,
+                      renderer.rayTracingDispatchCount == 0, renderer.surfaceGuideDispatchCount == 0,
+                      renderer.rasterFrameCount == 0 else {
+                    throw EngineError.message("Direct rays failed deterministic rendering or invoked a different renderer.")
+                }
+            } else if options.rayTracing {
+                guard first != pixels, renderer.sampleCount == 16, renderer.directRayDispatchCount == 0 else { throw EngineError.message("Progressive ray accumulation failed.") }
             } else {
                 guard first == pixels, renderer.sampleCount == 0, renderer.rayTracingDispatchCount == 0,
-                      renderer.surfaceGuideDispatchCount == 0, renderer.rasterFrameCount > 0 else {
+                      renderer.surfaceGuideDispatchCount == 0, renderer.directRayDispatchCount == 0, renderer.rasterFrameCount > 0 else {
                     throw EngineError.message("Ray-off path traced rays or failed deterministic raster rendering.")
                 }
             }
@@ -146,9 +165,16 @@ import CoreText
             guard collision.distance(origin:SIMD3(0,3,90),direction:SIMD3(0,-1,0),maximum:10) != nil else { throw EngineError.message("Navigation ground intersection failed.") }
             let importerChecks = try testOBJImporter()
             var report: [String:Any] = ["passed":true,"device":device.name,"unifiedMemory":device.hasUnifiedMemory,"rayTracing":device.supportsRaytracing,"triangleCount":scene.triangleCount,"geometricDetails":scene.detailCount,"materials":scene.materials.count,"lights":scene.lights.count,"location":location.rawValue,"mappedBuildingFootprints":location == .paris ? ParisContext.database.buildings.count:ChicagoContext.database.buildings.count,"mapTimestamp":location == .paris ? ParisContext.database.timestamp:ChicagoContext.database.timestamp,"thinGlass":renderer.hasTransmission,"allocatedMiB":renderer.allocatedMB,"gpuLastSampleMilliseconds":renderer.lastGPUTime,"imageMeanByte":mean,"resolution":[width,height],"samples":16,"abiValidated":true,"navigationBVHNodes":collision.nodes.count,"importerChecks":importerChecks,"elapsedSeconds":Date().timeIntervalSince(start)]
-            report["renderMode"] = options.rayTracing ? "rayTracing":"raster"
+            report["renderMode"] = options.directRayTracing ? "directRayTracing":options.rayTracing ? "pathTracing":"raster"
+            report["renderer"] = rendererName
+            report["pathTraceDispatches"] = renderer.rayTracingDispatchCount
+            report["directRayDispatches"] = renderer.directRayDispatchCount
             report["rasterStatistics"] = renderer.rasterStatistics
-            if !options.rayTracing { report["samples"] = 0 }
+            if rendererName != "path" {
+                report["samples"] = options.directRayTracing ? 1:0
+                report["gpuLastFrameMilliseconds"] = renderer.lastGPUTime
+                report.removeValue(forKey:"gpuLastSampleMilliseconds")
+            }
             if location.world == "chicago" {
                 report["millenniumMapTimestamp"] = MillenniumContext.database.timestamp
                 report["millenniumMappedAreas"] = MillenniumContext.database.areas.count
@@ -196,7 +222,7 @@ import CoreText
                 report["sharedChicagoWorld"] = true
             }
             try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:path.deletingLastPathComponent().appendingPathComponent("validation.json"))
-            print("PASS: geometry, ABI, acceleration structure, \(options.rayTracing ? "ray tracing and progressive accumulation":"ray-free raster rendering"), image range, navigation BVH and OBJ importer.")
+            print("PASS: geometry, ABI, acceleration structure, \(rendererTitle)\(rendererName=="path" ? " and progressive accumulation":" and deterministic frame output"), image range, navigation BVH and OBJ importer.")
             print("Validation: \(path.deletingLastPathComponent().appendingPathComponent("validation.json").path)")
         }
         if args.contains("--motion-test") {

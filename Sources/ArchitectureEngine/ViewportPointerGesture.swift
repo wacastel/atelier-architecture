@@ -9,9 +9,9 @@ struct ViewportPointerGesture {
         if mapMode { return button == .left ? .pan:.ignore }
         return button == .right || shift ? .look : .pan
     }
-    /// Map mode accepts only zoom, explicit exit, and display controls.
+    /// Map mode accepts cardinal panning, zoom, explicit exit and display controls.
     static func allowsKey(_ code: UInt16, mapMode: Bool) -> Bool {
-        !mapMode || [UInt16(11),53,46,15,45,4,44,27,78,24,69].contains(code)
+        !mapMode || [UInt16(13),0,1,2,5,11,53,46,15,45,4,44,27,78,24,69].contains(code)
     }
     private struct Capture {
         var button: Button

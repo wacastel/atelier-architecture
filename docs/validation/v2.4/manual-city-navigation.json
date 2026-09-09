@@ -1,0 +1,5 @@
+{
+  "checks" : 6824,
+  "passed" : true,
+  "scope" : "CPU pitch-independent horizontal heading and stable vertical fallback, normal straight-down focus\/roof clearance\/unchanged lens, north-up map projection, cardinal span-scaled WASD panning with normalized diagonals and Shift boost, pan and optical\/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing\/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."
+}

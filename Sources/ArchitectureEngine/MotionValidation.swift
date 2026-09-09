@@ -14,7 +14,10 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
     let cases: [(view: Int, night: Bool, tag: String)] = location == .paris ? [
         (0, false, "overview"), (2, false, "iron"), (0, true, "night-silhouette"),
         (8, false, "river-day"), (8, true, "river-night")
-    ] : location == .chicago ? [(0,false,"willis-overview"),(2,false,"willis-facade"),(0,true,"willis-night"),(7,false,"chicago-river"),(7,true,"chicago-river-night")] : location == .lakefront ? [
+    ] : location == .chicago ? [(0,false,"willis-overview"),(1,false,"willis-catalog-idle"),(2,false,"willis-facade"),(0,true,"willis-night"),(7,false,"chicago-river"),(7,true,"chicago-river-night")] : location == .culturalcenter ? [
+        (0,false,"cultural-exterior-idle"),(1,false,"cultural-washington-idle"),
+        (2,false,"cultural-stair-idle"),(4,false,"cultural-preston-idle")
+    ] : location == .lakefront ? [
         (3,false,"hancock-braces"),(1,false,"historic-water-tower"),(4,true,"buckingham-night"),
         (6,false,"harbor-reflections"),(7,true,"lakefront-traffic-night")
     ] : location == .campus ? [
@@ -56,8 +59,12 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
                 let northOffsets: [Int:Double] = [1:20,2:24,3:25,4:50,5:12,7:82]
                 let robieOffsets: [Int:Double] = [2:25,3:20,4:35,5:30,7:290]
                 let time = location == .robie ? (robieOffsets[view] ?? 0)+Double(frame)/30*3 : location == .northside ? (northOffsets[view] ?? 0)+Double(frame)/30*3 : location == .campus ? (campusOffsets[view] ?? 0)+Double(frame)/30*3 : view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
-                let pose = test.tag == "cloud-gate-idle" ? location.idlePose(view:view,seconds:Double(frame)/30) : silhouette ? location.pose(view:0,seconds:Double(frame)/24) : view == 8 ? location.pose(view:view,seconds:16+Double(frame)/24) : view == 0 ? location.idlePose(view:view,seconds:time) : location.pose(view:view,seconds:time)
-                let sceneTime = test.tag == "cloud-gate-idle" ? Double(frame)/30 : silhouette ? Double(frame)/24 : view == 8 ? 16+Double(frame)/24 : time
+                // Match the reported slow idle camera, including an advancing
+                // traffic clock. These cases must not silently use Cloud Gate's
+                // routes or turn the Cultural Center's idle into a walkthrough.
+                let architecturalIdle = location == .culturalcenter || test.tag == "willis-catalog-idle"
+                let pose = architecturalIdle ? location.idlePose(view:view,seconds:Double(frame)/24) : test.tag == "cloud-gate-idle" ? location.idlePose(view:view,seconds:Double(frame)/30) : silhouette ? location.pose(view:0,seconds:Double(frame)/24) : view == 8 ? location.pose(view:view,seconds:16+Double(frame)/24) : view == 0 ? location.idlePose(view:view,seconds:time) : location.pose(view:view,seconds:time)
+                let sceneTime = architecturalIdle ? Double(frame)/24 : test.tag == "cloud-gate-idle" ? Double(frame)/30 : silhouette ? Double(frame)/24 : view == 8 ? 16+Double(frame)/24 : time
                 for renderer in [reconstructed,reference,spatialOnly] { renderer.setSceneTime(sceneTime) }
                 let pair = try reconstructed.renderPreviewComparisonOffscreen(pose:pose,options:filteredOptions,width:width,height:height,samples:max(1,samples),resetHistory:frame==0)
                 let a=pair.raw,b=pair.reconstructed

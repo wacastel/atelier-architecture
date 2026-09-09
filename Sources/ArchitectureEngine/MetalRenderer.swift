@@ -13,6 +13,7 @@ struct RenderOptions: Equatable {
     var lowDiscrepancySampling: Bool = true
     var indexedLighting: Bool = true
     var rayTracing: Bool = true
+    var directRayTracing: Bool = false
     var hazeDensity: Float = 0 // metres⁻¹; zero uses the established day/night atmosphere
 }
 
@@ -25,12 +26,16 @@ final class MetalRenderer {
     let device: MTLDevice
     let queue: MTLCommandQueue
     let tracePipeline: MTLComputePipelineState
+    private let directPipeline: MTLComputePipelineState
+    private let directTrafficPipeline: MTLComputePipelineState
     let nightTracePipeline: MTLComputePipelineState
     let dayInteriorTracePipeline: MTLComputePipelineState
     let indexedNightTracePipeline: MTLComputePipelineState
     let indexedDayInteriorTracePipeline: MTLComputePipelineState
     let presentPipeline: MTLRenderPipelineState
     private let focusedPresentPipeline: MTLRenderPipelineState
+    private let directPresentPipeline: MTLRenderPipelineState
+    private let directFocusedPresentPipeline: MTLRenderPipelineState
     var focusHighlight = FocusHighlightData(volumes: [])
     private var uploadedHighlight: FocusHighlightData?
     private var highlightBuffer: MTLBuffer?
@@ -50,6 +55,7 @@ final class MetalRenderer {
     private let traffic: TrafficMetal?
     private let rasterRenderer: RasterRenderer
     private(set) var rayTracingDispatchCount = 0
+    private(set) var directRayDispatchCount = 0
     private(set) var surfaceGuideDispatchCount = 0
     var rasterFrameCount: Int { rasterRenderer.frameCount }
     var rasterTrafficTransformCount: Int { rasterRenderer.trafficTransformCount }
@@ -116,12 +122,16 @@ final class MetalRenderer {
         guard let url = resourceBundle.url(forResource: "Renderer", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Renderer.metal is missing from the application resources.") }
         guard let denoiseURL = resourceBundle.url(forResource: "Denoise", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Denoising shader resource is missing.") }
         guard let rasterURL = resourceBundle.url(forResource: "Raster", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Raster shader resource is missing.") }
-        let source = try String(contentsOf: url,encoding:.utf8) + "\n" + String(contentsOf: denoiseURL,encoding:.utf8) + "\n" + String(contentsOf:rasterURL,encoding:.utf8)
+        guard let directURL = resourceBundle.url(forResource: "DirectRay", withExtension: "metal", subdirectory: "Resources") else { throw EngineError.message("Direct ray tracing shader resource is missing.") }
+        let source = try String(contentsOf: url,encoding:.utf8) + "\n" + String(contentsOf: denoiseURL,encoding:.utf8) + "\n" + String(contentsOf:rasterURL,encoding:.utf8) + "\n" + String(contentsOf:directURL,encoding:.utf8)
         let options = MTLCompileOptions()
         options.languageVersion = .version3_1
         let library = try device.makeLibrary(source: source, options: options)
         guard let kernel = library.makeFunction(name: "pathTrace"), let vertex = library.makeFunction(name: "fullscreenVertex"), let fragment = library.makeFunction(name: "presentFragment") else { throw EngineError.message("Metal shader entry points are missing.") }
         tracePipeline = try device.makeComputePipelineState(function: kernel)
+        guard let direct=library.makeFunction(name:"directRayTrace"),let directTraffic=library.makeFunction(name:"directRayTraceTraffic") else { throw EngineError.message("Direct ray tracing entry points are missing.") }
+        directPipeline=try device.makeComputePipelineState(function:direct)
+        directTrafficPipeline=try device.makeComputePipelineState(function:directTraffic)
         guard let nightKernel = library.makeFunction(name:"pathTraceNight") else { throw EngineError.message("Night ray tracing shader is missing.") }
         nightTracePipeline = try device.makeComputePipelineState(function:nightKernel)
         guard let dayInteriorKernel=library.makeFunction(name:"pathTraceDayInteriors") else { throw EngineError.message("Daylight interior ray tracing shader is missing.") }
@@ -142,6 +152,10 @@ final class MetalRenderer {
         presentPipeline = try device.makeRenderPipelineState(descriptor: presentation)
         presentation.fragmentFunction = library.makeFunction(name:"focusedPresentFragment")
         focusedPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
+        presentation.fragmentFunction = library.makeFunction(name:"directPresentFragment")
+        directPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
+        presentation.fragmentFunction = library.makeFunction(name:"directFocusedPresentFragment")
+        directFocusedPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
         guard !scene.vertices.isEmpty, scene.vertices.count % 3 == 0,
               scene.materialIndices.count == scene.triangleCount,
               scene.materialIndices.allSatisfy({ Int($0) < scene.materials.count }) else { throw EngineError.message("Invalid scene triangle or material buffers.") }
@@ -304,7 +318,32 @@ final class MetalRenderer {
         return u
     }
 
-    private func encodePresentation(_ command: MTLCommandBuffer, descriptor: MTLRenderPassDescriptor, uniforms: FrameUniforms, texture: MTLTexture? = nil, selectionDepth: MTLTexture? = nil) throws {
+    private func encodeDirect(_ command:MTLCommandBuffer,pose:CameraPose,options:RenderOptions) throws -> FrameUniforms {
+        resetAccumulation();resetReconstruction()
+        try traffic?.encodeUpdate(command,time:sceneTime,vertices:vertexBuffer)
+        guard let texture=accumulation,let encoder=command.makeComputeCommandEncoder() else { throw EngineError.message("Direct ray encoder unavailable.") }
+        var u=uniforms(pose:pose,options:options)
+        let night=options.lighting>=2
+        var header=(night ? nightLightGrid:dayLightGrid).header
+        if !options.indexedLighting { header.dimensions.w=0 }
+        encoder.label="Deterministic direct rays — visibility, shadows and reflections"
+        encoder.setComputePipelineState(traffic == nil ? directPipeline:directTrafficPipeline)
+        traffic?.bind(encoder,moving:trafficMoving)
+        encoder.setTexture(texture,index:0)
+        encoder.setBytes(&u,length:MemoryLayout<FrameUniforms>.stride,index:0)
+        encoder.setBuffer(vertexBuffer,offset:0,index:1);encoder.setBuffer(indexBuffer,offset:0,index:2)
+        encoder.setBuffer(materialBuffer,offset:0,index:3)
+        encoder.setAccelerationStructure(traffic?.acceleration ?? accelerationStructure,bufferIndex:4)
+        encoder.setBuffer(night ? lightBuffer:dayInteriorLightBuffer,offset:0,index:5)
+        encoder.setBytes(&header,length:MemoryLayout<LightGrid.Header>.stride,index:6)
+        encoder.setBuffer(night ? nightLightRanges:dayLightRanges,offset:0,index:7)
+        encoder.setBuffer(night ? nightLightIndices:dayLightIndices,offset:0,index:8)
+        encoder.dispatchThreads(MTLSize(width:width,height:height,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1))
+        encoder.endEncoding();directRayDispatchCount+=1;sampleCount=1;lastUniforms=u
+        return u
+    }
+
+    private func encodePresentation(_ command: MTLCommandBuffer, descriptor: MTLRenderPassDescriptor, uniforms: FrameUniforms, texture: MTLTexture? = nil, selectionDepth: MTLTexture? = nil, directRayTracing: Bool = false) throws {
         if !focusHighlight.isEmpty, uploadedHighlight != focusHighlight {
             let data=focusHighlight.packed
             highlightBuffer=data.withUnsafeBytes { device.makeBuffer(bytes:$0.baseAddress!,length:$0.count,options:.storageModeShared) }
@@ -314,7 +353,9 @@ final class MetalRenderer {
         guard let encoder = command.makeRenderCommandEncoder(descriptor: descriptor) else { throw EngineError.message("Presentation encoder unavailable.") }
         var u = uniforms
         encoder.label = "Filmic presentation"
-        encoder.setRenderPipelineState(focusHighlight.isEmpty ? presentPipeline:focusedPresentPipeline)
+        encoder.setRenderPipelineState(directRayTracing
+            ? (focusHighlight.isEmpty ? directPresentPipeline:directFocusedPresentPipeline)
+            : (focusHighlight.isEmpty ? presentPipeline:focusedPresentPipeline))
         encoder.setFragmentTexture(texture ?? accumulation, index: 0)
         encoder.setFragmentBytes(&u, length: MemoryLayout<FrameUniforms>.stride, index: 0)
         if !focusHighlight.isEmpty {
@@ -391,7 +432,9 @@ final class MetalRenderer {
         do {
             var u = uniforms(pose: pose, options: options)
             let texture:MTLTexture?
-            if options.rayTracing {
+            if options.rayTracing && options.directRayTracing {
+                u=try encodeDirect(command,pose:pose,options:options);texture=accumulation
+            } else if options.rayTracing {
                 let tracing = sampleCount < 4096
                 if tracing {
                     for _ in 0..<max(1,samplesPerFrame) { u = try encodeTrace(command, pose: pose, options: options) }
@@ -402,8 +445,9 @@ final class MetalRenderer {
             } else {
                 texture = try encodeRaster(command,uniforms:u,options:options)
             }
-            let selectionDepth = options.rayTracing ? (options.denoising ? normalGuides[historyIndex]:accumulation):texture
-            try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture,selectionDepth:selectionDepth)
+            let selectionDepth = options.rayTracing ? (options.denoising && !options.directRayTracing ? normalGuides[historyIndex]:accumulation):texture
+            try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture,selectionDepth:selectionDepth,
+                                   directRayTracing:options.rayTracing && options.directRayTracing)
             command.present(drawable)
             command.addCompletedHandler { [weak self] buffer in
                 if let self {
@@ -467,6 +511,10 @@ final class MetalRenderer {
             let image=try renderRasterOffscreen(pose:pose,options:options,width:width,height:height)
             return (image,captureRaw ? image:nil)
         }
+        if options.directRayTracing {
+            let image=try renderDirectOffscreen(pose:pose,options:options,width:width,height:height)
+            return (image,captureRaw ? image:nil)
+        }
         try resize(width:width,height:height)
         // Camera motion controls angular history. Traffic has separate local
         // reactive guides and must not cap unrelated stationary mirror history.
@@ -506,6 +554,7 @@ final class MetalRenderer {
 
     func renderOffscreen(pose: CameraPose, options: RenderOptions, width: Int, height: Int, samples: Int) throws -> Data {
         if !options.rayTracing { return try renderRasterOffscreen(pose:pose,options:options,width:width,height:height) }
+        if options.directRayTracing { return try renderDirectOffscreen(pose:pose,options:options,width:width,height:height) }
         // Same command queue serializes this with any preceding interactive frames.
         try resize(width: width, height: height); resetAccumulation(); resetReconstruction()
         let desc = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
@@ -537,6 +586,25 @@ final class MetalRenderer {
         trafficMoving=false; projectionMoving=false
         var data = Data(count: width * height * 4)
         data.withUnsafeMutableBytes { output.getBytes($0.baseAddress!, bytesPerRow: width * 4, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0) }
+        return data
+    }
+    private func renderDirectOffscreen(pose:CameraPose,options:RenderOptions,width:Int,height:Int) throws -> Data {
+        var submitted=false
+        defer { if !submitted { traffic?.invalidate() } }
+        try resize(width:width,height:height)
+        let desc=MTLTextureDescriptor.texture2DDescriptor(pixelFormat:.bgra8Unorm,width:width,height:height,mipmapped:false)
+        desc.storageMode = .shared;desc.usage = [.renderTarget,.shaderRead]
+        guard let output=device.makeTexture(descriptor:desc),let command=queue.makeCommandBuffer() else {throw EngineError.message("Direct ray export unavailable.")}
+        let u=try encodeDirect(command,pose:pose,options:options)
+        let pass=MTLRenderPassDescriptor()
+        pass.colorAttachments[0].texture=output;pass.colorAttachments[0].loadAction = .dontCare;pass.colorAttachments[0].storeAction = .store
+        try encodePresentation(command,descriptor:pass,uniforms:u,texture:accumulation,selectionDepth:accumulation,directRayTracing:true)
+        command.commit();submitted=true;command.waitUntilCompleted()
+        if let error=command.error {traffic?.invalidate();throw error}
+        lastGPUTime=max(0,command.gpuEndTime-command.gpuStartTime)*1000
+        previousPose=pose;previousOptions=options;trafficMoving=false;projectionMoving=false
+        var data=Data(count:width*height*4)
+        data.withUnsafeMutableBytes {output.getBytes($0.baseAddress!,bytesPerRow:width*4,from:MTLRegionMake2D(0,0,width,height),mipmapLevel:0)}
         return data
     }
 }

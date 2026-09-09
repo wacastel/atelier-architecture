@@ -49,6 +49,8 @@ extension Bundle {
         return LandmarkFocusCatalog.semanticTarget(center:landmark.target,radius:landmark.framingRadius,name:landmark.name,id:"map:"+landmark.id)
     }
     let unready = engine.cameraPose
+    engine.setRendererMode(.directRayTracing)
+    expect(engine.rendererMode == .pathTracing && engine.rayTracingEnabled,"Unready controller changed its default renderer")
     engine.toggleMapMode()
     expect(!engine.isMapMode && same(engine.cameraPose, unready), "Unready controller entered Map")
     engine.pointCameraDown()
@@ -293,10 +295,107 @@ extension Bundle {
     expect(!engine.music.isEnabled && !engine.music.selections.isEmpty,
            "Audio stub did not exercise real playback synchronization")
 
+    // Exercise the same held-key integration used by draw(), without a GPU.
+    let keyboard=EngineController(); keyboard.isReady=true; keyboard.toggleMapMode()
+    for (key,direction): (UInt16,SIMD2<Float>) in [(13,SIMD2(0,-1)),(0,SIMD2(-1,0)),(1,SIMD2(0,1)),(2,SIMD2(1,0))] {
+        keyboard.navigateCity(to:willis)
+        let start=keyboard.cameraPose, focus=keyboard.focusedObjectName, stop=keyboard.currentStop
+        keyboard.moveKey(key,pressed:true); keyboard.updateMovement(0.125)
+        let first=keyboard.cameraPose
+        keyboard.updateMovement(0.125)
+        let second=keyboard.cameraPose
+        let delta=SIMD2(second.position.x-start.position.x,second.position.z-start.position.z)
+        expect(simd_dot(delta,direction)>1 && abs(delta.x*direction.y-delta.y*direction.x)<0.001,
+               "Map key \(key) did not move in its cardinal direction")
+        expect(simd_distance(second.position,first.position)>1,"Map keyboard pan cleared its held key after one frame")
+        expect(second.position-start.position == second.target-start.target && second.position.y==start.position.y && second.fov==start.fov,
+               "Map keyboard pan changed its vertical pose, height or lens")
+        expect(keyboard.focusedObjectName==focus && keyboard.currentStop==stop,"Map keyboard pan changed focus or associated route")
+        assertMap(keyboard,"held Map key \(key)")
+        keyboard.moveKey(key,pressed:false); keyboard.updateMovement(0.25)
+        expect(same(second,keyboard.cameraPose),"Map moved after key release")
+    }
+    keyboard.navigateCity(to:willis)
+    for key: UInt16 in [13,1,0,2] { keyboard.moveKey(key,pressed:true) }
+    let opposite=keyboard.cameraPose; keyboard.updateMovement(0.4)
+    expect(same(opposite,keyboard.cameraPose),"Opposing held Map keys failed to cancel")
+    for key: UInt16 in [13,1,0,2] { keyboard.moveKey(key,pressed:false) }
+    for key: UInt16 in [12,14,3,17,49] { keyboard.moveKey(key,pressed:true) }
+    keyboard.updateMovement(0.4)
+    expect(same(opposite,keyboard.cameraPose),"Non-panning keys entered the fixed Map movement set")
+
+    keyboard.moveKey(13,pressed:true)
+    let regularStart=keyboard.cameraPose; keyboard.updateMovement(0.1)
+    let regularDistance=simd_distance(regularStart.position,keyboard.cameraPose.position)
+    keyboard.moveKey(56,pressed:true)
+    let boostedStart=keyboard.cameraPose; keyboard.updateMovement(0.1)
+    expect(abs(simd_distance(boostedStart.position,keyboard.cameraPose.position)-regularDistance*3)<0.001,
+           "Actual controller did not apply Map Shift boost")
+    keyboard.toggleFullscreen() // No attached window: validates input reset, not native full screen.
+    let fullscreenReset=keyboard.cameraPose; keyboard.updateMovement(0.4)
+    expect(same(fullscreenReset,keyboard.cameraPose) && keyboard.focusedObjectName==willisFocus.name,
+           "Fullscreen action leaked held Map keys or discarded focus")
+    keyboard.moveKey(13,pressed:true); keyboard.moveKey(56,pressed:true)
+    keyboard.showHelp=true; keyboard.showHelp=false
+    let helpReset=keyboard.cameraPose; keyboard.updateMovement(0.4)
+    expect(same(helpReset,keyboard.cameraPose),"Help lifecycle leaked held Map movement")
+    keyboard.moveKey(13,pressed:true); keyboard.moveKey(56,pressed:true)
+    keyboard.toggleMapMode(); keyboard.toggleMapMode()
+    let modeReset=keyboard.cameraPose; keyboard.updateMovement(0.4)
+    expect(same(modeReset,keyboard.cameraPose),"Exiting and re-entering Map leaked held movement")
+
+    keyboard.navigateCity(to:SIMD2(-3999,-11499))
+    keyboard.moveKey(13,pressed:true); keyboard.moveKey(0,pressed:true)
+    for _ in 0..<4 { keyboard.updateMovement(0.5) }
+    expect(keyboard.cameraPose.target.x == -4000 && keyboard.cameraPose.target.z == -11500,
+           "Map keyboard panning escaped the navigation bounds")
+    assertMap(keyboard,"held movement at geographic boundary")
+    keyboard.moveKey(13,pressed:false); keyboard.moveKey(0,pressed:false)
+    keyboard.moveKey(2,pressed:true); keyboard.updateMovement(0.2); keyboard.moveKey(2,pressed:false)
+    expect(keyboard.cameraPose.target.x > -4000,"Map keyboard could not move back from a clamped boundary")
+
+    let movingWindow=EngineController(); movingWindow.isReady=true; movingWindow.toggleMapMode()
+    movingWindow.moveKey(13,pressed:true); movingWindow.windowWillMove()
+    let windowPose=movingWindow.cameraPose
+    movingWindow.moveKey(2,pressed:true); movingWindow.updateMovement(0.5)
+    expect(same(windowPose,movingWindow.cameraPose),"Window movement accepted Map keys or advanced a held key")
+
+    // A normal T camera retains ordinary, ground-parallel WASD behavior.
+    let normalMovement=EngineController(); normalMovement.isReady=true; normalMovement.pointCameraDown()
+    let normalStart=normalMovement.cameraPose
+    normalMovement.moveKey(13,pressed:true); normalMovement.updateMovement(0.2); normalMovement.moveKey(13,pressed:false)
+    expect(!normalMovement.isMapMode && normalMovement.cameraPose.position.y==normalStart.position.y
+           && simd_distance(normalMovement.cameraPose.position,normalStart.position)>20,
+           "Normal top-down W did not retain full horizontal Fly speed")
+    normalMovement.moveKey(12,pressed:true); normalMovement.updateMovement(0.2); normalMovement.moveKey(12,pressed:false)
+    expect(normalMovement.cameraPose.position.y>normalStart.position.y,"Normal top-down Q lost vertical Fly movement")
+
+    // Backend selection changes renderer options, without retargeting the camera.
+    keyboard.navigateCity(to:willis)
+    let modePose=keyboard.cameraPose, modeFocus=keyboard.focusedObjectName
+    for mode in ArchitectureRendererMode.allCases {
+        keyboard.setRendererMode(mode)
+        expect(keyboard.rendererMode==mode && keyboard.options.rayTracing == (mode != .raster)
+               && keyboard.options.directRayTracing == (mode == .directRayTracing),"Renderer selector produced inconsistent backend options")
+        expect(same(modePose,keyboard.cameraPose) && keyboard.focusedObjectName==modeFocus,"Renderer selector moved camera or cleared focus")
+        assertMap(keyboard,"renderer \(mode.rawValue)")
+    }
+    for mode in [ArchitectureRendererMode.directRayTracing,.pathTracing,.directRayTracing] {
+        keyboard.setRendererMode(mode); keyboard.toggleRayTracing()
+        expect(keyboard.rendererMode == .raster && !keyboard.options.rayTracing,"R failed to switch a chosen ray tracer off")
+        keyboard.toggleRayTracing()
+        expect(keyboard.rendererMode==mode && keyboard.options.rayTracing,"R forgot the last selected ray tracer")
+    }
+    let playingBackend=EngineController(); playingBackend.isReady=true; playingBackend.selectStop(2); playingBackend.toggleTour()
+    let playingBackendPose=playingBackend.cameraPose
+    playingBackend.setLighting(2); playingBackend.setRendererMode(.directRayTracing)
+    expect(playingBackend.tourPlaying && playingBackend.lighting==2 && same(playingBackendPose,playingBackend.cameraPose),
+           "Backend selection changed route playback, lighting or camera")
+
     let report: [String: Any] = [
         "passed": failures.isEmpty, "checks": checks, "failures": failures,
         "scope": "CPU actual EngineController methods and production camera/playback/map metadata. Only AmbientMusicController is replaced by an inert stub; the absent SwiftPM Bundle.module accessor traps if reached. No view attachment, Metal device, renderer construction, city geometry build or audio playback.",
-        "limitations": "No native event dispatch, rendered frame, collision/roof geometry or device-dependent location loading is exercised. Semantic focus uses the real authored metadata/proxy path with renderer absent. Physical viewport picking requires the separate FocusNavigation fixture; W/S level motion is covered by pure production helper tests because updateMovement is private and actual draw requires Metal.",
+        "limitations": "No native event dispatch, rendered frame, collision/roof geometry or device-dependent location loading is exercised. Semantic focus uses the real authored metadata/proxy path with renderer absent. Actual held-key integration is stepped without GPU submission, including Map cardinal movement/bounds/lifecycle reset and normal top-down Fly movement. Fullscreen input reset is covered without attaching a native window; actual G/CtrlCmdF fullscreen dispatch and renderer output require separate native/GPU review.",
         "landmarkClicks": ChicagoMapLandmark.all.count, "audioSynchronizationCalls": engine.music.selections.count
     ]
     FileHandle.standardOutput.write(try! JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]))

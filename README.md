@@ -32,7 +32,7 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.3.0 adds the Cultural Center, visible object selection and a normal-camera look-down shortcut while retaining Willis Tower as the opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Cultural Center, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All eight Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.4.0 adds a Direct Ray Tracing renderer, cardinal WASD movement in Map mode and the **G** full-screen shortcut while retaining Willis Tower as the opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Cultural Center, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All eight Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
@@ -48,7 +48,7 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 
 **T** points the normal camera straight down, above the selected object's centre when focused or at the current horizontal position otherwise. It retains the lens and normal Fly controls, raising the camera only as needed for roof clearance. Focused pinch and scroll keep this vertical view; an orbit drag changes its angle. **WASD** travels parallel to the ground even when looking up or down; **Q / E** changes altitude.
 
-**B / Map mode** switches the main Chicago viewport to a fixed, north-up perspective overhead view. Drag to pan and pinch, scroll or use **− / +** to zoom. **B** or **Escape** returns to a 3D overlook above the current map centre. This is separate from the compact navigation map shown with **M**; all three inset sizes now stay below one quarter of the viewport. [Map modes and controls](docs/MAP-MODE.md).
+**B / Map mode** switches the main Chicago viewport to a fixed, north-up perspective overhead view. **WASD** pans north, west, south and east; its speed scales with the visible ground span and **Shift** triples it. Dragging also pans; pinch, scroll or use **− / +** to zoom. **B** or **Escape** returns to a 3D overlook above the current map centre. This is separate from the compact navigation map shown with **M**; all three inset sizes stay below one quarter of the viewport. **G**, or **⌃⌘F**, toggles native full screen in either view. [Map modes and controls](docs/MAP-MODE.md).
 
 | Control | Action |
 | --- | --- |
@@ -63,7 +63,7 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 | **Pace / timeline** | Set walkthrough pace independently / seek |
 | **N / Moon button** | Toggle day/night without restarting or resuming the animation |
 | **Lighting settings** | Choose warm daylight, neutral daylight, sunset or night; Skyline also has authored view presets |
-| **Full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode |
+| **G / full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode, including fixed Map mode |
 | Window titlebar / edges | Move / resize; hold camera and scene clocks during the gesture, then resume without a time jump |
 | Click visible geometry | Select when unfocused; keep the same object selected; click elsewhere to clear; also available in Map mode |
 | Left mouse drag | Pan the city under the pointer; orbit when focused; always pan in Map mode |
@@ -72,8 +72,9 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 | **B / Map mode button / Navigation → Map** | Enter the north-up overhead Chicago view; B or Escape exits to a 3D overlook at the current centre |
 | **T** | Point the normal camera straight down with roof clearance; preserve focus and normal Fly controls |
 | **F / speed menu / − / +** | In normal 3D exploration, toggle Walk/Fly or step flight speed from 8 to 800 m/s; −/+ zoom in Map mode |
-| **R / renderer badge** | Toggle ray tracing and fast raster at the same camera position |
-| **WASD / Q / E / Shift** | Move parallel to ground / fly up / fly down / 3× speed boost; movement clears focus |
+| **Renderer menu** | Select Path Tracing, Direct Ray Tracing or Fast Raster at the same camera position |
+| **R** | Switch between Fast Raster and the last selected ray-tracing mode |
+| **WASD / Q / E / Shift** | Move parallel to ground / fly up / fly down / 3× speed boost; Map WASD pans cardinally and retains selection; Q/E are inactive in Map |
 | Pinch | Optical zoom in normal exploration; move toward/away from a focused object; change ground coverage in Map mode |
 | Mouse wheel / two-finger scroll | Zoom a focused object or Map mode; otherwise step the fixed flight-speed presets |
 | **H / ? / Esc** | Hide interface / show controls / clear focus, release keys and close help |
@@ -81,7 +82,7 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 
 The inset navigation map uses offline data and shows camera position and heading with a 24-point dotted marker. A camera beyond coverage has an explicit off-map direction and distance. All three sizes remain compact; larger sizes reveal more of the 34 named landmarks, including the Cultural Center, with labels arranged to avoid overlap. Hovering a landmark’s dot or text highlights both. Clicking either frames and focuses that landmark around its fixed architectural centre, while clicking bare map ground chooses a roof-cleared overlook and clears focus. In Map mode, landmark selection recentres the overhead view and retains selection without tilting the camera. The Places menu reaches every named landmark even when its label is hidden.
 
-Dragging the inset translates it and the real camera together; releasing a drag does not trigger a click. Landmark selection preserves lighting and associates the nearest architectural study with the Play button. It takes manual control, ending automatic playback. The main Map mode keeps the camera vertical and north-up: normal movement, look/orbit, view-selection, **T** and playback controls are inactive until it is exited. **R, N, M, H** and help remain available. Selection can be shown in Map mode while dragging still pans and pinch still changes ground coverage. [Current map behavior and limits](docs/MAP-MODE.md).
+Dragging the inset translates it and the real camera together; releasing a drag does not trigger a click. Landmark selection preserves lighting and associates the nearest architectural study with the Play button. It takes manual control, ending automatic playback. The main Map mode keeps the camera vertical and north-up: **WASD** pans without changing the height, lens or selection. Altitude keys, look/orbit, view-selection, **T** and playback controls are inactive until it is exited. **G, R, N, M, H** and help remain available. Selection can be shown in Map mode while dragging still pans and pinch still changes ground coverage. [Current map behavior and limits](docs/MAP-MODE.md).
 
 In normal Fly mode, flight starts at 400 m/s. The speed menu, minus/plus keys and unfocused scrolling step through 8, 30, 80, 180, 400 and 800 m/s; Shift temporarily triples the chosen speed. Movement uses elapsed time, so a low rendering frame rate no longer reduces travel speed proportionally. Left dragging pans across the ground plane; Shift-left dragging or right dragging changes the viewing direction. Q flies up and E flies down. Focused-object orbit and zoom remain available.
 
@@ -97,13 +98,15 @@ Nine original ambient pieces form one shared playlist, with a distinct opening p
 
 ## Rendering
 
-**R** switches between ray tracing and **Fast Raster**, preserving the current camera, lighting and playback. Raster draws the same city and moving traffic using a depth buffer, frustum culling, direct lighting, procedural materials, glass and approximate environment reflections. It submits no ray-tracing or surface-guide dispatches and no traffic acceleration-structure updates per frame. Four-sample anti-aliasing smooths fine geometry edges on this Mac (with a lower-sample fallback on other devices). It omits traced shadows, local reflections, refraction and indirect lighting; subpixel detail can still alias. It is useful for fast navigation, while ray tracing retains the more accurate architectural lighting. The initial acceleration structures are still built so switching back is immediate; raster does not eliminate the resident scene or startup memory cost.
+The toolbar and Render settings offer **Path Tracing**, **Direct Ray Tracing** and **Fast Raster**. Switching preserves the camera, lighting, focus and playback. **R** switches to Fast Raster and back to the last selected ray tracer. Path Tracing remains the default and progressively estimates reflections, shadows and indirect lighting. Direct Ray Tracing uses deterministic rays for hard shadows and reflections with an ambient-light approximation and spatial edge antialiasing; it does not reproduce the path tracer's multi-bounce indirect lighting. The final renderer passes 48 functional GPU checks, 27 presentation checks and a ten-case shared-city comparison. [Illustrated comparison](docs/validation/v2.4/render-mode-comparison.html) · [implementation, measured timings and limits](docs/DIRECT-RAY-TRACING.md).
+
+Raster draws the same city and moving traffic using a depth buffer, frustum culling, direct lighting, procedural materials, glass and approximate environment reflections. It submits no ray-tracing or surface-guide dispatches and no traffic acceleration-structure updates per frame. Four-sample anti-aliasing smooths fine geometry edges on this Mac (with a lower-sample fallback on other devices). It omits traced shadows, local reflections, refraction and indirect lighting; subpixel detail can still alias. The initial acceleration structures are still built so switching back is immediate; raster does not eliminate the resident scene or startup memory cost.
 
 A **legacy version 2.0** matched 1280 × 850 offscreen test on this M3 Ultra measured median GPU frame times of **13–14 ms in raster versus 76–90 ms in ray tracing for the Robie exterior**, and **about 14 ms versus 295–297 ms in the living room**, using four ray samples and three bounces. These are bounded historical GPU measurements, not a version 2.1.1 measurement or native app FPS guarantee. [Exact validation and limitations](docs/VALIDATION.md#version-20-navigation-and-render-modes).
 
 The Oak Park study uses a clearer atmosphere for its roughly 13.6 km sightline, with a consistent blue daylight horizon and reduced haze in both rendering modes. Other views retain their established atmosphere. Its cropped 9° opening field of view emphasizes the distant skyline; nearby western ground remains generalized, undetailed land. [Camera choices and atmosphere](docs/SKYLINE.md#the-longer-western-view).
 
-The engine traces the actual modeled triangles using Metal acceleration structures, GGX reflections, direct-light shadow rays, and multibounce lighting. Cloud Gate’s polished shell and concave underside reflect the shared Chicago scene, including reflected reflections; they do not use a painted skyline. Water uses filtered analytic ripple normals and dielectric Fresnel reflections. Selected Chicago glazing uses thin-sheet transmission and reflection; the first camera pane traces both branches to reduce movement noise. [Glass implementation and limits](docs/GLASS.md).
+Path Tracing traces the actual modeled triangles using Metal acceleration structures, GGX reflections, direct-light shadow rays, and multibounce lighting. Cloud Gate’s polished shell and concave underside reflect the shared Chicago scene, including reflected reflections; they do not use a painted skyline. Water uses filtered analytic ripple normals and dielectric Fresnel reflections. Selected Chicago glazing uses thin-sheet transmission and reflection; the first camera pane traces both branches to reduce movement noise. [Glass implementation and limits](docs/GLASS.md).
 
 Fast Owen-scrambled Sobol samples distribute camera, sun, and material samples across each pixel’s sampling domain. Pure metals sample their reflective GGX lobe directly, and a numerically stable GGX evaluation retains the narrow highlights of polished steel. `--random-sampling` restores independent random samples for controlled comparisons.
 
@@ -232,7 +235,15 @@ Generated videos, high-resolution renders, build products and local reports stay
 
 ## Verify and reproduce
 
-### Version 2.3.0
+### Version 2.4.0
+
+The controls pass [6,824 navigation checks](docs/validation/v2.4/manual-city-navigation.json), [755 actual-controller checks](docs/validation/v2.4/map-mode-integration.json) and [449 pointer/key checks](docs/validation/v2.4/viewport-input.json). They cover cardinal Map panning, span-scaled speed and Shift boost, retained focus and framing, held-key resets and the three-mode renderer selector. The controller fixture steps real movement methods without constructing a Metal device or attaching a native window.
+
+The final Direct Ray renderer passes [48 GPU checks](docs/validation/v2.4/direct-ray.json), including real offscreen reflections, glass, shadows, focus depth, moving headlights and deterministic output. Its spatial antialiasing passes [27 presentation checks](docs/validation/v2.4/direct-presentation.json), including unchanged original Path/Raster presentation. The [matched shared-city comparison](docs/validation/v2.4/render-modes.json) passes ten cases and 420 rendered frames, including warmup. At 1280 × 850, median GPU time ranged from **9.0–18.2 ms for Direct** and **40.0–296.1 ms for Path**, using four path samples and three bounces. These are different lighting algorithms and bounded offscreen GPU measurements, not native FPS. [View the comparison images](docs/validation/v2.4/render-mode-comparison.html).
+
+The [2.4.0 build 17 package](docs/validation/v2.4/package.json) is signed native arm64 with its four bundled shaders matching source. [Native app checks](docs/validation/v2.4/native.json) verified G entering/exiting full screen in normal and Map views, the renderer menu, R restoring Direct mode during playback, day/night walkthrough rendering and visible landmark focus. Sustained WASD/Shift input is covered by the actual-controller fixture; the native automation sends immediate taps, so it does not certify physical held-key timing. Path Tracing remains the default and can retain visible grain in difficult interiors; the [traffic-guide correction and rejected filter investigation](docs/validation/v2.4/path-noise/review.json) do not establish an interior-noise cure. Prior release results below remain historical.
+
+### Historical version 2.3.0
 
 The Cultural Center destination and all existing routes pass [106,617 CPU playback checks](docs/validation/v2.3/playback.txt), covering all 73 routes including Paris. The standalone Cultural Center passes [2,912 geometry and navigation checks](docs/validation/v2.3/cultural-center-geometry.json); the shared Chicago scene contains **45,953,309 static triangles**. The revised controls pass **25,015 map**, **6,765 manual navigation**, **1,662 focus**, **662 actual-controller** and **449 pointer/key** checks. The bounded raster/RT selection fixture passes **39,496 checks**; music controller and full-file audio checks pass **299** and **165** respectively. [Current evidence and scope](docs/validation/v2.3/README.md).
 

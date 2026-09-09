@@ -551,6 +551,13 @@ float3 glassVisibility(ray visibility, Scene scene,
     return 0; // bounded traversal: unresolved deep stacks remain occluded
 }
 
+struct DirectSample {
+    float3 direction;
+    float3 value;
+    float distance, radius, weight;
+};
+DirectSample evaluateLight(SceneLight light, Surface surface, float3 p, float3 v, float3 geometricNormal);
+
 // Deterministic center-pixel geometry guides. Radiance retains subpixel jitter;
 // these stable world-space guides enable motion reprojection without averaging
 // depth, normals or material IDs across edges of fine ironwork.
@@ -636,9 +643,9 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
     }
     if (HasTraffic && u.forward.w>0.5f) {
         reactive=reactive || hit.dynamic;
-        // Only finite-support neighborhoods of current moving lamps/shadows
-        // reject static lighting history. Distant architecture keeps its full
-        // history even while traffic is advancing elsewhere in the city.
+        // A lamp's radius alone is not changing illumination. In particular,
+        // vehicle lamps are disabled by the daylight tracer. Keep ordinary
+        // architecture reconstructable unless a moving source can contribute.
         uint offset=0,count=traffic->z;
         bool indexed=trafficGrid->dimensions.w!=0;
         if (indexed) {
@@ -649,10 +656,48 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
                 uint2 range=trafficRanges[flat];offset=range.x;count=range.y;
             } else count=0;
         }
-        for(uint j=0;j<count && !reactive;++j) {
+        bool nearTraffic=false;
+        bool movingIllumination=false;
+        for(uint j=0;j<count && !reactive && !movingIllumination;++j) {
             SceneLight light=trafficLights[indexed ? trafficIndices[offset+j]:j];
             float radius=light.parameters.x;
-            reactive=distance_squared(p,light.positionRadius.xyz)<radius*radius;
+            if(distance_squared(p,light.positionRadius.xyz)>=radius*radius) continue;
+            nearTraffic=true;
+            if(u.sunColor.w<=0.5f) continue;
+            // Use the tracer's actual range, cone, surface-facing and BRDF
+            // support, then visibility. A wall between a lamp and a room must
+            // not disable the room's temporal reconstruction.
+            DirectSample candidate=evaluateLight(light,s,p,-primary.direction,geometricNormal);
+            if(candidate.weight<=0.000001f) continue;
+            float epsilon=max(0.001f,maxComponent(abs(p))*0.000008f);
+            ray visibility;
+            visibility.origin=p+geometricNormal*epsilon;
+            visibility.direction=candidate.direction;
+            visibility.min_distance=epsilon*0.25f;
+            visibility.max_distance=max(visibility.min_distance,candidate.distance-candidate.radius*1.8f);
+            movingIllumination=maxComponent(glassVisibility(visibility,scene,vertices,materialIndices,materials,staticTriangles))>0.0001f;
+        }
+        if(nearTraffic && !reactive && !movingIllumination && (u.sunColor.w<=0.5f || u.animation.z>0.5f)) {
+            // Preserve current coverage of nearby moving sunlight shadows even
+            // though daytime headlamps no longer blanket-mask their surrounds.
+            float3 sunlight=normalize(u.sunDirection.xyz);
+            if(dot(n,sunlight)>0 && dot(geometricNormal,sunlight)>0) {
+                float epsilon=max(0.001f,maxComponent(abs(p))*0.000008f);
+                ray shadow;
+                shadow.origin=p+geometricNormal*epsilon;shadow.direction=sunlight;
+                shadow.min_distance=epsilon*0.25f;shadow.max_distance=100000;
+                auto blocker=sceneIntersection(shadow,scene,false,staticTriangles);
+                for(uint layer=0;layer<16 && blocker.type!=intersection_type::none && materials[materialIndices[blocker.primitive_id]].properties.w>0;++layer) {
+                    shadow.origin += shadow.direction*(blocker.distance+epsilon);
+                    blocker=sceneIntersection(shadow,scene,false,staticTriangles);
+                }
+                movingIllumination=blocker.dynamic;
+            }
+        }
+        if(movingIllumination) {
+            bool diffuse=!throughGlass && !hit.dynamic && s.emission<=0.0f && s.metallic<0.1f && s.roughness>=0.5f;
+            changingDiffuseLighting=changingDiffuseLighting || diffuse;
+            reactive=reactive || !diffuse;
         }
         // An object may move inside a stationary mirror's reflection. A smooth
         // reflection guide catches that visibility without rejecting every
@@ -776,11 +821,6 @@ float3 sampleBRDF(Surface s, float3 v, float2 xi, float choose, thread float &pd
     return l;
 }
 
-struct DirectSample {
-    float3 direction;
-    float3 value;
-    float distance, radius, weight;
-};
 DirectSample evaluateLight(SceneLight light, Surface surface, float3 p, float3 v, float3 geometricNormal) {
     DirectSample sample;
     sample.direction = float3(0,1,0); sample.value = 0;

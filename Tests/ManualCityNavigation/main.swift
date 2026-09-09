@@ -152,6 +152,39 @@ expect(ManualCityNavigation.overview(point:SIMD2(0,20000),heading:.zero,roof:{_,
 expect(ManualCityNavigation.overview(point:.zero,heading:.zero,roof:{_,_ in .nan})==nil,"Invalid map height accepted")
 // Independently project map landmarks into screen coordinates. These checks
 // establish north-up orientation and actual grab behavior, not just constants.
+for span: Float in [50,1800,24000] {
+    let north = ManualCityNavigation.mapKeyboardPan(keys:[13],span:span,seconds:0.2)
+    let east = ManualCityNavigation.mapKeyboardPan(keys:[2],span:span,seconds:0.2)
+    let diagonal = ManualCityNavigation.mapKeyboardPan(keys:[13,2],span:span,seconds:0.2)
+    expect(north.x == 0 && north.y < 0 && east.x > 0 && east.y == 0,"Map WASD did not follow fixed compass directions")
+    expect(abs(simd_length(diagonal)-simd_length(north)) < 0.001,"Map diagonal keys move faster than a cardinal key")
+    for shift: UInt16 in [56,60] {
+        let boosted=ManualCityNavigation.mapKeyboardPan(keys:[13,shift],span:span,seconds:0.2)
+        expect(simd_distance(boosted,north*3)<0.001,"Either Shift key must triple Map pan speed")
+    }
+    let frames=(0..<5).reduce(SIMD2<Float>.zero) { sum,_ in
+        sum+ManualCityNavigation.mapKeyboardPan(keys:[13],span:span,seconds:0.04)
+    }
+    expect(simd_distance(frames,north)<0.001,"Map key travel changes with frame partitioning")
+    for keys: Set<UInt16> in [[],[13,1],[0,2],[13,1,0,2],[12],[14],[56]] {
+        expect(ManualCityNavigation.mapKeyboardPan(keys:keys,span:span,seconds:0.2) == .zero,"Opposing keys, altitude keys or Shift alone move fixed Map")
+    }
+    for viewport in [SIMD2<Float>(1000,800),SIMD2(800,1400)] {
+        let start=ManualCityNavigation.mapPose(center:.zero,span:span)!
+        let moved=ManualCityNavigation.mapPose(center:north,span:span)!
+        let screen=project(start.target,pose:moved,viewport:viewport)
+        expect(abs(screen.x-viewport.x/2)<0.01 && screen.y>viewport.y/2,"North key moved map content in the wrong screen direction")
+        let fraction=(screen.y-viewport.y/2)/viewport.y
+        expect(abs(fraction-0.07)<0.00001,"Map key pan is not consistent with visible coverage at different zoom/aspect")
+    }
+}
+for invalid: Float in [.nan,.infinity,-.infinity,0,-1] {
+    expect(ManualCityNavigation.mapKeyboardPan(keys:[13],span:invalid,seconds:0.2) == .zero,"Invalid Map span produced keyboard displacement")
+    expect(ManualCityNavigation.mapKeyboardPan(keys:[13],span:1800,seconds:invalid) == .zero,"Invalid Map timestep produced keyboard displacement")
+}
+expect(ManualCityNavigation.mapKeyboardPan(keys:[13],span:.greatestFiniteMagnitude,seconds:.greatestFiniteMagnitude)
+       == ManualCityNavigation.mapKeyboardPan(keys:[13],span:24000,seconds:0.5),"Extreme finite Map input escaped span/timestep bounds")
+
 for center in [SIMD2<Float>(0,0),SIMD2(3313,9915),SIMD2(-13569.5,-1135.8)] {
     for span: Float in [50,100,750,1000,6000,24000] {
         let pose=ManualCityNavigation.mapPose(center:center,span:span)!
@@ -279,5 +312,5 @@ for invalid: Float in [.nan,.infinity,0,-1] {
 expect(ManualCityNavigation.landmarkOverview(target:SIMD3(.nan,0,0),radius:100,heading:.zero,roof:{_,_ in 0})==nil,"Invalid landmark target accepted")
 expect(ManualCityNavigation.landmarkOverview(target:landmarkTarget,radius:100,heading:SIMD3(0,.infinity,0),roof:{_,_ in 0})==nil,"Invalid landmark heading accepted")
 expect(ManualCityNavigation.landmarkOverview(target:landmarkTarget,radius:100,heading:.zero,roof:{_,_ in .nan})==nil,"Invalid roof accepted")
-let report:[String:Any]=["passed":true,"checks":checks,"scope":"CPU pitch-independent horizontal heading and stable vertical fallback, normal straight-down focus/roof clearance/unchanged lens, north-up map projection, pan and optical/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."]
+let report:[String:Any]=["passed":true,"checks":checks,"scope":"CPU pitch-independent horizontal heading and stable vertical fallback, normal straight-down focus/roof clearance/unchanged lens, north-up map projection, cardinal span-scaled WASD panning with normalized diagonals and Shift boost, pan and optical/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."]
 print(String(data:try!JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]),encoding:.utf8)!)

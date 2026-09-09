@@ -1,0 +1,176 @@
+{
+  "dateUTC": "2026-09-09T22:33:53.192749+00:00",
+  "baselineCommit": "e930a238ff46eb0fd4c5c020c88cb8ff3afc6d01",
+  "decision": "Retain traffic guide correction and new motion cases; reject adaptive spatial filter; no indirect-cap algorithm added.",
+  "harness": "Standalone baseline scene/renderer source copies. Only Swift private access on diagnostic guide/history fields was widened in the copied renderer. Shader resource directory is selectable. Raw/reconstructed images share one accumulation per frame; independent64SPP references use another renderer/AS.",
+  "harnessExecutableSHA256": "615de30d1de9c45c18fd97537be6ee968e484b7c70e3a0424853766ec5f521b9",
+  "diagnosticHarnessSHA256": "5153a4553293b8938a6cdb8ced186ef34461b4fd137f900fe219c005609a52df",
+  "baselineSceneTriangles": 45953309,
+  "baselineSceneMaterials": 437,
+  "trafficLaneCount": 6,
+  "retainedRendererSHA256": "a920f13fc443937a68d24bc6667864fede8a31b945009574e977567e344eddf9",
+  "retainedDenoiseSHA256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+  "rejectedCandidateSHA256": "dfa8977c1cb7d261bd5424caeba060896957382878064c28984d9a40ccd8d67b",
+  "stairImageImprovementPercentRejected": 0.706588484529147,
+  "stairTemporalImprovementPercentRejected": 0.2427048942401866,
+  "syntheticResidualRMSRatioRejected": 0.714273,
+  "limits": [
+    "Actual-scene measurements are48frames at256x160 and4SPP with64SPP references, not native-window-resolution certification.",
+    "The direct-only ablation is16frames and deliberately changes lighting; its error metrics do not measure fidelity against the full-bounce scene.",
+    "64SPP references still have Monte Carlo grain; paired moving error is an estimate, not noise-free ground truth.",
+    "Independent baseline/candidate acceleration builds can differ on coplanar intersections; raw error changes at about1e-6 relative scale.",
+    "The reported Cultural scene has zero fully reactive guide pixels; the traffic correction does not explain or eliminate the reported staircase grain.",
+    "No new indirect radiance cap or stronger spatial filter is shipped."
+  ],
+  "references": [
+    {
+      "url": "https://research.nvidia.com/labs/rtr/publication/schied2017spatiotemporal/",
+      "purpose": "Variance-driven temporal/wavelet reconstruction motivation; full SVGF is not implemented here."
+    },
+    {
+      "url": "https://docs.blender.org/manual/en/4.1/render/cycles/render_settings/light_paths.html",
+      "purpose": "Indirect-only clamping as a future biased noise/brightness tradeoff."
+    },
+    {
+      "url": "https://pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/A_Better_Path_Tracer",
+      "purpose": "Difficult concentrated indirect lighting, path regularization and MIS; existing regularization already applied."
+    }
+  ],
+  "files": [
+    {
+      "path": "baseline-source-manifest.json",
+      "sha256": "cc26da928f90f470403fbbd8a46dd09841abd98972b2c48c28e491abfb5b14be",
+      "bytes": 1276
+    },
+    {
+      "path": "denoiser-baseline.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "denoiser-baseline.txt",
+      "sha256": "36d4c7c5e66d7b6ab5aa0d345c8a80531b73358aeb21f8346f2100773b6057f5",
+      "bytes": 3777
+    },
+    {
+      "path": "denoiser-residual-candidate.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "denoiser-residual-candidate.txt",
+      "sha256": "d20a782cded1678f635ba36db4e45cfc517f4d15c28ab9df3f520cf4f7947ec9",
+      "bytes": 3961
+    },
+    {
+      "path": "diagnostic-harness.swift",
+      "sha256": "5153a4553293b8938a6cdb8ced186ef34461b4fd137f900fe219c005609a52df",
+      "bytes": 5143
+    },
+    {
+      "path": "motion-ablation-direct-stair/frame-15-raw.png",
+      "sha256": "7ca4197b3377b5fa7ca8a3ba0ad3f18541fe9a8d861a1fbe348b736dd37e6073",
+      "bytes": 53971
+    },
+    {
+      "path": "motion-ablation-direct-stair/frame-15-reconstructed.png",
+      "sha256": "4b47132a976d640d7759c3afbafc913d81e83a19c87d1a1e4dc2368ddd0c6fd3",
+      "bytes": 58951
+    },
+    {
+      "path": "motion-ablation-direct-stair/frame-15-reference.png",
+      "sha256": "9f316ef4edaf10eef61a5c708c5fdcf6e99fead2622da5afa4b794ee9a1a28ce",
+      "bytes": 67545
+    },
+    {
+      "path": "motion-ablation-direct-stair/metrics.json",
+      "sha256": "edfb9392cfca78cd6306102db42b893feb31ccb43165a8a1f4f6fb9b513ec51b",
+      "bytes": 2665
+    },
+    {
+      "path": "motion-baseline-catalog/frame-47-raw.png",
+      "sha256": "bd3a8321408c7245072df5c8bd394e8562f010f9b56c0229324e355ef6c7b303",
+      "bytes": 115937
+    },
+    {
+      "path": "motion-baseline-catalog/frame-47-reconstructed.png",
+      "sha256": "132083cc497a4c2889b48c78508b866ed1b32e1d89276e729c82f46c1998ea5d",
+      "bytes": 83119
+    },
+    {
+      "path": "motion-baseline-catalog/frame-47-reference.png",
+      "sha256": "4bcc45c0b6716ed225a47adfd87faa1d3b3d7f8d0b74b56555e85d98e90a1ce1",
+      "bytes": 90199
+    },
+    {
+      "path": "motion-baseline-catalog/metrics.json",
+      "sha256": "699be5a99ec5f38fbb614dd3054addd5b65f571e9cfe8dac72b9d5b533305303",
+      "bytes": 2117
+    },
+    {
+      "path": "motion-baseline-stair/frame-47-raw.png",
+      "sha256": "37fa03b5cb9e004c2dbef51041900b3d95146cf8fcf3fb560cebf9fd7e955213",
+      "bytes": 124393
+    },
+    {
+      "path": "motion-baseline-stair/frame-47-reconstructed.png",
+      "sha256": "5cf4a10cdf6099ff211550e3bdc57a68357e48d090b26c159e9d476db6883f1e",
+      "bytes": 98823
+    },
+    {
+      "path": "motion-baseline-stair/frame-47-reference.png",
+      "sha256": "19cf8ac51ba9e06277a01f07f0dbc02fd62325c0261e8ea269b6084244810156",
+      "bytes": 116135
+    },
+    {
+      "path": "motion-baseline-stair/metrics.json",
+      "sha256": "9cd8bd68c418b0b48527b5aa3b7f25d247a3f748b00ca96c0756acd2327b7408",
+      "bytes": 2663
+    },
+    {
+      "path": "motion-candidate-residual-stair/frame-47-raw.png",
+      "sha256": "9b77f87c94e392db900801d01951fe7b07bc78f2e1925b4d2dcfb880b336c583",
+      "bytes": 124394
+    },
+    {
+      "path": "motion-candidate-residual-stair/frame-47-reconstructed.png",
+      "sha256": "c3813b45deaeccbacc5b364d3dc6dc428ce8234c197cee90317ba692ccf642cb",
+      "bytes": 97804
+    },
+    {
+      "path": "motion-candidate-residual-stair/frame-47-reference.png",
+      "sha256": "59672de265f2d847063f0b154992e8f12d6201d0aa4d2b078aabf3c19a814357",
+      "bytes": 116127
+    },
+    {
+      "path": "motion-candidate-residual-stair/metrics.json",
+      "sha256": "f9cc4d5c8b5224c684af903aedf8b8d8fda3fab339953e01a28a2e27edf02157",
+      "bytes": 2664
+    },
+    {
+      "path": "rejected-variance-candidate.metal",
+      "sha256": "dfa8977c1cb7d261bd5424caeba060896957382878064c28984d9a40ccd8d67b",
+      "bytes": 20521
+    },
+    {
+      "path": "rejected-variance-fixture.swift",
+      "sha256": "499b50762c2654a27decadb8e898ed546e83d18ed0888d1a42e5b1ec8601f3a9",
+      "bytes": 50678
+    },
+    {
+      "path": "traffic-guides.json",
+      "sha256": "d594f0cab19402af014b3aa51696572eea5189aa19df5c59cf48739f9d37d22e",
+      "bytes": 3553
+    },
+    {
+      "path": "traffic-guides.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "traffic-guides.txt",
+      "sha256": "ab8d1b1a8c8360ceaf079c5e29e32501bf1646844b8cb954153e5dc1112e22ca",
+      "bytes": 3554
+    }
+  ]
+}

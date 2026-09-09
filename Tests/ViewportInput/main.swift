@@ -271,7 +271,7 @@ group("Map mode allows only pan, zoom, explicit exit and display controls") {
         expect(Gesture.action(button:.left,shift:shift,mapMode:true) == .pan,"Map left drag pans even with Shift held")
         expect(Gesture.action(button:.right,shift:shift,mapMode:true) == .ignore,"Map right drag cannot tilt or orbit")
     }
-    let allowed:Set<UInt16> = [11,53,46,15,45,4,44,27,78,24,69]
+    let allowed:Set<UInt16> = [13,0,1,2,5,11,53,46,15,45,4,44,27,78,24,69]
     for code:UInt16 in 0...126 {
         expect(Gesture.allowsKey(code,mapMode:true) == allowed.contains(code),"Map keyboard routing \(code) cannot invoke ordinary camera controls")
         expect(Gesture.allowsKey(code,mapMode:false),"Normal mode retains existing key routing \(code)")

@@ -74,6 +74,20 @@ enum ManualCityNavigation {
         return finite(translation) ? translation:nil
     }
 
+    /// Fixed Map keys move the camera toward compass directions. Speed is a
+    /// fraction of visible ground span, so the same hold remains useful while
+    /// zoomed into a building or viewing the entire city. Diagonals normalize.
+    static func mapKeyboardPan(keys: Set<UInt16>, span: Float, seconds: Float) -> SIMD2<Float> {
+        guard span.isFinite, span > 0, seconds.isFinite, seconds > 0 else { return .zero }
+        var direction = SIMD2<Float>((keys.contains(2) ? 1:0)-(keys.contains(0) ? 1:0),
+                                     (keys.contains(1) ? 1:0)-(keys.contains(13) ? 1:0))
+        guard simd_length_squared(direction) > 0 else { return .zero }
+        direction = simd_normalize(direction)
+        let coverage = min(mapSpanRange.upperBound,max(mapSpanRange.lowerBound,span))
+        let boost: Float = keys.contains(56) || keys.contains(60) ? 3:1
+        return direction * coverage * 0.35 * min(0.5,seconds) * boost
+    }
+
     /// NSEvent magnification is incremental: factor = 1 + magnification.
     /// A positive result means zoom in. Reject invalid/nonpositive factors;
     /// bound pathological individual events to half/double magnification.

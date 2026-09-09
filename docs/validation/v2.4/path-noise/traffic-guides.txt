@@ -1,0 +1,161 @@
+{
+  "cases" : [
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "daylight floor inside inactive 65m headlamp radius",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0.25
+      ],
+      "expectedMaterialGuide" : 0.25,
+      "name" : "night visible moving lamp on stationary rough floor",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "paused traffic lamp leaves ordinary guide",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "night lamp cone faces away",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "night lamp is behind surface",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "night lamp outside finite radius",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "opaque ceiling blocks moving lamp",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0.25
+      ],
+      "expectedMaterialGuide" : 0.25,
+      "name" : "light transmitted through glass remains changing",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0.25
+      ],
+      "expectedMaterialGuide" : 0.25,
+      "name" : "actual moving sunlight shadow on rough floor",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedMaterialGuide" : 0,
+      "name" : "departed sunlight shadow clears ordinary guide",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        1,
+        0,
+        1.875
+      ],
+      "expectedMaterialGuide" : 1.875,
+      "name" : "directly visible moving geometry",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        1,
+        0,
+        2.875
+      ],
+      "expectedMaterialGuide" : 2.875,
+      "name" : "moving vehicle inside polished reflection",
+      "passed" : true
+    },
+    {
+      "actualWorldGuide" : [
+        0,
+        1,
+        0,
+        2.125
+      ],
+      "expectedMaterialGuide" : 2.125,
+      "name" : "unaffected polished surface retains mirror guide",
+      "passed" : true
+    }
+  ],
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "negativeControl" : {
+    "dayGuide" : 0.875,
+    "reproducedBug" : true,
+    "sha256" : "3edff4d4ba4a73ee76a89ec7724782498ce94a9cc347c68579b026a94def18bd",
+    "source" : "output\/v17-review\/path-tracer-baseline\/Sources\/ArchitectureEngine\/Resources\/Renderer.metal"
+  },
+  "passed" : true,
+  "scope" : "Production primarySurfaceTraffic kernel against tiny actual two-instance TLAS scenes. Flags .25 and .875 both reject old lighting; .25 retains spatial filtering for stationary rough diffuse surfaces.",
+  "source" : "\/Users\/william\/dev\/architecture\/Sources\/ArchitectureEngine\/Resources\/Renderer.metal",
+  "sourceSHA256" : "a920f13fc443937a68d24bc6667864fede8a31b945009574e977567e344eddf9"
+}

@@ -4,6 +4,21 @@ import MetalKit
 import SwiftUI
 import simd
 
+enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
+    case pathTracing, directRayTracing, raster
+    var id: String { rawValue }
+    var title: String {
+        switch self { case .pathTracing: return "Path Tracing"; case .directRayTracing: return "Direct Ray Tracing"; case .raster: return "Fast Raster" }
+    }
+    var explanation: String {
+        switch self {
+        case .pathTracing: return "Multi-bounce reflections, shadows and indirect lighting. Still views progressively refine."
+        case .directRayTracing: return "Deterministic rays for hard shadows and reflections, with an ambient-light approximation instead of multi-bounce indirect lighting."
+        case .raster: return "Fast direct lighting and environment reflections. Local reflections, refraction, traced shadows and indirect lighting are omitted."
+        }
+    }
+}
+
 @MainActor protocol ViewportInputResetting: AnyObject {
     func cancelViewportInput()
 }
@@ -43,7 +58,9 @@ import simd
     private var mapEntryHeading = SIMD3<Float>(0,0,-1)
     private var lastHorizontalHeading = SIMD3<Float>(0,0,-1)
     @Published private(set) var flySpeed = ManualCityNavigation.defaultFlySpeed
-    @Published private(set) var rayTracingEnabled = true
+    @Published private(set) var rendererMode: ArchitectureRendererMode = .pathTracing
+    var rayTracingEnabled: Bool { rendererMode != .raster }
+    private var lastRayTracingMode: ArchitectureRendererMode = .pathTracing
     @Published private(set) var mapSelectionRevision = 0
     @Published var navigationMapVisible = true
     @Published var navigationMapSize: ChicagoMapSize = .small
@@ -202,7 +219,11 @@ import simd
             }
         }
     }
-    func toggleFullscreen() { view?.window?.toggleFullScreen(nil); focusViewport() }
+    func toggleFullscreen() {
+        keys.removeAll(); (view as? ViewportInputResetting)?.cancelViewportInput()
+        previousTime = CACurrentMediaTime()
+        view?.window?.toggleFullScreen(nil); focusViewport()
+    }
     func windowPresentationChanged() { isFullscreen = view?.window?.styleMask.contains(.fullScreen) ?? false }
     func windowWillMove() {
         // Native titlebar dragging runs its own event tracking loop. Hold both
@@ -214,12 +235,17 @@ import simd
         dirty = true; historyDirty = true
         previousTime = CACurrentMediaTime()
     }
-    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled,hazeDensity:isMapMode ? 0.0000001:location.hazeDensity(view:currentStop)) }
-    func toggleRayTracing() {
-        guard isReady else { return }
-        rayTracingEnabled.toggle(); dirty = true; historyDirty = true; samples = 0
-        status = rayTracingEnabled ? "Ray tracing enabled" : "Fast raster rendering enabled"
+    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled,directRayTracing:rendererMode == .directRayTracing,hazeDensity:isMapMode ? 0.0000001:location.hazeDensity(view:currentStop)) }
+    func setRendererMode(_ mode: ArchitectureRendererMode) {
+        guard isReady, mode != rendererMode else { return }
+        rendererMode = mode
+        if mode != .raster { lastRayTracingMode = mode }
+        dirty = true; historyDirty = true; samples = 0
+        status = "\(mode.title) enabled"
         previousTime = CACurrentMediaTime(); focusViewport()
+    }
+    func toggleRayTracing() {
+        setRendererMode(rayTracingEnabled ? .raster:lastRayTracingMode)
     }
     func toggleNavigationMap() { navigationMapVisible.toggle(); focusViewport() }
     func setFlySpeed(_ value: Float) {
@@ -275,6 +301,7 @@ import simd
             }
             publishCamera()
         }
+        (view as? ViewportInputResetting)?.cancelViewportInput()
         dirty = true; historyDirty = true; focusViewport()
     }
     func zoomMap(_ inward: Bool) { magnify(inward ? 0.25:-0.2) }
@@ -354,11 +381,14 @@ import simd
         guard simd_length_squared(actual) > 0 else { return .zero }
         let mode = navigationMode
         beginManualNavigation(keepingFocus:mode == 2); keys.removeAll(); navigationMode = mode == 2 ? 2:1
+        applyCityMapTranslation(actual)
+        previousTime = CACurrentMediaTime(); focusViewport()
+        return actual
+    }
+    private func applyCityMapTranslation(_ actual: SIMD2<Float>) {
         let translation = SIMD3(actual.x,0,actual.y)
         pose.position += translation; pose.target += translation
-        mapCamera = ChicagoMapCamera(position:SIMD2(pose.position.x,pose.position.z),target:SIMD2(pose.target.x,pose.target.z))
-        dirty = true; previousTime = CACurrentMediaTime(); focusViewport()
-        return actual
+        publishCamera()
     }
     private func applyViewSelection() {
         mapSelectionRevision &+= 1
@@ -474,9 +504,11 @@ import simd
     func setExposure(_ value: Double) { exposure = value; dirty = true; historyDirty = true }
     func moveKey(_ code: UInt16, pressed: Bool) {
         if pressed {
-            guard isReady, !isMapMode, !showHelp, !movingWindow else { return }
+            guard isReady, !showHelp, !movingWindow else { return }
+            let permitted: Set<UInt16> = isMapMode ? [13,0,1,2,56,60]:[13,0,1,2,12,14,56,60]
+            guard permitted.contains(code) else { return }
             keys.insert(code)
-            if [UInt16(13), 0, 1, 2, 12, 14].contains(code) { beginManualNavigation() }
+            if [UInt16(13), 0, 1, 2, 12, 14].contains(code) { beginManualNavigation(keepingFocus:isMapMode) }
         } else { keys.remove(code) }
     }
     func look(deltaX: Float, deltaY: Float) {
@@ -580,8 +612,18 @@ import simd
             synchronizePlayback()
         }
     }
-    private func updateMovement(_ dt: Float) {
-        if isMapMode || keys.isEmpty { return }
+    /// Advance only the manual camera. Kept independent of GPU submission so
+    /// input/lifecycle tests exercise the actual held-key integration.
+    func updateMovement(_ elapsed: Float) {
+        guard isReady, !showHelp, !movingWindow, playback.state == .manual,
+              elapsed.isFinite, elapsed > 0, !keys.isEmpty else { return }
+        let dt = min(0.5,elapsed)
+        if isMapMode {
+            let requested = ManualCityNavigation.mapKeyboardPan(keys:keys,span:mapViewSpan,seconds:dt)
+            let actual = ManualCityNavigation.mapTranslation(camera:SIMD2(pose.position.x,pose.position.z),requested:requested)
+            if simd_length_squared(actual) > 0 { applyCityMapTranslation(actual) }
+            return
+        }
         // Walking retains short collision/support steps; flight uses elapsed
         // wall time so a slow render does not silently slow the camera too.
         if navigationMode == 0 && dt > 0.05 {
