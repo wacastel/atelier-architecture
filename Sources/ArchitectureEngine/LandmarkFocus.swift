@@ -168,7 +168,11 @@ struct FocusOrbit {
     private(set) var radius: Float
     private(set) var azimuth: Float
     private(set) var elevation: Float
-    var maximumRadius: Float { min(50_000,max(300,simd_length(focus.bounds.extent)*12)) }
+    // A distant skyline selection may begin beyond the normal object-relative
+    // orbit range. Preserve that entry distance, allowing a gradual approach
+    // while preventing dolly-out beyond the entry radius. Nearby selections
+    // retain their existing object-relative limit.
+    let maximumRadius: Float
     static let elevationLimit: Float = 85 * .pi / 180
 
     init?(focus: LandmarkFocus, pose: CameraPose) {
@@ -177,6 +181,7 @@ struct FocusOrbit {
         self.focus=focus
         let offset=pose.position-focus.center, distance=simd_length(offset)
         guard distance.isFinite else { return nil }
+        maximumRadius=max(distance,min(50_000,max(300,simd_length(focus.bounds.extent)*12)))
         let fallback=pose.position-pose.target
         let direction=distance>1e-6 ? offset/distance : (simd_length_squared(fallback)>1e-8 ? simd_normalize(fallback):SIMD3(0,0,1))
         radius=distance

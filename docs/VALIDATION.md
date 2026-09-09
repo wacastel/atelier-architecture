@@ -1,5 +1,9 @@
 # Validation record
 
+## Version 2.1.1 — skyline variety and camera marker
+
+The [2.1.1 evidence](validation/v2.1.1/README.md) records 92,867 playback checks, 21,434 map checks, 1,605 focus checks, 131 renderer checks across 24 reviewed stills, and the 39,485-check raster regression. The signed arm64 build 14 passes packaged Oak Park self-tests in both rendering modes. Static city geometry is unchanged. Native marker/viewpoint/focus checks remain blocked by the locked Mac; no native pass is claimed for this patch.
+
 Recorded 9 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **2.0.0 / build 12**. Earlier sections preserve their original measurements and limitations.
 
 ## Version 2.0 navigation and render modes

@@ -1,0 +1,22 @@
+{
+  "status": "blocked",
+  "date": "2026-09-09",
+  "version": "2.1.1 (14)",
+  "executableSHA256": "8610cd488eeb864047785001b84be0861420c68d877d9cc377c4e740bdaa9ab1",
+  "reason": "CUA getApp returned: The Mac is locked and automatic unlock could not unlock it. Ask the user to unlock the Mac manually before continuing.",
+  "userNotified": true,
+  "checksPending": [
+    "Small/Medium/Large dotted marker legibility and live tracking",
+    "Outside-map indicator from Oak Park and return to a mapped landmark",
+    "Selection and playback of all three revised native viewpoints",
+    "Distant landmark focus/orbit and scroll without a jump"
+  ],
+  "separateEvidence": [
+    "Navigation map CPU: 21,434 checks",
+    "Focus navigation CPU: 1,605 checks",
+    "Renderer gallery: 131 checks, 24 stills",
+    "Playback: 92,867 checks",
+    "Packaged CLI self-test passes for Oak Park in RT and raster"
+  ],
+  "scope": "Native app interaction has not been verified for this patch. Earlier 2.1.0 native results do not verify the new marker or cameras."
+}

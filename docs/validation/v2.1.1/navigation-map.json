@@ -1,0 +1,12 @@
+{
+  "arterials" : 5037,
+  "checks" : 21434,
+  "footprintRings" : 3635,
+  "loadSeconds" : 1.2884390354156494,
+  "passed" : true,
+  "resources" : 5,
+  "scope" : "CPU fill\/aspect\/inverse\/zoom\/recenter\/resize, anchored pan, click-vs-drag, dotted camera marker\/edge bearing\/coverage distance, heading and complete offline loading; no native UI or GPU execution",
+  "streets" : 1549,
+  "vertices" : 37781,
+  "waterPolygons" : 57
+}

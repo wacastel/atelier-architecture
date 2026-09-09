@@ -74,6 +74,32 @@ enum NavigationMapTests {
                         let adjusted = clamped.point(for: applied)
                         check(hypot(adjusted.x-before.x, adjusted.y-before.y) < 0.002,
                               "A partially accepted drag detaches the marker from the map")
+                        for position in samples + [SIMD2(-20000, 0), SIMD2(20000, 0), SIMD2(0, -20000), SIMD2(0, 20000)] {
+                            guard let marker = ChicagoMapCameraMarker.make(position: position, projection: projection) else {
+                                check(false, "Camera marker is missing from a supported map size"); continue
+                            }
+                            let stroke = marker.square.insetBy(dx: -2.25, dy: -2.25)
+                            check(stroke.minX >= 0 && stroke.minY >= 0 && stroke.maxX <= canvas.width && stroke.maxY <= canvas.height,
+                                  "Dotted camera marker or its backing stroke clips at the map edge")
+                            check(marker.square.width == 24 && marker.square.height == 24,
+                                  "Camera square size changes with map size or zoom")
+                            if let rect = marker.labelRect {
+                                check(rect.minX >= 0 && rect.minY >= 0 && rect.maxX <= canvas.width && rect.maxY <= canvas.height,
+                                      "Off-map position label leaves the canvas")
+                                check(!rect.intersects(marker.square), "Off-map text hides the camera square")
+                            }
+                            if position.x < minimum.x || position.x > maximum.x || position.y < minimum.y || position.y > maximum.y {
+                                check(marker.outsideCoverage && marker.label?.hasPrefix("Outside map:") == true,
+                                      "Camera outside modeled coverage appears to occupy an ordinary city position")
+                            }
+                            if marker.offscreen {
+                                let a = SIMD2<Double>(Double(marker.projectedPosition.x-canvas.width/2), Double(marker.projectedPosition.y-canvas.height/2))
+                                let b = SIMD2<Double>(Double(marker.center.x-canvas.width/2), Double(marker.center.y-canvas.height/2))
+                                let angle = simd_dot(simd_normalize(a), simd_normalize(b))
+                                check(angle > 0.999999, "Edge marker distorts the bearing toward an off-screen camera")
+                                check(marker.label != nil, "Off-screen camera is silently clamped onto the map")
+                            }
+                        }
                     }
                 }
             }
@@ -85,6 +111,26 @@ enum NavigationMapTests {
         check(full.world(at: CGPoint(x: CGFloat.nan, y: 0)) == nil, "Nonfinite map input is accepted")
         check(ChicagoMapProjection(canvasSize: .zero).world(at: .zero) == nil, "Zero-size map accepts clicks")
         check(full.panDelta(screenDelta: CGSize(width: CGFloat.nan, height: 0)) == nil, "Nonfinite pan delta is accepted")
+        let westMarker = ChicagoMapCameraMarker.make(position: SIMD2(-20000, 0), projection: full)!
+        check(westMarker.direction == "W" && abs(westMarker.distanceMetres-16000) < 0.01,
+              "Western-suburb distance is not measured from the existing coverage boundary")
+        check(westMarker.label == "Outside map: W 16.0 km", "Western-suburb indicator is ambiguous")
+        let centeredOutside = ChicagoMapProjection(canvasSize: CGSize(width: 1000, height: 500), center: SIMD2(-20000, 0), zoom: 2)
+        let outsideVisible = ChicagoMapCameraMarker.make(position: SIMD2(-20000, 0), projection: centeredOutside)!
+        check(outsideVisible.outsideCoverage && !outsideVisible.offscreen && outsideVisible.label != nil,
+              "Panning the map over an outside camera hides its coverage warning")
+        let northCrop = ChicagoMapCameraMarker.make(position: SIMD2(0, -10000), projection: full)!
+        check(!northCrop.outsideCoverage && northCrop.offscreen && northCrop.direction == "N" && northCrop.label?.hasPrefix("Off-screen:") == true,
+              "A cropped in-city position is confused with missing city coverage")
+        let ordinary = ChicagoMapCameraMarker.make(position: full.center, projection: full)!
+        check(ordinary.label == nil && ordinary.center == full.point(for: full.center), "Ordinary in-map camera position is displaced or mislabeled")
+        check(ChicagoMapCameraMarker.make(position: SIMD2(.nan, 0), projection: full) == nil, "Nonfinite camera position produces a marker")
+        check(ChicagoMapCameraMarker.make(position: .zero, projection: ChicagoMapProjection(canvasSize: .zero)) == nil,
+              "Zero-size canvas produces a marker")
+        check(ChicagoMapCameraMarker.make(position: SIMD2(Float.greatestFiniteMagnitude, 0), projection: full)?.distanceMetres.isFinite == true,
+              "Finite distant camera overflows off-map distance calculations")
+        check(full.world(at: full.point(for: SIMD2(-20000, 0))) == nil,
+              "Camera indicator expanded actual navigation coverage into unmodeled suburbs")
         var drag = ChicagoMapDrag()
         check(drag.update(translation: CGSize(width: 2, height: 1)) == nil, "A click wiggle moves the real camera")
         check(drag.end(translation: CGSize(width: 2, height: 1)), "A genuine click is lost")
@@ -119,7 +165,7 @@ enum NavigationMapTests {
                                      isVisible: .constant(true), size: .constant(.small), maximumHeight: 180, maximumWidth: 620,
                                      onNavigate: { _ in }, onPan: { $0 })
         let result: [String: Any] = ["passed": true, "checks": checks,
-            "scope": "CPU fill/aspect/inverse/zoom/recenter/resize, incremental anchored pan, click-vs-drag, heading and complete offline data loading; no native UI or GPU execution",
+            "scope": "CPU fill/aspect/inverse/zoom/recenter/resize, anchored pan, click-vs-drag, dotted camera marker/edge bearing/coverage distance, heading and complete offline loading; no native UI or GPU execution",
             "resources": geometry.loadedResources, "vertices": geometry.vertexCount,
             "footprintRings": geometry.footprints.count, "streets": geometry.streets.count,
             "arterials": geometry.arterials.count, "waterPolygons": geometry.water.count,

@@ -17,7 +17,7 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
     }
     var shortName: String { self == .paris ? "Paris" : "Chicago" }
     var subtitle: String {
-        switch self { case .paris: return "PARIS, FRANCE   ·   1889"; case .chicago: return "CHICAGO, ILLINOIS   ·   1973"; case .skyline: return "LAKE MICHIGAN   ·   DAYLIGHT, SUNSET & NIGHT"; case .millennium: return "CHICAGO, ILLINOIS   ·   ART & LANDSCAPE"; case .lakefront: return "MICHIGAN AVENUE   ·   PARKS & HARBORS"; case .campus: return "MUSEUMS   ·   STARS   ·   THE SOUTH LAKEFRONT"; case .northside: return "OLD TOWN   ·   LINCOLN PARK   ·   WRIGLEYVILLE"; case .robie: return "FRANK LLOYD WRIGHT   ·   HYDE PARK   ·   1910" }
+        switch self { case .paris: return "PARIS, FRANCE   ·   1889"; case .chicago: return "CHICAGO, ILLINOIS   ·   1973"; case .skyline: return "LAKEFRONT, RIVER & WESTERN HORIZON"; case .millennium: return "CHICAGO, ILLINOIS   ·   ART & LANDSCAPE"; case .lakefront: return "MICHIGAN AVENUE   ·   PARKS & HARBORS"; case .campus: return "MUSEUMS   ·   STARS   ·   THE SOUTH LAKEFRONT"; case .northside: return "OLD TOWN   ·   LINCOLN PARK   ·   WRIGLEYVILLE"; case .robie: return "FRANK LLOYD WRIGHT   ·   HYDE PARK   ·   1910" }
     }
     var number: String { String(format:"%02d", (Self.allCases.firstIndex(of:self) ?? 0)+1) }
     /// Chicago locations share one physical scene and acceleration structure.
@@ -35,6 +35,11 @@ enum ArchitectureLocation: String, CaseIterable, Identifiable {
     /// Authored lighting for this destination; nil keeps the ordinary day/night pass.
     func preferredLighting(view: Int) -> Int? {
         self == .skyline ? SkylineScene.preferredLighting[max(0,min(7,view))] : nil
+    }
+
+    /// Explicit shot atmosphere, shared by interactive views and every export path.
+    func hazeDensity(view: Int) -> Float {
+        self == .skyline ? SkylineScene.hazeDensity(view: view) : 0
     }
 
     func build() -> SceneData { self == .paris ? EiffelScene.build() : WillisScene.build() }

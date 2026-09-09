@@ -148,6 +148,39 @@ for p in [building.center,building.center+V(0.2,0.1,0.1),building.center+V(0,20,
 }
 check(FocusOrbit(focus:building,pose:CameraPose(position:V(.nan,0,0),target:.zero))==nil,"invalid camera cannot create orbit")
 
+// A western skyline selection starts well outside the usual tower-relative
+// radius. The first small manipulation must not jump several kilometres inward.
+let distantWillis=chicago.authored.first{$0.id=="chicago:willis-tower"}!
+let westernCameras=[V(-13569.5,55,-1135.8),V(-18000,100,-950),V(-20000,150,-500)]
+for position in westernCameras {
+    let original=CameraPose(position:position,target:V(350,210,-900),fov:5.2)
+    let entered=simd_distance(position,distantWillis.center)
+    var orbit=FocusOrbit(focus:distantWillis,pose:original)!
+    check(orbit.pose.position==position && abs(orbit.maximumRadius-entered)<0.01,"distant selection retains entry pose and outward limit")
+    orbit.rotate(yawDelta:0,pitchDelta:0)
+    check(near(orbit.pose.position,position,0.01),"zero orbit input must not clamp distant selection inward")
+    orbit.rotate(yawDelta:0.0001,pitchDelta:0)
+    check(abs(orbit.radius-entered)<0.01 && simd_distance(orbit.pose.position,position)<entered*0.00011,
+          "first small orbit changes angle without a kilometre-scale radial jump")
+    orbit.dolly(logScale:-0.01)
+    check(abs(orbit.radius-entered*exp(-0.01))<0.01,"first inward scroll follows requested gradual logarithmic distance")
+    for _ in 0..<20 {orbit.dolly(logScale:-0.01)}
+    check(abs(orbit.radius-entered*exp(-0.21))<0.04,"successive inward scrolls remain continuous outside the old radius cap")
+    orbit.dolly(logScale:0.01)
+    check(abs(orbit.radius-entered*exp(-0.20))<0.04,"reversing a scroll does not snap to the entry limit")
+    orbit.dolly(logScale:20)
+    check(abs(orbit.radius-entered)<0.01,"distant dolly-out cannot exceed the entry radius")
+}
+// Near-object limits are intentionally unchanged, including small and tall targets.
+for object in [building,adler,distantWillis] {
+    let ordinaryLimit=min(Float(50_000),max(Float(300),simd_length(object.bounds.extent)*12))
+    let offset=V(ordinaryLimit*0.2,ordinaryLimit*0.1,ordinaryLimit*0.15)
+    var orbit=FocusOrbit(focus:object,pose:CameraPose(position:object.center+offset,target:object.center))!
+    check(orbit.maximumRadius==ordinaryLimit,"near-object orbit maximum retains original envelope-dependent behavior")
+    orbit.dolly(logScale:20)
+    check(abs(orbit.radius-ordinaryLimit)<0.01,"near-object maximum still clamps large outward input")
+}
+
 // A mapped concave building and a triangulated hole reject adjacent courtyards.
 let concave=FocusVolume(points:[[0,0],[10,0],[10,3],[3,3],[3,10],[0,10]],bottom:0.25,top:10)!
 check(concave.contains(V(1,5,8)) && !concave.contains(V(8,5,8)),"concave footprint classification")

@@ -244,7 +244,7 @@ for location in ArchitectureLocation.allCases {
 }
 
 // Skyline lighting uses authored per-view studies unless the user overrides a pass.
-let skylinePresets = [1,0,3,2,3,1,0,2]
+let skylinePresets = [1,1,3,2,2,1,0,2]
 expect(ArchitectureLocation.skyline.walkingViews.isEmpty, "Offshore skyline cameras do not claim walking support")
 for (view,preset) in skylinePresets.enumerated() {
     var study = WalkthroughPlayback(location:.skyline)
@@ -256,6 +256,15 @@ for (view,preset) in skylinePresets.enumerated() {
     expect(study.effectiveLighting == (preset == 2 ? 0:2) && study.time == 8 && study.state == .paused, "Skyline N toggles from the displayed preset and preserves pause/time")
     study.select((view+1)%8)
     expect(study.effectiveLighting == (preset == 2 ? 0:2), "Skyline manual lighting holds across selected views")
+}
+// The added cameras must be different geographical compositions, not nearby lake orbits.
+for t in stride(from:0.0,through:120.0,by:4.0) {
+    let west=SkylineWalkthrough.pose(view:1,seconds:t)
+    expect(west.position.x < -12_000 && west.target.x > west.position.x+12_000 && west.fov >= 5 && west.fov <= 12,"Western route stays beyond Chicago and faces east with a telephoto lens")
+    let river=SkylineWalkthrough.pose(view:4,seconds:t), south=SkylineWalkthrough.pose(view:6,seconds:t)
+    expect(river.position.z < -1000 && river.target.z > river.position.z+900,"Kinzie route keeps its southward river composition")
+    expect(south.position.z > 2300 && south.target.z < south.position.z-2300,"Ping Tom route keeps its distinct northward composition")
+    expect(simd_distance(west.position,river.position)>12_000 && simd_distance(river.position,south.position)>3300,"New studies remain geographically distinct throughout their routes")
 }
 var skylineCycle = WalkthroughPlayback(location:.skyline)
 skylineCycle.setLighting(3)

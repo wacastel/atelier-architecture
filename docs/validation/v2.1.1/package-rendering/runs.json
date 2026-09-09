@@ -1,0 +1,45 @@
+[
+  {
+    "mode": "ray-tracing",
+    "command": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--self-test",
+      "--location",
+      "skyline",
+      "--stop",
+      "1",
+      "--width",
+      "960",
+      "--height",
+      "600"
+    ],
+    "exitCode": 0,
+    "workingDirectory": "/Users/william/dev/architecture/output/v14-package/ray-tracing",
+    "report": "/Users/william/dev/architecture/output/v14-package/ray-tracing/output/validation.json",
+    "executableSHA256": "8610cd488eeb864047785001b84be0861420c68d877d9cc377c4e740bdaa9ab1",
+    "archivedReport": "ray-tracing/output/validation.json",
+    "imageSHA256": "292215818dd92c2b2e59282115c41be01faa25c0a2b487850a3edbbf0360c372"
+  },
+  {
+    "mode": "raster",
+    "command": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--self-test",
+      "--location",
+      "skyline",
+      "--stop",
+      "1",
+      "--width",
+      "960",
+      "--height",
+      "600",
+      "--raster"
+    ],
+    "exitCode": 0,
+    "workingDirectory": "/Users/william/dev/architecture/output/v14-package/raster",
+    "report": "/Users/william/dev/architecture/output/v14-package/raster/output/validation.json",
+    "executableSHA256": "8610cd488eeb864047785001b84be0861420c68d877d9cc377c4e740bdaa9ab1",
+    "archivedReport": "raster/output/validation.json",
+    "imageSHA256": "a17d86a4f0c1d7e72fd9b28e1c5e4952bff02c62e4fee37e02f4b42e9fa5f558"
+  }
+]

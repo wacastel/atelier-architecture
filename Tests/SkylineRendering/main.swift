@@ -4,7 +4,7 @@ import simd
 import CryptoKit
 let root=URL(fileURLWithPath:#filePath).standardizedFileURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 extension Bundle { static var module:Bundle { Bundle(url:root.appendingPathComponent("Sources/ArchitectureEngine"))! } }
-let output=URL(fileURLWithPath:ProcessInfo.processInfo.environment["ATELIER_SKYLINE_OUTPUT"] ?? "output/v13-skyline-review/rendering",relativeTo:root).standardizedFileURL
+let output=URL(fileURLWithPath:ProcessInfo.processInfo.environment["ATELIER_SKYLINE_OUTPUT"] ?? "output/v14-skyline-review/rendering",relativeTo:root).standardizedFileURL
 try FileManager.default.createDirectory(at:output,withIntermediateDirectories:true)
 func hash(_ url:URL)throws->String {var h=SHA256();let f=try FileHandle(forReadingFrom:url);defer{try? f.close()};while let b=try f.read(upToCount:4*1024*1024),!b.isEmpty {h.update(data:b)};return h.finalize().map{String(format:"%02x",$0)}.joined()}
 let list=ProcessInfo.processInfo.environment["ATELIER_BENCHMARK_INPUTS"]!
@@ -34,25 +34,36 @@ for mode in 0...3 {
         check(u.sunColor.x > u.sunColor.y*2 && u.sunColor.y > u.sunColor.z*2,"Sunset uses warm direct irradiance")
     }
 }
+for density:Float in [0,0.000020,-1,.nan,.infinity,1] {
+    let u=renderer.uniforms(pose:origin,options:RenderOptions(hazeDensity:density))
+    let expected:Float = density.isFinite ? max(0,min(0.01,density)):0
+    check(u.animation.w == expected,"Haze override is finite, bounded, and packed without ABI changes")
+}
+for location in ArchitectureLocation.allCases {
+    for stop in location.stops {
+        check(location.hazeDensity(view:stop.id) == (location == .skyline && stop.id == 1 ? 0.000020:0),"Clear-distance atmosphere is isolated to the western composition")
+    }
+}
 var results:[[String:Any]]=[]
 // Every authored composition, followed by matched-pose day/sunset/night tracing.
-let shots=(0..<8).map{($0,SkylineScene.preferredLighting[$0],false)}+[(0,1,true),(2,3,true),(3,2,true),(2,1,true),(2,2,true)]
-for (view,lighting,rt) in shots {
-    let pose=SkylineScene.stops[view].pose
-    var options=RenderOptions(lighting:lighting);options.rayTracing=rt
+let baseShots=(0..<8).map{($0,SkylineScene.preferredLighting[$0],false)}+[(0,1,true),(2,3,true),(3,2,true),(2,1,true),(2,2,true),(1,1,true),(1,2,true),(4,2,true),(6,0,true),(6,2,true)]
+let shots=baseShots.map{($0.0,$0.1,$0.2,0.0)} + [1,4,6].flatMap{ view in [60.0,120.0].map{(view,SkylineScene.preferredLighting[view],false,$0)} }
+for (view,lighting,rt,seconds) in shots {
+    let pose=SkylineWalkthrough.pose(view:view,seconds:seconds)
+    var options=RenderOptions(lighting:lighting,hazeDensity:ArchitectureLocation.skyline.hazeDensity(view:view));options.rayTracing=rt
     renderer.setSceneTime(0);renderer.frameSeed=0;renderer.resetAccumulation();renderer.resetReconstruction()
     let traces=renderer.rayTracingDispatchCount,guides=renderer.surfaceGuideDispatchCount,traffic=renderer.trafficUpdateCount,rasters=renderer.rasterFrameCount
     let start=Date()
     let bytes=try renderer.renderOffscreen(pose:pose,options:options,width:width,height:height,samples:rt ? 64:1)
-    let name="view-\(view)-lighting-\(lighting)-\(rt ? "raytracing":"raster").png"
+    let name="view-\(view)-lighting-\(lighting)-\(rt ? "raytracing":"raster")-at-\(Int(seconds)).png"
     try writePNG(bytes,width:width,height:height,to:output.appendingPathComponent(name))
     check(bytes.count==width*height*4,"All output pixels exist")
     if rt {check(renderer.rayTracingDispatchCount-traces==64 && renderer.rasterFrameCount==rasters,"RT retains requested 64 samples")}
     else {check(renderer.rayTracingDispatchCount==traces && renderer.surfaceGuideDispatchCount==guides && renderer.trafficUpdateCount==traffic && renderer.rasterFrameCount==rasters+1,"Raster has no ray queries/AS updates")}
-    results.append(["view":view,"lighting":lighting,"mode":rt ? "rayTracing":"raster","image":name,"sha256":try hash(output.appendingPathComponent(name)),"wallSeconds":Date().timeIntervalSince(start),"lastGPUBufferMilliseconds":renderer.lastGPUTime,"rasterStatistics":renderer.rasterStatistics])
+    results.append(["view":view,"seconds":seconds,"hazeDensity":options.hazeDensity,"lighting":lighting,"mode":rt ? "rayTracing":"raster","image":name,"sha256":try hash(output.appendingPathComponent(name)),"wallSeconds":Date().timeIntervalSince(start),"lastGPUBufferMilliseconds":renderer.lastGPUTime,"rasterStatistics":renderer.rasterStatistics])
     print("Rendered \(name)");fflush(stdout)
 }
 let after=try inventory();check(before==after,"Rendering inputs stayed stable")
-let report:[String:Any]=["status":"PASS","checks":checks,"device":device.name,"width":width,"height":height,"staticTriangles":scene.triangleCount,"rendererBuildSeconds":renderer.buildSeconds,"shots":results,"sourceAndResourceSHA256":before,"inputsStable":before==after,"executableSHA256":try hash(URL(fileURLWithPath:CommandLine.arguments[0])),"scope":"Authored still compositions and renderer contract checks, 8 raster plus 5 RT images. Timings are synchronous offscreen diagnostics, not native frame rate. Image aesthetic review is separate."]
+let report:[String:Any]=["status":"PASS","checks":checks,"device":device.name,"width":width,"height":height,"staticTriangles":scene.triangleCount,"rendererBuildSeconds":renderer.buildSeconds,"shots":results,"sourceAndResourceSHA256":before,"inputsStable":before==after,"executableSHA256":try hash(URL(fileURLWithPath:CommandLine.arguments[0])),"scope":"Authored still compositions and renderer contract checks, 8 authored raster, 10 RT and 6 route midpoint/endpoint images. Timings are synchronous offscreen diagnostics, not native frame rate. Image aesthetic review is separate."]
 try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:output.appendingPathComponent("validation.json"),options:.atomic)
 print("PASS: \(checks) checks, \(shots.count) skyline stills")

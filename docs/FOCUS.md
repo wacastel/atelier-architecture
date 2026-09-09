@@ -1,4 +1,4 @@
-# Object focus — Atelier 2.0
+# Object focus — Atelier 2.1.1
 
 Click visible geometry on a landmark or mapped building to focus the camera on that object. The focus name appears in the interface. Selection keeps the camera's position and turns its view toward the object's center; it takes manual control and leaves any active walkthrough, Chicago demo or idle cycle.
 
@@ -14,9 +14,11 @@ Click visible geometry on a landmark or mapped building to focus the camera on t
 
 A drag is distinct from a click, so finishing an orbit does not select an object beneath the pointer. Without focus, left dragging pans over the ground plane, right dragging looks around, and scrolling changes flight speed. Orbit distance and elevation have limits around the selected object's envelope. Selecting from inside that envelope retains the starting position; the first orbit or zoom can move the camera outward to its clearance boundary. Orbiting is not a collision-checked pedestrian route around neighboring buildings.
 
+A distant selection, such as Willis Tower from Oak Park, retains its entry distance as the outward orbit limit when it exceeds the usual object-relative limit. Rotation preserves that radius and scrolling moves inward gradually. Nearby selections retain their established limits. The [2.1.1 CPU regression](validation/v2.1.1/focus-navigation.json) verifies this behavior; native interaction remains pending while the Mac is locked.
+
 Changing day/night lighting, exposure, rendering quality or ray-tracing mode retains focus. Moving the window, resizing it or entering full screen also retains focus. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
 
-Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain the complete 48-route sequence.
+Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain the complete 56-route sequence.
 
 Robie House is a named focus target, including its separate roof and service-wing volumes. The Hyde Park map layer adds surrounding building targets along the southern corridor.
 

@@ -111,7 +111,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.1 · Paris & Chicago",
+            .applicationVersion: "2.1.1 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }

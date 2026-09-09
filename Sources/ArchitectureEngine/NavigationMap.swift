@@ -91,6 +91,77 @@ struct ChicagoMapProjection: Equatable, Sendable {
     }
 }
 
+/// A camera position is never silently represented by an unrelated edge point.
+/// Distances outside coverage are measured from the nearest modeled boundary;
+/// cropped in-city distances are measured from the visible map rectangle.
+struct ChicagoMapCameraMarker: Sendable {
+    static let side: CGFloat = 24
+    let square: CGRect
+    let projectedPosition: CGPoint
+    let outsideCoverage: Bool
+    let offscreen: Bool
+    let distanceMetres: Double
+    let direction: String?
+    let label: String?
+    let labelRect: CGRect?
+    var center: CGPoint { CGPoint(x: square.midX, y: square.midY) }
+
+    static func make(position: SIMD2<Float>, projection: ChicagoMapProjection) -> ChicagoMapCameraMarker? {
+        let size = projection.canvasSize
+        guard position.x.isFinite, position.y.isFinite, projection.scale > 0,
+              size.width >= 60, size.height >= 60 else { return nil }
+        let actual = projection.point(for: position)
+        guard actual.x.isFinite, actual.y.isFinite else { return nil }
+        let minimum = ChicagoMapProjection.worldMinimum, maximum = ChicagoMapProjection.worldMaximum
+        let outside = position.x < minimum.x || position.x > maximum.x || position.y < minimum.y || position.y > maximum.y
+        let edge = max(0.001, projection.scale*0.0015)
+        let offscreen = actual.x < -edge || actual.x > size.width+edge || actual.y < -edge || actual.y > size.height+edge
+        let inset = side/2 + 3
+        var center = CGPoint(x: max(inset, min(size.width-inset, actual.x)),
+                             y: max(inset, min(size.height-inset, actual.y)))
+        if offscreen {
+            // Intersect the bearing from canvas center with the safe edge box.
+            // Independent x/y clamping would distort diagonal bearings.
+            let dx = actual.x-size.width/2, dy = actual.y-size.height/2
+            let tx = dx == 0 ? CGFloat.infinity : (size.width/2-inset)/abs(dx)
+            let ty = dy == 0 ? CGFloat.infinity : (size.height/2-inset)/abs(dy)
+            let t = min(tx, ty)
+            center = CGPoint(x: size.width/2+dx*t, y: size.height/2+dy*t)
+        }
+        let square = CGRect(x: center.x-side/2, y: center.y-side/2, width: side, height: side)
+        var distance = 0.0
+        var direction: String?, label: String?, labelRect: CGRect?
+        if outside || offscreen {
+            let x = Double(position.x), z = Double(position.y)
+            let nearestX: Double, nearestZ: Double
+            if outside {
+                nearestX = max(Double(minimum.x), min(Double(maximum.x), x))
+                nearestZ = max(Double(minimum.y), min(Double(maximum.y), z))
+            } else {
+                let halfX = Double(size.width/(2*projection.scale)), halfZ = Double(size.height/(2*projection.scale))
+                nearestX = max(Double(projection.center.x)-halfX, min(Double(projection.center.x)+halfX, x))
+                nearestZ = max(Double(projection.center.y)-halfZ, min(Double(projection.center.y)+halfZ, z))
+            }
+            let dx = x-nearestX, dz = z-nearestZ
+            distance = hypot(dx, dz)
+            let index = (Int((atan2(dz, dx)/(.pi/4)).rounded())+8)%8
+            let compass = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"][index]
+            direction = compass
+            let range = distance < 1 ? "<1 m" : distance < 1000 ? String(format: "%.0f m", distance)
+                : distance < 1_000_000 ? String(format: "%.1f km", distance/1000) : "1,000+ km"
+            let text = "\(outside ? "Outside map" : "Off-screen"): \(compass) \(range)"
+            label = text
+            let width = min(size.width-8, CGFloat(text.count)*5.5+12), height: CGFloat = 17
+            let below = square.maxY+4
+            let y = below+height <= size.height-4 ? below : max(4, square.minY-height-4)
+            labelRect = CGRect(x: max(4, min(size.width-width-4, center.x-width/2)), y: y, width: width, height: height)
+        }
+        return ChicagoMapCameraMarker(square: square, projectedPosition: actual, outsideCoverage: outside,
+                                      offscreen: offscreen, distanceMetres: distance, direction: direction,
+                                      label: label, labelRect: labelRect)
+    }
+}
+
 /// Shared by the SwiftUI gesture and CPU tests: once dragged, release cannot click.
 struct ChicagoMapDrag: Sendable {
     static let threshold: CGFloat = 4
@@ -470,6 +541,7 @@ struct ChicagoNavigationMap: View {
         let projection = mapCenter.map { ChicagoMapProjection(canvasSize: size, center: $0, zoom: mapZoom) }
             ?? base.centered(on: camera.position)
         let labels = ChicagoMapLabel.layout(projection: projection)
+        let marker = ChicagoMapCameraMarker.make(position: camera.position, projection: projection)
         return ZStack {
             Color.black.opacity(0.15)
             if let geometry = store.geometry {
@@ -488,10 +560,20 @@ struct ChicagoNavigationMap: View {
                         context.draw(Text(label.landmark.name).font(.system(size: 9, weight: .medium)).foregroundColor(.white),
                                      at: CGPoint(x: label.rect.midX, y: label.rect.midY))
                     }
-                    let finite = camera.position.x.isFinite && camera.position.y.isFinite
-                    if finite {
-                        let rect = projection.canvasRect, point = projection.point(for: camera.position)
-                        let p = CGPoint(x: max(rect.minX, min(rect.maxX, point.x)), y: max(rect.minY, min(rect.maxY, point.y)))
+                    if let marker {
+                        let p = marker.center
+                        let markerColor = marker.outsideCoverage ? Color(red: 1, green: 0.75, blue: 0.38) : Color(red: 1, green: 0.88, blue: 0.46)
+                        if !marker.offscreen && marker.projectedPosition != p {
+                            var leader = Path()
+                            leader.move(to: marker.projectedPosition); leader.addLine(to: p)
+                            context.stroke(leader, with: .color(.black.opacity(0.9)), lineWidth: 3)
+                            context.stroke(leader, with: .color(markerColor), lineWidth: 1)
+                        }
+                        let outline = Path(marker.square)
+                        context.fill(outline, with: .color(.black.opacity(0.45)))
+                        context.stroke(outline, with: .color(.black.opacity(0.9)), lineWidth: 4.5)
+                        context.stroke(outline, with: .color(markerColor),
+                                       style: StrokeStyle(lineWidth: 1.6, lineCap: .round, lineJoin: .round, dash: [0.1, 4]))
                         let forward = CGPoint(x: CGFloat(camera.heading.x), y: CGFloat(camera.heading.y))
                         let right = CGPoint(x: -forward.y, y: forward.x)
                         var arrow = Path()
@@ -501,7 +583,12 @@ struct ChicagoNavigationMap: View {
                         arrow.addLine(to: CGPoint(x: p.x - forward.x * 5 - right.x * 4, y: p.y - forward.y * 5 - right.y * 4))
                         arrow.closeSubpath()
                         context.stroke(arrow, with: .color(.black.opacity(0.8)), lineWidth: 2.5)
-                        context.fill(arrow, with: .color(Color(red: 1, green: 0.88, blue: 0.46)))
+                        context.fill(arrow, with: .color(markerColor))
+                        if let label = marker.label, let rect = marker.labelRect {
+                            context.fill(Path(roundedRect: rect, cornerRadius: 3), with: .color(.black.opacity(0.92)))
+                            context.draw(Text(label).font(.system(size: 9, weight: .semibold, design: .monospaced)).foregroundColor(markerColor),
+                                         at: CGPoint(x: rect.midX, y: rect.midY))
+                        }
                     }
                 }.allowsHitTesting(false)
             } else {
@@ -525,6 +612,7 @@ struct ChicagoNavigationMap: View {
             } else if let world = projection.world(at: value.location) { navigate(world) }
         })
         .accessibilityLabel("Chicago navigation map, north up")
+        .accessibilityValue(marker == nil ? "Camera position unavailable" : marker?.label ?? "Camera position marked by the dotted square")
         .accessibilityHint("Drag to move the map and camera together. Select a landmark or map position to fly there. Zoom or use Places to reach the whole city.")
         .accessibilityChildren {
             ForEach(ChicagoMapLandmark.all) { landmark in

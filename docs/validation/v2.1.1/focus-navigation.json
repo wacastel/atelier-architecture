@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": 1605,
+  "method": "CPU validate-focus-navigation.sh run by delegated implementation agent; bounded old-behavior negative control failed all 21 added distant assertions. Near-object limits also checked. No native interaction claimed.",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/LandmarkFocus.swift": "9e656b46b3b248648c3efe686b2cdb17fb719f4b147b7660362aeb1ae7fdeffc",
+    "Tests/FocusNavigation/main.swift": "ea164a48da7bf73358f2a785b4242d1508f43981bdfe50eb07865243b690f07b"
+  }
+}

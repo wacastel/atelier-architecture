@@ -13,6 +13,7 @@ struct RenderOptions: Equatable {
     var lowDiscrepancySampling: Bool = true
     var indexedLighting: Bool = true
     var rayTracing: Bool = true
+    var hazeDensity: Float = 0 // metres⁻¹; zero uses the established day/night atmosphere
 }
 
 enum EngineError: LocalizedError {
@@ -257,6 +258,7 @@ final class MetalRenderer {
         }
         // Reserved component: sunset changes atmosphere without changing the shared ABI.
         frame.animation.z = options.lighting == 3 ? 1 : 0
+        frame.animation.w = options.hazeDensity.isFinite ? max(0,min(0.01,options.hazeDensity)) : 0
         return frame
     }
 

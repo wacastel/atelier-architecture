@@ -164,6 +164,13 @@ float3 sunsetSkyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
     }
     return sky;
 }
+// Explicit clear-distance photography also uses a bluer, less turbid horizon.
+// Zero keeps all established scenes exact. Share it across camera, illumination,
+// reflection and aerial perspective so the distant study has one atmosphere.
+float3 daylightHorizon(constant FrameUniforms &u) {
+    float3 ordinary=float3(0.67f,0.79f,0.96f);
+    return u.animation.w>0 ? mix(float3(0.23f,0.46f,0.80f),ordinary,saturate(u.animation.w/0.00018f)):ordinary;
+}
 float3 skyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
     if(u.animation.z>0.5f) return sunsetSkyRadiance(d,u,cameraRay);
     if (u.sunColor.w > 0.5f) {
@@ -175,7 +182,7 @@ float3 skyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
         return sky * max(u.settings.w,0.0f);
     }
     float h = max(d.y, 0.0f);
-    float3 horizon = float3(0.67f, 0.79f, 0.96f);
+    float3 horizon = daylightHorizon(u);
     float3 zenith = float3(0.14f, 0.36f, 0.72f);
     float3 sky = mix(horizon, zenith, pow(h, 0.45f));
     float mu = clamp(dot(d, normalize(u.sunDirection.xyz)), -1.0f, 1.0f);
@@ -197,7 +204,7 @@ float3 skyRadiance(float3 d, constant FrameUniforms &u, bool cameraRay) {
 // Keep the upper-sky field below the horizon instead, without changing skyRadiance.
 float3 daylightAerialPerspective(float3 d, constant FrameUniforms &u) {
     float h = max(d.y, 0.0f);
-    float3 horizon = float3(0.67f, 0.79f, 0.96f);
+    float3 horizon = daylightHorizon(u);
     float3 zenith = float3(0.14f, 0.36f, 0.72f);
     float3 sky = mix(horizon, zenith, pow(h, 0.45f));
     float mu = clamp(dot(d, normalize(u.sunDirection.xyz)), -1.0f, 1.0f);
@@ -1023,7 +1030,8 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
     }
     }
     if (primaryDepth < 99999.0f) {
-        float haze = 1.0f - exp(-primaryDepth * (IsNight ? 0.00010f : 0.00028f));
+        float density = u.animation.w > 0 ? u.animation.w : (IsNight ? 0.00010f : 0.00028f);
+        float haze = 1.0f - exp(-primaryDepth * density);
         float3 scattering = IsNight ? skyRadiance(primaryDirection, u, false)
                                     : daylightAerialPerspective(primaryDirection, u);
         radiance = mix(radiance, scattering * 0.8f, haze);

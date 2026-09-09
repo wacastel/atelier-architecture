@@ -1,0 +1,27 @@
+Building shared Chicago world
+World 45496818 triangles; renderer 5.68887996673584s
+Rendered view-0-lighting-1-raster-at-0.png
+Rendered view-1-lighting-1-raster-at-0.png
+Rendered view-2-lighting-3-raster-at-0.png
+Rendered view-3-lighting-2-raster-at-0.png
+Rendered view-4-lighting-2-raster-at-0.png
+Rendered view-5-lighting-1-raster-at-0.png
+Rendered view-6-lighting-0-raster-at-0.png
+Rendered view-7-lighting-2-raster-at-0.png
+Rendered view-0-lighting-1-raytracing-at-0.png
+Rendered view-2-lighting-3-raytracing-at-0.png
+Rendered view-3-lighting-2-raytracing-at-0.png
+Rendered view-2-lighting-1-raytracing-at-0.png
+Rendered view-2-lighting-2-raytracing-at-0.png
+Rendered view-1-lighting-1-raytracing-at-0.png
+Rendered view-1-lighting-2-raytracing-at-0.png
+Rendered view-4-lighting-2-raytracing-at-0.png
+Rendered view-6-lighting-0-raytracing-at-0.png
+Rendered view-6-lighting-2-raytracing-at-0.png
+Rendered view-1-lighting-1-raster-at-60.png
+Rendered view-1-lighting-1-raster-at-120.png
+Rendered view-4-lighting-2-raster-at-60.png
+Rendered view-4-lighting-2-raster-at-120.png
+Rendered view-6-lighting-0-raster-at-60.png
+Rendered view-6-lighting-0-raster-at-120.png
+PASS: 131 checks, 24 skyline stills

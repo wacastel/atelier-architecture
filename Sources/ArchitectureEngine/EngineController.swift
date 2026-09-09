@@ -208,7 +208,7 @@ import simd
         dirty = true; historyDirty = true
         previousTime = CACurrentMediaTime()
     }
-    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled) }
+    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled,hazeDensity:location.hazeDensity(view:currentStop)) }
     func toggleRayTracing() {
         guard isReady else { return }
         rayTracingEnabled.toggle(); dirty = true; historyDirty = true; samples = 0

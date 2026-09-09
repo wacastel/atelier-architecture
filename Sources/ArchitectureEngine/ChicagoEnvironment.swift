@@ -49,8 +49,11 @@ extension EiffelBuilder {
         // real lake, harbors and rivers. Only distant western land remains synthetic.
         // Keep the old southern land support, but expose the mapped northern
         // river/shoreline in the newly added western strip.
-        box(V(-26200,-0.13,24250),V(47600,0.15,51500),pavement)
-        box(V(-27000,-0.13,-25750),V(46000,0.15,48500),pavement)
+        // Generalized matte land beyond mapped western coverage. This is an
+        // intentionally undetailed land base, not a reconstruction of Oak Park.
+        let distantLand=riverMaterial(V(0.11,0.15,0.075),roughness:1)
+        box(V(-26200,-0.13,24250),V(47600,0.15,51500),distantLand)
+        box(V(-27000,-0.13,-25750),V(46000,0.15,48500),distantLand)
         func inPark(_ points:[[Float]]) -> Bool {
             guard !points.isEmpty else { return false }
             let c=points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(points.count)

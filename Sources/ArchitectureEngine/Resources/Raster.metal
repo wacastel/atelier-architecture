@@ -72,9 +72,11 @@ float4 rasterShade(RasterOut in,bool front,constant FrameUniforms &u,
         radiance+=evaluateLight(lights[index],s,in.world,v,n).value;
     }
     float distance=length(in.world-u.origin.xyz);
-    if(u.sunColor.w<0.5f || u.animation.z>0.5f) {
-        float haze=1-exp(-distance*0.00018f);
-        radiance=mix(radiance,(u.animation.z>0.5f ? sunsetSkyRadiance(-v,u,false):daylightAerialPerspective(-v,u))*0.8f,haze);
+    if(u.sunColor.w<0.5f || u.animation.z>0.5f || u.animation.w>0) {
+        float density=u.animation.w>0 ? u.animation.w:0.00018f;
+        float haze=1-exp(-distance*density);
+        float3 scattering=u.sunColor.w>0.5f ? skyRadiance(-v,u,false):daylightAerialPerspective(-v,u);
+        radiance=mix(radiance,scattering*0.8f,haze);
     }
     // Thin-sheet glass is blended after opaque depth; transmission tint is
     // approximate and does not refract or reflect the local scene.

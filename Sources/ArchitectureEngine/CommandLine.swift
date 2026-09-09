@@ -87,7 +87,7 @@ import CoreText
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         let defaultLighting = location.preferredLighting(view: stop) ?? 0
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:!args.contains("--raster"),hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
         var pose = location.stops[stop].pose
         if args.contains("--at") {
             guard let seconds=Double(value("--at","0")),seconds.isFinite else { throw EngineError.message("--at requires finite seconds.") }
@@ -210,6 +210,7 @@ import CoreText
             let folder = URL(fileURLWithPath:value("--gallery","output/gallery"))
             for (index, stop) in location.stops.enumerated() {
                 var shotOptions = options
+                shotOptions.hazeDensity = location.hazeDensity(view:index)
                 if !args.contains("--lighting"), let lighting = location.preferredLighting(view:index) { shotOptions.lighting = lighting }
                 let pixels = try renderer.renderOffscreen(pose:stop.pose,options:shotOptions,width:width,height:height,samples:samples)
                 let url = folder.appendingPathComponent(String(format:"%02d",stop.id)+"-"+stop.title.lowercased().replacingOccurrences(of:" ",with:"-")+".png")
@@ -268,6 +269,7 @@ private func exportVideo(renderer:MetalRenderer,url:URL,width:Int,height:Int,sec
             }
             renderer.setSceneTime(shot.seconds)
             var shotOptions = options
+            shotOptions.hazeDensity = location.hazeDensity(view:shot.index)
             if authoredLighting, let lighting = location.preferredLighting(view:shot.index) { shotOptions.lighting = lighting }
             let pixels = try renderer.renderPreviewOffscreen(pose:shot.pose,options:shotOptions,width:width,height:height,samples:samples,resetHistory:previousChapter != shot.index)
             previousChapter = shot.index

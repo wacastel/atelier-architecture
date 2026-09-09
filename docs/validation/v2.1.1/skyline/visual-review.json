@@ -1,0 +1,49 @@
+{
+  "reviewed": true,
+  "date": "2026-09-09",
+  "method": "All 24 final stills inspected through three labeled contact sheets; enlarged initial and refined new camera renders also inspected during composition work. This is still-image review, not a continuous-motion or native UI pass.",
+  "imageHashes": {
+    "view-0-lighting-1-raster-at-0.png": "33c35a120b2e87c75d12e1ab6851c63d52b96843bf735b84ba76495dbfae7a69",
+    "view-1-lighting-1-raster-at-0.png": "ea69fd8f217ee40f9d880acb4693038e27f68c426fa799c0bca483b15bc41bd9",
+    "view-2-lighting-3-raster-at-0.png": "f2f53bb0704d4990d4b12f8c852038c8978e1df58d2e97755ec1680b1348aacf",
+    "view-3-lighting-2-raster-at-0.png": "d3a90bafe76d6cdcfe957048585b2a4c7b4a3350c593aa9825807a5f8676c06c",
+    "view-4-lighting-2-raster-at-0.png": "68df498a214e949beb6b5c21dae34f8b22e2e117cea904337f97a5804ac2ac17",
+    "view-5-lighting-1-raster-at-0.png": "3eb98d3292d7e01799ceb141a882100a6ce75ad2fdb6862256f86c88bdb45f37",
+    "view-6-lighting-0-raster-at-0.png": "706eb891382accbfa25f821bf831e347eea0ccaad5eab8f7609ef59d6a5891ea",
+    "view-7-lighting-2-raster-at-0.png": "91c8bf485a665f341905e896cc5325bbc94b9e88aeaf783ec86ab5da4001d989",
+    "view-0-lighting-1-raytracing-at-0.png": "d873f037d38bcd6afbbaaf7f76b535efcb9282bd2e70626ebcd3308276af4eb7",
+    "view-2-lighting-3-raytracing-at-0.png": "81c92d822fd317d529179ac03259402fb855a38f05b920a1144e3a30c77d1387",
+    "view-3-lighting-2-raytracing-at-0.png": "52ebf8c75511213bbe3b89b0611f67ac74555db31f17adb24a385bb7c474a5bf",
+    "view-2-lighting-1-raytracing-at-0.png": "fb82e70423d92a87a894ba1908f0c3c96dc8f9de100e189a974fdddb5a3dc529",
+    "view-2-lighting-2-raytracing-at-0.png": "e234c03d152c8a3cd20d5c051b3f71d48562d0298215f00aaa7bd92bfdf18057",
+    "view-1-lighting-1-raytracing-at-0.png": "b2e226b2d4b672ba90bbb8dc38bf2cdcd940f9c159c90551222efa479ff4d041",
+    "view-1-lighting-2-raytracing-at-0.png": "98b84341d6211bb51512718c8c2bf6d37dd923f2298fbce3f398e4631d6093b0",
+    "view-4-lighting-2-raytracing-at-0.png": "caf2287421dc4f2cb4e11cafbc5598aa0a8e12d098b6ec179fa45c6ce205611c",
+    "view-6-lighting-0-raytracing-at-0.png": "459ffad5e894fa631bd73e2e8ff66fdd78019ef6894af7be2e7545a85a2113d3",
+    "view-6-lighting-2-raytracing-at-0.png": "1361334c51badc883e4a96657682bd3917b0668aa176f098c21318b340773e33",
+    "view-1-lighting-1-raster-at-60.png": "35a6f49a978adb57dd51f4e815f1c3105e818d8a1b8e5610c249b08d7d666556",
+    "view-1-lighting-1-raster-at-120.png": "9562358a1f1882c00aa6095a704d02ec921bd5228a33d9d449c97f148c4227a4",
+    "view-4-lighting-2-raster-at-60.png": "bd8548f8112e622649e256fd5aaecb04ea8f51fdc777cceaeade18baa9071d8f",
+    "view-4-lighting-2-raster-at-120.png": "dfa6932a1fe1e6ecfd8d8f687e190be4795d4067bcba91d45eb0238d780ef04f",
+    "view-6-lighting-0-raster-at-60.png": "92a0cafaca2b989f7a79cafd23590eb475051d657324c0dd01e4fddbb34af73f",
+    "view-6-lighting-0-raster-at-120.png": "68d7d402db3b67f5d0f265945821afd691fbb4af8a57de388124b0f43087359f"
+  },
+  "contactSheets": {
+    "contact-1.jpg": "05fa3d16d824402bd278914af64d4d3d7838a9c0d96ba02b2e82f8a66236dca4",
+    "contact-2.jpg": "92ba294942983d7d1e20fdfe58b1224499ef20c9e86a60751b32ecee54640cbd",
+    "contact-3.jpg": "4d85ff6947692c1217f202c82dfcecc2bf02110bb2b147d1b705ee754b20b47f"
+  },
+  "observed": [
+    "Western composition places Hancock at left and Willis at right, with stronger daytime contrast and no additional suburban geometry. The foreground is deliberately generalized land.",
+    "Kinzie camera raised to clear the contemporary foreground enough for the Willis silhouette to read; modern mapped buildings retained.",
+    "Ping Tom-derived northward composition shows river and South Loop with Willis; routes remain above the existing river context.",
+    "All three new origins have distinct compositions; midpoint/end frames retain their subjects.",
+    "Existing Adler sunset and night, North Avenue and offshore views retained.",
+    "Raster and RT share the atmosphere; raster terrain/environment reflections and glass remain approximate, while RT resolves actual local reflections."
+  ],
+  "limitations": [
+    "No detailed Oak Park-to-downtown neighborhood infrastructure is modeled.",
+    "Kinzie and Ping Tom camera elevations are cinematic, not exact photographer positions; no new park pavilion or bridge reconstruction is claimed.",
+    "Stills do not establish continuous-animation noise or frame-rate performance."
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "passed": true,
+  "version": "2.1.1",
+  "build": "14",
+  "executableSHA256": "8610cd488eeb864047785001b84be0861420c68d877d9cc377c4e740bdaa9ab1",
+  "architecture": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine: Mach-O 64-bit executable arm64",
+  "resources": [
+    {
+      "path": "Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "bytes": 807
+    },
+    {
+      "path": "Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "bytes": 1973622
+    },
+    {
+      "path": "Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "bytes": 18461
+    },
+    {
+      "path": "HydePark/ATTRIBUTION.txt",
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+      "bytes": 1164
+    },
+    {
+      "path": "HydePark/HydeParkContext.json",
+      "sha256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+      "bytes": 33249457
+    },
+    {
+      "path": "Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "bytes": 763
+    },
+    {
+      "path": "Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "bytes": 6396480
+    },
+    {
+      "path": "Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "bytes": 840
+    },
+    {
+      "path": "Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "bytes": 111248
+    },
+    {
+      "path": "MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "bytes": 6988877
+    },
+    {
+      "path": "Music/01-lanterns-on-the-seine.m4a",
+      "sha256": "dc9d110d3748c2b104d70324ecdb60c9104708bdb10ea521e430b31070d4f551",
+      "bytes": 2235064
+    },
+    {
+      "path": "Music/02-between-steel-and-sky.m4a",
+      "sha256": "12d2960e04913977ef0eb63d28749d1404d74c80926b6aa744cb86740d28c544",
+      "bytes": 2313155
+    },
+    {
+      "path": "Music/03-clouds-in-silver.m4a",
+      "sha256": "9cd988fd203cfdaeef2e0adb5cbddc6b430bca7c9c3c39e157734c76a390cc76",
+      "bytes": 2094397
+    },
+    {
+      "path": "Music/04-a-longer-shore.m4a",
+      "sha256": "f0f2b35999631cf830f6d2ed7240ec905683cab65ccac3085df525c90dff3da5",
+      "bytes": 2393442
+    },
+    {
+      "path": "Music/05-small-constellations.m4a",
+      "sha256": "32e261afafbe45228b16b571537c0eb11fa0f681bbcafd448ad1670583c5e174",
+      "bytes": 2163705
+    },
+    {
+      "path": "Music/06-gardens-after-rain.m4a",
+      "sha256": "e7bee3367c8b868276def1c3879c95da3d706a23c4786a11d24dfe90e16bf215",
+      "bytes": 2065570
+    },
+    {
+      "path": "Music/07-light-through-amber.m4a",
+      "sha256": "7efb97bef4231ee730fb21545c2b1329bb35c3153df46d4c6c1c02354795763e",
+      "bytes": 2352036
+    },
+    {
+      "path": "Music/08-the-city-opens.m4a",
+      "sha256": "5d43981b8a8a8594014af7b7df02b632005abfd833f4637f31da19797589f7af",
+      "bytes": 2130261
+    },
+    {
+      "path": "Music/manifest.json",
+      "sha256": "9525cc46b6693f950b88c3bbb6fb3c0b9584bd7ce76e4b30a21f7aab061e72a2",
+      "bytes": 9499
+    },
+    {
+      "path": "NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "bytes": 1180
+    },
+    {
+      "path": "NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "bytes": 23585826
+    },
+    {
+      "path": "Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "bytes": 683
+    },
+    {
+      "path": "Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "bytes": 1372461
+    },
+    {
+      "path": "Raster.metal",
+      "sha256": "b0888f293582a13e833ad0ae59a54966f0db2278b542d8b65fe144a039ae3fe6",
+      "bytes": 6380
+    },
+    {
+      "path": "Renderer.metal",
+      "sha256": "ce3595440f1fe7f7e32272e26ed1d5aa9093ebba67a5125886cab858878f295f",
+      "bytes": 77650
+    },
+    {
+      "path": "Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    }
+  ],
+  "signature": "Ad hoc signature passed codesign --verify --deep --strict",
+  "sourceMatchesBundle": true,
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/AdlerPlanetarium.swift": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+    "Sources/ArchitectureEngine/AmbientMusic.swift": "7c2bd107a581c69b49e04d3f1c85526aff3becbe2132e1f674ab36420b28039c",
+    "Sources/ArchitectureEngine/ArchitectureApp.swift": "87b5fb457e20f736d5cfbae9a36a7e33e219e135a3b29c1e5bdeff0062dc4b0c",
+    "Sources/ArchitectureEngine/ArchitectureLocation.swift": "4bcb5ed5fd0eb04e1edb6066a13f8b2a32d5607ea739461c9736fc18e5bdf5b5",
+    "Sources/ArchitectureEngine/ArtInstitute.swift": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+    "Sources/ArchitectureEngine/CameraTrack.swift": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+    "Sources/ArchitectureEngine/ChicagoEnvironment.swift": "3fe71770c5a9c7b62c23be9f153cf11b0693c7fc265e0e590ad10e67e84addef",
+    "Sources/ArchitectureEngine/ChicagoWorld.swift": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+    "Sources/ArchitectureEngine/CollisionWorld.swift": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+    "Sources/ArchitectureEngine/CommandLine.swift": "1972fd724bbe532c209f24ae09638322d8aa569ec8a3f5ae1ba25be8a9093def",
+    "Sources/ArchitectureEngine/EiffelScene.swift": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+    "Sources/ArchitectureEngine/EngineController.swift": "b264bb976c07346bcd791ca23bf448d1e00153a57504a3db7b86d8a3871e0793",
+    "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources/ArchitectureEngine/HydeParkEnvironment.swift": "b044f0360a56348f8d8f80d5349315192c937da0edc09f07cd3f02e856169e01",
+    "Sources/ArchitectureEngine/LakefrontEnvironment.swift": "af7f5e2858d9a8c36b7e04e9aa4a8e8d113838bc7c3032c93ddc8820b189672e",
+    "Sources/ArchitectureEngine/LakefrontScene.swift": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+    "Sources/ArchitectureEngine/LakefrontWalkthrough.swift": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+    "Sources/ArchitectureEngine/LandmarkFocus.swift": "9e656b46b3b248648c3efe686b2cdb17fb719f4b147b7660362aeb1ae7fdeffc",
+    "Sources/ArchitectureEngine/LightGrid.swift": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+    "Sources/ArchitectureEngine/LincolnParkZoo.swift": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+    "Sources/ArchitectureEngine/LincolnParkZooMap.swift": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+    "Sources/ArchitectureEngine/MagnificentGateway.swift": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+    "Sources/ArchitectureEngine/MagnificentMile.swift": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+    "Sources/ArchitectureEngine/ManualCityNavigation.swift": "e46d091fb35e7b97fcdb7cf80c9c334e19450f07ad68a2ee12431dc1ba9f72de",
+    "Sources/ArchitectureEngine/McCormickPlace.swift": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "b74e729018560ede8ba80528592193e2388b9cb63449840eac31837df830defc",
+    "Sources/ArchitectureEngine/MillenniumEnvironment.swift": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+    "Sources/ArchitectureEngine/MillenniumScene.swift": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+    "Sources/ArchitectureEngine/MillenniumWalkthrough.swift": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+    "Sources/ArchitectureEngine/MotionValidation.swift": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+    "Sources/ArchitectureEngine/MuseumBuildings.swift": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+    "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+    "Sources/ArchitectureEngine/MuseumCampusScene.swift": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+    "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "Sources/ArchitectureEngine/NavigationMap.swift": "2e65c5288bc941060203190f2183dc4d1ca3a1c6fe48db1b7eecf27044a74907",
+    "Sources/ArchitectureEngine/NightLighting.swift": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+    "Sources/ArchitectureEngine/NorthSideEnvironment.swift": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+    "Sources/ArchitectureEngine/NorthSideLandmarks.swift": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+    "Sources/ArchitectureEngine/NorthSideScene.swift": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+    "Sources/ArchitectureEngine/NorthSideWalkthrough.swift": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+    "Sources/ArchitectureEngine/OBJScene.swift": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+    "Sources/ArchitectureEngine/ParisEnvironment.swift": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+    "Sources/ArchitectureEngine/RasterRenderer.swift": "f389fb5241366f7699a0dc60a4045ef2de9c6b44290cd4258142fd6c4edf1b4d",
+    "Sources/ArchitectureEngine/RiverEnvironment.swift": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+    "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources/ArchitectureEngine/SceneTypes.swift": "4346c085ac7c8e373a5d8553794d2d3620c261c37abaa4c7f01e32929f2e8dad",
+    "Sources/ArchitectureEngine/SkylineScene.swift": "a5f2ad2723126dfa4d636d19700205914c65b3aa4d9bd5b6173481029d5084ae",
+    "Sources/ArchitectureEngine/SkylineWalkthrough.swift": "06d154a92ce64de08425cc5d7ce9c42c70321969c74830d86e69d566e80b0c22",
+    "Sources/ArchitectureEngine/SoldierField.swift": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+    "Sources/ArchitectureEngine/Traffic.swift": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+    "Sources/ArchitectureEngine/TrafficMetal.swift": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+    "Sources/ArchitectureEngine/ViewportPointerGesture.swift": "287b3825132280c7baca6ab78e5434cfea5d7c1392e48734d3c5d54e2c87e365",
+    "Sources/ArchitectureEngine/Walkthrough.swift": "d969bae94611ed65757c68f48f0b3be9064695b1f0efee104a881788cdcf064c",
+    "Sources/ArchitectureEngine/WillisScene.swift": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+    "Sources/ArchitectureEngine/WillisWalkthrough.swift": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+    "Sources/ArchitectureEngine/WrigleyField.swift": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586"
+  },
+  "buildScriptSHA256": "63e1eb3b8966c793e0a3ca00a3f3e305c2a2b7dff8fd9fec2ed0b0cb8eb598ab"
+}
