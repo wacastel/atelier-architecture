@@ -1,0 +1,462 @@
+{
+  "status": "PASS",
+  "capturedAtUTC": "2026-09-08T23:49:50.505476+00:00",
+  "scope": "Exact source-content equivalence between the executable used for the completed serial GPU batch and the final production rebuild; no additional runtime/GPU validation performed by this audit.",
+  "testedExecutableSHA256": "8e51d32907905508d118050910cd7893487a3ac17ea5b4f2404e2cf7d23636e9",
+  "productionExecutableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "testedManifest": "pre-final-package-manifest.json",
+  "productionManifest": "release-manifest.json",
+  "sourceFilesCompared": 178,
+  "unchangedSourceFileCount": 176,
+  "unchangedRuntimeSourceAndResourceCount": 66,
+  "unchangedResourceCount": 16,
+  "exactScopedChanges": [
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "before": {
+        "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+        "bytes": 45730,
+        "sha256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d",
+        "mode": "0644"
+      },
+      "after": {
+        "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+        "bytes": 45726,
+        "sha256": "dd71b5ab8d8ebcb6cd8df1afe82d442ff23ddae5598ded35b38af2f736aa3312",
+        "mode": "0644"
+      },
+      "expectedScopedChange": true,
+      "description": "About-panel geography credit changes McCormick Place to Robie House.",
+      "exactReplacementCount": 1,
+      "restoredTestedSourceSHA256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d",
+      "restoringOnlyThisChangeMatchesTestedSource": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "before": {
+        "path": "Sources/ArchitectureEngine/CommandLine.swift",
+        "bytes": 25018,
+        "sha256": "4ae9b2116b2a0244fde93d6b3b4920d06acbaf2e9bd6f14f4d89480d8cf23dc0",
+        "mode": "0644"
+      },
+      "after": {
+        "path": "Sources/ArchitectureEngine/CommandLine.swift",
+        "bytes": 25383,
+        "sha256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+        "mode": "0644"
+      },
+      "expectedScopedChange": true,
+      "description": "Offscreen CLI do-block gains scoped ProcessInfo userInitiated activity and defer endActivity.",
+      "exactReplacementCount": 1,
+      "restoredTestedSourceSHA256": "4ae9b2116b2a0244fde93d6b3b4920d06acbaf2e9bd6f14f4d89480d8cf23dc0",
+      "restoringOnlyThisChangeMatchesTestedSource": true
+    }
+  ],
+  "unchangedRuntimeFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+      "bytes": 18389,
+      "sha256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "bytes": 4640,
+      "sha256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "bytes": 19923,
+      "sha256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "bytes": 2112,
+      "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "bytes": 30375,
+      "sha256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "bytes": 982,
+      "sha256": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "bytes": 5930,
+      "sha256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "bytes": 37758,
+      "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "bytes": 22248,
+      "sha256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/GeometryPartition.swift",
+      "bytes": 1128,
+      "sha256": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/HydeParkEnvironment.swift",
+      "bytes": 20097,
+      "sha256": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+      "bytes": 27355,
+      "sha256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+      "bytes": 3500,
+      "sha256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+      "bytes": 3302,
+      "sha256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+      "bytes": 23904,
+      "sha256": "919752dce29892950b44b2ab75bf7efaa9832ec194bed4f8394d09c586427d7e",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "bytes": 8195,
+      "sha256": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "bytes": 40221,
+      "sha256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "bytes": 262723,
+      "sha256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+      "bytes": 21627,
+      "sha256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+      "bytes": 34815,
+      "sha256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+      "bytes": 17828,
+      "sha256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "bytes": 32556,
+      "sha256": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "bytes": 26912,
+      "sha256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "bytes": 3142,
+      "sha256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "bytes": 3770,
+      "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "bytes": 13165,
+      "sha256": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+      "bytes": 40621,
+      "sha256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+      "bytes": 12845,
+      "sha256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+      "bytes": 3517,
+      "sha256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+      "bytes": 6065,
+      "sha256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "bytes": 4026,
+      "sha256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+      "bytes": 27331,
+      "sha256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+      "bytes": 16162,
+      "sha256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+      "bytes": 3764,
+      "sha256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+      "bytes": 5068,
+      "sha256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/OBJScene.swift",
+      "bytes": 21500,
+      "sha256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "bytes": 19452,
+      "sha256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "bytes": 807,
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "bytes": 1973622,
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "bytes": 18461,
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+      "bytes": 1164,
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+      "bytes": 19467025,
+      "sha256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "bytes": 763,
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "bytes": 6396480,
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "bytes": 840,
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "bytes": 111248,
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "bytes": 6988877,
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "bytes": 1180,
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "bytes": 23585826,
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "bytes": 683,
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "bytes": 1372461,
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "bytes": 75773,
+      "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "bytes": 20824,
+      "sha256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+      "bytes": 27451,
+      "sha256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieScene.swift",
+      "bytes": 3498,
+      "sha256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieWalkthrough.swift",
+      "bytes": 4293,
+      "sha256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "bytes": 2775,
+      "sha256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SoldierField.swift",
+      "bytes": 10976,
+      "sha256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "bytes": 13375,
+      "sha256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "bytes": 9128,
+      "sha256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "bytes": 2494,
+      "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "bytes": 17213,
+      "sha256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "bytes": 26643,
+      "sha256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "bytes": 3234,
+      "sha256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "mode": "0644"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+      "bytes": 44585,
+      "sha256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+      "mode": "0644"
+    }
+  ],
+  "shaderModelAndRouteInputs": "All other Sources/ files are byte- and mode-identical, including model builders, world composition, camera routes, motion validation, renderers, traffic, both Metal shaders and all sixteen resource files.",
+  "interpretation": "The activity token changes execution scheduling/lifetime policy for requested CLI work; the audit does not claim timing equivalence. The About change affects displayed credits. Exact in-memory reversal of these two edits reproduces the complete tested files hash-for-hash.",
+  "packageChecks": {
+    "nativeArm64": true,
+    "strictDeepCodesign": true,
+    "allResourcesAndIconMatchSource": true,
+    "version": "1.9.0",
+    "build": "10"
+  }
+}

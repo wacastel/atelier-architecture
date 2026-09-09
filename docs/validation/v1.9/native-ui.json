@@ -1,0 +1,7 @@
+{
+  "status": "pending-mac-unlock",
+  "attempt": "CUA getApp on packaged Atelier.app",
+  "observedResult": "The Mac is locked and automatic unlock could not unlock it.",
+  "scope": "No current-release native UI interaction or screenshot inspected. CPU playback/control and focus integration tests are separate evidence.",
+  "requestedUserUnlock": true
+}

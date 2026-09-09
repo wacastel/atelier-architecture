@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUTC": "2026-09-08T22:32:19.302022+00:00",
+  "status": "PASS",
+  "command": "./scripts/validate-playback.sh",
+  "exitCode": 0,
+  "log": "output/v10-review/playback-validation-final.log",
+  "logSHA256": "5e5a98c2834af859722afc2b9ea6db2081ceb511f7e7db750c728576b312a078",
+  "totalChecks": 79253,
+  "failures": [],
+  "transportCoverage": [
+    "Explicit deterministic starts at every Chicago route and complete sequential passes from each opening.",
+    "Seeded random starts reproduce and exercise every Chicago route; default system-random start remains inside Chicago.",
+    "Every next/previous route boundary, including city lighting wraps, paused and reverse transport, and large offsets.",
+    "Chicago location/view selection resumes demo while retaining pace/lighting; explicit Paris, idle play and manual control exit.",
+    "Space, route-local seek and shuttles, lighting, pace, fractional carry and extreme finite elapsed gaps.",
+    "Robie flight duration, exact house-bookmark endpoint, resident world, seek/rewind/pause, and all seven house-study durations."
+  ],
+  "geometry": {
+    "destinations": 7,
+    "walkthroughRoutes": 57,
+    "sampledWalkthroughSteps": 57000,
+    "sampleRateHz": 10,
+    "blockedSteps": 0,
+    "unsupportedWalkingSteps": 0,
+    "nearSurfaceSteps": 0,
+    "idleSecondsPerView": 120,
+    "idleBodyAndCameraClearance": "PASS",
+    "supportScope": "Floor support is checked for the production walkingViews set; flying views do not require ground support.",
+    "robieRoutes": 8,
+    "robieSampledSteps": 12000,
+    "robieFlightSampledSteps": 3600
+  },
+  "newDemo": {
+    "chicagoLocations": 6,
+    "routeCount": 48,
+    "onePassSecondsAt1x": 5196,
+    "onePassTimeAt1x": "86:36",
+    "parisExcluded": true
+  },
+  "inputs": [
+    {
+      "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+      "sha256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "sha256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "sha256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "sha256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "sha256": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "sha256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/HydeParkEnvironment.swift",
+      "sha256": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+      "sha256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+      "sha256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+      "sha256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "sha256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "sha256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+      "sha256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+      "sha256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+      "sha256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "sha256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "sha256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+      "sha256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+      "sha256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+      "sha256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+      "sha256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "sha256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+      "sha256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+      "sha256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+      "sha256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+      "sha256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "sha256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+      "sha256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "sha256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+      "sha256": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieScene.swift",
+      "sha256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieWalkthrough.swift",
+      "sha256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "sha256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SoldierField.swift",
+      "sha256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "sha256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "sha256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "sha256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+      "sha256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "98a66932e744fc126dceb1b263d70e1c4e3df40c148be9505a775b9cf21fdf88"
+    },
+    {
+      "path": "scripts/validate-playback.sh",
+      "sha256": "a1f861eba74c864c45e7445edf2d17214f1e5fdd5aeb17d98d00f3d64e413fb4"
+    }
+  ],
+  "inputManifestScope": "Compile script, Swift files expanded from its source patterns, and new Hyde Park resource. Existing world resources are covered by the root release manifest.",
+  "earlierAttempt": {
+    "status": "COMPILE_FAILED_BEFORE_TESTS",
+    "log": "output/v10-review/playback-compile-initial.log",
+    "reason": "Ambiguous RobieHouseLayout.point overload in RobieWalkthrough.swift; root fixed it with an explicit (V) -> V binding before this successful run."
+  },
+  "gpuExecuted": false,
+  "nativeAppLaunched": false
+}

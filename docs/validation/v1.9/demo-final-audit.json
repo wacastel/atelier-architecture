@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUTC": "2026-09-08T22:41:28.878342+00:00",
+  "status": "PASS_SOURCE_AND_CPU_EVIDENCE_AUDIT",
+  "scope": "Final revised Chicago demo control and current README/DEMO consistency audit after complete integration.",
+  "testsRerun": false,
+  "reasonTestsNotRerun": "All 44 inputs recorded by the successful 79,253-check playback run and all five reviewed controller/UI/playback inputs retain identical SHA-256 hashes. Source and documentation review found no new concern requiring another run.",
+  "gpuJobsRun": false,
+  "nativeAppLaunched": false,
+  "productionSourceChanged": false,
+  "documentationChanged": false,
+  "reusedCPUResult": {
+    "path": "output/v10-review/playback-validation-summary.json",
+    "sha256": "80fcb443d03386d29f2a2414334cc0e380c672e71f1ad2416b943b8d73b68d2d",
+    "checks": 79253,
+    "failures": [],
+    "recordedInputsChecked": 44,
+    "allRecordedInputsUnchanged": true
+  },
+  "priorSourceReview": {
+    "path": "output/v10-review/demo-controller-review.json",
+    "sha256": "feac5e27f5c28a3591bbcbdb7247aca0cf5342deed94950b90c8f0ae06778148",
+    "allRecordedInputsUnchanged": true
+  },
+  "demoMetadata": {
+    "locationOrder": [
+      "chicago",
+      "millennium",
+      "lakefront",
+      "campus",
+      "northside",
+      "robie"
+    ],
+    "routesPerLocation": {
+      "chicago": 8,
+      "millennium": 8,
+      "lakefront": 8,
+      "campus": 8,
+      "northside": 8,
+      "robie": 8
+    },
+    "secondsPerLocation": {
+      "chicago": 448,
+      "millennium": 632,
+      "lakefront": 546,
+      "campus": 1110,
+      "northside": 1260,
+      "robie": 1200
+    },
+    "routeCount": 48,
+    "secondsAt1x": 5196,
+    "durationAt1x": "86:36",
+    "parisExcluded": true
+  },
+  "checks": [
+    {
+      "name": "Documentation counts, fixed order and durations",
+      "status": "PASS",
+      "detail": "README and the current DEMO section match six Chicago locations, 48 routes, 86m36s, and seven 120s Robie studies plus its 360s eighth flight. Robie table titles match all eight source titles."
+    },
+    {
+      "name": "Random startup and subsequent sequence",
+      "status": "PASS",
+      "detail": "Separate random location/view draws choose only the opening. Subsequent progression is sequential. README/DEMO correctly identify the canonical Robie-to-Willis day/night boundary and the shorter first partial pass."
+    },
+    {
+      "name": "Chicago selection retains and resumes demo",
+      "status": "PASS",
+      "detail": "Location selection, including the current location, begins view 0 in playing state. View cards and number keys select the current destination’s chosen view, reset the route/shuttle, and retain demoActive. Paused/reverse states resume at the selected pace."
+    },
+    {
+      "name": "Previous/next cross locations and adopt selected metadata",
+      "status": "PASS",
+      "detail": "Up/Down and displayed buttons use navigateDemoView; the controller adopts location and lighting directly before refreshing pose, UI and title. Last-to-first and first-to-last cross location boundaries without re-selecting view 0."
+    },
+    {
+      "name": "Key semantics and Paris exclusion",
+      "status": "PASS",
+      "detail": "C toggles demo; Space pauses/resumes; Up/Down navigate routes; Left/Right remain route-local shuttles; L cycles only Chicago during demo. Explicit Paris selection exits demo as documented."
+    },
+    {
+      "name": "Connecting flight retains playback",
+      "status": "PASS",
+      "detail": "Flight helpers only toggle transport when the selected route is not already playing, avoiding an extra pause during active or paused demo selection."
+    },
+    {
+      "name": "Random Paris-to-Chicago startup",
+      "status": "PASS",
+      "detail": "The paused asynchronous world load preserves the chosen random playback location/view and lighting; its completion adopts the current pose without resetting the demo selection."
+    },
+    {
+      "name": "Selected-card scroll correction retained",
+      "status": "PASS_SOURCE",
+      "detail": "Both currentStop and location observers target the selected card. The old unconditional location scroll to 0 is absent. This establishes the source target correction; native layout/visibility review remains separate."
+    },
+    {
+      "name": "Historical documentation retained",
+      "status": "PASS",
+      "detail": "Earlier-release DEMO sections are byte-for-byte unchanged; their older counts are explicitly historical."
+    }
+  ],
+  "findings": [],
+  "sources": [
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "sha256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "sha256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "sha256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "98a66932e744fc126dceb1b263d70e1c4e3df40c148be9505a775b9cf21fdf88"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieScene.swift",
+      "sha256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieWalkthrough.swift",
+      "sha256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05"
+    },
+    {
+      "path": "README.md",
+      "sha256": "57683ecf4de7a8a4984099cba21c65c6d7b13d2d6465b55e99cc81b698ffc719"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "sha256": "3d6853cbc23eb38c0fc190ccb22c18da07898f7c76904b355328f36de6ed74db"
+    }
+  ],
+  "limitations": [
+    "No new Swift test execution or native interaction run was performed during this audit.",
+    "Unchanged CPU/control evidence is reused at its original scope; this record does not claim new GPU or visual validation."
+  ]
+}

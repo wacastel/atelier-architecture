@@ -1,0 +1,46 @@
+{
+  "status": "discovery; GPU repair verification pending",
+  "scope": "Read-only source, render and offline context audit; not a confirmed driver diagnosis",
+  "symptom": "Day gallery views 0 and 4 show Robie grounds and surrounding city, but house mass and interiors are missing. View 7 retains McCormick Place geometry.",
+  "visualEvidence": [
+    {
+      "path": "output/v10-review/gallery-day/00-a-house-on-the-prairie.png",
+      "sha256": "144e6d07666980da4ced1d84dd87ed92f8a39df0c59a06cb331eafdef76a9d4d"
+    },
+    {
+      "path": "output/v10-review/gallery-day/04-the-hearth-at-the-center.png",
+      "sha256": "8548d6ad5b09d67f5b552707e590c7ba2ac4124ae297084a6fc8ed26d396ae1e"
+    },
+    {
+      "path": "output/v10-review/gallery-day/07-from-mccormick-place-to-robie-house.png",
+      "sha256": "42e5468ec55c4a1e408cc1e4d381ac2545827b1b223c38533d187693d3e675e0"
+    }
+  ],
+  "contextOcclusionRuledOut": {
+    "reservedLot": [
+      3288,
+      9904,
+      3339,
+      9928
+    ],
+    "baseTerrainHeight": -0.065,
+    "fullContextBuildingPolygonIntersectionCheck": "PASS in hyde-park-data-validation.json",
+    "visualGroundPosition": "visible ground meets garden-wall bases; no raised slab hides roof or main wing"
+  },
+  "capacityClue": {
+    "previousChicagoStaticTriangles": 39792802,
+    "hydeParkTriangles": 4919716,
+    "preRobieStaticTriangles": 44712518,
+    "sceneVertexBytes": 32,
+    "verticesPerTriangle": 3,
+    "triangleIndexContaining4GiBBoundary": 44739242,
+    "offsetIntoRobieTrianglesAt4GiB": 26724,
+    "inference": "The 4 GiB threshold falls shortly into the appended Robie mesh, matching grounds-before-main-wing visibility. Renderer uses uint vertex subscripts and one large static triangle geometry descriptor; root is investigating chunked descriptors and 64-bit vertex addressing."
+  },
+  "changes": "None to frozen environment geometry or resources.",
+  "additionalSymptom": {
+    "current": "output/v10-review/gallery-day/07-from-mccormick-place-to-robie-house.png",
+    "baseline": "output/v7-review/final-day/07-the-mccormick-place-campus.png",
+    "observation": "At the same McCormick camera, the older blue reflective water becomes flat brown and black polygons in the new render. The new context has no terrain at this northern position. Geometry wrapping to earlier vertex positions could explain misplaced later material IDs; this remains an inference pending repaired renders."
+  }
+}

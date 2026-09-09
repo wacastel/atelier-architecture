@@ -1,0 +1,24 @@
+{
+  "status": "INVESTIGATION_CLOSED_TIMING_CAUSE_UNRESOLVED",
+  "activityExperiment": {
+    "passed": true,
+    "meanPairedGPUms": 145.47818489700148,
+    "initialPipelineAndASSeconds": 24.2,
+    "wallSeconds": 91.30509996414185,
+    "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+    "activity": "ProcessInfo.beginActivity(.userInitiated) bounded to CLI do block"
+  },
+  "confirmedFindings": [
+    "The temporal history cap is not the major measured slowdown in the controlled copied-app A/B.",
+    "The earlier faster Robie package already used the same renderer shader and geometry-partition helper.",
+    "Scoped userInitiated activity did not remove the observed slowdown: Field remained145.478ms with24.20s initial setup.",
+    "Activity run passes its image and temporal-quality checks; the uncapped flight ablation remains a preserved expected image-quality failure."
+  ],
+  "limits": [
+    "This result does not identify the cause or prove a particular device, lock-state, scheduling or driver explanation.",
+    "Paired validation cost is not normal preview frame time; no native FPS claim follows from these measurements.",
+    "No further diagnosis or GPU experiment is planned within this bounded investigation."
+  ],
+  "productionProvenance": "Activity run uses final executable fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de. The production-input-equivalence.json audit verifies unchanged renderer/model resources and scopes the rebuild to the About credit and CLI activity.",
+  "productionInputEquivalenceAudit": "../production-input-equivalence.json"
+}

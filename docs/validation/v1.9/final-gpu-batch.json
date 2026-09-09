@@ -1,0 +1,369 @@
+{
+  "executableSHA256": "8e51d32907905508d118050910cd7893487a3ac17ea5b4f2404e2cf7d23636e9",
+  "shaderSHA256": {
+    "Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+  },
+  "commands": [
+    {
+      "name": "gallery-release-night",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--gallery",
+        "/Users/william/dev/architecture/output/v10-review/gallery-release-night",
+        "--location",
+        "robie",
+        "--lighting",
+        "2",
+        "--width",
+        "1600",
+        "--height",
+        "1000",
+        "--samples",
+        "256"
+      ],
+      "exitCode": 0,
+      "seconds": 121.33517742156982
+    },
+    {
+      "name": "flight-day-90",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-day-90.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "90",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "96"
+      ],
+      "exitCode": 0,
+      "seconds": 10.886787176132202
+    },
+    {
+      "name": "flight-day-200",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-day-200.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "200",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "96"
+      ],
+      "exitCode": 0,
+      "seconds": 11.248276948928833
+    },
+    {
+      "name": "flight-day-235",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-day-235.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "235",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "96"
+      ],
+      "exitCode": 0,
+      "seconds": 10.851180076599121
+    },
+    {
+      "name": "flight-day-300",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-day-300.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "300",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "96"
+      ],
+      "exitCode": 0,
+      "seconds": 10.468800783157349
+    },
+    {
+      "name": "flight-day-345",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-day-345.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "345",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "96"
+      ],
+      "exitCode": 0,
+      "seconds": 11.639930248260498
+    },
+    {
+      "name": "flight-night-90",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/flight-night-90.png",
+        "--location",
+        "robie",
+        "--stop",
+        "7",
+        "--at",
+        "90",
+        "--lighting",
+        "2",
+        "--width",
+        "1280",
+        "--height",
+        "800",
+        "--samples",
+        "192"
+      ],
+      "exitCode": 0,
+      "seconds": 10.90739393234253
+    },
+    {
+      "name": "robie-day-hero",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/robie-day-hero.png",
+        "--location",
+        "robie",
+        "--stop",
+        "0",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "256"
+      ],
+      "exitCode": 0,
+      "seconds": 16.98547387123108
+    },
+    {
+      "name": "robie-interior-hero",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--render",
+        "/Users/william/dev/architecture/output/v10-review/robie-interior-hero.png",
+        "--location",
+        "robie",
+        "--stop",
+        "4",
+        "--width",
+        "1920",
+        "--height",
+        "1200",
+        "--samples",
+        "256"
+      ],
+      "exitCode": 0,
+      "seconds": 42.3686625957489
+    },
+    {
+      "name": "motion-final-robie",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-robie",
+        "--location",
+        "robie",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128"
+      ],
+      "exitCode": 0,
+      "seconds": 580.0117697715759
+    },
+    {
+      "name": "motion-final-field",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-field",
+        "--location",
+        "campus",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128",
+        "--motion-case",
+        "field-hall"
+      ],
+      "exitCode": 0,
+      "seconds": 84.60849475860596
+    },
+    {
+      "name": "motion-final-willis",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-willis",
+        "--location",
+        "chicago",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128",
+        "--motion-case",
+        "willis-night"
+      ],
+      "exitCode": 0,
+      "seconds": 51.927807092666626
+    },
+    {
+      "name": "motion-final-bean",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-bean",
+        "--location",
+        "millennium",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128",
+        "--motion-case",
+        "cloud-gate-night"
+      ],
+      "exitCode": 0,
+      "seconds": 62.57380294799805
+    },
+    {
+      "name": "motion-final-iron",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-iron",
+        "--location",
+        "paris",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128",
+        "--motion-case",
+        "iron"
+      ],
+      "exitCode": 0,
+      "seconds": 44.253466844558716
+    },
+    {
+      "name": "motion-final-eiffel-night",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/motion-final-eiffel-night",
+        "--location",
+        "paris",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "32",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "128",
+        "--motion-case",
+        "night-silhouette"
+      ],
+      "exitCode": 0,
+      "seconds": 41.533042192459106
+    },
+    {
+      "name": "validate-indexed-lighting-final",
+      "arguments": [
+        "/Users/william/dev/architecture/scripts/validate-indexed-lighting.sh"
+      ],
+      "exitCode": 0,
+      "seconds": 3.3608758449554443
+    },
+    {
+      "name": "validate-paired-motion-final",
+      "arguments": [
+        "/Users/william/dev/architecture/scripts/validate-paired-motion.sh"
+      ],
+      "exitCode": 0,
+      "seconds": 8.669206142425537
+    },
+    {
+      "name": "validate-traffic-final",
+      "arguments": [
+        "/Users/william/dev/architecture/scripts/validate-traffic.sh"
+      ],
+      "exitCode": 0,
+      "seconds": 9.019591808319092
+    }
+  ]
+}

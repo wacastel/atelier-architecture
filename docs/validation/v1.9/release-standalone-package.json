@@ -1,0 +1,156 @@
+{
+  "copiedApp": "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v19-release.lwuaor_8/Atelier.app",
+  "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "repositoryReadsDenied": "/Users/william/dev/architecture",
+  "checks": [
+    {
+      "location": "robie",
+      "exitCode": 0,
+      "seconds": 33.45956611633301,
+      "arguments": [
+        "sandbox-exec",
+        "-p",
+        "(version 1) (allow default) (deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+        "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v19-release.lwuaor_8/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--self-test",
+        "--location",
+        "robie"
+      ],
+      "validation": {
+        "abiValidated": true,
+        "allocatedMiB": 8221.296875,
+        "dayLightGridCells": 43450,
+        "dayLightGridEnabled": true,
+        "dayLightGridIndices": 388,
+        "dayLightGridMaximumCandidates": 33,
+        "device": "Apple M3 Ultra",
+        "deviceMaxBufferLengthBytes": 373662154752,
+        "elapsedSeconds": 32.79338598251343,
+        "frameUniformBytes": 144,
+        "geometricDetails": 29335,
+        "gpuLastSampleMilliseconds": 9.907695311994758,
+        "hydeParkAdditionalBoats": 963,
+        "hydeParkAdditionalMappedBuildings": 14478,
+        "hydeParkAdditionalTrees": 1923,
+        "hydeParkMappedPaths": 13520,
+        "hydeParkMapTimestamp": "2026-09-08T22:09:44Z",
+        "imageMeanByte": 156.88241927081995,
+        "importerChecks": [
+          "OBJ: negative-index quad, metre scaling and normalized normals",
+          "MTL: named Kd/Ns/Ks/d material",
+          "OBJ: concave polygon preserves area",
+          "OBJ: malformed, zero, out-of-range and degenerate indices rejected"
+        ],
+        "lakefrontAdditionalMappedBuildings": 2998,
+        "lakefrontMappedPiers": 254,
+        "lakefrontMappedSurfaces": 2307,
+        "lakefrontMappedTrees": 8807,
+        "lakefrontMapTimestamp": "2026-09-08T06:20:24Z",
+        "lights": 4003,
+        "location": "robie",
+        "mappedBuildingFootprints": 2735,
+        "mapTimestamp": "2026-09-07T22:11:33Z",
+        "materials": 408,
+        "millenniumMappedAreas": 91,
+        "millenniumMappedPaths": 228,
+        "millenniumMappedTrees": 626,
+        "millenniumMapTimestamp": "2026-09-08T00:55:31Z",
+        "museumCampusAdditionalBoats": 151,
+        "museumCampusAdditionalMappedBuildings": 3382,
+        "museumCampusAdditionalTrees": 2745,
+        "museumCampusLandmarksAndParts": 4213,
+        "museumCampusMapTimestamp": "2026-09-08T12:08:37Z",
+        "navigationBVHNodes": 8949495,
+        "nightLightGridCells": 427350,
+        "nightLightGridEnabled": true,
+        "nightLightGridIndices": 37716,
+        "nightLightGridMaximumCandidates": 164,
+        "northSideAdditionalBoats": 104,
+        "northSideAdditionalMappedBuildings": 31425,
+        "northSideAdditionalTrees": 3752,
+        "northSideLandmarksAndParts": 3961,
+        "northSideMappedPaths": 19878,
+        "northSideMapTimestamp": "2026-09-08T15:38:06Z",
+        "passed": true,
+        "rayTracing": true,
+        "resolution": [
+          640,
+          400
+        ],
+        "samples": 16,
+        "sharedChicagoWorld": true,
+        "staticGeometrySections": [
+          {
+            "triangleCount": 16777216,
+            "vertexBufferOffsetBytes": 0,
+            "vertexSpanBytes": 1610612736
+          },
+          {
+            "triangleCount": 16777216,
+            "vertexBufferOffsetBytes": 1610612736,
+            "vertexSpanBytes": 1610612736
+          },
+          {
+            "triangleCount": 11596436,
+            "vertexBufferOffsetBytes": 3221225472,
+            "vertexSpanBytes": 1113257856
+          }
+        ],
+        "thinGlass": true,
+        "trafficClockSeconds": 0,
+        "trafficLanes": 6,
+        "trafficTriangles": 161812,
+        "trafficVehicles": 168,
+        "triangleCount": 45150868,
+        "trianglesPerStaticGeometry": 16777216,
+        "unifiedMemory": true,
+        "vertexBufferBytes": 4350017280
+      }
+    },
+    {
+      "location": "paris",
+      "exitCode": 0,
+      "seconds": 2.045557975769043,
+      "arguments": [
+        "sandbox-exec",
+        "-p",
+        "(version 1) (allow default) (deny file-read* (subpath \"/Users/william/dev/architecture\"))",
+        "/var/folders/dr/01b25_hj0rbf3_468np7d5yc0000gn/T/atelier-v19-release.lwuaor_8/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--self-test",
+        "--location",
+        "paris"
+      ],
+      "validation": {
+        "abiValidated": true,
+        "allocatedMiB": 1605.40625,
+        "device": "Apple M3 Ultra",
+        "elapsedSeconds": 1.9747951030731201,
+        "geometricDetails": 12743,
+        "gpuLastSampleMilliseconds": 3.411749999941094,
+        "imageMeanByte": 174.74711718747076,
+        "importerChecks": [
+          "OBJ: negative-index quad, metre scaling and normalized normals",
+          "MTL: named Kd/Ns/Ks/d material",
+          "OBJ: concave polygon preserves area",
+          "OBJ: malformed, zero, out-of-range and degenerate indices rejected"
+        ],
+        "lights": 586,
+        "location": "paris",
+        "mappedBuildingFootprints": 2760,
+        "mapTimestamp": "2026-09-07T21:11:18Z",
+        "materials": 41,
+        "navigationBVHNodes": 1760325,
+        "passed": true,
+        "rayTracing": true,
+        "resolution": [
+          640,
+          400
+        ],
+        "samples": 16,
+        "thinGlass": false,
+        "triangleCount": 8645884,
+        "unifiedMemory": true
+      }
+    }
+  ]
+}

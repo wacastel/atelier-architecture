@@ -1,0 +1,15 @@
+{
+  "scope": "Copied apps only; sole altered resource is bundled Denoise.metal. Final full city, executable and Renderer.metal identical. Four serial16frame8spp/64reference experiments.",
+  "variants": {
+    "cap": {
+      "Contents/MacOS/ArchitectureEngine": "8e51d32907905508d118050910cd7893487a3ac17ea5b4f2404e2cf7d23636e9",
+      "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+    },
+    "no-cap": {
+      "Contents/MacOS/ArchitectureEngine": "8e51d32907905508d118050910cd7893487a3ac17ea5b4f2404e2cf7d23636e9",
+      "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d"
+    }
+  }
+}

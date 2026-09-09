@@ -1,0 +1,102 @@
+{
+  "status": "PASS with documented visual simplifications",
+  "scope": "Manual visual inspection of seven rendered stills, including six selected flyby samples; no claim of complete animation or performance validation",
+  "reviewedAtUTC": "2026-09-08T23:15:40.895059+00:00",
+  "location": "robie",
+  "view": 7,
+  "samples": [
+    {
+      "path": "output/v10-review/flight-day-90.png",
+      "sha256": "6004b38a15e92f60a9e35dc322ec1393c764852553a04c48a1e66ddef13d315d",
+      "seconds": 90,
+      "lighting": "day",
+      "observations": "The curved harbor perimeter, angled main dock spines and dense paired finger berths match the saved OSM arrangement and SITE Design Group aerial. Individual hulls, cabins and masts are visible, with open water between the dock rows. No obvious floating boats or visible hull intersections in this aerial view."
+    },
+    {
+      "path": "output/v10-review/flight-night-90.png",
+      "sha256": "e23d7cc83c9245fab66dff00d91f9d03dd24d5a75ddfc424179106a5f216c08d",
+      "seconds": 90,
+      "lighting": "night",
+      "observations": "Warm white light pools follow the dock/pedestal rows and some boat cabins. Most water and shoreline remain dark outside the light pools, similar in lighting character to the official night dock photograph. This is intentionally restrained lighting; the night aerial does not expose as much architectural detail as the day view."
+    },
+    {
+      "path": "output/v10-review/flight-day-200.png",
+      "sha256": "4b0ecd8c443d057a6d4ce9891513c98d2e3a47ffe29249c2c63578e942a5e976",
+      "seconds": 200,
+      "lighting": "day",
+      "observations": "The road, shore edge and water remain continuous across the old/new southern terrain area. No missing land strip, abrupt vertical seam, giant stray triangle or road gap is visible. Sparse tree placement and flat park terrain remain evident simplifications."
+    },
+    {
+      "path": "output/v10-review/flight-day-235.png",
+      "sha256": "a4bbbd9621073603f2f72486a62c6d54334b8244c21a54213d24ac80a751d3a4",
+      "seconds": 235,
+      "lighting": "day",
+      "observations": "Promontory Point has its mapped peninsula outline, looping path, open center and border trees. The field-house tower and stepped limestone shore are visible. The secondary field-house building and canopy density are simplified relative to photographs; this is not a full detailed reconstruction of that park."
+    },
+    {
+      "path": "output/v10-review/flight-day-300.png",
+      "sha256": "add5df4ac8433c186a564d4709f4421596b39c853e7a19b64fec0839f4d2415c",
+      "seconds": 300,
+      "lighting": "day",
+      "observations": "The approach traverses continuous street blocks and the Metra corridor in the satellite-confirmed east-west direction. Nearby building footprints, small houses and courtyard spaces form an uninterrupted neighborhood. Repeated interpreted facades and simplified grades remain visible."
+    },
+    {
+      "path": "output/v10-review/flight-day-345.png",
+      "sha256": "9200e502df7e8ab687f810d15c0ef2f2afba5d88e3d38e05f6c98e1a830d78f6",
+      "seconds": 345,
+      "lighting": "day",
+      "observations": "The full Robie House roof mass, upper roof/chimney, garden wall and planters now appear on the reserved lot, between the mapped university and residential blocks. The house is no longer absent or buried. This high view checks arrival composition, not individual interior details."
+    },
+    {
+      "path": "output/v10-review/gallery-final-day/07-from-mccormick-place-to-robie-house.png",
+      "sha256": "5f6cbfe30bd3938f7985f8d9a268ed28f59495342055ef0eb74ac621068a62dd",
+      "seconds": 0,
+      "lighting": "day",
+      "observations": "McCormick Place geometry and blue reflective water are restored. The earlier flat brown/black water polygons are absent, matching the pre-expansion opening composition."
+    }
+  ],
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/HydeParkEnvironment.swift": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+    "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+    "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df"
+  },
+  "sourceReferences": [
+    {
+      "url": "https://www.site-design.com/projects/31st-street-harbor/",
+      "inspected": "Large landscape-architect aerial showing curved breakwater, dense dock arrangement, green-roof harbor building and inland road/park layout."
+    },
+    {
+      "url": "https://www.chicagoharbors.info/wp-content/uploads/2013/04/31st-street-night-dock-568x320.jpg",
+      "inspected": "Official operator photograph of warm-white service pedestals and dark boats with warm cabin lights."
+    },
+    {
+      "url": "https://www.chicagoparkdistrict.com/parks-facilities/promontory-point",
+      "inspected": "Official field-house tower, roof and mature canopy reference."
+    },
+    {
+      "url": "https://www.google.com/maps/@41.795987,-87.578507,1280m/data=!3m1!1e3",
+      "inspected": "Point shoreline, looping path, tree border and relationship to highway and 57th Street beach."
+    },
+    {
+      "url": "https://www.google.com/maps/@41.790133,-87.594778,640m/data=!3m1!1e3",
+      "inspected": "Robie lot, Harper Center/Institute/Rockefeller surroundings, residential block grid and Metra corridor."
+    }
+  ],
+  "blockingDefectsObserved": [],
+  "limits": [
+    "Still-image review cannot establish temporal stability or frame rate. Root coordinator owns the separate GPU motion/regression checks.",
+    "Map footprint positions are preserved, but many facade details and untagged heights are interpreted rather than photo matched.",
+    "Park canopy density, flat terrain, bridge/rail grades and secondary field-house roof detail remain simplified.",
+    "Night harbor is dark beyond local light pools; this review does not claim uniform illumination or photograph-level brightness matching.",
+    "Boat arrangement is a representative busy summer population, not a live vessel inventory."
+  ],
+  "capacityRegressionResolutionObserved": {
+    "fullRobieRoofPresent": true,
+    "McCormickReflectiveWaterRestored": true,
+    "earlierDiscovery": "output/v10-review/geometry-capacity-discovery.json"
+  }
+}

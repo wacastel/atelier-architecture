@@ -175,6 +175,13 @@ kernel void temporalResolve(
 
     float maximumHistory = clamp(u.settings.x, 1.0f, 64.0f);
     if (u.sizeFlags.w != 0) {
+        // Repeated bilinear reprojection diffuses sun-shadow edges on a single
+        // rough plane even when its geometry and material match perfectly.
+        // Bound this resampling history by screen displacement during a fast
+        // flyover, while preserving long history for slow inspection motion.
+        float pixelMotion=length(pixel-float2(tid));
+        float resamplingLimit=clamp(32.0f/max(1.0f,2.0f*pixelMotion),4.0f,32.0f);
+        maximumHistory=min(maximumHistory,resamplingLimit);
         // A camera rotation reprojects the same surface/view direction exactly;
         // a slow translation changes it much less than a GGX lobe's angular
         // width. Do not discard that useful lighting history merely because

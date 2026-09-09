@@ -1,4 +1,4 @@
-# Object focus — Atelier 1.8
+# Object focus — Atelier 1.9
 
 Click visible geometry on a landmark or mapped building to focus the camera on that object. The focus name appears in the interface. Selection keeps the camera's position and turns its view toward the object's center; it takes manual control and leaves any active walkthrough, Chicago demo or idle cycle.
 
@@ -16,7 +16,9 @@ A drag is distinct from a click, so finishing an orbit does not select an object
 
 Changing day/night lighting, exposure or rendering quality retains focus. Moving the window, resizing it or entering full screen also retains focus. Titlebar movement and live resizing hold both the camera and scene clocks, including moving traffic and the planetarium show. They resume without a catch-up jump when the gesture ends. Opening help releases held movement keys and cancels an active pointer gesture.
 
-Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain the complete 40-route sequence.
+Starting or seeking a walkthrough, using its shuttles, choosing a view or destination, starting idle cycling, or starting the Chicago demo clears focus. Use **Play / Space** to return to the selected view's guided route. The [Chicago demo instructions](DEMO.md) explain the complete 48-route sequence.
+
+Robie House is a named focus target, including its separate roof and service-wing volumes. The Hyde Park map layer adds surrounding building targets along the southern corridor.
 
 ## What a click can select
 
@@ -31,4 +33,4 @@ This is a static geometric selection system with practical limits:
 
 Cloud Gate needs a special case: its finely tessellated shell was entirely absent from the normal navigation triangle set. A compact, additional picking hierarchy includes those omitted triangles within the Bean's region and combines its nearest hit with the ordinary scene query. The full curved shell can therefore be selected and can occlude objects behind it. This supplement is used only for picking; the existing walking collision and floor-support queries remain unchanged.
 
-The focus catalog and picking structures are retained across all five Chicago destinations along with the shared world. Switching between Chicago and Paris loads the appropriate independent world and catalog. This document describes behavior and implementation limits; release checks are recorded separately in [Validation](VALIDATION.md).
+The focus catalog and picking structures are retained across all six Chicago destinations along with the shared world. Switching between Chicago and Paris loads the appropriate independent world and catalog. This document describes behavior and implementation limits; release checks are recorded separately in [Validation](VALIDATION.md).

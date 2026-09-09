@@ -1,0 +1,42 @@
+{
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "glossyHistory" : "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+  "indexedLighting" : true,
+  "location" : "campus",
+  "measurement" : "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "pairing" : "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+  "passed" : true,
+  "pathRegularization" : true,
+  "rawPresentation" : "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+  "referenceSampling" : "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+  "sampling" : "Fast Owen-scrambled Sobol",
+  "scenes" : [
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 16,
+      "imageErrorReductionPercent" : 46.747225161761733,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 134.44447135771043,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.075921097946447774,
+      "rawTemporalResidualRMSE" : 0.10789484741113203,
+      "reconstructedRMSE" : 0.040430091344140176,
+      "reconstructedTemporalResidualRMSE" : 0.053937842996954317,
+      "referenceSamples" : 64,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 50.008879672052544,
+      "view" : "field-hall"
+    }
+  ],
+  "timingIncludes" : "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+}

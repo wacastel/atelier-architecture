@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUTC": "2026-09-08T22:25:25.859767+00:00",
+  "reviewType": "Read-only source integration review",
+  "status": "PASS_SOURCE_REVIEW",
+  "scope": "Atelier 1.9 revised Chicago demo integration: random startup, Chicago selection retention, previous/next route navigation, connecting flights and control bindings.",
+  "runtimeExecuted": false,
+  "gpuExecuted": false,
+  "nativeAppLaunched": false,
+  "limitations": [
+    "This record is not a compile, playback-test, GPU-test or native-interaction result.",
+    "Full playback and camera-clearance validation awaits the frozen Robie House/Hyde Park geometry.",
+    "The card-scrolling correction is assessed from the requested scroll targets in source; final native layout and visibility require the root agent’s app review."
+  ],
+  "sources": [
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "sha256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "sha256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "sha256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "sha256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "sha256": "98a66932e744fc126dceb1b263d70e1c4e3df40c148be9505a775b9cf21fdf88"
+    }
+  ],
+  "checks": [
+    {
+      "case": "Select a Chicago view while paused or shuttling",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 211
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 112
+        }
+      ],
+      "reason": "View cards and valid number keys call selectStop; playback.select retains demoActive, resets route clocks and shuttle, and enters playing. Controller adopts the exact selected pose and synchronizes the controls without toggle or manual()."
+    },
+    {
+      "case": "Select a Chicago destination, including the current destination",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 83
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 97
+        }
+      ],
+      "reason": "Same-destination and resident-world branches both use playback.selectLocation. Active Chicago choices begin that location’s first route, retaining the demo, lighting and both pace preferences. No city rebuild occurs for ready Chicago-to-Chicago navigation."
+    },
+    {
+      "case": "Random demo startup from Paris through asynchronous world loading",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 107
+        },
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 145
+        },
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 179
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 75
+        }
+      ],
+      "reason": "The controller saves lighting before loadLocation resets Paris playback, pauses drawing, loads the shared Chicago world, restores lighting, and chooses a random Chicago location/view. It immediately adopts playback.location. The loader completion does not overwrite that selection; it applies the current playback pose, resets previousTime and resumes drawing. Generation guards reject superseded loads."
+    },
+    {
+      "case": "Location hotkey excludes Paris during demo",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 103
+        },
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 666
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 10
+        }
+      ],
+      "reason": "L and the native Next Location menu call toggleLocation, which chooses the Chicago-only list while demoActive. Explicit Paris selection uses the independent-world loader and playback.selectLocation exits demo, matching the documented exclusion."
+    },
+    {
+      "case": "Next and previous adopt locations and lighting across route boundaries",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 225
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 123
+        },
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 662
+        },
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 663
+        }
+      ],
+      "reason": "Both displayed previous/next controls and Up/Down hotkeys use cycleView. During demo it navigates the flattened Chicago list and directly adopts playback.location and lighting, then refreshes pose, title, clocks and controls. It never re-selects the new location and therefore does not erase the selected last view when moving backward."
+    },
+    {
+      "case": "Numbered view cards target the current destination",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 356
+        },
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 680
+        },
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 212
+        }
+      ],
+      "reason": "Cards derive from engine.stops; number key mapping and selectStop both check the current count. Chicago exposes eight choices and Paris nine. Active selection begins the chosen walkthrough rather than stopping demo."
+    },
+    {
+      "case": "Connecting flights retain and resume demo without pausing it",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 138
+        },
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 238
+        }
+      ],
+      "reason": "The shared helper selects destination and flight, restores lighting, then only invokes toggleTour if the resulting state is not already playing. Chicago demo selection already enters playing, including from pause; it therefore avoids the old extra toggle that would pause the flight."
+    },
+    {
+      "case": "Automatic route completion retains the resident world",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 339
+        },
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 342
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 217
+        }
+      ],
+      "reason": "draw advances the existing playback clock and adopts route/location changes without invoking loadLocation or selectLocation. The shader, city geometry and collision resources remain resident across automatic Chicago destination changes."
+    },
+    {
+      "case": "Day/night wrap and pause contracts remain distinct from route navigation",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 132
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+          "line": 156
+        },
+        {
+          "path": "Sources/ArchitectureEngine/EngineController.swift",
+          "line": 216
+        }
+      ],
+      "reason": "Sequential next/previous changes lighting only at the complete city boundary; direct Chicago selection preserves it. Space delegates to playback.toggle and retains demoActive, while route-local left/right shuttles keep their existing boundary behavior."
+    },
+    {
+      "case": "Selected card remains targeted when destination changes",
+      "result": "PASS_SOURCE_REVIEW",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "line": 380
+        }
+      ],
+      "reason": "After the review correction, both currentStop and location observers scroll to the selected currentStop, so random starts and previous-location final-view selections no longer request scrolling back to card 0."
+    }
+  ],
+  "resolvedFindings": [
+    {
+      "id": "demo-card-scroll-on-location",
+      "priority": "P2",
+      "summary": "The location observer requested scrolling to view 0 even when random demo startup or previous-location navigation selected a later view.",
+      "observedBefore": ".onChange(of: engine.location) { _, _ in reader.scrollTo(0, anchor: .leading) }",
+      "resolution": "The root agent changed the location observer to scroll to engine.currentStop with a centered anchor.",
+      "evidence": {
+        "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+        "line": 380
+      },
+      "status": "RESOLVED_SOURCE_REVIEW"
+    }
+  ],
+  "unresolvedFindings": []
+}

@@ -1,0 +1,425 @@
+{
+  "status": "SOURCE_COPY_PREPARED_NO_GPU_EXECUTION",
+  "productionSnapshot": "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/Atelier-final-fce35.app",
+  "productionExecutableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "variantPackage": "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source",
+  "exactChangedSourceFiles": [
+    {
+      "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+      "productionSHA256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+      "variantSHA256": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+      "identical": false
+    }
+  ],
+  "sources": [
+    {
+      "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+      "productionSHA256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+      "variantSHA256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "productionSHA256": "dd71b5ab8d8ebcb6cd8df1afe82d442ff23ddae5598ded35b38af2f736aa3312",
+      "variantSHA256": "dd71b5ab8d8ebcb6cd8df1afe82d442ff23ddae5598ded35b38af2f736aa3312",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "productionSHA256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+      "variantSHA256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "productionSHA256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "variantSHA256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "productionSHA256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "variantSHA256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "productionSHA256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+      "variantSHA256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "productionSHA256": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+      "variantSHA256": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "productionSHA256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+      "variantSHA256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "productionSHA256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+      "variantSHA256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "productionSHA256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "variantSHA256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "productionSHA256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284",
+      "variantSHA256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/GeometryPartition.swift",
+      "productionSHA256": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+      "variantSHA256": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/HydeParkEnvironment.swift",
+      "productionSHA256": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+      "variantSHA256": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+      "productionSHA256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+      "variantSHA256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+      "productionSHA256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+      "variantSHA256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+      "productionSHA256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+      "variantSHA256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+      "productionSHA256": "919752dce29892950b44b2ab75bf7efaa9832ec194bed4f8394d09c586427d7e",
+      "variantSHA256": "919752dce29892950b44b2ab75bf7efaa9832ec194bed4f8394d09c586427d7e",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "productionSHA256": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+      "variantSHA256": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "productionSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+      "variantSHA256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "productionSHA256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+      "variantSHA256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+      "productionSHA256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+      "variantSHA256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+      "productionSHA256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+      "variantSHA256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+      "productionSHA256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+      "variantSHA256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "productionSHA256": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+      "variantSHA256": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "productionSHA256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "variantSHA256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "productionSHA256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "variantSHA256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "productionSHA256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "variantSHA256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "productionSHA256": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+      "variantSHA256": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+      "productionSHA256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+      "variantSHA256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+      "productionSHA256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+      "variantSHA256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+      "productionSHA256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+      "variantSHA256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+      "productionSHA256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+      "variantSHA256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "productionSHA256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "variantSHA256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+      "productionSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+      "variantSHA256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+      "productionSHA256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+      "variantSHA256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+      "productionSHA256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+      "variantSHA256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+      "productionSHA256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+      "variantSHA256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/OBJScene.swift",
+      "productionSHA256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "variantSHA256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "productionSHA256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "variantSHA256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "productionSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "variantSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "productionSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "variantSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "productionSHA256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "variantSHA256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+      "productionSHA256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+      "variantSHA256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+      "productionSHA256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+      "variantSHA256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "productionSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "variantSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "productionSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "variantSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "productionSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "variantSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "productionSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "variantSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "productionSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "variantSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "productionSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "variantSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "productionSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "variantSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "productionSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "variantSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "productionSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "variantSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "productionSHA256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "variantSHA256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "productionSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "variantSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "productionSHA256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "variantSHA256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+      "productionSHA256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+      "variantSHA256": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+      "identical": false
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieScene.swift",
+      "productionSHA256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+      "variantSHA256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RobieWalkthrough.swift",
+      "productionSHA256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+      "variantSHA256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "productionSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "variantSHA256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SoldierField.swift",
+      "productionSHA256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+      "variantSHA256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "productionSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "variantSHA256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "productionSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "variantSHA256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "productionSHA256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+      "variantSHA256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "productionSHA256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+      "variantSHA256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "productionSHA256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "variantSHA256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "productionSHA256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "variantSHA256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+      "identical": true
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+      "productionSHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+      "variantSHA256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+      "identical": true
+    }
+  ],
+  "scope": "Current final runtime, userInitiated activity and shaders retained; sole source replacement is exact recorded pre-night-polish RobieHouse.swift. CPU build only. No production source or app edits."
+}

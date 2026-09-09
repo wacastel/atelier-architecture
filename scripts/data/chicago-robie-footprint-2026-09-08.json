@@ -1,0 +1,106 @@
+{
+  "id": 125667497,
+  "timestamp": "2026-09-08T22:09:44Z",
+  "center": [
+    3312.9952339531815,
+    9914.681444350112
+  ],
+  "bounds": [
+    3293.866,
+    9907.146,
+    3334.579,
+    9922.831
+  ],
+  "points": [
+    [
+      3334.529,
+      9907.146
+    ],
+    [
+      3334.579,
+      9913.057
+    ],
+    [
+      3324.119,
+      9913.258
+    ],
+    [
+      3324.277,
+      9921.005
+    ],
+    [
+      3317.339,
+      9921.195
+    ],
+    [
+      3317.372,
+      9922.508
+    ],
+    [
+      3301.227,
+      9922.831
+    ],
+    [
+      3301.202,
+      9921.451
+    ],
+    [
+      3294.007,
+      9921.551
+    ],
+    [
+      3293.866,
+      9912.957
+    ],
+    [
+      3303.373,
+      9912.745
+    ],
+    [
+      3303.257,
+      9908.137
+    ],
+    [
+      3308.288,
+      9908.092
+    ],
+    [
+      3308.28,
+      9907.469
+    ],
+    [
+      3334.529,
+      9907.146
+    ]
+  ],
+  "tags": {
+    "addr:city": "Chicago",
+    "addr:housenumber": "5757",
+    "addr:postcode": "60637",
+    "addr:state": "IL",
+    "addr:street": "South Woodlawn Avenue",
+    "addr:street:name": "Woodlawn",
+    "addr:street:prefix": "South",
+    "addr:street:type": "Avenue",
+    "architect": "Frank Lloyd Wright",
+    "architect:wikidata": "Q5604",
+    "architect:wikipedia": "en:Frank Lloyd Wright",
+    "building": "detached",
+    "building:architecture": "prairie_school",
+    "chicago:building_id": "497046",
+    "heritage": "2",
+    "heritage:operator": "nrhp",
+    "heritage:website": "https://npgallery.nps.gov/NRHP/AssetDetail/7475e81f-3634-4a9e-87c7-e3c35f8556a0",
+    "historic": "heritage",
+    "name": "Frederick C. Robie House",
+    "nrhp:criteria": "C",
+    "nrhp:inscription_date": "1966-10-15",
+    "nrhp:nhl": "yes",
+    "ref:nrhp": "66000316",
+    "start_date": "1909",
+    "tourism": "attraction",
+    "wikidata": "Q929965",
+    "wikimedia_commons": "File:Frederick C. Robie House.JPG",
+    "wikipedia": "en:Robie House"
+  }
+}

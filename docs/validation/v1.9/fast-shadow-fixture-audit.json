@@ -1,0 +1,52 @@
+{
+  "audit": "fast-camera rough-plane hard-shadow denoiser fixture",
+  "createdAt": "2026-09-08T23:03:02.731745+00:00",
+  "verification": {
+    "swiftTypecheck": "PASS",
+    "log": "output/v10-review/fast-shadow-fixture-typecheck.log",
+    "gpuExecutedByThisAudit": false,
+    "imageAssertions": "NOT EXECUTED; pending serialized GPU validation"
+  },
+  "sourceHashes": {
+    "scripts/validate-denoiser.swift": "4244f7d6a3e0ea1172dd6748b04c3daff647131d2163e19069cad61f1fb08a10",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+    "output/v10-review/motion-robie/metrics.json": "55f266ffb7b1b0583f04c5f61085727adc9aea2869805cc48f4b6694bdb7b43e"
+  },
+  "fixture": {
+    "frames": 64,
+    "warmupFrames": 16,
+    "noisyPixelsPerFrame": [
+      1.37,
+      3.37
+    ],
+    "noiselessPixelsPerFrame": 3.37,
+    "resolution": [
+      128,
+      96
+    ],
+    "spp": 8,
+    "roughness": 0.7,
+    "truth": "Exact one-pixel box integral of world-fixed periodic hard shadows; bright radiance 1.0, shadow radiance 0.25; identical material, normal and albedo on both sides.",
+    "noise": "Independent deterministic additive zero-mean per-frame samples shared by production and negative control.",
+    "kernels": "Actual production temporalResolve and all three spatialFilter passes; separate temporal ping-pong and spatial targets for each branch.",
+    "negativeControl": "Identical shader with only maximumHistory=min(maximumHistory,resamplingLimit); removed; source must contain exactly one occurrence.",
+    "metrics": [
+      "paired raw/temporal/combined image RMSE",
+      "shadow edge RMSE",
+      "flat-region RMSE",
+      "reference-motion-subtracted frame-difference RMSE",
+      "regression slope against reference shadow contrast"
+    ]
+  },
+  "predeclaredAcceptance": {
+    "noisyTemporalEdgeVsLegacy": 0.95,
+    "noisyCombinedEdgeVsLegacy": 0.95,
+    "combinedImageVsRaw": 0.85,
+    "combinedTemporalResidualVsRaw": 0.85,
+    "combinedFlatAreaVsRaw": 0.65,
+    "minimumCombinedContrastSlope": 0.85,
+    "combinedContrastMustExceedLegacy": true,
+    "noiselessTemporalAndCombinedEdgeVsLegacy": 0.9
+  },
+  "scope": "Only test script changed. Production Denoise.metal is owned by root. Failed Hyde Park benchmark metrics remain unchanged. No scene-specific conditions or benchmark thresholds changed."
+}

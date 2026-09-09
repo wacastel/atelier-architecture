@@ -1,0 +1,69 @@
+{
+  "status": "BOUNDED_INVESTIGATION_COMPLETE_PERFORMANCE_CAUSE_NOT_YET_ESTABLISHED",
+  "sourceComparisonBase": "cdf45f9",
+  "productionSourceEditsByThisInvestigator": [],
+  "directFindings": [
+    "Since cdf45f9, MetalRenderer changes only static acceleration descriptor partitioning and reporting metadata. Its per-frame pass count, ray samples, GPU timing calculation and 8x8 dispatch group remain unchanged.",
+    "Renderer.metal changes consist of global primitive ID normalization via geometry_id plus three uint-to-ulong scene vertex index calculations. No additional trace ray or lighting loop was introduced by these edits.",
+    "render-inputs.json and final-gpu-batch.json record identical Renderer.metal SHA223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df. The faster pre-cap Robie run already used these wide indices and the same GeometryPartition helper.",
+    "Therefore ulong indices and descriptor partitioning cannot by themselves explain the later pre-cap-to-final Robie performance change. The v1.8 Field comparison also changes total city geometry and is not a clean single-variable attribution.",
+    "The temporal cap adds scalar screen-motion arithmetic, no new dispatch/texture pass/ray count/loop. The spatial filter uses history count only in its final blend strength; it does not gain an extra branch because of this cap.",
+    "Controlled copied-app A/B keeps executable, final city, Renderer.metal and partitions identical, changing only bundled Denoise.metal. Field differs by0.57%; the capped flight is3.31%faster than uncapped. This does not support the cap as the major slowdown.",
+    "Current copied-app initial pipeline+AS setup took25\u201338seconds. A sampled stack showed waiting for an AS build before any temporal frame. This cannot be caused by execution of the new temporal arithmetic.",
+    "No-cap flight reproduces the temporal-quality regression and exits1; this is an expected ablation failure, not an aborted experiment."
+  ],
+  "measurements": [
+    {
+      "variant": "cap",
+      "case": "field-hall",
+      "meanPairedGPUms": 135.20748698465468,
+      "temporalNoiseReductionPercent": 50.07381152224758,
+      "initialPipelinesAndASSeconds": 25.41,
+      "exitCode": 0,
+      "wallSeconds": 113.37596797943115
+    },
+    {
+      "variant": "no-cap",
+      "case": "field-hall",
+      "meanPairedGPUms": 134.44447135771043,
+      "temporalNoiseReductionPercent": 50.008879672052544,
+      "initialPipelinesAndASSeconds": 38.07,
+      "exitCode": 0,
+      "wallSeconds": 120.46748685836792
+    },
+    {
+      "variant": "cap",
+      "case": "hyde-park-flight",
+      "meanPairedGPUms": 47.238773437129566,
+      "temporalNoiseReductionPercent": 11.20880493383103,
+      "initialPipelinesAndASSeconds": 38.08,
+      "exitCode": 0,
+      "wallSeconds": 107.54201102256775
+    },
+    {
+      "variant": "no-cap",
+      "case": "hyde-park-flight",
+      "meanPairedGPUms": 48.85792708410008,
+      "temporalNoiseReductionPercent": 5.158218786958102,
+      "initialPipelinesAndASSeconds": 34.55,
+      "exitCode": 1,
+      "wallSeconds": 105.16739177703857
+    }
+  ],
+  "confoundsAndLimits": [
+    "Root reports the Mac is currently locked; exact historical lock time and GPU clocks are unavailable. Device idle/App Nap/QoS is a hypothesis, not a proven cause.",
+    "Root checked ample free memory and no swap; thermal warning and GPU recovery counters did not identify a cause.",
+    "Root CPU-only app build may overlap the last no-cap flight. Its overall wall time is not a clean comparison; primary comparison is paired GPU command duration.",
+    "These16-frame8spp/64reference measurements isolate performance, not full release temporal quality. Existing32-frame128reference results remain the release quality evidence.",
+    "The earlier large dense synthetic AS timeout also has unresolved cause and must not be attributed definitively to geometric arrangement."
+  ],
+  "minimalNextExperiment": "Root-owned scoped ProcessInfo.beginActivity(.userInitiated) around the CLI operation with defer end, preserving all shaders and scene geometry. Repeat Field16frames8spp64references under the same lock state and compare paired GPU time plus initial pipeline/AS time. Do not change display lock or request latencyCritical behavior.",
+  "ifFurtherIndexAblationNeeded": "Use a copied app only, retain production partitions/global primitive mapping, and revert exactly the three ulong index declarations to uint. The current~135Mvertex index fits UInt32, but the resulting byte address exceeds4GiB: verify actual high-offset vertex/material reads with the bounded GPU fixture before trusting imagery. Existing observations do not establish that this change is needed or safe.",
+  "evidence": {
+    "output/v10-review/performance-ablation/inputs.json": "9121235af734d1e9e443e9a0398dd22aafc94b3b3e216564308d66e4604c61dc",
+    "output/v10-review/performance-ablation/results.json": "6c720a061159f2a76bcf9479242e86bbb7061601353175615ee6cdf766f8fcbb",
+    "output/v10-review/performance-ablation/cap-field-process-sample.txt": "d216d98c8bd9cf8d93f6f91cc96b9975151f5aad8b72ef0f6f4f198e8c956ad9",
+    "output/v10-review/render-inputs.json": "af63fb9d4d377c8d7df1f69a1e96b568f1ec98d5b3095665e1ac53e139e6e204",
+    "output/v10-review/final-gpu-batch.json": "7c50fd89d8e8227e107e33720708339f82d138182f92af48f57dfea0c83f2dc4"
+  }
+}

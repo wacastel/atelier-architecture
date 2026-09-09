@@ -1,0 +1,35 @@
+PASS: stationary plane raw RMSE 0.37664 → temporal 0.05493 → filtered 0.04835 (7.8× lower RMS noise)
+PASS: translating plane raw RMSE 0.37664 → temporal 0.02709 → filtered 0.02403 (15.7× lower RMS noise)
+PASS: pivoting plane raw RMSE 0.37664 → temporal 0.02425 → filtered 0.02152 (17.5× lower RMS noise)
+PASS: 96 newly revealed background pixels reject material history; no bright ghost
+PASS: 96 newly revealed background pixels reject same-material depth history; no bright ghost
+PASS: one-pixel thinIron feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel sameMaterialOffset feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel normalEdge feature survives three filter passes (RMSE 0.0000001)
+PASS: one-pixel materialEdge feature survives three filter passes (RMSE 0.0000000)
+PASS: one-pixel albedoEdge feature survives three filter passes (RMSE 0.0000000)
+PASS: current-frame pixel cone preserves fine geometry across an eightfold FOV-scale change
+PASS: sharp reflected scene edges absent from primary geometry/albedo guides retain exact coverage
+PASS: one-pixel moderate-contrast paving joints retain detail (maximum error 0.001752)
+PASS: 6720 moving dark-joint coverage samples on pale-center guides survive all spatial passes exactly
+Contact-shadow maximum errors at 8/32/128 SPP: [0.030629218, 0.014505327, 0.00459975]
+PASS: converged contact-shadow detail survives as spatial strength falls with sample count
+PASS: luminance clipping reacts to a lighting change; camera-cut reset is exact
+PASS: moving mirror-like surfaces retain at most two frames to avoid reflection trails
+PASS: slow glossy view-change history RMS 0.37487 → 0.06981; at most 16 frames and exact extinguished-reflection rejection
+PASS: analytic sky bypasses temporal/spatial reconstruction without altering current coverage
+PASS: 4320 bright subpixel/sky coverage samples preserved; 1824 formerly bright sky pixels leave no trail (maximum clear-sky error 0.0)
+PASS: 224 gold mixed-coverage pixels over dark geometry clear in their first uncovered frame (maximum RGB error 3.4924597e-10)
+PASS: neighboring lit windows do not preserve stale illumination on dark same-material rooms
+PASS: emissive subpixel windows retain exact current coverage without spatial/temporal trails
+PASS: unresolved distant night facades use current spatial reconstruction without temporal trails
+PASS: all GPU outputs finite on Apple M3 Ultra
+PASS: through-glass surfaces reject temporal history and reduce current spatial noise
+PASS: 17520 moving night-window coverage samples on dark-center guides survive all three spatial passes exactly
+PASS: smooth distant night surfaces retain spatial noise reduction away from emissive coverage
+PASS: moving vehicle/light/reflection guides preserve exact current coverage and clear immediately after disocclusion
+PASS: dim reflected detail retains comparable relative bias ([0.1591360995556359, 0.16175105257123118]); smooth dim surfaces retain more than 50 percent RMS noise reduction
+FAST SHADOW 1.37 px/frame: image raw 0.100894 / temporal 0.073748 / combined 0.076173 / legacy temporal 0.092830 / legacy combined 0.093763; edge 0.122673 / legacy 0.150392; temporal residual 0.110334 / raw 0.142666; contrast 0.85216 / legacy 0.80164
+FAST SHADOW 3.37 px/frame: image raw 0.100894 / temporal 0.053642 / combined 0.058530 / legacy temporal 0.077057 / legacy combined 0.078662; edge 0.092158 / legacy 0.126683; temporal residual 0.084757 / raw 0.142666; contrast 0.90656 / legacy 0.85277
+FAST SHADOW noiseless: temporal edge 0.074912 / legacy 0.116341; combined edge 0.089381 / legacy 0.119633
+PASS: fast rough-plane pans retain hard-shadow detail, improve paired image/temporal error, and catch uncapped-history negative controls

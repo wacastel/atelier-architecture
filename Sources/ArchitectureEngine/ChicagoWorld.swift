@@ -5,7 +5,7 @@ import Foundation
 enum ChicagoWorld {
     static func build() -> SceneData {
         let builder = EiffelBuilder()
-        builder.scene.name = "Chicago · McCormick Place to Wrigleyville"
+        builder.scene.name = "Chicago · Robie House to Wrigleyville"
         builder.chicagoEnvironment()
         builder.willisTower()
         builder.millenniumPark()
@@ -22,6 +22,8 @@ enum ChicagoWorld {
         builder.northSideLandmarks()
         builder.lincolnParkZoo()
         builder.wrigleyField()
+        builder.hydeParkEnvironment()
+        builder.robieHouse()
         return builder.scene
     }
 }

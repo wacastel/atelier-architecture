@@ -1,0 +1,42 @@
+{
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "glossyHistory" : "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+  "indexedLighting" : true,
+  "location" : "paris",
+  "measurement" : "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "pairing" : "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+  "passed" : true,
+  "pathRegularization" : true,
+  "rawPresentation" : "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+  "referenceSampling" : "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+  "sampling" : "Fast Owen-scrambled Sobol",
+  "scenes" : [
+    {
+      "clearSkyRMSE" : 8.6222372719343943e-05,
+      "darkCityRMSE" : 0.024439116907944557,
+      "darkCitySamples" : 98823,
+      "frames" : 32,
+      "imageErrorReductionPercent" : 2.4934169774247339,
+      "maximumUnsupportedDarkBrightness" : 0.058823529411764705,
+      "maximumUnsupportedTemporalBrightness" : 0,
+      "meanReconstructedGPUms" : 55.380658851390763,
+      "rawDarkCityRMSE" : 0.024625075766887338,
+      "rawRMSE" : 0.042155687600282495,
+      "rawTemporalResidualRMSE" : 0.058439349196940757,
+      "reconstructedRMSE" : 0.041104570528706919,
+      "reconstructedTemporalResidualRMSE" : 0.05673694272128043,
+      "referenceSamples" : 128,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 2.9131167596052721,
+      "view" : "night-silhouette"
+    }
+  ],
+  "timingIncludes" : "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+}

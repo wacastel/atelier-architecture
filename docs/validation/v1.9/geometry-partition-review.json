@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUTC": "2026-09-08T22:48:52.171393+00:00",
+  "status": "PASS_SOURCE_CPU_AND_COMPILE_REVIEW",
+  "scope": "Narrow review of partitioned static geometry, geometry-local to global triangle IDs, 64-bit scene-vertex addressing, existing traffic integration, and standalone validator dependencies.",
+  "productionEditsByReviewer": [],
+  "scriptEdits": [
+    "scripts/validate-traffic.sh",
+    "scripts/validate-adler.sh",
+    "scripts/validate-paired-motion.sh"
+  ],
+  "checks": [
+    {
+      "name": "Static descriptor coverage and ordering",
+      "result": "PASS_SOURCE_AND_ARITHMETIC",
+      "detail": "Ordered fixed-size sections cover each static triangle once. Each full section spans 1.5 GiB at the current 32-byte SceneVertex stride; only the final section is shorter. Global material/vertex buffers keep their original ordering.",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/GeometryPartition.swift",
+          "line": 12
+        },
+        {
+          "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+          "line": 164
+        }
+      ]
+    },
+    {
+      "name": "Static intersection ID remapping",
+      "result": "PASS_SOURCE",
+      "detail": "Both primitive-only and instanced intersection helpers map static geometry-local IDs with geometryID*16,777,216+primitiveID. Swift and Metal partition constants match.",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+          "line": 481
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+          "line": 491
+        }
+      ]
+    },
+    {
+      "name": "Traffic tail remains independent",
+      "result": "PASS_SOURCE_AND_CPU",
+      "detail": "TLAS instance 0 remains the static city and instance 1 the single traffic geometry. Dynamic hits add staticTriangleCount exactly once. The traffic descriptor and transform output use the same Swift Int byte offset into the shared vertex tail; transform thread indices remain local to that tail. All traffic-capable scene-intersection call sites forward staticTriangles.",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+          "line": 74
+        },
+        {
+          "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+          "line": 56
+        },
+        {
+          "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+          "line": 98
+        }
+      ]
+    },
+    {
+      "name": "Global scene-vertex reads use wide indices",
+      "result": "PASS_SOURCE",
+      "detail": "The three scene-vertex read sites—glass visibility, primary surface guides and path tracing—cast primitive IDs to ulong before multiplication. Material indices retain global triangle IDs; current material-index storage is well below 4 GiB.",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+          "line": 506
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+          "line": 562
+        },
+        {
+          "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+          "line": 839
+        }
+      ]
+    },
+    {
+      "name": "Self-test metadata describes actual descriptors",
+      "result": "PASS_SOURCE",
+      "detail": "Root-added staticGeometrySections is derived from the exact descriptors submitted for the city build and exposes offsets, triangle counts and byte spans; CommandLine records this list and the shared partition size.",
+      "evidence": [
+        {
+          "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+          "line": 165
+        },
+        {
+          "path": "Sources/ArchitectureEngine/CommandLine.swift",
+          "line": 164
+        }
+      ]
+    },
+    {
+      "name": "Standalone validator dependencies and compilation",
+      "result": "PASS",
+      "detail": "All three scripts that explicitly compile MetalRenderer now include GeometryPartition. Traffic --cpu and default Adler CPU checks passed; the paired-motion executable compiled and linked without execution. Shell syntax and diff whitespace checks passed."
+    }
+  ],
+  "arithmeticChecks": 582,
+  "currentCityArithmetic": {
+    "source": "Static triangle and traffic counts from existing full-scene CPU/self-test metadata; these are arithmetic expectations, not new GPU observations.",
+    "staticTriangles": 45150844,
+    "trafficTriangles": 161812,
+    "sceneVertexStrideBytes": 32,
+    "staticVertexBytes": 4334481024,
+    "trafficTailBytes": 15533952,
+    "combinedVertexBytes": 4350014976,
+    "expectedStaticSections": [
+      {
+        "geometryID": 0,
+        "firstGlobalTriangle": 0,
+        "triangleCount": 16777216,
+        "vertexBufferOffsetBytes": 0,
+        "vertexSpanBytes": 1610612736
+      },
+      {
+        "geometryID": 1,
+        "firstGlobalTriangle": 16777216,
+        "triangleCount": 16777216,
+        "vertexBufferOffsetBytes": 1610612736,
+        "vertexSpanBytes": 1610612736
+      },
+      {
+        "geometryID": 2,
+        "firstGlobalTriangle": 33554432,
+        "triangleCount": 11596412,
+        "vertexBufferOffsetBytes": 3221225472,
+        "vertexSpanBytes": 1113255552
+      }
+    ],
+    "rangeBoundaryCases": [
+      1,
+      16777215,
+      16777216,
+      16777217,
+      33554432,
+      33554433,
+      45150844,
+      4294967295
+    ]
+  },
+  "executedChecks": [
+    {
+      "command": "./scripts/validate-traffic.sh --cpu",
+      "exitCode": 0,
+      "scope": "CPU fleet, lane, clock, vertex/light ABI and 13,944 actual mapped placements; exits before Metal device creation."
+    },
+    {
+      "command": "./scripts/validate-adler.sh",
+      "exitCode": 0,
+      "scope": "CPU actual Adler geometry, shell, ABI and navigation; no --gpu/--render flag."
+    },
+    {
+      "command": "xcrun swiftc -O [paired-motion production source list, including GeometryPartition.swift] Tests/PairedMotion/main.swift -o [temporary executable]",
+      "exitCode": 0,
+      "scope": "Compile and link only; the executable was not run."
+    }
+  ],
+  "logs": [
+    {
+      "path": "output/v10-review/partition-traffic-cpu.log",
+      "sha256": "92376fd0bee6f18676cb2b99b439e318391d2914e17278e55cc06fc2235e9577"
+    },
+    {
+      "path": "output/v10-review/partition-adler-cpu.log",
+      "sha256": "40f0875d2d5b39f903a2249a46f86a05fb71ef706c809a49f7d7361c7799dae9"
+    },
+    {
+      "path": "output/v10-review/partition-paired-compile.log",
+      "sha256": "67e93145202aa5a123bd686ab1c8319f5c33c8b48897eb3beedb71033bf539c2"
+    }
+  ],
+  "sources": [
+    {
+      "path": "Sources/ArchitectureEngine/GeometryPartition.swift",
+      "sha256": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "sha256": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "sha256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "sha256": "4ae9b2116b2a0244fde93d6b3b4920d06acbaf2e9bd6f14f4d89480d8cf23dc0"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "sha256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5"
+    },
+    {
+      "path": "scripts/validate-traffic.sh",
+      "sha256": "13928b0f8920dde790c868ca1fbd80c5af46757ba92da516439b8d15f33a061f"
+    },
+    {
+      "path": "scripts/validate-adler.sh",
+      "sha256": "8d87e02db1159535b66481234df9bbb30312fbbd33186244cef3f7e60ee66a8d"
+    },
+    {
+      "path": "scripts/validate-paired-motion.sh",
+      "sha256": "9ad9fd0ebe339a2632f98a0d914381942b280c856be3150322df48fdc2984cf2"
+    }
+  ],
+  "references": [
+    {
+      "title": "Apple: Explore bindless rendering in Metal",
+      "url": "https://developer.apple.com/videos/play/wwdc2021/10286/",
+      "supports": "Intersection geometry_id identifies the geometry and primitive_id the primitive within it."
+    },
+    {
+      "title": "Apple: Metal Shading Language Specification",
+      "url": "https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf",
+      "consultedLocalCopy": "output/v10-review/metal-language-specification.txt",
+      "supports": "Intersection-result fields and ulong scalar type; sections 2.17.4 and 2.1."
+    }
+  ],
+  "findings": [],
+  "gpuJobsRun": false,
+  "nativeAppLaunched": false,
+  "limitations": [
+    "This review does not establish a universal 4 GiB acceleration-descriptor hardware limit. Partitioning is a conservative bound; root GPU checks determine the actual rendering repair.",
+    "Descriptor coverage calculations are CPU arithmetic/source checks; no acceleration structure was built by this reviewer.",
+    "Actual large-buffer static/traffic hit mapping, rendered materials, guide positions, and GPU runtime remain root-owned validation."
+  ]
+}

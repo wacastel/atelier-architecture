@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "scope": "Exact ordered navigation triangle coordinates from standalone Robie House before/after bounded exterior lighting polish. Unchanged source mesh for every prior city builder, therefore unchanged complete Chicago navigation triangle stream and collision results.",
+  "previousRobieSourceSHA256": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+  "currentRobieSourceSHA256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+  "navigationSHA256": "f1737978fbe19faabfae80ed204051332c0a14649f87e8b722370703ce7cb9ce",
+  "navigationTriangles": 34206,
+  "navigationNodes": 8839,
+  "renderedTriangleDelta": 24,
+  "lightsBefore": 36,
+  "lightsAfter": 38,
+  "fixtureBoundsLocal": [
+    {
+      "min": [
+        -20.09,
+        0.17,
+        -2.7800000000000002
+      ],
+      "max": [
+        -19.91,
+        0.33,
+        -2.62
+      ]
+    },
+    {
+      "min": [
+        -20.09,
+        0.17,
+        2.62
+      ],
+      "max": [
+        -19.91,
+        0.33,
+        2.7800000000000002
+      ]
+    }
+  ],
+  "basis": "Each new fixture box longest triangle edge is <0.4m and is omitted by the unchanged navigation BVH filter. Existing powers changed only light data. Five actual bidirectional walking-segment tests passed after change."
+}

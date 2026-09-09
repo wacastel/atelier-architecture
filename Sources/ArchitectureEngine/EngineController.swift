@@ -9,8 +9,8 @@ import simd
 }
 
 @MainActor final class EngineController: ObservableObject {
-    @Published var status = "Preparing Chicago North Side…"
-    @Published private(set) var location: ArchitectureLocation = .northside
+    @Published var status = "Preparing Robie House and Hyde Park…"
+    @Published private(set) var location: ArchitectureLocation = .robie
     @Published var isFullscreen = false
     @Published var isReady = false
     @Published var errorMessage: String?
@@ -58,7 +58,7 @@ import simd
     private var frameTimes: [Double] = []
     private var dirty = true
     private var historyDirty = true
-    private var playback = WalkthroughPlayback(location: .northside)
+    private var playback = WalkthroughPlayback(location: .robie)
     private let sceneQueue = DispatchQueue(label: "Atelier.scene-loading", qos: .userInitiated)
     private var loadGeneration = 0
     private var captured = false
@@ -83,7 +83,11 @@ import simd
     func selectLocation(_ value: ArchitectureLocation) {
         guard let device = view?.device else { return }
         if value == location {
-            if playback.demoActive { playback.stopChicagoDemo(); synchronizePlayback() }
+            if playback.demoActive {
+                playback.selectLocation(value)
+                applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
+                focusViewport()
+            }
             return
         }
         if isReady && location.world == value.world {
@@ -97,7 +101,7 @@ import simd
         loadLocation(value, device: device)
     }
     func toggleLocation() {
-        let locations = ArchitectureLocation.allCases
+        let locations = playback.demoActive ? WalkthroughPlayback.chicagoDemoLocations : ArchitectureLocation.allCases
         selectLocation(locations[(locations.firstIndex(of: location)! + 1) % locations.count])
     }
     func toggleChicagoDemo() {
@@ -120,23 +124,23 @@ import simd
         dirty = true; focusViewport()
     }
     func startChicagoFlyby() {
-        guard isReady, location.world == "chicago" else { return }
-        let selectedLighting = lighting
-        selectLocation(.millennium); selectStop(MillenniumWalkthrough.flybyView)
-        setLighting(selectedLighting); toggleTour()
+        startConnectingFlight(to: .millennium, view: MillenniumWalkthrough.flybyView)
     }
     func startMuseumCampusFlyby() {
-        guard isReady, location.world == "chicago" else { return }
-        let selectedLighting = lighting
-        selectLocation(.campus); selectStop(MuseumCampusWalkthrough.flybyView)
-        setLighting(selectedLighting); toggleTour()
+        startConnectingFlight(to: .campus, view: MuseumCampusWalkthrough.flybyView)
     }
     func startNorthSideFlyby(toWrigley: Bool = false) {
+        startConnectingFlight(to: .northside, view: toWrigley ? NorthSideWalkthrough.wrigleyFlybyView : NorthSideWalkthrough.zooFlybyView)
+    }
+    func startRobieFlyby() {
+        startConnectingFlight(to: .robie, view: RobieWalkthrough.flybyView)
+    }
+    private func startConnectingFlight(to destination: ArchitectureLocation, view index: Int) {
         guard isReady, location.world == "chicago" else { return }
         let selectedLighting = lighting
-        selectLocation(.northside)
-        selectStop(toWrigley ? NorthSideWalkthrough.wrigleyFlybyView : NorthSideWalkthrough.zooFlybyView)
-        setLighting(selectedLighting); toggleTour()
+        selectLocation(destination); selectStop(index)
+        setLighting(selectedLighting)
+        if playback.state != .playing { toggleTour() }
     }
     private func loadLocation(_ selected: ArchitectureLocation, device: MTLDevice) {
         loadGeneration += 1
@@ -218,7 +222,14 @@ import simd
         synchronizePlayback(); focusViewport()
         dirty = true
     }
-    func cycleView(_ direction: Int) { selectStop((currentStop + direction + stops.count) % stops.count) }
+    func cycleView(_ direction: Int) {
+        if playback.demoActive {
+            playback.navigateDemoView(offset: direction)
+            location = playback.location; lighting = playback.lighting
+            applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
+            view?.window?.title = "ATELIER / \(location.name)"; focusViewport()
+        } else { selectStop((currentStop + direction + stops.count) % stops.count) }
+    }
     func toggleIdleCycling() {
         clearObjectFocus()
         let enteringIdle = playback.state != .idle
@@ -330,7 +341,7 @@ import simd
         if playback.lighting != previousLighting { lighting = playback.lighting; dirty = true; historyDirty = true }
         if playback.location != previousLocation || playback.view != previousStop {
             // Every demo destination shares this resident Chicago scene. Adopting
-            // the playback location must not call selectLocation, which cancels demo.
+            // the playback location must not restart its first route via selectLocation.
             location = playback.location
             applyViewSelection(); synchronizePlayback()
             view.window?.title = "ATELIER / \(location.name)"

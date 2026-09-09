@@ -1,0 +1,25 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Chicago · Robie House to Wrigleyville | 45150868 triangles | 29335 geometric details | 408 materials
+Metal pipelines + acceleration structure: 4.41s | allocated 8177.5 MiB
+Motion validation robie-cantilevers: 0/32
+Motion validation robie-cantilevers: 16/32
+robie-cantilevers: RMS 0.02628 → 0.01714, temporal residual 0.03891 → 0.01650 (57.6% reduction)
+Motion validation robie-roman-brick: 0/32
+Motion validation robie-roman-brick: 16/32
+robie-roman-brick: RMS 0.04947 → 0.03714, temporal residual 0.07129 → 0.03627 (49.1% reduction)
+Motion validation robie-art-glass: 0/32
+Motion validation robie-art-glass: 16/32
+robie-art-glass: RMS 0.06341 → 0.04290, temporal residual 0.09000 → 0.05515 (38.7% reduction)
+Motion validation robie-living-room: 0/32
+Motion validation robie-living-room: 16/32
+robie-living-room: RMS 0.06097 → 0.04402, temporal residual 0.08632 → 0.05542 (35.8% reduction)
+Motion validation robie-dining-night: 0/32
+Motion validation robie-dining-night: 16/32
+robie-dining-night: RMS 0.06787 → 0.04626, temporal residual 0.09581 → 0.05811 (39.3% reduction)
+Motion validation robie-exterior-night: 0/32
+Motion validation robie-exterior-night: 16/32
+robie-exterior-night: RMS 0.01692 → 0.01073, temporal residual 0.02441 → 0.01423 (41.7% reduction)
+Motion validation hyde-park-flight: 0/32
+Motion validation hyde-park-flight: 16/32
+hyde-park-flight: RMS 0.02253 → 0.02158, temporal residual 0.03205 → 0.02896 (9.6% reduction)
+Completed in 579.85s

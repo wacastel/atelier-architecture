@@ -1,0 +1,172 @@
+{
+  "status": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+  "inspectedImageCount": 14,
+  "inspectedAtUTC": "2026-09-08T23:13:58.622007+00:00",
+  "scope": "Seven Robie House day views previously inspected after the geometry partition correction, plus all seven newly rendered post-polish night views. One additional flight-start night frame was inspected. This is a framing/material/lighting review, not a temporal-motion validation.",
+  "renderingDefectResolved": "Initial galleries showed only grounds because the city vertex span crossed4GiB. The root geometry-partition correction restored all house geometry without modifying Robie geometry.",
+  "nightPolishResolved": "Two modest west washes and strengthened south accents make the coping, brick and trailing planters readable while retaining warm windows and dark roof silhouettes. No further source changes recommended.",
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+  },
+  "sourceGroups": {
+    "dayBeforeNightPolish": {
+      "sourceSHA256": {
+        "Sources/ArchitectureEngine/RobieHouse.swift": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+        "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+        "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+        "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66"
+      },
+      "scope": "Day images predate two small fixture boxes and night-only light strength changes; their exact original source hashes are retained."
+    },
+    "releaseNight": {
+      "sourceSHA256": {
+        "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+        "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+        "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+        "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+        "Sources/ArchitectureEngine/Resources/Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+      },
+      "scope": "Post-polish night gallery rendered from the frozen release sources."
+    }
+  },
+  "limitations": [
+    "No claim of photographic equivalence or exact as-built dimensions.",
+    "Night reference is a brighter dusk photograph; full-night view is intentionally darker.",
+    "Procedural nearby facades and compact vegetation do not reproduce each real-world surface or mature tree.",
+    "Still images contain residual progressive grain; motion metrics are separately validated."
+  ],
+  "openVisualCorrections": [],
+  "inspected": [
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/00-a-house-on-the-prairie.png",
+      "sha256": "fc2788a0daee2884da444f78e6c09a0692f9dbcf3d7a119940d3ee03af6059e0",
+      "mode": "day",
+      "view": 0,
+      "finding": "Complete offset wings, low roof planes, garden walls and window bands read clearly in daylight.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/01-the-floating-roof.png",
+      "sha256": "fab5cc63cca16ec0d0a69c060917eeb7239450d4a0d0865927ffe34072590153",
+      "mode": "day",
+      "view": 1,
+      "finding": "West prow, deep cantilever, exterior terrace and transmitting glass have clear framing.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/02-roman-brick-and-limestone.png",
+      "sha256": "e5765d2196f27f401f903c09fd8826da7026de2f3828f9430124088e0991c325",
+      "mode": "day",
+      "view": 2,
+      "finding": "Roman brick courses, recessed joints, limestone bands and the visible lower recreation room form a useful material study.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/03-light-through-art-glass.png",
+      "sha256": "d04ea42abfb8ff0f2a4493c0b11d14bf4aebdb812344e5226de7cb7849395223",
+      "mode": "day",
+      "view": 3,
+      "finding": "The balcony has a clear visual aisle; geometric came and colored glass reveal the furnished living room.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/04-the-hearth-at-the-center.png",
+      "sha256": "effcff42391123fb2870dfbfb4de5aee0512dc7e5dae81ed2299c245ad085cae",
+      "mode": "day",
+      "view": 4,
+      "finding": "Living room framing shows the pierced hearth, stepped oak ceiling, laylights, glazing and inglenook. Palette and ornament are interpretive.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/05-a-room-for-gathering.png",
+      "sha256": "9fde750295f2dc43239ea12e61c5c60071296b590c2e5534464cca26990969f1",
+      "mode": "day",
+      "view": 5,
+      "finding": "Dining furniture, hearth opening and circulation remain readable. Furnishings are an approximation of the restored reference vocabulary.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-final-day/06-planes-above-the-garden.png",
+      "sha256": "0dba6fa663364679461506f686c0d67af178e89edfc17eb66923d8e341540842",
+      "mode": "day",
+      "view": 6,
+      "finding": "Upper view exposes the hip roofs, belvedere, chimney and service wing. Nearby context is visibly less detailed than the house.",
+      "sourceGroup": "dayBeforeNightPolish"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/00-a-house-on-the-prairie.png",
+      "sha256": "1b8799cf15f052ac32cfbec6dac0090fc37ec81bbb5ff59a170869195b81baf9",
+      "mode": "night",
+      "view": 0,
+      "finding": "Accepted west lighting polish: masonry, limestone coping and trailing planters are readable. Warm glazing remains the main house accent; roof planes keep their full-night silhouettes.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/01-the-floating-roof.png",
+      "sha256": "83916fe01c9e84dfa89105d91d901a784944599c71ee95c0c77d57b525f78646",
+      "mode": "night",
+      "view": 1,
+      "finding": "Accepted west lighting polish: foreground parapet and planters now frame the deep canopy and central art glass. No camera clipping or newly obscured focal feature.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/02-roman-brick-and-limestone.png",
+      "sha256": "c5cd77f61d020a75872edb3013b3c1a7af93ae1c12038a2cb8b83aae702e422f",
+      "mode": "night",
+      "view": 2,
+      "finding": "Stronger south accents improve the Roman brick and limestone study while preserving the lower-room glazing. No new framing defect.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/03-light-through-art-glass.png",
+      "sha256": "2e548b33810696fd5bec0575837f7fbdbafe4232450692f32d93650b09710540",
+      "mode": "night",
+      "view": 3,
+      "finding": "Art-glass pattern, colored pieces, transmitting room light and the balcony aisle remain clear. Dark roof/porch surfaces retain visible progressive speckle.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/04-the-hearth-at-the-center.png",
+      "sha256": "5f258edb6d9ba32cdc82704b85d1f82c221995e18a9f41491364e9bb0615839b",
+      "mode": "night",
+      "view": 4,
+      "finding": "Hearth opening, inglenook, glazed perimeter and integrated ceiling lighting remain readable at night. Warm ochre/oak interpretation remains brighter and more regular than some reference photos.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/05-a-room-for-gathering.png",
+      "sha256": "b790874ef86606021d24b28c6a066314545d23e0b09101bde703b73695b0fb3f",
+      "mode": "night",
+      "view": 5,
+      "finding": "Dining furniture, central hearth and connected aisle remain legible under the interior practicals. Restored furnishing shapes are interpreted rather than scanned.",
+      "sourceGroup": "releaseNight"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/06-planes-above-the-garden.png",
+      "sha256": "fd4e0e9ba9843f7bc9e0383d8fae9a085f270f5c54f5f6b46e58a8bd948d2678",
+      "mode": "night",
+      "view": 6,
+      "finding": "Night elevated view retains the stepped roof silhouette, belvedere glazing, window bands and restrained garden accents. Generic context windows remain less detailed.",
+      "sourceGroup": "releaseNight"
+    }
+  ],
+  "additionalInspected": [
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/gallery-release-night/07-from-mccormick-place-to-robie-house.png",
+      "sha256": "33019bbb4caf8d57966685dc61d7ba5316007dbcdacabb9d1f35021bc2b28b62",
+      "mode": "night",
+      "view": 7,
+      "sourceGroup": "releaseNight",
+      "finding": "McCormick Place flight start has clear roof/entry lighting and city context. This single frame does not validate the connecting flight or its temporal stability."
+    }
+  ],
+  "priorReview": "/Users/william/dev/architecture/output/v10-review/robie-visual-review-before-night-polish.json",
+  "referenceManifest": "/Users/william/dev/architecture/output/v10-review/robie-reference-inspection.json"
+}

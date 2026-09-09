@@ -469,13 +469,17 @@ struct SceneHit {
     float distance;
     bool dynamic;
 };
+// Must match GeometryPartition.trianglesPerGeometry. Static geometry sections
+// have bounded vertex spans; material and shading buffers retain global IDs.
+constant uint trianglesPerGeometry = 1u << 24;
 SceneHit sceneIntersection(ray r, primitive_acceleration_structure scene, bool anyHit=false, uint staticTriangles=0) {
     intersector<triangle_data> trace;
     trace.assume_geometry_type(geometry_type::triangle);
     trace.force_opacity(forced_opacity::opaque);
     trace.accept_any_intersection(anyHit);
     auto hit=trace.intersect(r,scene);
-    return {hit.type,hit.primitive_id,hit.triangle_barycentric_coord,hit.distance,false};
+    uint primitive=hit.primitive_id+hit.geometry_id*trianglesPerGeometry;
+    return {hit.type,primitive,hit.triangle_barycentric_coord,hit.distance,false};
 }
 SceneHit sceneIntersection(ray r, instance_acceleration_structure scene, bool anyHit=false, uint staticTriangles=0) {
     intersector<triangle_data,instancing> trace;
@@ -484,7 +488,8 @@ SceneHit sceneIntersection(ray r, instance_acceleration_structure scene, bool an
     trace.accept_any_intersection(anyHit);
     auto hit=trace.intersect(r,scene,0xFF);
     bool dynamic=hit.type!=intersection_type::none && hit.instance_id==1;
-    return {hit.type,hit.primitive_id+(dynamic ? staticTriangles:0),hit.triangle_barycentric_coord,hit.distance,dynamic};
+    uint primitive=hit.primitive_id+(dynamic ? staticTriangles:hit.geometry_id*trianglesPerGeometry);
+    return {hit.type,primitive,hit.triangle_barycentric_coord,hit.distance,dynamic};
 }
 
 template<typename Scene>
@@ -498,7 +503,7 @@ float3 glassVisibility(ray visibility, Scene scene,
         if (hit.type==intersection_type::none) return transmission;
         SceneMaterial m=materials[materialIndices[hit.primitive_id]];
         if (m.properties.w<=0) return 0;
-        uint i=hit.primitive_id*3;
+        ulong i=ulong(hit.primitive_id)*3ul;
         float3 n=normalize(cross(vertices[i+1].position.xyz-vertices[i].position.xyz,
                                  vertices[i+2].position.xyz-vertices[i].position.xyz));
         transmission *= clamp(m.albedo.rgb,0.0f,1.0f)*saturate(m.properties.w)
@@ -554,7 +559,7 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
         albedoRoughness.write(float4(0,0,0,1),tid);
         return;
     }
-    uint i = hit.primitive_id*3;
+    ulong i = ulong(hit.primitive_id)*3ul;
     SceneVertex a = vertices[i], b = vertices[i+1], c = vertices[i+2];
     float3 weights = float3(1.0f-hit.triangle_barycentric_coord.x-hit.triangle_barycentric_coord.y,hit.triangle_barycentric_coord);
     float3 p = a.position.xyz*weights.x+b.position.xyz*weights.y+c.position.xyz*weights.z;
@@ -831,7 +836,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             break;
         }
         if (branch == 0 && interaction == 0) primaryDepth = hit.distance;
-        uint vertexIndex = hit.primitive_id * 3;
+        ulong vertexIndex = ulong(hit.primitive_id) * 3ul;
         SceneVertex a = vertices[vertexIndex], b = vertices[vertexIndex + 1], c = vertices[vertexIndex + 2];
         float3 weights = float3(1.0f - hit.triangle_barycentric_coord.x - hit.triangle_barycentric_coord.y, hit.triangle_barycentric_coord);
         float3 position = a.position.xyz * weights.x + b.position.xyz * weights.y + c.position.xyz * weights.z;

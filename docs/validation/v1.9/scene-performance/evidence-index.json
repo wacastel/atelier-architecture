@@ -1,0 +1,107 @@
+{
+  "status": "VERBATIM_EVIDENCE_AND_PROVENANCE_MATCH",
+  "createdAtUTC": "2026-09-09T00:11:22.852625+00:00",
+  "scope": "Three serial matched Field Hall runs from the parent coordinator; collation and CPU verification only, no GPU work by this audit.",
+  "files": [
+    {
+      "source": "output/v10-review/scene-performance/baseline-v18/metrics.json",
+      "copy": "docs/validation/v1.9/scene-performance/baseline-v18/metrics.json",
+      "bytes": 1948,
+      "sha256": "bdf180ee606214001d121a88b075e2f853d0aa0e9cc7cc1a7b1062254c833d20",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/baseline-v18.log",
+      "copy": "docs/validation/v1.9/scene-performance/baseline-v18.txt",
+      "bytes": 395,
+      "sha256": "179614da4dc201d51904028fa4524291fb7f3faa3589d25eaec96567830cea9a",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/pre-polish/metrics.json",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish/metrics.json",
+      "bytes": 1946,
+      "sha256": "54b2bbed3a8da3b8f7a33d81479ceafd2c654614ebfc87017e8863a60e5edc11",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/pre-polish.log",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish.txt",
+      "bytes": 391,
+      "sha256": "5209208638c04b7594b81c2196839ecbfac07fe472ff45e9cfaeca5d835246c4",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/final-v19/metrics.json",
+      "copy": "docs/validation/v1.9/scene-performance/final-v19/metrics.json",
+      "bytes": 1947,
+      "sha256": "b42ae0bdc80ebf9445de55dd8956c185c0ca01510807c6821b66975155279e64",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/final-v19.log",
+      "copy": "docs/validation/v1.9/scene-performance/final-v19.txt",
+      "bytes": 391,
+      "sha256": "68ce9a64b0c22c0da37a0acee6437cbb5d967aa0925d75fa6eb5bca4a6e6a511",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/scene-performance/comparison.json",
+      "copy": "docs/validation/v1.9/scene-performance/comparison.json",
+      "bytes": 8875,
+      "sha256": "29da8a30f4e0154c55fb83ecc680ce05d06d5bed0d4fc95366fa6fc2a4ae2244",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/performance-baseline-build.json",
+      "copy": "docs/validation/v1.9/scene-performance/baseline-build.json",
+      "bytes": 144945,
+      "sha256": "2bc73efdf8dda4e2d2f09a901cabf59bc42a7484c02c50e210d59a5337f990a7",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/performance-baseline-build.log",
+      "copy": "docs/validation/v1.9/scene-performance/baseline-build.txt",
+      "bytes": 696,
+      "sha256": "4a1c7f1ff49560742c560a7de97d49fd37d54d2123f43bfa981505a7a5b0bb8b",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/house-polish-ablation/inputs.json",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish-inputs.json",
+      "bytes": 20755,
+      "sha256": "1786c3fc72c39ad467e045d9fb356b518d5e9aabb9befc8ff301a500fac6fae3",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/house-polish-ablation/build-result.json",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish-build.json",
+      "bytes": 4785,
+      "sha256": "437ef0cfbb70db25d728a861ff1d57f623a5a2e5d25bd75f731d87925f1fe0fa",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/house-polish-ablation/build.log",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish-build.txt",
+      "bytes": 269,
+      "sha256": "c402e267f5e5d78bb82c85b7fc3b58ef3c298935aaaf865df12128b0f3e5ac2f",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/house-polish-ablation/package.log",
+      "copy": "docs/validation/v1.9/scene-performance/pre-polish-package.txt",
+      "bytes": 639,
+      "sha256": "53fa08eac7ab9c06d81d49d6595abd7d2275e4ebf0b65e92ef25ad38b63ef2ce",
+      "verbatim": true
+    }
+  ],
+  "allEmbeddedMetricsMatchSeparateReports": true,
+  "allExecutableHashesMatchBuildOrReleaseProvenance": true,
+  "finalVsBaselinePairedGPUPercent": 2.606179685325527,
+  "limitations": [
+    "One trace with one run per variant; no native FPS or universal performance guarantee.",
+    "Earlier faster timings were not reproduced by the unchanged 1.8 baseline in this matched rerun. Timing variation does not establish its host, driver or scheduling cause.",
+    "Build provenance JSON files preserve their original pre-runtime status; comparison.json records the subsequent completed runtime checks.",
+    "Earlier 32-frame/128-reference timing records remain separately preserved; this matched comparison uses 16 frames and 64-reference samples for every variant."
+  ]
+}

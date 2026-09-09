@@ -64,6 +64,7 @@ final class MetalRenderer {
     let indexBuffer: MTLBuffer
     let materialBuffer: MTLBuffer
     let accelerationStructure: MTLAccelerationStructure
+    let staticGeometrySections: [[String:Int]]
     let triangleCount: Int
     let detailCount: Int
     let buildSeconds: Double
@@ -158,14 +159,11 @@ final class MetalRenderer {
         dayLightRanges=try buffer(dayLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:dayLightGrid.ranges)
         dayLightIndices=try buffer(dayLightGrid.indices.isEmpty ? [UInt32(0)]:dayLightGrid.indices)
         triangleCount = scene.triangleCount + fleet.triangleCount; detailCount = scene.detailCount + fleet.vehicles.count
-        let geometry = MTLAccelerationStructureTriangleGeometryDescriptor()
-        geometry.vertexBuffer = vertexBuffer
-        geometry.vertexStride = MemoryLayout<SceneVertex>.stride
-        geometry.vertexFormat = .float3
-        geometry.triangleCount = scene.triangleCount
-        geometry.opaque = true
         let descriptor = MTLPrimitiveAccelerationStructureDescriptor()
-        descriptor.geometryDescriptors = [geometry]
+        let geometries = GeometryPartition.descriptors(vertexBuffer: vertexBuffer, triangleCount: scene.triangleCount)
+        descriptor.geometryDescriptors = geometries
+        staticGeometrySections = geometries.map { ["vertexBufferOffsetBytes":$0.vertexBufferOffset,
+            "triangleCount":$0.triangleCount,"vertexSpanBytes":$0.triangleCount*3*MemoryLayout<SceneVertex>.stride] }
         let sizes = device.accelerationStructureSizes(descriptor: descriptor)
         guard let acceleration = device.makeAccelerationStructure(size: sizes.accelerationStructureSize),
               let scratch = device.makeBuffer(length: sizes.buildScratchBufferSize, options: .storageModePrivate),

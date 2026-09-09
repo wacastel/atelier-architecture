@@ -1,0 +1,11 @@
+{
+  "scope": "Observed lighting-index capacity issue in first complete Robie/Hyde Park package. The general GPU self-test passed, but its nightLightGridEnabled field was false. This records an actual index fallback, not a measured frame-rate regression.",
+  "candidateExecutableSHA256": "cd684e72a669ef1c5a3d07434c48c53f61893b0ca0e02a1e8c5c1204ab1b6429",
+  "candidateReport": "candidate-self-test/output/validation.json",
+  "observedLights": 4001,
+  "oldMaximumCells": 262144,
+  "oldNightGridEnabled": false,
+  "correction": "Raise default cell budget to 1,048,576 while keeping 64-metre cells and original light order; maximum dense range storage8MiB. Add old-budget negative control and built-in-world self-test gate.",
+  "shaderChanged": false,
+  "geometryChangedByCorrection": false
+}

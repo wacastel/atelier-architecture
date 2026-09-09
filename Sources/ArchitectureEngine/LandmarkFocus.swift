@@ -276,7 +276,21 @@ private extension LandmarkFocusCatalog {
         willis.append(box(V(-37,412,-15),V(-33,417,15))) // five glass Ledge boxes
         for x:Float in [-22.86,0] {willis.append(box(V(x-1.2,442,-1.2),V(x+1.2,528,1.2)))}
         let adler=V(2413.718,0,1393.247)
+        // Robie House uses the mapped east/south basis from HABS/OSM modeling.
+        // Separate wings retain the recessed garden and irregular building edge.
+        func robie(_ x0:Float,_ z0:Float,_ x1:Float,_ z1:Float,_ bottom:Float,_ top:Float)->FocusVolume {
+            let east=simd_normalize(V(1,0,-0.02)),south=simd_normalize(V(0.02,0,1)),center=V(3309.7,0,9917.1)
+            let corners=[SIMD2(x0,z0),SIMD2(x1,z0),SIMD2(x1,z1),SIMD2(x0,z1)].map { p -> [Float] in
+                let q=center+east*p.x+south*p.y;return [q.x,q.z]
+            }
+            return FocusVolume(points:corners,bottom:bottom,top:top)!
+        }
         var result:[LandmarkFocus]=[
+            LandmarkFocus(id:"chicago:robie-house",name:"Frank Lloyd Wright’s Robie House",volumes:[
+                robie(-19.4,-4.8,15.3,5.8,0.25,7.5),robie(-7.2,-10.9,26.3,-2.7,0.25,7.3),
+                robie(-7.1,-9.1,9.2,3.8,6.3,11.3),robie(6.9,-9.7,8.4,-8.5,0.25,10.7),
+                robie(-16,7.6,13.8,9,0.25,2.5),robie(13,7.4,25.9,8.3,0.25,3.3),
+                robie(25,-7.1,26,8.3,0.25,3.3)],center:V(3309.7,4.8,9917.1)),
             LandmarkFocus(id:"chicago:adler-planetarium",name:"Adler Planetarium",volumes:[
                 disk(adler,24.9,0.25,12.2),disk(adler,15,12.2,29.2),disk(adler,52,0.25,9.2,true),
                 box(adler+V(-34,0.3,-7.7),adler+V(-22,4,7.7)),
@@ -337,7 +351,7 @@ private extension LandmarkFocusCatalog {
         }
     }
     static func loadMapped(world: String, authored: [LandmarkFocus]) -> [LandmarkFocus] {
-        let folders=world == "paris" ? ["Paris"]:["Chicago","Lakefront","MuseumCampus","NorthSide"]
+        let folders=world == "paris" ? ["Paris"]:["Chicago","Lakefront","MuseumCampus","NorthSide","HydePark"]
         var records: [Int64:MapBuilding]=[:], omitted=Set<Int64>()
         for folder in folders {
             let path="Resources/\(folder)/\(folder)Context.json"

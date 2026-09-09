@@ -1,0 +1,4 @@
+Expanded city: 421200 cells within 8 MiB; old-budget negative control disabled, indexed support/order retained
+PASS: 43916 finite support/order queries; negative coordinates, cell planes, tangent supports, empty/outside/nonfinite and bounded-memory fallbacks
+PASS: 48-byte Metal header / 8-byte ranges; sorted unique original IDs and complete active-prefix visitation
+Synthetic 360-light city: 30926 cells, 53397 indices, 1.108 ms build; mean 3.09 candidate IDs per tested point

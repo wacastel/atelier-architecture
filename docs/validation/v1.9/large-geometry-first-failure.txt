@@ -1,0 +1,1 @@
+FAIL: Static sentinel 1 hit state 0

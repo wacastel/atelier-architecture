@@ -1,0 +1,3574 @@
+{
+  "status": "READY_RUNTIME_UNTESTED",
+  "createdAtUTC": "2026-09-08T23:55:28.778609+00:00",
+  "sourceCommit": "cdf45f9e01ed17b0a85ebde74cd3ecd368ea8088",
+  "sourceTree": "ee03a0e9c80ed1c30b15742a70b6915548c458bf",
+  "archivePath": "/Users/william/dev/architecture/output/v10-review/performance-baseline-source.tar",
+  "archiveSHA256": "858a433e88fb9b5426c97ba6c95450f862d2a376e61ec8ef8f3bedfdc7619d9d",
+  "sourceDirectory": "/Users/william/dev/architecture/output/v10-review/performance-baseline-source",
+  "verifiedSourceFileCount": 572,
+  "sourceInventory": [
+    {
+      "path": ".gitignore",
+      "bytes": 74,
+      "gitBlob": "9bf70f0d1a939ab8c139b93165812052bf9944dc",
+      "sha256": "a865a13bb24b956889ff3c516dbc1431122c91820b942eb8e98cf20e8f6e889d"
+    },
+    {
+      "path": "Launch Atelier.command",
+      "bytes": 1064,
+      "gitBlob": "6ac00ed01cd63860f2c6446a75817a4e108b4cec",
+      "sha256": "1788690c881504613791e14dc3fc05ef8037d76899299df4a6387d0bacb23230"
+    },
+    {
+      "path": "Package.swift",
+      "bytes": 475,
+      "gitBlob": "0fa06421588d2053b470cfddc665d2fcdfe34b92",
+      "sha256": "b23635f8a728a9de5c371fccf42a656306217bcbcc7e9eec77d76f49eb24624e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 23026,
+      "gitBlob": "749d83e98b659d587d0779bbb2e487863a9e0fdb",
+      "sha256": "5c0680b2f9f461cd1265bc6afb1a05111f3f75ea8d3e7a01f62934325fd7b7fe"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+      "bytes": 18389,
+      "gitBlob": "523328e28b4ea68a1e7673fc053c63c4d40b949d",
+      "sha256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+      "bytes": 44936,
+      "gitBlob": "f4422bdb1d24a3f0aeafa0e76b6f4315fd788fd8",
+      "sha256": "ecbc243fe5b28f0eb817ebe3e7785fee93be3600875f5332e09c93cb7068a4da"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+      "bytes": 4163,
+      "gitBlob": "22990e7a09d68bf5ac358e8591a10b3c1b7e5340",
+      "sha256": "6d8cc154bf8497d68ac368e87fb565fdbfd7cc0fb16eff01f3c81e4eacd9f103"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+      "bytes": 19923,
+      "gitBlob": "1dd64bead5429aed3661d4ed8b4408211b9aeb92",
+      "sha256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+      "bytes": 2112,
+      "gitBlob": "dc8634a1ac2aac5a16ac2f1c1c78c0127660d7c1",
+      "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+      "bytes": 30375,
+      "gitBlob": "2757079b361c5e0e7b37bec222a4ffa377967332",
+      "sha256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+      "bytes": 919,
+      "gitBlob": "f3b990057528f4022fe31ea5d67127030753c929",
+      "sha256": "98c8ce0c623cdcb165ce7ca07cf6035e5e3f8a00ef24a3bc427bc8166781a098"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+      "bytes": 5930,
+      "gitBlob": "ac59b0259e15a6613f3a5fe4498a1d044dd700a2",
+      "sha256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/CommandLine.swift",
+      "bytes": 24030,
+      "gitBlob": "30554b699e9a1dc6da176c92dbb19ea73b4570af",
+      "sha256": "149fdc512143c8a70e6c233f0fca7c93283ee37b4ec4455660ace1483d7955dd"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+      "bytes": 37758,
+      "gitBlob": "8ee8f583398a04bf2f0cbcb6fe6c9124f7147f3f",
+      "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/EngineController.swift",
+      "bytes": 21687,
+      "gitBlob": "48a751215fb05f55d59017c527188844d361369f",
+      "sha256": "8ad4fc18644f0ab21ecf76771e2d9211900c82cd0883504a171c16b601c4e81b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+      "bytes": 27355,
+      "gitBlob": "90d81b4dc973532e39333b7fa466ea2b526f7858",
+      "sha256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+      "bytes": 3500,
+      "gitBlob": "829e93c3c92588431985012068bf8671da5ea905",
+      "sha256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+      "bytes": 3302,
+      "gitBlob": "1f2ae2ee4d5a414f9952125507c5ae24d6c0c4f4",
+      "sha256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+      "bytes": 22819,
+      "gitBlob": "b181040391c048ab7e5c798b477124981be5566c",
+      "sha256": "2c3c4f4d34c6c8711765793d956f0c9b88d0e2e5fdefd50f0342c203f2aaddd1"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LightGrid.swift",
+      "bytes": 7965,
+      "gitBlob": "f190e06d08a4791b3c0c22f057f7e02a5b0ba506",
+      "sha256": "a53673a0d12ebdf1ff89d89df5ad11f2a75cff2653a8c9f541a96a63fe4abfcb"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+      "bytes": 40221,
+      "gitBlob": "5052b542a1e2fc1765532ef0f849dc22a6e88887",
+      "sha256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+      "bytes": 262723,
+      "gitBlob": "2f2eaf5aed871101004a56c7295a43feb22118ac",
+      "sha256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+      "bytes": 21627,
+      "gitBlob": "2b582c0260255a2d8e92f4e317b6a7fb62e9e73c",
+      "sha256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+      "bytes": 34815,
+      "gitBlob": "90a8270fa75e4921eb10feee472305aca08ce14e",
+      "sha256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+      "bytes": 17828,
+      "gitBlob": "9203b0dea9f9d21ce9a0832795f3ab8c6440eba6",
+      "sha256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+      "bytes": 32482,
+      "gitBlob": "afed638e0f20187a84e7943de352432baaa69420",
+      "sha256": "11c82af0435485c8af43edea5f03b9da881c79752c2b087f77405f66ea2d3446"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+      "bytes": 26912,
+      "gitBlob": "8ab52931c2b0fbf3066faad2e457382d0b600daf",
+      "sha256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+      "bytes": 3142,
+      "gitBlob": "a4d99b68fc2f004799c721156c7afb4957d34b8a",
+      "sha256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+      "bytes": 3770,
+      "gitBlob": "da98fe84bae3af7e5d92aa71f6e3d8b0e9091936",
+      "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+      "bytes": 12754,
+      "gitBlob": "2614077e9fc2cf46785a7982d87ccfaf2b1bb02b",
+      "sha256": "ea2fb8716e7a4168d65892613a74ebd4b828ed9888569424d2ff53949ceab31d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+      "bytes": 40621,
+      "gitBlob": "5ece2ccdb6759daf154df7f9f4b65bc02084b2e5",
+      "sha256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+      "bytes": 12845,
+      "gitBlob": "36893acda5e02ac554443cabb0bc0d7367dbd3d7",
+      "sha256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+      "bytes": 3517,
+      "gitBlob": "0fc48084271b99ab3774996d78bcdc0fc8a3ffa6",
+      "sha256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+      "bytes": 6065,
+      "gitBlob": "1b20b96b8687af740e2299047511f7fc71763091",
+      "sha256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NightLighting.swift",
+      "bytes": 4026,
+      "gitBlob": "1e3ec7e8bb0b3510a3ca3762676b967b65ea0a48",
+      "sha256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+      "bytes": 27331,
+      "gitBlob": "71c939c2058982fee0732a85440047e46297a712",
+      "sha256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+      "bytes": 16162,
+      "gitBlob": "412d3078ad5eb295e4bd20434ec03cfbd0eebfad",
+      "sha256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+      "bytes": 3764,
+      "gitBlob": "6a662bd671e340de57ad9b677ceb6dc44bf86cc6",
+      "sha256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+      "bytes": 5068,
+      "gitBlob": "f15edadccf0b35479155a531d650470585b771d0",
+      "sha256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/OBJScene.swift",
+      "bytes": 21500,
+      "gitBlob": "a023c8f1bbf2a140bb9b097b5c973fb27042662c",
+      "sha256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+      "bytes": 19452,
+      "gitBlob": "2b695b1fc4046a713131b6cce3ed842e9a8d3314",
+      "sha256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "bytes": 807,
+      "gitBlob": "80dfe59209dec34c4a5fccf78aa88106a9ea2b30",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "bytes": 1973622,
+      "gitBlob": "dab3ce0a2d9b76f6fa8ad182207608b774d8bb28",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "bytes": 17954,
+      "gitBlob": "5c888516cae10e7a3e07ecde58faadffb0adf555",
+      "sha256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "bytes": 763,
+      "gitBlob": "307500fbb3bb3809b0ac96e36b529bdb3bd5fcf9",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "bytes": 6396480,
+      "gitBlob": "fbc3101a143ebea1abf1e9c1dbd3bcab04c6b3e2",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "bytes": 840,
+      "gitBlob": "864835e5b73827fbdd15cd14e343b6be0ab0e4c4",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "bytes": 111248,
+      "gitBlob": "0e35e1fa040dde63f22187d917102d885c287bb8",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "bytes": 6988877,
+      "gitBlob": "ff413511e4fd547635ac52ac809c5369f6d7af8c",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "bytes": 1180,
+      "gitBlob": "0ea9e5037139ed78ca8d77338e2662e9f0c80fcd",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "bytes": 23585826,
+      "gitBlob": "937d27b31a3851eee8d8cfdda80360a83de13a01",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "bytes": 683,
+      "gitBlob": "5b5f60ad9fc644ab5fe202690ce8a8e208bd408b",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "bytes": 1372461,
+      "gitBlob": "d4ad8afada3ce4ec4292878e9dc671acdcf52944",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "bytes": 75407,
+      "gitBlob": "3a584d7823e70ed7e89fa620eb30fadbbac40fad",
+      "sha256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "bytes": 11358,
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+      "bytes": 20824,
+      "gitBlob": "72d074c3f7c1dffd0f13df4564c6e58486ab26f2",
+      "sha256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+      "bytes": 2775,
+      "gitBlob": "0f3ed8ed4c09d374b649dbfe5780388455641983",
+      "sha256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/SoldierField.swift",
+      "bytes": 10976,
+      "gitBlob": "c6ec3d580e3677efd8dbe1c4bedf7a6d83b7311d",
+      "sha256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Traffic.swift",
+      "bytes": 13375,
+      "gitBlob": "32f2b2dc1446950532f6c8e6012ad08cfa3380c5",
+      "sha256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+      "bytes": 9128,
+      "gitBlob": "65d4d0e04f36dc213db68ca8b10368949f52e883",
+      "sha256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+      "bytes": 2494,
+      "gitBlob": "d7a0d049a7a805fa87b5c2451790bf865ea6d211",
+      "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+      "bytes": 14933,
+      "gitBlob": "8b29b7a1e745e4305b14274a52aa12d1ff7f39f5",
+      "sha256": "be1edced98d5dab37e4ddb7951c3a677371db8e0c5fa15cd0e0dd9956f63a75c"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisScene.swift",
+      "bytes": 26643,
+      "gitBlob": "5bd8b62df815cd64ea6aafce0bf6d5221a641e2d",
+      "sha256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+      "bytes": 3234,
+      "gitBlob": "213797493a552c26e059f3123794784ba7064a64",
+      "sha256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+      "bytes": 44585,
+      "gitBlob": "5e7ced63448b19a2c428fe27657b0e78540360ae",
+      "sha256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586"
+    },
+    {
+      "path": "Tests/Adler/ProjectionReconstruction.swift",
+      "bytes": 8047,
+      "gitBlob": "463cac4473b53bf0a41a9bd420654c8d599cf065",
+      "sha256": "ad341e1096f1743fd7e6aad4e12bd778d0f37dacf94506954da9852db33ca8d1"
+    },
+    {
+      "path": "Tests/Adler/main.swift",
+      "bytes": 18097,
+      "gitBlob": "74c79a188df97e53d203817e1445cdc4a008230d",
+      "sha256": "527ff00a38a9ed3c0080b4893274f608081fddd3d847bea8ab6ee38c886ba8f0"
+    },
+    {
+      "path": "Tests/FocusNavigation/main.swift",
+      "bytes": 15079,
+      "gitBlob": "9b6b3ede7b26ddd678af3c5e094223d1d176c56d",
+      "sha256": "9715765cc0e970df8552be7726894218890999fe5e853c5ff407cd938f962832"
+    },
+    {
+      "path": "Tests/FocusNavigationIntegration/main.swift",
+      "bytes": 4258,
+      "gitBlob": "80f9ce96f4aca3820f22c7ea7caa2ae5a64f88e6",
+      "sha256": "853b63f8f5a6f81b3ce11e252bd9f126029f193f733005838faa31334f95bf60"
+    },
+    {
+      "path": "Tests/LakefrontGeometry/main.swift",
+      "bytes": 2489,
+      "gitBlob": "b65f681ea4c08dd0a823d0144d8f4155db3193dd",
+      "sha256": "2bcc0464332bd3ed7865900fc3c4368fb8667181e327718f1ab618453ce6f2aa"
+    },
+    {
+      "path": "Tests/LightGrid/main.swift",
+      "bytes": 8949,
+      "gitBlob": "40431199239b988577c84523f32ec2abd4563db7",
+      "sha256": "52ad3c740c8c9115e9d1ef83456126faaa283946497ce735dd6c978eb9f78592"
+    },
+    {
+      "path": "Tests/Lighting/main.swift",
+      "bytes": 7742,
+      "gitBlob": "778a3234f82c83b71336d368c93c46172092866b",
+      "sha256": "2fc40134c4bd19365c64e4de6799dbb7c38ca0e5d914e723e3b1b6dc83f0843e"
+    },
+    {
+      "path": "Tests/LincolnParkZoo/main.swift",
+      "bytes": 7890,
+      "gitBlob": "77c194281abf84f716980d3b5742fbf419a4301c",
+      "sha256": "822cfddeacc619282e598bef91ace66ef7babeecb0c69f19650c192e3cfd17b0"
+    },
+    {
+      "path": "Tests/MagnificentGateway/main.swift",
+      "bytes": 3371,
+      "gitBlob": "bc68e4aee97c7a12c9850ac6a121fd5933a05c9b",
+      "sha256": "aa2e42c3d3c1533d7daaba8bfb27c5f20fcb54ae07ca73bbd57907ee98ef51cf"
+    },
+    {
+      "path": "Tests/MagnificentMileGeometry/main.swift",
+      "bytes": 3578,
+      "gitBlob": "539a1139264dd5e889797386550a5432d0f9b753",
+      "sha256": "ff6f0a18a9b147a09a8ed5b827d06d34ee6ddf8c403fdd5e426187052b222900"
+    },
+    {
+      "path": "Tests/McCormick/main.swift",
+      "bytes": 2779,
+      "gitBlob": "4fe6d9fa09908a6cb27bbc727597c9062d599f65",
+      "sha256": "1db3242bb1e0e7f99bdcf7fb8d22f261dd9e985ea2e94a37a51b2e343c0acbff"
+    },
+    {
+      "path": "Tests/MillenniumGeometry/main.swift",
+      "bytes": 2706,
+      "gitBlob": "0c8c3e9c76be44174680b21b9479414404a3f48e",
+      "sha256": "a28db20bf5ea40aec72d900fd2f69839240b34d13d5b958d44881505cf7d15db"
+    },
+    {
+      "path": "Tests/MuseumBuildingsGeometry/main.swift",
+      "bytes": 2686,
+      "gitBlob": "07c98b8c9b5fccde2cb6454811161b682a7f67a0",
+      "sha256": "3e5d1b85299ab4521e258f395c192d00df7eace93673b619e059a6c592a4f0a1"
+    },
+    {
+      "path": "Tests/MuseumCampusGeometry/main.swift",
+      "bytes": 6112,
+      "gitBlob": "5a08ed4a42db85b668dc1361cc2098a5634aff57",
+      "sha256": "cabe4b6e16d8a0cbc8578223eb9fb966255e973fdf09669f04f15724a7113c35"
+    },
+    {
+      "path": "Tests/Navigation/main.swift",
+      "bytes": 5147,
+      "gitBlob": "2d451f749886374e28c86c089c767ac0afb3fd7d",
+      "sha256": "24fa64e0de5b921ff7cfd48d49275d9f70b1356e39133c9c2484a49caef97ffa"
+    },
+    {
+      "path": "Tests/NorthSideGeometry/main.swift",
+      "bytes": 7287,
+      "gitBlob": "869c178e01e0cf9718aecb236d09092377f0f12e",
+      "sha256": "bd6e6e28c656b23a1082d229d45c0e9f39c2da8fd8ac05e53b2862dbb6f1c6ae"
+    },
+    {
+      "path": "Tests/NorthSideLandmarks/main.swift",
+      "bytes": 2261,
+      "gitBlob": "497d2683c402ed1e6052495c046dddcce4da5246",
+      "sha256": "b78784cd1b48b02df0d73ea8a32df428b8047c6459bc453642dd8feb48fe94e7"
+    },
+    {
+      "path": "Tests/PairedMotion/main.swift",
+      "bytes": 4985,
+      "gitBlob": "55116087962097ba1d3fe6ab45b075e68172690c",
+      "sha256": "7e39572c52f5a8a905f236372ddc7280ec9d52e33802421a997442f32e408844"
+    },
+    {
+      "path": "Tests/Playback/main.swift",
+      "bytes": 28546,
+      "gitBlob": "aacdaad3aef4d4bfeab4703ccdc73f021d1cce61",
+      "sha256": "f9a76094bd9528656af5862c7ed7a454d9833445f75d4b9a0bdc244ce69e0a96"
+    },
+    {
+      "path": "Tests/Traffic/main.swift",
+      "bytes": 17388,
+      "gitBlob": "f5426c5dcd8ef13b2b92aef74cc9c5d38eea0cf1",
+      "sha256": "5750738770d8c69bbd6e98b9c2bd50e94b82ab7049de40390aeb356d682e296d"
+    },
+    {
+      "path": "Tests/ViewportInput/main.swift",
+      "bytes": 14919,
+      "gitBlob": "a56b14fd7f20099f8f580d48dbb3508bc10b5ac6",
+      "sha256": "243a6c0dac64b7dd5a2cdbaeb93ed5e3fe23d4af16ad83fcdc9cb1b8279f16f0"
+    },
+    {
+      "path": "Tests/WrigleyFieldGeometry/main.swift",
+      "bytes": 3763,
+      "gitBlob": "550e5627eb1e64d52156113da4c3657e157448d4",
+      "sha256": "513bcf7b364c11b1bf56e70b64e797d6cabdef652f21dc4480c660dd728afd34"
+    },
+    {
+      "path": "assets/Atelier-1024.png",
+      "bytes": 650512,
+      "gitBlob": "aa2db2b5a731480bc3aee271b3e7b1627d2966a0",
+      "sha256": "bb447d4871bd4fc8aece21a677804f96dae38c06302a170eec1763476f5dcba1"
+    },
+    {
+      "path": "assets/Atelier-256.png",
+      "bytes": 54298,
+      "gitBlob": "edc0b3641ce3dbf96e83024e10b8daa321fa476d",
+      "sha256": "465d312b02baa100c8803701cad9d5d2b92cde4cd42430f699394f9fea09fcef"
+    },
+    {
+      "path": "assets/Atelier-512.png",
+      "bytes": 182028,
+      "gitBlob": "9b8b497d21c3d1a3094079e149665d4eeb910b6a",
+      "sha256": "65839c264275f6286ff74f165c7a96ba7a5dde757a977378ea752890b7741cee"
+    },
+    {
+      "path": "assets/Atelier.icns",
+      "bytes": 1151623,
+      "gitBlob": "df7e27dbdb0d69313c8d83c8143a6d23d8b3b1f1",
+      "sha256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd"
+    },
+    {
+      "path": "docs/ADLER.md",
+      "bytes": 8093,
+      "gitBlob": "1bd340d0b35a0007d5c645ba55fd6ba5c53991a1",
+      "sha256": "2f0a9d1c22087e81d0d7c76fd6bd77d86916d1ec846694aa877aa51a384ed565"
+    },
+    {
+      "path": "docs/ART-INSTITUTE.md",
+      "bytes": 8141,
+      "gitBlob": "03e278740bd0b2bb88de7d6d2743f10d1989bfd9",
+      "sha256": "5409bb7bf8068f1ee8d204d328388ca28baee54d1b3ea39bb17ea7a11fd7bba3"
+    },
+    {
+      "path": "docs/CHICAGO.md",
+      "bytes": 9133,
+      "gitBlob": "4e42e8717f52b1c37b01633fdde35035e8200315",
+      "sha256": "6ab9eb79685c20415ab52f155205ebb8c47505ca697ba0b1c63ccf64bc8e195e"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "bytes": 34506,
+      "gitBlob": "e83df0a6af557886c5c0ace69cb21e2fd17f34de",
+      "sha256": "2bd788409e2420bc617c75f1baec97d66fc42c466fb575153dafbdd40228354a"
+    },
+    {
+      "path": "docs/ENGINE.md",
+      "bytes": 8658,
+      "gitBlob": "290568e23848470fbb61675c282f6d83b7a6ff5b",
+      "sha256": "a0b3ffb304ea778283bcba2ad0bf9b8549e56af9ad1c8ce2edb3080cdc391f81"
+    },
+    {
+      "path": "docs/FOCUS.md",
+      "bytes": 4170,
+      "gitBlob": "35e6ea6aadf20ca815481f40eab579149d0e9e40",
+      "sha256": "cb9651e4fdb4a859844f3a3b63ff0dff44fe43ba7b0f14140049e283acfbe8f3"
+    },
+    {
+      "path": "docs/GLASS.md",
+      "bytes": 3258,
+      "gitBlob": "7af15887994f6e7d47ea302cf0d06c27d3dd947d",
+      "sha256": "1c395f5a8ec1e7fc916929c12da9e87baf5d508871d70f0fedbd5782cf709cd7"
+    },
+    {
+      "path": "docs/LAKEFRONT.md",
+      "bytes": 11198,
+      "gitBlob": "b01d9fe974cb2e1603388011bda9f4b11465fb88",
+      "sha256": "66cb6eb21ac1a54e487bc7c2704694ad7e06c5acd1e86a597ab9cde3776d3a53"
+    },
+    {
+      "path": "docs/LINCOLN-PARK-ZOO.md",
+      "bytes": 11207,
+      "gitBlob": "87f9ad3f9d1a7d99729b0e6a5d6fc4bd99ea6495",
+      "sha256": "12e647df41f451496d7f5d43f89e7c1a2cf50079a2896b129365dff8eebf1cd9"
+    },
+    {
+      "path": "docs/MAGNIFICENT-GATEWAY.md",
+      "bytes": 5520,
+      "gitBlob": "df8ae72e2a54b488c028dd5d5b7f4195bbf5e927",
+      "sha256": "a901d854a8a74812a3e9a7b39c49219d656737b239ef69715f8ec0223e89fc2a"
+    },
+    {
+      "path": "docs/MAGNIFICENT-MILE.md",
+      "bytes": 10703,
+      "gitBlob": "3e4739fcce5a01c35ab2570f5901ac350839c49a",
+      "sha256": "78fa8c1b47e3b955fd3d8e5754caa3b9b2a409b52c44f887aa81ed0c122ae9cc"
+    },
+    {
+      "path": "docs/MCCORMICK-PLACE.md",
+      "bytes": 6258,
+      "gitBlob": "5245561bd251d493ead3d30b54952c0a8f5dc9fe",
+      "sha256": "6c0550b49bb2076c89d605b18400f9a6ae2f4a35ca73df2de6cca5d530f66d1c"
+    },
+    {
+      "path": "docs/MILLENNIUM.md",
+      "bytes": 10060,
+      "gitBlob": "b8d1763d8ee7e0ed306842b56161276846dd524a",
+      "sha256": "000e88b675a52e303e19942edefcd4df425203d17538159158d47ac52522eaa9"
+    },
+    {
+      "path": "docs/MODEL.md",
+      "bytes": 6122,
+      "gitBlob": "51deee32560dd5ade4ddcb0cce867b445e57e251",
+      "sha256": "167ee7c1c80c50564e894969379a6ab7161563eb1fa911ea6c07cce88879b7ce"
+    },
+    {
+      "path": "docs/MOTION.md",
+      "bytes": 48847,
+      "gitBlob": "f1a5ce71add64bdb85264267e9c2b12a06d11d32",
+      "sha256": "3a93e192c9aacd93ee3d7c642f461884ecfef130034edd911b87463baf5c6568"
+    },
+    {
+      "path": "docs/MUSEUM-BUILDINGS.md",
+      "bytes": 7925,
+      "gitBlob": "537503c1c9428b72da986ae0047813d2423f6ddf",
+      "sha256": "3d56afe34aa8d1cfc38c110315ddbb7fed59b8371e244b0746f0f85a0a818ce0"
+    },
+    {
+      "path": "docs/MUSEUM-CAMPUS.md",
+      "bytes": 10267,
+      "gitBlob": "ac11d28c24adce04e3c7721edcbe59d4e837d9f8",
+      "sha256": "b16426f8c38345f1a41e49c1fa7fa443e08a4ad141a7c0f20554e3a5b2705488"
+    },
+    {
+      "path": "docs/NEXT-CHICAGO-LANDMARK.md",
+      "bytes": 2629,
+      "gitBlob": "34dd4a4673c29954e86a937d1cd22b9104b04f96",
+      "sha256": "d6d01c18c4da0e6cc5d38210746ac43c699922fe0148a133252bcd4593e3972c"
+    },
+    {
+      "path": "docs/NIGHT.md",
+      "bytes": 3757,
+      "gitBlob": "fbcbddfa6eabb69d57e7b23e95bff32f997588b7",
+      "sha256": "d640f57bc164cfedd32f1052e65a0928ac9bd54d76095837d5c8322496ecfb15"
+    },
+    {
+      "path": "docs/NORTH-SIDE-LANDMARKS.md",
+      "bytes": 4039,
+      "gitBlob": "d72c5e51af9f02c4b0c9274303d0df772f7baa45",
+      "sha256": "8665356d96a8477ac2da66ba21c7713bab0cb2e16415ca80907dc8ca2ebd75d2"
+    },
+    {
+      "path": "docs/NORTH-SIDE.md",
+      "bytes": 10846,
+      "gitBlob": "1f8cd9bcb04f3313cfac89e31fcb5c453e6ccd79",
+      "sha256": "358a5c3816cb40e1a5b64e90a30a925f4fad79347b2d59b5266e98d7b415afa1"
+    },
+    {
+      "path": "docs/PARIS.md",
+      "bytes": 6655,
+      "gitBlob": "56159c00de57df5cdc31c9252f741ea66b271fdd",
+      "sha256": "2533bf9a73faf228a1fa6931b2051ee5981900b5fac9903ec3d399703295965b"
+    },
+    {
+      "path": "docs/RIVER.md",
+      "bytes": 4241,
+      "gitBlob": "53f27c39e84a5f0d0ff2cfd83c1ce21f3dda5745",
+      "sha256": "d1b75ab71b2ab8ac4052efffa36e1c9f5155c81545f4dec8bf2a8240a8b0892b"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 82445,
+      "gitBlob": "c6ccf229a65530071c6291e3aecaef46d038339a",
+      "sha256": "cbc7932a02b05e60b28d3d35fbdfe7118c1d15a91499f35c602b03efe9b84e02"
+    },
+    {
+      "path": "docs/WILLIS.md",
+      "bytes": 8456,
+      "gitBlob": "172bf36a5c473337396e8fa8aababd3f865dbf82",
+      "sha256": "fc0e54642281bbdb4b628c7a1022e2c8b5efe9985b3ad8cd84ca3f1da3b03537"
+    },
+    {
+      "path": "docs/WRIGLEY-FIELD.md",
+      "bytes": 8857,
+      "gitBlob": "0397b5524fbb978e4b26c1c05f9c42a6940f82b5",
+      "sha256": "061149c4516d4fbe4d3f289bbb5dc46aeccb1af1e394c0c22d442677638cc713"
+    },
+    {
+      "path": "docs/images/Chicago-Buckingham-Fountain-Night.png",
+      "bytes": 1138674,
+      "gitBlob": "1b661d35c3e58ad2e8e7e3cd2906a78b062543fc",
+      "sha256": "456cc57aaf6930e737e8e881d2aeefa19387bfdefa58b8604df5f513966b957d"
+    },
+    {
+      "path": "docs/images/Chicago-Magnificent-Mile-Day.png",
+      "bytes": 2404050,
+      "gitBlob": "c43b4e02a6c23817e9544285a2610d3560f144ee",
+      "sha256": "f2a10991fa7e9b158f9acfbd513b3952dd9bfc2097a0fdce3beea579d3b915ad"
+    },
+    {
+      "path": "docs/images/Millennium-Cloud-Gate-Day.png",
+      "bytes": 3213251,
+      "gitBlob": "2017d90895ee55541a1fcf358d32f0bbfc44ea60",
+      "sha256": "a69feffddaad8005778facdb14f26e87ea07061f10e0df69b1a4ef98cda420f1"
+    },
+    {
+      "path": "docs/images/Millennium-Cloud-Gate-Night.png",
+      "bytes": 2736389,
+      "gitBlob": "91700f3546cacbf33a3fb79f4e4c36c520d0ec0a",
+      "sha256": "809d71a3de4c93e02565a7d0b63dfb8739f881b502e771b1093ff30ece732867"
+    },
+    {
+      "path": "docs/images/Museum-Campus-Adler-Show.png",
+      "bytes": 1298391,
+      "gitBlob": "9e553ea3ece6b97c37ce9fa35e90f8359fd0f0af",
+      "sha256": "0cbd7648ff34293b6cd7713ce3439518eda5787daf7509963a560d2882f0b4a0"
+    },
+    {
+      "path": "docs/images/Museum-Campus-Field-Hall.png",
+      "bytes": 4295773,
+      "gitBlob": "77334746e2119d79aa246e331314b8b9f66e39d4",
+      "sha256": "153229be8a4a25e61f4f54719822d198fdd84eeb3b038240dbb5ffe10526ce36"
+    },
+    {
+      "path": "docs/images/Museum-Campus-Shedd-Rotunda.png",
+      "bytes": 4104981,
+      "gitBlob": "ac691d25349cc1416bf794792bddddffb95e90c7",
+      "sha256": "1aee4230c8187fa33ca5d78ecb24bbc2438ae56d67f85eb19ce588774fa4678f"
+    },
+    {
+      "path": "docs/images/North-Side-Old-Town-Day.png",
+      "bytes": 2470375,
+      "gitBlob": "0f01670883515d021b851a60ed9e363d5a817760",
+      "sha256": "f5de168beaf5b345cc7c4423034a37db13b7e7cb96c7dcb8d4af61a75aad8d9d"
+    },
+    {
+      "path": "docs/images/North-Side-Wrigley-Night.png",
+      "bytes": 2060083,
+      "gitBlob": "6e46aef2c1811f89083005c89d02430cc789f4c2",
+      "sha256": "025bb66d0dc8f2f30cdbe2767c32ae9fcd18fce3d6044572c6ec9f69913601a0"
+    },
+    {
+      "path": "docs/images/North-Side-Zoo-Night.png",
+      "bytes": 2484679,
+      "gitBlob": "53f2b1a42f54ef772b905addc6ff524062d8e18e",
+      "sha256": "eeb11569428b2eaa0ddbff1a96ead2a7ac65d3a7282555b2ad7645a5c1670dd1"
+    },
+    {
+      "path": "docs/images/Willis-Tower-Day.png",
+      "bytes": 2914515,
+      "gitBlob": "2c592170547c253b7a5ee1cedc8767553e7dcc1b",
+      "sha256": "c9ebe13c700397bb2f8a9083fa210e30035016cfa87802ba8d960cd32da579c1"
+    },
+    {
+      "path": "docs/images/Willis-Tower-Night.png",
+      "bytes": 2338784,
+      "gitBlob": "434ecc823488cea27226313337a1a448a046f42a",
+      "sha256": "76e49909c97f0d3aa80dc96e51aed6b45e649ef6d32ea5dc08120a6969e2d22c"
+    },
+    {
+      "path": "docs/references/museum-buildings.json",
+      "bytes": 6045,
+      "gitBlob": "8952fa6300347885cc7f053751a1ea096e5e51ca",
+      "sha256": "9c1049505b488214aae7955568436cdab7021f1144b277face79389fd506728a"
+    },
+    {
+      "path": "docs/validation/v1.3/building-visuals.json",
+      "bytes": 2015,
+      "gitBlob": "b6f3432d8fa2024333f561f6243438687a3c0c34",
+      "sha256": "e35734e1590bd20793b5ac86e38540c84ef6cd0cfb536bfdbe7aceaa8be28d6f"
+    },
+    {
+      "path": "docs/validation/v1.3/chicago-map-validation.txt",
+      "bytes": 511,
+      "gitBlob": "83eac331b45174010620e09be712a69d921216a0",
+      "sha256": "f88f9df708e42e8cb6a7a6a80021e19bbf1b5cfec1eb820af10e3e8207fa7675"
+    },
+    {
+      "path": "docs/validation/v1.3/chicago-motion.json",
+      "bytes": 4448,
+      "gitBlob": "7ee4bc612418fd983eb6623125113058b3a44bc2",
+      "sha256": "626bc774f1a26a3dcdb358d6fd922dd0c7048ba5faea809e4e54bf33e1eb4cfc"
+    },
+    {
+      "path": "docs/validation/v1.3/chicago-self-test.json",
+      "bytes": 863,
+      "gitBlob": "a59063f339dec45a1dba2dce2dbf1f6a20662bbd",
+      "sha256": "236dfe914ac62f594b06f5b93e2071f5614bf38e7a4824d3299b06af2dd14ae5"
+    },
+    {
+      "path": "docs/validation/v1.3/context-visuals.json",
+      "bytes": 1275,
+      "gitBlob": "b6d261936c6ebd4a9d3327c74a575a663b4b2e6e",
+      "sha256": "90912ac2ec623fdb2703a1a6549b027b0d37287239c378a7443893366c9019d3"
+    },
+    {
+      "path": "docs/validation/v1.3/day-media.json",
+      "bytes": 3065,
+      "gitBlob": "d8f9108db49a6b405b63c582d5d1949c516c0beb",
+      "sha256": "3c5d1e7f9a839a3bdbadcd159fd2abf110be36b4662e279a9787bef3fd6ae820"
+    },
+    {
+      "path": "docs/validation/v1.3/denoiser-coverage-negative-control.txt",
+      "bytes": 2049,
+      "gitBlob": "fbbb37fa09bb96c5d7b79c42b54504c760a22e0f",
+      "sha256": "802781214de67ff94941a19e9b8db397421dcf361a8ed574948047ccb5a672d7"
+    },
+    {
+      "path": "docs/validation/v1.3/denoiser-validation.txt",
+      "bytes": 2151,
+      "gitBlob": "fd813f6c321b25a7e3bed2bdfa1c87d162f55a7f",
+      "sha256": "beed64526b8534c2dcd066923785b133bb5c4584403fffc4c60ad066c28474c4"
+    },
+    {
+      "path": "docs/validation/v1.3/firefly-diagnosis.json",
+      "bytes": 1745,
+      "gitBlob": "2b60c0d637b4e768801bf08237b994ea8027a73f",
+      "sha256": "b84cd9ddeaa8f5da1e2f05c0a1bbdc69a8b520f2c1746c08cfc5ac5102a42781"
+    },
+    {
+      "path": "docs/validation/v1.3/glass-validation.txt",
+      "bytes": 438,
+      "gitBlob": "0f26364d89f2091d44633904786ebac6392ee816",
+      "sha256": "053f6e1fd3723833ee3d1bd01ac1407395b450e9cbe2766faa714a740cbacd7d"
+    },
+    {
+      "path": "docs/validation/v1.3/metal-validation.txt",
+      "bytes": 584,
+      "gitBlob": "f4d003c750891eacee1f66ce8495674864ae4550",
+      "sha256": "2dead75e87966e25e3e7469b6efddaa390176ca904fdaa1642efc578d51c06e6"
+    },
+    {
+      "path": "docs/validation/v1.3/motion-baseline-notes.md",
+      "bytes": 1608,
+      "gitBlob": "3192bfad76de58c36c3dd96a309349e217a16afd",
+      "sha256": "8e3aeaa0f4f97a22161e6a7d17cfc73eb225dcbb814be699539cb54cc384ed73"
+    },
+    {
+      "path": "docs/validation/v1.3/motion-before-correction.json",
+      "bytes": 4352,
+      "gitBlob": "c8bc36945e1d63196a7a173d515c7f277f039ae8",
+      "sha256": "2fadb8ba66fec17d09e97ca5164a68f586c43abb999c9e56538731c010037ff1"
+    },
+    {
+      "path": "docs/validation/v1.3/native-ui.json",
+      "bytes": 2955,
+      "gitBlob": "ef60a0507b590d6267561ba3a10a9c951750cf01",
+      "sha256": "2b50e1f6cde5d862cf431f891ce8211d8efa146a64bc734f1304afca659cd402"
+    },
+    {
+      "path": "docs/validation/v1.3/navigation-validation.txt",
+      "bytes": 2025,
+      "gitBlob": "c01e398e8302801b452c7efe60fbb9decd8883a8",
+      "sha256": "f0ee1cb3a04cd40737b772c907532247f562eeffb5910b816c122bf1247279b0"
+    },
+    {
+      "path": "docs/validation/v1.3/night-hero-validation.json",
+      "bytes": 658,
+      "gitBlob": "43fb3d1a27fe35664f5bad6c95766b3f1541cac0",
+      "sha256": "4d314127580aa4fe84437b82cf93924757586a7bbadabcab4b7a66c6ef2560fc"
+    },
+    {
+      "path": "docs/validation/v1.3/night-media.json",
+      "bytes": 4719,
+      "gitBlob": "ef5da88e55d70af33c7b26ec3d3d0c3fd8b383d0",
+      "sha256": "35e77e81238ba02445abc46c680979ade3697964ba97cd2fc60904fef5727705"
+    },
+    {
+      "path": "docs/validation/v1.3/paris-map-validation.txt",
+      "bytes": 308,
+      "gitBlob": "ccfa8b0cd2acdef5490b53d3775636e8f333482b",
+      "sha256": "a18d6cc42318b1616894fb0f3749e4af3a5b0f77c174adb337a593a0c6747cf0"
+    },
+    {
+      "path": "docs/validation/v1.3/paris-motion.json",
+      "bytes": 4488,
+      "gitBlob": "3e6dbabd5d13cc17f9a8337391cb42eadeb9e892",
+      "sha256": "e21470bc686ad7294649453a916e2cc99d42a146fda1439d01f821760eea3ae3"
+    },
+    {
+      "path": "docs/validation/v1.3/paris-self-test.json",
+      "bytes": 860,
+      "gitBlob": "6c2172004bc41b91698efd55e199452bac299ceb",
+      "sha256": "65dd99a0d4cd5a451fe6397f366c16fd8c9d73ebeee076a54fad123d1470847c"
+    },
+    {
+      "path": "docs/validation/v1.3/playback-validation.txt",
+      "bytes": 1139,
+      "gitBlob": "19b45c64b1c3b81be78c8b2df4399c1ec2f3b482",
+      "sha256": "bcce4f4a1a2a1ee8e17f2ee509b0e1afea626a03c99a58c89b1d082b8337ce54"
+    },
+    {
+      "path": "docs/validation/v1.3/presentation-negative-control.txt",
+      "bytes": 525,
+      "gitBlob": "214df997c430bfc2ca91a12c34bfbce407211fef",
+      "sha256": "7fb620a187c59a2dcca1110df659779af7b41a8058f9333fd25e8804db473f99"
+    },
+    {
+      "path": "docs/validation/v1.3/regularization-convergence-metrics.json",
+      "bytes": 886,
+      "gitBlob": "4c5390357b0c5363b98a26d31c7471bdf5632ea6",
+      "sha256": "45a5387c6c3370d1f60a3978d9f75cb2ac81740f485a7903ed54db56802d9bed"
+    },
+    {
+      "path": "docs/validation/v1.3/regularization-negative-control.txt",
+      "bytes": 665,
+      "gitBlob": "3ea152aa9a4696d3e4ac3e303588824b21c0fd31",
+      "sha256": "021b0fbbc5a12eaa158b35dcd7e50c4a261814d32d56e93a3de5d1b9afecdc69"
+    },
+    {
+      "path": "docs/validation/v1.3/regularization-review.json",
+      "bytes": 3299,
+      "gitBlob": "199fa4249ec3589578d8bb178243bd778b61f8cb",
+      "sha256": "8f9625bffa339989749c123c0cced490bdab1b9e155588266f12226a0b6160e6"
+    },
+    {
+      "path": "docs/validation/v1.3/regularization-validation.txt",
+      "bytes": 521,
+      "gitBlob": "f817b0c50e8e38034fe7c7c6626041e5c07ff8b9",
+      "sha256": "37f7777c97a97eb2ea047e5117a1cb7f1521eeb578fbcd709417a1cd8da32170"
+    },
+    {
+      "path": "docs/validation/v1.3/release-manifest.json",
+      "bytes": 801,
+      "gitBlob": "9e6a2a37ee25b599d2f96399e0bd178da2c1958b",
+      "sha256": "c8cec8e1bc896a4d5cd32daddf7247f69626962b39628b0e73ab52b08bc7ded8"
+    },
+    {
+      "path": "docs/validation/v1.3/standalone-bundle.json",
+      "bytes": 265,
+      "gitBlob": "de13b03dc46d3382fbd9d840d4efce4e89a11ffe",
+      "sha256": "8c3169bec44b2006b759f1b808c20751ba2061177d63261721bab54c2755d856"
+    },
+    {
+      "path": "docs/validation/v1.4/build.txt",
+      "bytes": 532,
+      "gitBlob": "7016e497b709dd2f3890426980540836c07b184b",
+      "sha256": "25f3c8baa88c8ee923896cd0abcfb51947be9153483e0f96055d0bc3d2b95505"
+    },
+    {
+      "path": "docs/validation/v1.4/chicago-map-validation.txt",
+      "bytes": 511,
+      "gitBlob": "83eac331b45174010620e09be712a69d921216a0",
+      "sha256": "f88f9df708e42e8cb6a7a6a80021e19bbf1b5cfec1eb820af10e3e8207fa7675"
+    },
+    {
+      "path": "docs/validation/v1.4/day-flight-opening-review.json",
+      "bytes": 1673,
+      "gitBlob": "ac81be9a65b199729537fb73581d38d8340dc711",
+      "sha256": "6898ad853d71e162beeb865e56cd70f64f619a4e9cd40e8354dd08e674d0d070"
+    },
+    {
+      "path": "docs/validation/v1.4/day-flyby-media.json",
+      "bytes": 9663,
+      "gitBlob": "d97de22abdcd66bba586856e801a95bc3291563a",
+      "sha256": "a563330e90227bddf0c452c68ea67383418b456f8edc44fe7da5337e7b60a265"
+    },
+    {
+      "path": "docs/validation/v1.4/day-museum-movie-review.json",
+      "bytes": 3300,
+      "gitBlob": "2a681c769e107b143a1f3221267a72b655022ffe",
+      "sha256": "5b486d6b4e26ab09ba1dd31026a38ea6752bb7d7cabf9c301391fc25d90fab5f"
+    },
+    {
+      "path": "docs/validation/v1.4/day-park-movie-review.json",
+      "bytes": 4007,
+      "gitBlob": "ac85575746294a6aea7141cef4c18b6538632c2b",
+      "sha256": "ba646e1cc429bba1a13f17395288b9ac5e4e89b2a90f3516d8276576884dda99"
+    },
+    {
+      "path": "docs/validation/v1.4/export-cadence-negative-control.json",
+      "bytes": 2919,
+      "gitBlob": "898a88e98e84b2af5c999a66eda6ed689ceaca46",
+      "sha256": "93a7784ef8ba11368614ba3193af54e9025dd9a87866650477047958c5eb81c2"
+    },
+    {
+      "path": "docs/validation/v1.4/export-first-cadence-failure.json",
+      "bytes": 1049,
+      "gitBlob": "d4d53a428dd6c006e32013acf569efca272758ca",
+      "sha256": "772397d6521e63fdc5a10af722d2e1bd54914c18ffd1c23e29fc81a41cff6615"
+    },
+    {
+      "path": "docs/validation/v1.4/export-smoke-cadence.json",
+      "bytes": 2704,
+      "gitBlob": "c65928604ae19d9adaf06233512af213ebb6d8b1",
+      "sha256": "8247bc0518a10051b394591285d3be7b37693f2470bde7c7533bd7083c62976e"
+    },
+    {
+      "path": "docs/validation/v1.4/export-smoke.json",
+      "bytes": 306,
+      "gitBlob": "700a346d6609278f74ae6b367a8284e9794b62be",
+      "sha256": "383e12251812e03f0830b12bcf7857f8b7c25db977a3488d27859a5cb1e25c90"
+    },
+    {
+      "path": "docs/validation/v1.4/export-timing-notes.md",
+      "bytes": 3386,
+      "gitBlob": "acd4218607f4a53408ce1b765e815fa53680936a",
+      "sha256": "31d550506ffee22cf4a489f1a31401297c3e9afd6cad69850f1a05c2b52c66e7"
+    },
+    {
+      "path": "docs/validation/v1.4/integration-source-review.json",
+      "bytes": 2972,
+      "gitBlob": "974a12c5ef31bea8db9051fe256bd9566dd287ae",
+      "sha256": "c5bc973c545164028c2154a45194afab81f28d22c26dd4e6663cc867ad36c5c9"
+    },
+    {
+      "path": "docs/validation/v1.4/light-grid-validation.txt",
+      "bytes": 368,
+      "gitBlob": "e687a46fd6288d86bee9c39d7a0c1f92d90e12fb",
+      "sha256": "1e476a7ecf7d0082f90560b7e17b3cebcbe8c7dedb69fd6d181212a1f9408339"
+    },
+    {
+      "path": "docs/validation/v1.4/millennium-geometry-validation.txt",
+      "bytes": 431,
+      "gitBlob": "f2279b68b64084884cca03aaf8d5c5165e474e43",
+      "sha256": "79a3e84a8fd5c2a4078a5b1d4a85e8fb15619198cc480ef0c4a88adf35ab08e4"
+    },
+    {
+      "path": "docs/validation/v1.4/millennium-map-validation.txt",
+      "bytes": 324,
+      "gitBlob": "02847f7a99d8907f973cc6c454d167c2e241e12e",
+      "sha256": "3efe163d43fd13f6e34a8f17d9c30a5e092b630b76d8258f13592124eee49415"
+    },
+    {
+      "path": "docs/validation/v1.4/millennium-self-test.json",
+      "bytes": 1049,
+      "gitBlob": "b2021cd9af27b303c21efac788de5cdbc0a0fc1e",
+      "sha256": "f6327b3a91a95a0c9586a965002b6a17bfa4ac5bdc4b051a7116a53b06e714bb"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-before-material-coverage.json",
+      "bytes": 1603,
+      "gitBlob": "f7cea5c6cc90f1ef40a407aa4271c6da3c860efe",
+      "sha256": "8665d381a04c2c6d0935d0600969ecf19e616b177b51d245cc88ec7dc4075205"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-before-spatial-confidence-input.json",
+      "bytes": 599,
+      "gitBlob": "e96282f460582c91f61f5d3e07bdae6f12579971",
+      "sha256": "a5e9b552af5e832f1761d324579e22f9dc9502f958cf23720ba0c0f8b1787637"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-before-spatial-confidence.json",
+      "bytes": 4853,
+      "gitBlob": "bab2d59b5da5df05a73506d092c5cd7e35548c44",
+      "sha256": "33d0034bc3dd929a16a00410c922180658592cf95d4f63e384a29708cb71e178"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-chicago.json",
+      "bytes": 4798,
+      "gitBlob": "43928ef087cb8e79188522063b934de81efcad28",
+      "sha256": "ca90bf44aa42eaace7897338e6d10a4720826d1f1e276f9e98e68e185489dbd8"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-comparison.json",
+      "bytes": 4534,
+      "gitBlob": "616dcaead9faf8e47d19adc0bf69c3478d6dd734",
+      "sha256": "7f19f89086402804a6b5edd78da19373c9525306696712d1432c74ade12a7f4c"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-denoiser-validation.txt",
+      "bytes": 2741,
+      "gitBlob": "aa670d8feba7c103079a42535390b6993c0285b4",
+      "sha256": "bb4e2852b07fa86fa278329f0ea70936e5ff74a8cc7202bfba78c425e2190591"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-discovery-notes.md",
+      "bytes": 1782,
+      "gitBlob": "8aeaf33903ee7e697d7606d1c8fa76d229d8ac31",
+      "sha256": "91187745811340a99c83e0019c182454fc3a3b473e3fc03b3fea23be066b4f93"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-indexed-lighting-validation.txt",
+      "bytes": 357,
+      "gitBlob": "8a76585787244339a7e59fcbeb7510b4ac9c95a2",
+      "sha256": "b74e263decc1c10d2a802c93438144edd8d7f663943fc427804aa72b104deb25"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-input.json",
+      "bytes": 631,
+      "gitBlob": "569b8774b1a887b1d3c15356addd07900ce2ca98",
+      "sha256": "d183e38d03d57a30aabcf4f8d9e98e005b60b2af406f006031250dbed5e5baba"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-metal-validation.txt",
+      "bytes": 822,
+      "gitBlob": "b52b8c62d74f110c980f8e5c0ab8bbfff7b36732",
+      "sha256": "3112124b3d35b559e4d5175ca1f08fc7d8fea80947f04463995f65a812f23746"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-millennium.json",
+      "bytes": 4814,
+      "gitBlob": "f6de624bdbbb22634bfa570bc529c9146d1c6775",
+      "sha256": "499c60e9ef9a28df586b8b0a577d1fb34f462429bf991b86c81635c073e4f039"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-negative-controls.json",
+      "bytes": 1796,
+      "gitBlob": "81669adbe6ca917e59d90158ed563de21165fa00",
+      "sha256": "215e27dd5fc94c9f276d900c6aae1be7d3b7d51b685ccd863cc8284f474e47dd"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-paris.json",
+      "bytes": 4833,
+      "gitBlob": "1475f8aaba1ba1fb3cc379482735fda032f6aec5",
+      "sha256": "27b2b3f47871c2ce3b6a8713cc6fb1e3c7d0d8acae5af608bb8fa7094934aa08"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-regularization-validation.txt",
+      "bytes": 642,
+      "gitBlob": "4061b4a99311e2fc6141e43c80393651a29e86ca",
+      "sha256": "4fe6d0a29b173717b940f45aa22175dedcaddde325fe19eee7b56051df0f2484"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-sampling-validation.txt",
+      "bytes": 602,
+      "gitBlob": "2d36cfc97af73cc53a4c05cb99423d95448b3fe6",
+      "sha256": "727dc04cc5e65382ae62b4a1c6294094330d71d0f115de0bbde6095ec41417f0"
+    },
+    {
+      "path": "docs/validation/v1.4/motion-summary.json",
+      "bytes": 12571,
+      "gitBlob": "262f7a0129f93dc802484ad176e4a9719408081f",
+      "sha256": "d172b6183acd124afdf4f707bab9ce9ced58c5f5ca2b583c23d6f55580c5e33d"
+    },
+    {
+      "path": "docs/validation/v1.4/museum-visual-validation.json",
+      "bytes": 3652,
+      "gitBlob": "6f8ec9b6ccd736caf493da096b97c3859ea8d8d3",
+      "sha256": "6ebd0b476d37a59d24f45e6a2822c5f4ba375b1c849601a945e1a002865c5968"
+    },
+    {
+      "path": "docs/validation/v1.4/native-ui.json",
+      "bytes": 1819,
+      "gitBlob": "e474f7fde7d7a9dc741b73a3af412b01cd52f323",
+      "sha256": "a6698c77e5ce2fdcc0ce0f0a482b772d1f2191c3544ad7b511c78ddc121187ed"
+    },
+    {
+      "path": "docs/validation/v1.4/navigation-validation.txt",
+      "bytes": 2131,
+      "gitBlob": "d79540da83c1a00580b15c4e4d59a367c232b9c9",
+      "sha256": "d0b46dbdad69f8e4d3d59f932751e2da0aa60487c15da27a48ad12b7e68215f3"
+    },
+    {
+      "path": "docs/validation/v1.4/night-bean-media.json",
+      "bytes": 6954,
+      "gitBlob": "3d64ac21676d96d36a208379ca296267840f678a",
+      "sha256": "3154a7dc17d436da8dcddaa728f9b4f39e6e99a9ef38bb0df5c26e0b874b08c7"
+    },
+    {
+      "path": "docs/validation/v1.4/package-commands.json",
+      "bytes": 1045,
+      "gitBlob": "c4714e8a1bd511b41ba253ef482394dbc9d89647",
+      "sha256": "6a7cf0d47ba6f68f509ac018fffaaf9e6353b71caaae8b2ae2deebdc9fe1b9f2"
+    },
+    {
+      "path": "docs/validation/v1.4/paris-map-validation.txt",
+      "bytes": 308,
+      "gitBlob": "ccfa8b0cd2acdef5490b53d3775636e8f333482b",
+      "sha256": "a18d6cc42318b1616894fb0f3749e4af3a5b0f77c174adb337a593a0c6747cf0"
+    },
+    {
+      "path": "docs/validation/v1.4/paris-self-test.json",
+      "bytes": 861,
+      "gitBlob": "1a04c85d7b48398de96643dfe913d12696513a93",
+      "sha256": "2d85edbb57c965d897944a049c883c0310b5d521990e58541a68ddeeab0b3a4a"
+    },
+    {
+      "path": "docs/validation/v1.4/park-visual-validation.json",
+      "bytes": 6771,
+      "gitBlob": "c83ab06d3ea6c195ca9437bcf975dfb9d8354274",
+      "sha256": "6bbc62d3262e2efbabcb8dd17645130ed0d7c2f86f34136c58dfe48c4d3e9422"
+    },
+    {
+      "path": "docs/validation/v1.4/playback-validation.txt",
+      "bytes": 1664,
+      "gitBlob": "90b46c8069b8f493d9da651aaab4ade2c8fc2b84",
+      "sha256": "a3befdda643f1de9622324d5771753f84c3d6d0e8f3093ab75c726cbe0fff75e"
+    },
+    {
+      "path": "docs/validation/v1.4/release-manifest.json",
+      "bytes": 11439,
+      "gitBlob": "acd2283d3cb75abd9ab45b7f381716039d4860b6",
+      "sha256": "dd064e72c63e5fde50bf3c0e8012fea456d5107fa568a24651457e779840a2aa"
+    },
+    {
+      "path": "docs/validation/v1.4/render-commands.json",
+      "bytes": 3498,
+      "gitBlob": "4a5ec5258c8ee9fd6aad722c614687264c143870",
+      "sha256": "0312211f7826ebebaf9078d5e5a5c04c2e459c9aa7190951f5fb6c0542419114"
+    },
+    {
+      "path": "docs/validation/v1.4/root-final-visual-validation.json",
+      "bytes": 2264,
+      "gitBlob": "5ed938c24e3c509a73e0fcd1d51f0eaa2cf16924",
+      "sha256": "3923ffee25091cc28f17e7e3adbca966b8d5264a6fb860ec78aee9da83996039"
+    },
+    {
+      "path": "docs/validation/v1.4/standalone-bundle.json",
+      "bytes": 518,
+      "gitBlob": "c44cce613ed4d9892e7f9bc5ce299cb4a6140be4",
+      "sha256": "4d9244fd8b4281f5dad25dbffcccfc49191bb7ade56351192715a68488189a25"
+    },
+    {
+      "path": "docs/validation/v1.5/atmosphere-correction.json",
+      "bytes": 7864,
+      "gitBlob": "9d6fa454ecc47bb5f6ece9e0b1e14ce4562e6b11",
+      "sha256": "8a6fd700fd243e5f87073c48a5d36bc7f189fe3cad17d63ad4e7bb321a8c6a1b"
+    },
+    {
+      "path": "docs/validation/v1.5/atmosphere-fixture.txt",
+      "bytes": 498,
+      "gitBlob": "2502c01a28fa5fc7c2c133c39b941bad665e91d8",
+      "sha256": "273ab1437d6fe6f3a4fc84b14edcc49324d2281f367cb66e1e3bd3643eb19599"
+    },
+    {
+      "path": "docs/validation/v1.5/atmosphere-surface-only.json",
+      "bytes": 4395,
+      "gitBlob": "633d2a457ce2952bad9a32010e0b3844374bcd4a",
+      "sha256": "f6fae09260cc5ac48ff1e5639ba99824e468fece300b01f59788ff33ec4a213f"
+    },
+    {
+      "path": "docs/validation/v1.5/build-validation.txt",
+      "bytes": 433,
+      "gitBlob": "69b594529b8ff4e83e8f3da290e1ee65afad1616",
+      "sha256": "3e5020dada27ab94e5af0e77192253bc36502b0fd2a653cd062fffed3cefaac1"
+    },
+    {
+      "path": "docs/validation/v1.5/caption-widths.txt",
+      "bytes": 329,
+      "gitBlob": "89c72357a34d3c9ed2d74aeb7b385c7772f72cb3",
+      "sha256": "415dfb9d5beac4712b2d35691201b105a9cc6aa25ab9b1067d32ff411a88b8e0"
+    },
+    {
+      "path": "docs/validation/v1.5/day-before-haze-media.json",
+      "bytes": 3747,
+      "gitBlob": "219fcb1a9d9b0220387aac5aa08e2a09abdaa109",
+      "sha256": "2a91baa55aca8a3186af79ff07a98f7b4bd7293cbfb0ab5babb5333523c8df01"
+    },
+    {
+      "path": "docs/validation/v1.5/day-before-haze-visuals.json",
+      "bytes": 11343,
+      "gitBlob": "00c12c98fda0f544d5e44e23d299dd0bb64d3765",
+      "sha256": "606a1e75835768aa97f57d9265335519c69bd9bb3eef220d37d3345f0cbdda1b"
+    },
+    {
+      "path": "docs/validation/v1.5/day-gallery-corrected-visuals.json",
+      "bytes": 7729,
+      "gitBlob": "60099a3a8401bf2fa25c33ab2fff3dd7dd49f2d6",
+      "sha256": "26318ff7a73def6329a19888b02c298de9a72e73e61c10c8bd88f6d921bebfb7"
+    },
+    {
+      "path": "docs/validation/v1.5/day-tour-media.json",
+      "bytes": 3645,
+      "gitBlob": "d87f481382f2965b841f12e88775e0b38f966ac9",
+      "sha256": "3293ecad2d7f252dc633e49e741b554244ab9564b9022b5110b2b91c3623252a"
+    },
+    {
+      "path": "docs/validation/v1.5/day-tour-visuals.json",
+      "bytes": 10795,
+      "gitBlob": "223eb0156cb38eae7909515fa49176ad742b85fa",
+      "sha256": "896ec6e54ae474a2c25c82c6ed91626ad6461c790dcead94f318b58be4e035f5"
+    },
+    {
+      "path": "docs/validation/v1.5/denoiser-night-tolerance.txt",
+      "bytes": 3032,
+      "gitBlob": "f2b3870ff63c3f44fa5549a672004125f646d794",
+      "sha256": "f4b45c77a9ebbe00ee4211e37a23c36021ab7380041e8e480b0480bf98ca1832"
+    },
+    {
+      "path": "docs/validation/v1.5/integration-review.json",
+      "bytes": 1301,
+      "gitBlob": "bae442e2654fe0932a9be69604d99b952492ef9e",
+      "sha256": "4432fdd26ed782324df11befa26e7c1fd61bbfdec42df3da2c1f913d7ffd94d0"
+    },
+    {
+      "path": "docs/validation/v1.5/lakefront-geometry-validation.json",
+      "bytes": 2836,
+      "gitBlob": "e8eb3a3177e6114bfe4a6c7b1c38904ef5be67ac",
+      "sha256": "8d91e111ffa8448527661f3eab1fef913a87a958001beef84c50d8dc18527c06"
+    },
+    {
+      "path": "docs/validation/v1.5/lakefront-geometry-validation.txt",
+      "bytes": 222,
+      "gitBlob": "d45fe39669441ffbc21867711f054b30228eb3ba",
+      "sha256": "f35e7e6297ca88cbc408c4a6104102694bc03176a95190a983a9fb0380f414ff"
+    },
+    {
+      "path": "docs/validation/v1.5/lakefront-map-validation.json",
+      "bytes": 1560,
+      "gitBlob": "20a2612486e7fc2450dfa955b274774e8ec91b1e",
+      "sha256": "a654c60c289bd5cf27aa308983675cca37563ac4c516c7016d642776daad3661"
+    },
+    {
+      "path": "docs/validation/v1.5/lakefront-release-visuals.json",
+      "bytes": 12262,
+      "gitBlob": "f0ee147e91462b98ac662e229f53f376caba3c30",
+      "sha256": "5731d6ff6f858849f16d161721ad458b544d455bab3d83d4e8cbf30b9e10c7f7"
+    },
+    {
+      "path": "docs/validation/v1.5/lakefront-self-test.json",
+      "bytes": 1360,
+      "gitBlob": "6aa1f8f42c40a36ab6a96c9533b6ab8f52d2af8d",
+      "sha256": "25793e0a3a4cf34bc86dcf25dcb6cf3d0285d7cb94b16420645b119528df7d4b"
+    },
+    {
+      "path": "docs/validation/v1.5/magnificent-gateway.json",
+      "bytes": 2196,
+      "gitBlob": "5bead9e29bf3342d1b3f2fc2b5a96aea2cd53891",
+      "sha256": "ab4acab34d6ecbd213417146c162dd508d734e97122696e001870ac52ac50d05"
+    },
+    {
+      "path": "docs/validation/v1.5/magnificent-mile-geometry-validation.json",
+      "bytes": 1551,
+      "gitBlob": "ebf7b5567458e5277cb6fb3f99c6acba6710237d",
+      "sha256": "9131de78ec0380a14a3abaf8a3b6e33449c0797c6b0d51608adeea72a5b7180e"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-before-correction-chicago.json",
+      "bytes": 4856,
+      "gitBlob": "4970f7e11506836389c6534213e9891b98a41e66",
+      "sha256": "2917ca0b668baeef9d72b027240d9dbb7012be4b4b4a25af5d353d8142f920af"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-before-correction-paired-chicago.json",
+      "bytes": 5165,
+      "gitBlob": "0e65f9bd01c23b6c2f65c86dc0fd952bfcffe0dd",
+      "sha256": "bb38f19c7c868519086e33297c91762ebc28471a3385825d0c33fd41c63f0f10"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-chicago.json",
+      "bytes": 5103,
+      "gitBlob": "e39e880d9da4a3163f2576204aa2f0ff8f86c02c",
+      "sha256": "1eb202097b050f6d9a9435ef451adf977921b879ec8eb7786cc0a46a0fce3b1d"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-correction-paired-chicago-run1.json",
+      "bytes": 5101,
+      "gitBlob": "00732085fe22fd160dd6956495e9610fe9481c6e",
+      "sha256": "e9ce65ff3e67c1f32c442bd8b1f5841be4c85a3b04ed6902b57177b0f80aaa8c"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-correction-paired-chicago-run2.json",
+      "bytes": 5105,
+      "gitBlob": "57bd279b535312345b962e450398ca36f56dee56",
+      "sha256": "b51a048b6823019fd4f2c89bfe3296b619f2e4185cfb633cf37234ed50063f14"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-discovery-notes.md",
+      "bytes": 2477,
+      "gitBlob": "9be1f991e88477c158a5ec9691f527a75dda2546",
+      "sha256": "dfbe7f8b45bf3843fd039a8eb10c247e04df1b735170f0b58d78d1231f8b662e"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-lakefront.json",
+      "bytes": 5125,
+      "gitBlob": "41327d98784d3a33ff4268f0e7415593e28a49c8",
+      "sha256": "3878f18539c6a58f52016ceadcbb9859062e16c054b8016c2a9e6d34fc331cf7"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-millennium.json",
+      "bytes": 5124,
+      "gitBlob": "16bce3bfd24ef081cc698a0d4534fc4d05ffa241",
+      "sha256": "a88340c37e3b2b8c25469f9578ed293c36ed005dffe17d4dd4c6f9142bd58ac9"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-paris.json",
+      "bytes": 5139,
+      "gitBlob": "9495c9298b276e7904724726430a444edf0b28b2",
+      "sha256": "8d944dd76959a9b06f36fd9afe2e1e5f4f5339ab13ebf13c76655a8498c87af4"
+    },
+    {
+      "path": "docs/validation/v1.5/motion-summary.json",
+      "bytes": 7462,
+      "gitBlob": "def9b7c500143d05581d58e6904242a651a44202",
+      "sha256": "88164fe675021e56f54c5771a9d02793f4135d1a3918af0b7069a2666c628ed6"
+    },
+    {
+      "path": "docs/validation/v1.5/native-ui.json",
+      "bytes": 1783,
+      "gitBlob": "e31c7d43c7047097ee14968d3f33dc8e2eab4e97",
+      "sha256": "ba77c604d5b4e206d52fb253ecf25160ea0a61bd446925bf378f91ad2d02564a"
+    },
+    {
+      "path": "docs/validation/v1.5/navigation-validation.txt",
+      "bytes": 2130,
+      "gitBlob": "f546262ce461a4253bbfeb06aed150ac45cb2d1a",
+      "sha256": "cabb472684b28cae0d20d8ad3346e4aa2855cb784f2e1c0c1fba97ee883473ff"
+    },
+    {
+      "path": "docs/validation/v1.5/night-drive-media.json",
+      "bytes": 3808,
+      "gitBlob": "f0690efe9ecbac98ced98a188c1b16a798af53cc",
+      "sha256": "b290631a8387025754ca44772190a4065ea3eb7d5306f60773d08c37c4d15d87"
+    },
+    {
+      "path": "docs/validation/v1.5/night-drive-visuals.json",
+      "bytes": 7605,
+      "gitBlob": "d59968fd12901d7999346a98c843381aed2ace59",
+      "sha256": "c114ab68d15c30f08c379410e46cf5dbaed89b4004efc0a22e11d6838c2c1cfa"
+    },
+    {
+      "path": "docs/validation/v1.5/night-media-input.json",
+      "bytes": 6660,
+      "gitBlob": "6b988682e977be50e4426467d4f021cb71113b07",
+      "sha256": "694c59f21b646d6a611754968ba466fa61399982189f6ed7009f818f83c86f59"
+    },
+    {
+      "path": "docs/validation/v1.5/night-tolerance-correction.json",
+      "bytes": 5803,
+      "gitBlob": "980b29fb48bff44006ded71009f83d5a3adcacb2",
+      "sha256": "8307d977e618d10a9a1355b84228dc49556ed4d61f0f363adbf3d35608f113ef"
+    },
+    {
+      "path": "docs/validation/v1.5/package-commands.json",
+      "bytes": 1044,
+      "gitBlob": "795e19b5648a622222f0396a0a8289c8e891b33b",
+      "sha256": "f8e4928a7b4a7a4aa53f6982c588fe55933079c8168ee73d446fa955a3fde6d6"
+    },
+    {
+      "path": "docs/validation/v1.5/paired-motion-fixture.json",
+      "bytes": 5867,
+      "gitBlob": "5356c1375597124a27b5aa1d7bd61e950c8f33c0",
+      "sha256": "e50ee0494430207c1fb7ba93508861592c4b6890c1ca2f8b74c3b2540fee672d"
+    },
+    {
+      "path": "docs/validation/v1.5/paris-self-test.json",
+      "bytes": 863,
+      "gitBlob": "f3bb1b9f8b3b4cf09212d4893bcd729922722066",
+      "sha256": "d16211b8faec8de5ab3f31f2276f022948d3c9761bf5dfe061d4b024d64bed4f"
+    },
+    {
+      "path": "docs/validation/v1.5/playback-validation.txt",
+      "bytes": 2191,
+      "gitBlob": "1d7f765a33490b0d869434f002f067436c93a823",
+      "sha256": "7585a0b4d4c2daeb0f20da024815e4c79d55be8edd06274d0f552d770ad6d033"
+    },
+    {
+      "path": "docs/validation/v1.5/release-check-commands.json",
+      "bytes": 2072,
+      "gitBlob": "6be044fa26878a6750a6eabaf797988c05d24a92",
+      "sha256": "22dedeeede33c3b95a7273ab9580f7b8df94129158161b1bfb364653fbc4308c"
+    },
+    {
+      "path": "docs/validation/v1.5/release-manifest.json",
+      "bytes": 18738,
+      "gitBlob": "cada4bf82fe129254daf119f2d78c84228bac560",
+      "sha256": "7b38b7689e57c61b6ca7c751349d2e78d7d3a2c510b12e0b54ec683a32f70db9"
+    },
+    {
+      "path": "docs/validation/v1.5/root-visual-validation.json",
+      "bytes": 5514,
+      "gitBlob": "2cb3814b07e7c54ee88bad06b25e53b44ac517d7",
+      "sha256": "bd7f95b2959b82fff83476fcfffc8960841231d5226bd4f8b8866cd299637aae"
+    },
+    {
+      "path": "docs/validation/v1.5/standalone-bundle.json",
+      "bytes": 516,
+      "gitBlob": "d08d012260f0da557a015d7e81f46322e4a846d6",
+      "sha256": "b3454ab309dbe430753c316fe4e32e11cc11280b9e3b8cd30f2b92e53cca10a4"
+    },
+    {
+      "path": "docs/validation/v1.5/swift-build-validation.txt",
+      "bytes": 532,
+      "gitBlob": "4e2ce6e8ccfa9aac2e4dce5893bdbabe15464003",
+      "sha256": "ac049e87c7c297593b4e86cbe78f394aa8f97e98974bcf8579f8c55d906f0280"
+    },
+    {
+      "path": "docs/validation/v1.5/traffic-fixtures.json",
+      "bytes": 2200,
+      "gitBlob": "449f2c23295a62860f88a18b3a1868e938cd0b38",
+      "sha256": "aff5e7311e2995e073188f5ecee6bd91a2af75401803712c5cb75cfad3f7d185"
+    },
+    {
+      "path": "docs/validation/v1.5/water-tower-light-coverage.json",
+      "bytes": 7103,
+      "gitBlob": "e1cd8c9cf12093b0b6e10d4d2d6a611ee165bbd4",
+      "sha256": "a3b10150fb73dd16d28d8e887247e9cfbbc701a26c17abdc06caf4a20839ee64"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-abi-regressions.json",
+      "bytes": 2277,
+      "gitBlob": "c92ec1d0e0f1ec7969c3398b7ad97528d9aaf665",
+      "sha256": "2171f4a92d5ccb1d7ddce9fe3c5b0e403c5881c3e4efc41711e7bd550c8964f1"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-before-diffuse-validation.json",
+      "bytes": 3659,
+      "gitBlob": "1bacce257a7c222b7df122b9a99ec929950e405a",
+      "sha256": "17204d044e7d38d1ab44923b7364ef57e2c883fd2962fe5618ccc2295c2d4b56"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-before-diffuse-validation.log",
+      "bytes": 639,
+      "gitBlob": "dcd1e937b6d92ddfa706dcf906cd3b3494b3216d",
+      "sha256": "3bb4531dfce5d401563d8f15bc1957ea0a9010765df4c4f8c0e875330fa1839e"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-before-polar-isolated-visuals.json",
+      "bytes": 3879,
+      "gitBlob": "312caf505245f119a4eb18f4800dc059aa2bcefc",
+      "sha256": "ebc8b672bf909823b87e2340dfe3cee48624bf7d2af639aacedc9938754ef6e0"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-before-polar-validation.json",
+      "bytes": 2931,
+      "gitBlob": "6505324e6e27af43ed5bbf380ac77ae5a4e13ad8",
+      "sha256": "1cfd01125da352712bd815f624254bc0f7bf06c67cb229f4d4fac6bbb499ac03"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-before-polar-validation.log",
+      "bytes": 540,
+      "gitBlob": "e8e1d0a888e0dcbd3dfc3335316396db9f9f879f",
+      "sha256": "4630009b91742833297cbbeb2fa4c48a8f405694fcd4c2cc437eb668f26c0ab4"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-diffuse-denoiser.log",
+      "bytes": 3032,
+      "gitBlob": "f2b3870ff63c3f44fa5549a672004125f646d794",
+      "sha256": "f4b45c77a9ebbe00ee4211e37a23c36021ab7380041e8e480b0480bf98ca1832"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-diffuse-reconstruction.json",
+      "bytes": 6248,
+      "gitBlob": "ebbd78ab61ef7e1dbe4cb560a7152bd74694fccb",
+      "sha256": "a47ed6b139fa2c28962a1976f21fc6fbed25fd92e3a8612d9c6db5d241f6a0e3"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-full-world-final-visuals.json",
+      "bytes": 14510,
+      "gitBlob": "451d13377cbab90eed24e37b9afaed8a5dba1ef8",
+      "sha256": "4ced29acc7c5f33e027c70f4ad71c6c9203c765a831ed0c0604f705f4df2e06a"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-isolated-visuals.json",
+      "bytes": 4359,
+      "gitBlob": "0f40e3a23b064b9ea612325aef9f95d52b63932b",
+      "sha256": "af65d7b6c4b933ba579deca32556d6c88d18392f3ed21d8c93511efcc9c6f72d"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-polar-correction.json",
+      "bytes": 1902,
+      "gitBlob": "1bb0c47860e3ad9a269848ef1cb605ab5e4e631c",
+      "sha256": "b2aad6ca2e75793fbf2e98dfdf1d586da64a30111c9e283d94660906e450fff8"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-reference-review.json",
+      "bytes": 4978,
+      "gitBlob": "0da7ccd33bcd0ddea8d6b359ae370c94a65711e0",
+      "sha256": "50c08506635c492d46ccc0baa3d14b305bc4df2f810c0af40895d885a448c764"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-release-renders.log",
+      "bytes": 639,
+      "gitBlob": "dcd1e937b6d92ddfa706dcf906cd3b3494b3216d",
+      "sha256": "3bb4531dfce5d401563d8f15bc1957ea0a9010765df4c4f8c0e875330fa1839e"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-show-media.json",
+      "bytes": 3866,
+      "gitBlob": "b7027fac1484965906e9ecf06c9f55544ab9cbee",
+      "sha256": "7d1f6926cbfba51dd6486988baacd7a5a36f33d6c600987b185896dbc6e00fb5"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-show-visuals.json",
+      "bytes": 5063,
+      "gitBlob": "b915bf5c3ee484e27e76df9ada75ea8266ca91a0",
+      "sha256": "21f7cee6bdb05e6f78dec92952c8fe0387fcc927a0f0c39f9450440a70efd302"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-validation.json",
+      "bytes": 4986,
+      "gitBlob": "48c231a4b9cf0f514916deb39ddd5d6667c8cbbc",
+      "sha256": "ed1d42b644b8493821a34abf000a051612789bb910a404827d11688a84502b48"
+    },
+    {
+      "path": "docs/validation/v1.6/adler-validation.log",
+      "bytes": 1000,
+      "gitBlob": "c79350a1891b00ca2437f1e59f3d95661f107e5d",
+      "sha256": "72cb5ab84ec681cec0a21377c80d39140b8970a854cefb4117492cd91e14a30a"
+    },
+    {
+      "path": "docs/validation/v1.6/build-validation.txt",
+      "bytes": 533,
+      "gitBlob": "a1f0a96e4af89a6fa862e24d3acce3366836ed6d",
+      "sha256": "c86c230c68e829f7ae299c6bba0a877d11d32166ee849c215fa2d4a9b6d90706"
+    },
+    {
+      "path": "docs/validation/v1.6/campus-self-test.json",
+      "bytes": 1612,
+      "gitBlob": "46ce4fb84caca7e52e8209893fdb4902bec35f91",
+      "sha256": "885d5df72b6e4d2db99f41384c1636bb7853740f8627beb86e76717b0da43c9c"
+    },
+    {
+      "path": "docs/validation/v1.6/final-adler-gallery-visuals.json",
+      "bytes": 6270,
+      "gitBlob": "fc494e890c6e9eab9bc356a2971b3ceb4904f5fe",
+      "sha256": "3c4d40b8292bdd8f273e9104ac41412efce218cde9c3a7d7f7328e9c8220d8fd"
+    },
+    {
+      "path": "docs/validation/v1.6/final-campus-gallery-visuals.json",
+      "bytes": 5485,
+      "gitBlob": "04ba931f58405591096d97d05d00d9f092a2c3d9",
+      "sha256": "df7e8a3c20c9b2c89149f544dcefd2e022da56beb81dfeddbf9e4ea88a78693d"
+    },
+    {
+      "path": "docs/validation/v1.6/final-check-commands.json",
+      "bytes": 4578,
+      "gitBlob": "9fa4eed6636007602882e3e32c21447259e9bac6",
+      "sha256": "f3e48155439d26612e85520098e904e33a0045a16a8192aa5981062ad66da1e1"
+    },
+    {
+      "path": "docs/validation/v1.6/final-input.json",
+      "bytes": 13893,
+      "gitBlob": "fe3c582d59fe126ce58d3c76b47663d2208156ae",
+      "sha256": "6be8869879579535bbbbd69c2e9de8984fe6e7fe4f427096d516c83ee109ea5e"
+    },
+    {
+      "path": "docs/validation/v1.6/final-museum-gallery-visuals.json",
+      "bytes": 3357,
+      "gitBlob": "39f747a7c4f6884d755046cac0957529e7ff96b7",
+      "sha256": "8ecbca96f3bdcd16013f96df806a3e4394c694667531d2230cfa75edf4646405"
+    },
+    {
+      "path": "docs/validation/v1.6/final-package-input.json",
+      "bytes": 2805,
+      "gitBlob": "5ff706e5b82f8be86546458abdb2f63225148cc2",
+      "sha256": "2854495ae68d28f4f1733af9b6ed635e82628a853f73590a73dc08d78e810d9d"
+    },
+    {
+      "path": "docs/validation/v1.6/final-root-gallery-visuals.json",
+      "bytes": 1781,
+      "gitBlob": "af3096d35c5bc64c4d2568ceba627dd7f310f129",
+      "sha256": "6a0a9733e53e91a8d81fc8d96f5bfafc87e5a5306ce094da830fe332cba0a3b9"
+    },
+    {
+      "path": "docs/validation/v1.6/lakefront-geometry-validation.txt",
+      "bytes": 221,
+      "gitBlob": "410808cebf7bedac59a0d9f15afa4168113bc850",
+      "sha256": "4f84d86d3141336b4f91bce1a53b55e5a1cfbf88d5501501c2163ec2981d9edc"
+    },
+    {
+      "path": "docs/validation/v1.6/mccormick-validation.txt",
+      "bytes": 158,
+      "gitBlob": "366a6853d0b1254110f8ecfded7a26ca3edfdeed",
+      "sha256": "5f06be1408d0b4d47616f36768aed4c8d229f5423b2439459ca04b9e9fd36095"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-campus-discovery.json",
+      "bytes": 5920,
+      "gitBlob": "6117edd5c138a1f234c5200eb4f908ad18899253",
+      "sha256": "145e31fa5e667b2b43177c3127f48ad8f1a8aa10b3b7414cc290332457ce505e"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-campus.json",
+      "bytes": 5888,
+      "gitBlob": "abf0b1f6911f38c511169a9a5416f0cf218f8a5e",
+      "sha256": "06bcdff07311c538f11dc6f81204402ed310f20bf46c5dc9615198de5b193035"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-chicago.json",
+      "bytes": 5103,
+      "gitBlob": "ff6a4fbd8268c938753de6ffe037464a9438828b",
+      "sha256": "a861db2679c7e064cea152d55f8ca9e4430247621a84c81283e49f6b55d64449"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-discovery-input.json",
+      "bytes": 13775,
+      "gitBlob": "bcd9205255310439bf57b220a7259985d674c330",
+      "sha256": "efb98d40f6bae12b60a596890cfc8e1db9ffc5665deee11f30e4b2c10a998f08"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-discovery-notes.json",
+      "bytes": 695,
+      "gitBlob": "84eff170bcdf514b023f2b7248f5b573cd1f09a5",
+      "sha256": "bbcf81628b0fb88423a1a9933bed316fefcb14431e62df788648595f98965ee2"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-lakefront.json",
+      "bytes": 5122,
+      "gitBlob": "f528555b03e07fb095847937cb5df7cbab41a4e1",
+      "sha256": "04e416b9f580d63fe95ce8c1f84c5106ed2d9f89356fe3248910ea08ed19d6fd"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-millennium.json",
+      "bytes": 5122,
+      "gitBlob": "46a723f180cfa8657ab2a7a6307c8d21bc8f4bcd",
+      "sha256": "52419ef786704776ca548ff55d23d039f5940cbbf61348d62d54b849641127ef"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-paris.json",
+      "bytes": 5140,
+      "gitBlob": "e97d0bcc75ce8eefc666ac87386f6ad4a35d3c2c",
+      "sha256": "955ade16cd16353f5dcbfad01ca36802e73f20de0a4cb95c85382e3fad79ad79"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-summary.json",
+      "bytes": 21389,
+      "gitBlob": "f8a980f6f27fb27d6d25b5a2687bf12c6f101b27",
+      "sha256": "e650a92d91cd78902f156cc0e073e14ab1ae60b266ed18e47f410ed21c4cec51"
+    },
+    {
+      "path": "docs/validation/v1.6/motion-visual-review.json",
+      "bytes": 2852,
+      "gitBlob": "09a572c52ebf0fda1120585f3d225565f5887f94",
+      "sha256": "8d8d9c34ab80085ac0e6915c42f9f01d0fd82b3722b010c20aa11a5e0b8a1086"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-buildings-geometry.json",
+      "bytes": 597,
+      "gitBlob": "dca3f60cbe3512a43df4edd3e989535ad5e94ab4",
+      "sha256": "1fbfd9b4c3646a4b4d30c95de38bb9647b36cac9c552483efce5a50eb8a9f6d3"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-buildings-validation.txt",
+      "bytes": 614,
+      "gitBlob": "2dfe445b4676a21ed854f83eb4efa89a088e86c8",
+      "sha256": "f9a8f93e9abd32036b78edc52c6b2424b90290b62c1f44890fb6294e4163aceb"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-documentation-review.json",
+      "bytes": 7838,
+      "gitBlob": "4f3a23e16d5700c8a1807e39528b9481bd38c3d9",
+      "sha256": "aaec36faf819cf6fedf3e8df0db4fab9d4e770375dc56a56a6b6b61d3bfe1957"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-final-visuals.json",
+      "bytes": 4943,
+      "gitBlob": "5b67303934cdbbfe28f34bd69ac23012c0d4c5dd",
+      "sha256": "ec9219f3c74cd73dd19c43313de537e9e2e6320dc126a7b3ac38bb3f28212376"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-geometry-validation.json",
+      "bytes": 2000,
+      "gitBlob": "86f164489a1e4d24f34681e874c50a89160bca4e",
+      "sha256": "9a14a0099883fadbbb7017a26d6d53b20cdb9273c7a848eef94f5d3ba6902e52"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-geometry-validation.txt",
+      "bytes": 317,
+      "gitBlob": "feefad14008f7f23ce5202536631e8a29fc4ba69",
+      "sha256": "f32bf9bd1c6cae298d8fa7457447a04529818368f1eb15389b96a69231b0d444"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-map-validation.json",
+      "bytes": 1344,
+      "gitBlob": "f9622abab2eddce0fb97c20ccbb30a6691d90cba",
+      "sha256": "79f77730523d55af1eaaee8456a966b00fd4e5bebb3be1aba437552de3e16732"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-campus-second-visuals.json",
+      "bytes": 3419,
+      "gitBlob": "d7ed2210d27e983ca8b67d966bf7de0de5f33ef3",
+      "sha256": "69a07391930fb1eeb5899891264ee10590de14f0e3c9373f605744795885d037"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-day-tour-media.json",
+      "bytes": 3807,
+      "gitBlob": "1ac3310e1d100d622e189ade5d63036d27d73e2b",
+      "sha256": "24c6c553a6716f2f0099fce2b4a6b7741c0437d4a728ad939cdfd3127e13ab32"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-day-tour-visuals.json",
+      "bytes": 8388,
+      "gitBlob": "be76bd7094e6db59de54944595e914f15d30e0ec",
+      "sha256": "2d1ffc674cbd27fee550e5db6f0621589416a064f123079caaf26dc0c4389c98"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-flyover-media.json",
+      "bytes": 3874,
+      "gitBlob": "7eb261646ec6423ba4db6e3188ecd250a185c3e1",
+      "sha256": "e5c05075ee71479556f7751ca0f419f30acc85c0792a038ff987d05cfa1a4258"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-flyover-visuals.json",
+      "bytes": 3963,
+      "gitBlob": "965a5dfd634de33f7e36e2180a251b5d8b8df934",
+      "sha256": "5cac9b73892d12b7611196e110e26d67823cda8fa78aaf2717a5226213dc9955"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-interior-final-visuals.json",
+      "bytes": 3896,
+      "gitBlob": "60fbbcc61cee01083a7b6171408e32c6c89227c5",
+      "sha256": "91b44aa2acc795e75d2f42b608f9af2cc2c198511a7e5ea93460a39d79a2e8a8"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-interior-second-visuals.json",
+      "bytes": 2855,
+      "gitBlob": "406693d9fe71dc464d6ec9a1506a2d934ce18692",
+      "sha256": "64d7a15cd1a64ec845bd379dccfd9a60547ca180d8a936ae9680841bafd24918"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-night-tour-media.json",
+      "bytes": 3815,
+      "gitBlob": "0d8e4435fc8eb79beb5ac08f4f4f4ac75fe85d84",
+      "sha256": "9c030303bb4e4bd71eb5df6abce82b86812c602bc8cac7632f405a7d241f366f"
+    },
+    {
+      "path": "docs/validation/v1.6/museum-night-tour-visuals.json",
+      "bytes": 8775,
+      "gitBlob": "606633ff5e6e47501db18bb7f4b536215cc8ac99",
+      "sha256": "09ff2fd2f1ddcc77399c89bdd69aab15ecfdb93c15a95d4d76dd205d8a9f3c7b"
+    },
+    {
+      "path": "docs/validation/v1.6/native-final-launch.json",
+      "bytes": 1791,
+      "gitBlob": "bf04f24606f21bef4901bf05d011a7c3b8f3b353",
+      "sha256": "c7d08d43a30ed99e74d14d3255f2c5681355caa69271e012558472e029a0714a"
+    },
+    {
+      "path": "docs/validation/v1.6/native-ui-source-input.json",
+      "bytes": 13893,
+      "gitBlob": "d3688ead7f28ade610ca594032646fc4a743dfc7",
+      "sha256": "ce2e985e19190a592bf8313cb1a21b0c634fb47ba3755517d68a9554a4108ea5"
+    },
+    {
+      "path": "docs/validation/v1.6/native-ui.json",
+      "bytes": 3183,
+      "gitBlob": "e890875f2ebeb884dec65b2b5e006ba5ecfd2f74",
+      "sha256": "4bb21d648faa33adbe0e83f5b12cfe871ff1395f99c0f1d91b6525fed343f8aa"
+    },
+    {
+      "path": "docs/validation/v1.6/navigation-validation.txt",
+      "bytes": 2131,
+      "gitBlob": "1d175a7f6c9c7e133fe2de0afb60700b079131eb",
+      "sha256": "562292965fb844b1ccd6c6512a31c7f45be8a7f86e3218e19e4dc99b0ceba52a"
+    },
+    {
+      "path": "docs/validation/v1.6/paris-self-test.json",
+      "bytes": 862,
+      "gitBlob": "4f24517798125ab3ec857a23a4b93a9de77d697d",
+      "sha256": "af3910c8b9b0876a56b800876f3ae19cc396fd5da88c71706cf723857c3257d2"
+    },
+    {
+      "path": "docs/validation/v1.6/playback-validation.txt",
+      "bytes": 2719,
+      "gitBlob": "c404c80a0eb232d8001741348a0e237755b2385d",
+      "sha256": "fc72c75dd765757cf367ef0db8df7dfa1341d15979263e4a46b8c314c9c93147"
+    },
+    {
+      "path": "docs/validation/v1.6/release-hero-visuals.json",
+      "bytes": 2912,
+      "gitBlob": "a5bc7c904af9e9005ef54514cc3a02dc049bd5fc",
+      "sha256": "47b4bfeecba66a5fbb0675d78f342a02f9e434570d640e187451177d0bcdb078"
+    },
+    {
+      "path": "docs/validation/v1.6/release-manifest.json",
+      "bytes": 2652,
+      "gitBlob": "d18ddb88a74f47dff3643951351bf184aafb8cff",
+      "sha256": "1395753b261cf39bd50e10b4860b26a25e475d64ca49f5dc15638c55eefb4193"
+    },
+    {
+      "path": "docs/validation/v1.6/root-before-context-visuals.json",
+      "bytes": 1808,
+      "gitBlob": "4855587333b7cb6b42de02ced08420488eda5986",
+      "sha256": "149456a27a6febee60b61ed16359cc3aa37e8ede0e1a496a178468eb9199b5a2"
+    },
+    {
+      "path": "docs/validation/v1.6/shedd-context-correction.json",
+      "bytes": 3570,
+      "gitBlob": "27bc2ba500bac6f1c06038a168e3c70187980448",
+      "sha256": "e73bfd93b372371a3286fc6eafdf26ac7907c4713742d25fc25720b88193a535"
+    },
+    {
+      "path": "docs/validation/v1.6/standalone-bundle.json",
+      "bytes": 352,
+      "gitBlob": "2d876f77c6cbc20cd1a3543fb3f6c2ff852e1eb5",
+      "sha256": "503b0046e1510b49b95d86518db54c1b8999a2dabb24ffafb477553b16a5be40"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-atmosphere-adler-abi.log",
+      "bytes": 498,
+      "gitBlob": "2502c01a28fa5fc7c2c133c39b941bad665e91d8",
+      "sha256": "273ab1437d6fe6f3a4fc84b14edcc49324d2281f367cb66e1e3bd3643eb19599"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-glass-adler-abi.log",
+      "bytes": 438,
+      "gitBlob": "0f26364d89f2091d44633904786ebac6392ee816",
+      "sha256": "053f6e1fd3723833ee3d1bd01ac1407395b450e9cbe2766faa714a740cbacd7d"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-indexed-lighting-adler-abi.log",
+      "bytes": 357,
+      "gitBlob": "8a76585787244339a7e59fcbeb7510b4ac9c95a2",
+      "sha256": "b74e263decc1c10d2a802c93438144edd8d7f663943fc427804aa72b104deb25"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-metal-adler-abi.log",
+      "bytes": 822,
+      "gitBlob": "b52b8c62d74f110c980f8e5c0ab8bbfff7b36732",
+      "sha256": "3112124b3d35b559e4d5175ca1f08fc7d8fea80947f04463995f65a812f23746"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-paired-motion-adler-abi.log",
+      "bytes": 211,
+      "gitBlob": "ceec452b31728273e45690ee6157b42563801d15",
+      "sha256": "64f936d1ec84640ca7b8a6c10965be733aef6ad1f3d4393e3ea2435bd3f585fe"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-regularization-adler-abi.log",
+      "bytes": 642,
+      "gitBlob": "4061b4a99311e2fc6141e43c80393651a29e86ca",
+      "sha256": "4fe6d0a29b173717b940f45aa22175dedcaddde325fe19eee7b56051df0f2484"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-sampling-adler-abi.log",
+      "bytes": 602,
+      "gitBlob": "2d36cfc97af73cc53a4c05cb99423d95448b3fe6",
+      "sha256": "727dc04cc5e65382ae62b4a1c6294094330d71d0f115de0bbde6095ec41417f0"
+    },
+    {
+      "path": "docs/validation/v1.6/validate-traffic-adler-abi.log",
+      "bytes": 865,
+      "gitBlob": "2a0917873839c3edbb8f3e88d0ec9f1f221d46a2",
+      "sha256": "86bc4fe724cf32b450eeaafb3bab787e2e105bf48f0dcdeaaf6c5fd9266defb4"
+    },
+    {
+      "path": "docs/validation/v1.7/adler-validation.txt",
+      "bytes": 893,
+      "gitBlob": "80bcf8c60e39325dca398b5e80870804557e5f32",
+      "sha256": "ca35badea0c3925b0399044202b28c59c6844125eda890f7a1f216cc7bc8abda"
+    },
+    {
+      "path": "docs/validation/v1.7/baseline/field-hall/metrics.json",
+      "bytes": 1949,
+      "gitBlob": "646345098ac3c4b1882db31f9dafa36f1af19c0d",
+      "sha256": "f5c4893840c2572ac33d442496d4ca19f6ec7e45a1489fb2650d5bda42363763"
+    },
+    {
+      "path": "docs/validation/v1.7/baseline/manifest.json",
+      "bytes": 718,
+      "gitBlob": "c8974795f3fc5b2b78afe0b6dc54611f3aa30784",
+      "sha256": "13dea59a78173f670d44b04028827b78a6cfcfa508820560e850148999ceadd0"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/chicago-self-test.json",
+      "bytes": 2224,
+      "gitBlob": "e6092fc0bf48bfaa1d2b3b88cefb6e8dd28dadac",
+      "sha256": "e2bd03869e93179a4fa3fa02c69414dcad0b7c8825f2c1beb17147156edacb79"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/final-gpu-commands.json",
+      "bytes": 4431,
+      "gitBlob": "307cf8550d138d615033474221a7da6921c4add8",
+      "sha256": "3833c519fb07ae0375e7767ea93d3e424fec7adfda9b4ed7e77d749e0e2be7b0"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/final-input.json",
+      "bytes": 17290,
+      "gitBlob": "5a7b2d200b9809a11baea3870fc071cf8c1ce5d0",
+      "sha256": "d769726c84df576eafcf13a74909c2f7a7fbf68d06daa3566a48096f259abeeb"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/final-package-input.json",
+      "bytes": 3161,
+      "gitBlob": "ad0aff0fe004bc23585fc8194478cbc4c3e46974",
+      "sha256": "c417f9acb9a3e29cd3c817abc1d895de52419cf21436c01de50f0b370299d749"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/final-visual-commands.json",
+      "bytes": 8785,
+      "gitBlob": "3523f9bde6b3f5a978f5f8ff6e7a0af39748a355",
+      "sha256": "5293ae18a6ef268725cb0fb501263511416d0440a68b52c2f4f9c1d68fbb652d"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/millennium-zoo-flight-media.json",
+      "bytes": 3944,
+      "gitBlob": "3927b8c4e0066e615a43f3616859b864c017c56a",
+      "sha256": "3e1c87e3778fde31a217d1447ee2faad09a2dee6dab6da088c1e5495a999cfcf"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/millennium-zoo-flight-visual-review.json",
+      "bytes": 3443,
+      "gitBlob": "b7e733552e0d68f4cd4b1185eb73828fa5a6a843",
+      "sha256": "74f1014107423c1119cfd3c407d1d3ae4cde88c21232eb06ba7cfae32e0040a5"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-campus.json",
+      "bytes": 5886,
+      "gitBlob": "8d6c2c26441d68950432b2d6fbdfe7507c512535",
+      "sha256": "8d2f42e1f5ba23c1fb15bd9b7f99ebd60ecb8a54d6f9216302aba7fa9784dd26"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-chicago.json",
+      "bytes": 5104,
+      "gitBlob": "99ffede290e4775394e583df0f74ad55e30ed15f",
+      "sha256": "b80ca8de6f8aba7518bb04e1086efec9a503b4a9d9d4a1b604bd6832772197d6"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-discovery-notes.json",
+      "bytes": 39751,
+      "gitBlob": "d6dc2f5b5ec6e6dae37f587664fa93d7a7de453c",
+      "sha256": "7e4e0b52fe06af96fd23dddb4ad1af4c3b4318d3f18475c4178210d89ef48535"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-lakefront.json",
+      "bytes": 5122,
+      "gitBlob": "796e6f0ebe6eb1a6aead09e36394962bc3ab9c55",
+      "sha256": "648e200259c133addb59cc53764bc2cc37617a12e5a0adb6b662384b8a5da9d8"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-millennium.json",
+      "bytes": 5119,
+      "gitBlob": "14e4f9933cdf1197465dc9897fdc6c550fabadf7",
+      "sha256": "c8534c5d49b88e2215de3845f3535f9cfcdd6ea5e65d26b78fc6a55f271146e9"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-northside.json",
+      "bytes": 6684,
+      "gitBlob": "cc05a3c6d6b1d8576a07019afc207ef0c772bf78",
+      "sha256": "80cc8a71a803abb7ad27d089c85ca12f9cd55c67f090df957932960700cb8ba2"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-paris.json",
+      "bytes": 5144,
+      "gitBlob": "da07ee8368f1c796ad7b8a3864d90c3bbcfe985b",
+      "sha256": "b9f5b8bba867470e930dd1b0b8be565c6a4a70d1ee5ad44bd918b71dd09b0cd0"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/motion-summary.json",
+      "bytes": 27173,
+      "gitBlob": "17d549fa56952ca53358617686f456539e9c95db",
+      "sha256": "01b11279a2f4768f030db0cf50699fd2e575aebddbdfc9ab2ba01c184bed21a1"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/north-day-tour-media.json",
+      "bytes": 3835,
+      "gitBlob": "e473154f365443153a90779e0dce085f9e9eb354",
+      "sha256": "1b5e47a026e04ae7196032a29e1e6677d861579a0df87c8fc31299858e317d3a"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/north-day-tour-visual-review.json",
+      "bytes": 11053,
+      "gitBlob": "708175600a6a6388863d80cda9323881b95b638e",
+      "sha256": "d6ceb3272f09787b02e824f753e45b8176253e1af150200161ec588433de697f"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/paris-self-test.json",
+      "bytes": 863,
+      "gitBlob": "aa5c70312ed9b0693af56b9025a8488a6dda246e",
+      "sha256": "c207a9db01443b9175372cb472a5b397697cc56f602f9d5ee62902cc5a36de2c"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/post-motion-commands.json",
+      "bytes": 2689,
+      "gitBlob": "33cfe4de2b4b78d831388c90c1cbd0a1e6dd02d0",
+      "sha256": "d577d43b304f0b93c72af93d8e9fc5e7600c003a424cd98e5c836915e355f571"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/release-hero-visuals.json",
+      "bytes": 3081,
+      "gitBlob": "b2763f2fb3331f9194a087e776087bdd3c519747",
+      "sha256": "c954fb8fb9997b8e12147b5859010869e992ba71f574709fac2f430f443bc338"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/resident-world-comparison.json",
+      "bytes": 1856,
+      "gitBlob": "1be43996de856ad52fcbe76301d1a394e21394bb",
+      "sha256": "91864f3bb78adb082c7f8bbf012664c5714fc1c50964afcc006ee95fee79ec40"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/root-final-still-review.json",
+      "bytes": 2151,
+      "gitBlob": "84ca5703ea338cd7b86b43255386f51f7a7fb9a7",
+      "sha256": "9bc7142233a57b3d1cfde8143aa01c034dcae02e667d40e5ff1d1d906b3350a2"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/root-motion-visual-review.json",
+      "bytes": 1459,
+      "gitBlob": "e38723ede888c1ba906d0d175026517e831239c1",
+      "sha256": "461bbde994ebf0823b1254a8f77f5268a71b8718b2e73e37742508e67848287b"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/standalone-bundle.json",
+      "bytes": 1412,
+      "gitBlob": "8559b2d465674da49f679ce9a09a06f87d8ac84b",
+      "sha256": "f5c03ec861662608793411eacc48bf9933acd410402b7263d1138bc0c4e8602b"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/standalone-chicago.json",
+      "bytes": 2224,
+      "gitBlob": "175795252f278c40bf49f611ff8fb923e0a3f14e",
+      "sha256": "c4e1802f31994452c7f46dbcd17449b02e3d2b1401c956ab0c82895d0a9ca30d"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/standalone-paris.json",
+      "bytes": 863,
+      "gitBlob": "8900a84e6b61f1154a2ac9550f87be07d3645444",
+      "sha256": "435b283067c39bedf75d1f727e2e151ce31ab0b0f701cb0664851be43a53c978"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/wells-before-sixth-package-visual-review.json",
+      "bytes": 6886,
+      "gitBlob": "ac28762c3f39ce681ab0f34727ba6e7017f501ba",
+      "sha256": "664518c5c037324f486afeb40abc46f4b003f73e4f014b6c7ae9edcdfab28892"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/wells-final-visual-review.json",
+      "bytes": 10559,
+      "gitBlob": "d74bf1c1490b43ea69665fc9300706fb87d7c17a",
+      "sha256": "e4efe58ff218970eb1a7fa1987bde8107a5e112d86bda33eae73004e79b534fd"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/wrigley-final-visual-review.json",
+      "bytes": 9291,
+      "gitBlob": "162f96ed4966fe3d652315b1a38087e4a589c37b",
+      "sha256": "38bc11a3c0eac5c00f05e7fb79822d949310f222c2a3fb61540ad22354676e64"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/wrigley-motion-visual-review.json",
+      "bytes": 7810,
+      "gitBlob": "034d3ded70c81b9e6e6cc6667769ee84ba78629e",
+      "sha256": "2c78ede918641a8fcbb382370eb18106f1332fe5a9c86ab928611b517ce586fc"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/zoo-final-visual-review.json",
+      "bytes": 10529,
+      "gitBlob": "8eec245cc9610c222e3387f634a2c96b175086ec",
+      "sha256": "b708a48199703ed0f70fa7998a1467d3cb0168481505c55f37b124867b9d087c"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/zoo-first-visual-review.json",
+      "bytes": 3109,
+      "gitBlob": "6a8aa1ac9982ff2c1de59bb908b1a5149748bc27",
+      "sha256": "f7d152daea754a6110d78ff0896ea614b19ceaf10775178f4818242f6e820cf7"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/zoo-motion-visual-review.json",
+      "bytes": 9785,
+      "gitBlob": "beca0616fdb5a9f78ebd6801dbf599b7e3743b8c",
+      "sha256": "c3638e9f79309657e0dc57df41cf694a96e07119dcdbae1443e25e4b37e3bf21"
+    },
+    {
+      "path": "docs/validation/v1.7/before-landcover-correction/zoo-second-visual-review.json",
+      "bytes": 4319,
+      "gitBlob": "e4a1aefd548df579a90073e9c225bdf92027ff48",
+      "sha256": "b60eff8e1803783711dd42c6c8c05d95689c40eb2a00af336e0771d9cbd118c4"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/final-input.json",
+      "bytes": 17290,
+      "gitBlob": "49bae9799b802addd50efde5adb21eec509581bb",
+      "sha256": "4dcfc819fb9d6c4d554ce0b749a4d335d15abe0718930dcf08d3b67601b4f046"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/final-package-input.json",
+      "bytes": 3161,
+      "gitBlob": "ed0e721f9bbfe1fee183d0811c1535cb4c5a5014",
+      "sha256": "d7306d2b7a8503704a1809ff8819b02273c8f64d3633efa40d41a955aaadd5d7"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/motion-summary.json",
+      "bytes": 27183,
+      "gitBlob": "42685ffa9a330a6f0a979b24ceccefa3b7c2dd75",
+      "sha256": "5be36e0bb85c1af861ebd080db17b4753c8d9d0508e75b38efdbc84cb2d9dd82"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/release-hero-visuals.json",
+      "bytes": 3051,
+      "gitBlob": "425edca2af867ef7b7d1705499c25e006e63bd63",
+      "sha256": "e31125eb17da959dfdd71be89a272886976471ff9f35252528d86952758f0a26"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/root-final-still-review.json",
+      "bytes": 2151,
+      "gitBlob": "84ca5703ea338cd7b86b43255386f51f7a7fb9a7",
+      "sha256": "9bc7142233a57b3d1cfde8143aa01c034dcae02e667d40e5ff1d1d906b3350a2"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/root-motion-visual-review.json",
+      "bytes": 1339,
+      "gitBlob": "405bfb74636b6812b544437d496eb043c32897f9",
+      "sha256": "fa6c5f2855c1b8752018f0e57bbbb52e285af2f6b890962f923e42145a7fdbab"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/wells-final-visual-review.json",
+      "bytes": 6886,
+      "gitBlob": "ac28762c3f39ce681ab0f34727ba6e7017f501ba",
+      "sha256": "664518c5c037324f486afeb40abc46f4b003f73e4f014b6c7ae9edcdfab28892"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/wrigley-final-visual-review.json",
+      "bytes": 5591,
+      "gitBlob": "d55bdfa28f0342ccdcb0ee5b96de307022f27eac",
+      "sha256": "31cf0df2b5bed00081c1dcafa695bbd1ff854140b64e24525f2c96b357127a60"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/wrigley-motion-visual-review.json",
+      "bytes": 7448,
+      "gitBlob": "e908e5b10ed8be15dd1915deb2a34b4aca2abb4b",
+      "sha256": "68e6c67920e4495178eda05f66475ffbaafce7badae011f22bc756321af63a47"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/zoo-final-visual-review.json",
+      "bytes": 7439,
+      "gitBlob": "c46f4a37eac00ac3d2f4c3034699ea811d5b47c0",
+      "sha256": "372008b27358498db77939173e05d96e3269269bb1475c877d28315906b996f7"
+    },
+    {
+      "path": "docs/validation/v1.7/before-ramp-correction/zoo-motion-visual-review.json",
+      "bytes": 8710,
+      "gitBlob": "88df3238db1be3bd6f4ce195b62b069b233c8fc3",
+      "sha256": "3819ef64913fc8067d5f63fd70efa9f8afbd040f1279e555351d5b42779c48e7"
+    },
+    {
+      "path": "docs/validation/v1.7/belmont-landcover-after.png",
+      "bytes": 1217893,
+      "gitBlob": "f7868815231099ca36d87892619bda4f47e8c324",
+      "sha256": "48a6152197102d022e80d3d421e262b2bc93d6064194ccdb09619789ad488429"
+    },
+    {
+      "path": "docs/validation/v1.7/belmont-landcover-before.png",
+      "bytes": 1426848,
+      "gitBlob": "7a8d337dfca199fbb2860899d5de3d50ca74a7ac",
+      "sha256": "8e5cb428358e2a71087dec760d6696cf781741490ba6d55f7dfae8d92bbc199c"
+    },
+    {
+      "path": "docs/validation/v1.7/build-validation.txt",
+      "bytes": 578,
+      "gitBlob": "b74b1e557200457c8a07b7d7405002fd5462733a",
+      "sha256": "df556c86b6f472d4eec10aea1cd86a3f50b230c2a7fcb97bc7064721b5367dcd"
+    },
+    {
+      "path": "docs/validation/v1.7/capacity-audit-earlier-snapshot.json",
+      "bytes": 6148,
+      "gitBlob": "1058d2a75616113f83c2f46238d1310574c1cbfc",
+      "sha256": "8a3226752f8a7bc422edd7ed64fda001928ad64b378992fa328b097cc1377efb"
+    },
+    {
+      "path": "docs/validation/v1.7/chicago-self-test.json",
+      "bytes": 2224,
+      "gitBlob": "7fb7770e3f9c01444144d8db6da8abfbc7928353",
+      "sha256": "9aa3348ac4383447e21dbfbf71752ebf6a02f4cdef81652be381fc20bbcbe8a1"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-regression-initial.json",
+      "bytes": 3801,
+      "gitBlob": "8bed737e8c5f76172d43f20d24d3cd1cc36b389d",
+      "sha256": "6346d5830806a1fef1a7fcb00a7302e5722efe8a1343f3f0028345ba3494ec4a"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-regression.json",
+      "bytes": 4469,
+      "gitBlob": "fc04cce03a575ecf6496349a137462c105a93824",
+      "sha256": "7cf3229bb183a863d84d743b3287c9d19ff53c40c30ed568434b82c0aa0253a0"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-lakefront-geometry.txt",
+      "bytes": 221,
+      "gitBlob": "23ece1292ad427719f61bea7e6f8017f0945fe90",
+      "sha256": "893a8aef375903c5d4cb4d9d85a6fe7825c67ef8e641dac58824b011864a482d"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-magnificent-gateway.txt",
+      "bytes": 291,
+      "gitBlob": "89e5d3f93651fc96e70ad3955e0c1b8cf1f96eda",
+      "sha256": "731fa0b3ab2f2c3418a593fbd7953e3087c944d268e80bb6641ce0c0b600752d"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-magnificent-mile.txt",
+      "bytes": 1015,
+      "gitBlob": "a507b558fc58280941eb1861d1f430fdf80cda9c",
+      "sha256": "fd7759400e9fc8ef8f6a862304187f04e9b749c85b57fa87d44dacb125f3c742"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-mccormick.txt",
+      "bytes": 158,
+      "gitBlob": "54044394f04696ddc0a391c9062ea86cea1c4f0f",
+      "sha256": "77a1f06344ec79b107846296c837b292f15a35c0e6731f88bb10b0244c117b54"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-millennium-geometry.txt",
+      "bytes": 430,
+      "gitBlob": "353b060c1000b253bfb09fcf19940010ab24378c",
+      "sha256": "cc14456b3070dc2a4d4312b9e24594eb5f2556ff56c6fe32e04dc7e5d04e3fea"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-museum-buildings.txt",
+      "bytes": 614,
+      "gitBlob": "49ac723d4d7472bd48462a19a9983167832a077d",
+      "sha256": "270faac6171703b8df3ba1d40812c4107d478584cd40a111646511a3579dfe4d"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-museum-campus-geometry.txt",
+      "bytes": 317,
+      "gitBlob": "9155f83ce7e3d47dd640088a2a0b9fb1034aa17d",
+      "sha256": "f335a4f4a19e7fa92e6da240f7650725fac393de95d26450b94342546c6c59e1"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-navigation-after-context-fix.txt",
+      "bytes": 2131,
+      "gitBlob": "9c906f43f4d77d8fa2960aa886813ecd02827619",
+      "sha256": "7f2dd707263e18ef060b8b5c44bddcff28990d7a8b5f04637e3c1747cc8c9c7a"
+    },
+    {
+      "path": "docs/validation/v1.7/cpu-validate-navigation.txt",
+      "bytes": 2131,
+      "gitBlob": "6518fd5ef710c8f4e55881dfdf925fef9be8d6e5",
+      "sha256": "804c2331080bdb4212477b8c173dbc97dacf583bf652588b8dc84a4b2aac13a2"
+    },
+    {
+      "path": "docs/validation/v1.7/denoiser-validation.txt",
+      "bytes": 3032,
+      "gitBlob": "df6ac8ab3f2f84332ebfe70ae29167061c637a04",
+      "sha256": "ae0981b2838aaecdf77b03767435a1037d3daea33e0ad1cc9a18e03002d748a2"
+    },
+    {
+      "path": "docs/validation/v1.7/final-gpu-commands.json",
+      "bytes": 4436,
+      "gitBlob": "8136f9270491cbe965e6dd7332c20d7a3ba5bbc3",
+      "sha256": "26f4245f6d7b1cdb8cf781408ef706f141c6528524f251c66c75f6f9f195d32a"
+    },
+    {
+      "path": "docs/validation/v1.7/final-input.json",
+      "bytes": 17290,
+      "gitBlob": "8c888f05b83da1bb193090a4ab50b094d840c2c1",
+      "sha256": "d4d6b700b35c0f9695b1dca8354876d49a2232b4a49bd18032c95177b2d8a63f"
+    },
+    {
+      "path": "docs/validation/v1.7/final-package-input.json",
+      "bytes": 3161,
+      "gitBlob": "fdf2abaf19e8f16450a56f7634609c5f2a7f9261",
+      "sha256": "8e5be3d82e57a23e84eb4a319d61bf56b1bcfee9cf9330f5d6fed96c86b23d84"
+    },
+    {
+      "path": "docs/validation/v1.7/final-visual-commands.json",
+      "bytes": 8780,
+      "gitBlob": "71b323fb686e3f423365b37d3d88e5ee9558bedf",
+      "sha256": "9ee3c81a49b41d4c7b6d60abadbfd14d41f68a93c108806d788de2b9a29ac509"
+    },
+    {
+      "path": "docs/validation/v1.7/fisher-ramp-after.png",
+      "bytes": 1175310,
+      "gitBlob": "25a4eb323bf28c92b4fe58a3065dff20dcba5d2f",
+      "sha256": "03ce031c43921d899d9c32d63f46c59c9f17d789c2c9551f85ec8fc5b051c389"
+    },
+    {
+      "path": "docs/validation/v1.7/fisher-ramp-before.png",
+      "bytes": 1086354,
+      "gitBlob": "269adbaf56f5818c70d965df1ed133df652a3eac",
+      "sha256": "7d190abe914659dc9d6a3f9643ba99e989ce05621234b5ef65ea98cb7c59d616"
+    },
+    {
+      "path": "docs/validation/v1.7/fisher-ramp-component-validation.txt",
+      "bytes": 94,
+      "gitBlob": "da1983b865a288ecc0e10f3e182463d1d5ccf1f9",
+      "sha256": "f36e62256ea322c9e13b4a63fcf7adfda308f3a3a5028033bfd50b17b1fd9c75"
+    },
+    {
+      "path": "docs/validation/v1.7/fisher-ramp-correction.json",
+      "bytes": 4599,
+      "gitBlob": "188a555d753110cb779298a202a46436c9590993",
+      "sha256": "2e9e8b7d73bce466bec542b38441a50d3038eb0ed12afc3bc1cecc4ba66ae61d"
+    },
+    {
+      "path": "docs/validation/v1.7/landcover-correction.json",
+      "bytes": 7501,
+      "gitBlob": "e424581a2c47ac01c89c6ca1a7075f69632e998a",
+      "sha256": "2d94548de96143a7ed74ae85b1fd42050212a14a77fb91288e62d6f7299400f6"
+    },
+    {
+      "path": "docs/validation/v1.7/landcover-export-archive.json",
+      "bytes": 552,
+      "gitBlob": "a5fb1cdeb536ff1935c011ccddb7e2fdb7184b1d",
+      "sha256": "313eea955c19059b9e28d1bcf88680b1447b1d5ae8218bb7690f2cfaf7aa0da4"
+    },
+    {
+      "path": "docs/validation/v1.7/landcover-independent-audit.json",
+      "bytes": 5896,
+      "gitBlob": "2bde1fe0f84b8e16fddc5d1c468d5fdb522f1c71",
+      "sha256": "183dea7ab8daf8a6ba33093049cdf2f536e7e9af78ace2087985e8dd2e5cd2c0"
+    },
+    {
+      "path": "docs/validation/v1.7/landcover-still-visual-followup.json",
+      "bytes": 3560,
+      "gitBlob": "95c5c05a8c4cb54ec0c7ee0c6fac66b88b4fd785",
+      "sha256": "bb576b52842b784b5d734f312234f8014d7b6de105bf393406f18566daaf5814"
+    },
+    {
+      "path": "docs/validation/v1.7/lincoln-park-zoo-component.json",
+      "bytes": 3984,
+      "gitBlob": "026645609f7b95bee485001779e674514eb33cdf",
+      "sha256": "74c103c0afa6a131b24996d6ace54b9be8012780fddc3eea8983fd96e096216c"
+    },
+    {
+      "path": "docs/validation/v1.7/local-link-verification.json",
+      "bytes": 205,
+      "gitBlob": "357c2295dd33675b6f081f265e7127a718f0c356",
+      "sha256": "8067412fc4fc1eb101c116509e842dca659a183ed21302e8d7a4d3709996cb1a"
+    },
+    {
+      "path": "docs/validation/v1.7/media-summary.json",
+      "bytes": 2717,
+      "gitBlob": "2a35826cbb6d5c0fd304a69185a4adbe4131c211",
+      "sha256": "508623a5fa22a8be9e1ed6a460394a8ac05825d196904b70ed4553fc27faed43"
+    },
+    {
+      "path": "docs/validation/v1.7/millennium-zoo-flight-media.json",
+      "bytes": 3944,
+      "gitBlob": "6b13bfb2e2b1bae6a392ea9e07b81697c6ed9fd0",
+      "sha256": "d4461bd5acbd3e162cf2cba132c5c273d56c872a602332f8d119e282b6201521"
+    },
+    {
+      "path": "docs/validation/v1.7/millennium-zoo-flight-visual-review.json",
+      "bytes": 3553,
+      "gitBlob": "dc8dbddc0ad851c7857714d8e066237e75cfdb90",
+      "sha256": "adcc6a1ed0d538c8bbe0c62a4d854d2d4c7545503724049f553120513a3f7f32"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-campus.json",
+      "bytes": 5886,
+      "gitBlob": "133f8baa5a6bc32accda45ca8c5f4e3229e2c73d",
+      "sha256": "26657e89f4f8d6c1aaf3741d8559b3f6301b0338f2f6cf468de04af2df90abf5"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-chicago.json",
+      "bytes": 5102,
+      "gitBlob": "bca418ba47768509af805426b68b0ba09af60072",
+      "sha256": "6fa5fe46b2c8c22b2e8f43b07a2f197a2a0dbee17ad5fda738a0bf6ef322d099"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery-notes.json",
+      "bytes": 40461,
+      "gitBlob": "39f12d68cbc810d3c320df43de6aa284b850442e",
+      "sha256": "7e282c0638ed483001a7db1089016ec1a2cf376a82b0933ae8e29ac5b4e2face"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/ablation.json",
+      "bytes": 6300,
+      "gitBlob": "7c3c600e856a74dc67cbf248b1294f73cca21c5a",
+      "sha256": "5db7907a51f4cb7faafd44ce3682080124d3670faabf8a19f6b8f71d62e5cba2"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/bounded-confidence.json",
+      "bytes": 4631,
+      "gitBlob": "31495c03e616ec33b22f9f8af8c60aa242aa433d",
+      "sha256": "9db444f2bb7f04e753df5c0af8765f918a32988c9d30ed867c482533cc9c89e8"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/bounded-confidence/north-avenue-beach/metrics.json",
+      "bytes": 1961,
+      "gitBlob": "8795dd4e1fd9e55eecabad54d42d3f3a9e51bcd0",
+      "sha256": "73ee8b8354b4f926a529a7e1d872fdf39d9ffaed44567e0f1a98f287518ad77c"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/bounded-confidence/old-town-brick/metrics.json",
+      "bytes": 1957,
+      "gitBlob": "9211982d0a750f1d2b50a5e090cb9220aa7e0880",
+      "sha256": "de24a805abb504307dd75d676f25839761ae8d8146ca1abcf5b5430d829104db"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/bounded-confidence/willis-night/metrics.json",
+      "bytes": 2017,
+      "gitBlob": "a728ce16d7729614ca2e4a0ad568d90b1c8a110a",
+      "sha256": "e465bde11e7d9d5dcd3042bdf9f945088e4394d9ec46fee7583f32d0a62cacd8"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/confidence.json",
+      "bytes": 3080,
+      "gitBlob": "1c123074bcfc2d9b5c4cfd85e936117637694d25",
+      "sha256": "fc588c79784d535bdb597b30a61206758d534a2a99e80b22948d347a49e771ac"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/confidence/north-avenue-beach/metrics.json",
+      "bytes": 1961,
+      "gitBlob": "4b1098bc3bdec92dddeb0db77b5460121e6b5d47",
+      "sha256": "d2f1cbfad31baf7601fc405515c59de9c3fb00f3639a8c4191749e1cb41ca74e"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/confidence/old-town-brick/metrics.json",
+      "bytes": 1957,
+      "gitBlob": "b104eb7413e9df49f7eea20a999b009c475cd148",
+      "sha256": "69cf04b64e9468d739bc0b5d908ed8350162897d00dbdf241f5be5383748d68e"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/coverage-experiment.json",
+      "bytes": 1382,
+      "gitBlob": "d17d75bf37b3d3ec47879e45216283e9d046ce6e",
+      "sha256": "5ca79753f9e5307150709e92a76175f122baf75acd516dce7dba6c48e01e8d24"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/coverage/metrics.json",
+      "bytes": 1955,
+      "gitBlob": "25d5dc9cf69b0afc1d557d02ba70fd642de8ba82",
+      "sha256": "9cd763c435e16324d78f81ea541115a3ee0636a8e750af8f87a80ff5de67f473"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/final-gpu-commands.json",
+      "bytes": 1448,
+      "gitBlob": "2dedf757c30f3b426e7341c5fba5121135e1ac79",
+      "sha256": "1e5114bc160e4a19eddd4e7682c29fd4116a0b1e92279deb906085495ca9b914"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/final-input.json",
+      "bytes": 17176,
+      "gitBlob": "9270ec41d43a0c9fdc47bc47a4a3d5a309b293e6",
+      "sha256": "ffba089050a2e7b97da8fe9d70f26a4c3c78261b37387c216fcd51d25f97f0a0"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/final-package-input.json",
+      "bytes": 3161,
+      "gitBlob": "6fd128c0fe8a76fe7fb1ad527c86d2f2095b2f98",
+      "sha256": "32bc37216107b655defe70701928e885b3416884ed40f8f006e33c58d42cda53"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/motion-northside/metrics.json",
+      "bytes": 6813,
+      "gitBlob": "a810ce5aa927e7a59a2a794d59858e9c23e782fe",
+      "sha256": "bc7a8b04a67367602bf892b70502183bad51ef5383e628f0aa3deba015f65e7a"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/north-avenue-beach-raw.png",
+      "bytes": 435301,
+      "gitBlob": "af5c719927cba94279c407a043ab780fd9eceee5",
+      "sha256": "f32bbe5388d9029f5a9c2518db2a3614da4ef4f15221eba89e8cacb8508f127e"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/north-avenue-beach-reconstructed.png",
+      "bytes": 253564,
+      "gitBlob": "48d2141ab05750c542d6df0cd104be3a265cb6a6",
+      "sha256": "47c9d699281ee084cca0a624ddb5d170b830db1b676d6090d3ef3cbba1779c11"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/north-avenue-beach-reference.png",
+      "bytes": 342687,
+      "gitBlob": "e93e7ed1f99af490c1a36214cab4a22c8b6c20a6",
+      "sha256": "a242f5965769067a6d7ae2fb26e90ae2712c8265d2dd809f5f0c090413a91335"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/old-town-brick-raw.png",
+      "bytes": 311149,
+      "gitBlob": "cc96f235132c27a7ff352c2b143df6c53639999e",
+      "sha256": "d080d194a863553d3093a451ede58e0fd775604091de6a647e4f306cdf1d08c6"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/old-town-brick-reconstructed.png",
+      "bytes": 197326,
+      "gitBlob": "f0a6a1892c893a804781db415477070bf6e1f954",
+      "sha256": "9dbdfa7e0bd9357d0e957484d4f8f05254e14ce87e0d535f5b12a8c2592eb974"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/old-town-brick-reference.png",
+      "bytes": 249133,
+      "gitBlob": "85757f334e3ba336c86fd353f4c4d41bed441125",
+      "sha256": "50fb6dfb9ff3ce47e22192aa3396b1a9c4d65a1d1f152a79fc36594a5f53e7fb"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/spatial-only/north-avenue-beach/metrics.json",
+      "bytes": 1961,
+      "gitBlob": "7f0a913dd50d5e854e173cdc4660e4a89ea5febe",
+      "sha256": "f357179452c30deead3efd8bae2ac61a24c2d99bd36482488f27f9778e701e62"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/spatial-only/old-town-brick/metrics.json",
+      "bytes": 1957,
+      "gitBlob": "79a39104945cf9a0728afc84a97e61879b6a908c",
+      "sha256": "51ed0c022f0318b3886db3cfc4736fd494496c7e684013127d3c56543194774e"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/temporal-only/north-avenue-beach/metrics.json",
+      "bytes": 1961,
+      "gitBlob": "e43b5903bb5417196333ad97977f90a213414e3b",
+      "sha256": "128f0509666986b0c20e26f7118fd37ed7060afcb07372a961f48c9acdba0b4c"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/temporal-only/old-town-brick/metrics.json",
+      "bytes": 1956,
+      "gitBlob": "0e9fc8de66c3154f4f74d5a89224a1498cd8d957",
+      "sha256": "dc2d8482919a16322c239b9f29f432bc2ed463f53e5d3f0fec4e3190de65ef21"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/unbounded-confidence-chicago/metrics.json",
+      "bytes": 5165,
+      "gitBlob": "5b99081a118936aa1fd062559ea03c6406fe0d50",
+      "sha256": "ef5b8d8f38473f3eedc0258447c90ed93db2baf36db680db7ff0b154a68c956f"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/unbounded-confidence-input.json",
+      "bytes": 17176,
+      "gitBlob": "6b18cb114bc213457c5d51e76b39577ba1d381a8",
+      "sha256": "5c9456bde81091f5526a54c82f2f7b1d25a30edc7c4f28a232f0e34279dba2d2"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/unbounded-confidence-package.json",
+      "bytes": 3161,
+      "gitBlob": "27d5a753e8ecadaa4c80f4c9087b7871d9e50453",
+      "sha256": "4d31980d63c888bc4adb41950febe01aa041520d9cfd92ef1d4bdce20311cb61"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/willis-ablation.json",
+      "bytes": 4564,
+      "gitBlob": "a42e7edda913dc6c4c972c8fcc358ea3229b245d",
+      "sha256": "c20151cc0c784a7a22904b63d00e427e0dbd2cd002fffc60bb5ee505002cb4ee"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/willis-ablation/original/metrics.json",
+      "bytes": 2016,
+      "gitBlob": "d56ff56b4ea26a3f9923f12c273a0a1b3f14f834",
+      "sha256": "bb7713a5dd84adb573751e77342080a316b7e20f96689a83b8c8e2993e3736fb"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/willis-ablation/spatial-only/metrics.json",
+      "bytes": 2017,
+      "gitBlob": "88be8789f4b49a63a8c6657f7a0bed2479d0b6f5",
+      "sha256": "a14cf0739197411f546b6cf7f9ec49d3af745d9aaffb046330d6809d14de8bfb"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-discovery/willis-ablation/temporal-only/metrics.json",
+      "bytes": 1979,
+      "gitBlob": "55e929b49b6e6080658b83b1eaea1646f29500de",
+      "sha256": "f9949415178f85d45408aaa3a61ccf88cb84ec1f518bff75dba9ff365b460f17"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-lakefront.json",
+      "bytes": 5124,
+      "gitBlob": "23dcb8202b5de0ca2bea289f737eab30589854e6",
+      "sha256": "21c9fd65eb8a41d7960ee6305bff01c45261e38f96fa3ebca4b9eaf8fc6a3057"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-millennium.json",
+      "bytes": 5120,
+      "gitBlob": "3198cdc307c42ea4e859e793facc8125c5a4c472",
+      "sha256": "26e6fccfaa066aecfccd31dcc3e3aa5334e4e8252f820ad792262987e06bf74a"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-northside.json",
+      "bytes": 6683,
+      "gitBlob": "60fcce9cefb3228503f9bc231ecfd7e853b9b6bf",
+      "sha256": "579f522dba9fcc1e18e50383bf0d243721f8f0cf41923958533f5ee94b46b9be"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-paris.json",
+      "bytes": 5141,
+      "gitBlob": "93be67393697fa7f7837bc99aa405f6f7d7cdabf",
+      "sha256": "1826cf91a37daf32db77ffa85e3906ebf01d524b4fa62471af215dfe5b5a0dbd"
+    },
+    {
+      "path": "docs/validation/v1.7/motion-summary.json",
+      "bytes": 27180,
+      "gitBlob": "a05e2eaaecff001ebdeef0fb6b7195bbeb9afe8c",
+      "sha256": "8590fcdd0b54f9af355b26084e9d23c8ed792a30f76c45d0586ae8b2335965a0"
+    },
+    {
+      "path": "docs/validation/v1.7/native-controls-before-landcover.json",
+      "bytes": 3057,
+      "gitBlob": "bdfa8b449d689fdfba0c6e3d3da1d89bfdc6fe3b",
+      "sha256": "169da5e0665513a451318685037d9c67f7e13dc28ce30a18e031524f5ef42557"
+    },
+    {
+      "path": "docs/validation/v1.7/native-controls.json",
+      "bytes": 3460,
+      "gitBlob": "e44b075e9ae82c92916d4215ea28437ee268b8a2",
+      "sha256": "9510376dbde296443c44bf1dc0cd58da23c5d49511ddefa935de8267bb264a49"
+    },
+    {
+      "path": "docs/validation/v1.7/native-final-smoke.json",
+      "bytes": 1649,
+      "gitBlob": "93f72639d6bcb6de5ddc0819f54032e5286530d4",
+      "sha256": "f6a89970f34cbdb8c54552dda1e57293db7e8aeaef024de01056c164d8cc87d6"
+    },
+    {
+      "path": "docs/validation/v1.7/navigation-initial-failure.txt",
+      "bytes": 2181,
+      "gitBlob": "9f7d8e14cf38e8488af0f750ccfeba4bddafcfc8",
+      "sha256": "0e3efc8a8d2211c72d4d054eeca3ebe7af295358bcc6c824d15083526064cd56"
+    },
+    {
+      "path": "docs/validation/v1.7/north-day-tour-media.json",
+      "bytes": 3835,
+      "gitBlob": "99780f22470350a2152515175f49da82a7bd37a9",
+      "sha256": "0fd381449e8b0b38f6871782a54f70e749f55fc3bafc841b10a229144bc2b5e9"
+    },
+    {
+      "path": "docs/validation/v1.7/north-day-tour-ramp-discovery.json",
+      "bytes": 11946,
+      "gitBlob": "8dc8890bbb705059e00e8e2da701f1b59d32ca3d",
+      "sha256": "48f5d8a6071e98dbd9e44feb86e47b666af70f9986c9a6005dc918f2f5c981a5"
+    },
+    {
+      "path": "docs/validation/v1.7/north-day-tour-visual-review.json",
+      "bytes": 13009,
+      "gitBlob": "263453613c1398204825627c3adfc2b951861243",
+      "sha256": "26101c22cbac4eb5f89710a8bcdc767d0c7aee3205e8783dcbae7047a32ac034"
+    },
+    {
+      "path": "docs/validation/v1.7/north-landmarks-component.json",
+      "bytes": 473,
+      "gitBlob": "c34ca77de908e2852026493aefec782952fe5d1c",
+      "sha256": "a253b9782a32e4605342ce8b4f9997aec819df18f7aea84d3f584982026f3bdd"
+    },
+    {
+      "path": "docs/validation/v1.7/north-night-tour-media.json",
+      "bytes": 3842,
+      "gitBlob": "a3f76e46fe3c69257100b34078b966729b3e87f4",
+      "sha256": "a20f7e38ca290da0c7f5070eac5f4bf7df8abd4ed4b51e679d8610fc733ed366"
+    },
+    {
+      "path": "docs/validation/v1.7/north-night-tour-visual-review.json",
+      "bytes": 8472,
+      "gitBlob": "649a2349ad89ddbea701d849357e8417cdc213d1",
+      "sha256": "a4b5a21beb7188913d6a04a10d91dbe0e25854d41a059d0e4d8edb10e65bf8a0"
+    },
+    {
+      "path": "docs/validation/v1.7/north-side-geometry-before-wells-validation.json",
+      "bytes": 1328,
+      "gitBlob": "5522c9fca753635b4c9e3cad94e432f40e361e0e",
+      "sha256": "a8780d4584f69ce8363b4c869638686361a59a18893264aa54b62a0c1df34df3"
+    },
+    {
+      "path": "docs/validation/v1.7/north-side-geometry-before-wells-validation.txt",
+      "bytes": 669,
+      "gitBlob": "c72b116d4222ba900b12b163ec1d6be8b0fa4af1",
+      "sha256": "693200295ba98fcbf749d95e2ee0d5837ea305d389bfd2760cf5089147a23747"
+    },
+    {
+      "path": "docs/validation/v1.7/north-side-geometry-validation.json",
+      "bytes": 1101,
+      "gitBlob": "9ed2dbfa9ff9f7f935d34c651b28f40cdeec6a66",
+      "sha256": "4ca3e3cf90c2bb22f9777574ecabff1cece4080eb7577f33698b9d790d65ff69"
+    },
+    {
+      "path": "docs/validation/v1.7/north-side-geometry-validation.txt",
+      "bytes": 1215,
+      "gitBlob": "e1fee9372c07cce874b228423ef7f3ca53b42120",
+      "sha256": "fa71830da985c01f38e169a93dcbea0b1c85ecda5de16688adbe750719ef80f6"
+    },
+    {
+      "path": "docs/validation/v1.7/north-side-map-validation.json",
+      "bytes": 3066,
+      "gitBlob": "ed70d3d80c57ced90f8fc55dab3447f0543d1e03",
+      "sha256": "72b7796c30f5f38708adbf3567d2f1572fb0e782ddb97da499f33305334630ed"
+    },
+    {
+      "path": "docs/validation/v1.7/paired-motion-validation.txt",
+      "bytes": 211,
+      "gitBlob": "ceec452b31728273e45690ee6157b42563801d15",
+      "sha256": "64f936d1ec84640ca7b8a6c10965be733aef6ad1f3d4393e3ea2435bd3f585fe"
+    },
+    {
+      "path": "docs/validation/v1.7/paris-self-test.json",
+      "bytes": 861,
+      "gitBlob": "7f0b1ed5001790d0d084d992f327b246d9c54192",
+      "sha256": "f506959bd1eba2c466b5254ab1d9368b169a5c54efaf30cfc15374e4acad7a7b"
+    },
+    {
+      "path": "docs/validation/v1.7/playback-initial-failures.txt",
+      "bytes": 3797,
+      "gitBlob": "bc3e9967b1c23a2c46b7fecdc1a1b4c3c24d2f50",
+      "sha256": "788a6f40f19428fc6bdaee6987296778ee368dadf55a39640a8f2bcbb6593a33"
+    },
+    {
+      "path": "docs/validation/v1.7/playback-validation.txt",
+      "bytes": 3254,
+      "gitBlob": "29019dc08f974726d16653a126b41d2d0e91f096",
+      "sha256": "af795148e8acad69a9e4cbc4c2eb8ca70595a171aa6e4a0a8be4f3c6992c4ec1"
+    },
+    {
+      "path": "docs/validation/v1.7/post-motion-commands.json",
+      "bytes": 3135,
+      "gitBlob": "47778b40fb6b32fefa7448831b85ad415003786c",
+      "sha256": "b0264ce039108aaa0df9c81c150c1d351ad7f52014c6368b171f6285fe0fc08a"
+    },
+    {
+      "path": "docs/validation/v1.7/ramp-export-archive.json",
+      "bytes": 572,
+      "gitBlob": "a897dc1fd699adad4c773986bbefc6e298a1399b",
+      "sha256": "e23abf4cfb4c1ca5c7882b3acdd61c5119c15d5b4a8376013766364c3414f636"
+    },
+    {
+      "path": "docs/validation/v1.7/release-hero-visuals.json",
+      "bytes": 3119,
+      "gitBlob": "a16e4e29ac4626b841d8dd7b2c44cc5846a9d1c6",
+      "sha256": "8993690912ab0444a92ae587134a4c250bbd23b3e7b8a01c17a8d5a26e6f3e86"
+    },
+    {
+      "path": "docs/validation/v1.7/release-source-input.json",
+      "bytes": 17680,
+      "gitBlob": "224842f90b101ab0f632c92b38d180be8ba4ea8e",
+      "sha256": "98ea3b9fc8bc14d17c2dd3ee3f5f6cb2e715261fb7071cfa1432e587d0ec5215"
+    },
+    {
+      "path": "docs/validation/v1.7/release-verification.json",
+      "bytes": 1410,
+      "gitBlob": "aa4bab677c81febe8ca9159a76731ff5b0ea62b9",
+      "sha256": "ec0d8106cfa8ec32074722955b73c66468d91302e152068a540da154ddaa14e0"
+    },
+    {
+      "path": "docs/validation/v1.7/resident-world-comparison.json",
+      "bytes": 1854,
+      "gitBlob": "423eb0d79c93ebe908502ca8f54216fbd892ad1f",
+      "sha256": "c34d578f3a1ac63951e214b90db932ae1f9a4d14f9bca4a5f61fe39db9b14835"
+    },
+    {
+      "path": "docs/validation/v1.7/root-final-still-review.json",
+      "bytes": 2151,
+      "gitBlob": "84ca5703ea338cd7b86b43255386f51f7a7fb9a7",
+      "sha256": "9bc7142233a57b3d1cfde8143aa01c034dcae02e667d40e5ff1d1d906b3350a2"
+    },
+    {
+      "path": "docs/validation/v1.7/root-motion-visual-review.json",
+      "bytes": 1467,
+      "gitBlob": "5ba1d91de946fd48222015fb6deaf492bbf971da",
+      "sha256": "81cf15880788f15a5a77927747be9c996416fe7d0602d42ce5c2a10dfa01e12c"
+    },
+    {
+      "path": "docs/validation/v1.7/source-formatting-cleanup.json",
+      "bytes": 857,
+      "gitBlob": "7e2a4f01920bc6cc6f1db6d79603f17c2a5e8f05",
+      "sha256": "b7a94dae5878f516bab1e2289cee261c1fa66c9fb4758a8d53bab4d8ebdf17af"
+    },
+    {
+      "path": "docs/validation/v1.7/standalone-bundle.json",
+      "bytes": 1412,
+      "gitBlob": "bc8dfe15f433a13b126c412830e76383bd04eb43",
+      "sha256": "91f3a71e773ebac12b4100ddd6ee1161bc7958d2d4c041774dc1aef3122bbd67"
+    },
+    {
+      "path": "docs/validation/v1.7/standalone-chicago.json",
+      "bytes": 2224,
+      "gitBlob": "0e34aee21606962573be70039b036ce175203001",
+      "sha256": "90a79ee5ca20e1db3b2b5c19ba1c1ceb19b001c3d714e4de7ed479589c6abe96"
+    },
+    {
+      "path": "docs/validation/v1.7/standalone-paris.json",
+      "bytes": 863,
+      "gitBlob": "e5c1ec720be11e99ae3d599abdfb99f824e28d3c",
+      "sha256": "5d2f026ddcfbf17757d82d8e24f0155988e06b1b2840958fabc0bb801c05f236"
+    },
+    {
+      "path": "docs/validation/v1.7/temporal-detail-validation.txt",
+      "bytes": 4521,
+      "gitBlob": "0267aa937f557a8567e9cb9fad011c48b452c2c3",
+      "sha256": "36f4c2fa3a7d83f33194ad8731b2bd87953325c47ff68aa0dab1a3f545d3d83e"
+    },
+    {
+      "path": "docs/validation/v1.7/temporal-detail.json",
+      "bytes": 28857,
+      "gitBlob": "23cb92b15b64350276315c22f69fe8bea48d8aa0",
+      "sha256": "5dd8495d518d86e35d8b8bed7be81f82326bf944581fa1ed6cd9507b6a11aba3"
+    },
+    {
+      "path": "docs/validation/v1.7/wells-before-sixth-package-visual-review.json",
+      "bytes": 6886,
+      "gitBlob": "ac28762c3f39ce681ab0f34727ba6e7017f501ba",
+      "sha256": "664518c5c037324f486afeb40abc46f4b003f73e4f014b6c7ae9edcdfab28892"
+    },
+    {
+      "path": "docs/validation/v1.7/wells-final-visual-review.json",
+      "bytes": 11736,
+      "gitBlob": "4f9e27ba80f52e859b51446f6ef5bf81e72251a1",
+      "sha256": "ebba0a1f8526d7d56943f6683bfdd49375fdd053cc02e870c59507284575cba5"
+    },
+    {
+      "path": "docs/validation/v1.7/wells-street-refinement.json",
+      "bytes": 1636,
+      "gitBlob": "7e64e2d071721044d4278e18fdd5fce5a44ac7a6",
+      "sha256": "c4b672810c44606c4cf82731e99638c3407e5e1a4170d5ff6f084899b1d5e985"
+    },
+    {
+      "path": "docs/validation/v1.7/wrigley-final-visual-review.json",
+      "bytes": 9674,
+      "gitBlob": "7246c53f63a9461d632aa902f9ed3ef9884f2668",
+      "sha256": "e1d2b97b18adb8879b5dd1f5ea6d466a313997cda55be40e25c63750bda4f208"
+    },
+    {
+      "path": "docs/validation/v1.7/wrigley-geometry.json",
+      "bytes": 861,
+      "gitBlob": "030d59b736231bcb9ce7b49bd9b457d1fd7a6417",
+      "sha256": "6fdb0f50497c3ef63107ab93cc8c5b565a9811d5f7187e544c1aeab213521de7"
+    },
+    {
+      "path": "docs/validation/v1.7/wrigley-motion-visual-review.json",
+      "bytes": 8070,
+      "gitBlob": "ea266c13dd433699af2fbd1d42d568bd2a587afc",
+      "sha256": "832a38b7dda39d60a03124f1628c9ccac442ea4587860cac21f8f9e2602a7bd8"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-final-visual-review.json",
+      "bytes": 11827,
+      "gitBlob": "2bbe0894508213dec3c8bcebfcaf308696ece0d7",
+      "sha256": "23d1aba212e664dbdcc9271b02dd8c6aac782969eb08be8070ec8cee9ac32bc0"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-first-visual-review.json",
+      "bytes": 3109,
+      "gitBlob": "6a8aa1ac9982ff2c1de59bb908b1a5149748bc27",
+      "sha256": "f7d152daea754a6110d78ff0896ea614b19ceaf10775178f4818242f6e820cf7"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-motion-visual-review.json",
+      "bytes": 10419,
+      "gitBlob": "c4c2bb3017a1b899921f232348eacb9420d4a956",
+      "sha256": "139d1887c62787fc3f2ff1942ceb95ec717f79ea568de288f7485c89f6e59202"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-second-visual-review.json",
+      "bytes": 4319,
+      "gitBlob": "e4a1aefd548df579a90073e9c225bdf92027ff48",
+      "sha256": "b60eff8e1803783711dd42c6c8c05d95689c40eb2a00af336e0771d9cbd118c4"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-wrigley-flight-landcover-discovery.json",
+      "bytes": 9476,
+      "gitBlob": "ff94bbd15e19d65c562a01197b24b112da54f5de",
+      "sha256": "8e5fdbd3908260674a3b3fa244d6e80c82a31c740f09ba814566ef1ed0b7d6c9"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-wrigley-flight-media.json",
+      "bytes": 3928,
+      "gitBlob": "48486025815234d853b9a32c5f54301c095baa4a",
+      "sha256": "ac9a02527ec91dfcb2468710ff969951df9390e18ae0539e4bbb5543d29e2a8b"
+    },
+    {
+      "path": "docs/validation/v1.7/zoo-wrigley-flight-visual-review.json",
+      "bytes": 9687,
+      "gitBlob": "d7cc55038eec8f86fe78fef3e0dc2d91b945baf3",
+      "sha256": "e5b08e57dfe251fc4484f9ab2b8c0857232e76c1248dc15b30c176abf11e164e"
+    },
+    {
+      "path": "docs/validation/v1.8/build-validation.txt",
+      "bytes": 533,
+      "gitBlob": "63d33bd44c5f21e8eac71921fab5ef1425924472",
+      "sha256": "d1027deea038d7ac34f03311781962c5cebffb4f499e8ceac80d5c36a929ab01"
+    },
+    {
+      "path": "docs/validation/v1.8/controller-review.json",
+      "bytes": 3535,
+      "gitBlob": "45a3841deb5dbbb14bdb0fa22a661a11d98859cf",
+      "sha256": "96e68f21615462a6b87e722c701126d9b83d349b8040ce836e6b728f9ef89918"
+    },
+    {
+      "path": "docs/validation/v1.8/evidence-index.json",
+      "bytes": 4731,
+      "gitBlob": "b4e5c2af68140717bb6bf6084c868411f57ef7f0",
+      "sha256": "657ab9c08f2778200bfdd7a64ead09990db00bc40ef7027878a81de6446c97eb"
+    },
+    {
+      "path": "docs/validation/v1.8/final-build-validation.txt",
+      "bytes": 533,
+      "gitBlob": "bf63ca48ee2356f4101594cc8a746e2531617bc4",
+      "sha256": "304c73adbbc56d92a7daad334324d1faa3fe9d11851b7d44405538442e3ebc2b"
+    },
+    {
+      "path": "docs/validation/v1.8/final-package-input.json",
+      "bytes": 52441,
+      "gitBlob": "4ec37f3d374e2c345cbc5a8b9c11a1859f393595",
+      "sha256": "f6ac8fdc7c81e2aa952ff43eff31f17de9cfe4cae7bd7847a7dcf6d36ebfbe54"
+    },
+    {
+      "path": "docs/validation/v1.8/focus-navigation-integration.json",
+      "bytes": 1298,
+      "gitBlob": "8d0ebd6d81c46b4113523b5b1ad24643965f33a0",
+      "sha256": "3fde188cc0c41cd7c6be2084a9b834682164b8c810210fd8e0517ea362236fef"
+    },
+    {
+      "path": "docs/validation/v1.8/focus-navigation-unit.txt",
+      "bytes": 201,
+      "gitBlob": "a08b473a23f8fe0a2574cd8883391fc48689adf6",
+      "sha256": "ec46df4423d3b4612ae5f2a35f2072a29458b640600f4ec029d32aa4fd3c726b"
+    },
+    {
+      "path": "docs/validation/v1.8/native-controls.json",
+      "bytes": 6568,
+      "gitBlob": "699018ec1ca37d5680f2bc8c4618472f8f179381",
+      "sha256": "79946ae2a44638b407a5d8286c0489d484f60612e78ab05bef2ae06622312302"
+    },
+    {
+      "path": "docs/validation/v1.8/northside-self-test.json",
+      "bytes": 2224,
+      "gitBlob": "78f5b3bc5268bc270ccbcecb8ef19a0a860c1cf0",
+      "sha256": "657d7ec03be6187291d4c74b18c016c768a8bff2f024d005f62c12a20ca8b3c1"
+    },
+    {
+      "path": "docs/validation/v1.8/northside-self-test.txt",
+      "bytes": 506,
+      "gitBlob": "5043db8ef3b98a7bebd2ea4543c830a0e820b6ea",
+      "sha256": "0f870230d04f315c0930017fb2be0d7dfbb0887cc15b2024502dc0c5fa53e1f3"
+    },
+    {
+      "path": "docs/validation/v1.8/paris-self-test.json",
+      "bytes": 863,
+      "gitBlob": "a1c5cde8282c8d6aadab12d0dd3439c108c08a7a",
+      "sha256": "856493aa04673b2c24e390f55858b7ca5b68b05435c7ca6ecdaf8dbe84a0cd78"
+    },
+    {
+      "path": "docs/validation/v1.8/paris-self-test.txt",
+      "bytes": 479,
+      "gitBlob": "6c459710b8061259aa47cf3246af7279998fe82e",
+      "sha256": "bd82c0543dd2bacc015a70387a8156d671d3dab1f4227d31f35ff6b035ffd515"
+    },
+    {
+      "path": "docs/validation/v1.8/playback-validation.txt",
+      "bytes": 3254,
+      "gitBlob": "8c08a05d17f56e17372a7d11062c4dee01cba504",
+      "sha256": "0a84ff9020ab1c7daf2c19efb3b0ce3c73c544519d50561b38c1283ae7b722da"
+    },
+    {
+      "path": "docs/validation/v1.8/rendering-input-equivalence.json",
+      "bytes": 22363,
+      "gitBlob": "a46ea7c4e297345c8575e5dd4d7066e00764c0f1",
+      "sha256": "f149eabe00ec42462c13596ecbcc02c144f0c9150d969e09c0f352112779f5a5"
+    },
+    {
+      "path": "docs/validation/v1.8/self-test-commands.json",
+      "bytes": 839,
+      "gitBlob": "39c4cbaa8b977444032e119cb51e94aafc1c1390",
+      "sha256": "f110af5192b6623a3abcc8a868d0e8f8cafa09a212ae502c7240fbc87291dc10"
+    },
+    {
+      "path": "docs/validation/v1.8/viewport-input-validation.json",
+      "bytes": 2610,
+      "gitBlob": "262f80082d0fee2db5de447044b55225ffd6891e",
+      "sha256": "1d28cc14c159954459e91183b2a2d1f637f560bd2e8ac50a03aeca0614696aba"
+    },
+    {
+      "path": "scripts/build-app.sh",
+      "bytes": 3444,
+      "gitBlob": "30fb5c4682a960d7cac29644b447cd667c19f453",
+      "sha256": "08412c09673dfef229e1504ae3572cec8b08b49c9a066dcb2c633e8915ff2d7c"
+    },
+    {
+      "path": "scripts/create-icon.swift",
+      "bytes": 6510,
+      "gitBlob": "6c0c424c5eddc68aee89bad8ae8754898abc52e2",
+      "sha256": "b3c9107f239c5df646bc3bcdd34118cdda0be7341e65fe9e2fa3a94a2df65f73"
+    },
+    {
+      "path": "scripts/data/chicago-lakefront-landscape-2026-09-08.json",
+      "bytes": 867004,
+      "gitBlob": "28e26fbae5d310aa700d8c6893f5391b4132b7b8",
+      "sha256": "a75dd8d7b9169f2e384c953056a15f9989a546828349b993bafbfc89c6832450"
+    },
+    {
+      "path": "scripts/data/chicago-lakefront-osm-2026-09-08.json",
+      "bytes": 23225086,
+      "gitBlob": "49a1d6a4c22cf345c88ddddddff5a2cda8004865",
+      "sha256": "8eeaae8c8ec0dcf6760992962312d5705458d97907e9ff02a32a416cb109f813"
+    },
+    {
+      "path": "scripts/data/chicago-lakefront-rail-2026-09-08.json",
+      "bytes": 64366,
+      "gitBlob": "d68a588c7e512fb8f481e7b3cd3fe8ec420607ec",
+      "sha256": "7c5490f2452762bfc7311426ca036ecf474f7d800bf2169eb96fc0202c96f5cd"
+    },
+    {
+      "path": "scripts/data/chicago-lakefront-shoreline-2026-09-08.json",
+      "bytes": 205051,
+      "gitBlob": "5ea1457902e7e9484bbaac3f3f384a9114324cb0",
+      "sha256": "a1516f33d941fdffe675f9e5231f0ba41d0243abdcebeecedc1c0ac462c6e6a6"
+    },
+    {
+      "path": "scripts/data/chicago-lakefront-water-2026-09-08.json",
+      "bytes": 513799,
+      "gitBlob": "607cbcc7d38588d4afa4ebbda954464307787b5c",
+      "sha256": "1a6a6d4ff180fd13440298f07e5a2acfd2084a2e5797444602de7706b7c6c532"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-osm-2026-09-08.json",
+      "bytes": 13644890,
+      "gitBlob": "0e2a80c108044c65ccacf3310a71b03af93fc259",
+      "sha256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-osm-2026-09-08.overpass",
+      "bytes": 595,
+      "gitBlob": "9859152159e88f4cad6f72f4cc1b9c38acf00fc0",
+      "sha256": "d3663b4a47447803d13b10fc7aef4dd68e944b0f526e981c7cc86e5e528fc6dc"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-roads-2026-09-08.json",
+      "bytes": 18265,
+      "gitBlob": "09089cc00293e4d717162209746067f5b50e65c4",
+      "sha256": "de116809551286bda289028de63e36a2d18b7899308af9740fdbba0d10847aea"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-roads-2026-09-08.overpass",
+      "bytes": 127,
+      "gitBlob": "a814c46db6fb18f603d09dd343b319f1af3ed46a",
+      "sha256": "2a70c4047d42b997cbf2e1258560af6da624e62017d1a22b4d60de6b106c40f4"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-shoreline-2026-09-08.json",
+      "bytes": 233473,
+      "gitBlob": "a6970eb6e7bfbbf24a1a1a366ba7105286ddd4b3",
+      "sha256": "56d55c4b9220e6c2c5d8c5575e3918032ca948b6ca147d775006ff4ff4f2f7ee"
+    },
+    {
+      "path": "scripts/data/chicago-museum-campus-shoreline-2026-09-08.overpass",
+      "bytes": 82,
+      "gitBlob": "b7878d2365725612da8b2228bba17a2487319435",
+      "sha256": "876e923107e5a94fd3e03e41422aa44ad2206172e0441bf4adeeec6e32d61e43"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-landmarks-2026-09-08.json",
+      "bytes": 3071065,
+      "gitBlob": "dcd48391684f8fcb67022dc22cd792f0b5841ff9",
+      "sha256": "51351d8a57ee35045d2f133d089e5baf6cf3f5cfdcb9e5256e3f5e4e1000902c"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-osm-2026-09-08.json",
+      "bytes": 68921187,
+      "gitBlob": "d4c1dc0cd00f06bbd7a6888011199cf3389b6c51",
+      "sha256": "0598f62a401eb021574c1c356a9017ac277aee8c2209a9eedf07cf9d4b406049"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-osm-2026-09-08.overpass",
+      "bytes": 601,
+      "gitBlob": "d29adfdb68833c483f013651d263f3f9896a76d0",
+      "sha256": "2c3839acb045ee802e55148b73af6d8c058c1a5918881785b098dbb7d31d0be6"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-roads-2026-09-08.json",
+      "bytes": 63180,
+      "gitBlob": "06a30df4bb45bbc7e3239340dd7c2803c6d07956",
+      "sha256": "e68ae417b8b11a4e2173c86d2480888e1ad96cc494352e5ee8cde822244b9e72"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-roads-2026-09-08.overpass",
+      "bytes": 191,
+      "gitBlob": "87120f301fa86d615e4e37e90cc458118fc13736",
+      "sha256": "dbf72c6f5191ee9384a176aca7fbd536dcec21e449eaed10f034e2b31f9ef3bc"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-shoreline-2026-09-08.json",
+      "bytes": 231365,
+      "gitBlob": "9461aa1f3c97cb164e64dba9b7ea9c5a1a08adab",
+      "sha256": "5745b01ef1e9462fe31b8b4f742017fe0caa5ae742a8b1c9d277573c340c19c0"
+    },
+    {
+      "path": "scripts/data/chicago-north-side-shoreline-2026-09-08.overpass",
+      "bytes": 83,
+      "gitBlob": "83d802515a0ff8ec99fa0c94070f9177df501cbf",
+      "sha256": "6399c720a24b3962e35fca98a1be5ecea8f623a59e1407ddb2898363d079dcb5"
+    },
+    {
+      "path": "scripts/data/chicago-osm-2026-09-07.json",
+      "bytes": 8674638,
+      "gitBlob": "b0cad7591d7388d44a3e0e4324e88677ec7c3f07",
+      "sha256": "37acb549dfa5b3f718f971a2b71a2fab76d3b7d7a18f3a26f56138d85de90cf6"
+    },
+    {
+      "path": "scripts/data/millennium-osm-2026-09-08.json",
+      "bytes": 11302014,
+      "gitBlob": "0d6344bb115b26384634cdadd914df5c76821b26",
+      "sha256": "b4f1cb803706c3b90fe476af93c6917e44836ef909b0496a8ad21ac95efc2efa"
+    },
+    {
+      "path": "scripts/data/paris-osm-2026-09-07.json",
+      "bytes": 6322966,
+      "gitBlob": "6b278785c30ab0f9a1a450047da864e8d312fc07",
+      "sha256": "7aa8289db6ec30eeb13061cac5ae1cfd42a6afab8b7094daaf326761c33cce71"
+    },
+    {
+      "path": "scripts/data/paris-osm-relations-2026-09-07.json",
+      "bytes": 948145,
+      "gitBlob": "d9dd8abd129e056d0c93a5517a47acde196c8493",
+      "sha256": "2a9796679991da910b50cc42bf4226707dc877d5e53c2eaaa4a7c830b995fdc4"
+    },
+    {
+      "path": "scripts/prepare-chicago-context.py",
+      "bytes": 9164,
+      "gitBlob": "95aa6345a4aa2dddbf532f2171583ff66adfd86f",
+      "sha256": "6a7b2fee50dda77547efd52207ad7ac09d946ab01c60b2375ca71fef1bd886e6"
+    },
+    {
+      "path": "scripts/prepare-lakefront-context.py",
+      "bytes": 16562,
+      "gitBlob": "791e8081ec2edcb1fbc339070a9f0e21bdc30e8e",
+      "sha256": "26013c8559310991581d893f2eccffd1812d8b34177baf56998ff6538c5601e8"
+    },
+    {
+      "path": "scripts/prepare-lincoln-park-zoo-map.py",
+      "bytes": 3641,
+      "gitBlob": "2f2b554d919e71795abe98dc8f23d33d34efc8b3",
+      "sha256": "b42a9a9e70d7d026d1525b32693b59570f1c0a639b9e0821c120c25a3e1cda1b"
+    },
+    {
+      "path": "scripts/prepare-millennium-context.py",
+      "bytes": 3837,
+      "gitBlob": "dc6ae3397c61d9186aa20b066fccf0da3313e298",
+      "sha256": "e00784f8ae516714af64fbd67e3752c28fd3a66fefc032008c8342639c9b991d"
+    },
+    {
+      "path": "scripts/prepare-museum-campus-context.py",
+      "bytes": 16834,
+      "gitBlob": "ed9c8835bc4d69a9c1427d531a45c3b629c2d9e2",
+      "sha256": "ee4f7d033e767679aab541857a80e2d9eb2c23420f62753feb10ae43d4837019"
+    },
+    {
+      "path": "scripts/prepare-north-side-context.py",
+      "bytes": 27111,
+      "gitBlob": "2c2053137b39c2d5ae6dfda92e18932f5ff6d409",
+      "sha256": "d15b522930553eadd1f501fd93ec474ed5cea37ecf02d92a01804b051a5926f8"
+    },
+    {
+      "path": "scripts/prepare-paris-context.py",
+      "bytes": 5506,
+      "gitBlob": "cde76f98d0cbc8759bca093ccafbd936fef8224f",
+      "sha256": "547cf3a488af575afc5eadc4016e45656ad62806c6b429d589a5bcb9716a6779"
+    },
+    {
+      "path": "scripts/requirements-map.txt",
+      "bytes": 15,
+      "gitBlob": "cb44ec99bc254fac9296d5dfc632e2ac5a02e166",
+      "sha256": "a9da53f34af90c2cc5b9ee96f0ef865935582d869aba11fb0eeb105cb01d6e63"
+    },
+    {
+      "path": "scripts/validate-adler.sh",
+      "bytes": 1344,
+      "gitBlob": "f2495824b5174bd198eebeb097d28935768ed7d2",
+      "sha256": "36b079387b10ec6cb0663e71c98901bc37127ca339ab6940f6aa6bf66242d956"
+    },
+    {
+      "path": "scripts/validate-atmosphere.swift",
+      "bytes": 13702,
+      "gitBlob": "9013f8c615283cdceec967d436db2d65e7bdcd07",
+      "sha256": "5ff14364d55a513505ab174648ebd739e0e6ddf9dcbbc298f03cea318c0f2a7c"
+    },
+    {
+      "path": "scripts/validate-chicago-context.py",
+      "bytes": 2168,
+      "gitBlob": "aceda345ab3baed80fc61815bbee819d79c02ccb",
+      "sha256": "6fe9e9e5cc1697a0fd986da2e7dfa1ef08290c34660e79adc8203f8acdcc6bca"
+    },
+    {
+      "path": "scripts/validate-denoiser.swift",
+      "bytes": 36173,
+      "gitBlob": "1ed79177be0f1161dc0b496683066b9fad11433d",
+      "sha256": "aee59f8d3708d1aed642b1ca8062739fe56599560e34c58e17a6be75b7f28b3c"
+    },
+    {
+      "path": "scripts/validate-focus-navigation-integration.sh",
+      "bytes": 2086,
+      "gitBlob": "41171b657f6a8ad5b9ad9ab68f6f9e70fde41343",
+      "sha256": "7c94fc9426ba4d1fcabfe65c30306a7a53ed0ab59a1ee0aa087653616a46ccf4"
+    },
+    {
+      "path": "scripts/validate-focus-navigation.sh",
+      "bytes": 780,
+      "gitBlob": "20173534d63d3cec22f14ee6e82e7d721ecb5fd2",
+      "sha256": "322d22ca1fc20811ad5307d1392014801b78faaa226fa2d1e405aa18a4d17a7a"
+    },
+    {
+      "path": "scripts/validate-glass.swift",
+      "bytes": 9637,
+      "gitBlob": "6994877127c4ce48d03895d432f1a331931334a2",
+      "sha256": "dffc10fd1fa13e993788e7a8bcafb8167e2b48b2fa05ea6774a6aa26f9d71f88"
+    },
+    {
+      "path": "scripts/validate-indexed-lighting.sh",
+      "bytes": 354,
+      "gitBlob": "44c91a3298373b339365ad971eb94a60b344186e",
+      "sha256": "e2591c2ef91d3818d134d100ee51e254bf16411a8cd2038b7577761a5950a31d"
+    },
+    {
+      "path": "scripts/validate-lakefront-context.py",
+      "bytes": 7598,
+      "gitBlob": "36f7b0fe9e50721b7aed8236dad1db2372523773",
+      "sha256": "b74315c5cda184ada8adcbfc272285bfdddb8b6cf1609e4c3a30cb344c4cdbda"
+    },
+    {
+      "path": "scripts/validate-lakefront-geometry.sh",
+      "bytes": 867,
+      "gitBlob": "14b95fb469094a59e62d5bcbd0d20affb802d7fa",
+      "sha256": "91b262c7442f67bd8195bef930d5b973725556f02e5d82ec5e75a62ffdabd6f8"
+    },
+    {
+      "path": "scripts/validate-light-grid.sh",
+      "bytes": 415,
+      "gitBlob": "98de3b94aa0f57acaaa5dc837b5685d84c9364c8",
+      "sha256": "e943a4d301ca2980b96abaf208b19b2b09d2d35b246039d12837dd99a36403ad"
+    },
+    {
+      "path": "scripts/validate-lincoln-park-zoo.sh",
+      "bytes": 914,
+      "gitBlob": "0c9e681fbc922edfefd2dc938ff02501f573f2aa",
+      "sha256": "ada479447c556e2e972c208186fae66acf7889607521d8652387ca6920255594"
+    },
+    {
+      "path": "scripts/validate-magnificent-gateway.sh",
+      "bytes": 2076,
+      "gitBlob": "1612026858b0237e9a5885f97e9ea74124b75714",
+      "sha256": "70499faab7316e182798b7936aa0cfa783bd646aed6cad7bf4f2a6f97c3a406c"
+    },
+    {
+      "path": "scripts/validate-magnificent-mile.sh",
+      "bytes": 613,
+      "gitBlob": "7a6dd638ac595db196de7c5db32b91c20a22f650",
+      "sha256": "7871cbc39309774facaf805b5046604a71214939b89963315d0ef3760fa7ffc7"
+    },
+    {
+      "path": "scripts/validate-mccormick.sh",
+      "bytes": 2081,
+      "gitBlob": "73c15fc82b570481170f54bd961738dd2fbef9aa",
+      "sha256": "cd815e1ebd1c111ffe8743f25e1846e6f0d2b838af1b39796fb4c04f0d47b091"
+    },
+    {
+      "path": "scripts/validate-metal.swift",
+      "bytes": 18308,
+      "gitBlob": "0ed063e816297d11f7edf8605efe01e425043bf3",
+      "sha256": "ebda2f1fb58f2167072aa83dc51fd62f1e77c14cbe5194ec29c45901d2ca70d4"
+    },
+    {
+      "path": "scripts/validate-millennium-context.py",
+      "bytes": 1914,
+      "gitBlob": "e1361971f75bf5b65aee00e3f127d45d336ab4e0",
+      "sha256": "7cc29ca2aa7c01bd67220db78eb4302d76c0a0c6923ffd82ca3fa5144d0789b0"
+    },
+    {
+      "path": "scripts/validate-millennium-geometry.sh",
+      "bytes": 644,
+      "gitBlob": "1f63d8709daaf0a6effbbbc968b948879adcbdfa",
+      "sha256": "b99017b1cc23fccdca8eeed60f194ab9f343b3468e88593446a156a2efd7f64d"
+    },
+    {
+      "path": "scripts/validate-museum-buildings.sh",
+      "bytes": 639,
+      "gitBlob": "fac376434e87105ee6010e42ef23b8aa2602f5c0",
+      "sha256": "4f667a8783e4c6cbed3f15e1a15e368c4efa2cae590b7c380f65353965767489"
+    },
+    {
+      "path": "scripts/validate-museum-campus-context.py",
+      "bytes": 7041,
+      "gitBlob": "e289cf84c607f1e260ff92b8028a7f30e858c0d6",
+      "sha256": "8e421938799419fc0f88ac36c3a1203fc865df87802e4e07991560663d5947b2"
+    },
+    {
+      "path": "scripts/validate-museum-campus-geometry.sh",
+      "bytes": 890,
+      "gitBlob": "3328226e980dbafe1854132fbf42976dd0cada21",
+      "sha256": "3a21c9d8342ad06b974bdb29c8dab1558d2f9eed68b60be8c00c6b947b6f5dab"
+    },
+    {
+      "path": "scripts/validate-navigation.sh",
+      "bytes": 1890,
+      "gitBlob": "30c807e2cdfd1fe024faf5f6eef4fba7a418268b",
+      "sha256": "313ed2c0eb060fb7e13a0c7601eb28657e3df2cebe31160733759343c865a44a"
+    },
+    {
+      "path": "scripts/validate-north-side-context.py",
+      "bytes": 11565,
+      "gitBlob": "62178abe5a0cab028ffe2f95e791f0671fe67011",
+      "sha256": "1584dd1eab602ccc67d503f01215333b8cd2f819316f6ba766b108e84e501965"
+    },
+    {
+      "path": "scripts/validate-north-side-geometry.sh",
+      "bytes": 836,
+      "gitBlob": "00bea4f748919b8251b5560de280f32b8ee1c600",
+      "sha256": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526"
+    },
+    {
+      "path": "scripts/validate-north-side-landmarks.sh",
+      "bytes": 942,
+      "gitBlob": "f1d3791978a0ce88b78e240d455edc9ef18133ba",
+      "sha256": "a0863c0d017066d14b592477620dd80549fea95b746fdb5581911f2e05d15100"
+    },
+    {
+      "path": "scripts/validate-paired-motion.sh",
+      "bytes": 739,
+      "gitBlob": "987724dc4d37d932af3701a6e1544ec65defacc5",
+      "sha256": "1f19fb30562d77c4d3d0a2c25a4cd28ae926e0b2e7652364bebaf8f30fe83b5c"
+    },
+    {
+      "path": "scripts/validate-paris-context.py",
+      "bytes": 2183,
+      "gitBlob": "56345fb03ab52d451b2594ce5b448c33f8b9ed24",
+      "sha256": "eaca58dd5fa5e82365527c8d14def5581ed17fd7039a227dca4398e32859e4a0"
+    },
+    {
+      "path": "scripts/validate-playback.sh",
+      "bytes": 1917,
+      "gitBlob": "0e5c49f6f111eccdd21af38414f3a34ca088c3d5",
+      "sha256": "84b5f0ad1894b907b34baa27b10a6ada16c1f5161e46514401dcbf2b883fcad6"
+    },
+    {
+      "path": "scripts/validate-regularization.swift",
+      "bytes": 15273,
+      "gitBlob": "fcbf7d1f7d1552f263d7ff03c650f9f2bd84bf8c",
+      "sha256": "0285579585083259579a330c7155e9a0a06113e6cfe8003f22775f56737e6124"
+    },
+    {
+      "path": "scripts/validate-sampling.swift",
+      "bytes": 14892,
+      "gitBlob": "c3d40094fb9b16cc48093701eb27004352440d26",
+      "sha256": "52e5fab86f0d75eed8c674041942d7204976fdde23317ef4d93cb3d02015b55f"
+    },
+    {
+      "path": "scripts/validate-temporal-detail.swift",
+      "bytes": 24964,
+      "gitBlob": "99757ef452de6a1d3fe6d418ee8cc9df312241c1",
+      "sha256": "672cdd22c62e74d6d3e85d07814d276c2ae7fb77208598ae8cfdc8c80a79f845"
+    },
+    {
+      "path": "scripts/validate-traffic.sh",
+      "bytes": 584,
+      "gitBlob": "ea7adf08cbd7554b320302666b2b798b6e0af3f2",
+      "sha256": "ab42094d6ec8979446c10227d9b94792033d4d365719cec4f03a25769761c87b"
+    },
+    {
+      "path": "scripts/validate-video-timing.py",
+      "bytes": 2964,
+      "gitBlob": "fe80a8baa976a34258935f5659a4e5ab77d21643",
+      "sha256": "d463792a3323e07fbb14be1fa2e37de1cd7ee8af272aa796b58c2220d77736c7"
+    },
+    {
+      "path": "scripts/validate-viewport-input.sh",
+      "bytes": 470,
+      "gitBlob": "1ab65a08c5423c0e7dedea5cc7af58472524265a",
+      "sha256": "4b87dae22c0020b8b68e27d658a99543f973aa7d8b58302a2f2cf73c2d3e227a"
+    },
+    {
+      "path": "scripts/validate-wrigley-field.sh",
+      "bytes": 638,
+      "gitBlob": "e7ddfdc12017986317fedbda3ab3aaa3abc193dc",
+      "sha256": "6397736f5cfa3a895b117405307b2c1b9c6a41d8e04c09658759f1aa53c0be0e"
+    }
+  ],
+  "buildCommand": [
+    "bash",
+    "scripts/build-app.sh"
+  ],
+  "gpuExecuted": false,
+  "applicationLaunched": false,
+  "buildStartedAtUTC": "2026-09-08T23:55:42.562078+00:00",
+  "buildElapsedSeconds": 101.98329979198752,
+  "buildExitCode": 0,
+  "buildFinishedAtUTC": "2026-09-08T23:57:24.546681+00:00",
+  "verificationFinishedAtUTC": "2026-09-08T23:58:15.590468+00:00",
+  "sourceInventoryUnchangedAfterBuild": true,
+  "applicationPath": "/Users/william/dev/architecture/output/v10-review/performance-baseline-source/dist/Atelier.app",
+  "executablePath": "/Users/william/dev/architecture/output/v10-review/performance-baseline-source/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "executableSHA256": "23f2e9d87a0350d812ce9923f0d2d534ccc76ed413174afd9764a5ab5b16f9cf",
+  "executableBytes": 4287568,
+  "architectures": "arm64",
+  "appVersion": "1.8.0",
+  "appBuild": "9",
+  "codeSignature": {
+    "command": [
+      "codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "/Users/william/dev/architecture/output/v10-review/performance-baseline-source/dist/Atelier.app"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "resourcePairing": [
+    {
+      "resource": "Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+      "matches": true
+    },
+    {
+      "resource": "Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+      "matches": true
+    },
+    {
+      "resource": "Denoise.metal",
+      "sha256": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+      "matches": true
+    },
+    {
+      "resource": "Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+      "matches": true
+    },
+    {
+      "resource": "Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+      "matches": true
+    },
+    {
+      "resource": "Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+      "matches": true
+    },
+    {
+      "resource": "Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+      "matches": true
+    },
+    {
+      "resource": "MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+      "matches": true
+    },
+    {
+      "resource": "NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+      "matches": true
+    },
+    {
+      "resource": "NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+      "matches": true
+    },
+    {
+      "resource": "Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+      "matches": true
+    },
+    {
+      "resource": "Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+      "matches": true
+    },
+    {
+      "resource": "Renderer.metal",
+      "sha256": "519498e09d3c88e3681222b687c2a421b27ed531b962c2e4661ee4ef3be64235",
+      "matches": true
+    },
+    {
+      "resource": "Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "matches": true
+    }
+  ],
+  "buildLogPath": "/Users/william/dev/architecture/output/v10-review/performance-baseline-build.log",
+  "buildLogSHA256": "4a1c7f1ff49560742c560a7de97d49fd37d54d2123f43bfa981505a7a5b0bb8b",
+  "runtimeExecuted": false,
+  "suggestedFieldHallCommand": [
+    "/Users/william/dev/architecture/output/v10-review/performance-baseline-source/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--location",
+    "campus",
+    "--motion-test",
+    "/Users/william/dev/architecture/output/v10-review/performance-baseline-same-state-field",
+    "--motion-case",
+    "field-hall",
+    "--width",
+    "640",
+    "--height",
+    "400",
+    "--frames",
+    "32",
+    "--samples",
+    "8",
+    "--reference-samples",
+    "128"
+  ],
+  "comparability": {
+    "fieldHallRouteSHA256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+    "cameraTrackSHA256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+    "scope": "Unmodified 1.8 source and shader baseline; same Field Hall route/time sampling and 32-frame, 640x400, 8-current/128-reference settings available. Parent coordinates all runtime comparisons after video work ends."
+  }
+}

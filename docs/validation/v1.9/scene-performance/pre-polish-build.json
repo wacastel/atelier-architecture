@@ -1,0 +1,91 @@
+{
+  "status": "READY_CPU_BUILD_AND_PACKAGE_VERIFIED_GPU_NOT_RUN",
+  "variantApp": "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source/dist/Atelier.app",
+  "variantExecutableSHA256": "335401284683feef7d93ba9decf3256c369c4ff7cc91e363ff41168a996e71b6",
+  "productionSnapshot": "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/Atelier-final-fce35.app",
+  "productionExecutableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "productionAppStillUnchanged": true,
+  "sourceFilesCompared": 68,
+  "onlyChangedSource": {
+    "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+    "productionSHA256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "variantSHA256": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+    "identical": false
+  },
+  "identicalPackagedResources": [
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/ATTRIBUTION.txt",
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/HydeParkContext.json",
+      "sha256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal",
+      "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df"
+    },
+    {
+      "path": "Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "Contents/Resources/Atelier.icns",
+      "sha256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd"
+    }
+  ],
+  "activitySourceSHA256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+  "buildLogs": [
+    "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/build.log",
+    "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/package.log"
+  ],
+  "gpuExecuted": false
+}

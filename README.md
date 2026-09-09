@@ -1,7 +1,8 @@
 # Atelier
 
-A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, and Metal hardware ray tracing. Six locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, and Metal hardware ray tracing. Seven locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
 
+- **Robie House and Hyde Park, Chicago** — seven architectural studies of Frank Lloyd Wright’s Prairie house and a six-minute connecting flight from McCormick Place through the south lakefront and Hyde Park. The house and the intervening neighborhoods extend the same resident Chicago world.
 - **Chicago North Side** — eight studies connecting Millennium Park, Old Town, North Avenue Beach, Lincoln Park Zoo, the conservatory and lily pool, Wrigleyville and Wrigley Field. Two four-minute flights connect Millennium Park to the zoo and the zoo to Wrigley, with mapped neighborhoods, beaches and harbors in the same resident world.
 - **Museum Campus, Chicago** — eight studies of the Field Museum, Shedd Aquarium, Adler Planetarium and its original animated dome show, Soldier Field, Burnham Harbor boats and all four McCormick Place buildings. A continuous three-minute flight connects the Art Institute to the Field Museum; selected public interiors are walkable.
 - **Chicago Lakefront** — eight views along the Magnificent Mile, the historic Water Tower and pumping station, Water Tower Place, the former John Hancock Center, Wrigley and Tribune towers, Buckingham Fountain, Grant Park, moored harbor boats and light traffic on Lake Shore Drive.
@@ -9,7 +10,11 @@ A native Apple Silicon architectural walkthrough engine built with Swift, AppKit
 - **Willis Tower, Chicago** — eight views, the nine bundled tubes and their mapped setbacks, individually modeled curtain-wall panels and connections, Catalog entrance and roof garden, Skydeck at its published elevation, five transparent Ledge boxes, broadcast antennas, and mapped Loop surroundings.
 - **Eiffel Tower, Paris** — nine views, detailed ironwork and rivets, observation terraces and visitor spaces, mapped gardens and nearby buildings, the Seine, Pont d’Iéna, and a river cruiser.
 
-Nearby layouts use bundled OpenStreetMap snapshots. Architectural photographs, published dimensions, and aerial/satellite references inform the models. These are detailed architectural reconstructions, not surveyed digital twins: interiors, façade treatments, vegetation, boats, and lighting contain authored interpretations. [North Side and maps](docs/NORTH-SIDE.md) · [Old Town and beach-house references](docs/NORTH-SIDE-LANDMARKS.md) · [Lincoln Park Zoo](docs/LINCOLN-PARK-ZOO.md) · [Wrigley Field](docs/WRIGLEY-FIELD.md) · [Museum Campus and maps](docs/MUSEUM-CAMPUS.md) · [Field and Shedd interiors](docs/MUSEUM-BUILDINGS.md) · [Adler and the dome show](docs/ADLER.md) · [McCormick Place](docs/MCCORMICK-PLACE.md) · [Lakefront and map methodology](docs/LAKEFRONT.md) · [Magnificent Mile landmarks](docs/MAGNIFICENT-MILE.md) · [Wrigley and Tribune](docs/MAGNIFICENT-GATEWAY.md) · [Park methodology](docs/MILLENNIUM.md) · [Art Institute](docs/ART-INSTITUTE.md) · [Willis methodology](docs/WILLIS.md) · [Chicago map data and references](docs/CHICAGO.md) · [Paris methodology](docs/PARIS.md).
+Nearby layouts use bundled OpenStreetMap snapshots. Architectural photographs, published dimensions, and aerial/satellite references inform the models. These are detailed architectural reconstructions, not surveyed digital twins: interiors, façade treatments, vegetation, boats, and lighting contain authored interpretations. [Robie House architecture](docs/ROBIE-HOUSE.md) · [Hyde Park and the south lakefront](docs/HYDE-PARK.md) · [North Side and maps](docs/NORTH-SIDE.md) · [Old Town and beach-house references](docs/NORTH-SIDE-LANDMARKS.md) · [Lincoln Park Zoo](docs/LINCOLN-PARK-ZOO.md) · [Wrigley Field](docs/WRIGLEY-FIELD.md) · [Museum Campus and maps](docs/MUSEUM-CAMPUS.md) · [Field and Shedd interiors](docs/MUSEUM-BUILDINGS.md) · [Adler and the dome show](docs/ADLER.md) · [McCormick Place](docs/MCCORMICK-PLACE.md) · [Lakefront and map methodology](docs/LAKEFRONT.md) · [Magnificent Mile landmarks](docs/MAGNIFICENT-MILE.md) · [Wrigley and Tribune](docs/MAGNIFICENT-GATEWAY.md) · [Park methodology](docs/MILLENNIUM.md) · [Art Institute](docs/ART-INSTITUTE.md) · [Willis methodology](docs/WILLIS.md) · [Chicago map data and references](docs/CHICAGO.md) · [Paris methodology](docs/PARIS.md).
+
+![Robie House in its mapped Hyde Park setting](docs/images/Robie-House-Day.png)
+
+![Robie House living room and central hearth](docs/images/Robie-House-Living-Room.png)
 
 ![Wrigley Field and Wrigleyville under the lights](docs/images/North-Side-Wrigley-Night.png)
 
@@ -24,27 +29,29 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. It opens at Chicago North Side. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Millennium Park, Chicago Lakefront, Museum Campus and Chicago North Side. All five Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. It opens at Robie House. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Millennium Park, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All six Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
 ## Explore
 
-The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–240 seconds; North Side routes last 120–240 seconds. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), and **Lincoln Park Zoo → Wrigley Field** (four minutes), preserving the chosen day/night lighting.
+The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Outside Chicago Demo, selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–360 seconds. Robie House has seven two-minute studies and a six-minute connecting flight. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), **Lincoln Park Zoo → Wrigley Field** (four minutes), and **McCormick Place → Robie House** (six minutes), preserving the chosen day/night lighting.
 
-**Chicago Demo / C** starts all 40 full Chicago routes in order: Willis Tower → Millennium Park → Chicago Lakefront → Museum Campus → Chicago North Side, eight routes at each destination. One pass lasts **66 minutes 36 seconds at 1×**. Starting preserves the chosen lighting and walkthrough pace; after each complete Chicago pass, the sequence returns to Willis with the opposite day/night lighting. **Space** pauses and resumes without leaving the demo. **Stop Chicago Demo / C** ends it while holding the current camera pose. Manual view or location selection, idle cycling, and manual navigation leave the demo. The five Chicago destinations keep the same resident city throughout. [Demo instructions](docs/DEMO.md).
+**Chicago Demo / C** starts at a random view in a random Chicago location, then plays sequentially through Willis Tower → Millennium Park → Chicago Lakefront → Museum Campus → Chicago North Side → Robie House. Each destination has eight routes; one complete **48-route pass lasts 86 minutes 36 seconds at 1×**. Starting preserves the chosen lighting and both pace preferences. The demo changes day/night when it wraps from Robie House’s final route to Willis Tower’s first route. A random opening partway through the sequence reaches that boundary before its first complete pass.
+
+Selecting any Chicago location or view keeps the demo active and begins that route at normal forward playback. **↑ / ↓**, or the demo’s previous/next buttons, cross location boundaries: the last view advances to the first view in the next location, and the first view goes back to the final view in the previous location. A full-city wrap in either direction changes day/night. **Space** pauses and resumes; **Stop Chicago Demo / C** exits while holding the current pose. Selecting Paris, starting idle cycling, focusing an object, or taking manual camera control leaves the demo. [Demo instructions](docs/DEMO.md).
 
 Click visible landmark or building geometry to focus it, then drag to orbit and use a mouse wheel or two-finger trackpad scroll to move closer or farther away. Clicking the same object again, clicking sky, or pressing **Escape** releases focus. Selecting a focus takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
 
 | Control | Action |
 | --- | --- |
-| Location menu / **L** | Cycle all six locations; begin a fresh daytime idle cycle |
-| View card / **1–8** (Chicago), **1–9** (Paris) | Select and hold a view |
-| **↑ / ↓** | Previous / next view; stop cycling |
+| Location menu / **L** | Choose a destination; during demo, L cycles only Chicago and keeps playback active |
+| View card / **1–8** (Chicago), **1–9** (Paris) | Select and hold a view; during demo, begin its walkthrough and continue sequencing |
+| **↑ / ↓** | Previous / next view; during demo, cross location boundaries and continue playback |
 | **Idle Play / Idle Pause**, or **I** | Resume the view cycle / hold the current view |
 | **[ / ]** | Decrease / increase idle speed: 0.25×, 0.5×, 1×, 2×, 4× |
 | **Play / Space** | Start, pause, or resume the selected walkthrough |
-| **Chicago Demo / C** | Start all 40 Chicago routes / stop and hold the current pose |
+| **Chicago Demo / C** | Start the 48-route Chicago sequence at a random location/view / stop and hold the current pose |
 | **← / →** | Rewind / fast forward; distinct presses cycle 2×, 4×, 8× |
 | **Pace / timeline** | Set walkthrough pace independently / seek |
 | **N / Moon button** | Toggle day/night without restarting or resuming the animation |
@@ -62,7 +69,7 @@ Manual movement takes control of the camera; local traffic continues. Pausing a 
 
 Seeking and the arrow-key shuttles stay within the current route, including during the Chicago demo. A shuttle pauses at the route's beginning or end; **Space** resumes forward at a rewound beginning, or continues to the next demo route from a forward endpoint. Lighting and pace changes keep the demo active. Lighting changes, window moves, resizing and full screen retain an object focus; moving or resizing the window freezes both camera animation and the shared traffic/show clock until the gesture ends.
 
-[Robie House and a Hyde Park connection](docs/NEXT-CHICAGO-LANDMARK.md) is a proposal for a future addition; it is not included in the current scene.
+Robie House’s eighth view connects McCormick Place to the house through 31st Street Harbor, the Oakwood lakefront, Promontory Point and Hyde Park. The full six-minute flight stays in the shared Chicago world and finishes at the house’s opening bookmark.
 
 ## Rendering
 
@@ -88,9 +95,18 @@ Render dimensions preserve the actual drawable's aspect ratio, including portrai
 
 ## Render and record
 
-The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `millennium` for the park and museum, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, or `northside` for Old Town, Lincoln Park and Wrigley Field. View numbers are zero-based on the command line.
+The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `millennium` for the park and museum, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
 
 ```sh
+# Complete six-minute flight from McCormick Place to Robie House.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie \
+  --video output/McCormick-Place-to-Robie-House.mp4 --single-view --stop 7 \
+  --seconds 360 --fps 24 --width 1920 --height 1080 --samples 16
+
+# Seven house studies and the connecting route, with nighttime lighting.
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie \
+  --gallery output/robie-night --lighting 2 --samples 256
+
 # The full four-minute route from the zoo through northern harbors to Wrigley.
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location northside \
   --video output/Zoo-to-Wrigley.mp4 --single-view --stop 6 \
@@ -202,6 +218,7 @@ swift scripts/validate-atmosphere.swift
 ./scripts/validate-indexed-lighting.sh
 ./scripts/validate-traffic.sh
 ./scripts/validate-paired-motion.sh
+./scripts/validate-large-geometry-gpu.sh
 
 # Full scene self-tests; Chicago destinations share geometry but use distinct cameras.
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location paris --self-test
@@ -210,6 +227,7 @@ swift scripts/validate-atmosphere.swift
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location lakefront --self-test
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location campus --self-test
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location northside --self-test
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie --self-test
 
 # Actual Bean motion against independent higher-sample references.
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location millennium \
@@ -217,11 +235,13 @@ swift scripts/validate-atmosphere.swift
   --width 960 --height 600 --samples 4 --reference-samples 128
 ```
 
-Playback checks cover all six destinations in both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, the full 90/120/150/180/240-second routes, day/night hotkey state preservation and alternating day/night passes. Landmark checks validate finite geometry, Cloud Gate’s envelope and underside headroom. Light-grid CPU checks exercise conservative candidate coverage and fallbacks; GPU checks compare indexed and linear lighting and include negative controls. Sampling checks exercise the actual Sobol and polished-GGX shader routines. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
+Playback checks cover all seven destinations in both cities, camera clearance and floor support, eight/nine-view wrapping, manual selection, independent speeds, transport, location changes, the full 90/120/150/180/240/360-second routes, day/night hotkey state preservation and alternating day/night passes. Demo checks exercise every possible opening, reproducible seeded random starts, all Chicago next/previous boundaries, selection while paused or rewinding, preserved pace and lighting, and large elapsed-time jumps. Landmark checks validate finite geometry, Cloud Gate’s envelope and underside headroom. Light-grid CPU checks exercise conservative candidate coverage and fallbacks; GPU checks compare indexed and linear lighting and include negative controls. Sampling checks exercise the actual Sobol and polished-GGX shader routines. The application self-test also renders landscape, portrait, and wide viewports and checks their camera aspect ratios.
+
+The default large-geometry GPU fixture checks production descriptor offsets and shader lookups across a vertex buffer larger than 4 GiB. It submits eight triangles in each of four separated sections, then probes four static sentinels and a traffic triangle beyond the boundary for correct hits, global IDs, vertices and materials. This bounded test covers 32 static triangles and one traffic triangle; full-city render checks are separate, and the fixture does not traverse every city triangle or each descriptor's full extent. `--legacy-sparse` and `--full-field` retain the original diagnostic modes.
 
 With `--location northside`, the motion command checks Old Town brickwork, beach-house shadows, the Nature Boardwalk, ZooLights-inspired night lighting, Conservatory glass and the Wrigley field by day/night. With `--location campus`, the motion command checks the Field hall, Shedd tanks, Adler gallery and changing dome show, Burnham Harbor at night and McCormick Place. With `--location lakefront`, the motion command checks Hancock braces, historic stonework, the fountain at night, harbor reflections and moving traffic. With `--location millennium`, it runs the Bean’s idle/orbit, night reflection and underside cases. Use `--motion-case cloud-gate-orbit` to select one case, or `--lighting 2` for the nighttime cases. Reports compare image error and motion-compensated temporal residuals against independent higher-sample references; they do not certify every camera or quality setting as noiseless. Quality and frame-rate measurements are reported separately from these reproduction commands.
 
-The repository bundles raw map snapshots and derived geometry for all six destinations. The Millennium snapshot is a separate park/museum extract anchored to the same coordinate origin as Willis Tower. These commands regenerate the bundled databases offline from their recorded inputs:
+The repository bundles raw map snapshots and derived geometry for all seven destinations. The Millennium snapshot is a separate park/museum extract anchored to the same coordinate origin as Willis Tower. These commands regenerate the bundled databases offline from their recorded inputs:
 
 ```sh
 python3 scripts/prepare-paris-context.py
@@ -229,6 +249,6 @@ python3 scripts/prepare-chicago-context.py
 python3 scripts/prepare-millennium-context.py
 ```
 
-The lakefront, Museum Campus and North Side derivatives use the pinned GIS dependency and exact offline reproduction commands in [lakefront documentation](docs/LAKEFRONT.md), [Museum Campus documentation](docs/MUSEUM-CAMPUS.md) and [North Side documentation](docs/NORTH-SIDE.md). See the location documentation for input dates, dependencies, coordinate systems, and known approximations. Reference images inform authored detail; the map-preparation scripts reproduce map geometry, not the photographic interpretation.
+The lakefront, Museum Campus, North Side and Hyde Park derivatives use the pinned GIS dependency and exact offline reproduction commands in [lakefront documentation](docs/LAKEFRONT.md), [Museum Campus documentation](docs/MUSEUM-CAMPUS.md), [North Side documentation](docs/NORTH-SIDE.md) and [Hyde Park documentation](docs/HYDE-PARK.md). See the location documentation for input dates, dependencies, coordinate systems, and known approximations. Reference images inform authored detail; the map-preparation scripts reproduce map geometry, not the photographic interpretation.
 
-Map data **© OpenStreetMap contributors**, available under the **Open Database License (ODbL)**. Attribution is visible in the app and exported video captions. Original and derived map databases retain their ODbL notices under `Resources/Paris/`, `Resources/Chicago/`, `Resources/Millennium/` and the lakefront, Museum Campus and North Side resources. Reference photographs and satellite images are consulted visually and are not redistributed as textures or project assets.
+Map data **© OpenStreetMap contributors**, available under the **Open Database License (ODbL)**. Attribution is visible in the app and exported video captions. Original and derived map databases retain their ODbL notices under `Resources/Paris/`, `Resources/Chicago/`, `Resources/Millennium/` and the lakefront, Museum Campus, North Side and Hyde Park resources. Reference photographs and satellite images are consulted visually and are not redistributed as textures or project assets.

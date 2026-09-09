@@ -1,4 +1,23 @@
-# Motion reconstruction — version 1.7
+# Motion reconstruction — version 1.9
+
+The Hyde Park flight exposed smeared ground shadows during fast camera movement. Repeated bilinear history reprojection softened illumination edges even when the rough surface's geometry, normal and material matched. Moving pixels now limit accepted history using their displacement in the previous frame: `clamp(32 / max(1, 2 × pixelMotion), 4, 32)` frames, combined with the existing history and glossy limits. Slow inspection motion retains long history. This general screen-space rule has no location or route exceptions; spatial output still never feeds back into temporal history.
+
+The same 32-frame daylight flight test at 640 × 400, eight samples per frame and independent 128-sample references changed from failing to passing on the Apple M3 Ultra. Each run pairs raw and reconstructed presentations of one trace accumulation. Temporal error measures consecutive error differences after subtracting reference motion.
+
+| Flight measurement | Before: raw → reconstructed | Accepted isolated run: raw → reconstructed |
+| --- | ---: | ---: |
+| Display-space RGB RMSE | 0.02251 → 0.02536 | 0.02246 → 0.02151 |
+| Temporal residual RMSE | 0.03198 → 0.03266 | 0.03196 → 0.02882 |
+
+The accepted isolated run reduces image error by 4.25% and temporal error by 9.83% relative to its paired raw input; raw values differ slightly between runs. The second package also contains the small exterior Robie lighting polish, so this city comparison is not a strict shader-only ablation. The synthetic negative control below isolates the history-cap change. The original failure is preserved. [Before-fix measurements](validation/v1.9/motion-before-fix.json) · [Accepted isolated flight measurements](validation/v1.9/motion-flight-final.json).
+
+The subsequent complete final batch also passes this flight: image RMSE 0.022534 → 0.021585 and temporal residual 0.032048 → 0.028960, improvements of 4.21% and 9.64% against that run's raw input. All seven Robie motion cases and five sampled earlier cases pass; this is a bounded selection rather than a rerun of the entire historical motion suite. [Final Robie and flight measurements](validation/v1.9/motion-final-robie.json) · [Final batch scope](validation/v1.9/motion-final-summary.json).
+
+The real-kernel regression adds 64-frame pans over a rough plane with hard shadows absent from all geometry/albedo guides. Its reference integrates exact pixel coverage, and a paired negative control removes only the new cap. At 1.37 and 3.37 pixels/frame, combined shadow-edge RMSE falls from 0.15039 to 0.12267 and from 0.12668 to 0.09216 (18.4% and 27.3%) against that control. A noiseless 3.37-pixel/frame sequence also reduces edge error by 25.3%, separating resampling blur from sampling noise. Image/temporal error, flat-region noise reduction and retained contrast checks all pass, along with the existing denoiser regressions. [GPU validation log](validation/v1.9/denoiser-validation.txt).
+
+These measurements cover the recorded flight segment and controlled shadow sequences. Reconstruction remains biased, and newly visible surfaces, fine subpixel geometry and difficult reflections can retain grain or smoothing. The cap trades some temporal averaging for sharper moving detail; it does not establish noiseless playback for every route, resolution or speed.
+
+## Version 1.7 — history-aware spatial filtering
 
 The North Side expansion exposed excess smoothing when the temporal and spatial stages were combined. Old Town roof seams and beach-house tree shadows passed with either stage alone, but their combination reduced flicker while increasing image error. Spatial strength used only the current frame's sample count even after temporal history had accumulated.
 

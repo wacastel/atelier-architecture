@@ -1,16 +1,38 @@
-# Exploring Chicago — Atelier 1.8
+# Robie House and Chicago Demo — Atelier 1.9
 
-The app opens on Chicago North Side. Select **Chicago Demo**, or press **C**, to begin the complete Chicago sequence at Willis Tower's first view. It plays every route at its full duration in this order:
+The app opens on **Robie House**, the seventh destination. Its first seven views are two-minute architectural studies; its eighth view is the full **six-minute McCormick Place → Robie House flight**. The connection travels south through 31st Street Harbor, the Oakwood lakefront and Promontory Point, then through Hyde Park to the house’s opening bookmark. It uses the same resident Chicago world as all earlier Chicago landmarks.
+
+| View | Study | Duration at 1× |
+| --- | --- | --- |
+| 1 | A house on the prairie | 120 seconds |
+| 2 | The floating roof | 120 seconds |
+| 3 | Roman brick and limestone | 120 seconds |
+| 4 | Light through art glass | 120 seconds |
+| 5 | The hearth at the center | 120 seconds |
+| 6 | A room for gathering | 120 seconds |
+| 7 | Planes above the garden | 120 seconds |
+| 8 | From McCormick Place to Robie House | 360 seconds |
+
+The exterior and selected interior studies follow the consulted plans, maps and restoration photographs; furniture and lighting include authored interpretations. [Robie House architecture and references](ROBIE-HOUSE.md) · [Hyde Park and south lakefront map methodology](HYDE-PARK.md).
+
+Choose **McCormick Place → Robie House** from **Chicago connecting flights** to play the connection while preserving the selected lighting. Outside demo mode, you can also select Robie House view 8 and press **Space**. During a demo, choosing that view or its flight menu item starts it immediately and keeps the demo active. The usual idle cycle and independent walkthrough pace remain available. Press **N** to switch day/night.
+
+Select **Chicago Demo**, or press **C**, to begin at a **random Chicago location and view**. Randomness chooses only the opening; subsequent routes play sequentially through this fixed order:
 
 1. Willis Tower — eight routes.
 2. Millennium Park — eight routes, including the Willis–park–Art Institute flight.
 3. Chicago Lakefront — eight routes.
 4. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
 5. Chicago North Side — eight routes, including both four-minute connecting flights.
+6. Robie House — seven two-minute house studies and the six-minute McCormick Place connection.
 
-The **40-route pass lasts 66 minutes 36 seconds at 1×**. Starting keeps your chosen lighting and walkthrough pace. After the final North Side route, the demo returns to Willis Tower and alternates day/night for the next complete pass. Automatic destination changes retain the same Chicago world and its GPU resources. Starting from Paris loads the Chicago world before playback begins.
+The **48-route pass lasts 86 minutes 36 seconds at 1×**. Starting preserves your chosen lighting, walkthrough pace and idle pace. After Robie House’s final route, the demo returns to Willis Tower and changes day/night. A random opening partway through the city reaches that boundary before its first complete pass. Automatic destination changes retain the same city and GPU resources. Starting from Paris loads Chicago before playback begins; Paris is never part of the sequence.
 
-**Space** pauses or resumes without leaving the demo. **Stop Chicago Demo**, or **C** while it is active, exits while holding the current camera pose. Selecting a view or location, starting idle cycling, clicking an object to focus it, or taking manual camera control leaves the demo. Lighting and pace changes preserve it. The status shows the current destination and route number out of 40.
+Selecting **any Chicago location or view keeps the demo active** and starts the chosen route from its beginning, including when the demo was paused or rewinding. A location choice begins its first view; a view card or number key begins that selected view. Ordinary forward playback resumes at your chosen pace. **L** cycles only the Chicago locations while the demo is active.
+
+Use **↑ / ↓**, or the previous/next buttons beside the demo status, to move between routes. From the last view, next advances to the first view in the next location. From the first view, previous goes to the last view in the previous location. Crossing the complete city boundary in either direction changes day/night. The status shows the current destination and route number out of 48.
+
+**Space** pauses or resumes without leaving the demo. **Stop Chicago Demo**, or **C** while it is active, exits while holding the current pose. Selecting Paris, starting idle cycling, clicking an object to focus it, or taking manual camera control leaves the demo. Lighting and pace changes preserve it.
 
 The timeline seeks only within the current route. Rewind and fast-forward shuttles also remain within it: repeated **← / →** presses cycle 2×, 4× and 8×, then pause on reaching the route boundary. From a forward endpoint, **Space** continues the demo into its next route; from a rewound beginning, it resumes forward within that route. Pausing in the middle retains the current direction and shuttle speed.
 
@@ -18,7 +40,17 @@ Click visible building or landmark geometry to focus it; drag to orbit, and scro
 
 Drag the native titlebar to move the window, or its edges to resize it. Both camera animation and the traffic/show scene clock hold during these gestures, then resume without catching up to the elapsed wall time. Window resizing updates the viewport and render targets. **⌃⌘F** enters or leaves full screen.
 
-The recordings below were made for earlier releases. They remain useful tours of the included architecture, but do not demonstrate or validate the new 1.8 controls. The [Robie House / Hyde Park plan](NEXT-CHICAGO-LANDMARK.md) is a proposal only; those additions are not yet built.
+To record the complete new flight from the packaged app:
+
+```sh
+./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie \
+  --video output/McCormick-Place-to-Robie-House.mp4 --single-view --stop 7 \
+  --seconds 360 --fps 24 --width 1920 --height 1080 --samples 16
+```
+
+Add `--lighting 2` and choose a different output filename for a night recording. Without `--single-view`, the default 96-second eight-view export compresses each route into a twelve-second chapter; the live app retains every full timeline.
+
+The recordings below were made for earlier releases. They remain useful tours of the included architecture, but do not demonstrate or validate the 1.9 additions or revised demo controls. Current check results belong in [validation](VALIDATION.md).
 
 ---
 

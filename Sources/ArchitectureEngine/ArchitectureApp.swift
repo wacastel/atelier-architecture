@@ -29,7 +29,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1440, height: 960),
                               styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                               backing: .buffered, defer: false)
-        window.title = "ATELIER / Chicago North Side"
+        window.title = "ATELIER / Robie House & Hyde Park"
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = false
@@ -107,8 +107,8 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "1.8 · Paris & Chicago",
-            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from McCormick Place to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
+            .applicationVersion: "1.9 · Paris & Chicago",
+            .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
 }
@@ -217,12 +217,16 @@ private struct ArchitectureWorkspace: View {
                         .foregroundStyle(engine.chicagoDemoActive ? accent : .white.opacity(0.9))
                         .padding(.horizontal, 12).padding(.vertical, 8)
                 }.buttonStyle(.plain).glassPanel(radius: 8)
-                    .help("Play all 40 Chicago walkthroughs in order · C. Space pauses or resumes.")
+                    .help("Start at a random Chicago view, then play all \(WalkthroughPlayback.chicagoDemoRouteCount) routes in order · C. Space pauses or resumes.")
                     .disabled(!engine.isReady)
                 if engine.chicagoDemoActive {
                     Text(engine.chicagoDemoTitle).font(.system(size: 10)).foregroundStyle(accent)
                         .lineLimit(2).frame(maxWidth: 215, alignment: .leading)
                         .padding(.horizontal, 10).padding(.vertical, 8).glassPanel(radius: 8)
+                    iconButton("chevron.up", help: "Previous Chicago demo view · ↑ · crosses location boundaries") { engine.cycleView(-1) }
+                        .glassPanel(radius: 8)
+                    iconButton("chevron.down", help: "Next Chicago demo view · ↓ · crosses location boundaries") { engine.cycleView(1) }
+                        .glassPanel(radius: 8)
                 }
             }
             if engine.location.world == "chicago" {
@@ -231,6 +235,7 @@ private struct ArchitectureWorkspace: View {
                     Button("Art Institute → Field Museum") { engine.startMuseumCampusFlyby() }
                     Button("Millennium Park → Lincoln Park Zoo") { engine.startNorthSideFlyby() }
                     Button("Lincoln Park Zoo → Wrigley Field") { engine.startNorthSideFlyby(toWrigley: true) }
+                    Button("McCormick Place → Robie House") { engine.startRobieFlyby() }
                 } label: {
                     Label("Chicago connecting flights", systemImage: "airplane")
                         .font(.system(size: 11, weight: .medium))
@@ -372,7 +377,7 @@ private struct ArchitectureWorkspace: View {
                         .onChange(of: engine.currentStop) { _, value in
                             withAnimation(.easeInOut(duration: 0.25)) { reader.scrollTo(value, anchor: .center) }
                         }
-                        .onChange(of: engine.location) { _, _ in reader.scrollTo(0, anchor: .leading) }
+                        .onChange(of: engine.location) { _, _ in reader.scrollTo(engine.currentStop, anchor: .center) }
                     }
 
                 }.frame(height: 66).padding(11)
@@ -499,7 +504,7 @@ private struct ArchitectureWorkspace: View {
                 }
                 Text("Idle Play cycles through every view in order, alternating a daytime pass and a nighttime pass. Selecting a view holds its gentle motion. Space starts or pauses that view’s walkthrough; the timeline shows its full duration. Idle speed changes both gentle motion and time per view. Press N to switch day and night without restarting your route.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
-                Text("Chicago Demo plays all 40 Chicago routes from Willis Tower to the North Side, then repeats with the opposite lighting. Space pauses and resumes. Selecting a view or taking manual control leaves the demo. Click a landmark to focus it, drag to orbit and scroll to zoom; click it again or press Escape to release focus. Window dragging holds the camera and animation in place.")
+                Text("Chicago Demo starts at a random Chicago location and view, then plays all \(WalkthroughPlayback.chicagoDemoRouteCount) routes sequentially. Select any Chicago location or view to continue the demo there. ↑ and ↓ move to the previous or next route across location boundaries. Space pauses and resumes; city wraps alternate day/night. Selecting Paris, Idle Play or manual camera control leaves the demo. Click a landmark to focus it, drag to orbit and scroll to zoom; click it again or press Escape to release focus. Window dragging holds the camera and animation in place.")
                     .font(.system(size: 12)).lineSpacing(4).foregroundStyle(.white.opacity(0.62))
                 VStack(spacing: 10) {
                     helpRow("W  A  S  D", "Move forward, left, back, right")
@@ -511,12 +516,12 @@ private struct ArchitectureWorkspace: View {
                     helpRow("C", "Start / stop the complete Chicago demo")
                     helpRow("SPACE", "Start / pause / resume this walkthrough")
                     helpRow("←  /  →", "Rewind / fast forward; repeat for 2× / 4× / 8×")
-                    helpRow("↑  /  ↓", "Previous / next view; hold the selected view")
+                    helpRow("↑  /  ↓", "Previous / next view; cross locations during Chicago Demo")
                     helpRow("I", "Idle Play / Pause: cycle views / hold this view")
                     helpRow("[  /  ]", "Slower / faster idle motion and view cycling")
                     helpRow("PACE / TIMELINE", "Set 0.25×–4× speed / seek to a time")
-                    helpRow("1 – \(engine.stops.count)", "Select a view and its slow idle animation")
-                    helpRow("L", "Cycle the six architectural destinations")
+                    helpRow("1 – \(engine.stops.count)", "Select a view; continue there during Chicago Demo")
+                    helpRow("L", "Cycle destinations; stay within Chicago during its demo")
                     helpRow("N", "Toggle day / night; preserve camera and playback")
                     helpRow("⌃ ⌘ F", "Enter / exit full screen; resize from any edge")
                     helpRow("H", "Show / hide the interface")

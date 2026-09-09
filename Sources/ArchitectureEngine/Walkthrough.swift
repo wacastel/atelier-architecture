@@ -60,10 +60,31 @@ struct WalkthroughPlayback {
     }
 
     init(location: ArchitectureLocation = .paris) { self.location = location }
-    mutating func startChicagoDemo() {
-        let chosenLighting = lighting, pace = speed, drift = idleSpeed
-        self = WalkthroughPlayback(location: .chicago)
-        lighting = chosenLighting; speed = pace; idleSpeed = drift
+    /// Choose a fresh random location and view for each new demo. An explicit
+    /// flattened route index is useful for reproducible exports and validation.
+    mutating func startChicagoDemo(routeIndex: Int? = nil) {
+        if let routeIndex {
+            beginDemoRoute(routeIndex)
+        } else {
+            var generator = SystemRandomNumberGenerator()
+            startChicagoDemo(using: &generator)
+        }
+    }
+    /// Location and view are separate random draws, so locations keep equal
+    /// weight if a future destination has a different number of bookmarks.
+    mutating func startChicagoDemo<R: RandomNumberGenerator>(using generator: inout R) {
+        guard let chosenLocation = Self.chicagoDemoLocations.randomElement(using: &generator),
+              let chosenView = chosenLocation.stops.indices.randomElement(using: &generator),
+              let index = Self.chicagoDemoRoutes.firstIndex(where: { $0.location == chosenLocation && $0.view == chosenView }) else { return }
+        beginDemoRoute(index)
+    }
+    private mutating func beginDemoRoute(_ index: Int) {
+        let count = Self.chicagoDemoRouteCount
+        guard count > 0 else { return }
+        let route = Self.chicagoDemoRoutes[((index % count) + count) % count]
+        location = route.location; view = route.view
+        time = 0; idleTime = 0; idleDwellTime = 0
+        direction = .forward; shuttle = 1
         state = .playing; idleCycling = false; demoActive = true
     }
     /// Exiting a demo holds the exact current pose; explicit navigation can then
@@ -74,6 +95,10 @@ struct WalkthroughPlayback {
         if state == .playing { state = .paused }
     }
     mutating func selectLocation(_ value: ArchitectureLocation) {
+        if demoActive, let index = Self.chicagoDemoRoutes.firstIndex(where: { $0.location == value }) {
+            beginDemoRoute(index)
+            return
+        }
         let pace = speed, drift = idleSpeed
         self = WalkthroughPlayback(location: value)
         speed = pace; idleSpeed = drift
@@ -82,14 +107,31 @@ struct WalkthroughPlayback {
     /// Lighting changes preserve the selected view, transport and both clocks.
     mutating func toggleDayNight() { lighting = lighting == 2 ? 0 : 2 }
 
-    /// An explicit choice always holds that view until Idle Play is requested again.
+    /// During a demo, explicit Chicago choices immediately play that route and
+    /// keep sequencing. Outside a demo they hold the selected idle view.
     mutating func select(_ index: Int) {
-        demoActive = false
         view = ((index % location.stops.count) + location.stops.count) % location.stops.count
-        time = 0; idleTime = 0; idleDwellTime = 0; state = .idle; direction = .forward; shuttle = 1
+        time = 0; idleTime = 0; idleDwellTime = 0; state = demoActive ? .playing : .idle; direction = .forward; shuttle = 1
         idleCycling = false
     }
-    mutating func nextView(_ offset: Int) { select(view + offset) }
+    mutating func nextView(_ offset: Int) {
+        if demoActive { navigateDemoView(offset: offset) }
+        else { select(view + offset % location.stops.count) }
+    }
+    /// Previous/next move through one continuous Chicago route list. Crossing
+    /// either end also crosses day/night; an ordinary location boundary does not.
+    mutating func navigateDemoView(offset: Int) {
+        let count = Self.chicagoDemoRouteCount
+        guard demoActive, count > 0, offset != 0 else { return }
+        // Reduce before addition so even Int.min/max offsets remain bounded.
+        var destination = demoRouteIndex + offset % count
+        var wraps = offset / count
+        if destination < 0 { destination += count; wraps -= 1 }
+        if destination >= count { destination -= count; wraps += 1 }
+        if lighting == 1 && wraps != 0 { lighting = 0 }
+        if wraps % 2 != 0 { toggleDayNight() }
+        beginDemoRoute(destination)
+    }
     mutating func setSpeed(_ value: Double) {
         guard Self.speeds.contains(value) else { return }
         speed = value

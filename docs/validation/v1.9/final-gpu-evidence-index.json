@@ -1,0 +1,132 @@
+{
+  "createdAtUTC": "2026-09-08T23:38:11.464968+00:00",
+  "scope": "Verbatim final GPU result/log copies and a derived motion summary; original outputs preserved. No new GPU jobs performed during evidence collation.",
+  "files": [
+    {
+      "source": "output/v10-review/motion-final-robie/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-robie.json",
+      "bytes": 6688,
+      "sha256": "ca9e88ca187c19a059f5012ad99b3d443bcc6dd9740ca9abb82f1cdfe80edcd2",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-robie.log",
+      "copy": "docs/validation/v1.9/motion-final-robie.txt",
+      "bytes": 1561,
+      "sha256": "de30f8faa896d0ba31a96b954ea846ad1c0d29ec6fe7d494167b5787c2ace541",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-field/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-field.json",
+      "bytes": 1947,
+      "sha256": "203c95eaa0e75f6fd4ce56431a6828fc2038a12c0e4dbb1e099312f6059770e9",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-field.log",
+      "copy": "docs/validation/v1.9/motion-final-field.txt",
+      "bytes": 427,
+      "sha256": "06cb5b70a6267d7f7a7114bd47cf6ec4fe71f269a0d09c67fedadad0cd89d79f",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-willis/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-willis.json",
+      "bytes": 1954,
+      "sha256": "2b56bc9836295e0b7cfda8e3ab1a12f5ac0767fe6ff64a6cf47485dd655500b5",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-willis.log",
+      "copy": "docs/validation/v1.9/motion-final-willis.txt",
+      "bytes": 432,
+      "sha256": "d9f018f092601a16315603c4685dc6c97b104be3348e59ef566d9dd5fed0fd47",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-bean/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-bean.json",
+      "bytes": 1960,
+      "sha256": "4ea93de6c47ae54ef82bac596afed1ea082ebf1294b4b7e26d3d7c8f195edeee",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-bean.log",
+      "copy": "docs/validation/v1.9/motion-final-bean.txt",
+      "bytes": 445,
+      "sha256": "9a485d9407ab758f03dd5cac8c453f1ed84e23fb41ad8bbd2999f8fc0ae4b652",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-iron/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-iron.json",
+      "bytes": 1942,
+      "sha256": "7c06c396b3ba520465a862dbf0e2d23a02a12804e90cf2e9544e3f7c478def02",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-iron.log",
+      "copy": "docs/validation/v1.9/motion-final-iron.txt",
+      "bytes": 390,
+      "sha256": "c918ace06428870d5721eecaf8b2bb9a673bcbb78729c8f5265d2fcacddc4cef",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-eiffel-night/metrics.json",
+      "copy": "docs/validation/v1.9/motion-final-eiffel-night.json",
+      "bytes": 2021,
+      "sha256": "76555f67eba255d3caec8a1eb2c2e88f3ee6a26b95085afd59ab03c4a685a8cc",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/motion-final-eiffel-night.log",
+      "copy": "docs/validation/v1.9/motion-final-eiffel-night.txt",
+      "bytes": 542,
+      "sha256": "741531a097c71e8b9f5ceb7e266917697d8b8a2d9d24aa387f16c5ff696a72fc",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/validate-indexed-lighting-final.log",
+      "copy": "docs/validation/v1.9/indexed-lighting-validation.txt",
+      "bytes": 357,
+      "sha256": "b74e263decc1c10d2a802c93438144edd8d7f663943fc427804aa72b104deb25",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/validate-paired-motion-final.log",
+      "copy": "docs/validation/v1.9/paired-motion-validation.txt",
+      "bytes": 211,
+      "sha256": "64f936d1ec84640ca7b8a6c10965be733aef6ad1f3d4393e3ea2435bd3f585fe",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/validate-traffic-final.log",
+      "copy": "docs/validation/v1.9/traffic-validation.txt",
+      "bytes": 865,
+      "sha256": "86bc4fe724cf32b450eeaafb3bab787e2e105bf48f0dcdeaaf6c5fd9266defb4",
+      "verbatim": true
+    },
+    {
+      "source": "output/v10-review/final-gpu-batch.json",
+      "copy": "docs/validation/v1.9/final-gpu-batch.json",
+      "bytes": 9317,
+      "sha256": "7c50fd89d8e8227e107e33720708339f82d138182f92af48f57dfea0c83f2dc4",
+      "verbatim": true
+    }
+  ],
+  "derivedSummary": {
+    "path": "docs/validation/v1.9/motion-final-summary.json",
+    "sha256": "a15816f694cae0cfc9cd637dade39f4ca8d9266b509c6491c8b36d9c879220fd",
+    "inputs": [
+      "docs/validation/v1.9/motion-final-robie.json",
+      "docs/validation/v1.9/motion-final-field.json",
+      "docs/validation/v1.9/motion-final-willis.json",
+      "docs/validation/v1.9/motion-final-bean.json",
+      "docs/validation/v1.9/motion-final-iron.json",
+      "docs/validation/v1.9/motion-final-eiffel-night.json",
+      "docs/validation/v1.9/final-gpu-batch.json",
+      "docs/validation/v1.9/baseline-field-hall.json"
+    ]
+  }
+}

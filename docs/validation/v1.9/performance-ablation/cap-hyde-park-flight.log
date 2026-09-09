@@ -1,0 +1,6 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Chicago · Robie House to Wrigleyville | 45150868 triangles | 29335 geometric details | 408 materials
+Metal pipelines + acceleration structure: 38.08s | allocated 8177.5 MiB
+Motion validation hyde-park-flight: 0/16
+hyde-park-flight: RMS 0.02288 → 0.02146, temporal residual 0.03274 → 0.02907 (11.2% reduction)
+Completed in 107.32s

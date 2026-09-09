@@ -1,0 +1,42 @@
+{
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+    "Actual-scene reconstruction regressed on hyde-park-flight"
+  ],
+  "glossyHistory" : "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+  "indexedLighting" : true,
+  "location" : "robie",
+  "measurement" : "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+  "pairing" : "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+  "passed" : false,
+  "pathRegularization" : true,
+  "rawPresentation" : "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+  "referenceSampling" : "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+  "sampling" : "Fast Owen-scrambled Sobol",
+  "scenes" : [
+    {
+      "clearSkyRMSE" : null,
+      "darkCityRMSE" : null,
+      "darkCitySamples" : 0,
+      "frames" : 16,
+      "imageErrorReductionPercent" : -1.0439158824143924,
+      "maximumUnsupportedDarkBrightness" : null,
+      "maximumUnsupportedTemporalBrightness" : null,
+      "meanReconstructedGPUms" : 48.857927084100083,
+      "rawDarkCityRMSE" : null,
+      "rawRMSE" : 0.02293141666612028,
+      "rawTemporalResidualRMSE" : 0.032766920141957145,
+      "reconstructedRMSE" : 0.023170801366760529,
+      "reconstructedTemporalResidualRMSE" : 0.031076730711287155,
+      "referenceSamples" : 64,
+      "resolution" : [
+        640,
+        400
+      ],
+      "samplesPerFrame" : 8,
+      "temporalNoiseReductionPercent" : 5.158218786958102,
+      "view" : "hyde-park-flight"
+    }
+  ],
+  "timingIncludes" : "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+}

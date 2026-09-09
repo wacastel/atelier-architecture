@@ -1,0 +1,6 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Chicago · McCormick Place to Wrigleyville | 39792802 triangles | 28182 geometric details | 355 materials
+Metal pipelines + acceleration structure: 3.55s | allocated 7212.1 MiB
+Motion validation field-hall: 0/16
+field-hall: RMS 0.07592 → 0.04043, temporal residual 0.10789 → 0.05394 (50.0% reduction)
+Completed in 30.77s

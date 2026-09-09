@@ -1,0 +1,26 @@
+{
+  "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "arguments": [
+    "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "--motion-test",
+    "/Users/william/dev/architecture/output/v10-review/activity-field",
+    "--location",
+    "campus",
+    "--motion-case",
+    "field-hall",
+    "--width",
+    "640",
+    "--height",
+    "400",
+    "--frames",
+    "16",
+    "--samples",
+    "8",
+    "--reference-samples",
+    "64"
+  ],
+  "activity": "ProcessInfo.beginActivity(.userInitiated) bounded to CLI do block",
+  "sourceSHA256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+  "exitCode": 0,
+  "wallSeconds": 91.30509996414185
+}

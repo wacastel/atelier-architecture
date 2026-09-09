@@ -30,7 +30,8 @@ var failures:[String]=[]
 let probes:[(String,V,V)]=[
     ("chicago:adler-planetarium",V(2381,8,1393.247),V(2413.718,8,1393.247)),
     ("chicago:willis-tower",V(-80,100,0),V(-4,100,0)),
-    ("chicago:cloud-gate",V(1027,8,-424.15),V(1042.46,8,-424.15))
+    ("chicago:cloud-gate",V(1027,8,-424.15),V(1042.46,8,-424.15)),
+    ("chicago:robie-house",RobieHouseLayout.point(V(-23,5,0)),RobieHouseLayout.point(V(-10,5,0)))
 ]
 var results:[[String:Any]]=[]
 for (expected,position,target) in probes {
@@ -48,7 +49,7 @@ if beanTriangles != 171_264 || beanOutsideCatalog != 0 {failures.append("Cloud G
 let sky=FocusRay(origin:V(2413.718,200,1393.247),direction:V(0,1,0))
 if catalog.pick(ray:sky,world:world) != nil {failures.append("Actual city sky ray unexpectedly selects an object")}
 let report:[String:Any]=[
-    "passed":failures.isEmpty,"scope":"CPU actual shared Chicago geometry, three visible landmark picks, sky miss, unchanged original navigation count, and bounded optional dense picking index. No renderer/GPU/native UI operations.",
+    "passed":failures.isEmpty,"scope":"CPU actual shared Chicago geometry, four visible landmark picks including Robie House, sky miss, original navigation inclusion rule, and bounded optional dense picking index. No renderer/GPU/native UI operations.",
     "triangles":scene.triangleCount,"navigationTriangles":world.triangles.count,"expectedOriginalNavigationTriangles":expectedNavigation,
     "detailTriangles":world.detailedPickingTriangleCount,"expectedDetailTriangles":expectedFine,"detailNodes":world.detailedPickingNodeCount,
     "cloudGateTriangles":beanTriangles,"cloudGateTrianglesOutsideCatalogBounds":beanOutsideCatalog,

@@ -1,0 +1,200 @@
+{
+  "measurement": "Matched 16-frame Field Hall,640x400,8SPP,64referenceSPP; serial under current Mac state after movie finished. Paired GPU cost, not native FPS.",
+  "runs": [
+    {
+      "name": "baseline-v18",
+      "executableSHA256": "23f2e9d87a0350d812ce9923f0d2d534ccc76ed413174afd9764a5ab5b16f9cf",
+      "arguments": [
+        "/Users/william/dev/architecture/output/v10-review/performance-baseline-source/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/scene-performance/baseline-v18",
+        "--location",
+        "campus",
+        "--motion-case",
+        "field-hall",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "16",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "64"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 31.408210039138794,
+      "metrics": {
+        "device": "Apple M3 Ultra",
+        "failures": [],
+        "glossyHistory": "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+        "indexedLighting": true,
+        "location": "campus",
+        "measurement": "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+        "pairing": "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+        "passed": true,
+        "pathRegularization": true,
+        "rawPresentation": "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+        "referenceSampling": "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+        "sampling": "Fast Owen-scrambled Sobol",
+        "scenes": [
+          {
+            "clearSkyRMSE": null,
+            "darkCityRMSE": null,
+            "darkCitySamples": 0,
+            "frames": 16,
+            "imageErrorReductionPercent": 46.747974120178945,
+            "maximumUnsupportedDarkBrightness": null,
+            "maximumUnsupportedTemporalBrightness": null,
+            "meanReconstructedGPUms": 96.34322656711447,
+            "rawDarkCityRMSE": null,
+            "rawRMSE": 0.07592110526554609,
+            "rawTemporalResidualRMSE": 0.10789432332304127,
+            "reconstructedRMSE": 0.04042952662425479,
+            "reconstructedTemporalResidualRMSE": 0.05393838151373613,
+            "referenceSamples": 64,
+            "resolution": [
+              640,
+              400
+            ],
+            "samplesPerFrame": 8,
+            "temporalNoiseReductionPercent": 50.008137729135406,
+            "view": "field-hall"
+          }
+        ],
+        "timingIncludes": "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+      }
+    },
+    {
+      "name": "pre-polish",
+      "executableSHA256": "335401284683feef7d93ba9decf3256c369c4ff7cc91e363ff41168a996e71b6",
+      "arguments": [
+        "/Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/scene-performance/pre-polish",
+        "--location",
+        "campus",
+        "--motion-case",
+        "field-hall",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "16",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "64"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 33.600095987319946,
+      "metrics": {
+        "device": "Apple M3 Ultra",
+        "failures": [],
+        "glossyHistory": "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+        "indexedLighting": true,
+        "location": "campus",
+        "measurement": "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+        "pairing": "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+        "passed": true,
+        "pathRegularization": true,
+        "rawPresentation": "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+        "referenceSampling": "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+        "sampling": "Fast Owen-scrambled Sobol",
+        "scenes": [
+          {
+            "clearSkyRMSE": null,
+            "darkCityRMSE": null,
+            "darkCitySamples": 0,
+            "frames": 16,
+            "imageErrorReductionPercent": 46.88171912557034,
+            "maximumUnsupportedDarkBrightness": null,
+            "maximumUnsupportedTemporalBrightness": null,
+            "meanReconstructedGPUms": 87.36894270623452,
+            "rawDarkCityRMSE": null,
+            "rawRMSE": 0.07592130703564287,
+            "rawTemporalResidualRMSE": 0.1078950320279017,
+            "reconstructedRMSE": 0.04032809311473091,
+            "reconstructedTemporalResidualRMSE": 0.05386851023816752,
+            "referenceSamples": 64,
+            "resolution": [
+              640,
+              400
+            ],
+            "samplesPerFrame": 8,
+            "temporalNoiseReductionPercent": 50.073224665027105,
+            "view": "field-hall"
+          }
+        ],
+        "timingIncludes": "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+      }
+    },
+    {
+      "name": "final-v19",
+      "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--motion-test",
+        "/Users/william/dev/architecture/output/v10-review/scene-performance/final-v19",
+        "--location",
+        "campus",
+        "--motion-case",
+        "field-hall",
+        "--width",
+        "640",
+        "--height",
+        "400",
+        "--frames",
+        "16",
+        "--samples",
+        "8",
+        "--reference-samples",
+        "64"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 31.82581400871277,
+      "metrics": {
+        "device": "Apple M3 Ultra",
+        "failures": [],
+        "glossyHistory": "View-angle change bounded by 0.1 GGX alpha; fast changes retain two-frame safeguard, slow compatible glossy history at most 16 frames.",
+        "indexedLighting": true,
+        "location": "campus",
+        "measurement": "Display-space RGB RMSE against independent high-sample references; second half of each moving sequence. Temporal residual is consecutive error difference, with reference motion subtracted, not raw image difference.",
+        "pairing": "Raw and reconstructed presentations share one trace accumulation, acceleration structure and scene-time update; the high-SPP reference remains independent.",
+        "passed": true,
+        "pathRegularization": true,
+        "rawPresentation": "Unfiltered radiance followed only by exposure, tone mapping and sRGB encoding; no legacy preview filter.",
+        "referenceSampling": "Independent Fast Owen-scrambled Sobol paths, identical across sampling-mode comparisons",
+        "sampling": "Fast Owen-scrambled Sobol",
+        "scenes": [
+          {
+            "clearSkyRMSE": null,
+            "darkCityRMSE": null,
+            "darkCitySamples": 0,
+            "frames": 16,
+            "imageErrorReductionPercent": 46.88202578611228,
+            "maximumUnsupportedDarkBrightness": null,
+            "maximumUnsupportedTemporalBrightness": null,
+            "meanReconstructedGPUms": 98.85410416609375,
+            "rawDarkCityRMSE": null,
+            "rawRMSE": 0.07592128356175319,
+            "rawTemporalResidualRMSE": 0.10789497834571456,
+            "reconstructedRMSE": 0.040327847825184636,
+            "reconstructedTemporalResidualRMSE": 0.05386798191930552,
+            "referenceSamples": 64,
+            "resolution": [
+              640,
+              400
+            ],
+            "samplesPerFrame": 8,
+            "temporalNoiseReductionPercent": 50.07368948469224,
+            "view": "field-hall"
+          }
+        ],
+        "timingIncludes": "Trace, reconstruction and both paired presentations; this is validation cost, not normal preview frame time."
+      }
+    }
+  ]
+}

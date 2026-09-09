@@ -4,6 +4,9 @@ import simd
 /// Conservative lists of finite-range lights. Indices retain scene order so
 /// skipping lights outside their support does not change reservoir sampling.
 struct LightGrid {
+    // A full north/south Chicago light volume needs more than 262,144 cells.
+    // Keep 64m cells and their local candidate lists; cap range storage at 8 MiB.
+    static let defaultMaxCellCount = 1_048_576
     // Metal ABI: three 16-byte vectors; uint2 ranges are offset/count pairs.
     struct Header {
         var originCellSize: SIMD4<Float>
@@ -21,7 +24,7 @@ struct LightGrid {
     var dimensions: SIMD3<UInt32> { SIMD3(header.dimensions.x, header.dimensions.y, header.dimensions.z) }
 
     init(lights: [SceneLight], cellSize: Float = 64,
-         maxCellCount: Int = 262_144, maxIndexCount: Int = 4_194_304) {
+         maxCellCount: Int = LightGrid.defaultMaxCellCount, maxIndexCount: Int = 4_194_304) {
         header = Header(originCellSize: SIMD4(0, 0, 0, cellSize), dimensions: .zero,
                         counts: SIMD4(0, 0, UInt32(clamping: lights.count), 0))
         // A disabled grid uses the existing linear kernels. Never partially

@@ -578,3 +578,136 @@ write(dimPoints,worlds[0]);write(dimDepths,normals[0]);write(dimValues,raw)
 let dimResult=try render(frame:0,originX:0,previousX:0,valid:false,spp:8,night:true)
 require(rmse(dimResult.filtered,dimTruth)<rmse(dimValues,dimTruth)*0.5,"Dim night surface noise reduction was lost")
 print("PASS: dim reflected detail retains comparable relative bias (\(relativeReflectionBias)); smooth dim surfaces retain more than 50 percent RMS noise reduction")
+
+
+// A fast camera pan over a rough, single-material plane must retain its hard
+// sun-shadow detail. Geometry/normal/albedo guides deliberately contain no edge:
+// the only edge is illumination. Truth is the exact pixel box integral of a
+// world-fixed periodic shadow, so a center-sampled alias is not our reference.
+// The negative control removes only the new history-cap application, retaining
+// the actual production reprojection, clipping and every spatial pass.
+let resamplingApplication = "maximumHistory=min(maximumHistory,resamplingLimit);"
+require(source.components(separatedBy: resamplingApplication).count == 2,
+        "Fast-shadow negative control cannot identify exactly one resampling-history cap")
+let legacyFastSource = source.replacingOccurrences(of: resamplingApplication,
+                                                  with: "// Negative control: uncapped resampling history.")
+let legacyFastLibrary = try device.makeLibrary(source: legacyFastSource, options: options)
+let legacyFastTemporal = try device.makeComputePipelineState(function: legacyFastLibrary.makeFunction(name: "temporalResolve")!)
+
+private struct FastShadowError {
+    var squared = 0.0, samples = 0
+    var edgeSquared = 0.0, edgeSamples = 0
+    var flatSquared = 0.0, flatSamples = 0
+    var residualSquared = 0.0, residualSamples = 0
+    var truthSum = 0.0, valueSum = 0.0, truthSquared = 0.0, product = 0.0
+    var rms: Double { sqrt(squared / Double(max(samples, 1))) }
+    var edgeRMS: Double { sqrt(edgeSquared / Double(max(edgeSamples, 1))) }
+    var flatRMS: Double { sqrt(flatSquared / Double(max(flatSamples, 1))) }
+    var residualRMS: Double { sqrt(residualSquared / Double(max(residualSamples, 1))) }
+    var contrastSlope: Double {
+        let n = Double(max(samples, 1)), denominator = truthSquared - truthSum * truthSum / n
+        return denominator > 1e-12 ? (product - truthSum * valueSum / n) / denominator : 1
+    }
+    mutating func add(value: Float, truth: Float, edge: Bool, previousError: Float?) {
+        let a = Double(value), b = Double(truth), e = a-b
+        squared += e*e; samples += 1
+        truthSum += b; valueSum += a; truthSquared += b*b; product += a*b
+        if edge { edgeSquared += e*e; edgeSamples += 1 }
+        else { flatSquared += e*e; flatSamples += 1 }
+        if let previousError { let change = e-Double(previousError); residualSquared += change*change; residualSamples += 1 }
+    }
+}
+private func fastShadowSequence(pixelsPerFrame: Float, noisy: Bool) throws -> [String: FastShadowError] {
+    let productionHistory = [texture("fast-shadow history 0"),texture("fast-shadow history 1")]
+    let legacyHistory = [texture("legacy fast-shadow history 0"),texture("legacy fast-shadow history 1")]
+    let productionSpatial = [texture("fast-shadow spatial 0"),texture("fast-shadow spatial 1")]
+    let legacySpatial = [texture("legacy fast-shadow spatial 0"),texture("legacy fast-shadow spatial 1")]
+    let names = ["raw","temporal","combined","legacyTemporal","legacyCombined"]
+    var metrics = Dictionary(uniqueKeysWithValues: names.map { ($0,FastShadowError()) })
+    var previousErrors = [String:[Float]]()
+    let frames = 64, warmup = 16, worldPixel: Float = 10/Float(width)
+    func shadowIntegral(_ t: Double) -> Double {
+        let cycle = floor(t/32), within = t-cycle*32
+        return cycle*8 + min(max(within,0),8)
+    }
+    for frame in 0..<frames {
+        let current = frame%2, previous = 1-current
+        let shift = Float(frame)*pixelsPerFrame, oldShift = Float(max(0,frame-1))*pixelsPerFrame
+        let originX = shift*worldPixel, previousX = oldShift*worldPixel
+        var points = [SIMD4<Float>](repeating:.zero,count:count)
+        var depths = points, values = points, colors = points
+        var truth = [Float](repeating:0,count:count), edges = [Bool](repeating:false,count:count)
+        for y in 0..<height { for x in 0..<width {
+            let i = y*width+x, t = Double(x)+0.5+Double(shift)
+            let value = Float(1-0.75*(shadowIntegral(t+0.5)-shadowIntegral(t-0.5)))
+            let sx = 2*(Float(x)+0.5)/Float(width)-1
+            let sy = 1-2*(Float(y)+0.5)/Float(height)
+            let p = SIMD3<Float>(originX+sx*5,sy*3.75,5)
+            points[i] = SIMD4(p,0)
+            depths[i] = SIMD4(0,0,-1,simd_length(p-SIMD3(originX,0,0)))
+            colors[i] = SIMD4(0.5,0.5,0.5,0.7)
+            let perturbation: Float = noisy ? (random(UInt32(i) &+ UInt32(frame) &* 197_633)-0.5)*0.35 : 0
+            values[i] = SIMD4(SIMD3(repeating:value+perturbation),depths[i].w)
+            truth[i] = value
+            let phase = t-floor(t/32)*32
+            edges[i] = min(min(phase,32-phase),abs(phase-8)) <= 3
+        } }
+        write(points,worlds[current]);write(depths,normals[current]);write(colors,albedo);write(values,raw)
+        var uniforms = TemporalUniforms(previousOrigin:SIMD4(previousX,0,0,0),previousRight:SIMD4(1,0,0,0),
+            previousUp:SIMD4(0,0.75,0,0),previousForward:SIMD4(0,0,1,0),currentOrigin:SIMD4(originX,0,0,0),
+            sizeFlags:SIMD4(UInt32(width),UInt32(height),frame>0 ? 1:0,1),settings:SIMD4(32,8,1,1.5/Float(height)))
+        let command = queue.makeCommandBuffer()!
+        func dispatch(_ pipeline: MTLComputePipelineState, _ textures: [MTLTexture], _ constants: TemporalUniforms) {
+            var constants = constants
+            let encoder = command.makeComputeCommandEncoder()!
+            encoder.setComputePipelineState(pipeline)
+            for (index, texture) in textures.enumerated() { encoder.setTexture(texture,index:index) }
+            encoder.setBytes(&constants,length:MemoryLayout<TemporalUniforms>.stride,index:0)
+            encoder.dispatchThreads(MTLSize(width:width,height:height,depth:1),threadsPerThreadgroup:MTLSize(width:8,height:8,depth:1))
+            encoder.endEncoding()
+        }
+        for (pipeline, history, spatialTargets) in [(temporal,productionHistory,productionSpatial),(legacyFastTemporal,legacyHistory,legacySpatial)] {
+            dispatch(pipeline,[raw,worlds[current],normals[current],albedo,history[previous],worlds[previous],normals[previous],history[current]],uniforms)
+            for (pass,step) in [Float(1),2,4].enumerated() {
+                uniforms.settings.z = step
+                dispatch(spatial,[pass==0 ? history[current]:spatialTargets[(pass-1)%2],worlds[current],normals[current],albedo,spatialTargets[pass%2]],uniforms)
+            }
+            uniforms.settings.z = 1
+        }
+        command.commit();command.waitUntilCompleted()
+        if let error = command.error { throw error }
+        let outputs = ["raw":values,"temporal":read(productionHistory[current]),"combined":read(productionSpatial[0]),
+                       "legacyTemporal":read(legacyHistory[current]),"legacyCombined":read(legacySpatial[0])]
+        for name in names {
+            let output = outputs[name]!
+            var error = [Float](repeating:0,count:count)
+            for y in 12..<(height-12) { for x in 16..<(width-16) {
+                let i = y*width+x
+                require(output[i].x.isFinite && output[i].w.isFinite,"Fast-shadow reconstruction produced a nonfinite sample")
+                error[i] = output[i].x-truth[i]
+                if frame >= warmup {
+                    metrics[name]!.add(value:output[i].x,truth:truth[i],edge:edges[i],previousError:previousErrors[name]?[i])
+                }
+            } }
+            previousErrors[name] = error
+        }
+    }
+    return metrics
+}
+for speed:Float in [1.37,3.37] {
+    let m = try fastShadowSequence(pixelsPerFrame:speed,noisy:true)
+    let raw = m["raw"]!, temporal = m["temporal"]!, combined = m["combined"]!
+    let legacyTemporal = m["legacyTemporal"]!, legacyCombined = m["legacyCombined"]!
+    print(String(format:"FAST SHADOW %.2f px/frame: image raw %.6f / temporal %.6f / combined %.6f / legacy temporal %.6f / legacy combined %.6f; edge %.6f / legacy %.6f; temporal residual %.6f / raw %.6f; contrast %.5f / legacy %.5f",speed,raw.rms,temporal.rms,combined.rms,legacyTemporal.rms,legacyCombined.rms,combined.edgeRMS,legacyCombined.edgeRMS,combined.residualRMS,raw.residualRMS,combined.contrastSlope,legacyCombined.contrastSlope))
+    require(temporal.edgeRMS < legacyTemporal.edgeRMS*0.95,"Fast pan history cap failed to improve same-material shadow-edge RMSE over uncapped temporal control")
+    require(combined.edgeRMS < legacyCombined.edgeRMS*0.95,"Spatial passes erased the fast-pan shadow-edge improvement")
+    require(combined.rms < raw.rms*0.85,"Fast-pan reconstruction failed to reduce matched raw image error")
+    require(combined.residualRMS < raw.residualRMS*0.85,"Fast-pan reconstruction failed to reduce motion-subtracted temporal error")
+    require(combined.flatRMS < raw.flatRMS*0.65,"Fast-pan reconstruction lost useful flat-region noise reduction")
+    require(combined.contrastSlope > 0.85 && combined.contrastSlope > legacyCombined.contrastSlope,"Fast-pan reconstruction failed to retain shadow contrast")
+}
+private let cleanFast = try fastShadowSequence(pixelsPerFrame:3.37,noisy:false)
+print(String(format:"FAST SHADOW noiseless: temporal edge %.6f / legacy %.6f; combined edge %.6f / legacy %.6f",cleanFast["temporal"]!.edgeRMS,cleanFast["legacyTemporal"]!.edgeRMS,cleanFast["combined"]!.edgeRMS,cleanFast["legacyCombined"]!.edgeRMS))
+require(cleanFast["temporal"]!.edgeRMS < cleanFast["legacyTemporal"]!.edgeRMS*0.9,"Noiseless fast-pan history did not reduce bilinear shadow diffusion")
+require(cleanFast["combined"]!.edgeRMS < cleanFast["legacyCombined"]!.edgeRMS*0.9,"Noiseless fast-pan spatial output did not preserve the temporal edge improvement")
+print("PASS: fast rough-plane pans retain hard-shadow detail, improve paired image/temporal error, and catch uncapped-history negative controls")

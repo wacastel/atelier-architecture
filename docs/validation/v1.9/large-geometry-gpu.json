@@ -1,0 +1,281 @@
+{
+  "checks" : 77,
+  "device" : "Apple M3 Ultra",
+  "elapsedSeconds" : 0.71070504188537598,
+  "geometryCount" : 4,
+  "instanceResults" : [
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        -0.40000000596046448,
+        -0.40000000596046448,
+        0,
+        3
+      ],
+      "globalPrimitive" : 0,
+      "hit" : 1,
+      "material" : [
+        0.6875,
+        0.3125,
+        0.25,
+        0.75
+      ],
+      "materialID" : 11,
+      "probe" : 0
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        3.5999999046325684,
+        -0.40000000596046448,
+        0,
+        3.0000002384185791
+      ],
+      "globalPrimitive" : 16777217,
+      "hit" : 1,
+      "material" : [
+        0.75,
+        0.25,
+        0.25,
+        0.75
+      ],
+      "materialID" : 12,
+      "probe" : 1
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        7.5999999046325684,
+        -0.40000000596046448,
+        0,
+        3.0000002384185791
+      ],
+      "globalPrimitive" : 33554434,
+      "hit" : 1,
+      "material" : [
+        0.8125,
+        0.1875,
+        0.25,
+        0.75
+      ],
+      "materialID" : 13,
+      "probe" : 2
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        11.600000381469727,
+        -0.40000000596046448,
+        0,
+        3
+      ],
+      "globalPrimitive" : 50331651,
+      "hit" : 1,
+      "material" : [
+        0.875,
+        0.125,
+        0.25,
+        0.75
+      ],
+      "materialID" : 14,
+      "probe" : 3
+    },
+    {
+      "dynamic" : 1,
+      "firstVertexAndDistance" : [
+        15.600000381469727,
+        -0.40000000596046448,
+        0,
+        3
+      ],
+      "globalPrimitive" : 50331656,
+      "hit" : 1,
+      "material" : [
+        0.9375,
+        0.0625,
+        0.25,
+        0.75
+      ],
+      "materialID" : 15,
+      "probe" : 4
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "globalPrimitive" : 0,
+      "hit" : 0,
+      "material" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "materialID" : 0,
+      "probe" : 5
+    }
+  ],
+  "legacyNegativeControl" : {
+    "completed" : false,
+    "reason" : "Default bounded probe omits the original full-span synthetic controls. See --legacy-sparse \/ --full-field and preserved investigation evidence.",
+    "requiredToFail" : false
+  },
+  "mode" : "sparseDescriptorProbe",
+  "scope" : "Partial-section coverage: actual production descriptor offsets and shader mapping, with each AS section restricted to eight real triangles. Four static sentinel rays plus a traffic tail verify vertex\/material lookups beyond 4 GiB. Full city render checks are separate; this does not claim every global primitive or descriptor end was traversed.",
+  "sentinelGlobalPrimitiveIDs" : [
+    0,
+    16777217,
+    33554434,
+    50331651,
+    50331656
+  ],
+  "sources" : {
+    "GeometryPartition.swift" : "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Renderer.metal" : "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "SceneTypes.swift" : "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+    "Tests\/LargeGeometryGPU\/main.swift" : "db51fd90e7c32bb3a0101c418c7c437324b600a2098ef282e462fa8a183d526e"
+  },
+  "staticGlobalIndexExtent" : 50331656,
+  "staticResults" : [
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        -0.40000000596046448,
+        -0.40000000596046448,
+        0,
+        3
+      ],
+      "globalPrimitive" : 0,
+      "hit" : 1,
+      "material" : [
+        0.6875,
+        0.3125,
+        0.25,
+        0.75
+      ],
+      "materialID" : 11,
+      "probe" : 0
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        3.5999999046325684,
+        -0.40000000596046448,
+        0,
+        3.0000002384185791
+      ],
+      "globalPrimitive" : 16777217,
+      "hit" : 1,
+      "material" : [
+        0.75,
+        0.25,
+        0.25,
+        0.75
+      ],
+      "materialID" : 12,
+      "probe" : 1
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        7.5999999046325684,
+        -0.40000000596046448,
+        0,
+        3.0000002384185791
+      ],
+      "globalPrimitive" : 33554434,
+      "hit" : 1,
+      "material" : [
+        0.8125,
+        0.1875,
+        0.25,
+        0.75
+      ],
+      "materialID" : 13,
+      "probe" : 2
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        11.600000381469727,
+        -0.40000000596046448,
+        0,
+        3
+      ],
+      "globalPrimitive" : 50331651,
+      "hit" : 1,
+      "material" : [
+        0.875,
+        0.125,
+        0.25,
+        0.75
+      ],
+      "materialID" : 14,
+      "probe" : 3
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "globalPrimitive" : 0,
+      "hit" : 0,
+      "material" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "materialID" : 0,
+      "probe" : 4
+    },
+    {
+      "dynamic" : 0,
+      "firstVertexAndDistance" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "globalPrimitive" : 0,
+      "hit" : 0,
+      "material" : [
+        0,
+        0,
+        0,
+        0
+      ],
+      "materialID" : 0,
+      "probe" : 5
+    }
+  ],
+  "status" : "PASS",
+  "submittedSections" : [
+    {
+      "triangleCount" : 8,
+      "vertexBufferOffset" : 0
+    },
+    {
+      "triangleCount" : 8,
+      "vertexBufferOffset" : 1610612736
+    },
+    {
+      "triangleCount" : 8,
+      "vertexBufferOffset" : 3221225472
+    },
+    {
+      "triangleCount" : 8,
+      "vertexBufferOffset" : 4831838208
+    }
+  ],
+  "submittedStaticTriangles" : 32,
+  "trianglesPerGeometry" : 16777216,
+  "vertexBufferBytes" : 4831839072
+}

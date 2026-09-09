@@ -1,4 +1,8 @@
-# Next Chicago landmark: Robie House
+# Robie House extension
+
+The proposed extension is implemented in Atelier 1.9. See [Robie House](ROBIE-HOUSE.md), [Hyde Park and the connecting corridor](HYDE-PARK.md), and [demo controls](DEMO.md) for the current model and navigation.
+
+## Original proposal — September 8, 2026
 
 **Frank Lloyd Wright’s Robie House in Hyde Park is the recommended next destination.** Completed in 1910 at 5757 South Woodlawn Avenue, it offers a different scale of architectural exploration: long bands of brick and limestone, cantilevered roofs, leaded art glass and living/dining spaces connected around a central chimney. These features suit close walkthroughs and careful daylight rendering. The Frank Lloyd Wright Trust documents the restored building and its interiors. [Architecture and restoration](https://flwright.org/explore/frederick-c-robie-house), [official visitor information](https://flwright.org/tour/robie-house).
 

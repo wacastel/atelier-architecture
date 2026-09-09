@@ -9,6 +9,7 @@ xcrun swiftc -O \
   "$project_dir/Sources/ArchitectureEngine/LightGrid.swift" \
   "$project_dir/Sources/ArchitectureEngine/Traffic.swift" \
   "$project_dir/Sources/ArchitectureEngine/TrafficMetal.swift" \
+  "$project_dir/Sources/ArchitectureEngine/GeometryPartition.swift" \
   "$project_dir/Sources/ArchitectureEngine/MetalRenderer.swift" \
   "$project_dir/Tests/PairedMotion/main.swift" \
   -o "$paired_tmp/validate-paired"

@@ -24,6 +24,10 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
         (1,false,"old-town-brick"),(2,false,"north-avenue-beach"),
         (3,false,"nature-boardwalk"),(4,true,"zoolights-night"),
         (5,false,"conservatory-glass"),(7,false,"wrigley-field"),(7,true,"wrigley-night")
+    ] : location == .robie ? [
+        (0,false,"robie-cantilevers"),(2,false,"robie-roman-brick"),(3,false,"robie-art-glass"),
+        (4,false,"robie-living-room"),(5,true,"robie-dining-night"),(0,true,"robie-exterior-night"),
+        (7,false,"hyde-park-flight")
     ] : [
         (1,false,"cloud-gate-idle"),(1,false,"cloud-gate-orbit"),(1,true,"cloud-gate-night"),
         (2,false,"beneath-cloud-gate"),(2,true,"beneath-cloud-gate-night")]
@@ -50,7 +54,8 @@ func validateSceneMotion(scene:SceneData,device:MTLDevice,folder:URL,width:Int,h
                 // Slow overview pivot; closer detail pan advances along its authored route.
                 let campusOffsets: [Int:Double] = [1:80,2:79,3:64,4:40,6:20,7:139]
                 let northOffsets: [Int:Double] = [1:20,2:24,3:25,4:50,5:12,7:82]
-                let time = location == .northside ? (northOffsets[view] ?? 0)+Double(frame)/30*3 : location == .campus ? (campusOffsets[view] ?? 0)+Double(frame)/30*3 : view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
+                let robieOffsets: [Int:Double] = [2:25,3:20,4:35,5:30,7:290]
+                let time = location == .robie ? (robieOffsets[view] ?? 0)+Double(frame)/30*3 : location == .northside ? (northOffsets[view] ?? 0)+Double(frame)/30*3 : location == .campus ? (campusOffsets[view] ?? 0)+Double(frame)/30*3 : view == 0 ? Double(frame)/30*8 : 5+Double(frame)/30*3
                 let pose = test.tag == "cloud-gate-idle" ? location.idlePose(view:view,seconds:Double(frame)/30) : silhouette ? location.pose(view:0,seconds:Double(frame)/24) : view == 8 ? location.pose(view:view,seconds:16+Double(frame)/24) : view == 0 ? location.idlePose(view:view,seconds:time) : location.pose(view:view,seconds:time)
                 let sceneTime = test.tag == "cloud-gate-idle" ? Double(frame)/30 : silhouette ? Double(frame)/24 : view == 8 ? 16+Double(frame)/24 : time
                 for renderer in [reconstructed,reference,spatialOnly] { renderer.setSceneTime(sceneTime) }

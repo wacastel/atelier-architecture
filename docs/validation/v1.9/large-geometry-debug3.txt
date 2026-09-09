@@ -1,0 +1,7 @@
+Static raw probe 0: ids=SIMD4<UInt32>(1, 0, 11, 0), vertexDistance=SIMD4<Float>(-0.4, -0.4, 0.0, 3.0), material=SIMD4<Float>(0.6875, 0.3125, 0.25, 0.75)
+Static raw probe 1: ids=SIMD4<UInt32>(0, 0, 0, 0), vertexDistance=SIMD4<Float>(3.6, -0.4, 0.0, 1.0), material=SIMD4<Float>(0.0, 0.0, 0.0, 0.0)
+Static raw probe 2: ids=SIMD4<UInt32>(0, 0, 0, 0), vertexDistance=SIMD4<Float>(7.6, -0.4, 0.0, 1.0), material=SIMD4<Float>(0.0, 0.0, 0.0, 0.0)
+Static raw probe 3: ids=SIMD4<UInt32>(0, 0, 0, 0), vertexDistance=SIMD4<Float>(11.6, -0.4, 0.0, 1.0), material=SIMD4<Float>(0.0, 0.0, 0.0, 0.0)
+Static raw probe 4: ids=SIMD4<UInt32>(0, 0, 0, 0), vertexDistance=SIMD4<Float>(15.6, -0.4, 0.0, 1.0), material=SIMD4<Float>(0.0, 0.0, 0.0, 0.0)
+Static raw probe 5: ids=SIMD4<UInt32>(0, 0, 0, 0), vertexDistance=SIMD4<Float>(-0.4, -0.4, 0.0, 1.0), material=SIMD4<Float>(0.0, 0.0, 0.0, 0.0)
+FAIL: Static sentinel 1 hit state 0

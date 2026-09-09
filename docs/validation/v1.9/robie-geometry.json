@@ -1,0 +1,26 @@
+{
+  "bidirectionalStepsPerSegment" : 100,
+  "boundsLocalMaximum" : [
+    28.099760055541992,
+    11.125,
+    10.150826454162598
+  ],
+  "boundsLocalMinimum" : [
+    -20.090347290039062,
+    0.0049999989569187164,
+    -11.850485801696777
+  ],
+  "checks" : 1026,
+  "detailCount" : 190,
+  "elapsedSeconds" : 0.058658003807067871,
+  "lightCount" : 38,
+  "materialCount" : 44,
+  "navigationNodes" : 8839,
+  "navigationSHA256" : "f1737978fbe19faabfae80ed204051332c0a14649f87e8b722370703ce7cb9ce",
+  "navigationTriangles" : 34206,
+  "scope" : "Actual standalone Robie House geometry and navigation; no GPU render claim",
+  "source" : "Sources\/ArchitectureEngine\/RobieHouse.swift",
+  "status" : "PASS",
+  "triangleCount" : 438350,
+  "walkingSegments" : 5
+}

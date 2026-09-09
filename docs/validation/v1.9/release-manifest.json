@@ -1,0 +1,2113 @@
+{
+  "schemaVersion": 2,
+  "audit": "Atelier 1.9 package and source inventory refresh",
+  "createdAtUTC": "2026-09-08T23:49:11.866327+00:00",
+  "status": "PASS",
+  "scope": {
+    "method": "Read-only CPU/file inspection; only this audit JSON is written. No builds, native app launch, GPU work, runtime tests or commits.",
+    "runtimeValidationPerformed": false,
+    "documentationHashesExcluded": true,
+    "limitations": "Signature/resource integrity identifies the current package. This audit does not recompile it or establish runtime behavior. Source reconstruction proves only the exact scoped changes against the previously tested source hashes."
+  },
+  "git": {
+    "baseCommit": "cdf45f9e01ed17b0a85ebde74cd3ecd368ea8088",
+    "sourceState": "Current nonignored working-tree snapshot, including new files; not a claim all changes are committed."
+  },
+  "application": {
+    "path": "dist/Atelier.app",
+    "name": "Atelier",
+    "bundleIdentifier": "local.atelier.architecture",
+    "version": "1.9.0",
+    "build": "10",
+    "minimumMacOS": "14.0",
+    "architectures": [
+      "arm64"
+    ],
+    "signature": "ad hoc local signature",
+    "executable": {
+      "path": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "bytes": 4519008,
+      "sha256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+      "mode": "0755"
+    },
+    "infoPlistMatchesBuildScriptTemplate": true
+  },
+  "testedArtifactComparison": {
+    "referenceExecutableSHA256": "8e51d32907905508d118050910cd7893487a3ac17ea5b4f2404e2cf7d23636e9",
+    "changedFiles": [
+      {
+        "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+        "before": {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "bytes": 45730,
+          "sha256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d",
+          "mode": "0644"
+        },
+        "after": {
+          "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+          "bytes": 45726,
+          "sha256": "dd71b5ab8d8ebcb6cd8df1afe82d442ff23ddae5598ded35b38af2f736aa3312",
+          "mode": "0644"
+        },
+        "expectedScopedChange": true,
+        "description": "About-panel geography credit changes McCormick Place to Robie House.",
+        "exactReplacementCount": 1,
+        "restoredTestedSourceSHA256": "6042da7a643823ce3306156273e95cf3de5ce8e8b79bbcb70a8e9e1b5decab2d",
+        "restoringOnlyThisChangeMatchesTestedSource": true
+      },
+      {
+        "path": "Sources/ArchitectureEngine/CommandLine.swift",
+        "before": {
+          "path": "Sources/ArchitectureEngine/CommandLine.swift",
+          "bytes": 25018,
+          "sha256": "4ae9b2116b2a0244fde93d6b3b4920d06acbaf2e9bd6f14f4d89480d8cf23dc0",
+          "mode": "0644"
+        },
+        "after": {
+          "path": "Sources/ArchitectureEngine/CommandLine.swift",
+          "bytes": 25383,
+          "sha256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+          "mode": "0644"
+        },
+        "expectedScopedChange": true,
+        "description": "Offscreen CLI do-block gains scoped ProcessInfo userInitiated activity and defer endActivity.",
+        "exactReplacementCount": 1,
+        "restoredTestedSourceSHA256": "4ae9b2116b2a0244fde93d6b3b4920d06acbaf2e9bd6f14f4d89480d8cf23dc0",
+        "restoringOnlyThisChangeMatchesTestedSource": true
+      }
+    ],
+    "changedFileCount": 2,
+    "allOtherInventoriedSourceBytesAndModesUnchanged": true,
+    "renderingModelResourceAndShaderSourcesUnchanged": true,
+    "method": "Compare every selected source file and mode with the tested inventory. Reverse each exact allowed edit in memory and require the complete reconstructed file SHA-256 to equal its tested source hash.",
+    "runtimeEquivalenceClaim": "No runtime equivalence or performance conclusion: the CLI activity changes process scheduling policy. Existing GPU results retain their original executable scope.",
+    "referenceManifestPath": "docs/validation/v1.9/pre-final-package-manifest.json",
+    "referenceManifestSHA256": "e85b7f61f1297d91c6a7e6505f939faac3224b6d8da363bb9c34a5ff41624def"
+  },
+  "sourceInventory": {
+    "selectionRoots": [
+      "Sources",
+      "Tests",
+      "scripts",
+      "assets",
+      "Package.swift",
+      "Launch Atelier.command"
+    ],
+    "selectionMethod": "Existing tracked/untracked paths under selected roots, filtered by git check-ignore --no-index. Entire docs/, root README, ignored outputs, caches and build/package directories are outside this source inventory.",
+    "excludedIgnoredWithinRoots": [],
+    "fileCount": 178,
+    "totalBytes": 234665850,
+    "canonicalInventorySHA256": "717102567736cdfff8208e8a531e14f35960e08d7f3a83d25141581d2a40cf15",
+    "files": [
+      {
+        "path": "Launch Atelier.command",
+        "bytes": 1064,
+        "sha256": "1788690c881504613791e14dc3fc05ef8037d76899299df4a6387d0bacb23230",
+        "mode": "0755"
+      },
+      {
+        "path": "Package.swift",
+        "bytes": 475,
+        "sha256": "b23635f8a728a9de5c371fccf42a656306217bcbcc7e9eec77d76f49eb24624e",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/AdlerPlanetarium.swift",
+        "bytes": 18389,
+        "sha256": "08e2054c1af3d221ffc048f7632cfc6b11ba776193e4a2c19810d5c2a6e00a49",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ArchitectureApp.swift",
+        "bytes": 45726,
+        "sha256": "dd71b5ab8d8ebcb6cd8df1afe82d442ff23ddae5598ded35b38af2f736aa3312",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ArchitectureLocation.swift",
+        "bytes": 4640,
+        "sha256": "32ab4f46f66e68f552c6d37e11f7271850fd19c2cf8e85d7053ce021b48a22b9",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ArtInstitute.swift",
+        "bytes": 19923,
+        "sha256": "6db24c6f616f844c6656fa9fc70805ec6ac2073a03c85e7cb04786f96f323221",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/CameraTrack.swift",
+        "bytes": 2112,
+        "sha256": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ChicagoEnvironment.swift",
+        "bytes": 30375,
+        "sha256": "1637af885abd38d76aae7248e2cf73393c707b0af85c3731fcf9b511c3f2fe48",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ChicagoWorld.swift",
+        "bytes": 982,
+        "sha256": "5a611555633a18d363a7a45bf59dfc99a82a2a7fbbc7a44c2a72faaef156404d",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/CollisionWorld.swift",
+        "bytes": 5930,
+        "sha256": "9e7a20dd8ea61438b4afc9416ab200ea96f0c8d5026702d101ce5e4cb0b69bca",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/CommandLine.swift",
+        "bytes": 25383,
+        "sha256": "538bc37ef84372b39a96c69988d2b729201c22cd5afd072510336c1ace970927",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/EiffelScene.swift",
+        "bytes": 37758,
+        "sha256": "4ef728faf6c759be1c89fbffd8bce4cc2ad1d2728036d98cb20b9b3d6e43b11c",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/EngineController.swift",
+        "bytes": 22248,
+        "sha256": "38bce160569833cb570b4c7db1d7c579af7cc50e0fc37911bc270859b8b6a284",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/GeometryPartition.swift",
+        "bytes": 1128,
+        "sha256": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/HydeParkEnvironment.swift",
+        "bytes": 20097,
+        "sha256": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LakefrontEnvironment.swift",
+        "bytes": 27355,
+        "sha256": "110e2c8e9b1dfa1bbd9812f27fc5eaead6eb59b32a5033ddd4978df8a56173e4",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LakefrontScene.swift",
+        "bytes": 3500,
+        "sha256": "0c1fc47a7cde875fdacb4ca25cfb06e21dd89856a1e7aff575eed4a04670263a",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LakefrontWalkthrough.swift",
+        "bytes": 3302,
+        "sha256": "9e981a59131b2b807b4ec384f9401dfa155fc98e376e39fd93d859444c9271d6",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LandmarkFocus.swift",
+        "bytes": 23904,
+        "sha256": "919752dce29892950b44b2ab75bf7efaa9832ec194bed4f8394d09c586427d7e",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LightGrid.swift",
+        "bytes": 8195,
+        "sha256": "41d6d3301e1eab90a38563fecf566ba16b46347672cdd6d232c38d726a431ea1",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LincolnParkZoo.swift",
+        "bytes": 40221,
+        "sha256": "d2575603b1ce2e668138c665b30545cd4a4e25405b9d4b3565f2571d5a089acc",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/LincolnParkZooMap.swift",
+        "bytes": 262723,
+        "sha256": "fce81bf9a13f80101fa683c946fe03e7e218df0d704b8720cc345c644816ff4f",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MagnificentGateway.swift",
+        "bytes": 21627,
+        "sha256": "221554a7990e5932912a284f09ccbe632e2738c0723aafd7b9e7b972ae8c6cf3",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MagnificentMile.swift",
+        "bytes": 34815,
+        "sha256": "64d4f06f2077deab1437350dd135b7751c272ec19ca8ad46078257810af53814",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/McCormickPlace.swift",
+        "bytes": 17828,
+        "sha256": "9c0cf2fc60063175bf0ab9a092104a59fbca5c5b20cbb245faa85d9df485ec42",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MetalRenderer.swift",
+        "bytes": 32556,
+        "sha256": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MillenniumEnvironment.swift",
+        "bytes": 26912,
+        "sha256": "42d2073f297cf8a35a25213d4fec8c4b6ce8d8cf22e6bfd58612fba5f26bf71d",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MillenniumScene.swift",
+        "bytes": 3142,
+        "sha256": "05d4164ccfdf55c0b4b4e7252fabd4462895a79518ca6e775ae669e540d7ac27",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MillenniumWalkthrough.swift",
+        "bytes": 3770,
+        "sha256": "fb03ebc9b7b49ea6e17609dc9c29db4c55dc3cef0fdb4e525628e20ed5b0a74a",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MotionValidation.swift",
+        "bytes": 13165,
+        "sha256": "bec9bfb95d8057d0745187721359497969a95cbde7d12d888a2c66f1543d8cfa",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MuseumBuildings.swift",
+        "bytes": 40621,
+        "sha256": "9bc17b778d441c4b16f8d411577ab64a36bba77c79d1434168f944c15cb43410",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MuseumCampusEnvironment.swift",
+        "bytes": 12845,
+        "sha256": "605bb023012d1293c5d8482cfab6b69686fdda74eb63e66000e95b84303d3921",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MuseumCampusScene.swift",
+        "bytes": 3517,
+        "sha256": "87bbf0df4da4698d230945cf2509fde458a08e4ce0f74dd287dc06651405671b",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/MuseumCampusWalkthrough.swift",
+        "bytes": 6065,
+        "sha256": "d9fc2e569239f0154311e3495e69e2d646ef3decf63a119f17018f7561506039",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/NightLighting.swift",
+        "bytes": 4026,
+        "sha256": "171a5fbe57ce1b8d7dbfc47edddde3e278bc805e04c5e1a8b20d33baac1a265d",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/NorthSideEnvironment.swift",
+        "bytes": 27331,
+        "sha256": "7cf8d32d9ea27885dfabc889ca0aaee658a0bfafe36f1a6b7c9ef7315ec9946f",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/NorthSideLandmarks.swift",
+        "bytes": 16162,
+        "sha256": "03b240d38355259e79e93a30ecc94e8adf307a2025e6547add2a1e4bb2f4f9d5",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/NorthSideScene.swift",
+        "bytes": 3764,
+        "sha256": "cfa12fe57606cd589b3345143943621df1d93a93e384cd6e9b7dbd3d4ae8506f",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/NorthSideWalkthrough.swift",
+        "bytes": 5068,
+        "sha256": "3f9b8e2d4087c46c36c541f84dd7091350f9b4e768fd9e228e7b6c792733e21c",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/OBJScene.swift",
+        "bytes": 21500,
+        "sha256": "a83afc81623719b2f26d8c364dd953693e03fde1554698f7db51cc6a06758752",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ParisEnvironment.swift",
+        "bytes": 19452,
+        "sha256": "c7ddc89a07c1e6f361a7d2e2e0682b0cea12fb70a9d21f1b602b7006097a3759",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+        "bytes": 807,
+        "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+        "bytes": 1973622,
+        "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+        "bytes": 18461,
+        "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+        "bytes": 1164,
+        "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+        "bytes": 19467025,
+        "sha256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+        "bytes": 763,
+        "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+        "bytes": 6396480,
+        "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+        "bytes": 840,
+        "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+        "bytes": 111248,
+        "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+        "bytes": 6988877,
+        "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+        "bytes": 1180,
+        "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+        "bytes": 23585826,
+        "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+        "bytes": 683,
+        "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+        "bytes": 1372461,
+        "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+        "bytes": 75773,
+        "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/RiverEnvironment.swift",
+        "bytes": 20824,
+        "sha256": "83861e457d2e862fc8d302f29cc81b53803e90de14489e9e934647483dfa78ea",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/RobieHouse.swift",
+        "bytes": 27451,
+        "sha256": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/RobieScene.swift",
+        "bytes": 3498,
+        "sha256": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/RobieWalkthrough.swift",
+        "bytes": 4293,
+        "sha256": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/SceneTypes.swift",
+        "bytes": 2775,
+        "sha256": "9419677d0016fa9526fe9f1ad63589f2459b59626e96fb867fe60304a4dd0fd5",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/SoldierField.swift",
+        "bytes": 10976,
+        "sha256": "4bfd13339fb90a95145611e6e8093444ac98c349455b8b89bead584f362b8500",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Traffic.swift",
+        "bytes": 13375,
+        "sha256": "e06f9bebcf55808f12d26f3e53c8e0d7b99be75b03025fd89a40522a6f457964",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/TrafficMetal.swift",
+        "bytes": 9128,
+        "sha256": "2c5615397dbe9c589f06bbf2c653ce6418b4a9add51ce383b04b08fbdf0306a6",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/ViewportPointerGesture.swift",
+        "bytes": 2494,
+        "sha256": "628233f877778c32e82a813be70d7d729b142b077598975fee0794e994493d29",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/Walkthrough.swift",
+        "bytes": 17213,
+        "sha256": "b16f64da0f4994674dc7c77bd1dc95815232e65dc9aa76f3f7d0acda3a82e8b2",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/WillisScene.swift",
+        "bytes": 26643,
+        "sha256": "2e3bf1eb604e13c69698db217d0b6818cd6be256ccc922e80c70007e76c94324",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/WillisWalkthrough.swift",
+        "bytes": 3234,
+        "sha256": "0c86369edb41097aa74d45de2cda0fc294d40124f6e5c3f234a3a59aa481043d",
+        "mode": "0644"
+      },
+      {
+        "path": "Sources/ArchitectureEngine/WrigleyField.swift",
+        "bytes": 44585,
+        "sha256": "a415d003317e5f6cb17146f7091d3a8f2c80f01acebc876352c5f0b768c73586",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Adler/ProjectionReconstruction.swift",
+        "bytes": 8047,
+        "sha256": "ad341e1096f1743fd7e6aad4e12bd778d0f37dacf94506954da9852db33ca8d1",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Adler/main.swift",
+        "bytes": 18097,
+        "sha256": "527ff00a38a9ed3c0080b4893274f608081fddd3d847bea8ab6ee38c886ba8f0",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/FocusNavigation/main.swift",
+        "bytes": 15079,
+        "sha256": "9715765cc0e970df8552be7726894218890999fe5e853c5ff407cd938f962832",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/FocusNavigationIntegration/main.swift",
+        "bytes": 4377,
+        "sha256": "6285b5fe10b50bfc29e2d3881a2ce6e9a9ecc842bf715f49e60b5405a838a608",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/HydeParkGeometry/main.swift",
+        "bytes": 3117,
+        "sha256": "5c5b041ad74492d1dc3ab89e681e1934afd2b42dacdd39c9ebd50c042125658f",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/LakefrontGeometry/main.swift",
+        "bytes": 2489,
+        "sha256": "2bcc0464332bd3ed7865900fc3c4368fb8667181e327718f1ab618453ce6f2aa",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/LargeGeometryGPU/README.md",
+        "bytes": 2248,
+        "sha256": "c9533ddbd4a5258b869a6380975f8a79173d59464734b6b40f239a0bb5d536cd",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/LargeGeometryGPU/main.swift",
+        "bytes": 16476,
+        "sha256": "db51fd90e7c32bb3a0101c418c7c437324b600a2098ef282e462fa8a183d526e",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/LightGrid/main.swift",
+        "bytes": 10141,
+        "sha256": "5a8ed55ccb5453a022555d35f7111f2729c1456a4b2455900eef2c2d314a94ac",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Lighting/main.swift",
+        "bytes": 7742,
+        "sha256": "2fc40134c4bd19365c64e4de6799dbb7c38ca0e5d914e723e3b1b6dc83f0843e",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/LincolnParkZoo/main.swift",
+        "bytes": 7890,
+        "sha256": "822cfddeacc619282e598bef91ace66ef7babeecb0c69f19650c192e3cfd17b0",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/MagnificentGateway/main.swift",
+        "bytes": 3371,
+        "sha256": "aa2e42c3d3c1533d7daaba8bfb27c5f20fcb54ae07ca73bbd57907ee98ef51cf",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/MagnificentMileGeometry/main.swift",
+        "bytes": 3578,
+        "sha256": "ff6f0a18a9b147a09a8ed5b827d06d34ee6ddf8c403fdd5e426187052b222900",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/McCormick/main.swift",
+        "bytes": 2779,
+        "sha256": "1db3242bb1e0e7f99bdcf7fb8d22f261dd9e985ea2e94a37a51b2e343c0acbff",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/MillenniumGeometry/main.swift",
+        "bytes": 2706,
+        "sha256": "a28db20bf5ea40aec72d900fd2f69839240b34d13d5b958d44881505cf7d15db",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/MuseumBuildingsGeometry/main.swift",
+        "bytes": 2686,
+        "sha256": "3e5d1b85299ab4521e258f395c192d00df7eace93673b619e059a6c592a4f0a1",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/MuseumCampusGeometry/main.swift",
+        "bytes": 6112,
+        "sha256": "cabe4b6e16d8a0cbc8578223eb9fb966255e973fdf09669f04f15724a7113c35",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Navigation/main.swift",
+        "bytes": 5147,
+        "sha256": "24fa64e0de5b921ff7cfd48d49275d9f70b1356e39133c9c2484a49caef97ffa",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/NorthSideGeometry/main.swift",
+        "bytes": 7287,
+        "sha256": "bd6e6e28c656b23a1082d229d45c0e9f39c2da8fd8ac05e53b2862dbb6f1c6ae",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/NorthSideLandmarks/main.swift",
+        "bytes": 2261,
+        "sha256": "b78784cd1b48b02df0d73ea8a32df428b8047c6459bc453642dd8feb48fe94e7",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/PairedMotion/main.swift",
+        "bytes": 4985,
+        "sha256": "7e39572c52f5a8a905f236372ddc7280ec9d52e33802421a997442f32e408844",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Playback/main.swift",
+        "bytes": 38696,
+        "sha256": "98a66932e744fc126dceb1b263d70e1c4e3df40c148be9505a775b9cf21fdf88",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/RobieHouseGeometry/main.swift",
+        "bytes": 5571,
+        "sha256": "1490fa813a04e72c01bd57fa62c04553561ab7f4ec44dffe8524e079b3cc5849",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/Traffic/main.swift",
+        "bytes": 17388,
+        "sha256": "5750738770d8c69bbd6e98b9c2bd50e94b82ab7049de40390aeb356d682e296d",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/ViewportInput/main.swift",
+        "bytes": 14919,
+        "sha256": "243a6c0dac64b7dd5a2cdbaeb93ed5e3fe23d4af16ad83fcdc9cb1b8279f16f0",
+        "mode": "0644"
+      },
+      {
+        "path": "Tests/WrigleyFieldGeometry/main.swift",
+        "bytes": 3763,
+        "sha256": "513bcf7b364c11b1bf56e70b64e797d6cabdef652f21dc4480c660dd728afd34",
+        "mode": "0644"
+      },
+      {
+        "path": "assets/Atelier-1024.png",
+        "bytes": 650512,
+        "sha256": "bb447d4871bd4fc8aece21a677804f96dae38c06302a170eec1763476f5dcba1",
+        "mode": "0644"
+      },
+      {
+        "path": "assets/Atelier-256.png",
+        "bytes": 54298,
+        "sha256": "465d312b02baa100c8803701cad9d5d2b92cde4cd42430f699394f9fea09fcef",
+        "mode": "0644"
+      },
+      {
+        "path": "assets/Atelier-512.png",
+        "bytes": 182028,
+        "sha256": "65839c264275f6286ff74f165c7a96ba7a5dde757a977378ea752890b7741cee",
+        "mode": "0644"
+      },
+      {
+        "path": "assets/Atelier.icns",
+        "bytes": 1151623,
+        "sha256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/build-app.sh",
+        "bytes": 3445,
+        "sha256": "beb464f901e8a6255f8a2e980192467ea312c3ef0fd918b122246168bbd75ccf",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/create-icon.swift",
+        "bytes": 6510,
+        "sha256": "b3c9107f239c5df646bc3bcdd34118cdda0be7341e65fe9e2fa3a94a2df65f73",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-hyde-park-osm-2026-09-08.json",
+        "bytes": 32482897,
+        "sha256": "0441d4803e73ba50550afa7639fbaff0942dc5e3baf43c1ed0c72700f4c5a77f",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-hyde-park-osm-2026-09-08.overpass",
+        "bytes": 603,
+        "sha256": "4f8bd0442c77588e8ee620427d7f143f14dda9e463c135cd458dca5b7e9cf057",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-hyde-park-shoreline-2026-09-08.json",
+        "bytes": 180690,
+        "sha256": "057a62fe5bab9019722d1a84a96bfe3a0a067febfbc9f1ca1ddf846852a4653e",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-hyde-park-shoreline-2026-09-08.overpass",
+        "bytes": 82,
+        "sha256": "d1be8a9766705ae28984e7b803bb2e64b933754e50a8891135ca38b52923cfad",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-lakefront-landscape-2026-09-08.json",
+        "bytes": 867004,
+        "sha256": "a75dd8d7b9169f2e384c953056a15f9989a546828349b993bafbfc89c6832450",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-lakefront-osm-2026-09-08.json",
+        "bytes": 23225086,
+        "sha256": "8eeaae8c8ec0dcf6760992962312d5705458d97907e9ff02a32a416cb109f813",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-lakefront-rail-2026-09-08.json",
+        "bytes": 64366,
+        "sha256": "7c5490f2452762bfc7311426ca036ecf474f7d800bf2169eb96fc0202c96f5cd",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-lakefront-shoreline-2026-09-08.json",
+        "bytes": 205051,
+        "sha256": "a1516f33d941fdffe675f9e5231f0ba41d0243abdcebeecedc1c0ac462c6e6a6",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-lakefront-water-2026-09-08.json",
+        "bytes": 513799,
+        "sha256": "1a6a6d4ff180fd13440298f07e5a2acfd2084a2e5797444602de7706b7c6c532",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-osm-2026-09-08.json",
+        "bytes": 13644890,
+        "sha256": "bace3119b914b8dce713cc47888785b12cb9f551152630a5f4005835aa15b5aa",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-osm-2026-09-08.overpass",
+        "bytes": 595,
+        "sha256": "d3663b4a47447803d13b10fc7aef4dd68e944b0f526e981c7cc86e5e528fc6dc",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-roads-2026-09-08.json",
+        "bytes": 18265,
+        "sha256": "de116809551286bda289028de63e36a2d18b7899308af9740fdbba0d10847aea",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-roads-2026-09-08.overpass",
+        "bytes": 127,
+        "sha256": "2a70c4047d42b997cbf2e1258560af6da624e62017d1a22b4d60de6b106c40f4",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-shoreline-2026-09-08.json",
+        "bytes": 233473,
+        "sha256": "56d55c4b9220e6c2c5d8c5575e3918032ca948b6ca147d775006ff4ff4f2f7ee",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-museum-campus-shoreline-2026-09-08.overpass",
+        "bytes": 82,
+        "sha256": "876e923107e5a94fd3e03e41422aa44ad2206172e0441bf4adeeec6e32d61e43",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-landmarks-2026-09-08.json",
+        "bytes": 3071065,
+        "sha256": "51351d8a57ee35045d2f133d089e5baf6cf3f5cfdcb9e5256e3f5e4e1000902c",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-osm-2026-09-08.json",
+        "bytes": 68921187,
+        "sha256": "0598f62a401eb021574c1c356a9017ac277aee8c2209a9eedf07cf9d4b406049",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-osm-2026-09-08.overpass",
+        "bytes": 601,
+        "sha256": "2c3839acb045ee802e55148b73af6d8c058c1a5918881785b098dbb7d31d0be6",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-roads-2026-09-08.json",
+        "bytes": 63180,
+        "sha256": "e68ae417b8b11a4e2173c86d2480888e1ad96cc494352e5ee8cde822244b9e72",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-roads-2026-09-08.overpass",
+        "bytes": 191,
+        "sha256": "dbf72c6f5191ee9384a176aca7fbd536dcec21e449eaed10f034e2b31f9ef3bc",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-shoreline-2026-09-08.json",
+        "bytes": 231365,
+        "sha256": "5745b01ef1e9462fe31b8b4f742017fe0caa5ae742a8b1c9d277573c340c19c0",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-north-side-shoreline-2026-09-08.overpass",
+        "bytes": 83,
+        "sha256": "6399c720a24b3962e35fca98a1be5ecea8f623a59e1407ddb2898363d079dcb5",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-osm-2026-09-07.json",
+        "bytes": 8674638,
+        "sha256": "37acb549dfa5b3f718f971a2b71a2fab76d3b7d7a18f3a26f56138d85de90cf6",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/chicago-robie-footprint-2026-09-08.json",
+        "bytes": 1922,
+        "sha256": "23d3389ac8b39c3f74ab9b4ab9b1164923c5da57486631ba6473592989c01b7a",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/millennium-osm-2026-09-08.json",
+        "bytes": 11302014,
+        "sha256": "b4f1cb803706c3b90fe476af93c6917e44836ef909b0496a8ad21ac95efc2efa",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/paris-osm-2026-09-07.json",
+        "bytes": 6322966,
+        "sha256": "7aa8289db6ec30eeb13061cac5ae1cfd42a6afab8b7094daaf326761c33cce71",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/data/paris-osm-relations-2026-09-07.json",
+        "bytes": 948145,
+        "sha256": "2a9796679991da910b50cc42bf4226707dc877d5e53c2eaaa4a7c830b995fdc4",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-chicago-context.py",
+        "bytes": 9164,
+        "sha256": "6a7b2fee50dda77547efd52207ad7ac09d946ab01c60b2375ca71fef1bd886e6",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-hyde-park-context.py",
+        "bytes": 19410,
+        "sha256": "9f941d48b08350aed0e312ae74cdfc39698ed6ee439f45054a7a65ab173e1ea0",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/prepare-lakefront-context.py",
+        "bytes": 16562,
+        "sha256": "26013c8559310991581d893f2eccffd1812d8b34177baf56998ff6538c5601e8",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-lincoln-park-zoo-map.py",
+        "bytes": 3641,
+        "sha256": "b42a9a9e70d7d026d1525b32693b59570f1c0a639b9e0821c120c25a3e1cda1b",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-millennium-context.py",
+        "bytes": 3837,
+        "sha256": "e00784f8ae516714af64fbd67e3752c28fd3a66fefc032008c8342639c9b991d",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-museum-campus-context.py",
+        "bytes": 16834,
+        "sha256": "ee4f7d033e767679aab541857a80e2d9eb2c23420f62753feb10ae43d4837019",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/prepare-north-side-context.py",
+        "bytes": 27111,
+        "sha256": "d15b522930553eadd1f501fd93ec474ed5cea37ecf02d92a01804b051a5926f8",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/prepare-paris-context.py",
+        "bytes": 5506,
+        "sha256": "547cf3a488af575afc5eadc4016e45656ad62806c6b429d589a5bcb9716a6779",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/render-hyde-park-context-map.py",
+        "bytes": 4674,
+        "sha256": "04a868586f4c04f778767b8d2fe15c4121efa884c18c57d0daeca95cc6300092",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/requirements-map.txt",
+        "bytes": 15,
+        "sha256": "a9da53f34af90c2cc5b9ee96f0ef865935582d869aba11fb0eeb105cb01d6e63",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-adler.sh",
+        "bytes": 1413,
+        "sha256": "8d87e02db1159535b66481234df9bbb30312fbbd33186244cef3f7e60ee66a8d",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-atmosphere.swift",
+        "bytes": 13702,
+        "sha256": "5ff14364d55a513505ab174648ebd739e0e6ddf9dcbbc298f03cea318c0f2a7c",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-chicago-context.py",
+        "bytes": 2168,
+        "sha256": "6fe9e9e5cc1697a0fd986da2e7dfa1ef08290c34660e79adc8203f8acdcc6bca",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-denoiser.swift",
+        "bytes": 45966,
+        "sha256": "4244f7d6a3e0ea1172dd6748b04c3daff647131d2163e19069cad61f1fb08a10",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-focus-navigation-integration.sh",
+        "bytes": 2199,
+        "sha256": "27729b67efbfc8262f0d8faf386f875e25c4c3129ba45a9ec1cf315d76043758",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-focus-navigation.sh",
+        "bytes": 780,
+        "sha256": "322d22ca1fc20811ad5307d1392014801b78faaa226fa2d1e405aa18a4d17a7a",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-glass.swift",
+        "bytes": 9637,
+        "sha256": "dffc10fd1fa13e993788e7a8bcafb8167e2b48b2fa05ea6774a6aa26f9d71f88",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-hyde-park-context.py",
+        "bytes": 4091,
+        "sha256": "c9a52a893e5656c49f10c96b84e020b47df89de095ad70942c863c6d36ceeee5",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-hyde-park-geometry.sh",
+        "bytes": 886,
+        "sha256": "954c99591ae17e6fa2ee87bb388debb657aa4ea6495e7c6b3b9f5552ca5962dc",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-indexed-lighting.sh",
+        "bytes": 354,
+        "sha256": "e2591c2ef91d3818d134d100ee51e254bf16411a8cd2038b7577761a5950a31d",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-lakefront-context.py",
+        "bytes": 7598,
+        "sha256": "b74315c5cda184ada8adcbfc272285bfdddb8b6cf1609e4c3a30cb344c4cdbda",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-lakefront-geometry.sh",
+        "bytes": 867,
+        "sha256": "91b262c7442f67bd8195bef930d5b973725556f02e5d82ec5e75a62ffdabd6f8",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-large-geometry-gpu.sh",
+        "bytes": 445,
+        "sha256": "629d9e4f10249c84c5826950970aa14a9872fab786ef9e2fd314bf94f32b2459",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-light-grid.sh",
+        "bytes": 415,
+        "sha256": "e943a4d301ca2980b96abaf208b19b2b09d2d35b246039d12837dd99a36403ad",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-lincoln-park-zoo.sh",
+        "bytes": 914,
+        "sha256": "ada479447c556e2e972c208186fae66acf7889607521d8652387ca6920255594",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-magnificent-gateway.sh",
+        "bytes": 2189,
+        "sha256": "bc879b86c7465b26c7ea15b2e70f365587ae401f1159702a372c16358d4777b0",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-magnificent-mile.sh",
+        "bytes": 613,
+        "sha256": "7871cbc39309774facaf805b5046604a71214939b89963315d0ef3760fa7ffc7",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-mccormick.sh",
+        "bytes": 2194,
+        "sha256": "86f4c4221a378152bb4b075c566129c5de572603d33e992bb8defab509ad0425",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-metal.swift",
+        "bytes": 18308,
+        "sha256": "ebda2f1fb58f2167072aa83dc51fd62f1e77c14cbe5194ec29c45901d2ca70d4",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-millennium-context.py",
+        "bytes": 1914,
+        "sha256": "7cc29ca2aa7c01bd67220db78eb4302d76c0a0c6923ffd82ca3fa5144d0789b0",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-millennium-geometry.sh",
+        "bytes": 644,
+        "sha256": "b99017b1cc23fccdca8eeed60f194ab9f343b3468e88593446a156a2efd7f64d",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-museum-buildings.sh",
+        "bytes": 639,
+        "sha256": "4f667a8783e4c6cbed3f15e1a15e368c4efa2cae590b7c380f65353965767489",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-museum-campus-context.py",
+        "bytes": 7041,
+        "sha256": "8e421938799419fc0f88ac36c3a1203fc865df87802e4e07991560663d5947b2",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-museum-campus-geometry.sh",
+        "bytes": 890,
+        "sha256": "3a21c9d8342ad06b974bdb29c8dab1558d2f9eed68b60be8c00c6b947b6f5dab",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-navigation.sh",
+        "bytes": 2003,
+        "sha256": "0cf63bdce885082e2f17af3948183d9ca36c7fdf6def575ae52ca4fe94ac2331",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-north-side-context.py",
+        "bytes": 11565,
+        "sha256": "1584dd1eab602ccc67d503f01215333b8cd2f819316f6ba766b108e84e501965",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-north-side-geometry.sh",
+        "bytes": 836,
+        "sha256": "b778a24022ff5e057e1fa271dec6d56d827afd143e61f516f72e962a196de526",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-north-side-landmarks.sh",
+        "bytes": 942,
+        "sha256": "a0863c0d017066d14b592477620dd80549fea95b746fdb5581911f2e05d15100",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-paired-motion.sh",
+        "bytes": 809,
+        "sha256": "9ad9fd0ebe339a2632f98a0d914381942b280c856be3150322df48fdc2984cf2",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-paris-context.py",
+        "bytes": 2183,
+        "sha256": "eaca58dd5fa5e82365527c8d14def5581ed17fd7039a227dca4398e32859e4a0",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-playback.sh",
+        "bytes": 2030,
+        "sha256": "a1f861eba74c864c45e7445edf2d17214f1e5fdd5aeb17d98d00f3d64e413fb4",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-regularization.swift",
+        "bytes": 15273,
+        "sha256": "0285579585083259579a330c7155e9a0a06113e6cfe8003f22775f56737e6124",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-robie-house.sh",
+        "bytes": 624,
+        "sha256": "773a8106f907f89725335298bd6bc43df0979173107742df79ad3b7f87ce8778",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-sampling.swift",
+        "bytes": 14892,
+        "sha256": "52e5fab86f0d75eed8c674041942d7204976fdde23317ef4d93cb3d02015b55f",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-temporal-detail.swift",
+        "bytes": 24964,
+        "sha256": "672cdd22c62e74d6d3e85d07814d276c2ae7fb77208598ae8cfdc8c80a79f845",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-traffic.sh",
+        "bytes": 648,
+        "sha256": "13928b0f8920dde790c868ca1fbd80c5af46757ba92da516439b8d15f33a061f",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-video-timing.py",
+        "bytes": 2964,
+        "sha256": "d463792a3323e07fbb14be1fa2e37de1cd7ee8af272aa796b58c2220d77736c7",
+        "mode": "0644"
+      },
+      {
+        "path": "scripts/validate-viewport-input.sh",
+        "bytes": 470,
+        "sha256": "4b87dae22c0020b8b68e27d658a99543f973aa7d8b58302a2f2cf73c2d3e227a",
+        "mode": "0755"
+      },
+      {
+        "path": "scripts/validate-wrigley-field.sh",
+        "bytes": 638,
+        "sha256": "6397736f5cfa3a895b117405307b2c1b9c6a41d8e04c09658759f1aa53c0be0e",
+        "mode": "0755"
+      }
+    ]
+  },
+  "packageInventory": {
+    "fileCount": 20,
+    "totalBytes": 65686563,
+    "canonicalInventorySHA256": "4b4ce975fc46f5420d6ab1e44df1876391da48c678d6c8107a746076f243d5bf",
+    "files": [
+      {
+        "path": "dist/Atelier.app/Contents/Info.plist",
+        "bytes": 1058,
+        "sha256": "c367bbb20e1a9a7bf4dc2c6c0df2e2d8bbec91cf26fab4f583461a936ad20840",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "bytes": 4519008,
+        "sha256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+        "mode": "0755"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ATTRIBUTION.txt",
+        "bytes": 807,
+        "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ChicagoContext.json",
+        "bytes": 1973622,
+        "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal",
+        "bytes": 18461,
+        "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/ATTRIBUTION.txt",
+        "bytes": 1164,
+        "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/HydeParkContext.json",
+        "bytes": 19467025,
+        "sha256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/ATTRIBUTION.txt",
+        "bytes": 763,
+        "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/LakefrontContext.json",
+        "bytes": 6396480,
+        "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/ATTRIBUTION.txt",
+        "bytes": 840,
+        "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/MillenniumContext.json",
+        "bytes": 111248,
+        "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/MuseumCampus/MuseumCampusContext.json",
+        "bytes": 6988877,
+        "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/ATTRIBUTION.txt",
+        "bytes": 1180,
+        "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/NorthSideContext.json",
+        "bytes": 23585826,
+        "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ATTRIBUTION.txt",
+        "bytes": 683,
+        "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ParisContext.json",
+        "bytes": 1372461,
+        "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal",
+        "bytes": 75773,
+        "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Sampling-LICENSE.txt",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/Resources/Atelier.icns",
+        "bytes": 1151623,
+        "sha256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd",
+        "mode": "0644"
+      },
+      {
+        "path": "dist/Atelier.app/Contents/_CodeSignature/CodeResources",
+        "bytes": 8306,
+        "sha256": "38497e598d69af85cd86a45b68b88d8a1191c9073362948f39997870f42fe344",
+        "mode": "0644"
+      }
+    ]
+  },
+  "resourcePairing": {
+    "status": "PASS",
+    "sourceResourceCount": 16,
+    "packagedResourceCount": 16,
+    "files": [
+      {
+        "resource": "Chicago/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ATTRIBUTION.txt",
+        "sourceSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+        "packageSHA256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0",
+        "matches": true
+      },
+      {
+        "resource": "Chicago/ChicagoContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Chicago/ChicagoContext.json",
+        "sourceSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+        "packageSHA256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+        "matches": true
+      },
+      {
+        "resource": "Denoise.metal",
+        "source": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Denoise.metal",
+        "sourceSHA256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+        "packageSHA256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+        "matches": true
+      },
+      {
+        "resource": "HydePark/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/ATTRIBUTION.txt",
+        "sourceSHA256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+        "packageSHA256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb",
+        "matches": true
+      },
+      {
+        "resource": "HydePark/HydeParkContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/HydePark/HydeParkContext.json",
+        "sourceSHA256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+        "packageSHA256": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04",
+        "matches": true
+      },
+      {
+        "resource": "Lakefront/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/ATTRIBUTION.txt",
+        "sourceSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+        "packageSHA256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b",
+        "matches": true
+      },
+      {
+        "resource": "Lakefront/LakefrontContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Lakefront/LakefrontContext.json",
+        "sourceSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+        "packageSHA256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+        "matches": true
+      },
+      {
+        "resource": "Millennium/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/ATTRIBUTION.txt",
+        "sourceSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+        "packageSHA256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474",
+        "matches": true
+      },
+      {
+        "resource": "Millennium/MillenniumContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Millennium/MillenniumContext.json",
+        "sourceSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+        "packageSHA256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b",
+        "matches": true
+      },
+      {
+        "resource": "MuseumCampus/MuseumCampusContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/MuseumCampus/MuseumCampusContext.json",
+        "sourceSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+        "packageSHA256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+        "matches": true
+      },
+      {
+        "resource": "NorthSide/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/ATTRIBUTION.txt",
+        "sourceSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+        "packageSHA256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e",
+        "matches": true
+      },
+      {
+        "resource": "NorthSide/NorthSideContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/NorthSide/NorthSideContext.json",
+        "sourceSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+        "packageSHA256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01",
+        "matches": true
+      },
+      {
+        "resource": "Paris/ATTRIBUTION.txt",
+        "source": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ATTRIBUTION.txt",
+        "sourceSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+        "packageSHA256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105",
+        "matches": true
+      },
+      {
+        "resource": "Paris/ParisContext.json",
+        "source": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Paris/ParisContext.json",
+        "sourceSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+        "packageSHA256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6",
+        "matches": true
+      },
+      {
+        "resource": "Renderer.metal",
+        "source": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Renderer.metal",
+        "sourceSHA256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "packageSHA256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+        "matches": true
+      },
+      {
+        "resource": "Sampling-LICENSE.txt",
+        "source": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+        "package": "dist/Atelier.app/Contents/Resources/ArchitectureEngine_ArchitectureEngine.bundle/Resources/Sampling-LICENSE.txt",
+        "sourceSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "packageSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "matches": true
+      }
+    ],
+    "icon": {
+      "source": "assets/Atelier.icns",
+      "package": "dist/Atelier.app/Contents/Resources/Atelier.icns",
+      "sourceSHA256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd",
+      "packageSHA256": "9e5b1109a8a9394c3cdfb2e528c89652960a563a86bcb754491149d8e6054edd",
+      "matches": true
+    }
+  },
+  "commands": {
+    "architecture": {
+      "command": [
+        "xcrun",
+        "lipo",
+        "-archs",
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine"
+      ],
+      "exitCode": 0,
+      "stdout": "arm64",
+      "stderr": ""
+    },
+    "file": {
+      "command": [
+        "file",
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine"
+      ],
+      "exitCode": 0,
+      "stdout": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine: Mach-O 64-bit executable arm64",
+      "stderr": ""
+    },
+    "strictSignature": {
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "--verbose=4",
+        "/Users/william/dev/architecture/dist/Atelier.app"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "/Users/william/dev/architecture/dist/Atelier.app: valid on disk\n/Users/william/dev/architecture/dist/Atelier.app: satisfies its Designated Requirement"
+    },
+    "signatureDetails": {
+      "command": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/william/dev/architecture/dist/Atelier.app"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine\nIdentifier=local.atelier.architecture\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20400 size=9011 flags=0x2(adhoc) hashes=275+3 location=embedded\nVersionPlatform=1\nVersionMin=917504\nVersionSDK=917504\nHash type=sha256 size=32\nCandidateCDHash sha256=b2fa659597cc6f87180314135b4de996fac5f58d\nCandidateCDHashFull sha256=b2fa659597cc6f87180314135b4de996fac5f58dce4c4816783d66af3b727253\nHash choices=sha256\nCMSDigest=b2fa659597cc6f87180314135b4de996fac5f58dce4c4816783d66af3b727253\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=2097152\nExecutable Segment flags=0x1\nPage size=16384\nCDHash=b2fa659597cc6f87180314135b4de996fac5f58d\nSignature=adhoc\nInfo.plist entries=14\nTeamIdentifier=not set\nSealed Resources version=2 rules=13 files=17\nInternal requirements count=0 size=12"
+    },
+    "plistSyntax": {
+      "command": [
+        "plutil",
+        "-lint",
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/Info.plist"
+      ],
+      "exitCode": 0,
+      "stdout": "/Users/william/dev/architecture/dist/Atelier.app/Contents/Info.plist: OK",
+      "stderr": ""
+    }
+  },
+  "markdownLocalFileLinks": {
+    "scope": "Inline Markdown links/images on inserted or replaced lines versus HEAD, plus new nonignored Markdown files; file existence only, excluding remote URLs and anchor validation.",
+    "documents": [
+      "README.md",
+      "Tests/LargeGeometryGPU/README.md",
+      "docs/DEMO.md",
+      "docs/FOCUS.md",
+      "docs/HYDE-PARK.md",
+      "docs/MOTION.md",
+      "docs/NEXT-CHICAGO-LANDMARK.md",
+      "docs/ROBIE-HOUSE.md",
+      "docs/VALIDATION.md",
+      "docs/validation/v1.9/performance-ablation/README.md"
+    ],
+    "checkedCount": 84,
+    "existingCount": 84,
+    "pendingValidationFiles": [],
+    "missingFiles": [],
+    "links": [
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/ROBIE-HOUSE.md",
+        "resolved": "docs/ROBIE-HOUSE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/HYDE-PARK.md",
+        "resolved": "docs/HYDE-PARK.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/NORTH-SIDE.md",
+        "resolved": "docs/NORTH-SIDE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/NORTH-SIDE-LANDMARKS.md",
+        "resolved": "docs/NORTH-SIDE-LANDMARKS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/LINCOLN-PARK-ZOO.md",
+        "resolved": "docs/LINCOLN-PARK-ZOO.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/WRIGLEY-FIELD.md",
+        "resolved": "docs/WRIGLEY-FIELD.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MUSEUM-CAMPUS.md",
+        "resolved": "docs/MUSEUM-CAMPUS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MUSEUM-BUILDINGS.md",
+        "resolved": "docs/MUSEUM-BUILDINGS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/ADLER.md",
+        "resolved": "docs/ADLER.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MCCORMICK-PLACE.md",
+        "resolved": "docs/MCCORMICK-PLACE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/LAKEFRONT.md",
+        "resolved": "docs/LAKEFRONT.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MAGNIFICENT-MILE.md",
+        "resolved": "docs/MAGNIFICENT-MILE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MAGNIFICENT-GATEWAY.md",
+        "resolved": "docs/MAGNIFICENT-GATEWAY.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/MILLENNIUM.md",
+        "resolved": "docs/MILLENNIUM.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/ART-INSTITUTE.md",
+        "resolved": "docs/ART-INSTITUTE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/WILLIS.md",
+        "resolved": "docs/WILLIS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/CHICAGO.md",
+        "resolved": "docs/CHICAGO.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 13,
+        "target": "docs/PARIS.md",
+        "resolved": "docs/PARIS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 15,
+        "target": "docs/images/Robie-House-Day.png",
+        "resolved": "docs/images/Robie-House-Day.png",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 17,
+        "target": "docs/images/Robie-House-Living-Room.png",
+        "resolved": "docs/images/Robie-House-Living-Room.png",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 42,
+        "target": "docs/DEMO.md",
+        "resolved": "docs/DEMO.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 252,
+        "target": "docs/LAKEFRONT.md",
+        "resolved": "docs/LAKEFRONT.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 252,
+        "target": "docs/MUSEUM-CAMPUS.md",
+        "resolved": "docs/MUSEUM-CAMPUS.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 252,
+        "target": "docs/NORTH-SIDE.md",
+        "resolved": "docs/NORTH-SIDE.md",
+        "status": "exists"
+      },
+      {
+        "document": "README.md",
+        "line": 252,
+        "target": "docs/HYDE-PARK.md",
+        "resolved": "docs/HYDE-PARK.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/DEMO.md",
+        "line": 16,
+        "target": "ROBIE-HOUSE.md",
+        "resolved": "docs/ROBIE-HOUSE.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/DEMO.md",
+        "line": 16,
+        "target": "HYDE-PARK.md",
+        "resolved": "docs/HYDE-PARK.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/DEMO.md",
+        "line": 53,
+        "target": "VALIDATION.md",
+        "resolved": "docs/VALIDATION.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/FOCUS.md",
+        "line": 19,
+        "target": "DEMO.md",
+        "resolved": "docs/DEMO.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/FOCUS.md",
+        "line": 36,
+        "target": "VALIDATION.md",
+        "resolved": "docs/VALIDATION.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/HYDE-PARK.md",
+        "line": 3,
+        "target": "ROBIE-HOUSE.md",
+        "resolved": "docs/ROBIE-HOUSE.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/HYDE-PARK.md",
+        "line": 28,
+        "target": "images/Hyde-Park-Map-Review.png",
+        "resolved": "docs/images/Hyde-Park-Map-Review.png",
+        "status": "exists"
+      },
+      {
+        "document": "docs/HYDE-PARK.md",
+        "line": 44,
+        "target": "VALIDATION.md",
+        "resolved": "docs/VALIDATION.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/MOTION.md",
+        "line": 12,
+        "target": "validation/v1.9/motion-before-fix.json",
+        "resolved": "docs/validation/v1.9/motion-before-fix.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/MOTION.md",
+        "line": 12,
+        "target": "validation/v1.9/motion-flight-final.json",
+        "resolved": "docs/validation/v1.9/motion-flight-final.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/MOTION.md",
+        "line": 14,
+        "target": "validation/v1.9/motion-final-robie.json",
+        "resolved": "docs/validation/v1.9/motion-final-robie.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/MOTION.md",
+        "line": 14,
+        "target": "validation/v1.9/motion-final-summary.json",
+        "resolved": "docs/validation/v1.9/motion-final-summary.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/MOTION.md",
+        "line": 16,
+        "target": "validation/v1.9/denoiser-validation.txt",
+        "resolved": "docs/validation/v1.9/denoiser-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/NEXT-CHICAGO-LANDMARK.md",
+        "line": 3,
+        "target": "ROBIE-HOUSE.md",
+        "resolved": "docs/ROBIE-HOUSE.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/NEXT-CHICAGO-LANDMARK.md",
+        "line": 3,
+        "target": "HYDE-PARK.md",
+        "resolved": "docs/HYDE-PARK.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/NEXT-CHICAGO-LANDMARK.md",
+        "line": 3,
+        "target": "DEMO.md",
+        "resolved": "docs/DEMO.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/ROBIE-HOUSE.md",
+        "line": 21,
+        "target": "../scripts/data/chicago-robie-footprint-2026-09-08.json",
+        "resolved": "scripts/data/chicago-robie-footprint-2026-09-08.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/ROBIE-HOUSE.md",
+        "line": 37,
+        "target": "../scripts/validate-robie-house.sh",
+        "resolved": "scripts/validate-robie-house.sh",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 7,
+        "target": "ROBIE-HOUSE.md",
+        "resolved": "docs/ROBIE-HOUSE.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 7,
+        "target": "HYDE-PARK.md",
+        "resolved": "docs/HYDE-PARK.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 9,
+        "target": "DEMO.md",
+        "resolved": "docs/DEMO.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/robie-geometry.json",
+        "resolved": "docs/validation/v1.9/robie-geometry.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/hyde-park-data-validation.json",
+        "resolved": "docs/validation/v1.9/hyde-park-data-validation.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/hyde-park-geometry.json",
+        "resolved": "docs/validation/v1.9/hyde-park-geometry.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/robie-night-polish-navigation-equivalence.json",
+        "resolved": "docs/validation/v1.9/robie-night-polish-navigation-equivalence.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/playback-validation.txt",
+        "resolved": "docs/validation/v1.9/playback-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 11,
+        "target": "validation/v1.9/focus-integration.json",
+        "resolved": "docs/validation/v1.9/focus-integration.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 15,
+        "target": "validation/v1.9/geometry-capacity-discovery.json",
+        "resolved": "docs/validation/v1.9/geometry-capacity-discovery.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 15,
+        "target": "validation/v1.9/geometry-partition-review.json",
+        "resolved": "docs/validation/v1.9/geometry-partition-review.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 17,
+        "target": "validation/v1.9/light-grid-validation.txt",
+        "resolved": "docs/validation/v1.9/light-grid-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 17,
+        "target": "validation/v1.9/indexed-lighting-validation.txt",
+        "resolved": "docs/validation/v1.9/indexed-lighting-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 19,
+        "target": "validation/v1.9/large-geometry-gpu.json",
+        "resolved": "docs/validation/v1.9/large-geometry-gpu.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 19,
+        "target": "validation/v1.9/large-geometry-fixture-investigation.json",
+        "resolved": "docs/validation/v1.9/large-geometry-fixture-investigation.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 23,
+        "target": "validation/v1.9/motion-before-fix.json",
+        "resolved": "docs/validation/v1.9/motion-before-fix.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 23,
+        "target": "validation/v1.9/denoiser-validation.txt",
+        "resolved": "docs/validation/v1.9/denoiser-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 23,
+        "target": "MOTION.md",
+        "resolved": "docs/MOTION.md",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-summary.json",
+        "resolved": "docs/validation/v1.9/motion-final-summary.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-robie.json",
+        "resolved": "docs/validation/v1.9/motion-final-robie.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-field.json",
+        "resolved": "docs/validation/v1.9/motion-final-field.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-willis.json",
+        "resolved": "docs/validation/v1.9/motion-final-willis.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-bean.json",
+        "resolved": "docs/validation/v1.9/motion-final-bean.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-iron.json",
+        "resolved": "docs/validation/v1.9/motion-final-iron.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 42,
+        "target": "validation/v1.9/motion-final-eiffel-night.json",
+        "resolved": "docs/validation/v1.9/motion-final-eiffel-night.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 46,
+        "target": "validation/v1.9/motion-flight-final.json",
+        "resolved": "docs/validation/v1.9/motion-flight-final.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 46,
+        "target": "validation/v1.9/final-gpu-batch.json",
+        "resolved": "docs/validation/v1.9/final-gpu-batch.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 46,
+        "target": "validation/v1.9/final-gpu-evidence-index.json",
+        "resolved": "docs/validation/v1.9/final-gpu-evidence-index.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 48,
+        "target": "validation/v1.9/baseline-field-hall.json",
+        "resolved": "docs/validation/v1.9/baseline-field-hall.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 48,
+        "target": "validation/v1.9/motion-final-field.json",
+        "resolved": "docs/validation/v1.9/motion-final-field.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 50,
+        "target": "validation/v1.9/paired-motion-validation.txt",
+        "resolved": "docs/validation/v1.9/paired-motion-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 50,
+        "target": "validation/v1.9/traffic-validation.txt",
+        "resolved": "docs/validation/v1.9/traffic-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 50,
+        "target": "validation/v1.9/indexed-lighting-validation.txt",
+        "resolved": "docs/validation/v1.9/indexed-lighting-validation.txt",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 54,
+        "target": "validation/v1.9/release-manifest.json",
+        "resolved": "docs/validation/v1.9/release-manifest.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 56,
+        "target": "validation/v1.9/standalone-package.json",
+        "resolved": "docs/validation/v1.9/standalone-package.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 58,
+        "target": "validation/v1.9/robie-visual-review.json",
+        "resolved": "docs/validation/v1.9/robie-visual-review.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/VALIDATION.md",
+        "line": 58,
+        "target": "validation/v1.9/hyde-park-flight-visual-review.json",
+        "resolved": "docs/validation/v1.9/hyde-park-flight-visual-review.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/validation/v1.9/performance-ablation/README.md",
+        "line": 45,
+        "target": "inputs.json",
+        "resolved": "docs/validation/v1.9/performance-ablation/inputs.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/validation/v1.9/performance-ablation/README.md",
+        "line": 45,
+        "target": "results.json",
+        "resolved": "docs/validation/v1.9/performance-ablation/results.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/validation/v1.9/performance-ablation/README.md",
+        "line": 46,
+        "target": "investigation.json",
+        "resolved": "docs/validation/v1.9/performance-ablation/investigation.json",
+        "status": "exists"
+      },
+      {
+        "document": "docs/validation/v1.9/performance-ablation/README.md",
+        "line": 47,
+        "target": "artifact-index.json",
+        "resolved": "docs/validation/v1.9/performance-ablation/artifact-index.json",
+        "status": "exists"
+      }
+    ]
+  },
+  "stability": {
+    "sourceInventoryUnchangedDuringAudit": true,
+    "packageInventoryUnchangedDuringAudit": true,
+    "referenceManifestUnchangedDuringAudit": true,
+    "method": "Every source/package file is hashed twice, with source selection and immutable reference rechecked."
+  },
+  "findings": []
+}

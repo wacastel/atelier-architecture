@@ -1,0 +1,9 @@
+Building Atelier for Apple Silicon…
+[0/1] Planning build
+Building for production...
+[0/2] Write swift-version--1AB21518FC5DEDBE.txt
+[2/3] Compiling ArchitectureEngine AdlerPlanetarium.swift
+Build complete! (63.23s)
+/Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source/dist/.atelier-build.QyrCXs/Atelier.app/Contents/Info.plist: OK
+/Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source/dist/.atelier-build.QyrCXs/Atelier.app: replacing existing signature
+Built /Users/william/dev/architecture/output/v10-review/house-polish-ablation/no-polish-source/dist/Atelier.app

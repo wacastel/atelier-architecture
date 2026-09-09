@@ -210,6 +210,21 @@ expect(ArchitectureLocation.northside.world == ArchitectureLocation.millennium.w
 expect(samePose(NorthSideWalkthrough.pose(view:0,seconds:240),NorthSideScene.stops[3].pose), "Millennium–Zoo flight ends at the exact Nature Boardwalk bookmark")
 expect(samePose(NorthSideWalkthrough.pose(view:6,seconds:240),NorthSideScene.stops[7].pose), "Zoo–Wrigley flight ends at the exact Wrigley bookmark")
 
+// The Robie connection has its own six-minute transport clock and joins the
+// opening house bookmark exactly, within the same resident Chicago geometry.
+var robieFlight = WalkthroughPlayback(location: .robie)
+robieFlight.select(RobieWalkthrough.flybyView)
+expect(robieFlight.duration == 360, "McCormick–Robie flight has its complete six-minute timeline")
+expect(samePose(ArchitectureLocation.robie.pose(view: RobieWalkthrough.flybyView, seconds: robieFlight.duration), ArchitectureLocation.robie.stops[0].pose), "McCormick–Robie flight ends at the exact opening house bookmark")
+expect(ArchitectureLocation.robie.world == ArchitectureLocation.campus.world, "Robie House and McCormick Place retain one resident Chicago world")
+robieFlight.seek(progress: 0.75); robieFlight.transport(.reverse); robieFlight.advance(5)
+expect(robieFlight.time == 260, "Robie flight seek and rewind use the entire six-minute route")
+robieFlight.toggle(); let robiePausedPose = robieFlight.pose; robieFlight.advance(30)
+expect(robieFlight.time == 260 && samePose(robieFlight.pose, robiePausedPose), "Pausing the Robie flight holds its exact route time and camera")
+for view in ArchitectureLocation.robie.stops.indices where view != RobieWalkthrough.flybyView {
+    expect(ArchitectureLocation.robie.duration(view: view) == 120, "Robie house study \(view) retains its full two-minute timeline")
+}
+
 // The day/night shortcut must not restart or resume a selected animation.
 for location in ArchitectureLocation.allCases {
     var lightingClock = WalkthroughPlayback(location: location)
@@ -228,20 +243,20 @@ for location in ArchitectureLocation.allCases {
     expect(lightingClock.idleCycling && lightingClock.idleDwellTime == dwell && lightingClock.idleTime == idleTime, "\(location.name) N preserves the idle sequence and dwell clock")
 }
 
-// Chicago demo sequences full route durations across all five resident sets.
+// Chicago demo sequences full route durations across every resident Chicago set.
 // Use an independent explicit order to catch accidental Paris inclusion/reordering.
-let demoLocations: [ArchitectureLocation] = [.chicago, .millennium, .lakefront, .campus, .northside]
+let demoLocations: [ArchitectureLocation] = [.chicago, .millennium, .lakefront, .campus, .northside, .robie]
 let demoRoutes = demoLocations.flatMap { location in location.stops.indices.map { (location, $0, location.duration(view: $0)) } }
 let demoPass = demoRoutes.reduce(0.0) { $0 + $1.2 }
 expect(WalkthroughPlayback.chicagoDemoLocations == demoLocations, "Demo follows Chicago enum order and excludes Paris")
-expect(WalkthroughPlayback.chicagoDemoRouteCount == 40 && demoRoutes.count == 40, "Demo exposes all forty Chicago routes")
+expect(WalkthroughPlayback.chicagoDemoRouteCount == demoRoutes.count && demoRoutes.count == demoLocations.reduce(0) { $0 + $1.stops.count }, "Demo exposes every view from every Chicago location")
 expect(WalkthroughPlayback.chicagoDemoDuration == demoPass, "Demo reports the sum of full route durations")
 var demo = WalkthroughPlayback(location: .paris)
 demo.select(8); demo.setLighting(1); demo.setSpeed(2); demo.setIdleSpeed(0.5); demo.manual()
-demo.startChicagoDemo()
-expect(demo.demoActive && demo.location == .chicago && demo.view == 0 && demo.time == 0 && demo.state == .playing && !demo.idleCycling, "Demo starts at Willis opening walkthrough from any location/state")
+demo.startChicagoDemo(routeIndex: 0)
+expect(demo.demoActive && demo.location == .chicago && demo.view == 0 && demo.time == 0 && demo.state == .playing && !demo.idleCycling, "Explicit demo route zero starts at Willis opening walkthrough from any location/state")
 expect(demo.lighting == 1 && demo.speed == 2 && demo.idleSpeed == 0.5, "Starting demo preserves selected lighting and both pace preferences")
-expect(demo.direction == .forward && demo.shuttle == 1 && demo.demoProgress == 0 && demo.demoTitle.contains("1/40"), "Demo starts with ordinary forward transport and clear progress/title")
+expect(demo.direction == .forward && demo.shuttle == 1 && demo.demoProgress == 0 && demo.demoTitle.contains("1/\(demoRoutes.count)"), "Demo starts with ordinary forward transport and clear progress/title")
 demo.setSpeed(1); demo.setLighting(0)
 for pass in 0..<3 {
     for (index, route) in demoRoutes.enumerated() {
@@ -253,32 +268,122 @@ for pass in 0..<3 {
 }
 expect(demo.location == .chicago && demo.view == 0 && demo.lighting == 2 && demo.demoProgress == 0, "Completed demo repeats from Willis and alternates day/night")
 
+// Each possible random opening keeps the fixed sequence until a new demo starts.
+// The full-city boundary changes lighting even when the opening was mid-city.
+for startIndex in demoRoutes.indices {
+    var started = WalkthroughPlayback(location: .paris)
+    started.setLighting(2); started.startChicagoDemo(routeIndex: startIndex)
+    for step in demoRoutes.indices {
+        let absoluteIndex = startIndex + step
+        let expectedIndex = absoluteIndex % demoRoutes.count
+        let route = demoRoutes[expectedIndex]
+        expect(started.demoRouteIndex == expectedIndex && started.location == route.0 && started.view == route.1 && started.time == 0 && started.state == .playing, "Opening route \(startIndex) advances sequentially to step \(step)")
+        expect(started.lighting == (absoluteIndex < demoRoutes.count ? 2 : 0), "Opening route \(startIndex) changes lighting only at the city boundary")
+        started.advance(route.2)
+    }
+    expect(started.demoRouteIndex == startIndex && started.lighting == 0 && started.time == 0, "A full pass from opening \(startIndex) visits every route and returns in opposite lighting")
+}
+
+struct DemoSeedGenerator: RandomNumberGenerator {
+    var state: UInt64
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var result = state
+        result = (result ^ (result >> 30)) &* 0xBF58476D1CE4E5B9
+        result = (result ^ (result >> 27)) &* 0x94D049BB133111EB
+        return result ^ (result >> 31)
+    }
+}
+var randomA = DemoSeedGenerator(state: 0xA7E11E), randomB = randomA
+var seededOpenings = Set<Int>()
+for sample in 0..<512 {
+    var first = WalkthroughPlayback(location: .paris), repeated = WalkthroughPlayback(location: .campus)
+    first.setLighting(2); first.setSpeed(4); first.setIdleSpeed(0.25)
+    first.startChicagoDemo(using: &randomA); repeated.startChicagoDemo(using: &randomB)
+    let opening = first.demoRouteIndex
+    seededOpenings.insert(opening)
+    expect(first.demoActive && first.state == .playing && first.location.world == "chicago" && first.view >= 0 && first.view < first.location.stops.count, "Seeded opening \(sample) selects a valid Chicago location and view")
+    expect(first.demoRouteIndex == repeated.demoRouteIndex, "An injected random seed reproduces opening \(sample)")
+    expect(first.lighting == 2 && first.speed == 4 && first.idleSpeed == 0.25 && first.direction == .forward && first.shuttle == 1 && first.time == 0, "Random opening preserves lighting and both pace preferences")
+    first.advance(first.duration / first.speed)
+    expect(first.demoRouteIndex == (opening + 1) % demoRoutes.count && first.time == 0, "Random opening \(sample) proceeds to its sequential successor without reshuffling")
+}
+expect(seededOpenings.count == demoRoutes.count, "Fixed seed stream exercises every Chicago location and view as a random opening")
+var systemRandomDemo = WalkthroughPlayback(location: .paris)
+systemRandomDemo.startChicagoDemo()
+expect(systemRandomDemo.demoActive && demoLocations.contains(systemRandomDemo.location) && systemRandomDemo.time == 0 && systemRandomDemo.state == .playing, "Default system-random start begins a valid Chicago walkthrough")
+for routeIndex in [-1, -demoRoutes.count, demoRoutes.count, demoRoutes.count + 1, Int.min, Int.max] {
+    var normalized = WalkthroughPlayback()
+    normalized.startChicagoDemo(routeIndex: routeIndex)
+    let expectedIndex = ((routeIndex % demoRoutes.count) + demoRoutes.count) % demoRoutes.count
+    expect(normalized.demoRouteIndex == expectedIndex && normalized.state == .playing, "Explicit opening index \(routeIndex) normalizes without overflow")
+}
+
+// Previous/next can cross every location boundary in either direction. They
+// resume a paused/shuttled route from its opening without changing the pace.
+for originIndex in demoRoutes.indices {
+    for offset in [-1, 1] {
+        var navigated = WalkthroughPlayback()
+        navigated.setLighting(0); navigated.setSpeed(2); navigated.setIdleSpeed(4)
+        navigated.startChicagoDemo(routeIndex: originIndex)
+        navigated.advance(3); navigated.transport(.reverse); navigated.toggle()
+        navigated.nextView(offset)
+        let expectedIndex = (originIndex + offset + demoRoutes.count) % demoRoutes.count
+        let crossedCity = (originIndex == 0 && offset == -1) || (originIndex == demoRoutes.count - 1 && offset == 1)
+        expect(navigated.demoRouteIndex == expectedIndex && navigated.location == demoRoutes[expectedIndex].0 && navigated.view == demoRoutes[expectedIndex].1 && navigated.time == 0, "Demo \(originIndex) offset \(offset) reaches the adjacent route across location boundaries")
+        expect(navigated.demoActive && navigated.state == .playing && navigated.direction == .forward && navigated.shuttle == 1 && !navigated.idleCycling, "Demo adjacent navigation resumes ordinary forward playback")
+        expect(navigated.lighting == (crossedCity ? 2 : 0) && navigated.speed == 2 && navigated.idleSpeed == 4, "Only an entire city wrap changes preferences during adjacent navigation")
+        navigated.nextView(-offset)
+        expect(navigated.demoRouteIndex == originIndex && navigated.lighting == 0, "Previous and next are reversible across every city/location boundary")
+    }
+}
+for offset in [-demoRoutes.count * 3, -demoRoutes.count * 2, -demoRoutes.count, demoRoutes.count, demoRoutes.count * 2, demoRoutes.count * 3] {
+    var skippedPass = WalkthroughPlayback()
+    skippedPass.setLighting(1); skippedPass.startChicagoDemo(routeIndex: 3)
+    skippedPass.navigateDemoView(offset: offset)
+    expect(skippedPass.demoRouteIndex == 3 && skippedPass.lighting == (abs(offset / demoRoutes.count) % 2 == 0 ? 0 : 2), "Multi-pass navigation \(offset) normalizes daylight and respects lighting parity")
+}
+for offset in [Int.min, Int.max] {
+    var hugeNavigation = WalkthroughPlayback()
+    hugeNavigation.startChicagoDemo(routeIndex: 0); hugeNavigation.navigateDemoView(offset: offset)
+    expect(hugeNavigation.demoRouteIndex == ((offset % demoRoutes.count) + demoRoutes.count) % demoRoutes.count && hugeNavigation.time == 0 && hugeNavigation.state == .playing, "Huge navigation offset \(offset) remains finite and bounded")
+}
+var noNavigation = WalkthroughPlayback()
+noNavigation.select(3); noNavigation.toggle(); noNavigation.advance(9)
+let nonDemoBefore = noNavigation
+noNavigation.navigateDemoView(offset: 1)
+expect(noNavigation.location == nonDemoBefore.location && noNavigation.view == nonDemoBefore.view && noNavigation.time == nonDemoBefore.time && noNavigation.state == nonDemoBefore.state && !noNavigation.demoActive, "Explicit demo navigation is inert outside demo mode")
+noNavigation.startChicagoDemo(routeIndex: 3); noNavigation.advance(9); noNavigation.toggle()
+let zeroOffsetBefore = noNavigation
+noNavigation.navigateDemoView(offset: 0)
+expect(noNavigation.time == zeroOffsetBefore.time && noNavigation.state == .paused && noNavigation.demoRouteIndex == zeroOffsetBefore.demoRouteIndex, "Zero demo navigation preserves an exact pause")
+
 // Carry through several route/location boundaries without losing fractional time.
 let destinationIndex = 18
 let destinationOffset = demoRoutes.prefix(destinationIndex).reduce(0.0) { $0 + $1.2 }
 for pace in WalkthroughPlayback.speeds {
     var carried = WalkthroughPlayback(location: .northside)
-    carried.setLighting(1); carried.setSpeed(pace); carried.startChicagoDemo()
+    carried.setLighting(1); carried.setSpeed(pace); carried.startChicagoDemo(routeIndex: 0)
     carried.advance((demoPass * 2 + destinationOffset + 0.375) / pace)
     expect(carried.location == demoRoutes[destinationIndex].0 && carried.view == demoRoutes[destinationIndex].1 && near(carried.time, 0.375), "Demo pace \(pace) carries fractional time through multiple full passes and locations")
     expect(carried.lighting == 0 && carried.state == .playing && carried.demoActive, "Two demo passes normalize neutral daylight while preserving transport")
     expect(near(carried.demoProgress, (destinationOffset + 0.375) / demoPass), "Demo full-pass progress includes preceding routes")
     var stepped = WalkthroughPlayback(), batched = WalkthroughPlayback()
-    stepped.setSpeed(pace); stepped.startChicagoDemo(); batched.setSpeed(pace); batched.startChicagoDemo()
+    stepped.setSpeed(pace); stepped.startChicagoDemo(routeIndex: 0); batched.setSpeed(pace); batched.startChicagoDemo(routeIndex: 0)
     for _ in 0..<800 { stepped.advance(0.125) }
     batched.advance(100)
     expect(stepped.location == batched.location && stepped.view == batched.view && near(stepped.time, batched.time) && stepped.lighting == batched.lighting, "Demo pace \(pace) is independent of elapsed-time chunk size")
 }
 for lighting in [0, 1, 2] {
     var large = WalkthroughPlayback()
-    large.setLighting(lighting); large.startChicagoDemo(); large.advance(demoPass * 2 * 1_000_000_000 + 7.25)
+    large.setLighting(lighting); large.startChicagoDemo(routeIndex: 0); large.advance(demoPass * 2 * 1_000_000_000 + 7.25)
     expect(large.location == .chicago && large.view == 0 && near(large.time, 7.25) && large.lighting == (lighting == 2 ? 2 : 0), "Huge even demo gap keeps correct route, carry and lighting parity")
     large.setSpeed(4); large.advance(Double.greatestFiniteMagnitude)
-    expect(large.demoActive && large.state == .playing && demoLocations.contains(large.location) && large.view >= 0 && large.view < 8 && large.time.isFinite && large.time >= 0 && large.time < large.duration && large.demoProgress.isFinite && large.demoProgress >= 0 && large.demoProgress < 1, "Maximum finite demo gap avoids overflow and leaves valid bounded clocks")
+    expect(large.demoActive && large.state == .playing && demoLocations.contains(large.location) && large.view >= 0 && large.view < large.location.stops.count && large.time.isFinite && large.time >= 0 && large.time < large.duration && large.demoProgress.isFinite && large.demoProgress >= 0 && large.demoProgress < 1, "Maximum finite demo gap avoids overflow and leaves valid bounded clocks")
 }
 
-// Space, lighting and pace retain sequencing; manual choices terminate it.
-demo.startChicagoDemo(); demo.advance(9.5); demo.toggle()
+// Space, lighting and pace retain sequencing; Chicago selections resume it.
+demo.startChicagoDemo(routeIndex: 0); demo.advance(9.5); demo.toggle()
 let demoPaused = demo.pose, demoPausedTime = demo.time
 demo.advance(1000); demo.setLighting(1); demo.toggleDayNight(); demo.setSpeed(0.5); demo.setIdleSpeed(4)
 expect(demo.demoActive && demo.state == .paused && demo.time == demoPausedTime && samePose(demo.pose, demoPaused) && demo.lighting == 2, "Paused demo stays exact through elapsed time, lighting and pace changes")
@@ -288,16 +393,31 @@ let beforeInvalid = demo
 for bad in [Double.nan, Double.infinity, -Double.infinity, -1, 0] { demo.advance(bad) }
 demo.seek(progress: .nan); demo.setSpeed(.infinity)
 expect(demo.demoActive && demo.location == beforeInvalid.location && demo.view == beforeInvalid.view && demo.time == beforeInvalid.time && demo.lighting == beforeInvalid.lighting && demo.speed == beforeInvalid.speed, "Invalid demo elapsed/seek/pace inputs preserve finite playback state")
-for action in 0..<5 {
+for action in 0..<3 {
     var selected = demo
     switch action {
-    case 0: selected.select(3)
-    case 1: selected.nextView(1)
-    case 2: selected.selectLocation(.campus)
-    case 3: selected.toggleIdleCycling()
+    case 0: selected.selectLocation(.paris)
+    case 1: selected.toggleIdleCycling()
     default: selected.manual()
     }
-    expect(!selected.demoActive, "Explicit navigation/idle action \(action) exits Chicago demo")
+    expect(!selected.demoActive, "Paris, idle play or manual navigation action \(action) exits Chicago demo")
+}
+// Choosing any Chicago location/view resumes its full route, including a paused
+// demo, the same destination, and a route that was previously being rewound.
+for location in demoLocations {
+    var selected = demo
+    selected.toggle(); selected.transport(.reverse); selected.toggle()
+    selected.selectLocation(location)
+    expect(selected.demoActive && selected.state == .playing && selected.location == location && selected.view == 0 && selected.time == 0, "Selecting \(location.name) resumes its first route without leaving demo")
+    expect(selected.lighting == 2 && selected.speed == 0.5 && selected.idleSpeed == 4 && selected.direction == .forward && selected.shuttle == 1 && !selected.idleCycling, "Chicago destination choice retains preferences and restores ordinary forward demo transport")
+    selected.advance(7); selected.selectLocation(location)
+    expect(selected.demoActive && selected.state == .playing && selected.view == 0 && selected.time == 0, "Selecting the current Chicago destination restarts its first full demo route")
+    for view in location.stops.indices {
+        selected.toggle(); selected.select(view)
+        expect(selected.demoActive && selected.state == .playing && selected.location == location && selected.view == view && selected.time == 0 && samePose(selected.pose, location.stops[view].pose), "Selecting \(location.name) view \(view) retains and resumes demo at its exact bookmark")
+        selected.advance(2)
+        expect(near(selected.time, 1), "Selected demo route uses the preserved walkthrough pace")
+    }
 }
 var stopped = demo
 let stoppedPose = stopped.pose, stoppedTime = stopped.time
@@ -310,7 +430,7 @@ var manualDemo = demo; manualDemo.manual(); let manualDemoPose = manualDemo.pose
 expect(manualDemo.state == .manual && samePose(manualDemo.pose, manualDemoPose), "Inactive demo stop leaves manual navigation state untouched")
 
 // Seeking and shuttling never jump backward or forward out of the current route.
-var shuttleDemo = WalkthroughPlayback(); shuttleDemo.startChicagoDemo()
+var shuttleDemo = WalkthroughPlayback(); shuttleDemo.startChicagoDemo(routeIndex: 0)
 shuttleDemo.advance(demoRoutes[0].2 + 10)
 let shuttleView = shuttleDemo.view, shuttleLocation = shuttleDemo.location
 shuttleDemo.seek(progress: 0.75)

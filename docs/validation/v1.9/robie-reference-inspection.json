@@ -1,0 +1,41 @@
+{
+  "accessed": "2026-09-08",
+  "scope": "Research reference only; photographs/PDFs are not distributed as game assets. Original procedural mesh and materials.",
+  "sources": [
+    {
+      "title": "Trust conservation management plan",
+      "url": "https://flwright.org/sites/default/files/2023-06/RobieCMP_FLWT_web.pdf",
+      "localWorkingFile": "output/v10-review/robie-reference/RobieCMP_FLWT_web.pdf",
+      "sha256": "9b2a34ef8147851e6bd0471729d7cbd3c7d98b517c124c212115939722a14cf3",
+      "inspection": "Printed44,45,52 rendered and visually inspected; structural text51\u201353 and98 read."
+    },
+    {
+      "title": "NPS nomination with HABS IL-1005 drawings",
+      "url": "https://npgallery.nps.gov/GetAsset/620ea545-086b-48b8-b3cb-02011c292dcd",
+      "localWorkingFile": "output/v10-review/robie-reference/nps-habs.pdf",
+      "sha256": "01d7f4ab5d1906b2829b07e71e910e489efc171e73681d2668a8c8a32a53587d",
+      "inspection": "PDF13 elevations and15 mainfloorplan rendered and visually inspected."
+    },
+    {
+      "title": "Harboe restored living room prow, James Caulfield",
+      "url": "https://images.squarespace-cdn.com/content/v1/67c71e845e90641ab5c3ffaf/058bff9b-a412-41ce-b6d8-7cb01642123b/RobieHouseLivingRoomProw2_JamesCaulfield_Reduced2.jpg",
+      "localWorkingFile": "output/v10-review/robie-reference/living-prow.jpg",
+      "sha256": "289e554d298565474ebcb7e7411ceae8c25e2d1a41173dbf30e1b6976028a455",
+      "inspection": "Visually inspected: artglass,windowrhythm,plaster,oak,ceiling,lights,furniture."
+    },
+    {
+      "title": "Harboe restored living room hearth, James Caulfield",
+      "url": "https://images.squarespace-cdn.com/content/v1/67c71e845e90641ab5c3ffaf/790de76f-f87a-46f3-812d-d0f352240889/RobieHouseLivingRoom_James%2BCaulfield_much%2Breduced.jpg",
+      "localWorkingFile": "output/v10-review/robie-reference/living-hearth.jpg",
+      "sha256": "4d30b0311f7a5c13de1e05c300e00f7b80cec364f04a780337db9c7ae85f6842",
+      "inspection": "Visually inspected: pierced hearth,inglenook,ceilingpattern,radiators."
+    },
+    {
+      "title": "UChicago Student Arts Robie evening exterior",
+      "url": "https://www.studentarts.uchicago.edu/artspass-locations/robiehouse",
+      "localWorkingFile": "output/v10-review/robie-reference/uchicago-evening.jpg",
+      "sha256": "be186a3fe50ae90ca02c154cbfd698f51e3f43395233fe07f5f883fc3cf5b233",
+      "inspection": "Visually inspected: warmwindows,darkroofs,trailingplanters,brick/limestonecolor. Image download URL https://static1.squarespace.com/static/5f3c09e04595ca7509e34ba0/605e2a0696982546ecf895ad/61294a38496b3a4558942349/1724098171855/FrankLloydWrightRobieHouse.jpg?format=1500w"
+    }
+  ]
+}

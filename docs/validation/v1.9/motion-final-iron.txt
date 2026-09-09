@@ -1,0 +1,7 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Eiffel Tower · Paris | 8645884 triangles | 12743 geometric details | 41 materials
+Metal pipelines + acceleration structure: 1.09s | allocated 1561.6 MiB
+Motion validation iron: 0/32
+Motion validation iron: 16/32
+iron: RMS 0.05512 → 0.03281, temporal residual 0.08065 → 0.03197 (60.4% reduction)
+Completed in 44.18s

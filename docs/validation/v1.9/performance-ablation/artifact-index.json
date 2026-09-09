@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "path": "inputs.json",
+      "sha256": "9121235af734d1e9e443e9a0398dd22aafc94b3b3e216564308d66e4604c61dc",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "results.json",
+      "sha256": "6c720a061159f2a76bcf9479242e86bbb7061601353175615ee6cdf766f8fcbb",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "investigation.json",
+      "sha256": "a6742ddefb2be1b0e688052a78ab3a3336d68c770895a86fe9af7609f6030527",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "cap-field-process-sample.txt",
+      "sha256": "d216d98c8bd9cf8d93f6f91cc96b9975151f5aad8b72ef0f6f4f198e8c956ad9",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "cap-field-hall.log",
+      "sha256": "a4185d8a854b814288a1d5f5713fac7614088ac6d3b1225a3881accd3dbfe1dc",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "cap-field-hall/metrics.json",
+      "sha256": "cfa116d5e92caf3dc7edee6197bdd5c00cbde1d93df57850c937aa020c83daa0",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "no-cap-field-hall.log",
+      "sha256": "2e6287e5fa25489981d86a1f842ba59874a8cc0c2dfbfb927dd5207434d35b6f",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "no-cap-field-hall/metrics.json",
+      "sha256": "1600d8d127000545e114452d6e6fc0e742754a941ff4ddda9ac02d13acb06dd5",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "cap-hyde-park-flight.log",
+      "sha256": "b530265a46614d6a30894c0716ebd506bf521fc6a2c92f83c74405792a59ff40",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "cap-hyde-park-flight/metrics.json",
+      "sha256": "f4f96f0e97166edf8b8edd79e740e723d25c978698235db06549ab50b01b5d6a",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "no-cap-hyde-park-flight.log",
+      "sha256": "9438412bf31775d1a3d44740b09434f5684ba19ed688aed07fae79caa7845843",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "no-cap-hyde-park-flight/metrics.json",
+      "sha256": "55da368825dc1d680c62b701d4db3ad2797620cedb8f7e68d1e801f6c6213241",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "activity-field.log",
+      "sha256": "3a08dab30cd7d3a3036f71263fce77de5faf948c3f0a33c6af4eb462a390d8fb",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "activity-field-run.json",
+      "sha256": "1833eba23bf201621ab76c636c45de0a6815664b95f4e146c4463bdc155bbfd2",
+      "copiedWithoutChanges": true
+    },
+    {
+      "path": "activity-field/metrics.json",
+      "sha256": "5c7cfdaff64821690b12f66343343a43672e4f75d4f185b36fd564384bd9c8c5",
+      "copiedWithoutChanges": true
+    }
+  ]
+}

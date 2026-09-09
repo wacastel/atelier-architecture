@@ -21,13 +21,13 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / millennium / lakefront / campus / northside (default paris)
+        --location paris           paris / chicago / millennium / lakefront / campus / northside / robie (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night
-        --single-view --stop 0      Export one full route (56–240 seconds)
+        --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
         --raw                      Disable motion reconstruction for comparison
         --no-regularization        Disable secondary glossy path regularization
@@ -48,6 +48,10 @@ import CoreText
     }
     func integer(_ flag:String, _ fallback:Int) -> Int { Int(value(flag,String(fallback))) ?? fallback }
     do {
+        // An offscreen export is user-requested work even when its app has no
+        // visible window. Keep it eligible to run until this command completes.
+        let activity = ProcessInfo.processInfo.beginActivity(options: .userInitiated, reason: "Rendering the requested architectural scene")
+        defer { ProcessInfo.processInfo.endActivity(activity) }
         let locationName=value("--location","paris").lowercased()
         let location: ArchitectureLocation
         switch locationName {
@@ -57,7 +61,8 @@ import CoreText
         case "lakefront", "magmile", "grant": location = .lakefront
         case "campus", "museum", "museums": location = .campus
         case "northside", "north", "wrigley", "zoo": location = .northside
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront, campus or northside.")
+        case "robie", "hydepark", "hyde-park": location = .robie
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, millennium, lakefront, campus, northside or robie.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -146,14 +151,22 @@ import CoreText
                 report["northSideAdditionalBoats"] = NorthSideContext.database.boats.count
                 report["northSideAdditionalTrees"] = NorthSideContext.database.trees.count
                 report["northSideLandmarksAndParts"] = NorthSideContext.database.landmarks.count
+                report["hydeParkMapTimestamp"] = HydeParkContext.database.timestamp
+                report["hydeParkAdditionalMappedBuildings"] = HydeParkContext.database.buildings.count
+                report["hydeParkMappedPaths"] = HydeParkContext.database.paths.count
+                report["hydeParkAdditionalBoats"] = HydeParkContext.database.boats.count
+                report["hydeParkAdditionalTrees"] = HydeParkContext.database.trees.count + HydeParkContext.database.landcoverTrees.count
                 for (label,lights) in [("night",scene.lights),("day",scene.lights.filter{$0.parameters.z>0.5})] {
                     let grid=LightGrid(lights:lights)
+                    guard grid.enabled else { throw EngineError.message("Built-in \(label) light index exceeded its budget: \(grid.fallbackReason ?? "unknown")") }
                     report[label+"LightGridEnabled"]=grid.enabled
                     report[label+"LightGridCells"]=grid.ranges.count
                     report[label+"LightGridIndices"]=grid.indices.count
                     report[label+"LightGridMaximumCandidates"]=grid.ranges.map{$0.y}.max() ?? 0
                 }
                 report["vertexBufferBytes"]=renderer.vertexBuffer.length
+                report["staticGeometrySections"]=renderer.staticGeometrySections
+                report["trianglesPerStaticGeometry"]=GeometryPartition.trianglesPerGeometry
                 report["deviceMaxBufferLengthBytes"]=device.maxBufferLength
                 report["frameUniformBytes"] = MemoryLayout<FrameUniforms>.stride
                 let fleet = TrafficFleet(lanes: scene.trafficLanes)
@@ -290,6 +303,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
     case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"
     case .northside: heading = "A T E L I E R    /    C H I C A G O   N O R T H   S I D E"
+    case .robie: heading = "A T E L I E R    /    R O B I E   H O U S E"
     }
     text(heading,x:58,y:h-69,size:18,color:gold)
     text(stop.title,x:58,y:h-115,size:32,color:ivory,maximumWidth:514)

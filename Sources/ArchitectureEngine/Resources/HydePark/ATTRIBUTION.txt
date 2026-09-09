@@ -1,0 +1,22 @@
+Hyde Park / Burnham Park connecting environment
+© OpenStreetMap contributors, ODbL 1.0
+https://www.openstreetmap.org/copyright
+
+Raw corridor extract: chicago-hyde-park-osm-2026-09-08.json
+OSM database timestamp: 2026-09-08T22:09:44Z
+Origin: Willis Tower, latitude41.878876 longitude-87.635918.
+Coordinates: metres east and south in Atelier's existing Chicago world.
+
+The raw data, saved Overpass queries and deterministic preparation script are
+included in scripts/data and scripts/prepare-hyde-park-context.py. Exact source
+and prior derivative hashes are embedded in HydeParkContext.json.
+
+Footprints, tagged building heights, streets, rail, paths, landcover, dock
+outlines and shore positions derive from OSM. Missing building heights, bridge
+heights, facade treatments, small props, canopy samples and boats are authored
+interpretations. Boats are a representative summer arrangement, not a live
+inventory. Detailed Robie House geometry replaces OSM way125667497.
+
+Satellite and photographic references were inspected only; no third-party
+imagery or image textures are distributed. See docs/HYDE-PARK.md for reference
+URLs and the modeling/validation limits.

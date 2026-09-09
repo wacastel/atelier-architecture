@@ -1,0 +1,13 @@
+{
+  "note": "Gallery-final and motion package before metadata-only geometry-section reporting; all geometry, shader and camera input hashes below. Earlier broken galleries retained under gallery-day/night.",
+  "sha256": {
+    "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "45b25f187712ef3ad579da730798eb32603fd0f0cf58d807b9f030e6ef46b87d",
+    "Sources/ArchitectureEngine/RobieHouse.swift": "9d18f9015e2bb1e46b35bcdd59ef7d7b9688135d131812b196a6f67f891ca39b",
+    "Sources/ArchitectureEngine/HydeParkEnvironment.swift": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "dist/Atelier.app/Contents/MacOS/ArchitectureEngine": "f84ac147928c96d247d499e00f3862d8bb755b04056c202fa20373dec14d4a12"
+  }
+}

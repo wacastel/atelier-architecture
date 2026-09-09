@@ -1,0 +1,65 @@
+{
+  "status": "BOUNDED_OFFSET_AND_MAPPING_PROBE_PASSED_ORIGINAL_FULL_SPAN_DIAGNOSTICS_REMAIN_FAILED_OR_TIMED_OUT",
+  "deviceContext": "Apple M3 Ultra",
+  "sparseZeroAreaFixture": {
+    "result": "FAIL",
+    "firstFailedAssertion": "Static sentinel 1 hit state 0",
+    "scope": "44,739,249 static primitives, mostly coincident zero-area triangles; four nondegenerate sentinels across chunk and 4 GiB boundaries. Only sentinel0 hit.",
+    "followup": "Default production AS usage did not alter this result. Direct GPU reads returned correct positions for every sentinel, including the tail beyond4GiB. Cause remains unproven."
+  },
+  "distributedNondegenerateFixture": {
+    "result": "TERMINATED_AFTER_BOUND",
+    "observedElapsedSecondsApproximately": 205,
+    "scope": "44.7M nondegenerate triangles distributed on a planar grid, with original sentinel assertions unchanged.",
+    "evidence": "Process sample showed _MTLCommandBuffer waitUntilCompleted during AS construction. No probe completed. Only this isolated process was terminated; no assertion was weakened."
+  },
+  "replacementScope": {
+    "mode": "sparseDescriptorProbe",
+    "purpose": "Bounded independent verification of production descriptor offset arithmetic, actual shader geometry_id normalization, global vertex/material lookup and two-instance traffic tail beyond4GiB.",
+    "geometry": "Allocate more than4GiB, generate four actual production descriptors, validate their full ranges, then shorten each descriptor to eight real triangles while preserving exact base offsets.",
+    "coverageLimit": "Does not traverse the full44\u201350M global primitive extent or every production descriptor end. Full-city Robie day/night rendering provides independent representative integration evidence.",
+    "originalModesRetained": [
+      "scripts/validate-large-geometry-gpu.sh --legacy-sparse",
+      "scripts/validate-large-geometry-gpu.sh --full-field"
+    ]
+  },
+  "evidence": [
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-first-failure.stderr",
+      "sha256": "02dd7c4939690c5789d1bed721f9266cd3d78291d9e44cbe0b8487397c9d0236"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-debug1.stderr",
+      "sha256": "c147c6235a35b7aa6cfac1509d60c818cb2d7ff3ca9232bd60d0db113a1920da"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-debug3.stderr",
+      "sha256": "fa2b888f405277feda4fa6545d8f35b4aedb6d1325c4b6507b003b36121aaf27"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-debug4.stderr",
+      "sha256": "5ebde3a62b31f03bb5b1c1bbb392d914ff5e98e064ff7f499c34704e591f32b1"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-debug4-process-sample.txt",
+      "sha256": "a0d6eed8f59e0e246884ef7e5918dd4fab26978f361b9bcb3b7aa166b0ea6c5d"
+    },
+    {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu-full-field-debug-source.swift",
+      "sha256": "340e7d1ae0b7d4030b6805e3e5960f293cf723865ec83c0d17e2b4813e388e68"
+    }
+  ],
+  "replacementResult": {
+    "status": "PASS",
+    "checks": 77,
+    "vertexBufferBytes": 4831839072,
+    "submittedStaticTriangles": 32,
+    "geometryCount": 4,
+    "elapsedSeconds": 0.710705041885376,
+    "mode": "sparseDescriptorProbe",
+    "report": {
+      "path": "/Users/william/dev/architecture/output/v10-review/large-geometry-gpu.json",
+      "sha256": "7ce3c774b8961dfd8a71d1e7e416ea92829c6d02c0aa3c356e5a51bca95deb32"
+    }
+  }
+}

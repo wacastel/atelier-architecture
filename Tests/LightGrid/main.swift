@@ -168,6 +168,24 @@ disabled(special, ids: 1)
 disabled(special, ids: 0)
 disabled([light(.zero, 100), light(.zero, 100)], ids: 80)
 
+// The expanded Chicago volume previously disabled the index entirely. Keep the
+// original cell size/order, with an independently checked larger bounded volume.
+let extended = [light(SIMD3(-2000,0,-8000),80),light(SIMD3(5300,550,11000),80),
+                light(SIMD3(3309,7,9917),18),light(SIMD3(2662,2,4773),25)]
+precondition(!LightGrid(lights:extended,maxCellCount:262_144).enabled,"Negative control must exceed the old volume budget")
+let expandedGrid=LightGrid(lights:extended)
+validateStorage(expandedGrid,extended)
+precondition(expandedGrid.ranges.count>262_144 && expandedGrid.ranges.count<=LightGrid.defaultMaxCellCount)
+precondition(expandedGrid.cellSize==64 && expandedGrid.ranges.count*MemoryLayout<SIMD2<UInt32>>.stride<=8*1024*1024)
+for source in extended {
+    let center=SIMD3(source.positionRadius.x,source.positionRadius.y,source.positionRadius.z)
+    for offset:Float in [-81,-25,-1,0,1,25,81] {
+        check(expandedGrid,extended,center+SIMD3(offset,0,0))
+        check(expandedGrid,extended,center+SIMD3(0,0,offset))
+    }
+}
+print("Expanded city: \(expandedGrid.ranges.count) cells within 8 MiB; old-budget negative control disabled, indexed support/order retained")
+
 print("PASS: \(testedPoints) finite support/order queries; negative coordinates, cell planes, tangent supports, empty/outside/nonfinite and bounded-memory fallbacks")
 print("PASS: 48-byte Metal header / 8-byte ranges; sorted unique original IDs and complete active-prefix visitation")
 print("Synthetic 360-light city: \(cityGrid.ranges.count) cells, \(cityGrid.indices.count) indices, \(String(format: "%.3f", constructionSeconds * 1000)) ms build; mean \(String(format: "%.2f", cityAverageCandidates)) candidate IDs per tested point")

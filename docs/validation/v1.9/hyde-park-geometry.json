@@ -1,0 +1,16 @@
+{
+  "authoredCanopySamples" : 744,
+  "boats" : 963,
+  "buildings" : 14478,
+  "collapsedTriangles" : 0,
+  "existingLaneSequencesPreserved" : true,
+  "lights" : 743,
+  "mappedTrees" : 1179,
+  "materials" : 47,
+  "maximumNormalError" : 2.384185791015625e-07,
+  "passed" : true,
+  "scope" : "CPU-only Hyde Park connecting environment, excluding authored Robie House",
+  "seconds" : 1.9034569263458252,
+  "trafficLaneCount" : 6,
+  "triangles" : 4919716
+}
