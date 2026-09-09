@@ -1,0 +1,95 @@
+{
+  "status": "SOURCE_DATA_AND_INDEPENDENT_ROAD_VALIDATION_PASS",
+  "capturedAtUTC": "2026-09-09T01:09:32.642455+00:00",
+  "ownedSourceFiles": {
+    "scripts/prepare-hyde-park-context.py": "01213bcd0627a4a194c6aa34541676582b65132badea2ecc33389ecd6d6835ba",
+    "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee"
+  },
+  "resourceBytes": 33249457,
+  "sourceTimestamp": "2026-09-08T22:09:44Z",
+  "rawSourcesUnchanged": {
+    "chicago-hyde-park-osm-2026-09-08.json": "0441d4803e73ba50550afa7639fbaff0942dc5e3baf43c1ed0c72700f4c5a77f",
+    "chicago-hyde-park-shoreline-2026-09-08.json": "057a62fe5bab9019722d1a84a96bfe3a0a067febfbc9f1ca1ddf846852a4653e"
+  },
+  "previousContextResourcesUnchanged": {
+    "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904",
+    "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330",
+    "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae",
+    "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+  },
+  "transport": {
+    "surfaceRecords": 344,
+    "topTriangles": 218062,
+    "precisionMetres": 0.01,
+    "bufferJoin": "mitre",
+    "mitreLimit": 2.0,
+    "sharedBoundaryTopology": "All material boundaries are noded together on the precision grid per tile, polygonized into shared faces and assigned in precedence order before triangulation. No separate boundary snapping follows planar face construction.",
+    "discardedFloat32SliverTriangles": 0,
+    "discardedSliverAreaSquareMetres": 0,
+    "asphaltElevation": 0.12,
+    "walkElevation": 0.19,
+    "fullOldLSDTailPreserved": true,
+    "maximumSurfaceZ": 10928.78
+  },
+  "counts": {
+    "buildings": 14478,
+    "paths": 13520,
+    "areas": 1414,
+    "trees": 1179,
+    "landcoverTrees": 795,
+    "boats": 963,
+    "roads": 2,
+    "trafficLanes": 6,
+    "piers": 319,
+    "rails": 272
+  },
+  "localGradeInterpretation": {
+    "wayIDs": [
+      1166004921,
+      1166004940,
+      1166004942,
+      1166004944,
+      1344476701,
+      1344476703
+    ],
+    "sourceBridgeAndLayerTagsRetained": true,
+    "referenceURL": "https://www.chicagoparkdistrict.com/parks-facilities/57th-street-underpass-mural-artwork",
+    "referenceConsulted": "The official Park District page confirms two pedestrian underpasses linking the museum and 57th Street Beach; it provides no surveyed surface elevations.",
+    "scope": "OSM layer is relative ordering, not metres. Six short surface spans at 57th Street use their adjoining flat-world grade; genuine elevated paths elsewhere retain the previous estimate.",
+    "omittedUndergroundScope": "The official reference confirms two pedestrian underpasses between the museum and 57th Street Beach. This fix does not excavate terrain or add surveyed tunnel profiles; below-road portions remain omitted/occluded by the continuous carriageway."
+  },
+  "widthAndSidewalkPolicy": "OSM explicit widths take priority; explicitly tagged one-lane streets use one lane in the width estimate. Separate/no sidewalk tags are retained. Motorway/trunk links and motorroads receive no invented sidewalks; OSM left/right accounts for east/south projection handedness.",
+  "landcoverChange": "The road repair rebuilt landcover clearance using joined surfaces plus a 0.4 m shoulder, resulting in 1,414 area records and 795 authored canopy samples. The subsequent shared-boundary correction changed only roadSurfaces and roadSurfacePolicy; all other top-level values match candidate 1 exactly.",
+  "dataValidation": {
+    "path": "output/v11-road-review/hyde-park-data-validation.json",
+    "sha256": "3bfc087ba809b48cc894d8ca7ac107c78001864f067b14063d4bf5ec53e801d6",
+    "passed": true,
+    "checks": 46350,
+    "scope": "Offline OSM derivative topology, attribution hashes, Robie lot, building courtyards, harbor placement and lane continuity"
+  },
+  "preparationLog": {
+    "path": "output/v11-road-review/hyde-park-preparation.log",
+    "sha256": "1afe61bbfc501c46b443952661d319fc22202f1a94c4a60a1ac4206967570dff",
+    "exitCode": 0
+  },
+  "failedCandidate": {
+    "resourceSHA256": "c518b3e28e51bafcc9aee8c77b4a055f21260b2e2a282ddccf71867d7d840312",
+    "record": "output/v11-road-review/hyde-park-candidate-1-record.json",
+    "issue": "Independent same-grid material clipping produced cross-material overlap. Final generation nodes all materials into shared planar faces before triangulation.",
+    "dataAndPlaybackPassDoNotResolveThatGeometryFailure": true
+  },
+  "licensing": "OSM-derived data retains OpenStreetMap contributors / ODbL 1.0 attribution; no new map, satellite or photo assets were downloaded or bundled.",
+  "validationScope": "This agent executed preparation and existing CPU data checks only. Root owns actual Swift geometry, app rendering, playback and packaging; the independent agent owns strict road triangle/coverage validation.",
+  "independentRoadValidation": {
+    "path": "output/v10-review/hyde-park-roads-validation.json",
+    "sha256": "ffd11bd0b9bc4ad58c0ba2555a919c3cbb9be7f039a74b0f4a75b709231522bc",
+    "passed": true,
+    "checks": 491885,
+    "materialOverlapSquareMetres": {
+      "asphalt/pavement": 0.0,
+      "asphalt/sidewalk": 0.0,
+      "pavement/sidewalk": 0.0
+    },
+    "scope": "Actual emitted triangle coverage/winding, disjoint at-grade materials, dated-source bridge endpoints, one-lane widths and separate-sidewalk policy. CPU only."
+  }
+}

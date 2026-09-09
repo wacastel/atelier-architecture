@@ -1,0 +1,8 @@
+Building Atelier for Apple Silicon…
+Building for production...
+[0/2] Copying Resources
+[1/3] Write swift-version--1AB21518FC5DEDBE.txt
+Build complete! (0.10s)
+/Users/william/dev/architecture/dist/.atelier-build.dsmKWQ/Atelier.app/Contents/Info.plist: OK
+/Users/william/dev/architecture/dist/.atelier-build.dsmKWQ/Atelier.app: replacing existing signature
+Built /Users/william/dev/architecture/dist/Atelier.app

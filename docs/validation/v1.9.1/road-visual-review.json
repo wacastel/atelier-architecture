@@ -1,0 +1,69 @@
+{
+  "resourceSHA256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+  "executableSHA256": "00f6e2a2b3f790660bf25ab619fd784897876ee7549d0d4d81deb6339934ad07",
+  "width": 1280,
+  "height": 850,
+  "cases": [
+    {
+      "image": "output/v11-road-review/after-280.png",
+      "sha256": "b0b622275cba5f2f3ea0c57c0e361bff84ffe7cc5c8229a1a401ddb3d0254c51",
+      "view": 7,
+      "routeSeconds": 280,
+      "lighting": 0,
+      "samples": 64,
+      "cameraOverride": null
+    },
+    {
+      "image": "output/v11-road-review/after-close.png",
+      "sha256": "2c3d9eb1331ca12fcddf9a0ffca9a609c8d96c15a111a1fa497f7c3cb0a47c22",
+      "view": 7,
+      "routeSeconds": 280,
+      "lighting": 0,
+      "samples": 64,
+      "cameraOverride": {
+        "position": [
+          4700,
+          63.6,
+          9700
+        ],
+        "target": [
+          4450,
+          0,
+          9605
+        ],
+        "fov": 66
+      }
+    },
+    {
+      "image": "output/v11-road-review/after-night.png",
+      "sha256": "9a903ef50472f74f2649573690997678a3a061b8446182af1e7751f686e6fb47",
+      "view": 7,
+      "routeSeconds": 280,
+      "lighting": 2,
+      "samples": 128,
+      "cameraOverride": null
+    }
+  ],
+  "observations": [
+    "Floating rectangular roadway and trail slabs are absent at the reported junction.",
+    "Road bends and merge areas remain covered by continuous asphalt; sidewalks do not cut through the junction.",
+    "The lower camera confirms grounded sidewalk edges and retained highway paint/traffic.",
+    "Night lighting retains illuminated pavement around lamps; unlit park areas remain dark."
+  ],
+  "scope": "Three final-package still images inspected against corresponding pre-fix cameras; CPU playback tests cover the complete routes. This is not a new continuous-video or motion-noise benchmark. The earlier 1.9 exported movies precede this fix.",
+  "nativeAppReview": {
+    "location": "Robie House & Hyde Park",
+    "view": 8,
+    "timelineProgress": 0.7774532710280375,
+    "displayedTime": "04:39 / 06:00",
+    "playback": "Paused",
+    "lighting": "day",
+    "observed": [
+      "Final app loaded the shared city without an error.",
+      "View8 keyboard selection and timeline seeking worked.",
+      "At the corresponding57thStreet junction, the road is continuous and the floating slabs are absent."
+    ],
+    "leftOpen": true,
+    "limits": "Sampled native view only; no sustained performance measurement."
+  }
+}

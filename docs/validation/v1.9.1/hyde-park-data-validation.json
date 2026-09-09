@@ -1,0 +1,26 @@
+{
+  "checks": 46350,
+  "counts": {
+    "areas": 1414,
+    "boats": 963,
+    "breakwaters": 34,
+    "buildings": 14478,
+    "landcoverTrees": 795,
+    "landmarks": 822,
+    "paths": 13520,
+    "piers": 319,
+    "rails": 272,
+    "roads": 2,
+    "trafficLanes": 6,
+    "trees": 1179
+  },
+  "passed": true,
+  "previousResourcesUnchanged": true,
+  "resourceBytes": 33249457,
+  "scope": "Offline OSM derivative topology, attribution hashes, Robie lot, building courtyards, harbor placement and lane continuity",
+  "sourceSHA256": {
+    "chicago-hyde-park-osm-2026-09-08.json": "0441d4803e73ba50550afa7639fbaff0942dc5e3baf43c1ed0c72700f4c5a77f",
+    "chicago-hyde-park-shoreline-2026-09-08.json": "057a62fe5bab9019722d1a84a96bfe3a0a067febfbc9f1ca1ddf846852a4653e"
+  },
+  "sourceTimestamp": "2026-09-08T22:09:44Z"
+}

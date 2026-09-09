@@ -1,6 +1,20 @@
 # Validation record
 
-Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.9.0 / build 10**. Earlier sections preserve their original measurements and limitations.
+Recorded 8 September 2026 on the local Apple M3 Ultra Mac Studio with 512 GB unified memory. The current release is **1.9.1 / build 11**. Earlier sections preserve their original measurements and limitations.
+
+## Version 1.9.1 road geometry correction
+
+The reported 57th Street / Lake Shore Drive view exposed six short bridge-tagged map ways placed at y = 7 m while their approaches remained at y = 0.027 m. Their relative layer tags had been interpreted as absolute heights. These surface spans now meet the adjoining roadway or trail grade, retaining the source bridge tags and explicit modeling provenance. The existing model still omits the real depressed pedestrian underpasses; this correction does not claim surveyed elevations or new tunnel interiors. [Reference and scope](HYDE-PARK.md#modeling-limits).
+
+Ground carriageways and walking surfaces are prepared as joined polygons. Bounded miter joins fill bend gaps; mapped sidewalks suppress duplicate generated strips; one-lane ramps retain one-lane widths. Surface precedence removes concrete strips through intersections, and shallow sidewalk edges extend down to the existing ground. The entire southern Lake Shore Drive surface remains present, including its existing tails beyond the terrain boundary. The Metal shaders and animation controls are unchanged. Earlier Chicago map resources and traffic sequences are retained.
+
+Independent inspection of the emitted road triangles passes **491,885 checks**, including zero intersection area between the three surface materials, positive Float32 winding, six bridge-to-approach connections, 808 width probes, 127 bend probes and 23,850 highway coverage probes. Five damaged-data controls correctly fail: reversed winding, a duplicate asphalt tile, a restored floating bridge, an overwide one-lane ramp and missing southern highway tiles. The original **46,350 map-data checks** also pass. [Road checks](validation/v1.9.1/hyde-park-roads-validation.json) · [Negative controls](validation/v1.9.1/hyde-park-roads-negative-controls.json) · [Map data](validation/v1.9.1/hyde-park-data-validation.json).
+
+The corrected Hyde Park context has **5,265,666 triangles**, including 218,062 joined transport top triangles, with zero collapsed triangles or nonfinite values. The complete Chicago scene has **45,496,818 static triangles**, an increase of 0.77% over 1.9.0. All **79,253 playback checks** pass across 57 routes, with no blocked, unsupported or near-surface samples. The packaged app's Chicago self-test passes at 640 × 400 with 16 samples, hardware ray tracing and both light indices enabled; its Metal allocation is **8,283.47 MiB**. This is a scoped allocation, not a sustained frame-rate measurement. [Geometry](validation/v1.9.1/hyde-park-geometry.json) · [Playback](validation/v1.9.1/playback-validation.txt) · [Packaged GPU self-test](validation/v1.9.1/chicago-self-test.json).
+
+Matched daytime, closer-camera and nighttime renders were visually inspected. The final native app was also opened and left paused near 4:40 in the connecting flight, showing continuous road surfaces at the reported junction. The signed arm64 app is version 1.9.1 / build 11; all sixteen bundled engine resources match source. [Visual review](validation/v1.9.1/road-visual-review.json) · [Corrected junction](images/Hyde-Park-57th-Street-Corrected.png) · [Release integrity](validation/v1.9.1/release-manifest.json).
+
+The version 1.9 movie exports below are historical recordings made before this road correction. The updated app renders the corrected roads during live walkthroughs. This repair does not introduce a new temporal filter or claim a new motion-noise benchmark.
 
 ## Version 1.9 Robie House and Hyde Park
 

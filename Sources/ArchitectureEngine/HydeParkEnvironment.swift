@@ -14,11 +14,16 @@ enum HydeParkContext {
     struct Path: Decodable {
         var id:Int64;var points:[[Float]];var width:Float;var kind:String;var name:String
         var bridge:String;var elevation:Float
+        var sidewalkLeft:String;var sidewalkRight:String
+    }
+    struct RoadSurface: Decodable {
+        var surface:Surface;var elevation:Float
     }
     struct Database: Decodable {
         var timestamp:String;var ground:Surface;var water:Surface;var inlandWaters:[Surface]
         var namedHarbors:[Surface];var authoredMask:Surface;var replacementBuildingIDs:[Int64]
         var buildings:[Building];var landmarks:[Landmark];var areas:[Surface];var paths:[Path]
+        var roadSurfaces:[RoadSurface]
         var piers:[ChicagoContext.Path];var breakwaters:[ChicagoContext.Path];var rails:[ChicagoContext.Path]
         var trees:[LakefrontContext.Tree];var landcoverTrees:[LakefrontContext.Tree]
         var roads:[LakefrontContext.Road];var trafficLanes:[LakefrontContext.TrafficLane];var boats:[MuseumCampusContext.Boat]
@@ -67,8 +72,23 @@ extension EiffelBuilder {
             lakefrontSurface(area,y:area.kind == "garden" ? 0.012:area.kind == "pitch" ? 0.015:-0.035,material:area.kind == "sand" ? p.sand:grass)
         }
         for b in d.buildings {hydeParkBuilding(b,masonry:masonry,windows:windows,stone:stone,p:p)}
+        // These offline polygons share their bend/junction boundaries. Drawing
+        // independent segment rectangles here would reintroduce overlapping tiles.
+        for road in d.roadSurfaces {
+            lakefrontSurface(road.surface,y:road.elevation,material:road.surface.kind == "asphalt" ? p.asphalt:pavement)
+            if road.surface.kind != "asphalt" {
+                for ring in road.surface.rings {
+                    guard ring.count>2 else {continue}
+                    for i in ring.indices {
+                        let q=ring[i],r=ring[(i+1)%ring.count]
+                        let a=V(q[0],-0.065,q[1]),b=V(r[0],-0.065,r[1]),rise=V(0,road.elevation+0.065,0)
+                        if simd_distance_squared(a,b)>0.000001 {quad(a,a+rise,b+rise,b,p.paving)}
+                    }
+                }
+            }
+        }
         for path in d.paths {hydeParkRoad(path,p:p)}
-        for road in d.roads {lakefrontDrive(road,p:p)}
+        for road in d.roads {lakefrontDrive(road,p:p,drawSurface:false)}
         hydeParkRailway(p:p)
         for pier in d.piers {lakefrontPier(pier,p:p)}
         for wall in d.breakwaters {hydeParkShore(wall,stone:stone,p:p)}
@@ -161,7 +181,7 @@ extension EiffelBuilder {
         for i in 1..<path.points.count {
             let a=V(path.points[i-1][0],path.elevation,path.points[i-1][1]),b=V(path.points[i][0],path.elevation,path.points[i][1]),length=simd_distance(a,b)
             if length<0.1 {continue};let t=(b-a)/length,n=V(-t.z,0,t.x),w=path.width/2,mid=(a+b)/2
-            quad(a-n*w,a+n*w,b+n*w,b-n*w,ped ? pavement:p.asphalt)
+            if path.elevation>1 {quad(a-n*w,a+n*w,b+n*w,b-n*w,ped ? pavement:p.asphalt)}
             if path.elevation>1 {
                 orientedBox(mid-V(0,0.30,0),n,V(0,1,0),t,V(path.width,0.58,length),p.paving)
                 for s:Float in [-1,1] {
@@ -170,10 +190,13 @@ extension EiffelBuilder {
                 }
             }
             if !ped {
-                for s:Float in [-1,1] {
-                    let aa=a+n*s*(w+0.10)+V(0,0.07,0),bb=b+n*s*(w+0.10)+V(0,0.07,0)
-                    quad(aa,aa+n*s*2.5,bb+n*s*2.5,bb,pavement)
-                    if HydeParkContext.detailDistance(mid.x,mid.z)<220 {beam(aa,bb,0.14,0.18,p.paving)}
+                if path.elevation>1 {
+                    for s:Float in [-1,1] where (s>0 ? path.sidewalkRight:path.sidewalkLeft) == "generate" {
+                        let aa=a+n*s*(w+0.10)+V(0,0.07,0),bb=b+n*s*(w+0.10)+V(0,0.07,0)
+                        if s>0 {quad(aa,aa+n*2.5,bb+n*2.5,bb,pavement)}
+                        else {quad(bb,bb-n*2.5,aa-n*2.5,aa,pavement)}
+                        if HydeParkContext.detailDistance(mid.x,mid.z)<220 {beam(aa,bb,0.14,0.18,p.paving)}
+                    }
                 }
                 if length>18 && HydeParkContext.detailDistance(mid.x,mid.z)<300 {
                     for d in stride(from:Float(3),to:length-3,by:9) {

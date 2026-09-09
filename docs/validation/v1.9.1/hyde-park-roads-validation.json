@@ -1,0 +1,2527 @@
+{
+  "passed": true,
+  "checks": 491885,
+  "resourceSHA256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+  "sourceSHA256": "0441d4803e73ba50550afa7639fbaff0942dc5e3baf43c1ed0c72700f4c5a77f",
+  "surfaces": [
+    {
+      "id": 9200000000,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 2,
+      "areaSquareMetres": 180.82609999999576
+    },
+    {
+      "id": 9200000001,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 4,
+      "areaSquareMetres": 117.42150000000002
+    },
+    {
+      "id": 9200000002,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 2,
+      "areaSquareMetres": 97.92425000000925
+    },
+    {
+      "id": 9200000003,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 4,
+      "areaSquareMetres": 69.59855000000002
+    },
+    {
+      "id": 9200000004,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 2,
+      "areaSquareMetres": 43.015549999998996
+    },
+    {
+      "id": 9200000005,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 4,
+      "areaSquareMetres": 27.960000000000598
+    },
+    {
+      "id": 9200000006,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 128,
+      "areaSquareMetres": 5042.167199999969
+    },
+    {
+      "id": 9200000007,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 167,
+      "areaSquareMetres": 1061.6734499999914
+    },
+    {
+      "id": 9200000008,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 310,
+      "areaSquareMetres": 40154.14150000008
+    },
+    {
+      "id": 9200000009,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 134,
+      "areaSquareMetres": 2817.5728500000077
+    },
+    {
+      "id": 9200000010,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 70,
+      "areaSquareMetres": 1780.9634500000025
+    },
+    {
+      "id": 9200000011,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 318,
+      "areaSquareMetres": 46231.070600000065
+    },
+    {
+      "id": 9200000012,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 161,
+      "areaSquareMetres": 3598.8984999999866
+    },
+    {
+      "id": 9200000013,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 37,
+      "areaSquareMetres": 1173.785600000013
+    },
+    {
+      "id": 9200000014,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 236,
+      "areaSquareMetres": 35548.796400000065
+    },
+    {
+      "id": 9200000015,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 246,
+      "areaSquareMetres": 5116.716199999974
+    },
+    {
+      "id": 9200000016,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 68,
+      "areaSquareMetres": 2448.8309500000046
+    },
+    {
+      "id": 9200000017,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 171,
+      "areaSquareMetres": 31620.511300000027
+    },
+    {
+      "id": 9200000018,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 81,
+      "areaSquareMetres": 1834.8575999999987
+    },
+    {
+      "id": 9200000019,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 100,
+      "areaSquareMetres": 2538.28054999999
+    },
+    {
+      "id": 9200000020,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 396,
+      "areaSquareMetres": 38995.98250000008
+    },
+    {
+      "id": 9200000021,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 164,
+      "areaSquareMetres": 1592.7286000000086
+    },
+    {
+      "id": 9200000022,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 228,
+      "areaSquareMetres": 4735.936250000023
+    },
+    {
+      "id": 9200000023,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 440,
+      "areaSquareMetres": 43462.07535000006
+    },
+    {
+      "id": 9200000024,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 246,
+      "areaSquareMetres": 2806.814849999985
+    },
+    {
+      "id": 9200000025,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 369,
+      "areaSquareMetres": 5693.6971999999905
+    },
+    {
+      "id": 9200000026,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 378,
+      "areaSquareMetres": 42001.10550000001
+    },
+    {
+      "id": 9200000027,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 116,
+      "areaSquareMetres": 1530.7665499999925
+    },
+    {
+      "id": 9200000028,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 140,
+      "areaSquareMetres": 2120.985400000028
+    },
+    {
+      "id": 9200000029,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 418,
+      "areaSquareMetres": 46075.75030000002
+    },
+    {
+      "id": 9200000030,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 124,
+      "areaSquareMetres": 1822.293699999995
+    },
+    {
+      "id": 9200000031,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 107,
+      "areaSquareMetres": 2348.160500000001
+    },
+    {
+      "id": 9200000032,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 302,
+      "areaSquareMetres": 48641.24400000003
+    },
+    {
+      "id": 9200000033,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 117,
+      "areaSquareMetres": 2920.303850000033
+    },
+    {
+      "id": 9200000034,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 148,
+      "areaSquareMetres": 5149.421100000032
+    },
+    {
+      "id": 9200000035,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 466,
+      "areaSquareMetres": 50463.200900000105
+    },
+    {
+      "id": 9200000036,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 245,
+      "areaSquareMetres": 3109.249499999991
+    },
+    {
+      "id": 9200000037,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 257,
+      "areaSquareMetres": 3290.2339000000234
+    },
+    {
+      "id": 9200000038,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 598,
+      "areaSquareMetres": 48766.036250000005
+    },
+    {
+      "id": 9200000039,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 343,
+      "areaSquareMetres": 3862.9574999999795
+    },
+    {
+      "id": 9200000040,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 382,
+      "areaSquareMetres": 5871.359000000198
+    },
+    {
+      "id": 9200000041,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 353,
+      "areaSquareMetres": 49725.25205000037
+    },
+    {
+      "id": 9200000042,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 107,
+      "areaSquareMetres": 2321.508350000032
+    },
+    {
+      "id": 9200000043,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 272,
+      "areaSquareMetres": 9002.935349999949
+    },
+    {
+      "id": 9200000044,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 35,
+      "areaSquareMetres": 3611.1554499999934
+    },
+    {
+      "id": 9200000045,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 11,
+      "areaSquareMetres": 239.92449999999985
+    },
+    {
+      "id": 9200000046,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 13,
+      "areaSquareMetres": 427.52279999999894
+    },
+    {
+      "id": 9200000047,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 352,
+      "areaSquareMetres": 14032.111099999947
+    },
+    {
+      "id": 9200000048,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 427,
+      "areaSquareMetres": 6584.909400000127
+    },
+    {
+      "id": 9200000049,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 169,
+      "areaSquareMetres": 1665.864949999954
+    },
+    {
+      "id": 9200000050,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 801,
+      "areaSquareMetres": 40096.214050000104
+    },
+    {
+      "id": 9200000051,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1164,
+      "areaSquareMetres": 18179.56764999991
+    },
+    {
+      "id": 9200000052,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 395,
+      "areaSquareMetres": 6449.193799999989
+    },
+    {
+      "id": 9200000053,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1297,
+      "areaSquareMetres": 59131.45115000006
+    },
+    {
+      "id": 9200000054,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1499,
+      "areaSquareMetres": 18551.447650000075
+    },
+    {
+      "id": 9200000055,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 729,
+      "areaSquareMetres": 9725.979200000003
+    },
+    {
+      "id": 9200000056,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 840,
+      "areaSquareMetres": 45997.881499999814
+    },
+    {
+      "id": 9200000057,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 807,
+      "areaSquareMetres": 15208.484849999999
+    },
+    {
+      "id": 9200000058,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 584,
+      "areaSquareMetres": 12599.528899999952
+    },
+    {
+      "id": 9200000059,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1165,
+      "areaSquareMetres": 57302.2495500001
+    },
+    {
+      "id": 9200000060,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1096,
+      "areaSquareMetres": 16107.28545000009
+    },
+    {
+      "id": 9200000061,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 722,
+      "areaSquareMetres": 14434.954100000024
+    },
+    {
+      "id": 9200000062,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1093,
+      "areaSquareMetres": 53408.27015000013
+    },
+    {
+      "id": 9200000063,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1164,
+      "areaSquareMetres": 14144.901599999928
+    },
+    {
+      "id": 9200000064,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 810,
+      "areaSquareMetres": 12931.134750000008
+    },
+    {
+      "id": 9200000065,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 794,
+      "areaSquareMetres": 48679.57669999999
+    },
+    {
+      "id": 9200000066,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 592,
+      "areaSquareMetres": 11734.724400000023
+    },
+    {
+      "id": 9200000067,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 531,
+      "areaSquareMetres": 10989.040349999983
+    },
+    {
+      "id": 9200000068,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 727,
+      "areaSquareMetres": 39941.55769999995
+    },
+    {
+      "id": 9200000069,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 751,
+      "areaSquareMetres": 13038.731999999942
+    },
+    {
+      "id": 9200000070,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 416,
+      "areaSquareMetres": 7735.9672500000115
+    },
+    {
+      "id": 9200000071,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 648,
+      "areaSquareMetres": 51952.432850000034
+    },
+    {
+      "id": 9200000072,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 397,
+      "areaSquareMetres": 11092.612799999904
+    },
+    {
+      "id": 9200000073,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 267,
+      "areaSquareMetres": 6860.0701000000745
+    },
+    {
+      "id": 9200000074,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 606,
+      "areaSquareMetres": 43263.511999999864
+    },
+    {
+      "id": 9200000075,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 502,
+      "areaSquareMetres": 10591.811199999976
+    },
+    {
+      "id": 9200000076,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 310,
+      "areaSquareMetres": 8482.849250000047
+    },
+    {
+      "id": 9200000077,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1089,
+      "areaSquareMetres": 59403.49029999983
+    },
+    {
+      "id": 9200000078,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 810,
+      "areaSquareMetres": 14098.931850000008
+    },
+    {
+      "id": 9200000079,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 644,
+      "areaSquareMetres": 15067.565199999925
+    },
+    {
+      "id": 9200000080,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1284,
+      "areaSquareMetres": 54231.634549999806
+    },
+    {
+      "id": 9200000081,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1237,
+      "areaSquareMetres": 17396.232549999855
+    },
+    {
+      "id": 9200000082,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 978,
+      "areaSquareMetres": 16552.69955000006
+    },
+    {
+      "id": 9200000083,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 678,
+      "areaSquareMetres": 39214.245500000085
+    },
+    {
+      "id": 9200000084,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 734,
+      "areaSquareMetres": 11837.089199999857
+    },
+    {
+      "id": 9200000085,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 449,
+      "areaSquareMetres": 11318.025049999958
+    },
+    {
+      "id": 9200000086,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 61,
+      "areaSquareMetres": 3305.72359999999
+    },
+    {
+      "id": 9200000087,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 21,
+      "areaSquareMetres": 579.9806499999993
+    },
+    {
+      "id": 9200000088,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 18,
+      "areaSquareMetres": 661.1269999999957
+    },
+    {
+      "id": 9200000089,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 12,
+      "areaSquareMetres": 499.6222000000006
+    },
+    {
+      "id": 9200000090,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 597,
+      "areaSquareMetres": 21020.633199999913
+    },
+    {
+      "id": 9200000091,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 668,
+      "areaSquareMetres": 7383.188650000091
+    },
+    {
+      "id": 9200000092,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 308,
+      "areaSquareMetres": 2883.3567500000227
+    },
+    {
+      "id": 9200000093,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1019,
+      "areaSquareMetres": 51833.746100000295
+    },
+    {
+      "id": 9200000094,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1164,
+      "areaSquareMetres": 19016.078699999944
+    },
+    {
+      "id": 9200000095,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 560,
+      "areaSquareMetres": 12127.264649999966
+    },
+    {
+      "id": 9200000096,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1191,
+      "areaSquareMetres": 61523.643150000054
+    },
+    {
+      "id": 9200000097,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 980,
+      "areaSquareMetres": 18197.250449999963
+    },
+    {
+      "id": 9200000098,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 592,
+      "areaSquareMetres": 12471.930749999963
+    },
+    {
+      "id": 9200000099,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1249,
+      "areaSquareMetres": 56499.45414999997
+    },
+    {
+      "id": 9200000100,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1354,
+      "areaSquareMetres": 20079.09485000005
+    },
+    {
+      "id": 9200000101,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 875,
+      "areaSquareMetres": 13136.627250000014
+    },
+    {
+      "id": 9200000102,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 809,
+      "areaSquareMetres": 49213.424249999916
+    },
+    {
+      "id": 9200000103,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 764,
+      "areaSquareMetres": 14575.723799999992
+    },
+    {
+      "id": 9200000104,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 509,
+      "areaSquareMetres": 12098.827200000034
+    },
+    {
+      "id": 9200000105,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1262,
+      "areaSquareMetres": 52511.78990000019
+    },
+    {
+      "id": 9200000106,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1568,
+      "areaSquareMetres": 18091.200750000004
+    },
+    {
+      "id": 9200000107,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 917,
+      "areaSquareMetres": 14573.22164999992
+    },
+    {
+      "id": 9200000108,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 754,
+      "areaSquareMetres": 45919.470650000076
+    },
+    {
+      "id": 9200000109,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 846,
+      "areaSquareMetres": 15295.809049999973
+    },
+    {
+      "id": 9200000110,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 601,
+      "areaSquareMetres": 12935.722299999981
+    },
+    {
+      "id": 9200000111,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1166,
+      "areaSquareMetres": 51825.30799999993
+    },
+    {
+      "id": 9200000112,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1168,
+      "areaSquareMetres": 17140.93004999999
+    },
+    {
+      "id": 9200000113,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 674,
+      "areaSquareMetres": 12884.856949999968
+    },
+    {
+      "id": 9200000114,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1056,
+      "areaSquareMetres": 51006.85459999979
+    },
+    {
+      "id": 9200000115,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 891,
+      "areaSquareMetres": 15203.296250000061
+    },
+    {
+      "id": 9200000116,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 629,
+      "areaSquareMetres": 13167.659099999943
+    },
+    {
+      "id": 9200000117,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 583,
+      "areaSquareMetres": 40692.25674999988
+    },
+    {
+      "id": 9200000118,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 717,
+      "areaSquareMetres": 14796.20140000007
+    },
+    {
+      "id": 9200000119,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 551,
+      "areaSquareMetres": 11792.433550000133
+    },
+    {
+      "id": 9200000120,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1013,
+      "areaSquareMetres": 55945.7145500001
+    },
+    {
+      "id": 9200000121,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1041,
+      "areaSquareMetres": 15233.53660000004
+    },
+    {
+      "id": 9200000122,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 631,
+      "areaSquareMetres": 12767.098249999946
+    },
+    {
+      "id": 9200000123,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 863,
+      "areaSquareMetres": 45880.43559999996
+    },
+    {
+      "id": 9200000124,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1071,
+      "areaSquareMetres": 15249.962949999968
+    },
+    {
+      "id": 9200000125,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 722,
+      "areaSquareMetres": 14722.537999999926
+    },
+    {
+      "id": 9200000126,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 768,
+      "areaSquareMetres": 43053.296700000064
+    },
+    {
+      "id": 9200000127,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 845,
+      "areaSquareMetres": 12985.094500000168
+    },
+    {
+      "id": 9200000128,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 462,
+      "areaSquareMetres": 12140.246849999985
+    },
+    {
+      "id": 9200000129,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 33,
+      "areaSquareMetres": 3365.3298999999865
+    },
+    {
+      "id": 9200000130,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 21,
+      "areaSquareMetres": 719.9775999999995
+    },
+    {
+      "id": 9200000131,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 18,
+      "areaSquareMetres": 788.5533500000046
+    },
+    {
+      "id": 9200000132,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 3,
+      "areaSquareMetres": 232.26065000000256
+    },
+    {
+      "id": 9200000133,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 51,
+      "areaSquareMetres": 3030.3565499999913
+    },
+    {
+      "id": 9200000134,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 440,
+      "areaSquareMetres": 15505.385300000064
+    },
+    {
+      "id": 9200000135,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 503,
+      "areaSquareMetres": 5355.005250000093
+    },
+    {
+      "id": 9200000136,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 309,
+      "areaSquareMetres": 4177.017200000053
+    },
+    {
+      "id": 9200000137,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1199,
+      "areaSquareMetres": 53315.01119999983
+    },
+    {
+      "id": 9200000138,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1363,
+      "areaSquareMetres": 16668.178750000017
+    },
+    {
+      "id": 9200000139,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 534,
+      "areaSquareMetres": 8348.785049999971
+    },
+    {
+      "id": 9200000140,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1112,
+      "areaSquareMetres": 64593.502999999975
+    },
+    {
+      "id": 9200000141,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 754,
+      "areaSquareMetres": 12165.403950000155
+    },
+    {
+      "id": 9200000142,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 523,
+      "areaSquareMetres": 10419.08939999998
+    },
+    {
+      "id": 9200000143,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1415,
+      "areaSquareMetres": 62314.34020000019
+    },
+    {
+      "id": 9200000144,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1125,
+      "areaSquareMetres": 15085.567649999912
+    },
+    {
+      "id": 9200000145,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 883,
+      "areaSquareMetres": 13382.634399999995
+    },
+    {
+      "id": 9200000146,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1283,
+      "areaSquareMetres": 61120.22949999977
+    },
+    {
+      "id": 9200000147,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1576,
+      "areaSquareMetres": 18110.274300000037
+    },
+    {
+      "id": 9200000148,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 721,
+      "areaSquareMetres": 12349.018550000117
+    },
+    {
+      "id": 9200000149,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1510,
+      "areaSquareMetres": 65550.28835000003
+    },
+    {
+      "id": 9200000150,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1311,
+      "areaSquareMetres": 16521.510549999963
+    },
+    {
+      "id": 9200000151,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 1101,
+      "areaSquareMetres": 15805.096150000023
+    },
+    {
+      "id": 9200000152,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1371,
+      "areaSquareMetres": 62299.334599999995
+    },
+    {
+      "id": 9200000153,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1206,
+      "areaSquareMetres": 16037.819000000003
+    },
+    {
+      "id": 9200000154,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 1010,
+      "areaSquareMetres": 15563.242050000053
+    },
+    {
+      "id": 9200000155,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1390,
+      "areaSquareMetres": 62633.08390000008
+    },
+    {
+      "id": 9200000156,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1382,
+      "areaSquareMetres": 17117.12009999999
+    },
+    {
+      "id": 9200000157,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 960,
+      "areaSquareMetres": 14758.547549999987
+    },
+    {
+      "id": 9200000158,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1085,
+      "areaSquareMetres": 46859.06640000009
+    },
+    {
+      "id": 9200000159,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1140,
+      "areaSquareMetres": 16462.68134999985
+    },
+    {
+      "id": 9200000160,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 883,
+      "areaSquareMetres": 13342.419100000006
+    },
+    {
+      "id": 9200000161,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 321,
+      "areaSquareMetres": 16804.574750000054
+    },
+    {
+      "id": 9200000162,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 533,
+      "areaSquareMetres": 10072.173799999855
+    },
+    {
+      "id": 9200000163,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 92,
+      "areaSquareMetres": 1018.8013999999598
+    },
+    {
+      "id": 9200000164,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 665,
+      "areaSquareMetres": 31542.67720000044
+    },
+    {
+      "id": 9200000165,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 918,
+      "areaSquareMetres": 12412.566600000011
+    },
+    {
+      "id": 9200000166,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 375,
+      "areaSquareMetres": 3854.5239499999716
+    },
+    {
+      "id": 9200000167,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 330,
+      "areaSquareMetres": 17869.581299999878
+    },
+    {
+      "id": 9200000168,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 579,
+      "areaSquareMetres": 11606.801450000034
+    },
+    {
+      "id": 9200000169,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 116,
+      "areaSquareMetres": 2045.616300000121
+    },
+    {
+      "id": 9200000170,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 854,
+      "areaSquareMetres": 43963.28850000009
+    },
+    {
+      "id": 9200000171,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 943,
+      "areaSquareMetres": 14925.795949999932
+    },
+    {
+      "id": 9200000172,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 665,
+      "areaSquareMetres": 12838.473250000092
+    },
+    {
+      "id": 9200000173,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 310,
+      "areaSquareMetres": 6098.358400000076
+    },
+    {
+      "id": 9200000174,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 373,
+      "areaSquareMetres": 2424.6813999999868
+    },
+    {
+      "id": 9200000175,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 319,
+      "areaSquareMetres": 2356.534599999973
+    },
+    {
+      "id": 9200000176,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 252,
+      "areaSquareMetres": 9697.957650000004
+    },
+    {
+      "id": 9200000177,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 388,
+      "areaSquareMetres": 3169.2416999999946
+    },
+    {
+      "id": 9200000178,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 20,
+      "areaSquareMetres": 187.9119499999935
+    },
+    {
+      "id": 9200000179,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 493,
+      "areaSquareMetres": 24687.389049999972
+    },
+    {
+      "id": 9200000180,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 793,
+      "areaSquareMetres": 9679.987799999979
+    },
+    {
+      "id": 9200000181,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 34,
+      "areaSquareMetres": 955.3433500000024
+    },
+    {
+      "id": 9200000182,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 794,
+      "areaSquareMetres": 40520.92420000004
+    },
+    {
+      "id": 9200000183,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1193,
+      "areaSquareMetres": 15036.645650000119
+    },
+    {
+      "id": 9200000184,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 304,
+      "areaSquareMetres": 4470.423700000019
+    },
+    {
+      "id": 9200000185,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1472,
+      "areaSquareMetres": 55148.643600000076
+    },
+    {
+      "id": 9200000186,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1720,
+      "areaSquareMetres": 17669.09295000012
+    },
+    {
+      "id": 9200000187,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 1003,
+      "areaSquareMetres": 12334.718499999994
+    },
+    {
+      "id": 9200000188,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1042,
+      "areaSquareMetres": 46465.128799999686
+    },
+    {
+      "id": 9200000189,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1667,
+      "areaSquareMetres": 18865.06469999987
+    },
+    {
+      "id": 9200000190,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 832,
+      "areaSquareMetres": 11766.774350000114
+    },
+    {
+      "id": 9200000191,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1292,
+      "areaSquareMetres": 55529.3937500001
+    },
+    {
+      "id": 9200000192,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1129,
+      "areaSquareMetres": 15372.601650000046
+    },
+    {
+      "id": 9200000193,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 845,
+      "areaSquareMetres": 11975.751649999984
+    },
+    {
+      "id": 9200000194,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1092,
+      "areaSquareMetres": 50240.071549999964
+    },
+    {
+      "id": 9200000195,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1004,
+      "areaSquareMetres": 15470.391899999986
+    },
+    {
+      "id": 9200000196,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 592,
+      "areaSquareMetres": 10085.163449999942
+    },
+    {
+      "id": 9200000197,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1312,
+      "areaSquareMetres": 58756.37315000002
+    },
+    {
+      "id": 9200000198,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1187,
+      "areaSquareMetres": 15704.300349999981
+    },
+    {
+      "id": 9200000199,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 776,
+      "areaSquareMetres": 12387.490800000041
+    },
+    {
+      "id": 9200000200,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 767,
+      "areaSquareMetres": 43597.823300000004
+    },
+    {
+      "id": 9200000201,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1048,
+      "areaSquareMetres": 15402.251449999805
+    },
+    {
+      "id": 9200000202,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 572,
+      "areaSquareMetres": 9745.318249999762
+    },
+    {
+      "id": 9200000203,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 586,
+      "areaSquareMetres": 28143.396650000042
+    },
+    {
+      "id": 9200000204,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 516,
+      "areaSquareMetres": 8683.12255000001
+    },
+    {
+      "id": 9200000205,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 202,
+      "areaSquareMetres": 3925.2577499999784
+    },
+    {
+      "id": 9200000206,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 451,
+      "areaSquareMetres": 18248.102299999773
+    },
+    {
+      "id": 9200000207,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 726,
+      "areaSquareMetres": 13087.327949999988
+    },
+    {
+      "id": 9200000208,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 486,
+      "areaSquareMetres": 8134.595950000023
+    },
+    {
+      "id": 9200000209,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 502,
+      "areaSquareMetres": 20080.91445000006
+    },
+    {
+      "id": 9200000210,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1004,
+      "areaSquareMetres": 11082.661650000122
+    },
+    {
+      "id": 9200000211,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 497,
+      "areaSquareMetres": 7314.178049999946
+    },
+    {
+      "id": 9200000212,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1045,
+      "areaSquareMetres": 55186.56540000041
+    },
+    {
+      "id": 9200000213,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1166,
+      "areaSquareMetres": 16684.28490000015
+    },
+    {
+      "id": 9200000214,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 724,
+      "areaSquareMetres": 13710.085349999932
+    },
+    {
+      "id": 9200000215,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 356,
+      "areaSquareMetres": 7310.412900000027
+    },
+    {
+      "id": 9200000216,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 433,
+      "areaSquareMetres": 2658.4766499999737
+    },
+    {
+      "id": 9200000217,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 353,
+      "areaSquareMetres": 2629.3492500000707
+    },
+    {
+      "id": 9200000218,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 99,
+      "areaSquareMetres": 1549.1971000000049
+    },
+    {
+      "id": 9200000219,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 5,
+      "areaSquareMetres": 823.6401499999823
+    },
+    {
+      "id": 9200000220,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 447,
+      "areaSquareMetres": 8278.64925000006
+    },
+    {
+      "id": 9200000221,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 617,
+      "areaSquareMetres": 28618.213299999927
+    },
+    {
+      "id": 9200000222,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 696,
+      "areaSquareMetres": 9978.857149999942
+    },
+    {
+      "id": 9200000223,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 275,
+      "areaSquareMetres": 3855.8433500000174
+    },
+    {
+      "id": 9200000224,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 985,
+      "areaSquareMetres": 43794.133800000025
+    },
+    {
+      "id": 9200000225,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1245,
+      "areaSquareMetres": 14870.20189999988
+    },
+    {
+      "id": 9200000226,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 763,
+      "areaSquareMetres": 11771.525150000087
+    },
+    {
+      "id": 9200000227,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1287,
+      "areaSquareMetres": 53416.72365000026
+    },
+    {
+      "id": 9200000228,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1680,
+      "areaSquareMetres": 19310.246999999927
+    },
+    {
+      "id": 9200000229,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 1021,
+      "areaSquareMetres": 15601.081750000052
+    },
+    {
+      "id": 9200000230,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 748,
+      "areaSquareMetres": 42725.96575
+    },
+    {
+      "id": 9200000231,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1181,
+      "areaSquareMetres": 16323.908999999916
+    },
+    {
+      "id": 9200000232,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 480,
+      "areaSquareMetres": 11406.037049999954
+    },
+    {
+      "id": 9200000233,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 709,
+      "areaSquareMetres": 42567.233850000026
+    },
+    {
+      "id": 9200000234,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 998,
+      "areaSquareMetres": 16284.157400000046
+    },
+    {
+      "id": 9200000235,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 174,
+      "areaSquareMetres": 3501.8368000000905
+    },
+    {
+      "id": 9200000236,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 868,
+      "areaSquareMetres": 41788.17065000002
+    },
+    {
+      "id": 9200000237,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1062,
+      "areaSquareMetres": 15984.961949999944
+    },
+    {
+      "id": 9200000238,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 146,
+      "areaSquareMetres": 1255.5022000000115
+    },
+    {
+      "id": 9200000239,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 806,
+      "areaSquareMetres": 43429.0441000001
+    },
+    {
+      "id": 9200000240,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1160,
+      "areaSquareMetres": 16704.851000000188
+    },
+    {
+      "id": 9200000241,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 99,
+      "areaSquareMetres": 1598.0031500000453
+    },
+    {
+      "id": 9200000242,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 611,
+      "areaSquareMetres": 31708.626200000104
+    },
+    {
+      "id": 9200000243,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1322,
+      "areaSquareMetres": 19938.995950000004
+    },
+    {
+      "id": 9200000244,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 199,
+      "areaSquareMetres": 4294.372800000046
+    },
+    {
+      "id": 9200000245,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 562,
+      "areaSquareMetres": 23468.110549999892
+    },
+    {
+      "id": 9200000246,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1591,
+      "areaSquareMetres": 22125.40750000011
+    },
+    {
+      "id": 9200000247,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 394,
+      "areaSquareMetres": 7407.671800000141
+    },
+    {
+      "id": 9200000248,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 759,
+      "areaSquareMetres": 36464.86520000023
+    },
+    {
+      "id": 9200000249,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1367,
+      "areaSquareMetres": 18716.35359999988
+    },
+    {
+      "id": 9200000250,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 569,
+      "areaSquareMetres": 13490.202549999996
+    },
+    {
+      "id": 9200000251,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 148,
+      "areaSquareMetres": 4072.4917500001347
+    },
+    {
+      "id": 9200000252,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 181,
+      "areaSquareMetres": 2145.6349500000147
+    },
+    {
+      "id": 9200000253,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 111,
+      "areaSquareMetres": 1182.8774000000367
+    },
+    {
+      "id": 9200000254,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 30,
+      "areaSquareMetres": 520.820650000002
+    },
+    {
+      "id": 9200000255,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 266,
+      "areaSquareMetres": 5771.792600000035
+    },
+    {
+      "id": 9200000256,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 29,
+      "areaSquareMetres": 2318.1696499999393
+    },
+    {
+      "id": 9200000257,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 597,
+      "areaSquareMetres": 10456.951900000047
+    },
+    {
+      "id": 9200000258,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 41,
+      "areaSquareMetres": 296.58555000000723
+    },
+    {
+      "id": 9200000259,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 453,
+      "areaSquareMetres": 22970.660300000058
+    },
+    {
+      "id": 9200000260,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 774,
+      "areaSquareMetres": 15242.560199999893
+    },
+    {
+      "id": 9200000261,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 364,
+      "areaSquareMetres": 4884.031699999989
+    },
+    {
+      "id": 9200000262,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 733,
+      "areaSquareMetres": 44504.19680000015
+    },
+    {
+      "id": 9200000263,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 577,
+      "areaSquareMetres": 12393.950200000103
+    },
+    {
+      "id": 9200000264,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 367,
+      "areaSquareMetres": 7901.506599999861
+    },
+    {
+      "id": 9200000265,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 701,
+      "areaSquareMetres": 39372.39450000012
+    },
+    {
+      "id": 9200000266,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 783,
+      "areaSquareMetres": 13985.35834999993
+    },
+    {
+      "id": 9200000267,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 269,
+      "areaSquareMetres": 5928.8663500001185
+    },
+    {
+      "id": 9200000268,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 721,
+      "areaSquareMetres": 41180.88310000006
+    },
+    {
+      "id": 9200000269,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 785,
+      "areaSquareMetres": 13918.98854999993
+    },
+    {
+      "id": 9200000270,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 102,
+      "areaSquareMetres": 3037.5477999999803
+    },
+    {
+      "id": 9200000271,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 602,
+      "areaSquareMetres": 38266.73390000025
+    },
+    {
+      "id": 9200000272,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1392,
+      "areaSquareMetres": 18207.091300000127
+    },
+    {
+      "id": 9200000273,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 105,
+      "areaSquareMetres": 1162.5002500000187
+    },
+    {
+      "id": 9200000274,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 743,
+      "areaSquareMetres": 40455.83405000019
+    },
+    {
+      "id": 9200000275,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1453,
+      "areaSquareMetres": 19634.821049999835
+    },
+    {
+      "id": 9200000276,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 305,
+      "areaSquareMetres": 5970.475099999969
+    },
+    {
+      "id": 9200000277,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 718,
+      "areaSquareMetres": 34395.08690000009
+    },
+    {
+      "id": 9200000278,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1382,
+      "areaSquareMetres": 19255.485350000017
+    },
+    {
+      "id": 9200000279,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 421,
+      "areaSquareMetres": 10176.251700000017
+    },
+    {
+      "id": 9200000280,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 911,
+      "areaSquareMetres": 40401.888699999574
+    },
+    {
+      "id": 9200000281,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1426,
+      "areaSquareMetres": 19098.594949999922
+    },
+    {
+      "id": 9200000282,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 693,
+      "areaSquareMetres": 11602.665700000163
+    },
+    {
+      "id": 9200000283,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 34,
+      "areaSquareMetres": 2252.3515499999926
+    },
+    {
+      "id": 9200000284,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 66,
+      "areaSquareMetres": 1393.2528500000176
+    },
+    {
+      "id": 9200000285,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 29,
+      "areaSquareMetres": 538.7675500000104
+    },
+    {
+      "id": 9200000286,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 110,
+      "areaSquareMetres": 3410.3890999999503
+    },
+    {
+      "id": 9200000287,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 452,
+      "areaSquareMetres": 25039.473549999915
+    },
+    {
+      "id": 9200000288,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 525,
+      "areaSquareMetres": 9936.02665000006
+    },
+    {
+      "id": 9200000289,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 49,
+      "areaSquareMetres": 435.7444500000056
+    },
+    {
+      "id": 9200000290,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1041,
+      "areaSquareMetres": 50632.174849999894
+    },
+    {
+      "id": 9200000291,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1035,
+      "areaSquareMetres": 12873.963599999934
+    },
+    {
+      "id": 9200000292,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 288,
+      "areaSquareMetres": 4280.290200000078
+    },
+    {
+      "id": 9200000293,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1157,
+      "areaSquareMetres": 55518.51275000025
+    },
+    {
+      "id": 9200000294,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 938,
+      "areaSquareMetres": 14456.57904999993
+    },
+    {
+      "id": 9200000295,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 181,
+      "areaSquareMetres": 1514.6786000000673
+    },
+    {
+      "id": 9200000296,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1234,
+      "areaSquareMetres": 55835.64450000043
+    },
+    {
+      "id": 9200000297,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1203,
+      "areaSquareMetres": 16677.140300000054
+    },
+    {
+      "id": 9200000298,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 666,
+      "areaSquareMetres": 10419.92744999978
+    },
+    {
+      "id": 9200000299,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1381,
+      "areaSquareMetres": 52675.266000000534
+    },
+    {
+      "id": 9200000300,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1682,
+      "areaSquareMetres": 21263.4195
+    },
+    {
+      "id": 9200000301,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 990,
+      "areaSquareMetres": 8190.482800000089
+    },
+    {
+      "id": 9200000302,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 568,
+      "areaSquareMetres": 36424.28084999978
+    },
+    {
+      "id": 9200000303,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 883,
+      "areaSquareMetres": 13581.319800000092
+    },
+    {
+      "id": 9200000304,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 342,
+      "areaSquareMetres": 6052.901599999995
+    },
+    {
+      "id": 9200000305,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1082,
+      "areaSquareMetres": 48088.89895
+    },
+    {
+      "id": 9200000306,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1173,
+      "areaSquareMetres": 15578.409900000113
+    },
+    {
+      "id": 9200000307,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 759,
+      "areaSquareMetres": 11951.922999999977
+    },
+    {
+      "id": 9200000308,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 25,
+      "areaSquareMetres": 2801.6453000000024
+    },
+    {
+      "id": 9200000309,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 16,
+      "areaSquareMetres": 599.7922000000063
+    },
+    {
+      "id": 9200000310,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 17,
+      "areaSquareMetres": 577.7739500000014
+    },
+    {
+      "id": 9200000311,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 429,
+      "areaSquareMetres": 18708.53530000001
+    },
+    {
+      "id": 9200000312,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 195,
+      "areaSquareMetres": 5207.5696000000125
+    },
+    {
+      "id": 9200000313,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 106,
+      "areaSquareMetres": 1738.3452499998702
+    },
+    {
+      "id": 9200000314,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 978,
+      "areaSquareMetres": 44001.34970000008
+    },
+    {
+      "id": 9200000315,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1151,
+      "areaSquareMetres": 15921.355700000264
+    },
+    {
+      "id": 9200000316,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 489,
+      "areaSquareMetres": 6738.48970000006
+    },
+    {
+      "id": 9200000317,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 878,
+      "areaSquareMetres": 44254.75319999984
+    },
+    {
+      "id": 9200000318,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 811,
+      "areaSquareMetres": 14617.336550000255
+    },
+    {
+      "id": 9200000319,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 410,
+      "areaSquareMetres": 8972.031750000064
+    },
+    {
+      "id": 9200000320,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 1347,
+      "areaSquareMetres": 48772.31304999956
+    },
+    {
+      "id": 9200000321,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1393,
+      "areaSquareMetres": 16342.170300000054
+    },
+    {
+      "id": 9200000322,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 881,
+      "areaSquareMetres": 11399.133500000013
+    },
+    {
+      "id": 9200000323,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 635,
+      "areaSquareMetres": 22558.26259999989
+    },
+    {
+      "id": 9200000324,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 1447,
+      "areaSquareMetres": 14426.77245000006
+    },
+    {
+      "id": 9200000325,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 76,
+      "areaSquareMetres": 397.14279999999434
+    },
+    {
+      "id": 9200000326,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 129,
+      "areaSquareMetres": 3785.0039999999804
+    },
+    {
+      "id": 9200000327,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 2385,
+      "areaSquareMetres": 19440.73609999976
+    },
+    {
+      "id": 9200000328,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 83,
+      "areaSquareMetres": 1292.5508499999737
+    },
+    {
+      "id": 9200000329,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 7,
+      "areaSquareMetres": 443.7465499999886
+    },
+    {
+      "id": 9200000330,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 67,
+      "areaSquareMetres": 912.8651500000262
+    },
+    {
+      "id": 9200000331,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 10,
+      "areaSquareMetres": 202.16295000000798
+    },
+    {
+      "id": 9200000332,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 83,
+      "areaSquareMetres": 5343.3390499999905
+    },
+    {
+      "id": 9200000333,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 235,
+      "areaSquareMetres": 4898.462949999897
+    },
+    {
+      "id": 9200000334,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 233,
+      "areaSquareMetres": 16818.619949999993
+    },
+    {
+      "id": 9200000335,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 470,
+      "areaSquareMetres": 8164.491149999896
+    },
+    {
+      "id": 9200000336,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 13,
+      "areaSquareMetres": 115.09004999999779
+    },
+    {
+      "id": 9200000337,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 303,
+      "areaSquareMetres": 18281.790250000024
+    },
+    {
+      "id": 9200000338,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 578,
+      "areaSquareMetres": 6639.80775000016
+    },
+    {
+      "id": 9200000339,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 280,
+      "areaSquareMetres": 17388.005299999975
+    },
+    {
+      "id": 9200000340,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 355,
+      "areaSquareMetres": 6934.844500000023
+    },
+    {
+      "id": 9200000341,
+      "kind": "sidewalk",
+      "elevation": 0.19,
+      "triangles": 10,
+      "areaSquareMetres": 126.61755000001395
+    },
+    {
+      "id": 9200000342,
+      "kind": "asphalt",
+      "elevation": 0.12,
+      "triangles": 85,
+      "areaSquareMetres": 4260.759049999993
+    },
+    {
+      "id": 9200000343,
+      "kind": "pavement",
+      "elevation": 0.19,
+      "triangles": 70,
+      "areaSquareMetres": 851.9594000000152
+    }
+  ],
+  "triangles": 218062,
+  "floatCollapsedTriangles": 0,
+  "floatCollapsedArea": 0.0,
+  "materialOverlapSquareMetres": {
+    "asphalt/pavement": 0.0,
+    "asphalt/sidewalk": 0.0,
+    "pavement/sidewalk": 0.0
+  },
+  "bridgeEndpointContinuity": [
+    {
+      "id": 1166004921,
+      "elevation": 0.12,
+      "endpointPeers": [
+        [
+          187346249
+        ],
+        [
+          1166004943
+        ]
+      ]
+    },
+    {
+      "id": 1166004940,
+      "elevation": 0.12,
+      "endpointPeers": [
+        [
+          281449302
+        ],
+        [
+          1166004939
+        ]
+      ]
+    },
+    {
+      "id": 1166004942,
+      "elevation": 0.12,
+      "endpointPeers": [
+        [
+          1166004941
+        ],
+        [
+          435662262
+        ]
+      ]
+    },
+    {
+      "id": 1166004944,
+      "elevation": 0.12,
+      "endpointPeers": [
+        [
+          1166004943
+        ],
+        [
+          1166004920
+        ]
+      ]
+    },
+    {
+      "id": 1344476701,
+      "elevation": 0.19,
+      "endpointPeers": [
+        [
+          1395883590
+        ],
+        [
+          1395883588
+        ]
+      ]
+    },
+    {
+      "id": 1344476703,
+      "elevation": 0.19,
+      "endpointPeers": [
+        [
+          1395883589
+        ],
+        [
+          1395883587
+        ]
+      ]
+    }
+  ],
+  "oneLaneWidths": [
+    {
+      "id": 281449302,
+      "width": 4.35,
+      "sourceLanes": 1
+    },
+    {
+      "id": 1166004939,
+      "width": 4.35,
+      "sourceLanes": 1
+    },
+    {
+      "id": 1166004940,
+      "width": 4.35,
+      "sourceLanes": 1
+    }
+  ],
+  "sourceWidthProbes": 808,
+  "bendProbes": 127,
+  "driveCoverageProbes": 23850,
+  "southernDriveExtentZ": 10927.527,
+  "driveProbesCoveredByRetainedCityQuads": 3,
+  "officialUnderpassReference": "https://www.chicagoparkdistrict.com/parks-facilities/57th-street-underpass-mural-artwork",
+  "scope": "Actual emitted triangle coverage/winding, disjoint at-grade materials, dated-source bridge endpoints, one-lane widths and separate-sidewalk policy. CPU only.",
+  "limits": [
+    "The official reference establishes two pedestrian underpasses, not surveyed heights.",
+    "The bounded road repair preserves source bridge/layer tags but does not reconstruct the omitted pedestrian tunnels or approach ramps. No underpass clearance is asserted.",
+    "Continuous geometry at the six surface crossings is checked; this is not a road-design or accessibility certification."
+  ]
+}

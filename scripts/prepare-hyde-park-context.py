@@ -2,11 +2,12 @@
 """Offline, reproducible Hyde Park derivative; requires Shapely 2.1.2.
 Preserves prior Chicago/Lakefront source files. No imagery is bundled.
 """
-import json,math,re,hashlib
+import json,math,re,hashlib,struct
 from pathlib import Path
 from collections import defaultdict
 from shapely import Polygon,LineString,Point,box,make_valid,union_all,constrained_delaunay_triangles,set_precision,orient_polygons
-from shapely.ops import linemerge
+from shapely.ops import linemerge,polygonize
+from shapely.prepared import prep
 ROOT=Path(__file__).resolve().parents[1]
 LAT,LON=41.878876,-87.635918
 RAW=ROOT/'scripts/data/chicago-hyde-park-osm-2026-09-08.json'
@@ -14,7 +15,15 @@ source=json.loads(RAW.read_text())
 old=json.loads((ROOT/'Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json').read_text())
 lf=json.loads((ROOT/'Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json').read_text())
 WORLD=box(-4000,-11500,6000,10800)
+TRANSPORT_WORLD=WORLD
 DEST=ROOT/'Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json'
+PEDESTRIAN_KINDS={'footway','path','pedestrian','cycleway','steps'}
+GROUND_ASPHALT=0.12
+GROUND_WALK=0.19
+SURFACE_GRID=0.01
+SURFACE_MITRE_LIMIT=2.0
+LOCAL_GRADE_IDS={1166004921,1166004940,1166004942,1166004944,1344476701,1344476703}
+UNDERPASS_REFERENCE='https://www.chicagoparkdistrict.com/parks-facilities/57th-street-underpass-mural-artwork'
 def project(q):return [round((q['lon']-LON)*111320*math.cos(math.radians(LAT)),3),round((LAT-q['lat'])*111320,3)]
 def number(v,default=0):
     try:
@@ -70,6 +79,53 @@ def lines(g):
     if g.is_empty:return []
     if g.geom_type=='LineString':return [g]
     return [v for c in getattr(g,'geoms',[])for v in lines(c)]
+
+def sidewalk_policy(tags,side):
+    """Do not invent a parallel sidewalk where OSM maps one separately."""
+    if tags['highway'] in PEDESTRIAN_KINDS or tags['highway'] in {'motorway','trunk','motorway_link','trunk_link','service','track'} or tags.get('motorroad')=='yes':
+        return 'none'
+    value=tags.get('sidewalk:'+side,tags.get('sidewalk:both',tags.get('sidewalk','')))
+    if value=='separate':return 'mapped'
+    if value in {'no','none'}:return 'none'
+    if value in {'left','right'}:return 'generate' if value==side else 'none'
+    return 'generate'
+
+def transport_clean(g):
+    # Centimetre precision exceeds the float32 coordinate ULP at the south end
+    # of this world and removes subpixel overlay slivers before triangulation.
+    return set_precision(union_all(polygons(make_valid(g).intersection(TRANSPORT_WORLD))),SURFACE_GRID)
+
+def transport_stroke(points,width,single_side=False):
+    return LineString(points).buffer(width if single_side else width/2,
+        cap_style='flat',join_style='mitre',mitre_limit=SURFACE_MITRE_LIMIT,
+        single_sided=single_side)
+
+def ground_road_runs(road):
+    chunks=[];chunk=[]
+    for point in road['points']:
+        if abs(point[1])<1:chunk.append((point[0],point[2]))
+        else:
+            if len(chunk)>1:chunks.append(chunk)
+            chunk=[]
+    if len(chunk)>1:chunks.append(chunk)
+    return chunks
+
+def f32(value):return struct.unpack('f',struct.pack('f',value))[0]
+
+def transport_mesh(shape,ident,kind):
+    result=mesh(shape,ident,kind,'Joined Hyde Park '+kind)
+    triangles=[];omitted=0;omitted_area=0
+    for i in range(0,len(result['triangles']),3):
+        indices=result['triangles'][i:i+3]
+        a,b,c=[[f32(v)for v in result['points'][j]]for j in indices]
+        cross=f32(f32(f32(b[0]-a[0])*f32(c[1]-a[1]))-f32(f32(b[1]-a[1])*f32(c[0]-a[0])))
+        if cross<=1e-6:
+            omitted+=1
+            aa,bb,cc=[result['points'][j]for j in indices]
+            omitted_area+=abs((bb[0]-aa[0])*(cc[1]-aa[1])-(bb[1]-aa[1])*(cc[0]-aa[0]))/2
+        else:triangles+=indices
+    result['triangles']=triangles
+    return result,omitted,omitted_area
 elements={(e['type'],e['id']):e for e in source['elements']}
 shape_cache={}
 def shape(e):
@@ -191,18 +247,102 @@ for e in source['elements']:
   for j,l in enumerate(lines(line.intersection(box(-2400,4000,6000,10800)))):
    if l.length>2:rails.append(dict(id=ident*10+j,points=[[round(x,3),round(z,3)]for x,z in l.coords],width=1.435,kind='rail',name=t.get('name',''),bridge=t.get('bridge','')))
  if 'highway'in t and ident not in old_path_ids and ident not in road_ids:
-  k=t['highway'];ped=k in('footway','path','pedestrian','cycleway','steps')
+  k=t['highway'];ped=k in PEDESTRIAN_KINDS
   if t.get('indoor')=='yes'or number(t.get('layer'))<0 or t.get('tunnel')or k in('elevator','corridor','bus_stop','construction','proposed')or t.get('area')=='yes':continue
-  width=round(min(28,number(t.get('width'),2.5 if ped else max(2,number(t.get('lanes'),2))*3.35+1)),2)
-  elevation=7.0+max(0,number(t.get('layer'),1)-1)*4 if t.get('bridge')not in(None,'no')else 0.027
+  width=round(min(28,number(t.get('width'),2.5 if ped else max(1,number(t.get('lanes'),2))*3.35+1)),2)
+  width_source='osm_width'if number(t.get('width'))>0 else'osm_lanes'if not ped and number(t.get('lanes'))>0 else'estimated_pedestrian'if ped else'estimated_two_lanes'
+  elevated=t.get('bridge')not in(None,'no') and ident not in LOCAL_GRADE_IDS
+  elevation=7.0+max(0,number(t.get('layer'),1)-1)*4 if elevated else GROUND_WALK if ped else GROUND_ASPHALT
+  grade_source='57th_street_surface_grade_override'if ident in LOCAL_GRADE_IDS else'osm_relative_layer_estimate'if elevated else'flat_world_surface_datum'
+  source_tags={key:value for key,value in t.items()if key in {'highway','width','lanes','bridge','layer','tunnel','footway','foot','bicycle','motorroad'}or key.startswith('sidewalk')}
   for j,l in enumerate(lines(line.intersection(WORLD).difference(AUTHORED.buffer(.2)))):
-   if l.length>.2:paths.append(dict(id=ident if j==0 else-ident*100-j,points=[[round(x,3),round(z,3)]for x,z in l.coords],width=width,kind=k,name=t.get('name',''),bridge=t.get('bridge',''),elevation=elevation))
+   if l.length>.2:paths.append(dict(id=ident if j==0 else-ident*100-j,sourceID=ident,points=[[round(x,3),round(z,3)]for x,z in l.coords],width=width,widthSource=width_source,kind=k,name=t.get('name',''),bridge=t.get('bridge',''),sourceLayer=number(t.get('layer')),gradeSource=grade_source,elevation=elevation,sidewalkLeft=sidewalk_policy(t,'left'),sidewalkRight=sidewalk_policy(t,'right'),sourceTags=source_tags))
+
+# Bake joined ground transport surfaces. The original centerlines remain for
+# provenance, markings and traffic; they are not duplicate renderable strips.
+# The official Park District reference describes two pedestrian underpasses at
+# 57th Street. It does not publish elevations. In this existing flat world only
+# the six short bridge-tagged surface spans are held at their approach grade;
+# their source tags remain intact. Subsurface excavations are explicitly omitted.
+print('Preparing joined transport surfaces',flush=True)
+ground_paths=[p for p in paths if p['elevation']<1]
+road_shapes=[transport_stroke(p['points'],p['width'])for p in ground_paths if p['kind']not in PEDESTRIAN_KINDS]
+road_shapes += [transport_stroke([(q[0],q[2])for q in road['points']],road['width'])for road in roads]
+# Retain the existing sampled highway tails beyond WORLD without extending the
+# terrain or any generic path. Markings/traffic must not outlive their asphalt.
+drive_bounds=union_all([LineString([(q[0],q[2])for q in road['points']])for road in roads]).bounds
+TRANSPORT_WORLD=WORLD.union(box(*drive_bounds).buffer(max(road['width']for road in roads)/2+1,join_style='mitre'))
+ped_shapes=[transport_stroke(p['points'],p['width'])for p in ground_paths if p['kind']in PEDESTRIAN_KINDS]
+generated_sidewalks=[]
+for p in ground_paths:
+ if p['kind']in PEDESTRIAN_KINDS:continue
+ # X points east and Z points south: positive Shapely-side is OSM right.
+ for side,sign in [('left',-1),('right',1)]:
+  if p['sidewalk'+side.title()]!='generate':continue
+  outer=transport_stroke(p['points'],sign*(p['width']/2+2.5),True)
+  inner=transport_stroke(p['points'],sign*(p['width']/2),True)
+  generated_sidewalks.append(outer.difference(inner))
+asphalt=transport_clean(union_all(road_shapes))
+explicit_pedestrian=transport_clean(union_all(ped_shapes))
+sidewalk=transport_clean(union_all(generated_sidewalks))
+new_bounds=box(*union_all([asphalt,explicit_pedestrian,sidewalk]).bounds).buffer(30)
+prior_carriageways=[];prior_pedestrian=[]
+for previous in prior:
+ for p in previous['paths']+previous.get('bridges',[]):
+  if p.get('bridge')not in(None,'','no')or len(p['points'])<2:continue
+  line=LineString(p['points'])
+  if not line.intersects(new_bounds):continue
+  dest=prior_pedestrian if p.get('kind')in PEDESTRIAN_KINDS else prior_carriageways
+  dest.append(transport_stroke(p['points'],p['width']))
+ for road in previous.get('roads',[]):
+  for line in ground_road_runs(road):
+   if LineString(line).intersects(new_bounds):prior_carriageways.append(transport_stroke(line,road['width']))
+retained_asphalt=transport_clean(union_all(prior_carriageways))
+retained_pedestrian=transport_clean(union_all(prior_pedestrian))
+lot_cut=AUTHORED.buffer(.2)
+all_asphalt=transport_clean(asphalt.union(retained_asphalt))
+asphalt=transport_clean(asphalt.difference(retained_asphalt).difference(lot_cut))
+pavement=transport_clean(explicit_pedestrian.difference(all_asphalt).difference(retained_pedestrian).difference(lot_cut))
+sidewalk=transport_clean(sidewalk.difference(all_asphalt).difference(explicit_pedestrian).difference(retained_pedestrian).difference(lot_cut))
+# Quantize the common difference boundaries one last time, then subtract again
+# on that grid so material regions are disjoint after coordinate rounding.
+pavement=transport_clean(pavement.difference(asphalt))
+sidewalk=transport_clean(sidewalk.difference(asphalt).difference(pavement))
+road_surfaces=[];sliver_count=0;sliver_area=0
+networks={'asphalt':asphalt,'pavement':pavement,'sidewalk':sidewalk}
+minx,minz,maxx,maxz=union_all(list(networks.values())).bounds
+# All materials use a common noded planar arrangement within each bounded tile.
+# A snapped T-junction vertex must split both neighboring boundaries, otherwise
+# separately triangulated long edges can overlap even after polygon subtraction.
+for x in range(math.floor(minx/512)*512,math.ceil(maxx/512)*512,512):
+ for z in range(math.floor(minz/512)*512,math.ceil(maxz/512)*512,512):
+  tile=box(x,z,x+512,z+512)
+  pieces={kind:transport_clean(network.intersection(tile))for kind,network in networks.items()}
+  active={kind:geometry for kind,geometry in pieces.items()if not geometry.is_empty}
+  if not active:continue
+  boundaries=union_all([geometry.boundary for geometry in active.values()],grid_size=SURFACE_GRID)
+  prepared={kind:prep(geometry)for kind,geometry in active.items()}
+  cells={kind:[]for kind in active}
+  for face in polygonize(boundaries):
+   sample=face.representative_point()
+   for kind in ['asphalt','pavement','sidewalk']:
+    if kind in prepared and prepared[kind].covers(sample):
+     cells[kind].append(face);break
+  for kind,faces in cells.items():
+   if not faces:continue
+   # No independent precision snapping after shared boundaries are established.
+   surface,omitted,area=transport_mesh(union_all(faces),9200000000+len(road_surfaces),kind)
+   sliver_count+=omitted;sliver_area+=area
+   if surface['triangles']:road_surfaces.append(dict(surface=surface,elevation=GROUND_ASPHALT if kind=='asphalt'else GROUND_WALK))
+road_surface_policy=dict(version=1,coordinatePrecisionMetres=SURFACE_GRID,bufferCap='flat',bufferJoin='mitre',mitreLimit=SURFACE_MITRE_LIMIT,tileSizeMetres=512,asphaltElevation=GROUND_ASPHALT,walkElevation=GROUND_WALK,generatedSidewalkWidthMetres=2.5,localGradeOverrideWayIDs=sorted(LOCAL_GRADE_IDS),gradeReferenceURL=UNDERPASS_REFERENCE,gradeInterpretation='OSM layer is relative ordering, not metres. Six short surface spans at 57th Street use their adjoining flat-world grade; genuine elevated paths elsewhere retain the previous estimate.',omittedUndergroundScope='The official reference confirms two pedestrian underpasses between the museum and 57th Street Beach. This fix does not excavate terrain or add surveyed tunnel profiles; below-road portions remain omitted/occluded by the continuous carriageway.',omittedTunnelOrNegativeLayerWayIDs=sorted(e['id']for e in source['elements']if e['type']=='way'and'highway'in e.get('tags',{})and(e['tags'].get('tunnel')or number(e['tags'].get('layer'))<0)),surfacePrecedence='Existing carriageways, new asphalt, explicit pedestrian pavement, generated sidewalks. Regions are subtracted before triangulation. Existing resources are unchanged.',discardedFloat32SliverTriangles=sliver_count,discardedSliverAreaSquareMetres=sliver_area)
+road_surface_policy['surfaceTopology']='All material boundaries are noded together on the precision grid per tile, polygonized into shared faces and assigned in precedence order before triangulation. No separate boundary snapping follows planar face construction.'
+print('Joined transport complete',len(road_surfaces),'tiles;',sliver_count,'Float32 slivers omitted;',sliver_area,'square metres',flush=True)
 # Restore only new coverage of large pre-existing park polygons. Flat lawn never
 # rises over new paths, buildings, pitches or rail ballast in the southern band.
 print('Preparing landcover',len(buildings),len(paths),flush=True)
 retained_areas=union_all([surface_shape(a)if 'rings'in a else Polygon(a['points'])for d in prior for a in d['areas'] if a['kind']!='water' and max((q[1]for q in a['points']),default=-99999)>3200]).intersection(box(-2400,3200,6000,10800))
 building_mask=union_all(building_shapes).buffer(.3)
-route_mask=union_all([LineString(p['points']).buffer(p['width']/2+(0.4 if p['kind']in('footway','path','cycleway','pedestrian','steps')else 2.8))for p in paths if p['elevation']<1]+[LineString([(p[0],p[2])for p in r['points']]).buffer(r['width']/2+.4)for r in roads]+[LineString(p['points']).buffer(2.5)for p in rails])
+route_mask=union_all([union_all([asphalt,pavement,sidewalk]).buffer(.4)]+[LineString(p['points']).buffer(2.5)for p in rails])
 clearance=union_all([AUTHORED.buffer(.4),building_mask,route_mask,*hard])
 areas=[];emitted=Polygon()
 for ident,kind,name,g in sorted(area_candidates,key=lambda a:({'garden':0,'sand':1,'pitch':2,'grass':3,'park':4}[a[1]],a[3].area)):
@@ -213,7 +353,6 @@ for ident,kind,name,g in sorted(area_candidates,key=lambda a:({'garden':0,'sand'
 print('Landcover complete',len(areas),flush=True)
 # Mapped woodland gets a modest deterministic canopy sample. Positions are
 # explicitly authored samples, not purported OSM individual tree measurements.
-from shapely.prepared import prep
 woodland=union_all([g for _,g in wood]).intersection(land).difference(clearance.buffer(3))
 # Mature park canopy at Promontory is evident in satellite/reference aerials;
 # apply only within actual mapped park grass, keeping the open central lawn.
@@ -257,6 +396,6 @@ for p in sorted(harbor_piers,key=lambda q:q['id']):
    footprint=Polygon([(x+dx*boat_length*.53*u+n[0]*width*.56*v,z+dz*boat_length*.53*u+n[1]*width*.56*v)for u,v in[(-1,-1),(1,-1),(1,1),(-1,1)]])
    if not harbor.buffer(-1).covers(footprint)or dockmask.intersects(footprint)or any(g.intersects(footprint)for g in occupied):continue
    occupied.append(footprint);boats.append(dict(id=p['id']*10000+i*2+(side==1),point=[round(x,3),round(z,3)],length=round(boat_length,2),angle=round(math.atan2(dx,dz),6),sailboat=p['id']%4!=0,detailed=abs(x-2670)<140 and abs(z-4720)<230))
-result=dict(attribution='© OpenStreetMap contributors',license='ODbL 1.0',licenseURL='https://www.openstreetmap.org/copyright',timestamp=source['osm3s']['timestamp_osm_base'],origin=[LAT,LON],mapBounds=[41.782,-87.632,41.85,-87.573],worldBounds=[-4000,-11500,6000,10800],ground=ground,water=water,inlandWaters=inland,namedHarbors=named,authoredMask=mesh(AUTHORED,0,'exclusion'),replacementBuildingIDs=[125667497],buildings=buildings,landmarks=landmarks,areas=areas,paths=paths,piers=piers,breakwaters=walls,trees=trees,landcoverTrees=landcover,rails=rails,roads=roads,trafficLanes=traffic,boats=boats,sourceSHA256={RAW.name:hashlib.sha256(RAW.read_bytes()).hexdigest(),shore_path.name:hashlib.sha256(shore_path.read_bytes()).hexdigest()},previousResourceSHA256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in prior_paths})
+result=dict(attribution='© OpenStreetMap contributors',license='ODbL 1.0',licenseURL='https://www.openstreetmap.org/copyright',timestamp=source['osm3s']['timestamp_osm_base'],origin=[LAT,LON],mapBounds=[41.782,-87.632,41.85,-87.573],worldBounds=[-4000,-11500,6000,10800],ground=ground,water=water,inlandWaters=inland,namedHarbors=named,authoredMask=mesh(AUTHORED,0,'exclusion'),replacementBuildingIDs=[125667497],buildings=buildings,landmarks=landmarks,areas=areas,paths=paths,roadSurfaces=road_surfaces,roadSurfacePolicy=road_surface_policy,piers=piers,breakwaters=walls,trees=trees,landcoverTrees=landcover,rails=rails,roads=roads,trafficLanes=traffic,boats=boats,sourceSHA256={RAW.name:hashlib.sha256(RAW.read_bytes()).hexdigest(),shore_path.name:hashlib.sha256(shore_path.read_bytes()).hexdigest()},previousResourceSHA256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in prior_paths})
 DEST.parent.mkdir(parents=True,exist_ok=True);DEST.write_text(json.dumps(result,separators=(',',':'),ensure_ascii=False)+'\n')
 print(json.dumps({k:len(result[k])for k in ['buildings','landmarks','areas','paths','piers','breakwaters','trees','landcoverTrees','rails','roads','trafficLanes','boats']},indent=2));print('Resource bytes',DEST.stat().st_size)

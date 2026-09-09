@@ -104,13 +104,13 @@ extension EiffelBuilder {
             tri(V(q[0],y,q[1]),V(s[0],y,s[1]),V(r[0],y,r[1]),material)
         }
     }
-    func lakefrontDrive(_ road:LakefrontContext.Road,p:LakefrontPalette) {
+    func lakefrontDrive(_ road:LakefrontContext.Road,p:LakefrontPalette,drawSurface:Bool = true) {
         let points=road.points.map{V($0[0],$0[1],$0[2])}
         for i in 1..<points.count {
             let a=points[i-1],b=points[i],d=b-a,len=simd_length(d)
             guard len>0.01 else {continue}
             let t=d/len,n=simd_normalize(V(-t.z,0,t.x)),half=road.width/2
-            quad(a-n*half,a+n*half,b+n*half,b-n*half,p.asphalt)
+            if drawSurface {quad(a-n*half,a+n*half,b+n*half,b-n*half,p.asphalt)}
             // The upper road has a visible deck; no invented road is connected across a gap.
             if a.y>0.3 {orientedBox((a+b)/2-V(0,0.35,0),n,V(0,1,0),t,V(road.width,0.65,len+0.015),p.dark)}
             for offset:Float in [-5.325,-1.775,1.775,5.325] {

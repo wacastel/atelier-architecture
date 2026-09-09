@@ -1,0 +1,19 @@
+Preparing joined transport surfaces
+Joined transport complete 344 tiles; 0 Float32 slivers omitted; 0 square metres
+Preparing landcover 14478 13520
+Landcover complete 1414
+{
+  "buildings": 14478,
+  "landmarks": 822,
+  "areas": 1414,
+  "paths": 13520,
+  "piers": 319,
+  "breakwaters": 34,
+  "trees": 1179,
+  "landcoverTrees": 795,
+  "rails": 272,
+  "roads": 2,
+  "trafficLanes": 6,
+  "boats": 963
+}
+Resource bytes 33249457

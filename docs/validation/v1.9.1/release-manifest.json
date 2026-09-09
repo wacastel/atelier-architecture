@@ -1,0 +1,75 @@
+{
+  "version": "1.9.1",
+  "build": "11",
+  "executableSHA256": "00f6e2a2b3f790660bf25ab619fd784897876ee7549d0d4d81deb6339934ad07",
+  "resourceSHA256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee",
+  "bundledResourcesMatchSource": true,
+  "resources": [
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/ATTRIBUTION.txt",
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json",
+      "sha256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Renderer.metal",
+      "sha256": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df"
+    },
+    {
+      "path": "Sources/ArchitectureEngine/Resources/Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "signatureVerified": true,
+  "selfTest": "Packaged Chicago/Robie self-test invoked from a separate working directory; bundle resources byte-match source. Repository access was not sandbox-denied in this revision."
+}
