@@ -1,0 +1,53 @@
+GPU: Apple M3 Ultra | hardware RT: true | unified memory: true
+Scene: Chicago · Robie House to Wrigleyville | 45150868 triangles | 29335 geometric details | 408 materials
+Metal pipelines + acceleration structure: 26.06s | allocated 8177.5 MiB
+Video 0% · chapter 1
+Video 2% · chapter 1
+Video 4% · chapter 1
+Video 6% · chapter 1
+Video 8% · chapter 1
+Video 10% · chapter 1
+Video 12% · chapter 2
+Video 14% · chapter 2
+Video 16% · chapter 2
+Video 18% · chapter 2
+Video 20% · chapter 2
+Video 22% · chapter 2
+Video 25% · chapter 3
+Video 27% · chapter 3
+Video 29% · chapter 3
+Video 31% · chapter 3
+Video 33% · chapter 3
+Video 35% · chapter 3
+Video 37% · chapter 4
+Video 39% · chapter 4
+Video 41% · chapter 4
+Video 43% · chapter 4
+Video 45% · chapter 4
+Video 47% · chapter 4
+Video 50% · chapter 5
+Video 52% · chapter 5
+Video 54% · chapter 5
+Video 56% · chapter 5
+Video 58% · chapter 5
+Video 60% · chapter 5
+Video 62% · chapter 6
+Video 64% · chapter 6
+Video 66% · chapter 6
+Video 68% · chapter 6
+Video 70% · chapter 6
+Video 72% · chapter 6
+Video 75% · chapter 7
+Video 77% · chapter 7
+Video 79% · chapter 7
+Video 81% · chapter 7
+Video 83% · chapter 7
+Video 85% · chapter 7
+Video 87% · chapter 8
+Video 89% · chapter 8
+Video 91% · chapter 8
+Video 93% · chapter 8
+Video 95% · chapter 8
+Video 97% · chapter 8
+Saved /Users/william/dev/architecture/output/Robie-House-Day-Tour.mp4
+Completed in 888.04s

@@ -40,15 +40,24 @@ Click visible building or landmark geometry to focus it; drag to orbit, and scro
 
 Drag the native titlebar to move the window, or its edges to resize it. Both camera animation and the traffic/show scene clock hold during these gestures, then resume without catching up to the elapsed wall time. Window resizing updates the viewport and render targets. **⌃⌘F** enters or leaves full screen.
 
-To record the complete new flight from the packaged app:
+To record another 1080p copy of the complete flight from the packaged app, choose a fresh output filename:
 
 ```sh
 ./dist/Atelier.app/Contents/MacOS/ArchitectureEngine --location robie \
-  --video output/McCormick-Place-to-Robie-House.mp4 --single-view --stop 7 \
+  --video output/McCormick-Place-to-Robie-House-New.mp4 --single-view --stop 7 \
   --seconds 360 --fps 24 --width 1920 --height 1080 --samples 16
 ```
 
 Add `--lighting 2` and choose a different output filename for a night recording. Without `--single-view`, the default 96-second eight-view export compresses each route into a twelve-second chapter; the live app retains every full timeline.
+
+## Version 1.9 demonstration artifacts
+
+- [Robie House day tour](../output/Robie-House-Day-Tour.mp4): all eight views in **96 seconds**, with seven house studies and the connecting flight compressed into twelve-second chapters. [Media proof](validation/v1.9/robie-house-day-tour-media.json).
+- [McCormick Place → Robie House](../output/McCormick-Place-to-Robie-House.mp4): the complete **360-second** flight at its ordinary pace, through 31st Street Harbor, the south lakefront and Hyde Park to the house. [Media proof](validation/v1.9/mccormick-place-to-robie-house-media.json).
+
+Both recordings are silent H.264 at **1280 × 720, 24 FPS and eight samples per frame**, rendered by the final 1.9 package. All **10,944 frames** pass full decoding and uniform timestamp checks. The chapter montage accelerates the full routes; the separate flight retains its complete six-minute timeline. The app retains every two-minute house study and the six-minute connection with independent pace controls. Movies remain local in `output/` and are excluded from Git.
+
+Visual review covered eight chapter midpoints and ten flight samples, with no blocking spatial defect found in those frames. Residual grain, isolated bright speckles and simplified neighborhood/landscape detail remain visible. Sampled frames do not establish continuous motion stability. [Day sample review](validation/v1.9/robie-day-video-review.json) · [Flight sample review](validation/v1.9/robie-flight-video-review.json) · [Validation scope](VALIDATION.md).
 
 The recordings below were made for earlier releases. They remain useful tours of the included architecture, but do not demonstrate or validate the 1.9 additions or revised demo controls. Current check results belong in [validation](VALIDATION.md).
 

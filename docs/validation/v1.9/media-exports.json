@@ -1,0 +1,84 @@
+{
+  "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "exports": [
+    {
+      "name": "Robie-House-Day-Tour",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "robie",
+        "--video",
+        "/Users/william/dev/architecture/output/Robie-House-Day-Tour.mp4",
+        "--seconds",
+        "96",
+        "--fps",
+        "24",
+        "--width",
+        "1280",
+        "--height",
+        "720",
+        "--samples",
+        "8"
+      ],
+      "exitCode": 0,
+      "validationExitCode": 0,
+      "sha256": "0a2fde657500abfbb6e8637fa59aeed48432b6a18c26554f8a3acfed965023e5",
+      "bytes": 112213251,
+      "extractedFrameTimes": [
+        6,
+        18,
+        30,
+        42,
+        54,
+        66,
+        78,
+        90
+      ],
+      "orchestratorElapsedSeconds": 1021.7225410938263,
+      "rendererReportedElapsedSeconds": 888.04
+    },
+    {
+      "name": "McCormick-Place-to-Robie-House",
+      "arguments": [
+        "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+        "--location",
+        "robie",
+        "--video",
+        "/Users/william/dev/architecture/output/McCormick-Place-to-Robie-House.mp4",
+        "--seconds",
+        "360",
+        "--fps",
+        "24",
+        "--width",
+        "1280",
+        "--height",
+        "720",
+        "--samples",
+        "8",
+        "--single-view",
+        "--stop",
+        "7"
+      ],
+      "exitCode": 0,
+      "validationExitCode": 0,
+      "sha256": "48710aab51b61d41db1cfb378ae5b03daefdb425591c99cc86f3eadfba001886",
+      "bytes": 418647812,
+      "extractedFrameTimes": [
+        0,
+        60,
+        90,
+        140,
+        200,
+        235,
+        270,
+        300,
+        330,
+        359.5
+      ],
+      "orchestratorElapsedSeconds": 654.5364279747009,
+      "rendererReportedElapsedSeconds": 654.43
+    }
+  ],
+  "rawOrchestratorReportSHA256": "0d69f20e213696651db21397b762e2263b9cfe9eae2936fc9da77a0d2ec812c2",
+  "timingNote": "The orchestration parent was paused after launching the first render, and resumed after its child completed and separate serial benchmarks ran. Its elapsed time includes that pause. Renderer-reported elapsed values and verified movie presentation timing have distinct scopes."
+}

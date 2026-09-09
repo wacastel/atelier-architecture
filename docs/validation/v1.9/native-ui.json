@@ -1,7 +1,60 @@
 {
-  "status": "pending-mac-unlock",
-  "attempt": "CUA getApp on packaged Atelier.app",
-  "observedResult": "The Mac is locked and automatic unlock could not unlock it.",
-  "scope": "No current-release native UI interaction or screenshot inspected. CPU playback/control and focus integration tests are separate evidence.",
-  "requestedUserUnlock": true
+  "status": "passed-sampled-demo-controls",
+  "recordedAtUTC": "2026-09-09T00:29:46.991732+00:00",
+  "executableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+  "earlierBlockedAttempt": {
+    "status": "pending-mac-unlock",
+    "attempt": "CUA getApp on packaged Atelier.app",
+    "observedResult": "The Mac is locked and automatic unlock could not unlock it.",
+    "scope": "No current-release native UI interaction or screenshot inspected. CPU playback/control and focus integration tests are separate evidence.",
+    "requestedUserUnlock": true
+  },
+  "checks": [
+    {
+      "action": "Launch final packaged app",
+      "observed": "Robie House & Hyde Park; eight cards and six-minute flight; automatic idle advanced to view 2; renderer ready."
+    },
+    {
+      "action": "C",
+      "observed": "Chicago North Side view 7, route 39/48; Stop Chicago Demo and Pause controls visible; walkthrough advances."
+    },
+    {
+      "action": "Space",
+      "observed": "Demo remains active; Paused 1\u00d7, Play button, route time 00:27/04:00."
+    },
+    {
+      "action": "8 while paused",
+      "observed": "North Side view 8, route 40/48; normal forward playback resumes at 00:00/02:30; demo remains active."
+    },
+    {
+      "action": "Click Next Chicago demo view button",
+      "observed": "Robie House view 1, route 41/48, playing at 00:01/02:00."
+    },
+    {
+      "action": "8, then Down",
+      "observed": "Willis Tower view 1, route 1/48, playing; subsequent paused screenshot visibly shows night lighting."
+    },
+    {
+      "action": "Space at Willis, then click Previous Chicago demo view button",
+      "observed": "Robie House view 8, route 48/48; playback resumes at 00:00/06:00; screenshot shows daytime McCormick Place and visible selected eighth card."
+    },
+    {
+      "action": "Location menu \u2192 Chicago Museum Campus",
+      "observed": "Museum Campus view 1, route 25/48, playing at 00:00/03:00; demo remains active."
+    }
+  ],
+  "visualEvidence": "Native CUA accessibility observations and inspected screenshots in the task; screenshot image bytes were not saved as separate files.",
+  "limits": [
+    "One native randomized opening was observed; distribution and deterministic sequence behavior are covered by CPU playback tests.",
+    "These are sampled control transitions, not a complete 86-minute demo pass.",
+    "The Mac relocked when attempting to reselect Museum Campus. That attempted action is unverified.",
+    "Additional current-release focus/orbit, titlebar-drag, resize/fullscreen, L cycling and Paris roundtrip checks were not completed. Earlier-release native records and current CPU geometry/control tests retain their separate scopes.",
+    "No exact camera matrix or window-origin telemetry was captured; HUD values are not a sustained FPS benchmark."
+  ],
+  "finalLaunch": {
+    "command": "open dist/Atelier.app",
+    "processObservation": "57638 /Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+    "scope": "App relaunched to its configured Robie House startup; process presence verified. No fresh screen inspection after the Mac relocked.",
+    "initialRelaunchError": "Launch Services -600 while previous process was exiting; retry after confirming process exit succeeded."
+  }
 }

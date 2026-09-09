@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+  "passed": true,
+  "reviewedAtUTC": "2026-09-09T00:23:16.930396+00:00",
+  "scope": "Manual visual inspection of all ten requested PNG samples from the completed, separately validated six-minute daytime flight export. This is sampled spatial/composition review, not watching every frame or independently certifying motion stability.",
+  "movie": {
+    "path": "output/McCormick-Place-to-Robie-House.mp4",
+    "sha256": "48710aab51b61d41db1cfb378ae5b03daefdb425591c99cc86f3eadfba001886",
+    "bytes": 418647812,
+    "lighting": "daytime/default export lighting",
+    "sourceExecutableSHA256": "fce35def02427bfbf19582dcae6aa1103f1bed7bc4a6d882e6bdf38e6496f7de",
+    "metadataEvidence": "docs/validation/v1.9/mccormick-place-to-robie-house-media.json",
+    "metadataEvidenceSHA256": "0386b0050592e528843cd25b29ad7d00f51466463c42726c70d060e56dfe57d4",
+    "exportRecord": "output/v10-review/release-media-exports.json",
+    "renderArguments": [
+      "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+      "--location",
+      "robie",
+      "--video",
+      "/Users/william/dev/architecture/output/McCormick-Place-to-Robie-House.mp4",
+      "--seconds",
+      "360",
+      "--fps",
+      "24",
+      "--width",
+      "1280",
+      "--height",
+      "720",
+      "--samples",
+      "8",
+      "--single-view",
+      "--stop",
+      "7"
+    ],
+    "independentParentValidation": {
+      "passed": true,
+      "decodedFrames": 8640,
+      "expectedFrames": 8640,
+      "fullDecodePassed": true,
+      "maximumTimestampErrorSeconds": 3.333333342681044e-07
+    },
+    "validationAttribution": "Values are read from the root coordinator's completed media validation record; this reviewer did not rerun decode or timing tests."
+  },
+  "sampleCount": 10,
+  "samples": [
+    {
+      "seconds": 0,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/0.png",
+      "sha256": "e9f5d318fbdd54ff664c952486647760390b0ca4d8f314e0297c565e282fbff3",
+      "subject": "McCormick Place opening",
+      "manuallyViewed": true,
+      "observations": "The lakefront convention building, inland halls, surrounding street blocks and reflective blue water are all visible. The title and OSM credit remain legible. The earlier missing-geometry/brown-water defect is absent; visible grain remains on the large roof in this initial frame."
+    },
+    {
+      "seconds": 60,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/60.png",
+      "sha256": "268e9411ebc3cc6e20494265e74d8dfedc2e51afe0117c42841dcb3588b60c77",
+      "subject": "31st Street Harbor approach",
+      "manuallyViewed": true,
+      "observations": "The curved outer breakwater and dense parallel dock spines are recognizable from the saved OSM layout and the previously inspected SITE Design Group aerial. Paired boats occupy the finger berths with navigable-looking open channels between rows; no obvious hull/dock intersections are visible at this scale."
+    },
+    {
+      "seconds": 90,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/90.png",
+      "sha256": "58e61e8af5373a9385c9371e939b6ef8826855106745397112d47ae6ecbaeba9",
+      "subject": "31st Street Harbor orbit",
+      "manuallyViewed": true,
+      "observations": "The second harbor angle exposes individual hulls, cabin shapes and masts as well as the shore-side dock connections. Boat placement and the harbor perimeter agree with the earlier day still. The illustrative high occupancy and sparse park planting remain apparent."
+    },
+    {
+      "seconds": 140,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/140.png",
+      "sha256": "0e9396cfd7af6ee5fe57ab187eca43b602a3a988e74ff77e6206e2e1683547b3",
+      "subject": "Oakwood/Burnham lakefront",
+      "manuallyViewed": true,
+      "observations": "The camera overlooks a continuous lake edge, lawn, path network, pedestrian crossing, roadway and inland neighborhood. No blank terrain strip or missing water surface is visible. Broad flat lawns and low canopy density simplify the woodland/prairie character in the consulted references."
+    },
+    {
+      "seconds": 200,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/200.png",
+      "sha256": "2fb89671ad06f37ca0525738ce4732dedb82cd8f04e2e1e3ca8428352605508e",
+      "subject": "Southern terrain connection",
+      "manuallyViewed": true,
+      "observations": "The shore, Lake Shore Drive and paths remain visually connected across the legacy/new terrain area. No giant stray triangle, missing land strip or broad open seam is apparent. Small isolated bright speckles are visible on part of the grass and adjacent water; this sampled image does not establish their temporal behavior."
+    },
+    {
+      "seconds": 235,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/235.png",
+      "sha256": "3536f7b679417769e15eba08e0a5206055a15b1348c60d4dbf9cf8ff8ad2e2e4",
+      "subject": "Promontory Point",
+      "manuallyViewed": true,
+      "observations": "The rounded peninsula, looping shoreline path, planted perimeter, open center and field-house tower are clearly composed within the lakefront. They retain the satellite-confirmed arrangement from the earlier still review. Simplified field-house roofing, mature-canopy density and limestone shore detail remain visible limitations."
+    },
+    {
+      "seconds": 270,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/270.png",
+      "sha256": "abbc83a6c9253786910b22b31040b0615e6a5066408f433b841fc34dc4be888d",
+      "subject": "57th Street beach and inland turn",
+      "manuallyViewed": true,
+      "observations": "The beach, stepped shore edge, lakefront road and the inland street alignment are visible together. The view provides geographic context for the turn into Hyde Park. Secondary beachfront buildings and street grades remain interpretations."
+    },
+    {
+      "seconds": 300,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/300.png",
+      "sha256": "dbbb1625ef9f5b52e94aec982c5f8a53aa0cef774f6916150cfeb126a6e80fa6",
+      "subject": "Metra and Hyde Park blocks",
+      "manuallyViewed": true,
+      "observations": "The flight looks across the rail corridor into a connected street grid of mapped residential and university blocks. No black frame, wholly missing neighborhood or foreground clipping is visible. Repeated facade/window treatments and simplified rail/road grades are evident."
+    },
+    {
+      "seconds": 330,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/330.png",
+      "sha256": "6b25a4b999928249a05c10e4b7335607620eb7b94e6190cac7fa7eeb7003f0ab",
+      "subject": "University and Robie approach",
+      "manuallyViewed": true,
+      "observations": "Robie House appears amid its surrounding blocks, with the Harper Center and Rockefeller Chapel massing cues nearby. This agrees with the previously inspected Woodlawn/58th Street satellite arrangement. Secondary university roofs/facades are schematic compared with the detailed focal house."
+    },
+    {
+      "seconds": 359.5,
+      "path": "output/v10-review/McCormick-Place-to-Robie-House-frames/359.5.png",
+      "sha256": "22204a95f063662d5fda8a680498f0bb1af3a17897d649bb9ce3c06daeb048ef",
+      "subject": "Robie House arrival",
+      "manuallyViewed": true,
+      "observations": "The house fills the closing composition with its layered roof planes, upper roof, cantilever, art-glass frontage, brick garden walls, limestone bands and planters intact. It is visibly present on the reserved lot, with no repetition of the prior missing-house defect. This sample is half a second before the authored endpoint and does not independently prove endpoint equality."
+    }
+  ],
+  "sourceSHA256AtReview": {
+    "Sources/ArchitectureEngine/HydeParkEnvironment.swift": "1c666bb4252268f47c090052291ff958136e62abf0b78032960f252e6d708358",
+    "Sources/ArchitectureEngine/RobieHouse.swift": "a8b9941f050566639e227ff4c235fd5e25f9af9c85c121e034e99a82fb18e603",
+    "Sources/ArchitectureEngine/RobieScene.swift": "1db59a43a80801ec672a370b64401a73f9ce7a9a43459dc1fb5f5f8a1b47927e",
+    "Sources/ArchitectureEngine/RobieWalkthrough.swift": "e7b9f19e6ca4aa73588e9bbe7d74f3dec062e7690096c9ec78a05bca23fadd05",
+    "Sources/ArchitectureEngine/CameraTrack.swift": "adf3a6e0e902507ef08cdb1abd16e5f6d76e51f3b53c74e65756b6877922eb47",
+    "Sources/ArchitectureEngine/MetalRenderer.swift": "260ebb9ff7bc97e0bf5d7b49cd23efeeb3936e87bb0ac294ac2c44eb38b9f31b",
+    "Sources/ArchitectureEngine/GeometryPartition.swift": "fdb2b9b37ff13e8c7ccbbb533f264bef3ef67e026f56a60a37dfd1660b29fd66",
+    "Sources/ArchitectureEngine/Resources/Renderer.metal": "223e94e5338fd7906e649ef62537de182235ac544c7138f7c19212103a4987df",
+    "Sources/ArchitectureEngine/Resources/Denoise.metal": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764",
+    "Sources/ArchitectureEngine/Resources/HydePark/HydeParkContext.json": "37d7e94ec642e32916a867ce6732e617141027326db17a5e0ca507d507c98d04"
+  },
+  "comparisonBasis": {
+    "priorMapAndStillReview": "docs/validation/v1.9/hyde-park-flight-visual-review.json",
+    "priorReviewSHA256": "808f4e8822fdbad7c4d28b72fe36acd6f7327abe0138a33efdab29243defd9a8",
+    "sourcesDocument": "docs/HYDE-PARK.md",
+    "scope": "Uses the map data, satellite/aerial and architectural references actually inspected during corridor development and the earlier corrected still review. No new web research was performed for this movie audit.",
+    "conclusion": "The exported samples preserve the previously checked harbor layout, lakefront connection, Promontory Point, east-west neighborhood approach and intact house arrival. No new blocking spatial/content defect was observed."
+  },
+  "blockingDefectsObserved": [],
+  "limits": [
+    "Only the ten listed extracted frames were manually inspected; unsampled frames, transitions and temporal artifacts remain outside this visual review.",
+    "Residual roof grain and isolated bright speckles are visible in some samples. This review does not certify a noiseless animation or infer improvement relative to the earlier release.",
+    "This is a daytime export. Earlier separate night stills are not evidence of a reviewed nighttime movie.",
+    "Park canopy density, flat terrain, road/rail grades and secondary context roofs/facades remain simplified rather than photo-matched reconstructions.",
+    "The harbor boats depict representative busy summer occupancy, not a live vessel inventory.",
+    "The native application playback rate, responsiveness and sustained FPS are outside the scope of this sampled movie inspection."
+  ],
+  "reviewerOperations": {
+    "gpuExecuted": false,
+    "applicationLaunched": false,
+    "movieDecodedByReviewer": false,
+    "framesExtractedByReviewer": false,
+    "movieHashIndependentlyVerified": true,
+    "filesWritten": [
+      "docs/validation/v1.9/robie-flight-video-review.json"
+    ]
+  }
+}
