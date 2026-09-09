@@ -1,0 +1,11 @@
+{
+  "audioSynchronizationCalls" : 79,
+  "checks" : 544,
+  "failures" : [
+
+  ],
+  "landmarkClicks" : 33,
+  "limitations" : "No native event dispatch, rendered frame, collision\/roof geometry or device-dependent location loading is exercised. Focus dispatch has no collision catalog; selected-object pinch is covered by the separate FocusOrbit tests.",
+  "passed" : true,
+  "scope" : "CPU actual EngineController methods and production camera\/playback\/map metadata. Only AmbientMusicController is replaced by an inert stub; the absent SwiftPM Bundle.module accessor traps if reached. No view attachment, Metal device, renderer construction, city geometry build or audio playback."
+}

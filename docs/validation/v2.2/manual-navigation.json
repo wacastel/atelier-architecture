@@ -1,0 +1,5 @@
+{
+  "checks" : 6260,
+  "passed" : true,
+  "scope" : "CPU north-up map projection, pan and optical\/map pinch inversion, gesture subdivision and invalid-input limits; landmark sphere framing\/roof clearance; existing ground pan and equal flight distance at 3–120 FPS. Native event dispatch is a separate validation."
+}

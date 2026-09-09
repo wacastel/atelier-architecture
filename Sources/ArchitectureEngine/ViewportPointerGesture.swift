@@ -4,9 +4,14 @@ import Foundation
 /// began there. Window translation cancels ownership instead of becoming look input.
 struct ViewportPointerGesture {
     enum Button { case left, right }
-    enum Action { case pan, look }
-    static func action(button: Button, shift: Bool) -> Action {
-        button == .right || shift ? .look : .pan
+    enum Action { case pan, look, ignore }
+    static func action(button: Button, shift: Bool, mapMode: Bool = false) -> Action {
+        if mapMode { return button == .left ? .pan:.ignore }
+        return button == .right || shift ? .look : .pan
+    }
+    /// Map mode accepts only zoom, explicit exit, and display controls.
+    static func allowsKey(_ code: UInt16, mapMode: Bool) -> Bool {
+        !mapMode || [UInt16(11),53,46,15,45,4,44,27,78,24,69].contains(code)
     }
     private struct Capture {
         var button: Button

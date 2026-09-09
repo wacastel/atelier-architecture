@@ -30,7 +30,7 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.1.1 keeps Willis Tower as its opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All seven Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.2.0 keeps Willis Tower as its opening destination and adds a dedicated overhead Map mode. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All seven Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
@@ -42,7 +42,9 @@ The opening idle cycle visits each view in order during daytime, switches to nig
 
 Selecting any Chicago location or view keeps the demo active and begins that route at normal forward playback. **↑ / ↓**, or the demo’s previous/next buttons, cross location boundaries: the last view advances to the first view in the next location, and the first view goes back to the final view in the previous location. A full-city wrap in either direction changes day/night. **Space** pauses and resumes; **Stop Chicago Demo / C** exits while holding the current pose. Selecting Paris, starting idle cycling, focusing an object, or taking manual camera control leaves the demo. [Demo instructions](docs/DEMO.md).
 
-Click visible landmark or building geometry to focus it, then drag to orbit and use a mouse wheel or two-finger trackpad scroll to move closer or farther away. Focusing from a distant view preserves the camera’s entry distance, including the Oak Park panorama. Clicking the same object again, clicking sky, or pressing **Escape** releases focus. Selecting a focus takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
+Click visible landmark or building geometry to focus it, then drag to orbit and pinch, use a mouse wheel or scroll with two fingers to move closer or farther away. Focusing from a distant view preserves the camera’s entry distance, including the Oak Park panorama. Without a focus, pinching changes the lens field of view while leaving the camera position fixed. Clicking the same object again, clicking sky, or pressing **Escape** releases focus. Selecting a focus or pinching takes manual control of the camera. [Focus controls and picking limits](docs/FOCUS.md).
+
+**B / Map mode** switches the main Chicago viewport to a fixed, north-up perspective overhead view. Drag to pan and pinch, scroll or use **− / +** to zoom. **B** or **Escape** returns to a 3D overlook above the current map centre. This is separate from the compact navigation map shown with **M**; all three inset sizes now stay below one quarter of the viewport. [Map modes and controls](docs/MAP-MODE.md).
 
 | Control | Action |
 | --- | --- |
@@ -59,20 +61,24 @@ Click visible landmark or building geometry to focus it, then drag to orbit and 
 | **Lighting settings** | Choose warm daylight, neutral daylight, sunset or night; Skyline also has authored view presets |
 | **Full-screen button / ⌃⌘F** | Enter / leave native macOS full-screen mode |
 | Window titlebar / edges | Move / resize; hold camera and scene clocks during the gesture, then resume without a time jump |
-| Click visible geometry | Focus a landmark or building; click the same object or sky to release |
-| Left mouse drag | Pan the city under the pointer; orbit when an object is focused |
-| Shift + left mouse drag / right mouse drag | Look around; orbit when an object is focused |
-| **M / map button** | Show/hide the map; S/M are picture-in-picture and L fills the app window; drag moves the real camera, click chooses an overhead destination |
-| **F / speed menu / − / +** | Toggle Walk/Fly; choose or step the fixed flight presets from 8 to 800 m/s |
+| Click visible geometry | Focus a landmark or building; click the same object or sky to release; disabled in Map mode |
+| Left mouse drag | Pan the city under the pointer; orbit when focused; always pan in Map mode |
+| Shift + left mouse drag / right mouse drag | Look around or orbit a focus; in Map mode Shift-left still pans and right drag is ignored |
+| **M / inset map button** | Show/hide the compact navigation map; S/M/L progressively add room and labels |
+| **B / Map mode button / Navigation → Map** | Enter the north-up overhead Chicago view; B or Escape exits to a 3D overlook at the current centre |
+| **F / speed menu / − / +** | In normal 3D exploration, toggle Walk/Fly or step flight speed from 8 to 800 m/s; −/+ zoom in Map mode |
 | **R / renderer badge** | Toggle ray tracing and fast raster at the same camera position |
 | **WASD / Q / E / Shift** | Manual movement / fly up / fly down / 3× speed boost; movement clears focus |
-| Mouse wheel / two-finger scroll | Zoom toward or away from a focused object; otherwise step the fixed flight-speed presets |
+| Pinch | Optical zoom in normal exploration; move toward/away from a focused object; change ground coverage in Map mode |
+| Mouse wheel / two-finger scroll | Zoom a focused object or Map mode; otherwise step the fixed flight-speed presets |
 | **H / ? / Esc** | Hide interface / show controls / clear focus, release keys and close help |
 | **⌘R / ⌘⇧S** | Return to the location’s opening view / save a render to Pictures/Atelier |
 
-The north-up map uses the existing offline data and shows camera position and heading with a 24-point dotted marker. For cameras beyond the mapped area, including Oak Park, it displays an explicit off-map direction and distance. Small and Medium are picture-in-picture overlays; Large fills the application window. Its aspect-preserving map fills the canvas without letterbox gutters. Zoom, drag and the Places menu expose the full north–south corridor. Clicking a landmark label or mapped position places the camera above that point with roof clearance and enters manual Fly mode, preserving day/night. It selects the nearest architectural study for the Play button and reuses the resident Chicago world. Dragging translates the map and real 3D camera together on each input event; releasing a drag does not also trigger a click. Use Small or Medium to see the 3D viewport moving beneath it. The map covers the modeled corridor; the new western camera does not expand its coverage. [Map behavior and limits](docs/NAVIGATION-MAP.md).
+The inset navigation map uses offline data and shows camera position and heading with a 24-point dotted marker. A camera beyond coverage has an explicit off-map direction and distance. All three sizes remain compact; larger sizes reveal more of the 33 named landmarks, with labels arranged to avoid overlap. Hovering a landmark’s dot or text highlights both. Clicking either frames that landmark around its fixed architectural centre, while clicking bare map ground chooses a roof-cleared overlook. In Map mode, those actions recenter the overhead view instead. The Places menu reaches every named landmark even when its label is hidden.
 
-Flight starts at 400 m/s. The speed menu, minus/plus keys and unfocused scrolling step through 8, 30, 80, 180, 400 and 800 m/s; Shift temporarily triples the chosen speed. Movement uses elapsed time, so a low rendering frame rate no longer reduces travel speed proportionally. Left dragging pans across the ground plane; Shift-left dragging or right dragging changes the viewing direction. Q flies up and E flies down. Focused-object orbit and zoom remain available.
+Dragging the inset translates it and the real camera together; releasing a drag does not trigger a click. Landmark selection preserves lighting and associates the nearest architectural study with the Play button. It takes manual control, ending automatic playback. The main Map mode keeps the camera vertical and north-up: normal movement, look/orbit, view-selection and playback controls are inactive until it is exited. **R, N, M, H** and help remain available. The city geometry, music and map coverage are unchanged. [Current map behavior and limits](docs/MAP-MODE.md).
+
+In normal Fly mode, flight starts at 400 m/s. The speed menu, minus/plus keys and unfocused scrolling step through 8, 30, 80, 180, 400 and 800 m/s; Shift temporarily triples the chosen speed. Movement uses elapsed time, so a low rendering frame rate no longer reduces travel speed proportionally. Left dragging pans across the ground plane; Shift-left dragging or right dragging changes the viewing direction. Q flies up and E flies down. Focused-object orbit and zoom remain available.
 
 Manual movement takes control of the camera; local traffic continues. Pausing a walkthrough freezes both its camera and traffic clock. Walk mode uses floor support and collision checks; Fly mode allows unrestricted inspection. Individual routes are authored architectural studies. Millennium Park’s eighth route connects Willis Tower, the park and an interpreted Modern Wing gallery without a scene cut or teleport. Full-screen and ordinary window sizes retain the same rendering and input controls. The view cards scroll horizontally when needed.
 
@@ -115,6 +121,8 @@ Render dimensions preserve the actual drawable's aspect ratio, including portrai
 ## Building more city sections
 
 The reusable [city-building guide (Markdown)](docs/CITY-BUILDING-GUIDE.md), [offline HTML edition](docs/city-building-guide.html) and [PDF edition](docs/City-Building-Guide.pdf) document research, map preparation, architectural modeling, shared-world integration, eight-view routes, lighting, performance checks, release packaging and a starter brief for a fresh context window.
+
+The suggested next landmark is the **Chicago Cultural Center**, whose Tiffany dome, mosaic stair and marble interiors sit beside Millennium Park in the existing world. It is a proposal for the next request; no dedicated building or walkthrough has been added. [Recommendation and primary references](docs/NEXT-CHICAGO-LANDMARK.md).
 
 ## Render and record
 
@@ -210,11 +218,17 @@ Generated videos, high-resolution renders, build products and local reports stay
 
 ## Verify and reproduce
 
-### Version 2.1.1
+### Version 2.2.0
+
+Version **2.2.0 (build 15)** passed [24,864 map checks](docs/validation/v2.2/navigation-map.json), [6,260 manual-navigation and pinch-math checks](docs/validation/v2.2/manual-navigation.json), [544 actual-controller checks](docs/validation/v2.2/map-mode-integration.json), [449 pointer/key checks](docs/validation/v2.2/viewport-input.json) and [1,605 focus regression checks](docs/validation/v2.2/focus-navigation.txt). The [native arm64 package passed strict signature verification with all 26 resources matching source](docs/validation/v2.2/package.json).
+
+The [scoped native review passed](docs/validation/v2.2/native-review.json), including a fresh final-build check of landmark text/dot clicks, overhead pan and button zoom, blocked playback/view keys and disabled Map-mode Reset. Earlier captures with the same navigation code cover exit at the current map centre, day/night ray tracing, raster, resizing and full screen. Physical trackpad pinch and hover-only event delivery remain unverified; no dedicated GPU harness or FPS benchmark was run. [Detailed scope and limitations](docs/MAP-MODE.md#validation). Prior release results below remain historical.
+
+### Historical version 2.1.1
 
 Version **2.1.1 (build 14)** passed [131 renderer checks with 24 stills and visual review](docs/SKYLINE.md#version-211), [92,867 playback checks across all 65 routes](docs/validation/v2.1.1/skyline/playback.txt), [21,434 map checks](docs/validation/v2.1.1/navigation-map.json), [1,605 focus checks](docs/validation/v2.1.1/focus-navigation.json), and the [39,485-check raster regression](docs/validation/v2.1.1/raster-regression.json). The focus suite includes 21 assertions exposing the old behavior. The [arm64 package passed strict signature verification and all 26 source/resource comparisons](docs/validation/v2.1.1/package.json). Its isolated Oak Park self-tests [passed in both ray-tracing and raster modes](docs/validation/v2.1.1/package-rendering/runs.json).
 
-[Native interaction checks remain blocked because the Mac is locked](docs/validation/v2.1.1/native-review.json), awaiting the user’s unlock. CPU and offscreen results do not establish final native off-map/focus behavior, continuous-motion quality or native FPS. [Complete release evidence](docs/validation/v2.1.1/README.md). The shared city remains at 45,496,818 static triangles; route counts and duration are unchanged: 56 Chicago routes, 65 including Paris, and 102 minutes 36 seconds for a Chicago pass at 1×.
+[Native interaction checks for that release were blocked by the locked Mac](docs/validation/v2.1.1/native-review.json). Those CPU and offscreen results do not establish native off-map/focus behavior, continuous-motion quality or native FPS. [Complete release evidence](docs/validation/v2.1.1/README.md). The shared city remains at 45,496,818 static triangles; route counts and duration are unchanged: 56 Chicago routes, 65 including Paris, and 102 minutes 36 seconds for a Chicago pass at 1×.
 
 ### Historical version 2.1.0
 

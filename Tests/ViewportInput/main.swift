@@ -266,6 +266,17 @@ group("Shift-left drag rotation keeps ordinary pan and right look") {
     expect(Gesture.action(button:.right,shift:false) == .look, "Right drag must retain rotation")
     expect(Gesture.action(button:.right,shift:true) == .look, "Shift must not turn right drag into pan")
 }
+group("Map mode allows only pan, zoom, explicit exit and display controls") {
+    for shift in [false,true] {
+        expect(Gesture.action(button:.left,shift:shift,mapMode:true) == .pan,"Map left drag pans even with Shift held")
+        expect(Gesture.action(button:.right,shift:shift,mapMode:true) == .ignore,"Map right drag cannot tilt or orbit")
+    }
+    let allowed:Set<UInt16> = [11,53,46,15,45,4,44,27,78,24,69]
+    for code:UInt16 in 0...126 {
+        expect(Gesture.allowsKey(code,mapMode:true) == allowed.contains(code),"Map keyboard routing \(code) cannot invoke ordinary camera controls")
+        expect(Gesture.allowsKey(code,mapMode:false),"Normal mode retains existing key routing \(code)")
+    }
+}
 let passed = failures.isEmpty
 let report: [String: Any] = [
     "passed": passed, "checks": checks, "sequenceGroups": groups,

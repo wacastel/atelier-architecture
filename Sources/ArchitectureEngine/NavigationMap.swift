@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AppKit
 import simd
 
 /// The map uses the same east/south metre coordinates as the resident Chicago world.
@@ -19,16 +20,21 @@ enum ChicagoMapSize: String, CaseIterable, Identifiable, Sendable {
     var id: String { rawValue }
     var abbreviation: String { String(rawValue.prefix(1)).uppercased() }
 
-    /// Large uses the supplied application viewport; PiP sizes stay useful and distinct.
+    /// The host supplies a budget below one quarter of its viewport area. All
+    /// sizes share one fit factor, so constraints never collapse their ordering.
     func cardSize(maximumHeight: CGFloat, maximumWidth: CGFloat = 620) -> CGSize {
-        let height = maximumHeight.isFinite ? max(180, maximumHeight) : 540
-        let width = maximumWidth.isFinite ? max(220, maximumWidth) : 620
+        let height = maximumHeight.isFinite ? max(0, maximumHeight) : 410
+        let width = maximumWidth.isFinite ? max(0, maximumWidth) : 430
+        let fit = min(1, min(width/430, height/410))
+        let ideal: CGSize
         switch self {
-        case .small: return CGSize(width: min(260, width * 0.72), height: min(300, 140 + (height - 140) * 0.46))
-        case .medium: return CGSize(width: min(420, width * 0.86), height: min(520, 140 + (height - 140) * 0.72))
-        case .large: return CGSize(width: width, height: height)
+        case .small: ideal = CGSize(width: 260, height: 250)
+        case .medium: ideal = CGSize(width: 340, height: 330)
+        case .large: ideal = CGSize(width: 430, height: 410)
         }
+        return CGSize(width: ideal.width*fit, height: ideal.height*fit)
     }
+    var detailLevel: Int { self == .small ? 0 : self == .medium ? 1 : 2 }
 }
 
 struct ChicagoMapProjection: Equatable, Sendable {
@@ -188,23 +194,52 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
     let name: String
     let point: SIMD2<Float>
     let eastLabel: Bool
+    let targetHeight: Float
+    let framingRadius: Float
+    let detailLevel: Int
+    var target: SIMD3<Float> { SIMD3(point.x, targetHeight, point.y) }
+
+    init(id: String, name: String, point: SIMD2<Float>, eastLabel: Bool,
+         targetHeight: Float, framingRadius: Float, detailLevel: Int = 0) {
+        self.id = id; self.name = name; self.point = point; self.eastLabel = eastLabel
+        self.targetHeight = targetHeight; self.framingRadius = framingRadius; self.detailLevel = detailLevel
+    }
 
     // Architectural anchors already used by the city. These labels do not load a scene.
     static let all: [ChicagoMapLandmark] = [
-        .init(id: "robie", name: "Robie House", point: SIMD2(3309.7, 9917.1), eastLabel: false),
-        .init(id: "wrigley", name: "Wrigley Field", point: SIMD2(-1626, -7717.6), eastLabel: false),
-        .init(id: "willis", name: "Willis Tower", point: SIMD2(0, 0), eastLabel: false),
-        .init(id: "zoo", name: "Lincoln Park Zoo", point: SIMD2(214.4, -4726.1), eastLabel: false),
-        .init(id: "millennium", name: "Millennium Park", point: SIMD2(1130, -540), eastLabel: true),
-        .init(id: "adler", name: "Adler Planetarium", point: SIMD2(2413.7, 1393.2), eastLabel: true),
-        .init(id: "mccormick", name: "McCormick Place", point: SIMD2(1950, 3000), eastLabel: false),
-        .init(id: "point", name: "Promontory Point", point: SIMD2(4925, 9237), eastLabel: true),
-        .init(id: "harbor", name: "31st St Harbor", point: SIMD2(2662, 4773), eastLabel: true),
-        .init(id: "hancock", name: "John Hancock", point: SIMD2(1062.9, -2220), eastLabel: true),
-        .init(id: "oldtown", name: "Old Town", point: SIMD2(-404, -3740), eastLabel: false),
-        .init(id: "art", name: "Art Institute", point: SIMD2(1088, -145), eastLabel: true),
-        .init(id: "field", name: "Field Museum", point: SIMD2(1600, 1370), eastLabel: false),
-        .init(id: "beach", name: "North Ave Beach", point: SIMD2(972, -3853), eastLabel: true)
+        .init(id: "robie", name: "Robie House", point: SIMD2(3309.7, 9917.1), eastLabel: false, targetHeight: 4.8, framingRadius: 32),
+        .init(id: "wrigley", name: "Wrigley Field", point: SIMD2(-1626, -7717.6), eastLabel: false, targetHeight: 15, framingRadius: 155),
+        .init(id: "willis", name: "Willis Tower", point: SIMD2(-4, 10), eastLabel: false, targetHeight: 205, framingRadius: 325),
+        .init(id: "zoo", name: "Lincoln Park Zoo", point: SIMD2(214.4, -4726.1), eastLabel: false, targetHeight: 7.5, framingRadius: 240),
+        .init(id: "millennium", name: "Millennium Park", point: SIMD2(1130, -540), eastLabel: true, targetHeight: 15, framingRadius: 280),
+        .init(id: "adler", name: "Adler Planetarium", point: SIMD2(2421.7, 1393.2), eastLabel: true, targetHeight: 11, framingRadius: 65),
+        .init(id: "mccormick", name: "McCormick Place", point: SIMD2(1800, 3000), eastLabel: false, targetHeight: 25, framingRadius: 650),
+        .init(id: "point", name: "Promontory Point", point: SIMD2(4925, 9237), eastLabel: true, targetHeight: 3, framingRadius: 190),
+        .init(id: "harbor", name: "31st St Harbor", point: SIMD2(2662, 4773), eastLabel: true, targetHeight: 2, framingRadius: 380),
+        .init(id: "hancock", name: "John Hancock", point: SIMD2(1062.85, -2219.95), eastLabel: true, targetHeight: 190, framingRadius: 275),
+        .init(id: "oldtown", name: "Old Town", point: SIMD2(-404, -3740), eastLabel: false, targetHeight: 37, framingRadius: 150),
+        .init(id: "art", name: "Art Institute", point: SIMD2(1090, -77), eastLabel: true, targetHeight: 12, framingRadius: 190),
+        .init(id: "field", name: "Field Museum", point: SIMD2(1565, 1409.6), eastLabel: false, targetHeight: 15, framingRadius: 155),
+        .init(id: "beach", name: "North Ave Beach", point: SIMD2(972, -3853), eastLabel: true, targetHeight: 7, framingRadius: 250),
+        .init(id: "cloud-gate", name: "Cloud Gate", point: SIMD2(1042.46, -424.15), eastLabel: false, targetHeight: 7.8, framingRadius: 18, detailLevel: 1),
+        .init(id: "shedd", name: "Shedd Aquarium", point: SIMD2(1842, 1254.6), eastLabel: true, targetHeight: 11, framingRadius: 115, detailLevel: 1),
+        .init(id: "soldier", name: "Soldier Field", point: SIMD2(1590, 1838), eastLabel: false, targetHeight: 23, framingRadius: 225, detailLevel: 1),
+        .init(id: "water-tower", name: "Historic Water Tower", point: SIMD2(951.6, -2036.52), eastLabel: false, targetHeight: 27, framingRadius: 36, detailLevel: 1),
+        .init(id: "buckingham", name: "Buckingham Fountain", point: SIMD2(1404.55, 342.2), eastLabel: true, targetHeight: 6, framingRadius: 55, detailLevel: 1),
+        .init(id: "conservatory", name: "Lincoln Park Conservatory", point: SIMD2(72.5, -5067.5), eastLabel: true, targetHeight: 10, framingRadius: 90, detailLevel: 1),
+        .init(id: "tribune", name: "Tribune Tower", point: SIMD2(1013, -1281), eastLabel: true, targetHeight: 68, framingRadius: 90, detailLevel: 1),
+        .init(id: "wrigley-building", name: "Wrigley Building", point: SIMD2(922, -1200), eastLabel: false, targetHeight: 60, framingRadius: 85, detailLevel: 1),
+        .init(id: "pritzker", name: "Pritzker Pavilion", point: SIMD2(1162.5, -517), eastLabel: true, targetHeight: 19, framingRadius: 75, detailLevel: 1),
+        .init(id: "crown", name: "Crown Fountain", point: SIMD2(1009, -290.6), eastLabel: false, targetHeight: 7.8, framingRadius: 35, detailLevel: 2),
+        .init(id: "water-tower-place", name: "Water Tower Place", point: SIMD2(1118, -2120), eastLabel: true, targetHeight: 110, framingRadius: 175, detailLevel: 2),
+        .init(id: "pumping-station", name: "Pumping Station", point: SIMD2(1000, -2036.5), eastLabel: true, targetHeight: 13.5, framingRadius: 40, detailLevel: 2),
+        .init(id: "cafe-brauer", name: "Café Brauer", point: SIMD2(168, -4477), eastLabel: false, targetHeight: 12.5, framingRadius: 48, detailLevel: 2),
+        .init(id: "nature-pavilion", name: "Nature Boardwalk Pavilion", point: SIMD2(294.4, -4337), eastLabel: true, targetHeight: 3, framingRadius: 18, detailLevel: 2),
+        .init(id: "nichols", name: "Nichols Bridgeway", point: SIMD2(1109, -270.5), eastLabel: true, targetHeight: 10, framingRadius: 75, detailLevel: 2),
+        .init(id: "lakeside-center", name: "Lakeside Center", point: SIMD2(1960, 2870), eastLabel: true, targetHeight: 16, framingRadius: 280, detailLevel: 2),
+        .init(id: "mccormick-west", name: "McCormick West", point: SIMD2(1292, 3152.5), eastLabel: false, targetHeight: 17, framingRadius: 275, detailLevel: 2),
+        .init(id: "mccormick-north", name: "McCormick North", point: SIMD2(1623.5, 2818), eastLabel: false, targetHeight: 28.5, framingRadius: 290, detailLevel: 2),
+        .init(id: "mccormick-south", name: "McCormick South", point: SIMD2(1650.5, 3210), eastLabel: true, targetHeight: 17, framingRadius: 290, detailLevel: 2)
     ]
 }
 
@@ -398,20 +433,51 @@ private final class ChicagoMapStore: ObservableObject {
     }
 }
 
-private struct ChicagoMapLabel {
+/// The Canvas, hover handler, click handler and accessibility actions share these
+/// exact landmark identities. Labels may move to avoid collisions; targets do not.
+struct ChicagoMapLabel: Identifiable {
     let landmark: ChicagoMapLandmark
     let marker: CGPoint
     let rect: CGRect
-    static func layout(projection: ChicagoMapProjection) -> [ChicagoMapLabel] {
+    var id: String { landmark.id }
+    var dotRect: CGRect { CGRect(x: marker.x-7, y: marker.y-7, width: 14, height: 14) }
+
+    static func hitTest(_ point: CGPoint, labels: [ChicagoMapLabel]) -> ChicagoMapLandmark? {
+        guard point.x.isFinite, point.y.isFinite else { return nil }
+        // Closest actual dot wins where nearby buildings share a small map area.
+        if let dot = labels.filter({ $0.dotRect.contains(point) }).min(by: {
+            hypot($0.marker.x-point.x, $0.marker.y-point.y) < hypot($1.marker.x-point.x, $1.marker.y-point.y)
+        }) { return dot.landmark }
+        return labels.first { $0.rect.contains(point) }?.landmark
+    }
+
+    static func layout(projection: ChicagoMapProjection, size: ChicagoMapSize, avoiding: [CGRect] = []) -> [ChicagoMapLabel] {
         var labels: [ChicagoMapLabel] = []
-        let limit = projection.canvasSize.height < 150 ? 4 : projection.canvasSize.height < 240 ? 8 : 14
-        for landmark in ChicagoMapLandmark.all {
+        let limit = size == .small ? 7 : size == .medium ? 15 : 26
+        let canvas = projection.canvasRect.insetBy(dx: 4, dy: 4)
+        let candidates = ChicagoMapLandmark.all.filter { $0.detailLevel <= size.detailLevel }.compactMap { landmark -> (ChicagoMapLandmark, CGPoint)? in
             let p = projection.point(for: landmark.point)
-            guard projection.canvasRect.insetBy(dx: 5, dy: 5).contains(p), labels.count < limit else { continue }
-            let width = CGFloat(landmark.name.count) * 5.0 + 8
-            let x = landmark.eastLabel ? min(projection.canvasSize.width - width - 3, p.x + 8) : max(3, p.x - width - 8)
-            let rect = CGRect(x: x, y: max(3, min(projection.canvasSize.height - 17, p.y - 7)), width: width, height: 14)
-            if !labels.contains(where: { $0.rect.insetBy(dx: -2, dy: -2).intersects(rect) }) {
+            return canvas.insetBy(dx: 4, dy: 4).contains(p) ? (landmark, p) : nil
+        }
+        let dots = candidates.map { CGRect(x: $0.1.x-5, y: $0.1.y-5, width: 10, height: 10) }
+        for (landmark, p) in candidates {
+            guard labels.count < limit else { break }
+            let text = (landmark.name as NSString).size(withAttributes: [.font: NSFont.systemFont(ofSize: 10, weight: .medium)])
+            let width = ceil(text.width)+10, height: CGFloat = 18
+            guard width <= canvas.width else { continue }
+            var positions: [CGRect] = []
+            for offset: CGFloat in [0, -20, 20, -40, 40, -60, 60] {
+                for east in [landmark.eastLabel, !landmark.eastLabel] {
+                    let x = east ? p.x+11 : p.x-width-11
+                    positions.append(CGRect(x: max(canvas.minX, min(canvas.maxX-width, x)),
+                                            y: p.y-height/2+offset, width: width, height: height))
+                }
+            }
+            if let rect = positions.first(where: { rect in
+                canvas.contains(rect) && !avoiding.contains(where: { $0.insetBy(dx: -2, dy: -2).intersects(rect) })
+                    && !labels.contains(where: { $0.rect.insetBy(dx: -3, dy: -3).intersects(rect) })
+                    && !dots.contains(where: { $0.intersects(rect) })
+            }) {
                 labels.append(ChicagoMapLabel(landmark: landmark, marker: p, rect: rect))
             }
         }
@@ -460,10 +526,12 @@ struct ChicagoNavigationMap: View {
     var maximumHeight: CGFloat = 540
     var maximumWidth: CGFloat = 620
     let onNavigate: (SIMD2<Float>) -> Void
+    let onLandmarkNavigate: (ChicagoMapLandmark) -> Void
     var onPan: (SIMD2<Float>) -> SIMD2<Float> = { _ in .zero }
     @State private var mapCenter: SIMD2<Float>?
     @State private var mapZoom: CGFloat = 1
     @State private var drag = ChicagoMapDrag()
+    @State private var hoverPoint: CGPoint?
     @StateObject private var store = ChicagoMapStore.shared
     private let accent = Color(red: 0.84, green: 0.75, blue: 0.55)
 
@@ -484,16 +552,17 @@ struct ChicagoNavigationMap: View {
 
     private var expanded: some View {
         let card = size.cardSize(maximumHeight: maximumHeight, maximumWidth: maximumWidth)
-        let canvas = CGSize(width: card.width, height: card.height - 66)
+        let canvas = CGSize(width: card.width, height: max(0, card.height - 66))
+        let narrow = card.width < 230
         return VStack(spacing: 0) {
-            HStack(spacing: 6) {
-                Image(systemName: "map").foregroundStyle(accent)
-                Text("CHICAGO").font(.system(size: 10, weight: .semibold)).tracking(1.2)
+            HStack(spacing: narrow ? 3 : 6) {
+                if !narrow { Image(systemName: "map").foregroundStyle(accent) }
+                Text(narrow ? "MAP" : "CHICAGO").font(.system(size: 10, weight: .semibold)).tracking(narrow ? 0 : 1.2)
                 Spacer(minLength: 2)
                 ForEach(ChicagoMapSize.allCases) { option in
                     Button { size = option } label: {
                         Text(option.abbreviation).font(.system(size: 10, weight: .semibold))
-                            .frame(width: 18, height: 22)
+                            .frame(width: narrow ? 16 : 18, height: 22)
                             .background(size == option ? accent.opacity(0.28) : .clear, in: RoundedRectangle(cornerRadius: 4))
                     }.buttonStyle(.plain).help("\(option.rawValue.capitalized) map")
                         .accessibilityLabel("\(option.rawValue.capitalized) map")
@@ -503,13 +572,13 @@ struct ChicagoNavigationMap: View {
                     .buttonStyle(.plain).help("Hide map (M)").accessibilityLabel("Hide Chicago map")
                     .accessibilityIdentifier("chicago.map.hide")
             }
-            .padding(.horizontal, 9).frame(height: 34)
+            .padding(.horizontal, narrow ? 6 : 9).frame(height: 34)
             mapCanvas(size: canvas)
             HStack(spacing: 5) {
                 Text("N ↑").foregroundStyle(accent)
                 Menu {
                     ForEach(ChicagoMapLandmark.all) { landmark in
-                        Button(landmark.name) { navigate(landmark.point) }
+                        Button(landmark.name) { navigate(landmark) }
                     }
                 } label: { Text("Places") }.menuStyle(.borderlessButton).fixedSize()
                     .help("Choose any Chicago landmark")
@@ -520,9 +589,10 @@ struct ChicagoNavigationMap: View {
                 Button { mapCenter = nil; mapZoom = 1 } label: { Image(systemName: "location") }
                     .help("Recenter map on camera").accessibilityLabel("Recenter map on camera")
                 Spacer(minLength: 0)
-                if card.width >= 400 { Text("Drag to move · Click to fly").foregroundStyle(.white.opacity(0.65)) }
-                Text("© OSM").foregroundStyle(.white.opacity(0.5)).help("© OpenStreetMap contributors · ODbL 1.0")
-            }.font(.system(size: 10)).buttonStyle(.plain).padding(.horizontal, 9).frame(height: 32)
+                if card.width >= 400 { Text("Drag to move").foregroundStyle(.white.opacity(0.65)) }
+                if !narrow { Text("© OSM").foregroundStyle(.white.opacity(0.5)) }
+            }.font(.system(size: narrow ? 9 : 10)).buttonStyle(.plain).padding(.horizontal, narrow ? 6 : 9).frame(height: 32)
+                .help("© OpenStreetMap contributors · ODbL 1.0")
         }
         .frame(width: card.width, height: card.height)
         .background(Color(red: 0.075, green: 0.105, blue: 0.115).opacity(0.96), in: RoundedRectangle(cornerRadius: 11))
@@ -534,30 +604,43 @@ struct ChicagoNavigationMap: View {
 
     private func navigate(_ point: SIMD2<Float>) {
         mapCenter = nil
+        hoverPoint = nil
         onNavigate(point)
+    }
+    private func navigate(_ landmark: ChicagoMapLandmark) {
+        mapCenter = nil
+        hoverPoint = nil
+        onLandmarkNavigate(landmark)
     }
     private func mapCanvas(size: CGSize) -> some View {
         let base = ChicagoMapProjection(canvasSize: size, zoom: mapZoom)
         let projection = mapCenter.map { ChicagoMapProjection(canvasSize: size, center: $0, zoom: mapZoom) }
             ?? base.centered(on: camera.position)
-        let labels = ChicagoMapLabel.layout(projection: projection)
         let marker = ChicagoMapCameraMarker.make(position: camera.position, projection: projection)
+        let reserved = [marker?.square, marker?.labelRect].compactMap { $0 }
+        let labels = ChicagoMapLabel.layout(projection: projection, size: self.size, avoiding: reserved)
+        let hoveredLandmarkID = drag.isDragging ? nil : hoverPoint.flatMap { ChicagoMapLabel.hitTest($0, labels: labels)?.id }
         return ZStack {
             Color.black.opacity(0.15)
             if let geometry = store.geometry {
                 ChicagoMapBasemap(geometry: geometry, projection: projection).equatable()
                 Canvas { context, _ in
-                    for landmark in ChicagoMapLandmark.all {
-                        let p = projection.point(for: landmark.point)
-                        context.fill(Path(ellipseIn: CGRect(x: p.x - 2, y: p.y - 2, width: 4, height: 4)), with: .color(accent))
-                    }
                     for label in labels {
+                        let highlighted = hoveredLandmarkID == label.id
+                        let color = highlighted ? Color(red: 1, green: 0.9, blue: 0.56) : accent
+                        let radius: CGFloat = highlighted ? 4 : 2.5
+                        let dot = Path(ellipseIn: CGRect(x: label.marker.x-radius, y: label.marker.y-radius, width: radius*2, height: radius*2))
+                        context.stroke(dot, with: .color(.black.opacity(0.85)), lineWidth: 2)
+                        context.fill(dot, with: .color(color))
                         var leader = Path()
                         leader.move(to: label.marker)
-                        leader.addLine(to: CGPoint(x: label.landmark.eastLabel ? label.rect.minX : label.rect.maxX, y: label.rect.midY))
-                        context.stroke(leader, with: .color(accent.opacity(0.55)), lineWidth: 0.6)
-                        context.fill(Path(roundedRect: label.rect, cornerRadius: 2), with: .color(.black.opacity(0.65)))
-                        context.draw(Text(label.landmark.name).font(.system(size: 9, weight: .medium)).foregroundColor(.white),
+                        leader.addLine(to: CGPoint(x: max(label.rect.minX, min(label.rect.maxX, label.marker.x)),
+                                                  y: max(label.rect.minY, min(label.rect.maxY, label.marker.y))))
+                        context.stroke(leader, with: .color(color.opacity(highlighted ? 1 : 0.55)), lineWidth: highlighted ? 1.3 : 0.6)
+                        let backing = Path(roundedRect: label.rect, cornerRadius: 3)
+                        context.fill(backing, with: .color(highlighted ? Color(red: 0.24, green: 0.21, blue: 0.12) : .black.opacity(0.72)))
+                        if highlighted { context.stroke(backing, with: .color(color), lineWidth: 1) }
+                        context.draw(Text(label.landmark.name).font(.system(size: 10, weight: .medium)).foregroundColor(highlighted ? color : .white),
                                      at: CGPoint(x: label.rect.midX, y: label.rect.midY))
                     }
                     if let marker {
@@ -599,16 +682,23 @@ struct ChicagoNavigationMap: View {
             }
         }
         .frame(width: size.width, height: size.height).clipped().contentShape(Rectangle())
+        .onContinuousHover { phase in
+            switch phase {
+            case .active(let point): hoverPoint = drag.isDragging ? nil : point
+            case .ended: hoverPoint = nil
+            }
+        }
         .gesture(DragGesture(minimumDistance: 0).onChanged { value in
             guard store.geometry != nil, let pixels = drag.update(translation: value.translation),
                   let requested = projection.panDelta(screenDelta: pixels) else { return }
+            hoverPoint = nil
             let applied = onPan(requested)
             guard applied.x.isFinite, applied.y.isFinite else { return }
             mapCenter = projection.center + applied
         }.onEnded { value in
             guard drag.end(translation: value.translation), store.geometry != nil else { return }
-            if let label = labels.first(where: { $0.rect.insetBy(dx: -2, dy: -2).contains(value.location) }) {
-                navigate(label.landmark.point)
+            if let landmark = ChicagoMapLabel.hitTest(value.location, labels: labels) {
+                navigate(landmark)
             } else if let world = projection.world(at: value.location) { navigate(world) }
         })
         .accessibilityLabel("Chicago navigation map, north up")
@@ -616,7 +706,7 @@ struct ChicagoNavigationMap: View {
         .accessibilityHint("Drag to move the map and camera together. Select a landmark or map position to fly there. Zoom or use Places to reach the whole city.")
         .accessibilityChildren {
             ForEach(ChicagoMapLandmark.all) { landmark in
-                Button("Fly to \(landmark.name)") { navigate(landmark.point) }
+                Button("Frame \(landmark.name)") { navigate(landmark) }
             }
         }
     }

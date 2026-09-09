@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-09",
+  "method": "CUA native app actions, accessibility trees and screenshots",
+  "status": "Scoped checks passed; physical pinch and hover-only dispatch remain unverified",
+  "finalExecutableSHA256": "5714cd946c77399321e8ea1ebab3da8d49041105e195c20762df264cc1a74f70",
+  "finalBuildObserved": [
+    "Fresh launch opens Willis Tower at 400 m/s",
+    "Large inset remains compact",
+    "Coordinate click on Willis Tower text frames the tower; B enters straight-down Map mode",
+    "Main viewport drag pans, magnifier zooms 1.8 km to 1.4 km N\u2013S",
+    "Space, 2 and Up do not leave Map mode or start a route",
+    "Map settings show Map selected, flight-speed control and opening-view reset disabled",
+    "Coordinate click on Adler dot centers Adler at 195 m N\u2013S and retains Map mode",
+    "Accessible Frame Willis Tower action returns to Willis in Map mode"
+  ],
+  "earlierSameNavigationCodeObserved": [
+    "Small, Medium and Large layouts",
+    "Normal Willis text click frames architectural center",
+    "Adler dot click centers main Map camera",
+    "Map exit returns to a 180 m 3D overlook at Adler rather than old Willis position",
+    "Ray-traced overhead Adler in day and night; raster overhead Willis and Adler in day",
+    "Resizing to a 1003 by 686 captured window retains separated map and transport panels",
+    "Fullscreen layout retains compact map"
+  ],
+  "earlierCaptureDifference": "Earlier native captures precede only two final ArchitectureApp UI changes: span label across became N\u2013S, and opening-view reset is disabled in Map mode. Camera, map, gesture, and renderer code was unchanged. Final executable was then freshly launched and rechecked as listed above.",
+  "notVerified": [
+    "Physical trackpad pinch in normal, focused or Map view",
+    "Hover-only native event delivery; available automation has no hover-only action. A tiny scroll positioned the pointer over a label but did not establish hover event delivery. Shared hit-testing and highlight identity have CPU/source coverage.",
+    "Sustained continuous-motion quality or comparative FPS benchmark",
+    "A dedicated new offscreen GPU suite; this release used native rendered visual checks"
+  ],
+  "screenshots": [
+    "compact-window-large-map.jpg",
+    "final-map-adler.jpg",
+    "final-map-mode.jpg",
+    "final-map-settings.jpg",
+    "fullscreen-large-map.jpg",
+    "landmark-word-willis.jpg",
+    "large-map-night.jpg",
+    "map-adler-day-ray-medium.jpg",
+    "map-adler-night-ray.jpg",
+    "map-dot-adler-day.jpg",
+    "map-mode-day.jpg"
+  ]
+}

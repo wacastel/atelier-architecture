@@ -82,6 +82,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         viewMenu.addItem(withTitle: "Next Location", action: #selector(toggleLocation), keyEquivalent: "l").target = self
         viewMenu.addItem(withTitle: "Start / Stop Chicago Demo", action: #selector(toggleChicagoDemo), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Show / Hide Chicago Navigation Map", action: #selector(toggleNavigationMap), keyEquivalent: "").target = self
+        viewMenu.addItem(withTitle: "Enter / Exit Top-down Map Mode", action: #selector(toggleMapMode), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Toggle Ray Tracing", action: #selector(toggleRayTracing), keyEquivalent: "").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
@@ -103,6 +104,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func toggleLocation() { engine.toggleLocation() }
     @objc private func toggleChicagoDemo() { engine.toggleChicagoDemo() }
     @objc private func toggleNavigationMap() { engine.toggleNavigationMap() }
+    @objc private func toggleMapMode() { engine.toggleMapMode() }
     @objc private func toggleRayTracing() { engine.toggleRayTracing() }
     @objc private func resetView() { engine.resetView() }
     @objc private func toggleInterface() { presentation.chromeVisible.toggle() }
@@ -111,7 +113,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.1.1 · Paris & Chicago",
+            .applicationVersion: "2.2.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -137,7 +139,7 @@ private struct ArchitectureWorkspace: View {
                     .ignoresSafeArea().allowsHitTesting(false)
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        identity
+                        if engine.isMapMode { mapIdentity } else { identity }
                         Spacer(minLength: 30)
                         VStack(alignment: .trailing, spacing: 16) {
                             toolbar
@@ -145,28 +147,30 @@ private struct ArchitectureWorkspace: View {
                                 if geometry.size.height >= 790 && !(engine.location.world == "chicago" && engine.navigationMapVisible) { performancePanel }
                                 else { compactPerformancePanel }
                             }
-                            if engine.location.world == "chicago" && !(engine.navigationMapVisible && engine.navigationMapSize == .large) {
-                                ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
-                                    maximumHeight:max(180,min(540,geometry.size.height-570)),maximumWidth:min(460,geometry.size.width*0.43),onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision)
+                            if engine.location.world == "chicago" {
+                                navigationMap(in:geometry.size)
                             }
                         }
                     }
                     Spacer(minLength: 20)
-                    tourPanel
+                    if engine.isMapMode { mapModePanel } else { tourPanel(compact:geometry.size.height<850) }
                 }
                 .padding(.horizontal, 38)
-                .padding(.top, 50)
-                .padding(.bottom, 30)
+                .padding(.top, geometry.size.height<800 ? 30:50)
+                .padding(.bottom, geometry.size.height<800 ? 20:30)
                 .transition(.opacity)
             } else {
                 VStack {
-                    if engine.location.world == "chicago" && !(engine.navigationMapVisible && engine.navigationMapSize == .large) {
-                        HStack { Spacer(); ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
-                            maximumHeight:max(180,min(540,geometry.size.height-100)),maximumWidth:min(460,geometry.size.width*0.43),onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision) }
+                    if engine.location.world == "chicago" {
+                        HStack { Spacer(); navigationMap(in:geometry.size) }
                     }
                     Spacer()
                     HStack {
                         Spacer()
+                        if engine.isMapMode {
+                            Button("Exit map mode · B") { engine.toggleMapMode() }
+                                .font(.system(size:11,weight:.medium)).buttonStyle(.plain).padding(12).glassPanel(radius:10)
+                        }
                         Button { presentation.chromeVisible = true } label: {
                             Label("Show interface · H", systemImage: "rectangle.on.rectangle")
                                 .font(.system(size: 11, weight: .medium))
@@ -174,11 +178,6 @@ private struct ArchitectureWorkspace: View {
                         }.buttonStyle(.plain).glassPanel(radius: 10)
                     }
                 }.padding(25)
-            }
-            if engine.location.world == "chicago", engine.navigationMapVisible, engine.navigationMapSize == .large {
-                ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
-                    maximumHeight:geometry.size.height,maximumWidth:geometry.size.width,
-                    onNavigate:engine.navigateCity,onPan:engine.panCityMap).id(engine.mapSelectionRevision)
             }
             if !engine.isReady { loadingPanel }
             if engine.showHelp { helpPanel }
@@ -211,6 +210,35 @@ private struct ArchitectureWorkspace: View {
         }
     }
 
+    private func navigationMap(in viewport: CGSize) -> some View {
+        ChicagoNavigationMap(camera:engine.mapCamera,isVisible:$engine.navigationMapVisible,size:$engine.navigationMapSize,
+            maximumHeight:min(410,viewport.height*0.45),maximumWidth:min(430,viewport.width*0.45),
+            onNavigate:engine.navigateCity,onLandmarkNavigate:engine.navigateCity,onPan:engine.panCityMap)
+            .id(engine.mapSelectionRevision)
+    }
+    private var mapIdentity: some View {
+        VStack(alignment:.leading,spacing:12) {
+            Text("ATELIER  /  CHICAGO").font(.system(size:11,weight:.semibold)).tracking(3).foregroundStyle(accent)
+            Text("Map mode").font(.system(size:42,design:.serif))
+            Text("NORTH UP  ·  PAN & ZOOM").font(.system(size:10,weight:.medium)).tracking(2).foregroundStyle(.white.opacity(0.7))
+            Button { engine.toggleMapMode() } label: { Label("Return to 3D view · B",systemImage:"cube") }
+                .buttonStyle(.plain).font(.system(size:12,weight:.medium)).padding(12).glassPanel(radius:9)
+                .accessibilityLabel("Exit map mode")
+        }
+    }
+    private var mapModePanel: some View {
+        HStack(spacing:16) {
+            Label("N",systemImage:"arrow.up").font(.system(size:12,weight:.semibold)).foregroundStyle(accent)
+            Text("Drag to pan · Pinch to zoom").font(.system(size:12))
+            Spacer()
+            Text(engine.mapViewSpan>=1000 ? String(format:"%.1f km N–S",engine.mapViewSpan/1000):String(format:"%.0f m N–S",engine.mapViewSpan))
+                .font(.system(size:11,design:.monospaced)).foregroundStyle(.white.opacity(0.6))
+            Button { engine.zoomMap(false) } label: { Image(systemName:"minus.magnifyingglass") }
+                .accessibilityLabel("Zoom city map out")
+            Button { engine.zoomMap(true) } label: { Image(systemName:"plus.magnifyingglass") }
+                .accessibilityLabel("Zoom city map in")
+        }.buttonStyle(.plain).padding(18).glassPanel(radius:12)
+    }
     private var identity: some View {
         VStack(alignment: .leading, spacing: 11) {
             HStack(spacing: 14) {
@@ -266,7 +294,7 @@ private struct ArchitectureWorkspace: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Focus: \(focused)").font(.system(size: 11, weight: .semibold)).foregroundStyle(accent)
                             .lineLimit(1)
-                        Text("Drag to orbit · scroll to zoom · click again to release")
+                        Text("Drag to orbit · pinch or scroll to zoom · click again to release")
                             .font(.system(size: 9)).foregroundStyle(.white.opacity(0.65))
                     }
                     Button { engine.clearObjectFocus(); engine.focusViewport() } label: {
@@ -280,6 +308,10 @@ private struct ArchitectureWorkspace: View {
                     Label(engine.navigationMode == 1 ? "Fly":"Walk",systemImage:engine.navigationMode == 1 ? "airplane":"figure.walk")
                         .font(.system(size: 10,weight:.medium))
                 }.buttonStyle(.plain).help("Toggle Walk / Fly · F").accessibilityLabel("Toggle Walk / Fly")
+                if engine.location.world == "chicago" {
+                    Button { engine.toggleMapMode() } label: { Label("Map mode",systemImage:"square.3.layers.3d.top.filled").font(.system(size:10,weight:.medium)) }
+                        .buttonStyle(.plain).help("Fixed top-down map · B").accessibilityLabel("Enter map mode")
+                }
                 if engine.navigationMode == 1 {
                     Button { engine.stepFlySpeed(-1) } label: { Image(systemName:"minus.circle") }.buttonStyle(.plain).help("Slower flight · −").accessibilityLabel("Slower flight")
                     flySpeedPicker.frame(width:110)
@@ -349,8 +381,9 @@ private struct ArchitectureWorkspace: View {
         }.font(.system(size: 10))
     }
 
-    private var tourPanel: some View {
+    private func tourPanel(compact: Bool) -> some View {
         VStack(alignment: .leading, spacing: 19) {
+            if !compact {
             HStack(alignment: .bottom, spacing: 25) {
                 VStack(alignment: .leading, spacing: 7) {
                     HStack(spacing: 9) {
@@ -373,6 +406,7 @@ private struct ArchitectureWorkspace: View {
                     Text("CAMERA ELEVATION").font(.system(size: 8, weight: .medium)).tracking(1.3).foregroundStyle(.white.opacity(0.4))
                 }
             }.padding(.horizontal, 4)
+            }
             VStack(spacing: 0) {
                 HStack(spacing: 9) {
                     Button { engine.toggleTour() } label: {
@@ -456,7 +490,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space  play     C  demo     ↑ / ↓  views     M  map     R  ray tracing     F  fly/walk     − / +  fly speed     N  day/night").lineLimit(1).minimumScaleFactor(0.7)
+                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   R ray tracing   F fly/walk   N day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -506,15 +540,16 @@ private struct ArchitectureWorkspace: View {
                 settingLabel("NAVIGATION", value: "")
                 Picker("Navigation", selection: Binding(get:{engine.navigationMode},set:{engine.setNavigationMode($0)})) {
                     Text("Walk").tag(0); Text("Fly").tag(1)
+                    if engine.location.world == "chicago" { Text("Map").tag(2) }
                 }.pickerStyle(.segmented).labelsHidden()
-                Text("Walk follows solid floors and avoids the structure. Fly follows the camera pitch and lets you move freely.")
+                Text("Map stays north-up and only pans or zooms. Walk follows solid floors; Fly moves freely. Pinch zoom works in every mode.")
                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
                 settingLabel("FLY SPEED",value:String(format:"%.0f m/s · Shift ×3",engine.flySpeed))
-                flySpeedPicker
+                flySpeedPicker.disabled(engine.isMapMode)
             }
             Button { engine.resetView(); settingsOpen = false } label: {
                 Label("Return to the opening view", systemImage: "arrow.counterclockwise").font(.system(size: 11))
-            }.buttonStyle(.plain).foregroundStyle(accent)
+            }.buttonStyle(.plain).foregroundStyle(accent).disabled(engine.isMapMode)
         }.padding(24).frame(width: 348).preferredColorScheme(.dark)
     }
 
@@ -567,7 +602,9 @@ private struct ArchitectureWorkspace: View {
                     helpRow("SHIFT + DRAG", "Hold Shift and left-drag to rotate the view")
                     helpRow("RIGHT DRAG", "Look around, or orbit a focused landmark")
                     helpRow("SCROLL", "Zoom toward focus; otherwise step flight presets")
-                    helpRow("M", "Show/hide map; click to fly, drag to move the camera")
+                    helpRow("M", "Show/hide inset map; labels and dots center landmarks")
+                    helpRow("B", "Enter or leave fixed north-up Map mode")
+                    helpRow("PINCH", "Zoom the normal view, focused object, or city map")
                     helpRow("R", "Toggle ray tracing / fast raster at the same camera")
                     helpRow("MUSIC NOTE", "Ambient music on/off, volume and current song")
                     helpRow("C", "Start / stop the complete Chicago demo")
@@ -680,6 +717,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
     weak var presentation: PresentationState?
     private var heldKeys = Set<UInt16>()
     private var pointerGesture = ViewportPointerGesture()
+    private var magnifying = false
     override var intrinsicContentSize: NSSize {
         NSSize(width: NSView.noIntrinsicMetric, height: NSView.noIntrinsicMetric)
     }
@@ -711,10 +749,13 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
         if let delta = pointerGesture.drag(button: button, point: pointerPoint(event), windowOrigin: windowOrigin) {
             // View-local displacement never counts native window translation as a
             // camera delta; ownership is also cancelled if the window origin moves.
-            if ViewportPointerGesture.action(button:button,shift:event.modifierFlags.contains(.shift)) == .pan {
+            switch ViewportPointerGesture.action(button:button,shift:event.modifierFlags.contains(.shift),mapMode:engine?.isMapMode == true) {
+            case .pan:
                 let point = pointerPoint(event)
                 engine?.pan(from:point-delta,to:point,viewport:SIMD2(Float(bounds.width),Float(bounds.height)))
-            } else { engine?.look(deltaX: delta.x, deltaY: delta.y) }
+            case .look: engine?.look(deltaX: delta.x, deltaY: delta.y)
+            case .ignore: break
+            }
         }
     }
     override func mouseDown(with event: NSEvent) {
@@ -737,16 +778,24 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
     override func rightMouseUp(with event: NSEvent) {
         _ = pointerGesture.end(button: .right, point: pointerPoint(event), windowOrigin: windowOrigin)
     }
-    override func scrollWheel(with event: NSEvent) {
+    override func magnify(with event: NSEvent) {
         guard isViewportEvent(event) else { return }
+        if event.phase.contains(.began) { releaseKeys(); magnifying = true; pointerGesture.cancel() }
+        engine?.magnify(event.magnification)
+        if event.phase.contains(.ended) || event.phase.contains(.cancelled) { magnifying = false; pointerGesture.cancel() }
+    }
+    override func rotate(with event: NSEvent) { /* Orientation belongs to explicit viewport drags. */ }
+    override func scrollWheel(with event: NSEvent) {
+        guard isViewportEvent(event), !magnifying else { return }
         engine?.scroll(Float(event.scrollingDeltaY), precise: event.hasPreciseScrollingDeltas)
     }
 
     override func keyDown(with event: NSEvent) {
         if event.modifierFlags.contains(.command) { super.keyDown(with: event); return }
-        guard let engine else { return }
+        guard let engine, ViewportPointerGesture.allowsKey(event.keyCode,mapMode:engine.isMapMode) else { return }
         if !event.isARepeat {
             switch event.keyCode {
+            case 11: engine.toggleMapMode(); return
             case 49: engine.toggleTour(); return
             case 123: engine.shuttle(.reverse); return
             case 124: engine.shuttle(.forward); return
@@ -759,8 +808,8 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             case 46: engine.toggleNavigationMap(); return
             case 15: engine.toggleRayTracing(); return
             case 3: engine.setNavigationMode(engine.navigationMode == 1 ? 0:1); return
-            case 27, 78: engine.stepFlySpeed(-1); return
-            case 24, 69: engine.stepFlySpeed(1); return
+            case 27, 78: if engine.isMapMode { engine.zoomMap(false) } else { engine.stepFlySpeed(-1) }; return
+            case 24, 69: if engine.isMapMode { engine.zoomMap(true) } else { engine.stepFlySpeed(1) }; return
             case 33: engine.stepIdleSpeed(-1); return
             case 30: engine.stepIdleSpeed(1); return
             case 4: presentation?.chromeVisible.toggle(); return
@@ -768,7 +817,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             case 53:
                 releaseKeys()
                 engine.showHelp = false
-                engine.clearObjectFocus()
+                if engine.isMapMode { engine.toggleMapMode() } else { engine.clearObjectFocus() }
                 engine.focusViewport()
                 return
             default: break
@@ -818,6 +867,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
     override func viewWillStartLiveResize() { releaseKeys(); super.viewWillStartLiveResize() }
     override func viewDidEndLiveResize() { super.viewDidEndLiveResize(); engine?.drawableSizeDidChange(drawableSize) }
     private func releaseKeys() {
+        magnifying = false
         pointerGesture.cancel()
         for key in heldKeys { engine?.moveKey(key, pressed: false) }
         heldKeys.removeAll()

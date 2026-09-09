@@ -1,18 +1,34 @@
-# Robie House extension
+# Suggested next landmark: Chicago Cultural Center
 
-The proposed extension is implemented in Atelier 1.9. See [Robie House](ROBIE-HOUSE.md), [Hyde Park and the connecting corridor](HYDE-PARK.md), and [demo controls](DEMO.md) for the current model and navigation.
+Research date: September 9, 2026. This is a recommendation for a future request. No building, route, renderer or map changes were made for this suggestion.
 
-## Original proposal — September 8, 2026
+The **Chicago Cultural Center** would be a strong next addition. Its historic library exterior, marble and mosaic interiors, and Preston Bradley Hall’s Tiffany glass dome would create an intimate architectural walkthrough beside the existing Millennium Park scene. The City lists the building at **78 East Washington Street**, completed in **1897** by **Shepley, Rutan & Coolidge**, and designated a Chicago Landmark in 1976. [City landmark record](https://webapps1.chicago.gov/landmarksweb/web/landmarkdetails.htm?lanId=1274).
 
-**Frank Lloyd Wright’s Robie House in Hyde Park is the recommended next destination.** Completed in 1910 at 5757 South Woodlawn Avenue, it offers a different scale of architectural exploration: long bands of brick and limestone, cantilevered roofs, leaded art glass and living/dining spaces connected around a central chimney. These features suit close walkthroughs and careful daylight rendering. The Frank Lloyd Wright Trust documents the restored building and its interiors. [Architecture and restoration](https://flwright.org/explore/frederick-c-robie-house), [official visitor information](https://flwright.org/tour/robie-house).
+## Fit with the existing world
 
-The addition would also create a useful southern connection. Robie House lies approximately 2.1 km beyond the current scene’s southern terrain limit; much of the intervening neighborhood still needs detailed surroundings. This distance is calculated from the existing Museum Campus resource and [UNESCO’s published coordinates, p.67](https://whc.unesco.org/archive/2019/whc19-43com-8B-en.pdf), rather than a surveyed route.
+Read-only inspection found the Cultural Center in the bundled Chicago map, but no dedicated Cultural Center geometry, interior model or destination in the Swift sources. It currently passes through the general mapped-building renderer. Tribune Tower, by comparison, already has a dedicated Gothic crown, facade and entrance model in `MagnificentGateway.swift`.
 
-A proposed connecting flight would develop the area in four stages:
+| Existing data | Value |
+| --- | --- |
+| Map resource | `Sources/ArchitectureEngine/Resources/Chicago/ChicagoContext.json` |
+| Snapshot timestamp | `2026-09-07T22:11:33Z` |
+| Building name | `Chicago Cultural Center` |
+| Derived building ID / OSM relation | `-158994370` / [15899437](https://www.openstreetmap.org/relation/15899437) |
+| Footprint bounds in world metres | x `882.20…930.10`, z `−613.27…−500.77` |
+| Approximate footprint bounding-box centre | `(906.15, 0, −557.02)` |
+| Approximate geographic centre | `41.883880° N, 87.624985° W` |
+| Current context height | `18.75 m`, derived from levels; not a verified architectural height |
 
-1. **McCormick Place to the 31st Street lakefront:** harbor, beach, paths and the adjacent Bronzeville street frontage.
-2. **Burnham Wildlife Corridor through Oakwood to Promontory Point:** native prairie, woodland, open playing grounds, shoreline and the separate road, rail and trail networks. The Park District places the wildlife corridor between McCormick Place and East 47th Street; Promontory Point provides a landscape stop at 55th Street. [Wildlife corridor](https://www.chicagoparkdistrict.com/parks-facilities/burnham-wildlife-corridor), [Promontory Point](https://www.chicagoparkdistrict.com/parks-facilities/promontory-point?page=1&stream=top).
-3. **Hyde Park lakefront to 57th Street and Woodlawn Avenue:** apartment buildings, local shops, mature street trees and University of Chicago frontage, ending at the house’s Woodlawn/58th Street approach. [Trust location and directions](https://flwright.org/visit/plan-your-visit).
-4. **Robie House exterior and interior:** masonry joints, roof edges, entry sequence, hearth, art glass and terraces, with a restrained night treatment informed by photographs. Historical [National Park Service measured drawings](https://npgallery.nps.gov/AssetDetail/620ea545-086b-48b8-b3cb-02011c292dcd) would be reconciled with the restored building before modeling.
+The centre coordinate is calculated from the bundled outer-footprint bounds and the existing Willis-origin projection; it is not an entrance coordinate or a survey measurement. It lies approximately **190 m northwest of the modeled Cloud Gate centre** in a straight line. That calculation establishes proximity, not a validated pedestrian route. A connecting approach across the existing Millennium Park/Michigan Avenue setting could stay within the current city geography, concentrating new detail on the building and its immediate block.
 
-This is a proposal for a future addition. The corridor and house have not yet been built. Primary sources were checked on September 8, 2026.
+The inspected resource SHA-256 is `2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904`. A future detailed model should replace the generic building and verify its height, floor levels and openings against architectural evidence.
+
+## What would make the walkthrough distinctive
+
+A future project could follow the exterior and Washington Street entrance into the mosaic stair, then reveal Preston Bradley Hall and the Tiffany dome overhead. The Chicago Architecture Center describes the limestone exterior, elaborate marble and mosaic spaces, and a 38-foot Tiffany dome containing approximately 30,000 glass pieces. Those features provide useful close-view subjects beyond the existing skyline studies. [Chicago Architecture Center](https://www.architecture.org/online-resources/buildings-of-chicago/chicago-cultural-center).
+
+The restoration team’s own account is a strong starting reference for the dome: Wight oversaw work on more than 30,000 glass pieces and identifies Jacob A. Holzer as its original designer. The page includes project imagery to inspect during the future modeling pass. [Wight & Company’s Preston Bradley Hall restoration](https://www.wightco.com/work/preston-bradley-dome/).
+
+The second dome requires separate research. Berglund’s restoration account identifies the **Grand Army of the Republic dome as Healy & Millet**, with Tiffany decorative finishes in the rooms. Its project photographs and restoration descriptions would help distinguish those spaces from Preston Bradley Hall and avoid reproducing an older, unrestored appearance. [Berglund’s Grand Army of the Republic restoration](https://www.berglundco.com/projects/chicago-cultural-center-grand-army-of-the-republic-rooms).
+
+Warm evening interiors, glass transmission, polished stone and restrained exterior lighting would suit the renderer’s strengths. These are proposed visual subjects, not a promise of new optical effects, a measured performance result or a completed eight-view plan. The primary-source text and existing map were inspected for this recommendation; the linked photographs have not yet undergone a dedicated visual-reference review, and no photographs were downloaded or bundled.

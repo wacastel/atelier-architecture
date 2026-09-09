@@ -23,7 +23,7 @@ enum NavigationMapTests {
         let samples: [SIMD2<Float>] = [minimum, maximum, SIMD2(minimum.x, maximum.y),
             SIMD2(maximum.x, minimum.y), .zero, SIMD2(3309.7, 9917.1),
             SIMD2(-1626, -7717.6), SIMD2(4925, 9237), SIMD2(2413.7, 1393.2)]
-        for height: CGFloat in [180, 210, 390, 540, 900, 1600] {
+        for height: CGFloat in [270, 315, 410, 540, 900, 1600] {
             for width: CGFloat in [300, 620, 1440, 2560] {
                 let cards = ChicagoMapSize.allCases.map { $0.cardSize(maximumHeight: height, maximumWidth: width) }
                 check(cards[0].height < cards[1].height && cards[1].height < cards[2].height,
@@ -31,7 +31,9 @@ enum NavigationMapTests {
                 check(cards[0].width < cards[1].width && cards[1].width < cards[2].width,
                       "Small/Medium/Large widths are indistinguishable")
                 check(cards.allSatisfy { $0.height <= height && $0.width <= width }, "Map exceeds the available card dimensions")
-                check(cards[2] == CGSize(width: width, height: height), "Large does not fill the supplied application viewport")
+                check(cards[2].width <= 430 && cards[2].height <= 410, "Large exceeds its compact ideal size")
+                check(abs(cards[0].width/260-cards[2].width/430) < 1e-8 && abs(cards[1].height/330-cards[2].height/410) < 1e-8,
+                      "Constrained sizes no longer use one common fit factor")
                 for card in cards {
                     let canvas = CGSize(width: card.width, height: card.height - 66)
                     for zoom: CGFloat in [1, 2.25, 16] {
@@ -104,6 +106,67 @@ enum NavigationMapTests {
                 }
             }
         }
+        for viewport in [CGSize(width: 900, height: 600), CGSize(width: 1100, height: 700),
+                         CGSize(width: 1440, height: 900), CGSize(width: 2560, height: 1600)] {
+            let cards = ChicagoMapSize.allCases.map { $0.cardSize(maximumHeight: min(410, viewport.height*0.45),
+                                                                 maximumWidth: min(430, viewport.width*0.45)) }
+            for card in cards {
+                check(card.width*card.height < viewport.width*viewport.height*0.25, "Map takes a quarter or more of the viewport")
+                check(card.width >= 170 && card.height-66 >= 95, "Smallest supported window cannot display controls and camera marker")
+            }
+            check(cards[0].width+40 < cards[1].width && cards[1].width+50 < cards[2].width,
+                  "Compact size choices are not visibly distinct")
+        }
+        for size in ChicagoMapSize.allCases {
+            check(size.cardSize(maximumHeight: 0, maximumWidth: 0) == .zero, "Zero budget manufactures a larger map")
+            check(size.cardSize(maximumHeight: .nan, maximumWidth: .infinity).width.isFinite, "Invalid size budget produces nonfinite layout")
+        }
+        check(Set(ChicagoMapLandmark.all.map(\.id)).count == ChicagoMapLandmark.all.count, "Semantic landmark IDs are not unique")
+        check(ChicagoMapLandmark.all.count >= 30, "Detailed map catalog omits the newly labeled authored landmarks")
+        for landmark in ChicagoMapLandmark.all {
+            check(landmark.point.x >= minimum.x && landmark.point.x <= maximum.x && landmark.point.y >= minimum.y && landmark.point.y <= maximum.y,
+                  "Landmark target lies outside actual navigation coverage")
+            check(landmark.targetHeight.isFinite && landmark.targetHeight >= 0 && landmark.framingRadius.isFinite && landmark.framingRadius > 0,
+                  "Semantic framing target is invalid")
+            check(landmark.target == SIMD3(landmark.point.x, landmark.targetHeight, landmark.point.y), "Semantic target swaps world axes")
+        }
+        let willis = ChicagoMapLandmark.all.first { $0.id == "willis" }!
+        let bean = ChicagoMapLandmark.all.first { $0.id == "cloud-gate" }!
+        check(willis.target == SIMD3(-4, 205, 10) && willis.framingRadius >= 325, "Willis selection targets pavement or omits the antenna envelope")
+        check(bean.target == SIMD3(1042.46, 7.8, -424.15) && bean.framingRadius == 18, "Cloud Gate selection loses its authored center and close framing")
+        var labelCounts: [String: Int] = [:]
+        for mapSize in ChicagoMapSize.allCases {
+            let card = mapSize.cardSize(maximumHeight: 410, maximumWidth: 430)
+            let canvas = CGSize(width: card.width, height: card.height-66)
+            let overview = ChicagoMapProjection(canvasSize: canvas).centered(on: .zero)
+            labelCounts[mapSize.rawValue] = ChicagoMapLabel.layout(projection: overview, size: mapSize).count
+            for center in [SIMD2<Float>.zero, SIMD2(1800, 1500), SIMD2(214.4, -4726.1), SIMD2(3309.7, 9917.1)] {
+                for zoom: CGFloat in [1, 2, 4, 8, 16] {
+                    let projection = ChicagoMapProjection(canvasSize: canvas, zoom: zoom).centered(on: center)
+                    let reserved = CGRect(x: canvas.width/2-12, y: canvas.height/2-12, width: 24, height: 24)
+                    let labels = ChicagoMapLabel.layout(projection: projection, size: mapSize, avoiding: [reserved])
+                    for (index, label) in labels.enumerated() {
+                        check(projection.canvasRect.contains(label.rect) && projection.canvasRect.contains(label.dotRect), "Label or associated dot is clipped")
+                        check(label.landmark.detailLevel <= mapSize.detailLevel, "Compact map ignores its landmark detail budget")
+                        check(!label.rect.intersects(reserved), "Landmark text hides the dotted camera square")
+                        let textPoint = CGPoint(x: label.rect.midX, y: label.rect.midY)
+                        let fromText = ChicagoMapLabel.hitTest(textPoint, labels: labels)
+                        let fromDot = ChicagoMapLabel.hitTest(label.marker, labels: labels)
+                        check(fromText?.id == label.id && fromDot?.id == label.id, "Text and dot disagree about hovered/clicked landmark")
+                        check(fromText?.target == label.landmark.target && fromDot?.framingRadius == label.landmark.framingRadius,
+                              "Label displacement changes the semantic navigation target")
+                        for other in labels.dropFirst(index+1) {
+                            check(!label.rect.insetBy(dx: -2, dy: -2).intersects(other.rect), "Map labels overlap")
+                            check(!label.rect.intersects(other.dotRect.insetBy(dx: 2, dy: 2)), "One label covers another landmark dot")
+                        }
+                    }
+                    check(ChicagoMapLabel.hitTest(CGPoint(x: -1, y: -1), labels: labels) == nil, "Off-map hover selects a landmark")
+                    check(ChicagoMapLabel.hitTest(CGPoint(x: CGFloat.nan, y: 0), labels: labels) == nil, "Nonfinite hover selects a landmark")
+                }
+            }
+        }
+        check(labelCounts["small"]! < labelCounts["medium"]! && labelCounts["medium"]! < labelCounts["large"]!,
+              "Larger central Chicago maps do not expose progressively more landmarks: \(labelCounts)")
         let full = ChicagoMapProjection(canvasSize: CGSize(width: 1800, height: 1100))
         check(full.world(at: full.point(for: SIMD2(5800, 0))) != nil, "Lake fly-navigation is rejected")
         let movedBeyond = ChicagoMapProjection(canvasSize: CGSize(width: 1000, height: 500), center: SIMD2(10000, 0))
@@ -163,9 +226,10 @@ enum NavigationMapTests {
         check(geometry.vertexCount < 200000, "Overview map exceeds its lightweight vector budget")
         let _ = ChicagoNavigationMap(camera: .init(position: .zero, target: SIMD2(0, -1)),
                                      isVisible: .constant(true), size: .constant(.small), maximumHeight: 180, maximumWidth: 620,
-                                     onNavigate: { _ in }, onPan: { $0 })
+                                     onNavigate: { _ in }, onLandmarkNavigate: { _ in }, onPan: { $0 })
         let result: [String: Any] = ["passed": true, "checks": checks,
-            "scope": "CPU fill/aspect/inverse/zoom/recenter/resize, anchored pan, click-vs-drag, dotted camera marker/edge bearing/coverage distance, heading and complete offline loading; no native UI or GPU execution",
+            "scope": "CPU compact viewport-area budgets, fill/aspect/inverse/zoom/recenter/resize, semantic landmark centers, collision-aware label placement, shared dot/text hover-click hit tests, anchored pan, click-vs-drag, dotted camera marker/edge bearing/coverage distance, heading and complete offline loading; no native UI or GPU execution",
+            "centralOverviewLabels": labelCounts, "landmarks": ChicagoMapLandmark.all.count,
             "resources": geometry.loadedResources, "vertices": geometry.vertexCount,
             "footprintRings": geometry.footprints.count, "streets": geometry.streets.count,
             "arterials": geometry.arterials.count, "waterPolygons": geometry.water.count,

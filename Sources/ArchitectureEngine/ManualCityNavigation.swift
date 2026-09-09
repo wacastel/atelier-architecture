@@ -5,6 +5,96 @@ import simd
 enum ManualCityNavigation {
     static let flySpeeds: [Float] = [8, 30, 80, 180, 400, 800]
     static let defaultFlySpeed: Float = 400
+    /// Vertical coverage of the ground plane in the perspective map view.
+    static let mapSpanRange: ClosedRange<Float> = 50...24_000
+    static let minimumMapAltitude: Float = 650
+    static let opticalFOVRange: ClosedRange<Float> = 1.5...100
+
+    /// Exactly vertical, north-up map camera. Above 750 m of coverage, raise
+    /// the eye at a fixed 60-degree FOV; closer zooms narrow the lens while
+    /// remaining above every existing city roof/antenna. The two regimes meet
+    /// continuously. Span is measured at y=0, not at individual roof heights.
+    static func mapPose(center: SIMD2<Float>, span: Float) -> CameraPose? {
+        guard finite(center), span.isFinite, span > 0 else { return nil }
+        let coverage = Double(min(mapSpanRange.upperBound,max(mapSpanRange.lowerBound,span)))
+        let altitude = max(Double(minimumMapAltitude),coverage/(2*tan(Double.pi/6)))
+        let fov = 2*atan(coverage/(2*altitude))*180/Double.pi
+        return CameraPose(position:SIMD3(center.x,Float(altitude),center.y),
+                          target:SIMD3(center.x,0,center.y),fov:Float(fov))
+    }
+
+    /// Screen deltas use AppKit/viewport points with positive y downward.
+    /// Translate the camera oppositely so map content follows the pointer.
+    /// Aspect ratio is already accounted for by the vertical span: one pixel
+    /// has the same ground scale along both screen axes. Caller applies its
+    /// desired geographic center bounds (e.g. mapTranslation).
+    static func mapPan(delta: SIMD2<Float>, viewport: SIMD2<Float>, span: Float) -> SIMD2<Float>? {
+        guard finite(delta), finite(viewport), viewport.x > 0, viewport.y > 0,
+              span.isFinite, span > 0 else { return nil }
+        let coverage = Double(min(mapSpanRange.upperBound,max(mapSpanRange.lowerBound,span)))
+        let scale = coverage/Double(viewport.y)
+        let translation = SIMD2<Float>(Float(-Double(delta.x)*scale),Float(-Double(delta.y)*scale))
+        return finite(translation) ? translation:nil
+    }
+
+    /// NSEvent magnification is incremental: factor = 1 + magnification.
+    /// A positive result means zoom in. Reject invalid/nonpositive factors;
+    /// bound pathological individual events to half/double magnification.
+    /// Logs compose additively, independent of elapsed rendering time.
+    static func pinchLogScale(magnification: Double) -> Float? {
+        guard magnification.isFinite, magnification > -1 else { return nil }
+        let limit = log(2.0)
+        return Float(min(limit,max(-limit,log1p(magnification))))
+    }
+
+    /// Optical magnification divides tan(FOV/2), rather than subtracting
+    /// degrees. This preserves zoom ratios and changes no position or target.
+    static func pinchFOV(_ fov: Float, magnification: Double) -> Float? {
+        guard fov.isFinite, fov > 0, fov < 180,
+              let zoom = pinchLogScale(magnification:magnification) else { return nil }
+        let tangent = tan(Double(fov)*Double.pi/360)*exp(-Double(zoom))
+        let result = Float(atan(tangent)*360/Double.pi)
+        return min(opticalFOVRange.upperBound,max(opticalFOVRange.lowerBound,result))
+    }
+
+    /// Map zoom changes coverage; mapPose converts that coverage to a safe
+    /// altitude/lens pair without introducing yaw, pitch, or target drift.
+    static func pinchMapSpan(_ span: Float, magnification: Double) -> Float? {
+        guard span.isFinite, span > 0,
+              let zoom = pinchLogScale(magnification:magnification) else { return nil }
+        let current = min(mapSpanRange.upperBound,max(mapSpanRange.lowerBound,span))
+        let result = Float(Double(current)*exp(-Double(zoom)))
+        return min(mapSpanRange.upperBound,max(mapSpanRange.lowerBound,result))
+    }
+
+    /// Frame an entire landmark from a map marker, independent of the previous
+    /// camera's lens. Radius encloses the landmark around the exact target.
+    /// Fit the sphere to the narrower viewport axis with a 20% margin, then
+    /// lift the eye if nearby roofs require more clearance.
+    static func landmarkOverview(target: SIMD3<Float>, radius: Float, heading input: SIMD3<Float>,
+                                 aspect: Float = 1.5, roof: (Float,Float) -> Float) -> CameraPose? {
+        guard finite(target), finite(input), radius.isFinite, radius > 0,
+              aspect.isFinite, aspect > 0 else { return nil }
+        var heading = SIMD3(input.x,0,input.z)
+        if simd_length_squared(heading) < 0.001 { heading = SIMD3(0,0,-1) }
+        heading = simd_normalize(heading)
+        let halfVertical = 25.0 * Double.pi / 180
+        let halfHorizontal = atan(tan(halfVertical) * Double(aspect))
+        let distance = Double(radius) * 1.2 / sin(min(halfVertical,halfHorizontal))
+        let horizontal = Float(distance * cos(Double.pi/6)), vertical = Float(distance * 0.5)
+        var position = target-heading*horizontal+SIMD3(0,vertical,0)
+        guard finite(position) else { return nil }
+        var ceiling = roof(position.x,position.z)
+        guard ceiling.isFinite else { return nil }
+        for offset in [SIMD2<Float>(-12,-12),SIMD2(12,-12),SIMD2(-12,12),SIMD2(12,12)] {
+            let height = roof(position.x+offset.x,position.z+offset.y)
+            guard height.isFinite else { return nil }
+            ceiling = max(ceiling,height)
+        }
+        position.y = max(position.y,ceiling+40)
+        guard finite(position) else { return nil }
+        return CameraPose(position:position,target:target,fov:50)
+    }
 
     static func nearestSpeed(_ speed: Float) -> Float {
         guard speed.isFinite else { return defaultFlySpeed }
