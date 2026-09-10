@@ -258,7 +258,7 @@ for location in ArchitectureLocation.allCases {
 }
 
 // Skyline lighting uses authored per-view studies unless the user overrides a pass.
-let skylinePresets = [1,1,3,2,2,1,0,2]
+let skylinePresets = [3,1,3,2,2,1,0,2]
 expect(ArchitectureLocation.skyline.walkingViews.isEmpty, "Offshore skyline cameras do not claim walking support")
 for (view,preset) in skylinePresets.enumerated() {
     var study = WalkthroughPlayback(location:.skyline)
@@ -285,14 +285,14 @@ skylineCycle.setLighting(3)
 skylineCycle.advance(160)
 expect(skylineCycle.view == 0 && skylineCycle.effectiveLighting == 2 && !skylineCycle.lightingOverridden, "A complete Skyline idle pass clears explicit sunset and starts all-night pass")
 skylineCycle.advance(160)
-expect(skylineCycle.effectiveLighting == 1 && skylineCycle.lighting == 0, "The following Skyline pass restores authored daylight")
+expect(skylineCycle.effectiveLighting == 3 && skylineCycle.lighting == 0, "The following Skyline pass restores the opening sunset study")
 skylineCycle.advance(3*20)
 expect(skylineCycle.view == 3 && skylineCycle.effectiveLighting == 2 && skylineCycle.lighting == 0, "An authored night study does not flip the base pass")
 skylineCycle.toggleDayNight(); skylineCycle.advance(5*20)
 expect(skylineCycle.effectiveLighting == 2 && skylineCycle.lighting == 2, "N from an authored night study does not reverse full-pass parity")
 var skylineDemo = WalkthroughPlayback(location:.skyline)
 skylineDemo.setLighting(3); skylineDemo.startChicagoDemo(routeIndex:8)
-expect(!skylineDemo.lightingOverridden && skylineDemo.location == .skyline && skylineDemo.effectiveLighting == 1, "A fresh demo clears manual override and permits authored Skyline studies")
+expect(!skylineDemo.lightingOverridden && skylineDemo.location == .skyline && skylineDemo.effectiveLighting == 3, "A fresh demo clears manual override and restores the opening Skyline sunset")
 skylineDemo.setLighting(3); skylineDemo.navigateDemoView(offset:7)
 expect(skylineDemo.effectiveLighting == 3, "Demo navigation within a pass preserves explicit sunset")
 skylineDemo.selectLocation(.chicago); skylineDemo.selectLocation(.skyline)

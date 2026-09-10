@@ -24,7 +24,7 @@ The cameras use the same coordinates, mapped building footprints, harbor geometr
 
 | View | Title | Origin | Authored lighting |
 | --- | --- | --- | --- |
-| 1 | The city across the water | Adler lakefront | Clear day |
+| 1 | The city across the water | Adler lakefront, centered on Willis Tower | Sunset |
 | 2 | Chicago from the west | Oak Park, facing east | Clear day |
 | 3 | Sunset behind the skyline | Adler panorama | Sunset |
 | 4 | Lights on the lake | Adler lakefront | Night |
@@ -34,6 +34,8 @@ The cameras use the same coordinates, mapped building footprints, harbor geometr
 | 8 | The luminous panorama | Lake Michigan | Night |
 
 Each bookmark starts its own 120-second route. Idle motion makes a much gentler orbit around the composition, with a small change in field of view. Oak Park opens at a 55 m camera height with a cropped 9° vertical telephoto field of view; its route rises to 76 m. The Kinzie study starts 210 m above the scene ground and rises to 260 m, with a target height rising from 230 to 260 m and a 48–50° vertical field of view. This elevated composition reveals Willis beyond the contemporary foreground towers. Ping Tom’s route rises from 18 to 58 m. The other views use approximately 33–39° vertical fields of view. These heights are authored flight positions, not surveyed balcony or bridge elevations.
+
+Version 2.4.2 matches the opening waterfront study to the user's September 9 sunset screenshot. It retains the 8 m lakefront camera height and 37° lens, aiming at Willis Tower at world target `(-8, 110, 0)` from `(2410, 8, 1250)`. The lower target leaves room for the rose sky above the tower and golden reflections below it. The idle orbit and all guided-flight keys share this target, keeping Willis centered throughout the two-minute route. Sunset is the authored default; explicit lighting choices and the alternating all-night pass still apply.
 
 The map uses a 24-point dotted camera marker. For a camera outside the mapped area, it reports the direction and distance beyond the map instead of implying that the camera sits on a mapped street. Focusing a distant building preserves the entry distance, so beginning an orbit from Oak Park does not pull the camera abruptly into downtown. The map continues to cover the existing modeled corridor.
 

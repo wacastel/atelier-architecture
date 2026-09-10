@@ -1,0 +1,41 @@
+{
+  "version": "2.4.2",
+  "build": 19,
+  "request": "Match The city across the water to the user-provided September 9 sunset screenshot, with Willis Tower centered.",
+  "camera": {
+    "position": [
+      2410,
+      8,
+      1250
+    ],
+    "target": [
+      -8,
+      110,
+      0
+    ],
+    "verticalFOVDegrees": 37,
+    "preferredLighting": 3
+  },
+  "walkthrough": "The 120-second route retains its established camera positions and lens changes; all targets now center Willis Tower. Idle derives the same target from the bookmark.",
+  "validation": {
+    "releaseBuild": "Passed without compiler warnings; strict signature verification passed.",
+    "playbackChecks": 106617,
+    "playbackFailures": 0,
+    "skylineRouteClearance": "All eight routes: 1200 sampled steps each, zero blocked or near-surface samples.",
+    "visualReview": {
+      "renderer": "Fast Raster, matching the supplied screenshot",
+      "imageSize": [
+        1424,
+        922
+      ],
+      "frames": [
+        0,
+        60,
+        120
+      ],
+      "result": "Willis stays centered at start, midpoint and endpoint. The opening closely matches the supplied low waterfront framing, sunset colors and sun position. Existing city and water geometry retained."
+    },
+    "nativeApp": "Relaunched 2.4.2; selected Chicago Skyline view 1, observed authored sunset without a lighting override, new subtitle and camera elevation 8.0 m. Left on the gently animated view in Fast Raster.",
+    "scope": "Camera and authored lighting update only; renderer shaders unchanged. No new rendering performance claims."
+  }
+}
