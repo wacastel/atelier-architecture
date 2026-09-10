@@ -1,0 +1,41 @@
+{
+  "checks" : 63,
+  "device" : "Apple M3 Ultra",
+  "failures" : [
+
+  ],
+  "observations" : [
+    {
+      "fixtureOff" : 28.911142349243164,
+      "fixtureOn" : 240.30746459960938,
+      "mode" : "path",
+      "windowOff" : 2.4339513778686523,
+      "windowOn" : 232.81321716308594
+    },
+    {
+      "fixtureOff" : 35.430191040039062,
+      "fixtureOn" : 240.37954711914062,
+      "mode" : "direct",
+      "windowOff" : 2.356999397277832,
+      "windowOn" : 232.86363220214844
+    },
+    {
+      "fixtureOff" : 41.991806030273438,
+      "fixtureOn" : 240.37954711914062,
+      "mode" : "raster",
+      "windowOff" : 2.8842883110046387,
+      "windowOn" : 233.57876586914062
+    }
+  ],
+  "passed" : true,
+  "resolution" : [
+    192,
+    128
+  ],
+  "scope" : "Production Path, Direct and Raster: emissive windows\/fixtures, offscreen reflections, fixed indexed\/linear lights, unchanged sky and day\/night, preserved vehicle\/cabin\/show material emission. Small synthetic scenes; no city FPS or native UI claim.",
+  "shaderSHA256" : {
+    "DirectRay" : "25162c6f21726b3873cd859d486a0f6ee1467a8d19a73180b26447a4e78c3f60",
+    "Raster" : "03b922e4c093b815693c5a7f186628360f06fa33ed495eec83cb94111490e1c3",
+    "Renderer" : "1f8322a86a98bf5761fb14f21a162de6f82e8995f63bf29b36972b7086c59c13"
+  }
+}

@@ -16,7 +16,8 @@ struct AmbientMusicTrack: Equatable, Sendable {
         .init(location: "northside", title: "Gardens After Rain", filename: "06-gardens-after-rain.m4a"),
         .init(location: "robie", title: "Light Through Amber", filename: "07-light-through-amber.m4a"),
         .init(location: "skyline", title: "The City Opens", filename: "08-the-city-opens.m4a"),
-        .init(location: "culturalcenter", title: "Light Beneath the Dome", filename: "09-light-beneath-the-dome.m4a")
+        .init(location: "culturalcenter", title: "Light Beneath the Dome", filename: "09-light-beneath-the-dome.m4a"),
+        .init(location: "navypier", title: "Turning Above the Water", filename: "10-turning-above-the-water.m4a")
     ]
 }
 

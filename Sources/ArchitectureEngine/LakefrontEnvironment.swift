@@ -60,15 +60,15 @@ extension EiffelBuilder {
         lakefrontSurface(NorthSideContext.database.legacyWater,y:-5.7,material:p.water)
         // Water continues beyond the bounded derivative into the lake horizon.
         quad(V(6000,-5.7,-18000),V(6000,-5.7,18000),V(26000,-5.7,18000),V(26000,-5.7,-18000),p.water)
-        for a in NorthSideContext.database.legacyAreas where !NorthSideContext.replacedAreaIDs.contains(a.id) {
+        for a in NorthSideContext.database.legacyAreas where !NorthSideContext.replacedAreaIDs.contains(a.id) && !NavyPierContext.replacementAreaIDs.contains(a.id) {
             let y:Float=a.kind == "garden" ? 0.025:a.kind == "pitch" ? 0.019:a.kind == "park" ? -0.040:a.kind == "sand" ? -0.006:-0.012
             lakefrontSurface(a,y:y,material:a.kind == "sand" ? p.sand:grass)
             if a.kind == "garden" {lakefrontGarden(a,p:p)}
         }
         for road in data.roads {lakefrontDrive(road,p:p)}
-        for pier in data.piers {lakefrontPier(pier,p:p)}
+        for pier in data.piers where !pier.points.allSatisfy({NavyPierContext.containsPier($0[0],$0[1])}) {lakefrontPier(pier,p:p)}
         for wall in data.breakwaters where (wall.points.first?[0] ?? 0)>1200 {lakefrontSeawall(wall,p:p)}
-        for tree in data.trees where !MuseumCampusContext.clearsApproach(tree.point[0],tree.point[1]) && !NorthSideContext.containsAuthoredSite(tree.point[0],tree.point[1]) {lakefrontTree(tree,p:p)}
+        for tree in data.trees where !MuseumCampusContext.clearsApproach(tree.point[0],tree.point[1]) && !NorthSideContext.containsAuthoredSite(tree.point[0],tree.point[1]) && !NavyPierContext.containsApproach(tree.point[0],tree.point[1]) && !NavyPierContext.containsPier(tree.point[0],tree.point[1]) {lakefrontTree(tree,p:p)}
         lakefrontRailway(p:p)
         buckinghamFountain(p:p)
         lakefrontBoats(p:p)

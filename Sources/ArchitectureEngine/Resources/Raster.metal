@@ -43,7 +43,7 @@ float4 rasterShade(RasterOut in,bool front,constant FrameUniforms &u,
     float3 v=normalize(u.origin.xyz-in.world),n=normalize(in.normal);
     if(dot(n,v)<0)n=-n;
     float footprint=max(length(dfdx(in.world)),length(dfdy(in.world)));
-    Surface s=surfaceAt(material,in.world,n,footprint,u.sunColor.w>0.5f,u.animation.x);
+    Surface s=surfaceAt(material,in.world,n,footprint,u.sunColor.w>0.5f,u.animation.x,u.animation.z<1.5f);
     // Analytic environment reflections preserve polished material character;
     // raster mode does not promise traced local reflections/refraction or GI.
     float3 reflection=reflect(-v,s.normal);
@@ -55,7 +55,7 @@ float4 rasterShade(RasterOut in,bool front,constant FrameUniforms &u,
     float noL=max(dot(s.normal,u.sunDirection.xyz),0.0f);
     radiance+=brdf(sunSurface,v,u.sunDirection.xyz)*u.sunColor.xyz*noL;
     uint first=0,count=uint(u.sunDirection.w);
-    if(grid.dimensions.w!=0) {
+    if(count>0 && grid.dimensions.w!=0) {
         float3 cell=floor((in.world-grid.originCellSize.xyz)/grid.originCellSize.w);
         count=0;
         if(all(cell>=0) && all(cell<float3(grid.dimensions.xyz))) {

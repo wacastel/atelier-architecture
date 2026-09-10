@@ -1,0 +1,8 @@
+{
+  "assets" : [
+
+  ],
+  "checks" : 281,
+  "passed" : true,
+  "scope" : "Actual controller with fake audio device and deterministic clock: all 10 assignments, view idempotence, equal-power crossfade, interrupted fades, off\/resume\/mute, persisted preferences, playlist wrap, error recovery, bounded decoder lifecycle. Optional bundled AAC decoding uses AVAudioFile without opening audio playback."
+}

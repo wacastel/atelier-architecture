@@ -213,7 +213,9 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
             "nature-pavilion":"nature-boardwalk-pavilion","nichols":"nichols-bridgeway",
             "lakeside-center":"mccormick-lakeside","mccormick-west":"mccormick-west",
             "mccormick-north":"mccormick-north","mccormick-south":"mccormick-south",
-            "culturalcenter":"cultural-center"]
+            "culturalcenter":"cultural-center","navypier":"navy-pier",
+            "centennial-wheel":"centennial-wheel","grand-ballroom":"navy-pier-ballroom",
+            "shakespeare":"chicago-shakespeare","sable":"sable-hotel"]
         return names[id].map { "chicago:"+$0 }
     }
 
@@ -231,6 +233,7 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
         .init(id: "zoo", name: "Lincoln Park Zoo", point: SIMD2(214.4, -4726.1), eastLabel: false, targetHeight: 7.5, framingRadius: 240),
         .init(id: "millennium", name: "Millennium Park", point: SIMD2(1130, -540), eastLabel: true, targetHeight: 15, framingRadius: 280),
         .init(id: "culturalcenter", name: "Cultural Center", point: SIMD2(906.15, -557.02), eastLabel: false, targetHeight: 16.8, framingRadius: 66),
+        .init(id: "navypier", name: "Navy Pier", point: SIMD2(2620, -1433), eastLabel: true, targetHeight: 18, framingRadius: 535),
         .init(id: "adler", name: "Adler Planetarium", point: SIMD2(2421.7, 1393.2), eastLabel: true, targetHeight: 11, framingRadius: 65),
         .init(id: "mccormick", name: "McCormick Place", point: SIMD2(1800, 3000), eastLabel: false, targetHeight: 25, framingRadius: 650),
         .init(id: "point", name: "Promontory Point", point: SIMD2(4925, 9237), eastLabel: true, targetHeight: 3, framingRadius: 190),
@@ -246,10 +249,15 @@ struct ChicagoMapLandmark: Identifiable, Sendable {
         .init(id: "water-tower", name: "Historic Water Tower", point: SIMD2(951.6, -2036.52), eastLabel: false, targetHeight: 27, framingRadius: 36, detailLevel: 1),
         .init(id: "buckingham", name: "Buckingham Fountain", point: SIMD2(1404.55, 342.2), eastLabel: true, targetHeight: 6, framingRadius: 55, detailLevel: 1),
         .init(id: "conservatory", name: "Lincoln Park Conservatory", point: SIMD2(72.5, -5067.5), eastLabel: true, targetHeight: 10, framingRadius: 90, detailLevel: 1),
+        .init(id: "centennial-wheel", name: "Centennial Wheel", point: SIMD2(2357.4, -1427.7), eastLabel: false, targetHeight: 37, framingRadius: 58, detailLevel: 1),
+        .init(id: "grand-ballroom", name: "Grand Ballroom", point: SIMD2(3027, -1444), eastLabel: true, targetHeight: 18, framingRadius: 65, detailLevel: 1),
         .init(id: "tribune", name: "Tribune Tower", point: SIMD2(1013, -1281), eastLabel: true, targetHeight: 68, framingRadius: 90, detailLevel: 1),
         .init(id: "wrigley-building", name: "Wrigley Building", point: SIMD2(922, -1200), eastLabel: false, targetHeight: 60, framingRadius: 85, detailLevel: 1),
         .init(id: "pritzker", name: "Pritzker Pavilion", point: SIMD2(1162.5, -517), eastLabel: true, targetHeight: 19, framingRadius: 75, detailLevel: 1),
         .init(id: "crown", name: "Crown Fountain", point: SIMD2(1009, -290.6), eastLabel: false, targetHeight: 7.8, framingRadius: 35, detailLevel: 2),
+        .init(id: "shakespeare", name: "Shakespeare Theater", point: SIMD2(2500.8, -1385.1), eastLabel: true, targetHeight: 18, framingRadius: 70, detailLevel: 2),
+        .init(id: "sable", name: "Sable Hotel", point: SIMD2(2727.3, -1392.9), eastLabel: true, targetHeight: 19, framingRadius: 170, detailLevel: 2),
+        .init(id: "polk-park", name: "Polk Bros Park", point: SIMD2(2099.68, -1423.38), eastLabel: false, targetHeight: 3, framingRadius: 110, detailLevel: 2),
         .init(id: "water-tower-place", name: "Water Tower Place", point: SIMD2(1118, -2120), eastLabel: true, targetHeight: 110, framingRadius: 175, detailLevel: 2),
         .init(id: "pumping-station", name: "Pumping Station", point: SIMD2(1000, -2036.5), eastLabel: true, targetHeight: 13.5, framingRadius: 40, detailLevel: 2),
         .init(id: "cafe-brauer", name: "Café Brauer", point: SIMD2(168, -4477), eastLabel: false, targetHeight: 12.5, framingRadius: 48, detailLevel: 2),
@@ -334,7 +342,7 @@ struct ChicagoMapGeometry: Sendable {
         var candidates: [(area: Float, id: Int64, rings: [[SIMD2<Float>]])] = []
         let major = Set(["motorway", "trunk", "primary", "secondary", "tertiary", "motorway_link", "trunk_link"])
         let local = Set(["residential", "unclassified", "living_street"])
-        for folder in ["Chicago", "Lakefront", "MuseumCampus", "NorthSide", "HydePark"] {
+        for folder in ["Chicago", "Lakefront", "MuseumCampus", "NorthSide", "HydePark", "NavyPier"] {
             guard let url = resourceURL(folder: folder, root: resourceRoot) else {
                 throw CocoaError(.fileNoSuchFile)
             }

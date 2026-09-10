@@ -31,7 +31,7 @@ float3 directLighting(Surface s, float3 p, float3 geometricNormal, float3 view,
             *glassVisibility(shadow,scene,vertices,materialIndices,materials,staticTriangles);
     }
     uint first=0,count=uint(u.sunDirection.w);
-    if(grid.dimensions.w!=0) {
+    if(count>0 && grid.dimensions.w!=0) {
         float3 cell=floor((p-grid.originCellSize.xyz)/grid.originCellSize.w);
         count=0;
         if(all(cell>=0) && all(cell<float3(grid.dimensions.xyz))) {
@@ -139,7 +139,7 @@ void traceDirect(texture2d<float,access::write> output, constant FrameUniforms &
                 if(maxComponent(throughput)<0.0001f)break;
                 r.origin=p-geometric*epsilon;r.min_distance=epsilon*0.25f;continue;
             }
-            Surface surface=surfaceAt(material,p,n,max(0.00001f,distance(p,u.origin.xyz)*cone),night,u.animation.x);
+            Surface surface=surfaceAt(material,p,n,max(0.00001f,distance(p,u.origin.xyz)*cone),night,u.animation.x,u.animation.z<1.5f);
             if(int(material.properties.z+0.5f)==17) {color+=throughput*surface.color*surface.emission;break;}
             float reflectionMix=rays<3 ? 1-smoothstep(0.04f,0.42f,surface.roughness):0;
             float3 fresnel=fresnelSchlick(max(dot(surface.normal,-r.direction),0.0f),mix(float3(surface.dielectricF0),surface.color,surface.metallic));

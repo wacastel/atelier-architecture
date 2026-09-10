@@ -50,6 +50,7 @@ extension Bundle {
     }
     let unready = engine.cameraPose
     engine.setRendererMode(.directRayTracing)
+    engine.cycleRenderer()
     expect(engine.rendererMode == .pathTracing && engine.rayTracingEnabled,"Unready controller changed its default renderer")
     engine.toggleMapMode()
     expect(!engine.isMapMode && same(engine.cameraPose, unready), "Unready controller entered Map")
@@ -380,17 +381,45 @@ extension Bundle {
         expect(same(modePose,keyboard.cameraPose) && keyboard.focusedObjectName==modeFocus,"Renderer selector moved camera or cleared focus")
         assertMap(keyboard,"renderer \(mode.rawValue)")
     }
-    for mode in [ArchitectureRendererMode.directRayTracing,.pathTracing,.directRayTracing] {
-        keyboard.setRendererMode(mode); keyboard.toggleRayTracing()
-        expect(keyboard.rendererMode == .raster && !keyboard.options.rayTracing,"R failed to switch a chosen ray tracer off")
-        keyboard.toggleRayTracing()
-        expect(keyboard.rendererMode==mode && keyboard.options.rayTracing,"R forgot the last selected ray tracer")
+    keyboard.setRendererMode(.pathTracing)
+    for mode in [ArchitectureRendererMode.directRayTracing,.raster,.pathTracing,.directRayTracing,.raster,.pathTracing] {
+        keyboard.cycleRenderer()
+        expect(keyboard.rendererMode==mode && keyboard.options.rayTracing == (mode != .raster)
+               && keyboard.options.directRayTracing == (mode == .directRayTracing), "R did not cycle Path → Direct → Raster")
+        expect(same(modePose,keyboard.cameraPose) && keyboard.focusedObjectName==modeFocus,"R changed map camera or focus")
     }
     let playingBackend=EngineController(); playingBackend.isReady=true; playingBackend.selectStop(2); playingBackend.toggleTour()
     let playingBackendPose=playingBackend.cameraPose
     playingBackend.setLighting(2); playingBackend.setRendererMode(.directRayTracing)
     expect(playingBackend.tourPlaying && playingBackend.lighting==2 && same(playingBackendPose,playingBackend.cameraPose),
            "Backend selection changed route playback, lighting or camera")
+
+    playingBackend.setLighting(3)
+    let sunsetPose=playingBackend.cameraPose, sunsetProgress=playingBackend.tourProgress
+    expect(playingBackend.sunsetBuildingLights && playingBackend.options.architectureLightsEnabled
+           && playingBackend.options.sunsetState==1,"Sunset architectural lighting is not on by default")
+    for enabled in [false,true,false] {
+        playingBackend.setSunsetBuildingLights(enabled)
+        for mode in ArchitectureRendererMode.allCases {
+            playingBackend.setRendererMode(mode)
+            expect(playingBackend.options.architectureLightsEnabled==enabled
+                   && playingBackend.options.sunsetState==(enabled ? 1:2),"Sunset light option did not reach every renderer")
+            expect(playingBackend.tourPlaying && playingBackend.lighting==3
+                   && same(sunsetPose,playingBackend.cameraPose) && playingBackend.tourProgress==sunsetProgress,
+                   "Sunset light control altered camera, lighting preset or playback")
+        }
+    }
+    for lighting in [0,1,2] {
+        playingBackend.setLighting(lighting)
+        expect(!playingBackend.sunsetBuildingLights && playingBackend.options.architectureLightsEnabled
+               && playingBackend.options.sunsetState==0,"Sunset preference changed daytime/night lights")
+    }
+    playingBackend.setLighting(3)
+    expect(!playingBackend.options.architectureLightsEnabled && playingBackend.options.sunsetState==2,
+           "Sunset light preference did not survive lighting changes")
+    keyboard.setLighting(3);keyboard.setSunsetBuildingLights(false)
+    expect(!keyboard.options.architectureLightsEnabled && keyboard.focusedObjectName==modeFocus
+           && same(modePose,keyboard.cameraPose),"Sunset light toggle changed Map focus or framing")
 
     let report: [String: Any] = [
         "passed": failures.isEmpty, "checks": checks, "failures": failures,

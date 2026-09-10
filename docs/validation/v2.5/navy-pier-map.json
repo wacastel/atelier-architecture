@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "sourceElements": 3803,
+  "mapFootprints": 307,
+  "newRenderedBuildings": 6,
+  "mappedTrees": 479,
+  "joinedPathCenterlines": 187,
+  "retainedLegacyPaths": 238,
+  "surfaceTriangles": 6298,
+  "surfaceDisjointness": true,
+  "pierLandWaterSupport": true,
+  "reproducibleSHA256": "3a60a8759dbd860733492def22c36b15c30f87358cc946f14701b5ed1cf30359"
+}

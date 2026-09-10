@@ -296,6 +296,38 @@
         "normalization_type": "dynamic",
         "target_offset": "-0.47"
       }
+    },
+    {
+      "location": "navypier",
+      "title": "Turning Above the Water",
+      "filename": "10-turning-above-the-water.m4a",
+      "tempoBPM": 59,
+      "key": "E major",
+      "seed": 1910,
+      "durationSeconds": 135.169492,
+      "eventCount": 190,
+      "compositionEventSHA256": "c4e02de7401619b799f99f6589a5e8a9dc66290e937e19de6043194e23d2780b",
+      "sourcePCMSHA256": "22c9e443a95626078a857efdfef18f5af1db6031861648a1f8085672d384fdf8",
+      "sections": [
+        "Opening: spacious motif",
+        "Answer: plucked countermelody",
+        "Lift: wider register",
+        "Return: fewer notes and a tonic release"
+      ],
+      "sha256": "5d6061f0da0768361940f865a4737735a32674728135a2ebe1e8a15a5dd39f00",
+      "bytes": 2198541,
+      "masteringInput": {
+        "input_i": "-15.02",
+        "input_tp": "-3.74",
+        "input_lra": "4.00",
+        "input_thresh": "-25.25",
+        "output_i": "-20.79",
+        "output_tp": "-9.63",
+        "output_lra": "4.10",
+        "output_thresh": "-30.89",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.21"
+      }
     }
   ]
 }

@@ -292,7 +292,7 @@ float3 planetariumRadiance(float3 position,float footprint,float seconds) {
 }
 
 struct Surface { float3 color; float roughness; float metallic; float emission; float dielectricF0; float3 normal; };
-Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night,float showSeconds=0.0f) {
+Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, bool night,float showSeconds=0.0f,bool architectureLights=true) {
     Surface s;
     s.color = material.albedo.rgb;
     s.roughness = clamp(material.albedo.w, 0.02f, 1.0f);
@@ -301,6 +301,7 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
     s.normal = n;
     s.dielectricF0 = 0.04f;
     int pattern = int(material.properties.z + 0.5f);
+    bool architectureNight=night && architectureLights;
     float closeDetail = 1.0f - smoothstep(0.012f, 0.09f, footprint);
     if (pattern == 17) {
         float3 projected=planetariumRadiance(p,footprint,showSeconds);
@@ -354,7 +355,7 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
         // Deliberately opaque reflective glazing. No transmission is claimed.
         s.metallic = max(s.metallic, 0.75f);
         s.roughness = min(s.roughness, 0.13f);
-        if (pattern == 7 && night) {
+        if (pattern == 7 && architectureNight) {
             float room = noiseCell(float3(floor(p.x/2.9f),floor(p.y/3.4f),floor(p.z/2.9f)));
             if (room > 0.64f) {
                 s.color = mix(float3(1.0f,0.49f,0.16f),float3(1.0f,0.78f,0.45f),room);
@@ -365,14 +366,14 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
     } else if (pattern == 15) {
         // Steady architectural antenna illumination. The white skin remains
         // visible along the complete mast, with separate red obstruction lamps.
-        s.emission=night ? clamp(material.properties.y,0.0f,1.0f):0.0f;
-        if(night) s.color=float3(0.80f,0.88f,1.0f);
+        s.emission=architectureNight ? clamp(material.properties.y,0.0f,1.0f):0.0f;
+        if(architectureNight) s.color=float3(0.80f,0.88f,1.0f);
     } else if (pattern == 14) {
         // Chicago room occupancy is chosen per modeled window, preserving pane
         // boundaries instead of cutting world-space noise through glazing.
         float power=s.emission;
         s.emission=0; s.metallic=max(s.metallic,0.72f); s.roughness=0.13f;
-        if(night && power>0) {
+        if(architectureNight && power>0) {
             s.color=power<0.105f ? float3(1.0f,0.73f,0.46f)
                 : power<0.16f ? float3(1.0f,0.87f,0.68f):float3(0.76f,0.86f,1.0f);
             s.emission=power;s.metallic=0.03f;
@@ -381,7 +382,7 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
         // Willis curtain wall: three 1.524m bays between the 4.572m columns,
         // grouped into occupied offices, aligned to the model's mapped setback and published observation levels.
         s.metallic=max(s.metallic,0.72f); s.roughness=0.115f;
-        if(night) {
+        if(architectureNight) {
             float horizontal=abs(n.x)>0.65f ? p.z:p.x;
             float floorIndex=p.y<200.0f ? p.y/4.0f : p.y<260.0f ? 50+(p.y-200)/3.75f : p.y<355 ? 66+(p.y-260)/(95.0f/24.0f) : p.y<412.3944f ? 90+(p.y-355)/(57.3944f/13.0f) : p.y<435 ? 103+(p.y-412.3944f)/(22.6056f/5.0f) : 108+(p.y-435)/3.57f;
             float room=noiseCell(float3(floor((horizontal+34.29f)/3.048f),floor(floorIndex),abs(n.x)>0.65f ? 131:173));
@@ -473,6 +474,9 @@ Surface surfaceAt(SceneMaterial material, float3 p, float3 n, float footprint, b
         s.roughness = mix(0.24f,0.078f,puddle);
         s.metallic = 0.0f;
     }
+    // Sunset light control applies to static architecture and site fixtures.
+    // Vehicle lenses, boat cabins and the planetarium display remain active.
+    if(!architectureLights && pattern!=16 && pattern!=12 && pattern!=17) s.emission=0;
     s.color = clamp(s.color, float3(0.001f), float3(0.97f));
     return s;
 }
@@ -612,7 +616,7 @@ void writePrimarySurface(texture2d<float, access::write> worldPosition,
     uint material = materialIndices[hit.primitive_id];
     float depth=distance(p,u.origin.xyz);
     float footprint = depth*2.0f*length(u.up.xyz)/float(u.viewport.y);
-    Surface s = surfaceAt(materials[material],p,n,footprint,u.sunColor.w>0.5f,u.animation.x);
+    Surface s = surfaceAt(materials[material],p,n,footprint,u.sunColor.w>0.5f,u.animation.x,u.animation.z<1.5f);
     // Emissive subpixel windows/fixtures need current coverage, not relit
     // surface history. Preserve the material ID with a half-unit guide flag.
     bool polished=s.metallic>=0.99f && s.roughness<=0.03f;
@@ -944,7 +948,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             continue;
         }
         if (bounce == maxBounces) break;
-        Surface surface = surfaceAt(material, position, n, hit.distance * pixelCone, IsNight,u.animation.x);
+        Surface surface = surfaceAt(material, position, n, hit.distance * pixelCone, IsNight,u.animation.x,u.animation.z<1.5f);
         surface = regularizeSurface(surface, hasNonDeltaScatter && u.origin.w > 0.5f);
         float3 v = -path.direction;
         radiance += throughput * surface.color * surface.emission;
@@ -981,7 +985,7 @@ void tracePaths(texture2d<float, access::read_write> accumulation,
             uint activeCount=count;
             uint lightOffset=0;
             bool indexed=false;
-            if (IndexedLights && lightGrid->dimensions.w!=0) {
+            if (count>0 && IndexedLights && lightGrid->dimensions.w!=0) {
                 // Conservative cell lists include every finite-range source
                 // that can contribute here, in original order. Skipping only
                 // zero-contribution lights preserves the exact reservoir RNG.

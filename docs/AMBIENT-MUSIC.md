@@ -1,6 +1,6 @@
 # Places in Quiet Light — Atelier's original soundtrack
 
-Atelier 2.3 includes nine original ambient instrumental pieces, one opening piece for each location. The music is synthesized and bundled with the app. Playback needs no account, network connection, streaming service, or additional download.
+Atelier 2.5 includes ten original ambient instrumental pieces, one opening piece for each location. The music is synthesized and bundled with the app. Playback needs no account, network connection, streaming service, or additional download.
 
 The score uses soft piano-like tones, warm sustained harmonies, restrained bass, and occasional muted plucks. Every piece has a 32-bar arrangement with four sections: an opening motif, a countermelody, a modest rise in register, and a quieter return. These are original compositions and synthesized timbres, not recordings of a piano or licensed third-party music.
 
@@ -15,8 +15,9 @@ The score uses soft piano-like tones, warm sustained harmonies, restrained bass,
 | `robie` | Light Through Amber | 2:25 | 55 BPM / A-flat major |
 | `skyline` | The City Opens | 2:11 | 61 BPM / G major |
 | `culturalcenter` | Light Beneath the Dome | 2:20 | 57 BPM / D-flat major |
+| `navypier` | Turning Above the Water | 2:15 | 59 BPM / E major |
 
-These are nine pieces total. Each location chooses its own opening piece, then playback continues through the shared playlist in the order above, wrapping from the last piece to the first. The Cultural Center track was generated on its own; all previous eight encoded audio files remain byte-for-byte unchanged.
+These are ten pieces total. Each location chooses its own opening piece, then playback continues through the shared playlist in the order above, wrapping from the last piece to the first. The Navy Pier track was generated on its own; the previous nine encoded audio files remain unchanged.
 
 ## Playback and integration
 

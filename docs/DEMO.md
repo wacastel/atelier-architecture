@@ -26,15 +26,16 @@ Select **Chicago Demo**, or press **C**, to begin at a **random Chicago location
 3. Millennium Park — eight routes, including the Willis–park–Art Institute flight.
 4. Chicago Cultural Center — eight two-minute routes, including the Cloud Gate connection.
 5. Chicago Lakefront — eight routes.
-6. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
-7. Chicago North Side — eight routes, including both four-minute connecting flights.
-8. Robie House — seven two-minute house studies and the six-minute McCormick Place connection.
+6. Navy Pier — seven two-minute studies and the three-minute Millennium Park connection.
+7. Museum Campus — eight routes, including the Art Institute–Field Museum flight.
+8. Chicago North Side — eight routes, including both four-minute connecting flights.
+9. Robie House — seven two-minute house studies and the six-minute McCormick Place connection.
 
-The **64-route pass lasts 118 minutes 36 seconds at 1×**. Starting preserves walkthrough and idle pace and the underlying day/night pass, while allowing Skyline's authored daylight, sunset and night studies. An explicit lighting override holds for the current pass; the next complete cycle resumes the automatic lighting presentation. After Robie House's final route, the demo returns to Willis Tower and changes day/night. A random opening partway through the city reaches that boundary before its first complete pass. Automatic destination changes retain the same city and GPU resources. Starting from Paris loads Chicago before playback begins; Paris is never part of the sequence.
+The **72-route pass lasts 135 minutes 36 seconds at 1×**. Starting preserves walkthrough and idle pace and the underlying day/night pass, while allowing Skyline's authored daylight, sunset and night studies. An explicit lighting override holds for the current pass; the next complete cycle resumes the automatic lighting presentation. After Robie House's final route, the demo returns to Willis Tower and changes day/night. A random opening partway through the city reaches that boundary before its first complete pass. Automatic destination changes retain the same city and GPU resources. Starting from Paris loads Chicago before playback begins; Paris is never part of the sequence.
 
 Selecting **any Chicago location or view keeps the demo active** and starts the chosen route from its beginning, including when the demo was paused or rewinding. A location choice begins its first view; a view card or number key begins that selected view. Ordinary forward playback resumes at your chosen pace. **L** cycles only the Chicago locations while the demo is active.
 
-Use **↑ / ↓**, or the previous/next buttons beside the demo status, to move between routes. From the last view, next advances to the first view in the next location. From the first view, previous goes to the last view in the previous location. Crossing the complete city boundary in either direction changes day/night. The status shows the current destination and route number out of 64.
+Use **↑ / ↓**, or the previous/next buttons beside the demo status, to move between routes. From the last view, next advances to the first view in the next location. From the first view, previous goes to the last view in the previous location. Crossing the complete city boundary in either direction changes day/night. The status shows the current destination and route number out of 72.
 
 **Space** pauses or resumes without leaving the demo. **Stop Chicago Demo**, or **C** while it is active, exits while holding the current pose. Selecting Paris, starting idle cycling, clicking an object to focus it, or taking manual camera control leaves the demo. Lighting and pace changes preserve it.
 

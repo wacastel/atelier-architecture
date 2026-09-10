@@ -1,0 +1,18 @@
+{
+  "arterials" : 5039,
+  "centralOverviewLabels" : {
+    "large" : 20,
+    "medium" : 13,
+    "small" : 7
+  },
+  "checks" : 25052,
+  "footprintRings" : 4004,
+  "landmarks" : 40,
+  "loadSeconds" : 1.3710049390792847,
+  "passed" : true,
+  "resources" : 6,
+  "scope" : "CPU compact viewport-area budgets, fill\/aspect\/inverse\/zoom\/recenter\/resize, semantic landmark centers, collision-aware label placement, shared dot\/text hover-click hit tests, anchored pan, click-vs-drag, dotted camera marker\/edge bearing\/coverage distance, heading and complete offline loading; no native UI or GPU execution",
+  "streets" : 1552,
+  "vertices" : 39711,
+  "waterPolygons" : 57
+}

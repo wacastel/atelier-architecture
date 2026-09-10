@@ -27,14 +27,14 @@ Press **B**, use the **Map mode** button, or choose **Map** in the Navigation pi
 | Click visible main-viewport geometry | Select while unfocused; retain the same object; clear when clicking elsewhere |
 | Bare inset-map click | Recenter the overhead view at that point |
 | **G / ⌃⌘F** | Enter / exit native full screen without leaving Map mode |
-| **R / N / M / H / ?** | Last ray tracer ↔ Fast Raster / day-night / inset visibility / interface visibility / help |
+| **R / N / M / H / ?** | Cycle Path → Direct → Raster / day-night / inset visibility / interface visibility / help |
 | **B / Escape / Return to 3D view** | Exit to a 3D overlook above the current map centre |
 
 Right dragging is ignored. Altitude keys **Q / E**, the Walk/Fly toggle, camera rotation, **T**, view-selection shortcuts and animation transport are inactive. Exit Map mode before resuming a guided route or ordinary camera exploration. Entering Map mode takes manual control and clears the entry focus. A subsequent viewport or map selection can display the selected name and surface highlight while the camera remains north-up: WASD and drag pan, and pinch changes ground span. Clicking the same object retains its selection; clicking blank space or another object clears it without immediately selecting a replacement. Exiting clears the selection and uses the current map centre, with camera height adjusted for nearby roofs; it does not jump back to the entry position.
 
 Keyboard pan moves at 35% of the visible north–south ground span per second, or three times that while Shift is held. It translates eye and target together, preserving exact north-up orientation, height, field of view and any selected landmark. The inset camera marker updates with each step. Opposing keys cancel and the existing geographic bounds apply. Releasing the keys stops movement; mode changes, help, window focus changes, full-screen transitions and resizing clear held movement so it cannot restart from an old key repeat.
 
-The renderer menu remains available in Map mode. It selects Path Tracing, Direct Ray Tracing or Fast Raster without changing map framing or focus. **R** remembers the most recently selected ray tracer when switching back from Fast Raster. **G** and the existing **Control–Command–F** menu shortcut both toggle native full screen; this does not switch between normal exploration and fixed Map mode.
+The renderer menu remains available in Map mode. It selects Path Tracing, Direct Ray Tracing or Fast Raster without changing map framing or focus. **R** cycles Path Tracing → Direct Ray Tracing → Fast Raster. **G** and the existing **Control–Command–F** menu shortcut both toggle native full screen; this does not switch between normal exploration and fixed Map mode.
 
 Zoom controls the visible **vertical span at ground level**, from 50 m to 24 km. The camera stays at least 650 m above the scene’s ground origin. Close zooms narrow the lens while wider views raise the camera; the centre and north-up orientation remain fixed. Roofs are elevated above the reference ground plane, so their apparent size follows perspective. Panning stays within the established Chicago navigation bounds; Map mode does not add geographic coverage or buildings.
 

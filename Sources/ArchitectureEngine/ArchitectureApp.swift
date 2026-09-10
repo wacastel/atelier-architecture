@@ -84,7 +84,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         viewMenu.addItem(withTitle: "Show / Hide Chicago Navigation Map", action: #selector(toggleNavigationMap), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Enter / Exit Top-down Map Mode", action: #selector(toggleMapMode), keyEquivalent: "").target = self
         viewMenu.addItem(withTitle: "Point Normal Camera Straight Down (T)", action: #selector(pointCameraDown), keyEquivalent: "").target = self
-        viewMenu.addItem(withTitle: "Toggle Ray Tracing", action: #selector(toggleRayTracing), keyEquivalent: "").target = self
+        viewMenu.addItem(withTitle: "Cycle Renderer (R)", action: #selector(cycleRenderer), keyEquivalent: "").target = self
         viewMenu.addItem(.separator())
         let screenshot = viewMenu.addItem(withTitle: "Save Render", action: #selector(capture), keyEquivalent: "s")
         screenshot.keyEquivalentModifierMask = [.command, .shift]
@@ -107,7 +107,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func toggleNavigationMap() { engine.toggleNavigationMap() }
     @objc private func toggleMapMode() { engine.toggleMapMode() }
     @objc private func pointCameraDown() { engine.pointCameraDown() }
-    @objc private func toggleRayTracing() { engine.toggleRayTracing() }
+    @objc private func cycleRenderer() { engine.cycleRenderer() }
     @objc private func resetView() { engine.resetView() }
     @objc private func toggleInterface() { presentation.chromeVisible.toggle() }
     @objc private func toggleHelp() { engine.showHelp.toggle() }
@@ -115,7 +115,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.4.2 · Paris & Chicago",
+            .applicationVersion: "2.5.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -145,14 +145,14 @@ private struct RendererSelectionMenu: View, Equatable {
                 }
             }
             Divider()
-            Button("Toggle ray tracing · R") { engine.toggleRayTracing() }
+            Button("Next renderer · R") { engine.cycleRenderer() }
         } label: {
             HStack(spacing: 7) {
                 Circle().fill(isReady ? accent : .gray).frame(width: 5, height: 5)
                 Text(selection.title.uppercased()).font(.system(size: 9, weight: .semibold)).tracking(1.1)
             }.padding(.leading, 14).padding(.trailing, 9)
         }.menuStyle(.borderlessButton).fixedSize()
-            .help("Choose renderer · R toggles the last ray tracer and Fast Raster")
+            .help("Choose renderer · R cycles Path → Direct → Raster")
             .accessibilityLabel("Renderer: \(selection.title)").disabled(!isReady)
     }
 }
@@ -322,6 +322,7 @@ private struct ArchitectureWorkspace: View {
                     Button("Millennium Park → Lincoln Park Zoo") { engine.startNorthSideFlyby() }
                     Button("Lincoln Park Zoo → Wrigley Field") { engine.startNorthSideFlyby(toWrigley: true) }
                     Button("McCormick Place → Robie House") { engine.startRobieFlyby() }
+                    Button("Millennium Park → Navy Pier") { engine.startNavyPierFlyby() }
                     Button("Millennium Park → Cultural Center") { engine.startCulturalCenterFlyby() }
                 } label: {
                     Label("Chicago connecting flights", systemImage: "airplane")
@@ -529,7 +530,7 @@ private struct ArchitectureWorkspace: View {
                 Link("Map data © OpenStreetMap contributors", destination: URL(string: "https://www.openstreetmap.org/copyright")!)
                     .foregroundStyle(.white.opacity(0.46)).help("OpenStreetMap attribution and license")
                 Circle().fill(.white.opacity(0.25)).frame(width: 2, height: 2)
-                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   T look down   R ray toggle   G full screen   N day/night").lineLimit(1).minimumScaleFactor(0.7)
+                Text("Space play   C demo   ↑ / ↓ views   M inset map   B map mode   T look down   R renderer   G full screen   N day/night").lineLimit(1).minimumScaleFactor(0.7)
                 Spacer()
                 Button("H  hide interface") { presentation.chromeVisible = false }.buttonStyle(.plain)
             }.font(.system(size: 9)).foregroundStyle(.white.opacity(0.46)).padding(.horizontal, 4)
@@ -556,7 +557,7 @@ private struct ArchitectureWorkspace: View {
             Picker("Renderer",selection:Binding(get:{engine.rendererMode},set:{engine.setRendererMode($0)})) {
                 ForEach(ArchitectureRendererMode.allCases) { mode in Text(mode.title).tag(mode) }
             }.pickerStyle(.menu)
-            Text(engine.rendererMode.explanation + " R switches Fast Raster and the last selected ray tracer.")
+            Text(engine.rendererMode.explanation + " R cycles Path → Direct → Raster.")
                 .font(.system(size:10)).foregroundStyle(.secondary).lineSpacing(3)
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("QUALITY", value: ["Responsive exploration", "Balanced detail", "Maximum refinement"][min(max(engine.quality, 0), 2)])
@@ -571,6 +572,11 @@ private struct ArchitectureWorkspace: View {
                 Picker("Lighting", selection: Binding(get: { engine.lighting }, set: { engine.setLighting($0) })) {
                     Text("Golden").tag(0); Text("Daylight").tag(1); Text("Sunset").tag(3); Text("Night").tag(2)
                 }.pickerStyle(.segmented).labelsHidden()
+                Toggle("Building lights at sunset", isOn: Binding(get: { engine.sunsetBuildingLights }, set: { engine.setSunsetBuildingLights($0) }))
+                    .toggleStyle(.switch).disabled(engine.lighting != 3)
+                    .help("Sunset only: building windows and fixed architectural/site fixtures. Sun, sky, vehicle lights and the planetarium show stay on.")
+                Text("Sunset only: switches building windows and fixed architectural/site lights. Sun, sky and vehicle lights stay on.")
+                    .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(3)
             }
             VStack(alignment: .leading, spacing: 9) {
                 settingLabel("EXPOSURE", value: String(format: "%.2f×", engine.exposure))
@@ -648,7 +654,7 @@ private struct ArchitectureWorkspace: View {
                     helpRow("B", "Enter or leave fixed north-up Map mode")
                     helpRow("T", "Point the normal camera straight down; keep normal controls")
                     helpRow("PINCH", "Zoom the normal view, focused object, or city map")
-                    helpRow("R", "Toggle last ray tracer / Fast Raster at the same camera")
+                    helpRow("R", "Cycle Path → Direct → Raster at the same camera")
                     helpRow("G / ⌃⌘F", "Enter or exit full screen, including in Map mode")
                     helpRow("MUSIC NOTE", "Ambient music on/off, volume and current song")
                     helpRow("C", "Start / stop the complete Chicago demo")
@@ -858,7 +864,7 @@ private final class ArchitectureMetalView: MTKView, ViewportInputResetting {
             case 37: engine.toggleLocation(); return
             case 45: engine.toggleDayNight(); return
             case 46: engine.toggleNavigationMap(); return
-            case 15: engine.toggleRayTracing(); return
+            case 15: engine.cycleRenderer(); return
             case 3: engine.setNavigationMode(engine.navigationMode == 1 ? 0:1); return
             case 27, 78: if engine.isMapMode { engine.zoomMap(false) } else { engine.stepFlySpeed(-1) }; return
             case 24, 69: if engine.isMapMode { engine.zoomMap(true) } else { engine.stepFlySpeed(1) }; return

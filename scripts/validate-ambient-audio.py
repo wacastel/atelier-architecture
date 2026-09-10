@@ -31,7 +31,7 @@ def main() -> None:
         if not condition:
             raise AssertionError(explanation)
 
-    expected_keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline", "culturalcenter"]
+    expected_keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline", "culturalcenter", "navypier"]
     expect([t["location"] for t in manifest["tracks"]] == expected_keys, "Incomplete or reordered soundtrack catalog")
     expect(len({t["sha256"] for t in manifest["tracks"]}) == len(expected_keys), "An audio asset is reused")
     expect(len({t["compositionEventSHA256"] for t in manifest["tracks"]}) == len(expected_keys), "Compositions share an identical event sequence")

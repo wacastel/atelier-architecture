@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Visual review of final packaged offscreen renders; not a native window, continuous-motion, or FPS benchmark.",
+  "galleryResolution": [
+    1280,
+    850
+  ],
+  "dayRenderer": "raster",
+  "nightRenderer": "direct",
+  "reviewedBookmarks": 8,
+  "reviewedDayAndNightImages": 16,
+  "sunsetComparison": "Skyline view 0, Direct Ray, lighting 3, identical camera with building lights on and off. Sun and sky stay fixed; emissive windows and their reflection contributions switch off.",
+  "correctionsAfterReview": [
+    "Replaced invented 45.4m Welcome Pavilion with low glazed green-roof pavilion.",
+    "Replaced invented 37.8m Butterfly House with documented 18ft enclosure.",
+    "Reframed opening overview from east to retain whole pier and skyline.",
+    "Strengthened wheel blue/cyan strips and bounded warm/cool site lighting."
+  ],
+  "limitations": [
+    "Procedural reconstruction guided by mapped footprints and photographs; interpreted details, not surveyed interiors.",
+    "Wheel and moored boats are static geometry.",
+    "Existing reflection/edge aliasing and path-tracer convergence limits remain."
+  ]
+}

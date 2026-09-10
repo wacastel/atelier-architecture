@@ -257,6 +257,12 @@ for location in ArchitectureLocation.allCases {
     expect(lightingClock.idleCycling && lightingClock.idleDwellTime == dwell && lightingClock.idleTime == idleTime, "\(location.name) N preserves the idle sequence and dwell clock")
 }
 
+// The new pier flight connects exact existing bookmarks in one resident city.
+expect(NavyPierScene.stops.count == 8, "Navy Pier has eight complete studies")
+expect(ArchitectureLocation.navypier.world == ArchitectureLocation.millennium.world, "Navy Pier retains the shared Chicago world")
+expect(samePose(NavyPierScene.stops[7].pose,MillenniumScene.stops[0].pose), "Navy Pier connecting flight starts at the Millennium Park bookmark")
+expect(samePose(NavyPierWalkthrough.pose(view:7,seconds:180),NavyPierScene.stops[0].pose), "Navy Pier connecting flight ends at the opening pier bookmark")
+
 // Skyline lighting uses authored per-view studies unless the user overrides a pass.
 let skylinePresets = [3,1,3,2,2,1,0,2]
 expect(ArchitectureLocation.skyline.walkingViews.isEmpty, "Offshore skyline cameras do not claim walking support")
@@ -302,7 +308,7 @@ expect(!skylineDemo.lightingOverridden && skylineDemo.effectiveLighting == 2, "F
 
 // Chicago demo sequences full route durations across every resident Chicago set.
 // Use an independent explicit order to catch accidental Paris inclusion/reordering.
-let demoLocations: [ArchitectureLocation] = [.chicago, .skyline, .millennium, .culturalcenter, .lakefront, .campus, .northside, .robie]
+let demoLocations: [ArchitectureLocation] = [.chicago, .skyline, .millennium, .culturalcenter, .lakefront, .navypier, .campus, .northside, .robie]
 let demoRoutes = demoLocations.flatMap { location in location.stops.indices.map { (location, $0, location.duration(view: $0)) } }
 let demoPass = demoRoutes.reduce(0.0) { $0 + $1.2 }
 expect(WalkthroughPlayback.chicagoDemoLocations == demoLocations, "Demo follows Chicago enum order and excludes Paris")

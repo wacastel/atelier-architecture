@@ -1,0 +1,25 @@
+{
+  "checks" : 17,
+  "collapsedTriangles" : 0,
+  "failures" : [
+
+  ],
+  "lights" : 174,
+  "localMaximum" : [
+    737.00030517578125,
+    66.132125854492188,
+    100.10002899169922
+  ],
+  "localMinimum" : [
+    -189.00003051757812,
+    -6.3999996185302734,
+    -110.67596435546875
+  ],
+  "mappedMarinaWays" : 27,
+  "materials" : 43,
+  "maximumNormalError" : 1.7881393432617188e-07,
+  "nonfiniteVertices" : 0,
+  "passed" : true,
+  "seconds" : 0.036278963088989258,
+  "triangles" : 525840
+}

@@ -59,12 +59,12 @@ extension EiffelBuilder {
             let c=points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(points.count)
             return MillenniumContext.containsPark(c.x,c.y)
         }
-        for area in LakefrontContext.database.legacyAreas where area.kind != "water" && !inPark(area.points) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
+        for area in LakefrontContext.database.legacyAreas where area.kind != "water" && !inPark(area.points) && !NavyPierContext.replacementAreaIDs.contains(area.id) {chicagoArea(area,y:area.kind == "park" ? -0.015:0.008,material:grass)}
         let mainRoadIDs=Set((LakefrontContext.database.roads+MuseumCampusContext.database.roads).flatMap{$0.sourceIDs})
         for p in data.paths+LakefrontContext.database.paths+MuseumCampusContext.database.paths where !inPark(p.points) && p.id != 25026666 && p.id != 90707301 && !mainRoadIDs.contains(p.id) {
             let c=p.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(p.points.count)
             if MuseumCampusContext.clearsApproach(c.x,c.y) {continue}
-            chicagoRoad(p,asphalt:asphalt,concrete:concrete,white:white)
+            for retained in NavyPierContext.retained(p) {chicagoRoad(retained,asphalt:asphalt,concrete:concrete,white:white)}
         }
         for b in data.buildings+LakefrontContext.database.buildings+MuseumCampusContext.database.buildings {
             if [-158994370,-15899437].contains(b.id) { continue } // Cultural Center: both extract ID conventions.
@@ -74,7 +74,7 @@ extension EiffelBuilder {
             let center=b.points.reduce(SIMD2<Float>.zero){$0+SIMD2($1[0],$1[1])}/Float(b.points.count)
             if MuseumCampusContext.suppressesBuilding(b.id,center.x,center.y) {continue}
             if NorthSideContext.suppressesBuilding(b.id,center.x,center.y) {continue}
-            if LakefrontContext.containsAuthoredCampus(center.x,center.y) {continue}
+            if LakefrontContext.containsAuthoredCampus(center.x,center.y) || NavyPierContext.suppressesBuilding(b.id,center.x,center.y) {continue}
             if center.x>=982 && center.x<=1231 && center.y>=(-200) && center.y<=48 { continue }
             chicagoBuilding(MuseumCampusContext.interpretedBuilding(b),masonry:masonry,granite:granite,pale:pale,blue:blue,gray:gray,windows:windows)
         }
@@ -150,11 +150,11 @@ extension EiffelBuilder {
             }
         }
     }
-    private func chicagoBuilding(_ b:ChicagoContext.Building,masonry:UInt32,granite:UInt32,pale:UInt32,blue:UInt32,gray:UInt32,windows:[UInt32]) {
+    func chicagoBuilding(_ b:ChicagoContext.Building,masonry:UInt32,granite:UInt32,pale:UInt32,blue:UInt32,gray:UInt32,windows:[UInt32]) {
         let p=b.points.map{V($0[0],0.12,$0[1])},c=p.reduce(V.zero,+)/Float(p.count),h=b.height
         // Detail follows both destinations, including the Michigan Avenue
         // facades that are visible in Cloud Gate's curved reflections.
-        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)),simd_distance(c,V(1010,0,-2110)),simd_distance(c,V(-300,0,-3700)),simd_distance(c,V(100,0,-3700)))
+        let d=min(simd_length(c),simd_distance(c,V(1042.46,0,-424.15)),simd_distance(c,V(1070,0,-80)),simd_distance(c,V(1010,0,-2110)),simd_distance(c,V(-300,0,-3700)),simd_distance(c,V(100,0,-3700)),simd_distance(c,V(2150,0,-1420)))
         let modern=b.material == "glass" || b.material == "steel" || (h>105 && b.material != "stone" && b.material != "brick" && b.material != "masonry")
         let near=d<440,medium=d<950,stone=b.id == 686318733 ? granite : b.material == "brick" ? masonry : b.id%4==0 ? pale:facade
         let material=modern ? gray:stone

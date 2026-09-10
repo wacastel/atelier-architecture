@@ -59,7 +59,7 @@ import AVFoundation
 }
 
 @MainActor func tests() throws {
-    let keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline", "culturalcenter"]
+    let keys = ["paris", "chicago", "millennium", "lakefront", "campus", "northside", "robie", "skyline", "culturalcenter", "navypier"]
     expect(AmbientMusicTrack.playlist.map(\.location) == keys, "Location routing catalog is incomplete")
     expect(Set(AmbientMusicTrack.playlist.map(\.filename)).count == keys.count, "Locations share an opening asset")
     expect(Set(AmbientMusicTrack.playlist.map(\.title)).count == keys.count, "Track titles are ambiguous")

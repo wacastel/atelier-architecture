@@ -1,6 +1,8 @@
 # Atelier
 
-A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, Metal hardware ray tracing and a fast raster mode. Nine locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+A native Apple Silicon architectural walkthrough engine built with Swift, AppKit, SwiftUI, Metal hardware ray tracing and a fast raster mode. Ten locations share the same renderer, navigation system, animation controls, day/night lighting, and export tools:
+
+- **Navy Pier, Chicago** — seven architectural studies of the Centennial Wheel, Family Pavilion and Polk Bros Park, Chicago Shakespeare Theater, Sable Hotel, the Grand Ballroom and moored boats, plus a three-minute connecting flight from Millennium Park. Mapped approaches, Jane Addams Park, Ohio Street Beach and Olive Park connect it to the same resident city. [Architecture, map sources and routes](docs/NAVY-PIER.md).
 
 - **Chicago Cultural Center** — eight two-minute studies of the limestone exterior, Washington entrance, mosaic stair, Tiffany dome, Preston Bradley Hall and restored Grand Army of the Republic rooms, including a connecting flight from Cloud Gate. [Architecture, references and routes](docs/CULTURAL-CENTER.md).
 
@@ -32,15 +34,15 @@ Double-click **Launch Atelier.command**, or run:
 open dist/Atelier.app
 ```
 
-The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.4.0 adds a Direct Ray Tracing renderer, cardinal WASD movement in Map mode and the **G** full-screen shortcut while retaining Willis Tower as the opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Cultural Center, Chicago Lakefront, Museum Campus, Chicago North Side and Robie House. All eight Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
+The launcher rebuilds when source or assets have changed. The packaged app contains both cities and works without network access or the source directory. Version 2.5.0 adds Navy Pier, a sunset building-light switch and **R** cycling through all three renderers while retaining Willis Tower as the opening destination. Use the location menu or **L** to cycle between Eiffel Tower, Willis Tower, Chicago Skyline, Millennium Park, Chicago Cultural Center, Chicago Lakefront, Navy Pier, Museum Campus, Chicago North Side and Robie House. All nine Chicago destinations reuse one resident world and its GPU/navigation resources; switching to Paris loads its independent scene. During Chicago Demo, **L** cycles only the Chicago destinations and continues playback there.
 
 Requires macOS 14 or later, the Xcode Command Line Tools with Swift 5.10 or newer to build, and a Metal ray-tracing capable GPU. Hardware validation is performed on this Mac Studio's M3 Ultra with 512 GB unified memory. The build creates an ad-hoc signed, native arm64 app; it is not notarized for distribution to other computers.
 
 ## Explore
 
-The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Outside Chicago Demo, selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–360 seconds. Robie House has seven two-minute studies and a six-minute connecting flight. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), **Lincoln Park Zoo → Wrigley Field** (four minutes), **McCormick Place → Robie House** (six minutes), and **Millennium Park → Cultural Center** (two minutes), preserving the chosen day/night lighting.
+The opening idle cycle visits each view in order during daytime, switches to night after the last view, visits the sequence again, then returns to day. At 1×, each view lasts 20 seconds. The idle speed controls both the gentle camera motion and the dwell time, independently of walkthrough pace. Outside Chicago Demo, selecting a view holds it with gentle motion; **Play** starts that view's own walkthrough. Routes last 56–360 seconds. Robie House has seven two-minute studies and a six-minute connecting flight. The **Chicago connecting flights** menu offers **Willis → Park → Art Institute** (four minutes), **Art Institute → Field Museum** (three minutes), **Millennium Park → Lincoln Park Zoo** (four minutes), **Lincoln Park Zoo → Wrigley Field** (four minutes), **McCormick Place → Robie House** (six minutes), **Millennium Park → Navy Pier** (three minutes), and **Millennium Park → Cultural Center** (two minutes), preserving the chosen day/night lighting.
 
-**Chicago Demo / C** starts at a random view in a random Chicago location, then plays sequentially through Willis Tower → Chicago Skyline → Millennium Park → Chicago Cultural Center → Chicago Lakefront → Museum Campus → Chicago North Side → Robie House. Each destination has eight routes; one complete **64-route pass lasts 118 minutes 36 seconds at 1×**. Starting preserves both pace preferences. Skyline views use their authored lighting during the automatic presentation; a manual lighting override holds for the current pass and resets at the next complete idle/demo cycle. The demo changes day/night when it wraps from Robie House’s final route to Willis Tower’s first route. A random opening partway through the sequence reaches that boundary before its first complete pass.
+**Chicago Demo / C** starts at a random view in a random Chicago location, then plays sequentially through Willis Tower → Chicago Skyline → Millennium Park → Chicago Cultural Center → Chicago Lakefront → Navy Pier → Museum Campus → Chicago North Side → Robie House. Each destination has eight routes; one complete **72-route pass lasts 135 minutes 36 seconds at 1×**. Starting preserves both pace preferences. Skyline views use their authored lighting during the automatic presentation; a manual lighting override holds for the current pass and resets at the next complete idle/demo cycle. The demo changes day/night when it wraps from Robie House’s final route to Willis Tower’s first route. A random opening partway through the sequence reaches that boundary before its first complete pass.
 
 Selecting any Chicago location or view keeps the demo active and begins that route at normal forward playback. **↑ / ↓**, or the demo’s previous/next buttons, cross location boundaries: the last view advances to the first view in the next location, and the first view goes back to the final view in the previous location. A full-city wrap in either direction changes day/night. **Space** pauses and resumes; **Stop Chicago Demo / C** exits while holding the current pose. Selecting Paris, starting idle cycling, focusing an object, or taking manual camera control leaves the demo. [Demo instructions](docs/DEMO.md).
 
@@ -58,7 +60,7 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 | **Idle Play / Idle Pause**, or **I** | Resume the view cycle / hold the current view |
 | **[ / ]** | Decrease / increase idle speed: 0.25×, 0.5×, 1×, 2×, 4× |
 | **Play / Space** | Start, pause, or resume the selected walkthrough |
-| **Chicago Demo / C** | Start the 64-route Chicago sequence at a random location/view / stop and hold the current pose |
+| **Chicago Demo / C** | Start the 72-route Chicago sequence at a random location/view / stop and hold the current pose |
 | **← / →** | Rewind / fast forward; distinct presses cycle 2×, 4×, 8× |
 | **Pace / timeline** | Set walkthrough pace independently / seek |
 | **N / Moon button** | Toggle day/night without restarting or resuming the animation |
@@ -73,7 +75,7 @@ Click visible landmark or building geometry to focus it; a tint and outline mark
 | **T** | Point the normal camera straight down with roof clearance; preserve focus and normal Fly controls |
 | **F / speed menu / − / +** | In normal 3D exploration, toggle Walk/Fly or step flight speed from 8 to 800 m/s; −/+ zoom in Map mode |
 | **Renderer menu** | Select Path Tracing, Direct Ray Tracing or Fast Raster at the same camera position |
-| **R** | Switch between Fast Raster and the last selected ray-tracing mode |
+| **R** | Cycle Path Tracing → Direct Ray Tracing → Fast Raster |
 | **WASD / Q / E / Shift** | Move parallel to ground / fly up / fly down / 3× speed boost; Map WASD pans cardinally and retains selection; Q/E are inactive in Map |
 | Pinch | Optical zoom in normal exploration; move toward/away from a focused object; change ground coverage in Map mode |
 | Mouse wheel / two-finger scroll | Zoom a focused object or Map mode; otherwise step the fixed flight-speed presets |
@@ -94,13 +96,15 @@ Robie House’s eighth view connects McCormick Place to the house through 31st S
 
 ## Music
 
-Nine original ambient pieces form one shared playlist, with a distinct opening piece assigned to each location. The Cultural Center adds **Light Beneath the Dome**, a D-flat-major composition at 57 BPM; the previous eight audio files are unchanged. Soft piano, pads and plucks accompany the views. Music starts enabled at volume 0.16 on first use; enable and volume preferences persist. A location change selects its opening piece with a three-second crossfade, and tracks advance through the shared playlist before wrapping. Turning music off fades and pauses it; turning it on resumes. Volume zero mutes while playback continues. The native player does not add an audio track to CLI movie exports. [Existing composition and playback system](docs/AMBIENT-MUSIC.md) · [Cultural Center track](docs/CULTURAL-CENTER.md#original-ambient-music).
+Ten original ambient pieces form one shared playlist, with a distinct opening piece assigned to each location. The Cultural Center adds **Light Beneath the Dome**, a D-flat-major composition at 57 BPM; the previous eight audio files are unchanged. Soft piano, pads and plucks accompany the views. Music starts enabled at volume 0.16 on first use; enable and volume preferences persist. A location change selects its opening piece with a three-second crossfade, and tracks advance through the shared playlist before wrapping. Turning music off fades and pauses it; turning it on resumes. Volume zero mutes while playback continues. The native player does not add an audio track to CLI movie exports. [Existing composition and playback system](docs/AMBIENT-MUSIC.md) · [Cultural Center track](docs/CULTURAL-CENTER.md#original-ambient-music).
 
 ## Rendering
 
 Version **2.4.1** puts all three renderer choices directly in the toolbar menu, with a checkmark beside the active mode. There is no hover submenu. Frame statistics and playback updates no longer rebuild this menu while it is open.
 
-The toolbar and Render settings offer **Path Tracing**, **Direct Ray Tracing** and **Fast Raster**. Switching preserves the camera, lighting, focus and playback. **R** switches to Fast Raster and back to the last selected ray tracer. Path Tracing remains the default and progressively estimates reflections, shadows and indirect lighting. Direct Ray Tracing uses deterministic rays for hard shadows and reflections with an ambient-light approximation and spatial edge antialiasing; it does not reproduce the path tracer's multi-bounce indirect lighting. The final renderer passes 48 functional GPU checks, 27 presentation checks and a ten-case shared-city comparison. [Illustrated comparison](docs/validation/v2.4/render-mode-comparison.html) · [implementation, measured timings and limits](docs/DIRECT-RAY-TRACING.md).
+The toolbar and Render settings offer **Path Tracing**, **Direct Ray Tracing** and **Fast Raster**. Switching preserves the camera, lighting, focus and playback. **R** cycles Path Tracing → Direct Ray Tracing → Fast Raster. Path Tracing remains the default and progressively estimates reflections, shadows and indirect lighting. Direct Ray Tracing uses deterministic rays for hard shadows and reflections with an ambient-light approximation and spatial edge antialiasing; it does not reproduce the path tracer's multi-bounce indirect lighting. The final renderer passes 48 functional GPU checks, 27 presentation checks and a ten-case shared-city comparison. [Illustrated comparison](docs/validation/v2.4/render-mode-comparison.html) · [implementation, measured timings and limits](docs/DIRECT-RAY-TRACING.md).
+
+In Render settings, **Building lights at sunset** switches building windows and fixed architectural/site fixtures on or off while retaining the sunset sky and sunlight. It defaults to on and only applies to Sunset; day and night keep their existing lighting. Vehicle lights, boat cabins and the planetarium show remain active. Use `--sunset-lights-off` for exports.
 
 Raster draws the same city and moving traffic using a depth buffer, frustum culling, direct lighting, procedural materials, glass and approximate environment reflections. It submits no ray-tracing or surface-guide dispatches and no traffic acceleration-structure updates per frame. Four-sample anti-aliasing smooths fine geometry edges on this Mac (with a lower-sample fallback on other devices). It omits traced shadows, local reflections, refraction and indirect lighting; subpixel detail can still alias. The initial acceleration structures are still built so switching back is immediate; raster does not eliminate the resident scene or startup memory cost.
 
@@ -136,7 +140,7 @@ The **Chicago Cultural Center** now develops the earlier landmark proposal into 
 
 ## Render and record
 
-The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `skyline` for the lakefront, river and western panoramas, `millennium` for the park and museum, `culturalcenter` for the Cultural Center, `lakefront` for the Magnificent Mile, Grant Park and harbors, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
+The command-line interface uses the same scenes and shaders as the application. `--location` defaults to `paris` for compatibility with earlier export commands; choose `chicago` for Willis Tower, `skyline` for the lakefront, river and western panoramas, `millennium` for the park and museum, `culturalcenter` for the Cultural Center, `lakefront` for the Magnificent Mile, Grant Park and harbors, `navypier` for Navy Pier and its waterfront approach, `campus` for Museum Campus and McCormick Place, `northside` for Old Town, Lincoln Park and Wrigley Field, or `robie` for Robie House and its south lakefront connection. View numbers are zero-based on the command line.
 
 Add `--raster` to render, gallery, video or self-test commands for the fast renderer. Ray sample counts are ignored in raster mode; the temporal ray-tracing benchmark intentionally requires ray tracing.
 
@@ -236,6 +240,10 @@ python3 scripts/validate-video-timing.py output/Chicago-Park-Museum-Flyby.mp4 \
 Generated videos, high-resolution renders, build products and local reports stay in `output/` or `dist/` and are excluded from Git. [Demo notes](docs/DEMO.md) · [validation](docs/VALIDATION.md).
 
 ## Verify and reproduce
+
+### Version 2.5.0
+
+Navy Pier adds eight routes to the shared city. The release passes [121,182 playback checks](docs/validation/v2.5/playback-final.txt), [17 geometry checks](docs/validation/v2.5/navy-pier-geometry.json), [map-source validation](docs/validation/v2.5/navy-pier-map.json), and [851 actual-controller checks](docs/validation/v2.5/controller-integration.json). The sunset switch passes [63 GPU checks across Path, Direct and Raster](docs/validation/v2.5/sunset-lights.json), including emissive surfaces, reflected light and unchanged daytime/nighttime behavior. [Daylight](docs/validation/v2.5/day-contact.jpg) and [night](docs/validation/v2.5/night-contact.jpg) contact sheets cover all eight bookmarks. [Release scope and references](docs/NAVY-PIER.md).
 
 ### Version 2.4.0
 

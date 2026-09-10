@@ -10,6 +10,9 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     var title: String {
         switch self { case .pathTracing: return "Path Tracing"; case .directRayTracing: return "Direct Ray Tracing"; case .raster: return "Fast Raster" }
     }
+    var next: Self {
+        switch self { case .pathTracing: return .directRayTracing; case .directRayTracing: return .raster; case .raster: return .pathTracing }
+    }
     var explanation: String {
         switch self {
         case .pathTracing: return "Multi-bounce reflections, shadows and indirect lighting. Still views progressively refine."
@@ -50,6 +53,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     @Published var currentStop = 0
     @Published var quality = 1
     @Published var lighting = 0
+    @Published private(set) var sunsetBuildingLights = true
     @Published var exposure = 1.0
     @Published private(set) var navigationMode = 1
     @Published private(set) var mapViewSpan: Float = 1800
@@ -60,7 +64,6 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     @Published private(set) var flySpeed = ManualCityNavigation.defaultFlySpeed
     @Published private(set) var rendererMode: ArchitectureRendererMode = .pathTracing
     var rayTracingEnabled: Bool { rendererMode != .raster }
-    private var lastRayTracingMode: ArchitectureRendererMode = .pathTracing
     @Published private(set) var mapSelectionRevision = 0
     @Published var navigationMapVisible = true
     @Published var navigationMapSize: ChicagoMapSize = .small
@@ -164,6 +167,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     func startRobieFlyby() {
         startConnectingFlight(to: .robie, view: RobieWalkthrough.flybyView)
     }
+    func startNavyPierFlyby() { startConnectingFlight(to:.navypier,view:NavyPierWalkthrough.flybyView) }
     func startCulturalCenterFlyby() { startConnectingFlight(to:.culturalcenter,view:7) }
     private func startConnectingFlight(to destination: ArchitectureLocation, view index: Int) {
         guard isReady, !isMapMode, location.world == "chicago" else { return }
@@ -235,17 +239,19 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
         dirty = true; historyDirty = true
         previousTime = CACurrentMediaTime()
     }
-    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,rayTracing:rayTracingEnabled,directRayTracing:rendererMode == .directRayTracing,hazeDensity:isMapMode ? 0.0000001:location.hazeDensity(view:currentStop)) }
+    var options: RenderOptions { RenderOptions(exposure:Float(exposure),bounces:quality == 0 ? 2 : (quality == 2 ? 5 : 3),lighting:lighting,sunsetBuildingLights:sunsetBuildingLights,rayTracing:rayTracingEnabled,directRayTracing:rendererMode == .directRayTracing,hazeDensity:isMapMode ? 0.0000001:location.hazeDensity(view:currentStop)) }
     func setRendererMode(_ mode: ArchitectureRendererMode) {
         guard isReady, mode != rendererMode else { return }
         rendererMode = mode
-        if mode != .raster { lastRayTracingMode = mode }
         dirty = true; historyDirty = true; samples = 0
         status = "\(mode.title) enabled"
         previousTime = CACurrentMediaTime(); focusViewport()
     }
-    func toggleRayTracing() {
-        setRendererMode(rayTracingEnabled ? .raster:lastRayTracingMode)
+    func cycleRenderer() { setRendererMode(rendererMode.next) }
+    func setSunsetBuildingLights(_ enabled: Bool) {
+        guard sunsetBuildingLights != enabled else { return }
+        sunsetBuildingLights = enabled
+        if lighting == 3 { dirty = true; historyDirty = true; samples = 0 }
     }
     func toggleNavigationMap() { navigationMapVisible.toggle(); focusViewport() }
     func setFlySpeed(_ value: Float) {

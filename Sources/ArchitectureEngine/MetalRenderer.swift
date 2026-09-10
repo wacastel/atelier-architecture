@@ -8,6 +8,7 @@ struct RenderOptions: Equatable {
     var exposure: Float = 1.0
     var bounces: Float = 3
     var lighting: Int = 0
+    var sunsetBuildingLights: Bool = true
     var denoising: Bool = true
     var regularization: Bool = true
     var lowDiscrepancySampling: Bool = true
@@ -15,6 +16,8 @@ struct RenderOptions: Equatable {
     var rayTracing: Bool = true
     var directRayTracing: Bool = false
     var hazeDensity: Float = 0 // metres⁻¹; zero uses the established day/night atmosphere
+    var architectureLightsEnabled: Bool { lighting != 3 || sunsetBuildingLights }
+    var sunsetState: Float { lighting == 3 ? (sunsetBuildingLights ? 1 : 2) : 0 }
 }
 
 enum EngineError: LocalizedError {
@@ -271,13 +274,14 @@ final class MetalRenderer {
         let halfFov = tan(pose.fov * .pi / 360)
         let sun = options.lighting == 3 ? simd_normalize(SIMD3<Float>(-0.862, 0.07, -0.5)) : options.lighting == 0 ? simd_normalize(SIMD3<Float>(-0.55, 0.48, 0.68)) : simd_normalize(SIMD3<Float>(-0.35, 0.85, 0.4))
         let color = options.lighting == 3 ? SIMD3<Float>(3.4,1.25,0.40) : options.lighting == 2 ? SIMD3<Float>(0.012,0.018,0.032) : options.lighting == 0 ? SIMD3<Float>(4.5, 3.5, 2.6) : SIMD3<Float>(4.1, 3.95, 3.65)
-        var frame = FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.lighting >= 2 ? lightCount:dayInteriorLightCount)), sunColor: SIMD4(color, options.lighting >= 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
+        var frame = FrameUniforms(origin: SIMD4(pose.position, options.regularization ? 1 : 0), right: SIMD4(right * halfFov * Float(width) / Float(height), hasTransmission ? 1 : 0), up: SIMD4(up * halfFov, options.lowDiscrepancySampling ? 1 : 0), forward: SIMD4(forward, trafficMoving ? 1 : 0), sunDirection: SIMD4(sun, Float(options.architectureLightsEnabled ? (options.lighting >= 2 ? lightCount:dayInteriorLightCount) : 0)), sunColor: SIMD4(color, options.lighting >= 2 ? 1 : 0), viewport: SIMD4(UInt32(width), UInt32(height), sampleCount, frameSeed), settings: SIMD4(options.exposure, options.bounces, 0.009, options.lighting == 0 ? 0.85 : 1.0))
         if hasAnimatedProjection {
             let period=180.0, phase=sceneTime.truncatingRemainder(dividingBy:period)
             frame.animation=SIMD4(Float(phase<0 ? phase+period:phase),projectionMoving ? 1:0,0,0)
         }
-        // Reserved component: sunset changes atmosphere without changing the shared ABI.
-        frame.animation.z = options.lighting == 3 ? 1 : 0
+        // Sunset state: 1 keeps architectural lights; 2 switches them off.
+        // The atmosphere still tests > 0.5, preserving the same sun and sky.
+        frame.animation.z = options.sunsetState
         frame.animation.w = options.hazeDensity.isFinite ? max(0,min(0.01,options.hazeDensity)) : 0
         return frame
     }

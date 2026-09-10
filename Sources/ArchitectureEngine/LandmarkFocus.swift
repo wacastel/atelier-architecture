@@ -333,7 +333,27 @@ private extension LandmarkFocusCatalog {
             }
             return FocusVolume(points:corners,bottom:bottom,top:top)!
         }
+        // NavyPierLayout's mapped wheel origin and pier basis. Kept as POD
+        // coordinates here so focus tests do not construct the landmark mesh.
+        func pier(_ x0:Float,_ z0:Float,_ x1:Float,_ z1:Float,_ bottom:Float,_ top:Float)->FocusVolume {
+            let east=simd_normalize(V(1,0,-0.0222)),south=V(-east.z,0,east.x),origin=V(2357.4,0,-1427.7)
+            let corners=[SIMD2(x0,z0),SIMD2(x1,z0),SIMD2(x1,z1),SIMD2(x0,z1)].map { p -> [Float] in
+                let q=origin+east*p.x+south*p.y;return [q.x,q.z]
+            }
+            return FocusVolume(points:corners,bottom:bottom,top:top)!
+        }
+        let wheelVolumes=[pier(-25,-24,25,24,6.4,40),pier(-7,-31,7,31,9,67)]
+        let ballroomVolumes=[pier(638,-30,703,30,0.25,43)]
+        let hotelVolumes=[pier(229,32,493,49,0.25,32)]
+        let theaterVolumes=[pier(106,25,187,66,0.25,30),pier(25,-23,100,39,6.4,25)]
         var result:[LandmarkFocus]=[
+            LandmarkFocus(id:"chicago:centennial-wheel",name:"Centennial Wheel",volumes:wheelVolumes,center:V(2357.4,37,-1427.7)),
+            LandmarkFocus(id:"chicago:navy-pier-ballroom",name:"Navy Pier Grand Ballroom",volumes:ballroomVolumes,center:V(3027,18,-1444)),
+            LandmarkFocus(id:"chicago:sable-hotel",name:"Sable at Navy Pier",volumes:hotelVolumes,center:V(2727.3,19,-1392.9)),
+            LandmarkFocus(id:"chicago:chicago-shakespeare",name:"Chicago Shakespeare Theater",volumes:theaterVolumes,center:V(2500.8,18,-1385.1)),
+            LandmarkFocus(id:"chicago:navy-pier",name:"Navy Pier",volumes:
+                [pier(-188,-63,739,67,-5.7,0.25),pier(-185,-57,-65,47,0.25,30),pier(-66,-52,608,30,0.25,25)]
+                + wheelVolumes + ballroomVolumes + hotelVolumes + theaterVolumes,center:V(2620,18,-1433)),
             LandmarkFocus(id:"chicago:cultural-center",name:"Chicago Cultural Center",volumes:[
                 FocusVolume(points:[[-25.0,-59.0],[25.0,-59.0],[25.0,59.0],[-25.0,59.0]].map { p in
                     let east=simd_normalize(V(1,0,-0.014)),south=simd_normalize(V(0.014,0,1))
@@ -405,7 +425,7 @@ private extension LandmarkFocusCatalog {
         }
     }
     static func loadMapped(world: String, authored: [LandmarkFocus]) -> [LandmarkFocus] {
-        let folders=world == "paris" ? ["Paris"]:["Chicago","Lakefront","MuseumCampus","NorthSide","HydePark"]
+        let folders=world == "paris" ? ["Paris"]:["Chicago","Lakefront","MuseumCampus","NorthSide","HydePark","NavyPier"]
         var records: [Int64:MapBuilding]=[:], omitted=Set<Int64>()
         for folder in folders {
             let path="Resources/\(folder)/\(folder)Context.json"

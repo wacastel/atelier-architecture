@@ -21,12 +21,13 @@ import CoreText
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark
         --video walkthrough.mp4     Export the guided walkthrough (native H.264)
-        --location paris           paris / chicago / skyline / millennium / culturalcenter / lakefront / campus / northside / robie (default paris)
+        --location paris           paris / chicago / skyline / millennium / culturalcenter / lakefront / navypier / campus / northside / robie (default paris)
         --width 1920 --height 1080 --samples 64 --stop 0
         --at 28                    Render selected walkthrough at this second
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night, 3 sunset (Skyline defaults to authored lighting)
+        --sunset-lights-off         Disable fixed architectural/site lights only at sunset
         --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
         --renderer path|direct|raster  Select renderer (default path)
@@ -78,10 +79,11 @@ import CoreText
         case "millennium", "park": location = .millennium
         case "culturalcenter", "cultural-center", "cultural": location = .culturalcenter
         case "lakefront", "magmile", "grant": location = .lakefront
+        case "navypier", "navy-pier", "pier": location = .navypier
         case "campus", "museum", "museums": location = .campus
         case "northside", "north", "wrigley", "zoo": location = .northside
         case "robie", "hydepark", "hyde-park": location = .robie
-        default: throw EngineError.message("Unknown location. Choose paris, chicago, skyline, millennium, culturalcenter, lakefront, campus, northside or robie.")
+        default: throw EngineError.message("Unknown location. Choose paris, chicago, skyline, millennium, culturalcenter, lakefront, navypier, campus, northside or robie.")
         }
         guard let device = MTLCreateSystemDefaultDevice() else { throw EngineError.message("No Metal GPU.") }
         let start = Date()
@@ -100,7 +102,7 @@ import CoreText
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         let defaultLighting = location.preferredLighting(view: stop) ?? 0
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:rendererName != "raster",directRayTracing:rendererName=="direct",hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),sunsetBuildingLights:!args.contains("--sunset-lights-off"),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:rendererName != "raster",directRayTracing:rendererName=="direct",hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
         print("Renderer: \(rendererTitle)\(rendererName=="path" ? "":" · one deterministic frame; requested SPP is ignored")")
         var pose = location.stops[stop].pose
         if args.contains("--at") {
@@ -354,6 +356,7 @@ private func drawVideoCaption(base:UnsafeMutableRawPointer,rowBytes:Int,width:In
     case .millennium: heading = "A T E L I E R    /    M I L L E N N I U M"
     case .culturalcenter: heading = "A T E L I E R    /    C U L T U R A L   C E N T E R"
     case .lakefront: heading = "A T E L I E R    /    L A K E F R O N T"
+    case .navypier: heading = "A T E L I E R    /    N A V Y   P I E R"
     case .campus: heading = "A T E L I E R    /    M U S E U M   C A M P U S"
     case .northside: heading = "A T E L I E R    /    C H I C A G O   N O R T H   S I D E"
     case .robie: heading = "A T E L I E R    /    R O B I E   H O U S E"

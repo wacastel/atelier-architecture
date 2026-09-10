@@ -41,7 +41,7 @@ enum NorthSideContext {
     static let replacementBuildingIDs=Set(database.replacementBuildingIDs)
     static let replacedAreaIDs=Set(database.replacedAreaIDs)
     static func suppressesBuilding(_ id:Int64,_ x:Float,_ z:Float)->Bool {
-        replacementBuildingIDs.contains(id) || LakefrontContext.inside(SIMD2(x,z),rings:database.authoredMask.rings)
+        NavyPierContext.suppressesBuilding(id,x,z) || replacementBuildingIDs.contains(id) || LakefrontContext.inside(SIMD2(x,z),rings:database.authoredMask.rings)
     }
     static func containsAuthoredSite(_ x:Float,_ z:Float)->Bool {
         LakefrontContext.inside(SIMD2(x,z),rings:database.authoredMask.rings)
@@ -49,7 +49,7 @@ enum NorthSideContext {
     /// Reuse earlier authored-site masks: a larger extract can contain parents
     /// deliberately absent from a previous derivative, including museum shells.
     static func suppressesPreviousLandmark(_ id:Int64,_ x:Float,_ z:Float)->Bool {
-        MillenniumContext.suppressesGenericBuilding(id) ||
+        NavyPierContext.suppressesBuilding(id,x,z) || MillenniumContext.suppressesGenericBuilding(id) ||
         LakefrontContext.replacementBuildingIDs.contains(id) ||
         [-174605391,-174605390,150407241,-17460539,-158994370,-15899437].contains(id) ||
         LakefrontContext.containsAuthoredCampus(x,z) ||

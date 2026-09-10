@@ -1,0 +1,24 @@
+{
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "method": "POST data=<saved query>",
+  "queryFile": "chicago-navy-pier-osm-2026-09-09.overpass",
+  "rawFile": "chicago-navy-pier-osm-2026-09-09.json",
+  "querySHA256": "7f6a01df84f1d0ed40dac9e2ff1e507a6ec9e5125035f14f965d32cf68a4aaf6",
+  "rawSHA256": "3c1e953bc9f14492406a39b16c4a7aefeddca3a3ca7ea2e4d2d91b5973c32d40",
+  "timestampOSMBase": "2026-09-10T00:34:18Z",
+  "elements": 3803,
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "license": "ODbL 1.0",
+  "licenseURL": "https://www.openstreetmap.org/copyright",
+  "referenceOnlyImagery": [
+    {
+      "url": "https://eros.usgs.gov/earthshots/chicago-aerial-photography",
+      "imageURL": "https://eros.usgs.gov/sites/eros.usgs.gov/files/2025-08/1-NavyPier-2023.png",
+      "imageDate": "2023",
+      "pixelsInspected": true,
+      "observations": "East-west pier, western park gateway, south excursion docks, northern water gap, Jardine water plant and Olive Park; no image data bundled."
+    }
+  ],
+  "provenanceRecordedAtUTC": "2026-09-10T00:49:41.921455+00:00",
+  "retrievalDateLocal": "2026-09-09"
+}

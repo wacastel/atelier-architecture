@@ -122,7 +122,7 @@ enum NavigationMapTests {
             check(size.cardSize(maximumHeight: .nan, maximumWidth: .infinity).width.isFinite, "Invalid size budget produces nonfinite layout")
         }
         check(Set(ChicagoMapLandmark.all.map(\.id)).count == ChicagoMapLandmark.all.count, "Semantic landmark IDs are not unique")
-        check(ChicagoMapLandmark.all.count == 34, "Map catalog must include the Cultural Center as its 34th destination")
+        check(ChicagoMapLandmark.all.count == 40, "Map catalog must include Navy Pier and its five additional destinations")
         for landmark in ChicagoMapLandmark.all {
             check(landmark.point.x >= minimum.x && landmark.point.x <= maximum.x && landmark.point.y >= minimum.y && landmark.point.y <= maximum.y,
                   "Landmark target lies outside actual navigation coverage")
@@ -138,7 +138,9 @@ enum NavigationMapTests {
                         "cloud-gate":"chicago:cloud-gate", "hancock":"chicago:hancock-center", "water-tower":"chicago:historic-water-tower",
                         "oldtown":"chicago:saint-michael", "beach":"chicago:north-avenue-beach-house",
                         "nature-pavilion":"chicago:nature-boardwalk-pavilion", "lakeside-center":"chicago:mccormick-lakeside",
-                        "culturalcenter":"chicago:cultural-center"]
+                        "culturalcenter":"chicago:cultural-center", "navypier":"chicago:navy-pier",
+                        "centennial-wheel":"chicago:centennial-wheel", "grand-ballroom":"chicago:navy-pier-ballroom",
+                        "shakespeare":"chicago:chicago-shakespeare", "sable":"chicago:sable-hotel"]
         for (id,expectedID) in focusIDs {
             check(ChicagoMapLandmark.all.first { $0.id==id }?.focusID == expectedID,
                   "Semantic map identity \(id) does not resolve to its authored focus \(expectedID)")
@@ -235,7 +237,7 @@ enum NavigationMapTests {
         let loaded = try await Task.detached { try loadDataset() }.value
         let geometry = loaded.0
         check(!loaded.1, "Offline map construction ran on the main thread")
-        check(geometry.loadedResources == 5, "Map omits a Chicago region")
+        check(geometry.loadedResources == 6, "Map omits a Chicago region")
         check(geometry.water.count >= 5 && geometry.water.contains(where: { $0.count > 1 }), "Water groups lose their island/hole rings")
         check(geometry.footprints.count > 500 && geometry.streets.count > 500 && geometry.arterials.count > 50,
               "Offline map is missing its buildings or street network")

@@ -14,6 +14,8 @@ enum ChicagoWorld {
         builder.magnificentMile()
         builder.magnificentGateway()
         builder.chicagoLakefront()
+        builder.navyPierEnvironment()
+        builder.navyPier()
         builder.museumCampusEnvironment()
         builder.museumBuildings()
         builder.adlerPlanetarium()

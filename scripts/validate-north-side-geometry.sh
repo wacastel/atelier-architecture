@@ -10,7 +10,7 @@ swiftc -O \
  Sources/ArchitectureEngine/RiverEnvironment.swift \
  Sources/ArchitectureEngine/NightLighting.swift \
  Sources/ArchitectureEngine/MillenniumEnvironment.swift \
- Sources/ArchitectureEngine/ChicagoEnvironment.swift \
+ Sources/ArchitectureEngine/ChicagoEnvironment.swift Sources/ArchitectureEngine/NavyPierContext.swift \
  Sources/ArchitectureEngine/LakefrontEnvironment.swift \
  Sources/ArchitectureEngine/MuseumCampusEnvironment.swift \
  Sources/ArchitectureEngine/NorthSideEnvironment.swift \

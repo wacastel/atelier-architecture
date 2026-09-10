@@ -99,5 +99,5 @@ struct FrameUniforms {
     var sunColor: SIMD4<Float>
     var viewport: SIMD4<UInt32> // width, height, accumulated frames, global frame seed
     var settings: SIMD4<Float> // exposure, maximum bounces, sun angular radius, sky intensity
-    var animation: SIMD4<Float> = .zero // bounded show seconds, show moving, sunset, optional haze density
+    var animation: SIMD4<Float> = .zero // bounded show seconds, show moving, sunset (1 lit / 2 unlit), optional haze density
 }

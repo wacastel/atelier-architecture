@@ -45,7 +45,9 @@ During an ordinary Skyline pass, idle and demo playback follow the authored ligh
 
 Lighting preset `3` is an actual atmosphere and light change. The sun points west-northwest at approximately four degrees above the horizon in the shared east/south coordinate system. Its warm irradiance casts direct light and traced shadows. A directional amber horizon transitions through rose into a blue zenith; architectural lights and illuminated window materials are active. The environment is evaluated consistently for camera, reflection and illumination rays, so ray-traced water and glass respond to the sunset sky. This is an illustrative late-day preset, not an astronomical date/time model or measured atmospheric simulation.
 
-The renderer uses a previously reserved uniform component for sunset. Uniform size, the three-bounce budget, existing light-grid limits, geometry partitions, motion reconstruction and raster MSAA remain unchanged. Raster mode uses the same directional atmosphere and material lighting, with its established limitations: analytic environment reflections, approximate transparent glass, and no ray-traced local reflections, shadows or indirect illumination. The sunset does not add ray queries to raster mode.
+**Building lights at sunset** in Render settings defaults to on. Switching it off restores unlit reflective window surfaces and disables emission and local illumination from fixed architectural/site fixtures across Path Tracing, Direct Ray Tracing and Fast Raster. The setting is remembered while moving between views but applies only to Sunset; Golden, Daylight and Night preserve their established lighting. Sun, sky, water reflections of the sky, vehicle lamps, boat-cabin materials and the planetarium show remain active. Fixed lights share the architectural catalog, so the switch also affects fixed promenade, landscape and pier fixtures; it is not a per-building selection. Command-line exports accept `--sunset-lights-off`.
+
+The renderer uses `FrameUniforms.animation.z` for sunset: 0 outside Sunset, 1 with architectural lights, 2 with them off. Sky/sun tests use `> 0.5`, while shared surface shading and static-light counts apply the separate architectural-light state. Uniform size, the three-bounce budget, existing light-grid limits, geometry partitions, motion reconstruction and raster MSAA remain unchanged. Raster mode uses the same directional atmosphere and material lighting, with its established limitations: analytic environment reflections, approximate transparent glass, and no ray-traced local reflections, shadows or indirect illumination. The sunset does not add ray queries to raster mode.
 
 ## The longer western view
 
@@ -68,6 +70,10 @@ The final renderer and route checks passed with the revised Oak Park, Kinzie and
 | Native off-map marker and distant focus/orbit | [Blocked while the Mac is locked](validation/v2.1.1/native-review.json); requires the user to unlock it |
 
 The final package’s executable SHA-256 is `8610cd488eeb864047785001b84be0861420c68d877d9cc377c4e740bdaa9ab1`. Its isolated-working-directory Oak Park self-tests [passed in both ray-tracing and raster modes](validation/v2.1.1/package-rendering/runs.json). The shared Chicago scene remains at 45,496,818 static triangles. Still-image and CPU results do not establish continuous-motion quality or native window frame rate, and the locked session prevented final native interaction verification.
+
+### Sunset building-light control
+
+Run `./scripts/validate-sunset-lights.sh` for the focused production-renderer fixture (`--build-only` compiles without using the GPU). Its 63 checks passed on the M3 Ultra: all three modes switch modeled windows and fixtures, retain the sunset sky and day/night output, and suppress fixed illumination in both indexed and linear light paths. The two ray renderers also dim offscreen reflected emitters while preserving real moving-vehicle headlights. Shared shader probes preserve vehicle, cabin and planetarium display materials. Output is written under `output/sunset-lights-validation/`. These small 192 × 128 fixtures do not measure whole-city performance or native UI behavior.
 
 ### Historical version 2.1.0
 

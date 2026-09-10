@@ -56,6 +56,9 @@ TRACKS = [
     dict(location="culturalcenter", title="Light Beneath the Dome", slug="light-beneath-the-dome", bpm=57, seed=1909,
          key="D-flat major", roots=[49, 46, 42, 44, 53, 46, 42, 49], qualities=[MAJ9, MIN9, SIX9, SUS, MIN9, MIN9, MAJ9, SIX9],
          motif=[1, 4, 2, 3, 0, 2, 1, 0], piano=0.76, pluck=0.55, pad=0.90),
+    dict(location="navypier", title="Turning Above the Water", slug="turning-above-the-water", bpm=59, seed=1910,
+         key="E major", roots=[40, 44, 37, 45, 42, 47, 45, 40], qualities=[SIX9, MIN9, MIN9, MAJ9, MIN9, SUS, MAJ9, SIX9],
+         motif=[0, 2, 4, 1, 3, 2, 1, 0], piano=0.78, pluck=0.68, pad=0.94),
 ]
 
 
