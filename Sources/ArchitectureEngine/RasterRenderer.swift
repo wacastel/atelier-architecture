@@ -1,6 +1,7 @@
 import Foundation
 import Metal
 import simd
+import CryptoKit
 
 /// Conservative, contiguous spatial batches. The original unindexed vertex and
 /// material buffers are never reordered or copied. No triangle-size LOD removes
@@ -77,6 +78,7 @@ final class RasterRenderer {
     private let glassDepth: MTLDepthStencilState
     private let skyDepth: MTLDepthStencilState
     private let batches: [RasterBatch]
+    let cacheStatistics: [String: Any]
     private let staticTriangleCount: Int
     private let fleet: TrafficFleet
     private let localTraffic: MTLBuffer?
@@ -95,11 +97,16 @@ final class RasterRenderer {
     private(set) var transparentBatchCount = 0
     private(set) var cullingMilliseconds: Double = 0
 
-    init(scene:SceneData, fleet:TrafficFleet, device:MTLDevice, library:MTLLibrary) throws {
+    init(scene:SceneData, fleet:TrafficFleet, device:MTLDevice, library:MTLLibrary, pipelineCache:MetalPipelineCache? = nil,
+         cacheDirectory:URL? = nil, cacheKey:String = "", forceRebuildCache:Bool = false) throws {
         self.device=device; self.fleet=fleet; staticTriangleCount=scene.triangleCount
         rasterSampleCount = device.supportsTextureSampleCount(4) ? 4 : device.supportsTextureSampleCount(2) ? 2 : 1
         let sampleCount=rasterSampleCount
-        batches=RasterGeometry.batches(vertices:scene.vertices,indices:scene.materialIndices,materials:scene.materials)
+        let batchStart=ProcessInfo.processInfo.systemUptime
+        let cached=RasterBatchCache.loadOrBuild(scene:scene,directory:cacheDirectory,key:cacheKey,forceRebuild:forceRebuildCache)
+        batches=cached.batches
+        cacheStatistics=["hit":cached.hit,"saved":cached.saved,"batches":batches.count,
+            "seconds":ProcessInfo.processInfo.systemUptime-batchStart,"error":cached.error ?? ""]
         func pipeline(vertex:String,fragment:String,blending:Bool=false) throws -> MTLRenderPipelineState {
             let desc=MTLRenderPipelineDescriptor()
             desc.vertexFunction=library.makeFunction(name:vertex);desc.fragmentFunction=library.makeFunction(name:fragment)
@@ -114,6 +121,7 @@ final class RasterRenderer {
                 // opacity still controls only the existing RGB blend factors.
                 a.sourceAlphaBlendFactor = .zero;a.destinationAlphaBlendFactor = .one
             }
+            if let pipelineCache { return try pipelineCache.render(desc) }
             return try device.makeRenderPipelineState(descriptor:desc)
         }
         opaquePipeline=try pipeline(vertex:"rasterVertex",fragment:"rasterOpaqueFragment")
@@ -201,5 +209,107 @@ final class RasterRenderer {
         }
         encoder.endEncoding();frameCount += 1
         return color
+    }
+}
+
+/// A small derived cache avoids scanning all 140+ million city vertices on
+/// every launch. Records use explicit numeric fields, never raw Swift Bools or
+/// pointers; version, source key, layout, checksum, and ranges are validated.
+enum RasterBatchCache {
+    private struct Record {
+        var first: UInt32 = 0
+        var count: UInt32 = 0
+        var transparent: UInt32 = 0
+        var reserved: UInt32 = 0
+        var minimum = SIMD4<Float>(repeating: 0)
+        var maximum = SIMD4<Float>(repeating: 0)
+    }
+    private struct Header: Codable {
+        var version: Int
+        var key: String
+        var triangles: Int
+        var materials: Int
+        var count: Int
+        var stride: Int
+        var checksum: String
+    }
+    struct Result {
+        let batches: [RasterBatch]
+        let hit: Bool
+        let saved: Bool
+        let error: String?
+    }
+    static func loadOrBuild(scene: SceneData, directory: URL?, key: String, forceRebuild: Bool) -> Result {
+        guard let directory, !key.isEmpty else {
+            return Result(batches: RasterGeometry.batches(vertices:scene.vertices,indices:scene.materialIndices,materials:scene.materials),hit:false,saved:false,error:nil)
+        }
+        let url = directory.appendingPathComponent("raster-batches-v1.cache")
+        var error: String?
+        if !forceRebuild, FileManager.default.fileExists(atPath:url.path) {
+            do { return Result(batches:try load(url,scene:scene,key:key),hit:true,saved:false,error:nil) }
+            catch let failure { error = failure.localizedDescription }
+        }
+        let batches=RasterGeometry.batches(vertices:scene.vertices,indices:scene.materialIndices,materials:scene.materials)
+        do {
+            try save(batches,url:url,scene:scene,key:key)
+            return Result(batches:batches,hit:false,saved:true,error:error)
+        } catch let failure {
+            return Result(batches:batches,hit:false,saved:false,error:failure.localizedDescription)
+        }
+    }
+    private static func invalid() -> NSError { NSError(domain:"Atelier.RasterBatchCache",code:1,userInfo:[NSLocalizedDescriptionKey:"Raster batch cache is incompatible or damaged; regenerated from the scene."]) }
+    private static func hash(_ data: Data) -> String { SHA256.hash(data:data).map { String(format:"%02x",$0) }.joined() }
+    private static func load(_ url:URL, scene:SceneData, key:String) throws -> [RasterBatch] {
+        let maxRecords=(scene.triangleCount+511)/512
+        let size=try url.resourceValues(forKeys:[.fileSizeKey]).fileSize ?? 0
+        guard size>=8, size<=65544+maxRecords*48 else { throw invalid() }
+        let data=try Data(contentsOf:url)
+        guard data.count>=8 else { throw invalid() }
+        let headerBytes=data.prefix(8).enumerated().reduce(UInt64(0)) { $0 | UInt64($1.element) << UInt64($1.offset*8) }
+        guard headerBytes<=65536, headerBytes<=UInt64(data.count-8) else { throw invalid() }
+        let split=8+Int(headerBytes)
+        let header=try JSONDecoder().decode(Header.self,from:data.subdata(in:8..<split))
+        let recordSize=MemoryLayout<Record>.stride
+        guard header.version==1, header.key==key, header.triangles==scene.triangleCount,
+              header.materials==scene.materials.count, header.count>=0,
+              header.count<=maxRecords, header.stride==recordSize,
+              recordSize==48, header.count==(data.count-split)/recordSize,
+              (data.count-split)%recordSize==0 else { throw invalid() }
+        let payload=data.subdata(in:split..<data.count)
+        guard hash(payload)==header.checksum else { throw invalid() }
+        var records=[Record](repeating:Record(),count:header.count)
+        records.withUnsafeMutableBytes { target in _ = payload.copyBytes(to:target) }
+        var expected=0, batches:[RasterBatch]=[]
+        batches.reserveCapacity(header.count)
+        for record in records {
+            let count=Int(record.count),lo=record.minimum,hi=record.maximum
+            guard Int(record.first)==expected, count>0, count<=8192,
+                  count<=scene.triangleCount-expected, record.transparent<=1, record.reserved==0,
+                  lo.w==0,hi.w==0,lo.x.isFinite,lo.y.isFinite,lo.z.isFinite,
+                  hi.x.isFinite,hi.y.isFinite,hi.z.isFinite,
+                  lo.x<=hi.x,lo.y<=hi.y,lo.z<=hi.z else { throw invalid() }
+            batches.append(RasterBatch(firstTriangle:expected,triangleCount:count,
+                minimum:lo.xyz,maximum:hi.xyz,transparent:record.transparent==1))
+            expected+=count
+        }
+        guard expected==scene.triangleCount else { throw invalid() }
+        return batches
+    }
+    private static func save(_ batches:[RasterBatch],url:URL,scene:SceneData,key:String) throws {
+        guard scene.triangleCount<=Int(UInt32.max) else { throw invalid() }
+        let records=batches.map { batch in
+            Record(first:UInt32(batch.firstTriangle),count:UInt32(batch.triangleCount),
+                transparent:batch.transparent ? 1:0,reserved:0,
+                minimum:SIMD4(batch.minimum,0),maximum:SIMD4(batch.maximum,0))
+        }
+        let payload=records.withUnsafeBytes { Data($0) }
+        let header=Header(version:1,key:key,triangles:scene.triangleCount,
+            materials:scene.materials.count,count:records.count,stride:MemoryLayout<Record>.stride,checksum:hash(payload))
+        let encoded=try JSONEncoder().encode(header)
+        var size=UInt64(encoded.count).littleEndian
+        var data=withUnsafeBytes(of:&size) { Data($0) }
+        data.append(encoded);data.append(payload)
+        try FileManager.default.createDirectory(at:url.deletingLastPathComponent(),withIntermediateDirectories:true)
+        try data.write(to:url,options:.atomic)
     }
 }

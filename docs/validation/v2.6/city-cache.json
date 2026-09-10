@@ -1,0 +1,8 @@
+{
+  "checks" : 71,
+  "failures" : [
+
+  ],
+  "passed" : true,
+  "scope" : "Minimal CPU scene-cache fixtures: exact vertex\/index\/material\/light bytes and traffic values; stale, truncated, corrupt, malformed, and invalid-index rejection; empty optional arrays; atomic replacement and failed-write preservation."
+}

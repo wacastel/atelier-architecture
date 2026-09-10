@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "Actual final packaged precache command must fail when shader archive or raster cache storage is unavailable. Existing valid CPU caches are reused from an isolated temporary directory.",
+  "cases": [
+    {
+      "blockedCache": "Metal",
+      "exitCode": 1,
+      "message": "City precache failed: Renderer caches could not be prepared. Metal: The file \u201cMetal\u201d couldn\u2019t be saved in the folder \u201cparis\u201d because a file with the same name already exists.. Raster: .",
+      "passed": true
+    },
+    {
+      "blockedCache": "raster-batches-v1.cache",
+      "exitCode": 1,
+      "message": "City precache failed: Renderer caches could not be prepared. Metal: . Raster: The file \u201craster-batches-v1.cache\u201d couldn\u2019t be saved in the folder \u201cparis\u201d..",
+      "passed": true
+    }
+  ]
+}

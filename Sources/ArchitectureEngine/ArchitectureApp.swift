@@ -5,6 +5,7 @@ import MetalKit
 @main
 enum ArchitectureMain {
     @MainActor static func main() {
+        StartupMetrics.shared.mark("mainEnteredSeconds")
         if CommandLine.arguments.count > 1, runCommandLine() { return }
         let application = NSApplication.shared
         application.setActivationPolicy(.regular)
@@ -43,7 +44,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
         hosting.frame = NSRect(x: 0, y: 0, width: 1440, height: 960)
         hosting.autoresizingMask = [.width, .height]
         window.contentView = hosting
-        window.setFrameAutosaveName("AtelierArchitectureWindow")
+        if !StartupMetrics.benchmark { window.setFrameAutosaveName("AtelierArchitectureWindow") }
         // Also discard an oversized frame saved by an earlier hosting layout.
         window.setContentSize(NSSize(width: 1440, height: 960))
         if let screen = window.screen ?? NSScreen.main {
@@ -115,7 +116,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.5.0 · Paris & Chicago",
+            .applicationVersion: "2.6.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }

@@ -1,0 +1,21 @@
+{
+  "checks" : 44042228,
+  "failures" : [
+
+  ],
+  "metrics" : {
+    "buildSeconds" : 7.0121960416436195,
+    "cacheBytes" : 2272410678,
+    "catalogSeconds" : 0.95235695835435763,
+    "detailedPickingNodes" : 39605,
+    "detailedPickingTriangles" : 171264,
+    "geometrySeconds" : 4.0919086249778047,
+    "navigationNodes" : 9245199,
+    "navigationTriangles" : 34790878,
+    "readAndValidateSeconds" : 1.2188422916806303,
+    "sourceTriangles" : 46966436,
+    "writeSeconds" : 1.0140614166739397
+  },
+  "passed" : true,
+  "scope" : "CPU collision BVH cache round trip, exact triangles and nodes, navigation\/picking\/movement query equivalence; small fixture additionally validates stale, corrupt and structurally invalid cache rejection."
+}

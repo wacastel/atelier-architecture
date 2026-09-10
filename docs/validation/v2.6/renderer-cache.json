@@ -1,0 +1,89 @@
+{
+  "changed" : {
+    "error" : "",
+    "hits" : 0,
+    "loaded" : false,
+    "misses" : 1,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/6e7b43f52baed93ebad1303734ec02293185ca5119d2ab10ed69ebccb636eb37.metalarc",
+    "saved" : false
+  },
+  "checks" : 40,
+  "cold" : {
+    "error" : "",
+    "hits" : 0,
+    "loaded" : false,
+    "misses" : 2,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/5223f72f132a04dec9418199c02f472675c08f06de71313b5b54560ddb596e69.metalarc",
+    "saved" : true
+  },
+  "corrupt" : {
+    "error" : "The file output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/5223f72f132a04dec9418199c02f472675c08f06de71313b5b54560ddb596e69.metalarc -- file:\/\/\/Users\/william\/dev\/architecture\/ has an invalid format.",
+    "hits" : 0,
+    "loaded" : false,
+    "misses" : 1,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/5223f72f132a04dec9418199c02f472675c08f06de71313b5b54560ddb596e69.metalarc",
+    "saved" : true
+  },
+  "device" : "Apple M3 Ultra",
+  "passed" : true,
+  "productionCold" : {
+    "error" : "",
+    "hits" : 0,
+    "loaded" : false,
+    "misses" : 24,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/production\/Metal\/60b3979711c51eb3631f0311f4d4f5e1f50acc4c4d6c2cf95554bef6817431bd.metalarc",
+    "saved" : true
+  },
+  "productionColdPhases" : {
+    "cacheWrite" : 0.061349749972578138,
+    "lightGrids" : 1.5041674487292767e-05,
+    "pipelines" : 0.0014722499763593078,
+    "raster" : 0.00081262498861178756,
+    "sceneBuffers" : 0.00015366665320470929,
+    "shaderLibrary" : 0.0014151250361464918,
+    "staticAccelerationStructure" : 0.0070075833355076611,
+    "traffic" : 0.00080600002547726035
+  },
+  "productionRaster" : {
+    "batches" : 1,
+    "error" : "",
+    "hit" : true,
+    "saved" : false,
+    "seconds" : 0.00011408334830775857
+  },
+  "productionWarm" : {
+    "error" : "",
+    "hits" : 24,
+    "loaded" : true,
+    "misses" : 0,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/production\/Metal\/60b3979711c51eb3631f0311f4d4f5e1f50acc4c4d6c2cf95554bef6817431bd.metalarc",
+    "saved" : false
+  },
+  "productionWarmPhases" : {
+    "cacheWrite" : 1.1666561476886272e-06,
+    "lightGrids" : 6.8332883529365063e-06,
+    "pipelines" : 0.00059670832706615329,
+    "raster" : 0.00032391666900366545,
+    "sceneBuffers" : 0.00013112503802403808,
+    "shaderLibrary" : 0.0019459999748505652,
+    "staticAccelerationStructure" : 0.00041320832679048181,
+    "traffic" : 0.00036354170879349113
+  },
+  "rasterBatchCount" : 29,
+  "unavailable" : {
+    "error" : "The file “null” couldn’t be saved in the folder “dev”.",
+    "hits" : 0,
+    "loaded" : false,
+    "misses" : 0,
+    "path" : "\/dev\/null\/atelier-test\/5223f72f132a04dec9418199c02f472675c08f06de71313b5b54560ddb596e69.metalarc",
+    "saved" : false
+  },
+  "warm" : {
+    "error" : "",
+    "hits" : 2,
+    "loaded" : true,
+    "misses" : 0,
+    "path" : "\/Users\/william\/dev\/architecture\/output\/startup-pipeline-validation\/cache-09D02878-869E-4F0C-A281-AA550B692D60\/5223f72f132a04dec9418199c02f472675c08f06de71313b5b54560ddb596e69.metalarc",
+    "saved" : false
+  }
+}

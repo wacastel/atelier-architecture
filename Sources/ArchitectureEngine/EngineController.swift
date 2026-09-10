@@ -102,6 +102,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     var timeLabel: String { String(format: "%02d:%02d / %02d:%02d", Int(playbackSeconds) / 60, Int(playbackSeconds) % 60, Int(walkthroughDuration) / 60, Int(walkthroughDuration) % 60) }
 
     func attach(view: MTKView) {
+        StartupMetrics.shared.mark("viewAttachedSeconds")
         self.view = view
         guard !loaded else { return }; loaded = true
         guard let device = MTLCreateSystemDefaultDevice() else { errorMessage = "No Metal GPU is available."; return }
@@ -196,20 +197,60 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
             let current = DispatchQueue.main.sync { self?.loadGeneration == generation }
             guard current else { return }
             do {
-                let scene = selected.build()
+                let preparationStart=CACurrentMediaTime()
+                StartupMetrics.shared.mark("preparationStartedSeconds")
+                let cache: CityCacheContext?
+                do { cache=try CityCache.context(world:selected.world) }
+                catch { cache=nil; StartupMetrics.shared.set("cacheSetupError",error.localizedDescription) }
+                let cachedScene=cache.flatMap { $0.forceRebuild ? nil:CityCache.loadScene(from:$0.sceneURL,key:$0.key) }
+                let scene = cachedScene ?? selected.build()
+                StartupMetrics.shared.set("sceneCacheHit",cachedScene != nil)
+                StartupMetrics.shared.set("scenePreparationSeconds",CACurrentMediaTime()-preparationStart)
+                let rendererStart=CACurrentMediaTime()
                 guard DispatchQueue.main.sync(execute: { self?.loadGeneration == generation }) else { return }
-                let nextRenderer = try MetalRenderer(scene: scene, device: device)
+                let nextRenderer = try MetalRenderer(scene:scene,device:device,cacheDirectory:cache?.directory,cacheKey:cache?.key ?? "",forceRebuildCache:cache?.forceRebuild ?? false)
+                StartupMetrics.shared.set("rendererPreparationSeconds",CACurrentMediaTime()-rendererStart)
+                StartupMetrics.shared.set("rendererPhases",nextRenderer.startupPhaseSeconds)
+                StartupMetrics.shared.set("rendererCaches",nextRenderer.startupCacheStatistics)
+                let focusStart=CACurrentMediaTime()
                 let nextFocusCatalog = LandmarkFocusCatalog(world: selected.world)
+                StartupMetrics.shared.set("focusPreparationSeconds",CACurrentMediaTime()-focusStart)
                 let denseRegions = nextFocusCatalog.authored.filter { $0.id == "chicago:cloud-gate" }.map {
                     CollisionWorld.PickingRegion(minimum: $0.bounds.minimum, maximum: $0.bounds.maximum)
                 }
-                let nextCollision = CollisionWorld(scene: scene, detailedPickingRegions: denseRegions)
+                let collisionStart=CACurrentMediaTime()
+                let cachedCollision=cache.flatMap { $0.forceRebuild ? nil:CollisionWorld.loadCache(from:$0.collisionURL,cacheKey:$0.key,detailedPickingRegions:denseRegions,expectedSceneTriangleCount:scene.triangleCount) }
+                let nextCollision = cachedCollision ?? CollisionWorld(scene:scene,detailedPickingRegions:denseRegions)
+                StartupMetrics.shared.set("collisionCacheHit",cachedCollision != nil)
+                StartupMetrics.shared.set("collisionPreparationSeconds",CACurrentMediaTime()-collisionStart)
+                StartupMetrics.shared.set("world",selected.world)
+                StartupMetrics.shared.set("staticTriangles",scene.triangleCount)
+                StartupMetrics.shared.set("cacheMode",cache == nil ? "disabled":(cache!.forceRebuild ? "rebuild":"automatic"))
+                // Misses are saved after the first visible-city submission, so
+                // first-time persistence does not extend the loading screen.
+                let persistence: (() -> String?)?
+                if let cache, cachedScene == nil || cachedCollision == nil {
+                    persistence = {
+                        do {
+                            if cachedScene == nil { try CityCache.writeScene(scene,to:cache.sceneURL,key:cache.key) }
+                            if cachedCollision == nil { try nextCollision.writeCache(to:cache.collisionURL,cacheKey:cache.key,detailedPickingRegions:denseRegions) }
+                            return nil
+                        } catch { return error.localizedDescription }
+                    }
+                } else { persistence=nil }
+                nextRenderer.firstPresentationHandler = { time, exact in
+                    StartupMetrics.shared.presented(at:time,exactTimestamp:exact,afterPresentation:persistence)
+                }
                 DispatchQueue.main.async {
                     guard let self, self.loadGeneration == generation else { return }
                     self.renderer = nextRenderer; self.collision = nextCollision; self.focusCatalog = nextFocusCatalog
                     self.triangleCount = nextRenderer.triangleCount
                     self.memoryMB = nextRenderer.allocatedMB
                     self.status = "Hardware ray tracing ready"
+                    StartupMetrics.shared.set("renderer",self.rendererMode.rawValue)
+                    StartupMetrics.shared.set("quality",["responsive","balanced","maximum"][max(0,min(2,self.quality))])
+                    StartupMetrics.shared.mark("cityReadySeconds")
+                    StartupMetrics.shared.set("drawableSize",[self.view?.drawableSize.width ?? 0,self.view?.drawableSize.height ?? 0])
                     self.isReady = true; self.applyViewSelection()
                     self.previousTime = CACurrentMediaTime(); self.synchronizePlayback()
                     self.view?.isPaused = false; self.focusViewport()
@@ -454,7 +495,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     func focusViewport() { if let view { view.window?.makeFirstResponder(view) } }
     private func synchronizePlayback() {
         lighting = playback.effectiveLighting
-        music.selectLocation(location.rawValue)
+        if !StartupMetrics.benchmark { music.selectLocation(location.rawValue) }
         chicagoDemoActive = playback.demoActive; chicagoDemoTitle = playback.demoTitle
         tourPlaying = playback.state == .playing
         playbackState = playback.state; playbackSpeed = playback.speed

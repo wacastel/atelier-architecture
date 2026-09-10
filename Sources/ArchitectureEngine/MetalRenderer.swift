@@ -3,6 +3,7 @@ import Metal
 import MetalKit
 import AppKit
 import simd
+import CryptoKit
 
 struct RenderOptions: Equatable {
     var exposure: Float = 1.0
@@ -96,6 +97,10 @@ final class MetalRenderer {
     let triangleCount: Int
     let detailCount: Int
     let buildSeconds: Double
+    let startupPhaseSeconds: [String: Double]
+    let startupCacheStatistics: [String: Any]
+    var firstPresentationHandler: ((Double, Bool) -> Void)?
+    private var firstPresentationProbe: FirstPresentationProbe?
     var accumulation: MTLTexture?
     var width = 0, height = 0
     var sampleCount: UInt32 = 0
@@ -115,8 +120,14 @@ final class MetalRenderer {
     private let semaphore = DispatchSemaphore(value: 2)
     var allocatedMB: Double { Double(device.currentAllocatedSize) / 1048576 }
 
-    init(scene: SceneData, device: MTLDevice) throws {
+    init(scene: SceneData, device: MTLDevice, cacheDirectory: URL? = nil, cacheKey: String = "", forceRebuildCache: Bool = false) throws {
         let start = Date()
+        var phases: [String: Double] = [:]
+        var phaseStart = ProcessInfo.processInfo.systemUptime
+        func phase(_ name: String) {
+            let now = ProcessInfo.processInfo.systemUptime
+            phases[name] = now - phaseStart; phaseStart = now
+        }
         self.device = device
         guard device.supportsRaytracing else { throw EngineError.message("This GPU does not support Metal ray tracing.") }
         guard let queue = device.makeCommandQueue() else { throw EngineError.message("Could not create Metal command queue.") }
@@ -130,35 +141,40 @@ final class MetalRenderer {
         let options = MTLCompileOptions()
         options.languageVersion = .version3_1
         let library = try device.makeLibrary(source: source, options: options)
+        let pipelineCache = MetalPipelineCache(device:device,
+            identity:cacheKey + "|MSL3.1|" + MetalPipelineCache.digest(Data(source.utf8)),
+            directory:cacheKey.isEmpty ? nil : cacheDirectory?.appendingPathComponent("Metal"),forceRebuild:forceRebuildCache)
+        phase("shaderLibrary")
         guard let kernel = library.makeFunction(name: "pathTrace"), let vertex = library.makeFunction(name: "fullscreenVertex"), let fragment = library.makeFunction(name: "presentFragment") else { throw EngineError.message("Metal shader entry points are missing.") }
-        tracePipeline = try device.makeComputePipelineState(function: kernel)
+        tracePipeline = try pipelineCache.compute(kernel)
         guard let direct=library.makeFunction(name:"directRayTrace"),let directTraffic=library.makeFunction(name:"directRayTraceTraffic") else { throw EngineError.message("Direct ray tracing entry points are missing.") }
-        directPipeline=try device.makeComputePipelineState(function:direct)
-        directTrafficPipeline=try device.makeComputePipelineState(function:directTraffic)
+        directPipeline=try pipelineCache.compute(direct)
+        directTrafficPipeline=try pipelineCache.compute(directTraffic)
         guard let nightKernel = library.makeFunction(name:"pathTraceNight") else { throw EngineError.message("Night ray tracing shader is missing.") }
-        nightTracePipeline = try device.makeComputePipelineState(function:nightKernel)
+        nightTracePipeline = try pipelineCache.compute(nightKernel)
         guard let dayInteriorKernel=library.makeFunction(name:"pathTraceDayInteriors") else { throw EngineError.message("Daylight interior ray tracing shader is missing.") }
-        dayInteriorTracePipeline=try device.makeComputePipelineState(function:dayInteriorKernel)
+        dayInteriorTracePipeline=try pipelineCache.compute(dayInteriorKernel)
         guard let indexedNightKernel=library.makeFunction(name:"pathTraceNightIndexed"),
               let indexedDayKernel=library.makeFunction(name:"pathTraceDayInteriorsIndexed") else {throw EngineError.message("Indexed lighting ray tracing shaders are missing.")}
-        indexedNightTracePipeline=try device.makeComputePipelineState(function:indexedNightKernel)
-        indexedDayInteriorTracePipeline=try device.makeComputePipelineState(function:indexedDayKernel)
+        indexedNightTracePipeline=try pipelineCache.compute(indexedNightKernel)
+        indexedDayInteriorTracePipeline=try pipelineCache.compute(indexedDayKernel)
         guard let surface = library.makeFunction(name: "primarySurface"),
               let temporal = library.makeFunction(name: "temporalResolve"),
               let spatial = library.makeFunction(name: "spatialFilter") else { throw EngineError.message("Reconstruction shader entry points are missing.") }
-        surfacePipeline = try device.makeComputePipelineState(function: surface)
-        temporalPipeline = try device.makeComputePipelineState(function: temporal)
-        spatialPipeline = try device.makeComputePipelineState(function: spatial)
+        surfacePipeline = try pipelineCache.compute(surface)
+        temporalPipeline = try pipelineCache.compute(temporal)
+        spatialPipeline = try pipelineCache.compute(spatial)
         let presentation = MTLRenderPipelineDescriptor()
         presentation.vertexFunction = vertex; presentation.fragmentFunction = fragment
         presentation.colorAttachments[0].pixelFormat = .bgra8Unorm
-        presentPipeline = try device.makeRenderPipelineState(descriptor: presentation)
+        presentPipeline = try pipelineCache.render(presentation)
         presentation.fragmentFunction = library.makeFunction(name:"focusedPresentFragment")
-        focusedPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
+        focusedPresentPipeline = try pipelineCache.render(presentation)
         presentation.fragmentFunction = library.makeFunction(name:"directPresentFragment")
-        directPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
+        directPresentPipeline = try pipelineCache.render(presentation)
         presentation.fragmentFunction = library.makeFunction(name:"directFocusedPresentFragment")
-        directFocusedPresentPipeline = try device.makeRenderPipelineState(descriptor:presentation)
+        directFocusedPresentPipeline = try pipelineCache.render(presentation)
+        phase("pipelines")
         guard !scene.vertices.isEmpty, scene.vertices.count % 3 == 0,
               scene.materialIndices.count == scene.triangleCount,
               scene.materialIndices.allSatisfy({ Int($0) < scene.materials.count }) else { throw EngineError.message("Invalid scene triangle or material buffers.") }
@@ -191,6 +207,7 @@ final class MetalRenderer {
         dayInteriorLightCount=interiorLights.count
         dayInteriorLightBuffer=try buffer(interiorLights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : interiorLights)
         dayInteriorLightBuffer.label="Always-on interior lighting"
+        phase("sceneBuffers")
         nightLightGrid=LightGrid(lights:scene.lights)
         dayLightGrid=LightGrid(lights:interiorLights)
         nightLightRanges=try buffer(nightLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:nightLightGrid.ranges)
@@ -198,6 +215,7 @@ final class MetalRenderer {
         dayLightRanges=try buffer(dayLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:dayLightGrid.ranges)
         dayLightIndices=try buffer(dayLightGrid.indices.isEmpty ? [UInt32(0)]:dayLightGrid.indices)
         triangleCount = scene.triangleCount + fleet.triangleCount; detailCount = scene.detailCount + fleet.vehicles.count
+        phase("lightGrids")
         let descriptor = MTLPrimitiveAccelerationStructureDescriptor()
         let geometries = GeometryPartition.descriptors(vertexBuffer: vertexBuffer, triangleCount: scene.triangleCount)
         descriptor.geometryDescriptors = geometries
@@ -211,8 +229,16 @@ final class MetalRenderer {
         encoder.build(accelerationStructure: acceleration, descriptor: descriptor, scratchBuffer: scratch, scratchBufferOffset: 0)
         encoder.endEncoding(); command.commit(); command.waitUntilCompleted()
         if let error = command.error { throw error }
-        traffic = fleet.vertices.isEmpty ? nil : try TrafficMetal(fleet:fleet,staticTriangleCount:scene.triangleCount,staticAcceleration:acceleration,vertices:vertexBuffer,device:device,library:library)
-        rasterRenderer = try RasterRenderer(scene:scene,fleet:fleet,device:device,library:library)
+        phase("staticAccelerationStructure")
+        traffic = fleet.vertices.isEmpty ? nil : try TrafficMetal(fleet:fleet,staticTriangleCount:scene.triangleCount,staticAcceleration:acceleration,vertices:vertexBuffer,device:device,library:library,pipelineCache:pipelineCache)
+        phase("traffic")
+        rasterRenderer = try RasterRenderer(scene:scene,fleet:fleet,device:device,library:library,pipelineCache:pipelineCache,
+            cacheDirectory:cacheDirectory,cacheKey:cacheKey,forceRebuildCache:forceRebuildCache)
+        phase("raster")
+        pipelineCache.save()
+        phase("cacheWrite")
+        startupCacheStatistics = ["pipelines":pipelineCache.statistics,"rasterBatches":rasterRenderer.cacheStatistics]
+        startupPhaseSeconds = phases
         buildSeconds = Date().timeIntervalSince(start)
     }
 
@@ -452,6 +478,11 @@ final class MetalRenderer {
             let selectionDepth = options.rayTracing ? (options.denoising && !options.directRayTracing ? normalGuides[historyIndex]:accumulation):texture
             try encodePresentation(command, descriptor: descriptor, uniforms: u, texture:texture,selectionDepth:selectionDepth,
                                    directRayTracing:options.rayTracing && options.directRayTracing)
+            if let handler = firstPresentationHandler {
+                firstPresentationHandler = nil
+                firstPresentationProbe = FirstPresentationProbe(handler:handler)
+            }
+            firstPresentationProbe?.observe(drawable)
             command.present(drawable)
             command.addCompletedHandler { [weak self] buffer in
                 if let self {
@@ -619,4 +650,110 @@ func writePNG(_ data: Data, width: Int, height: Int, to url: URL) throws {
           let png = NSBitmapImageRep(cgImage: cg).representation(using: .png, properties: [:]) else { throw EngineError.message("Could not encode PNG.") }
     try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
     try png.write(to: url)
+}
+
+
+/// Driver binaries are valid only for the matching GPU, OS build, executable,
+/// shader source, and pipeline configuration. Failure is always recoverable:
+/// Metal can compile the unchanged shader sources through its ordinary path.
+final class MetalPipelineCache {
+    private let device: MTLDevice
+    private let url: URL?
+    private var archive: MTLBinaryArchive?
+    private var changed = false
+    private(set) var hits = 0
+    private(set) var misses = 0
+    private(set) var loaded = false
+    private(set) var saveSucceeded = false
+    private(set) var errorDescription: String?
+
+    init(device: MTLDevice, identity: String, directory: URL?, forceRebuild: Bool = false) {
+        self.device = device
+        let key = Self.digest(Data(("metal-pipelines-v1|" + identity + "|" + device.name + "|" + String(device.registryID) + "|" + ProcessInfo.processInfo.operatingSystemVersionString).utf8))
+        url = directory?.appendingPathComponent(key + ".metalarc")
+        guard let directory, let url else { return }
+        do {
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            let descriptor = MTLBinaryArchiveDescriptor()
+            if !forceRebuild, FileManager.default.fileExists(atPath: url.path) {
+                descriptor.url = url
+                do { archive = try device.makeBinaryArchive(descriptor: descriptor); loaded = true }
+                catch { errorDescription = error.localizedDescription }
+            }
+            if archive == nil {
+                descriptor.url = nil
+                archive = try device.makeBinaryArchive(descriptor: descriptor)
+            }
+        } catch { errorDescription = error.localizedDescription }
+    }
+
+    var statistics: [String: Any] {
+        ["loaded": loaded, "hits": hits, "misses": misses, "saved": saveSucceeded,
+         "path": url?.path ?? "disabled", "error": errorDescription ?? ""]
+    }
+
+    func compute(_ function: MTLFunction) throws -> MTLComputePipelineState {
+        let descriptor = MTLComputePipelineDescriptor()
+        descriptor.computeFunction = function
+        if let archive {
+            descriptor.binaryArchives = [archive]
+            if let pipeline = try? device.makeComputePipelineState(descriptor: descriptor, options: [.failOnBinaryArchiveMiss], reflection: nil) {
+                hits += 1; return pipeline
+            }
+            misses += 1
+            do { try archive.addComputePipelineFunctions(descriptor: descriptor); changed = true }
+            catch { errorDescription = error.localizedDescription }
+            // A bad archive must not make a valid scene fail to launch.
+            if let pipeline = try? device.makeComputePipelineState(descriptor: descriptor, options: [], reflection: nil) { return pipeline }
+            descriptor.binaryArchives = []
+        }
+        return try device.makeComputePipelineState(descriptor: descriptor, options: [], reflection: nil)
+    }
+
+    func render(_ descriptor: MTLRenderPipelineDescriptor) throws -> MTLRenderPipelineState {
+        if let archive {
+            descriptor.binaryArchives = [archive]
+            if let pipeline = try? device.makeRenderPipelineState(descriptor: descriptor, options: [.failOnBinaryArchiveMiss], reflection: nil) {
+                hits += 1; return pipeline
+            }
+            misses += 1
+            do { try archive.addRenderPipelineFunctions(descriptor: descriptor); changed = true }
+            catch { errorDescription = error.localizedDescription }
+            if let pipeline = try? device.makeRenderPipelineState(descriptor: descriptor) { return pipeline }
+            descriptor.binaryArchives = []
+        }
+        return try device.makeRenderPipelineState(descriptor: descriptor)
+    }
+
+    func save() {
+        guard changed, let archive, let url else { return }
+        let temporary = url.deletingLastPathComponent().appendingPathComponent(".archive-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: temporary) }
+        do {
+            try archive.serialize(to: temporary)
+            try Data(contentsOf: temporary).write(to: url, options: .atomic)
+            changed = false; saveSucceeded = true
+        } catch { errorDescription = error.localizedDescription }
+    }
+
+    static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
+}
+
+/// Dropped or undisplayed drawables report zero presentedTime. Keep probing
+/// until Metal supplies the first positive on-screen presentation timestamp;
+/// neither GPU completion nor callback delivery is a visible-frame substitute.
+final class FirstPresentationProbe {
+    private let lock=NSLock()
+    private var handler: ((Double, Bool)->Void)?
+    init(handler:@escaping (Double, Bool)->Void) { self.handler=handler }
+    func observe(_ drawable: MTLDrawable) {
+        lock.lock();let active=handler != nil;lock.unlock()
+        guard active else { return }
+        drawable.addPresentedHandler { [self] shown in record(shown.presentedTime) }
+    }
+    func record(_ time:Double) {
+        guard time.isFinite,time>0 else { return }
+        lock.lock();let callback=handler;handler=nil;lock.unlock()
+        callback?(time,true)
+    }
 }

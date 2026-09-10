@@ -1,0 +1,8 @@
+{
+  "checks" : 17,
+  "failures" : [
+
+  ],
+  "passed" : true,
+  "scope" : "Actual StartupMetrics class with bounded semaphore-controlled overlapping world persistence; no native window, renderer, city build, or GPU work."
+}

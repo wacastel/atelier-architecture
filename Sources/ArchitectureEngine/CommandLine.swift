@@ -7,6 +7,24 @@ import CoreText
 
 @MainActor func runCommandLine() -> Bool {
     let args = Array(CommandLine.arguments.dropFirst())
+    let cacheValueFlags: Set<String> = ["--cache-dir","--cache-report","--precache-city","--startup-report"]
+    for flag in cacheValueFlags where args.contains(flag) {
+        guard args.filter({$0==flag}).count==1,let i=args.firstIndex(of:flag),i+1<args.count,!args[i+1].isEmpty,!args[i+1].hasPrefix("--") else {
+            fputs("\(flag) requires one value.\n",stderr);exit(2)
+        }
+    }
+    if CityPrecache.runIfRequested() { return true }
+    let exportFlags: Set<String> = ["--self-test","--render","--gallery","--video","--motion-test","--help"]
+    if !args.contains(where:exportFlags.contains) {
+        let switches: Set<String> = ["--startup-exit-after-first-frame","--no-city-cache","--force-rebuild-cache"]
+        var i=0,valid=true
+        while i<args.count {
+            if ["--cache-dir","--startup-report"].contains(args[i]) { i+=2 }
+            else if switches.contains(args[i]) { i+=1 }
+            else { valid=false;break }
+        }
+        if valid { return false }
+    }
     guard args.contains(where:{ ["--self-test","--render","--gallery","--video","--motion-test","--help"].contains($0) }) else {
         if args.contains(where: { $0.hasPrefix("--") }) {
             fputs("Choose --render, --gallery, --video or --self-test. Use --help for options.\n", stderr)
@@ -17,6 +35,13 @@ import CoreText
     if args.contains("--help") {
         print("""
         ATELIER — native Apple Silicon architectural renderer
+        --precache-city chicago|paris|all   Prepare launch caches without opening a window
+        --cache-dir directory       Override local city cache storage
+        --force-rebuild-cache       Rebuild prepared caches for this executable/resources
+        --cache-report report.json  Write precache timings and cache status
+        --startup-report report.json --startup-exit-after-first-frame
+                                   Measure a new native window through first city presentation
+        --no-city-cache             Disable cache reads/writes for a startup baseline
         --self-test                 Validate geometry, selected renderer and image output
         --render image.png          Render a still
         --gallery directory         Render every tour bookmark

@@ -1,0 +1,138 @@
+{
+  "version": "2.6.0",
+  "build": "21",
+  "signed": true,
+  "architecture": "arm64",
+  "executableSHA256": "ba0c5eac39dc247d71bec8fa31d1b44d33c401902ab33fd9a8ebe62ee898e278",
+  "resourceMatches": 30,
+  "resources": [
+    {
+      "path": "Chicago/ATTRIBUTION.txt",
+      "sha256": "4f19895e3e51725669e5f912b943ce3cc2632d292c98a743ffe453d8a033eec0"
+    },
+    {
+      "path": "Chicago/ChicagoContext.json",
+      "sha256": "2b7b9ef2dd40798bc58994e43dc7fb71fac2cdda56e9cf8b34ee8f4bfd58a904"
+    },
+    {
+      "path": "Denoise.metal",
+      "sha256": "1536f011e6c2ab3da841a05330e8e505dcc6a8da6aca5f6185038e4e10aa9764"
+    },
+    {
+      "path": "DirectRay.metal",
+      "sha256": "25162c6f21726b3873cd859d486a0f6ee1467a8d19a73180b26447a4e78c3f60"
+    },
+    {
+      "path": "HydePark/ATTRIBUTION.txt",
+      "sha256": "ec24d07995e1b9f3d599b5fd81f3cfd4b647bd830056cf7486380182176987eb"
+    },
+    {
+      "path": "HydePark/HydeParkContext.json",
+      "sha256": "ca892e39f99893d368d8579f6c945c87803ea33fd09a3d9d04756cfa0d5963ee"
+    },
+    {
+      "path": "Lakefront/ATTRIBUTION.txt",
+      "sha256": "375f9dda1846820f85fc025d05b40edc8b432905226880565e482a554849050b"
+    },
+    {
+      "path": "Lakefront/LakefrontContext.json",
+      "sha256": "a6ec6797b350126e334d03d0f7f98cb1a0404dc54280b498055e4adcb9c68330"
+    },
+    {
+      "path": "Millennium/ATTRIBUTION.txt",
+      "sha256": "d798830c9d80fabdd6a075a2fb3009a5ab5aa8ccb238a09e4d93d5576174c474"
+    },
+    {
+      "path": "Millennium/MillenniumContext.json",
+      "sha256": "b1f094e73b2524d5d67dc4fcc92549ef14353e4c57afecd5bc1af951357e2a5b"
+    },
+    {
+      "path": "MuseumCampus/MuseumCampusContext.json",
+      "sha256": "93bdd4e6190c60ec2d6ab912b58f5bca9741d758a2e5a9408508957bc76cbdae"
+    },
+    {
+      "path": "Music/01-lanterns-on-the-seine.m4a",
+      "sha256": "dc9d110d3748c2b104d70324ecdb60c9104708bdb10ea521e430b31070d4f551"
+    },
+    {
+      "path": "Music/02-between-steel-and-sky.m4a",
+      "sha256": "12d2960e04913977ef0eb63d28749d1404d74c80926b6aa744cb86740d28c544"
+    },
+    {
+      "path": "Music/03-clouds-in-silver.m4a",
+      "sha256": "9cd988fd203cfdaeef2e0adb5cbddc6b430bca7c9c3c39e157734c76a390cc76"
+    },
+    {
+      "path": "Music/04-a-longer-shore.m4a",
+      "sha256": "f0f2b35999631cf830f6d2ed7240ec905683cab65ccac3085df525c90dff3da5"
+    },
+    {
+      "path": "Music/05-small-constellations.m4a",
+      "sha256": "32e261afafbe45228b16b571537c0eb11fa0f681bbcafd448ad1670583c5e174"
+    },
+    {
+      "path": "Music/06-gardens-after-rain.m4a",
+      "sha256": "e7bee3367c8b868276def1c3879c95da3d706a23c4786a11d24dfe90e16bf215"
+    },
+    {
+      "path": "Music/07-light-through-amber.m4a",
+      "sha256": "7efb97bef4231ee730fb21545c2b1329bb35c3153df46d4c6c1c02354795763e"
+    },
+    {
+      "path": "Music/08-the-city-opens.m4a",
+      "sha256": "5d43981b8a8a8594014af7b7df02b632005abfd833f4637f31da19797589f7af"
+    },
+    {
+      "path": "Music/09-light-beneath-the-dome.m4a",
+      "sha256": "ea858c705abd1ad1da0426b5e542390fa99f368d89638cfe5de4ea5023bbffe3"
+    },
+    {
+      "path": "Music/10-turning-above-the-water.m4a",
+      "sha256": "5d6061f0da0768361940f865a4737735a32674728135a2ebe1e8a15a5dd39f00"
+    },
+    {
+      "path": "Music/manifest.json",
+      "sha256": "a90ecf855e75e7fa754c3b5ef186de307c5d22607d1b211d4b62f1ae265adf06"
+    },
+    {
+      "path": "NavyPier/NavyPierContext.json",
+      "sha256": "3a60a8759dbd860733492def22c36b15c30f87358cc946f14701b5ed1cf30359"
+    },
+    {
+      "path": "NorthSide/ATTRIBUTION.txt",
+      "sha256": "c33def15201d06a91d732053b34420680a6c2bd2a35717a4309f314fce896b1e"
+    },
+    {
+      "path": "NorthSide/NorthSideContext.json",
+      "sha256": "19939c4fcbf3aff24f46f1ffe6665b0a230ad1fd358c2f2dac61328e859edb01"
+    },
+    {
+      "path": "Paris/ATTRIBUTION.txt",
+      "sha256": "c46921835c3cb0ad9b85143c50ee9542ebe774b7cf41104af749d75906bba105"
+    },
+    {
+      "path": "Paris/ParisContext.json",
+      "sha256": "643a933c30d6a49f8331d40dc503c9c4d3776f1e02424b039b5b989f0bd7c1a6"
+    },
+    {
+      "path": "Raster.metal",
+      "sha256": "03b922e4c093b815693c5a7f186628360f06fa33ed495eec83cb94111490e1c3"
+    },
+    {
+      "path": "Renderer.metal",
+      "sha256": "1f8322a86a98bf5761fb14f21a162de6f82e8995f63bf29b36972b7086c59c13"
+    },
+    {
+      "path": "Sampling-LICENSE.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "cacheBytesIncludingMetalArchives": {
+    "chicago": 6975054825,
+    "paris": 1299971540
+  },
+  "nativeLaunchBenchmark": {
+    "completed": false,
+    "reason": "Mac locked. Native attempts timed out and are excluded from visible-startup performance claims."
+  }
+}

@@ -1,4 +1,6 @@
 import Foundation
+import CryptoKit
+import Darwin
 import simd
 
 /// CPU navigation BVH. Tiny decorative triangles are omitted; rendered geometry remains intact.
@@ -17,10 +19,14 @@ final class CollisionWorld {
     var triangles: [Triangle] = []
     var nodes: [Node] = []
     private var pickingDetail: CollisionWorld?
+    private var sourceTriangleCount = 0
+    private var retainedPickingRegions: [[UInt32]] = []
     var detailedPickingTriangleCount: Int { pickingDetail?.triangles.count ?? 0 }
     var detailedPickingNodeCount: Int { pickingDetail?.nodes.count ?? 0 }
 
     init(scene: SceneData, detailedPickingRegions: [PickingRegion] = []) {
+        sourceTriangleCount = scene.triangleCount
+        retainedPickingRegions = Self.regionIdentity(detailedPickingRegions)
         var detail: [Triangle] = []
         for i in stride(from: 0, to: scene.vertices.count, by: 3) {
             let a = scene.vertices[i].position.xyz, b = scene.vertices[i+1].position.xyz, c = scene.vertices[i+2].position.xyz
@@ -36,6 +42,154 @@ final class CollisionWorld {
     private init(pickingTriangles: [Triangle]) {
         triangles=pickingTriangles
         if !triangles.isEmpty { _ = build(0,triangles.count) }
+    }
+    private init(cachedTriangles: [Triangle], cachedNodes: [Node]) {
+        triangles = cachedTriangles; nodes = cachedNodes
+    }
+
+    // This cache stores the already partitioned BVHs, not a second approximation
+    // of the city. Changing the executable/resource key or picking regions makes
+    // it a miss. The format is local to this machine's Swift POD ABI and version.
+    private struct CacheHeader: Codable {
+        var version: Int
+        var cacheKey: String
+        var triangleStride, nodeStride, intWidth: Int
+        var sourceTriangles, navigationTriangles, navigationNodes, detailTriangles, detailNodes: Int
+        var regions: [[UInt32]]
+    }
+    private static let cacheMagic = Data("ATLCBVH1".utf8)
+    private static let cacheVersion = 1
+    private static func regionIdentity(_ regions: [PickingRegion]) -> [[UInt32]] {
+        regions.map { [$0.minimum.x.bitPattern, $0.minimum.y.bitPattern, $0.minimum.z.bitPattern,
+                       $0.maximum.x.bitPattern, $0.maximum.y.bitPattern, $0.maximum.z.bitPattern] }
+    }
+
+    /// A missing, stale, truncated, corrupt, or structurally invalid cache is a
+    /// normal miss. Queries never see arrays until their bounds/tree are checked.
+    static func loadCache(from url: URL, cacheKey: String, detailedPickingRegions: [PickingRegion] = [],
+                          expectedSceneTriangleCount: Int? = nil) -> CollisionWorld? {
+        guard let file = try? Data(contentsOf: url, options: .mappedIfSafe), file.count >= 48,
+              file.prefix(8) == cacheMagic else { return nil }
+        let headerSize64 = file.withUnsafeBytes { $0.loadUnaligned(fromByteOffset: 8, as: UInt64.self).littleEndian }
+        guard headerSize64 <= 131_072, headerSize64 <= UInt64(file.count - 48) else { return nil }
+        let headerEnd = 16 + Int(headerSize64)
+        guard let header = try? JSONDecoder().decode(CacheHeader.self, from: file.subdata(in: 16..<headerEnd)),
+              header.version == cacheVersion, header.cacheKey == cacheKey,
+              header.triangleStride == MemoryLayout<Triangle>.stride, header.nodeStride == MemoryLayout<Node>.stride,
+              header.intWidth == Int.bitWidth, header.regions == regionIdentity(detailedPickingRegions),
+              header.sourceTriangles >= 0, expectedSceneTriangleCount == nil || expectedSceneTriangleCount == header.sourceTriangles
+        else { return nil }
+        let counts = [header.navigationTriangles, header.navigationNodes, header.detailTriangles, header.detailNodes]
+        let strides = [MemoryLayout<Triangle>.stride, MemoryLayout<Node>.stride, MemoryLayout<Triangle>.stride, MemoryLayout<Node>.stride]
+        var remaining = file.count - headerEnd - 32
+        for (count, stride) in zip(counts, strides) {
+            guard count >= 0, count <= remaining / stride else { return nil }
+            remaining -= count * stride
+        }
+        guard remaining == 0, header.navigationTriangles <= header.sourceTriangles,
+              header.detailTriangles <= header.sourceTriangles - header.navigationTriangles else { return nil }
+        // Hashing a mapped Data slice does not copy the large BVH payload.
+        guard Data(SHA256.hash(data: file.prefix(file.count - 32))) == file.suffix(32) else { return nil }
+        var offset = headerEnd
+        func readArray<T>(_ type: T.Type, _ count: Int) -> [T] {
+            let byteCount = count * MemoryLayout<T>.stride
+            defer { offset += byteCount }
+            return Array<T>(unsafeUninitializedCapacity: count) { buffer, initializedCount in
+                if byteCount > 0 {
+                    file.withUnsafeBytes { bytes in
+                        UnsafeMutableRawBufferPointer(buffer).copyMemory(from: UnsafeRawBufferPointer(rebasing: bytes[offset..<(offset + byteCount)]))
+                    }
+                }
+                initializedCount = count
+            }
+        }
+        let navigationTriangles = readArray(Triangle.self, header.navigationTriangles)
+        let navigationNodes = readArray(Node.self, header.navigationNodes)
+        let detailTriangles = readArray(Triangle.self, header.detailTriangles)
+        let detailNodes = readArray(Node.self, header.detailNodes)
+        guard validCachedTree(triangles: navigationTriangles, nodes: navigationNodes),
+              validCachedTree(triangles: detailTriangles, nodes: detailNodes) else { return nil }
+        let result = CollisionWorld(cachedTriangles: navigationTriangles, cachedNodes: navigationNodes)
+        result.sourceTriangleCount = header.sourceTriangles
+        result.retainedPickingRegions = header.regions
+        if !detailTriangles.isEmpty { result.pickingDetail = CollisionWorld(cachedTriangles: detailTriangles, cachedNodes: detailNodes) }
+        return result
+    }
+
+    /// Write beside the destination and rename atomically, so another launch
+    /// sees either the previous complete BVH or the new complete BVH. A failed
+    /// write does not change the working in-memory navigation world.
+    func writeCache(to url: URL, cacheKey: String, detailedPickingRegions: [PickingRegion] = []) throws {
+        guard retainedPickingRegions == Self.regionIdentity(detailedPickingRegions) else {
+            throw CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: "Collision cache picking regions do not match the built world."])
+        }
+        let header = CacheHeader(version: Self.cacheVersion, cacheKey: cacheKey,
+            triangleStride: MemoryLayout<Triangle>.stride, nodeStride: MemoryLayout<Node>.stride, intWidth: Int.bitWidth,
+            sourceTriangles: sourceTriangleCount, navigationTriangles: triangles.count, navigationNodes: nodes.count,
+            detailTriangles: detailedPickingTriangleCount, detailNodes: detailedPickingNodeCount, regions: retainedPickingRegions)
+        let metadata = try JSONEncoder().encode(header)
+        let directory = url.deletingLastPathComponent()
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let temporary = directory.appendingPathComponent(".\(url.lastPathComponent).\(UUID().uuidString).tmp")
+        guard FileManager.default.createFile(atPath: temporary.path, contents: nil, attributes: [.posixPermissions: 0o600]) else {
+            throw CocoaError(.fileWriteUnknown)
+        }
+        defer { try? FileManager.default.removeItem(at: temporary) }
+        let handle = try FileHandle(forWritingTo: temporary)
+        defer { try? handle.close() }
+        var digest = SHA256()
+        func write(_ bytes: Data) throws { digest.update(data: bytes); try handle.write(contentsOf: bytes) }
+        try write(Self.cacheMagic)
+        var metadataSize = UInt64(metadata.count).littleEndian
+        try withUnsafeBytes(of: &metadataSize) { try write(Data($0)) }
+        try write(metadata)
+        func writeArray<T>(_ array: [T]) throws {
+            try array.withUnsafeBytes { bytes in
+                guard let base = bytes.baseAddress, !bytes.isEmpty else { return }
+                // This borrowed Data remains inside the array's lifetime; no
+                // second multi-hundred-megabyte serialization buffer is created.
+                try write(Data(bytesNoCopy: UnsafeMutableRawPointer(mutating: base), count: bytes.count, deallocator: .none))
+            }
+        }
+        try writeArray(triangles); try writeArray(nodes)
+        if let detail = pickingDetail { try writeArray(detail.triangles); try writeArray(detail.nodes) }
+        try handle.write(contentsOf: Data(digest.finalize()))
+        try handle.synchronize(); try handle.close()
+        guard rename(temporary.path, url.path) == 0 else { throw POSIXError(POSIXErrorCode(rawValue: errno) ?? .EIO) }
+    }
+
+    private static func validCachedTree(triangles: [Triangle], nodes: [Node]) -> Bool {
+        guard !triangles.isEmpty else { return nodes.isEmpty }
+        guard !nodes.isEmpty, nodes.count <= triangles.count * 2 else { return false }
+        func finite(_ p: SIMD3<Float>) -> Bool { p.x.isFinite && p.y.isFinite && p.z.isFinite }
+        func contains(_ lo: SIMD3<Float>, _ hi: SIMD3<Float>, _ p: SIMD3<Float>) -> Bool {
+            p.x >= lo.x && p.y >= lo.y && p.z >= lo.z && p.x <= hi.x && p.y <= hi.y && p.z <= hi.z
+        }
+        // Every child is later than its parent in the builder's preorder array.
+        // Requiring exactly one parent rules out cycles, shared nodes and orphans.
+        var parents = [UInt8](repeating: 0, count: nodes.count)
+        var covered = 0
+        for (index, node) in nodes.enumerated() {
+            guard finite(node.lo), finite(node.hi), node.lo.x <= node.hi.x, node.lo.y <= node.hi.y, node.lo.z <= node.hi.z,
+                  node.start >= 0, node.start < triangles.count, node.count >= 0, node.count <= triangles.count - node.start else { return false }
+            if node.count == 0 {
+                guard node.left > index, node.right > index, node.left < nodes.count, node.right < nodes.count, node.left != node.right else { return false }
+                for childIndex in [node.left, node.right] {
+                    guard parents[childIndex] == 0 else { return false }
+                    parents[childIndex] = 1
+                    let child = nodes[childIndex]
+                    guard contains(node.lo, node.hi, child.lo), contains(node.lo, node.hi, child.hi) else { return false }
+                }
+            } else {
+                guard node.left == -1, node.right == -1, node.start == covered else { return false }
+                for triangle in triangles[node.start..<(node.start + node.count)] {
+                    guard finite(triangle.a), finite(triangle.b), finite(triangle.c),
+                          contains(node.lo, node.hi, triangle.a), contains(node.lo, node.hi, triangle.b), contains(node.lo, node.hi, triangle.c) else { return false }
+                }
+                covered += node.count
+            }
+        }
+        return parents[0] == 0 && parents.dropFirst().allSatisfy { $0 == 1 } && covered == triangles.count
     }
     /// Combine the existing city BVH with only its opt-in omitted triangles.
     /// Both are nearest-hit queries, so either ordinary or dense foreground

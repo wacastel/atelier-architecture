@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "arguments": [
+        "--cache-dir"
+      ],
+      "expected": 2,
+      "exitCode": 2,
+      "passed": true,
+      "message": "--cache-dir requires one value."
+    },
+    {
+      "arguments": [
+        "--cache-dir",
+        "--help"
+      ],
+      "expected": 2,
+      "exitCode": 2,
+      "passed": true,
+      "message": "--cache-dir requires one value."
+    },
+    {
+      "arguments": [
+        "--startup-report"
+      ],
+      "expected": 2,
+      "exitCode": 2,
+      "passed": true,
+      "message": "--startup-report requires one value."
+    },
+    {
+      "arguments": [
+        "--precache-city",
+        "invalid"
+      ],
+      "expected": 1,
+      "exitCode": 1,
+      "passed": true,
+      "message": "City precache failed: Use --precache-city chicago|paris|all, without --no-city-cache."
+    },
+    {
+      "arguments": [
+        "--precache-city",
+        "chicago",
+        "--no-city-cache"
+      ],
+      "expected": 1,
+      "exitCode": 1,
+      "passed": true,
+      "message": "City precache failed: Use --precache-city chicago|paris|all, without --no-city-cache."
+    },
+    {
+      "arguments": [
+        "--cache-dir",
+        "a",
+        "--cache-dir",
+        "b"
+      ],
+      "expected": 2,
+      "exitCode": 2,
+      "passed": true,
+      "message": "--cache-dir requires one value."
+    }
+  ]
+}

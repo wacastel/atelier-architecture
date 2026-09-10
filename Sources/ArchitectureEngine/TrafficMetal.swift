@@ -35,10 +35,11 @@ final class TrafficMetal {
         return buffer
     }
     init(fleet: TrafficFleet, staticTriangleCount: Int, staticAcceleration: MTLAccelerationStructure,
-         vertices: MTLBuffer, device: MTLDevice, library: MTLLibrary) throws {
+         vertices: MTLBuffer, device: MTLDevice, library: MTLLibrary, pipelineCache: MetalPipelineCache? = nil) throws {
         self.fleet=fleet; self.staticTriangleCount=staticTriangleCount; self.device=device
         func pipeline(_ name:String) throws -> MTLComputePipelineState {
             guard let function=library.makeFunction(name:name) else { throw EngineError.message("Missing traffic kernel: \(name)") }
+            if let pipelineCache { return try pipelineCache.compute(function) }
             return try device.makeComputePipelineState(function:function)
         }
         tracePipelines = try ["pathTraceTrafficDay", "pathTraceTrafficDayInteriors", "pathTraceTrafficNight", "pathTraceTrafficDayIndexed", "pathTraceTrafficNightIndexed"].map(pipeline)
