@@ -34,9 +34,13 @@ struct WalkthroughPlayback {
     private(set) var location: ArchitectureLocation = .paris
     private(set) var lighting = 0
     private(set) var lightingOverridden = false
+    // An explicit bookmark selection restores its authored study without
+    // changing the automatic sequence's day/night pass parity.
+    private var selectedAuthoredLighting: Int?
     /// Renderer-facing lighting. A normal Skyline pass follows its authored
     /// studies; a night pass stays night. Explicit changes hold until pass wrap.
     var effectiveLighting: Int {
+        if let selectedAuthoredLighting, !lightingOverridden { return selectedAuthoredLighting }
         if !lightingOverridden && lighting != 2, let authored = location.preferredLighting(view:view) { return authored }
         return lighting
     }
@@ -92,6 +96,7 @@ struct WalkthroughPlayback {
         guard count > 0 else { return }
         let route = Self.chicagoDemoRoutes[((index % count) + count) % count]
         location = route.location; view = route.view
+        selectedAuthoredLighting = nil
         time = 0; idleTime = 0; idleDwellTime = 0
         direction = .forward; shuttle = 1
         state = .playing; idleCycling = false; demoActive = true
@@ -106,17 +111,23 @@ struct WalkthroughPlayback {
     mutating func selectLocation(_ value: ArchitectureLocation) {
         if demoActive, let index = Self.chicagoDemoRoutes.firstIndex(where: { $0.location == value }) {
             beginDemoRoute(index)
+            restoreAuthoredLightingForSelection()
             return
         }
         let pace = speed, drift = idleSpeed
         self = WalkthroughPlayback(location: value)
         speed = pace; idleSpeed = drift
     }
-    mutating func setLighting(_ value: Int) { lighting = max(0, min(3, value)); lightingOverridden = true }
+    mutating func setLighting(_ value: Int) { selectedAuthoredLighting = nil; lighting = max(0, min(3, value)); lightingOverridden = true }
     /// Lighting changes preserve the selected view, transport and both clocks.
-    mutating func toggleDayNight() { lighting = effectiveLighting == 2 ? 0 : 2; lightingOverridden = true }
+    mutating func toggleDayNight() { lighting = effectiveLighting == 2 ? 0 : 2; selectedAuthoredLighting = nil; lightingOverridden = true }
+    private mutating func restoreAuthoredLightingForSelection() {
+        guard let authored = location.preferredLighting(view:view) else { return }
+        selectedAuthoredLighting = authored; lightingOverridden = false
+    }
     private mutating func completeLightingPasses(_ wraps: Int, crossedPair: Bool = false) {
         guard wraps != 0 || crossedPair else { return }
+        selectedAuthoredLighting = nil
         lightingOverridden = false
         if lighting != 2 { lighting = 0 }
         if wraps % 2 != 0 { lighting = lighting == 2 ? 0 : 2 }
@@ -126,6 +137,7 @@ struct WalkthroughPlayback {
     /// keep sequencing. Outside a demo they hold the selected idle view.
     mutating func select(_ index: Int) {
         view = ((index % location.stops.count) + location.stops.count) % location.stops.count
+        restoreAuthoredLightingForSelection()
         time = 0; idleTime = 0; idleDwellTime = 0; state = demoActive ? .playing : .idle; direction = .forward; shuttle = 1
         idleCycling = false
     }
@@ -145,6 +157,7 @@ struct WalkthroughPlayback {
         if destination >= count { destination -= count; wraps += 1 }
         completeLightingPasses(wraps)
         beginDemoRoute(destination)
+        if wraps == 0 { restoreAuthoredLightingForSelection() }
     }
     mutating func setSpeed(_ value: Double) {
         guard Self.speeds.contains(value) else { return }
@@ -210,6 +223,7 @@ struct WalkthroughPlayback {
                 completeLightingPasses(wraps, crossedPair:increment >= period)
                 view = next % count
                 let crossedView = increment >= Self.idleViewDuration - idleDwellTime
+                if crossedView { selectedAuthoredLighting = nil }
                 idleDwellTime = total.truncatingRemainder(dividingBy: Self.idleViewDuration)
                 idleTime = crossedView ? idleDwellTime : idleTime + increment
             } else {
@@ -240,6 +254,7 @@ struct WalkthroughPlayback {
         completeLightingPasses(wraps, crossedPair:elapsed >= pairSeconds)
         let position = absolute.truncatingRemainder(dividingBy: pass)
         guard let route = Self.chicagoDemoRoutes.last(where: { $0.start <= position }) else { return }
+        if location != route.location || view != route.view || wraps != 0 || elapsed >= pairSeconds { selectedAuthoredLighting = nil }
         location = route.location; view = route.view
         time = min(route.duration, max(0, position - route.start))
         idleTime = 0; idleDwellTime = 0

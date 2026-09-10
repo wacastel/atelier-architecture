@@ -27,7 +27,12 @@ enum CityPrecache {
                     result["sceneHit"]=existing != nil
                     result["sceneLoadOrBuildSeconds"]=CACurrentMediaTime()-stage
                     if existing==nil { stage=CACurrentMediaTime();try CityCache.writeScene(scene,to:cache.sceneURL,key:cache.key);result["sceneWriteSeconds"]=CACurrentMediaTime()-stage }
-                    let catalog=LandmarkFocusCatalog(world:location.world)
+                    stage=CACurrentMediaTime()
+                    let loadedCatalog=cache.forceRebuild ? nil:LandmarkFocusCatalog.loadCache(from:cache.focusURL,key:cache.key)
+                    let catalog=loadedCatalog ?? LandmarkFocusCatalog(world:location.world)
+                    result["focusHit"]=loadedCatalog != nil
+                    result["focusLoadOrBuildSeconds"]=CACurrentMediaTime()-stage
+                    if loadedCatalog==nil { try catalog.writeCache(to:cache.focusURL,key:cache.key) }
                     let regions=catalog.authored.filter{$0.id=="chicago:cloud-gate"}.map{CollisionWorld.PickingRegion(minimum:$0.bounds.minimum,maximum:$0.bounds.maximum)}
                     stage=CACurrentMediaTime()
                     let loadedCollision=cache.forceRebuild ? nil:CollisionWorld.loadCache(from:cache.collisionURL,cacheKey:cache.key,detailedPickingRegions:regions,expectedSceneTriangleCount:scene.triangleCount)

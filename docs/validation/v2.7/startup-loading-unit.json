@@ -1,0 +1,28 @@
+{
+  "checks" : 122801,
+  "failures" : [
+
+  ],
+  "passed" : true,
+  "scope" : "CPU-only compact metadata cache round trips, every authored\/mapped record, exact Float bits including signed zeros, rebuilt index queries, signed malformed data, stale\/corrupt\/truncated cache rejection and atomic-write failure; measured loading phases, parallel ordering and first-presentation completion. Metadata build\/read\/write timings are isolated CLI measurements, not application startup. No city geometry or GPU initialization.",
+  "worlds" : [
+    {
+      "authored" : 35,
+      "bytes" : 16528400,
+      "cacheLoadSeconds" : 0.099091791664250195,
+      "cacheWriteSeconds" : 0.083739166671875864,
+      "mapped" : 54998,
+      "metadataBuildSeconds" : 0.98408904165262356,
+      "world" : "chicago"
+    },
+    {
+      "authored" : 3,
+      "bytes" : 992432,
+      "cacheLoadSeconds" : 0.0049793750513345003,
+      "cacheWriteSeconds" : 0.0050668750191107392,
+      "mapped" : 2760,
+      "metadataBuildSeconds" : 0.049046124971937388,
+      "world" : "paris"
+    }
+  ]
+}

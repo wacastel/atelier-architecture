@@ -3,14 +3,14 @@ import QuartzCore
 import AppKit
 
 /// Measures the city drawable's presentation notification, not window creation.
-/// Some macOS display sessions return no actual scanout timestamp; those runs
-/// retain an explicitly labeled callback-time proxy rather than inventing one.
+/// Invalid drawable timestamps are ignored by the renderer's presentation probe.
 final class StartupMetrics: @unchecked Sendable {
     static let shared = StartupMetrics()
     let started = CACurrentMediaTime()
     private let lock = NSLock()
     private var values: [String: Any] = [:]
     private var didPresent = false
+    private var rayPreparationReport: [String:Any] = [:]
     static var arguments: [String] { Array(CommandLine.arguments.dropFirst()) }
     static func argument(_ flag: String) -> String? {
         let a=arguments
@@ -23,6 +23,19 @@ final class StartupMetrics: @unchecked Sendable {
         if Self.benchmark { fputs("Startup \(key): \(value)\n",stderr) }
     }
     func mark(_ key: String) { set(key,CACurrentMediaTime()-started) }
+    func recordRayPreparation(presentationUptime: Double,seconds: Double,buildSeconds: Double?,error: String?) {
+        lock.lock();defer { lock.unlock() }
+        // A superseded load may never present. Ownership follows the actual
+        // first visible drawable, rather than an assumed load generation.
+        guard didPresent,values["firstPresentedUptime"] as? Double == presentationUptime else { return }
+        var report: [String:Any] = ["rayTracingPreparationSucceeded":error == nil]
+        if let error {
+            report["rayTracingPreparationFailedSeconds"]=seconds
+            report["rayTracingPreparationError"]=error
+        } else { report["rayTracingReadySeconds"]=seconds }
+        if let buildSeconds { report["backgroundAccelerationBuildSeconds"]=buildSeconds }
+        rayPreparationReport=report
+    }
     private func writeReport(_ report: [String: Any]) {
         do {
             let destination: URL
@@ -64,7 +77,10 @@ final class StartupMetrics: @unchecked Sendable {
                 let start=CACurrentMediaTime(), error=work()
                 if let error { fputs("City cache persistence: \(error)\n",stderr) }
                 if var report=firstReport {
-                    report["cachePersistenceAfterFirstFrameSeconds"]=CACurrentMediaTime()-start
+                    self.lock.lock();let rayReport=self.rayPreparationReport;self.lock.unlock()
+                    report.merge(rayReport){_,new in new}
+                    report["postPresentationWorkSeconds"]=CACurrentMediaTime()-start
+                    if rayReport.isEmpty { report["cachePersistenceAfterFirstFrameSeconds"]=CACurrentMediaTime()-start }
                     if let error { report["cacheWriteError"]=error }
                     self.writeReport(report)
                 }

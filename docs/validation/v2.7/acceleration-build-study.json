@@ -1,0 +1,76 @@
+{
+  "device" : "Apple M3 Ultra",
+  "results" : [
+    {
+      "accelerationBytes" : 4154882816,
+      "buildSeconds" : 3.6290214167092927,
+      "cameras" : [
+        {
+          "camera" : 0,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.14775001909583807
+        },
+        {
+          "camera" : 1,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.15329162124544382
+        },
+        {
+          "camera" : 2,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.1730833319015801
+        }
+      ],
+      "mode" : "default",
+      "scratchBytes" : 3061978944
+    },
+    {
+      "accelerationBytes" : 4154882816,
+      "buildSeconds" : 5.4453975416254252,
+      "cameras" : [
+        {
+          "camera" : 0,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.15333329793065786
+        },
+        {
+          "camera" : 1,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.19937503384426236
+        },
+        {
+          "camera" : 2,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.15237502520903945
+        }
+      ],
+      "mode" : "fast-build",
+      "scratchBytes" : 3061978944
+    },
+    {
+      "accelerationBytes" : 4154882816,
+      "buildSeconds" : 5.6676927916705608,
+      "cameras" : [
+        {
+          "camera" : 0,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.14783331425860524
+        },
+        {
+          "camera" : 1,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.16366661293432117
+        },
+        {
+          "camera" : 2,
+          "distanceMismatches" : 0,
+          "medianRayMilliseconds" : 0.17087504966184497
+        }
+      ],
+      "mode" : "default-repeat",
+      "scratchBytes" : 3061978944
+    }
+  ],
+  "source" : "v2.6 validated city cache",
+  "triangles" : 46966436
+}

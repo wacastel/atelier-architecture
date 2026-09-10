@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Measure a new native Atelier window through its first actual city presentation.
+"""Measure first city presentation and ray-tracing resource readiness separately.
 
 This deliberately does not time CLI rendering or use `open`, which could reuse
 an already-running process. Existing Atelier processes are left alone.
@@ -89,7 +89,7 @@ def validate_cache_mode(report, mode, report_path):
         if report.get(key):
             raise RuntimeError(f"Cache failure ({key}) invalidates {mode}: {report_path}")
     expected_hit = mode == "warm"
-    for key in ("sceneCacheHit", "collisionCacheHit"):
+    for key in ("sceneCacheHit", "collisionCacheHit", "focusCacheHit"):
         if report.get(key) is not expected_hit:
             raise RuntimeError(f"Expected {mode} {key}={expected_hit}: {report_path}")
     renderer_caches = report.get("rendererCaches", {})
@@ -110,6 +110,44 @@ def validate_cache_mode(report, mode, report_path):
         raise RuntimeError(f"Cold pipeline rebuild was not observed: {report_path}")
     if mode == "baseline" and (hits != 0 or misses != 0 or pipelines.get("path") != "disabled"):
         raise RuntimeError(f"Baseline pipeline cache was not disabled: {report_path}")
+
+
+def ray_preparation_measurement(report, first_seconds, process_seconds, report_path):
+    """Keep visible preview latency distinct from resources becoming usable."""
+    first_renderer = report.get("firstFrameRenderer")
+    if first_renderer not in ("raster", "pathTracing", "directRayTracing"):
+        raise RuntimeError(f"Missing valid firstFrameRenderer: {report_path}")
+    background = report.get("backgroundRayPreparation")
+    if type(background) is not bool:
+        raise RuntimeError(f"Missing backgroundRayPreparation state: {report_path}")
+    if background and first_renderer != "raster":
+        raise RuntimeError(f"Background ray preparation requires a raster first frame: {report_path}")
+    if (report.get("rayTracingPreparationSucceeded") is not True
+            or report.get("rayTracingPreparationError")):
+        raise RuntimeError(f"Ray-tracing resources were not successfully prepared: {report_path}")
+    numbers = {}
+    for key in ("rayTracingReadySeconds", "backgroundAccelerationBuildSeconds",
+                "appStartedUptime", "processSpawnUptime"):
+        value = report.get(key)
+        if (type(value) not in (int, float) or not math.isfinite(value)
+                or value < 0 or (key != "backgroundAccelerationBuildSeconds" and value == 0)):
+            raise RuntimeError(f"Missing valid {key}: {report_path}")
+        numbers[key] = value
+    start_offset = numbers["appStartedUptime"] - numbers["processSpawnUptime"]
+    if start_offset < 0:
+        raise RuntimeError(f"App startup precedes process spawn: {report_path}")
+    ready_seconds = numbers["rayTracingReadySeconds"] + start_offset
+    if background and ready_seconds < first_seconds:
+        raise RuntimeError(f"Background ray resources ready before first presentation: {report_path}")
+    if ready_seconds > process_seconds + 0.25:
+        raise RuntimeError(f"Ray-tracing readiness exceeds the child lifetime: {report_path}")
+    if numbers["backgroundAccelerationBuildSeconds"] > numbers["rayTracingReadySeconds"]:
+        raise RuntimeError(f"Acceleration build duration exceeds resource readiness: {report_path}")
+    return {"firstFrameRenderer": first_renderer,
+            "backgroundRayPreparation": background,
+            "rayTracingReadySeconds": numbers["rayTracingReadySeconds"],
+            "backgroundAccelerationBuildSeconds": numbers["backgroundAccelerationBuildSeconds"],
+            "launchToRayTracingResourcesReadySeconds": ready_seconds}
 
 
 def main():
@@ -141,9 +179,10 @@ def main():
     results.mkdir()
     modes = ("baseline", "cold", "warm") if args.mode == "all" else (args.mode,)
     document = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "startedAtUTC": stamp,
         "measurement": "New native process launch to first positive city MTLDrawable presentedTime",
+        "secondaryMeasurement": "Process launch to ray-tracing resources ready; not the first ray-traced presentation",
         "requiresActualPresentedTimestamp": True,
         "executable": str(executable),
         "executableSHA256": sha256(executable),
@@ -153,6 +192,8 @@ def main():
             "Filesystem and operating-system caches are not purged between runs.",
             "Existing applications and GPU workloads are not stopped.",
             "First presentation does not measure steady-state FPS or path-tracing convergence.",
+            "The actual first-frame renderer is recorded separately from the requested renderer.",
+            "Ray-tracing resources ready does not certify a ray-traced frame has been displayed.",
             "Callback-only reports without a positive actual presentedTime are diagnostic evidence and are rejected.",
         ],
         "modes": {},
@@ -222,20 +263,33 @@ def main():
                     raise RuntimeError(f"Missing valid launchToFirstPresentedSeconds in {report_path}")
                 if seconds > process_seconds + 0.25:
                     raise RuntimeError(f"Presentation time exceeds the child lifetime: {report_path}")
+                ray_measurement = ray_preparation_measurement(report, seconds, process_seconds, report_path)
                 entries.append({"report": str(report_path),
                                 "launchToFirstPresentedSeconds": seconds,
-                                "processLifetimeSeconds": process_seconds})
-                print(f"  City presentation: {seconds:.3f}s ({report['timingSource']})", flush=True)
+                                "processLifetimeSeconds": process_seconds,
+                                **ray_measurement})
+                print(f"  City presentation: {seconds:.3f}s ({ray_measurement['firstFrameRenderer']}; "
+                      f"{report['timingSource']}); ray-tracing resources ready: "
+                      f"{ray_measurement['launchToRayTracingResourcesReadySeconds']:.3f}s", flush=True)
                 save()
             values = [entry["launchToFirstPresentedSeconds"] for entry in entries]
+            ray_values = [entry["launchToRayTracingResourcesReadySeconds"] for entry in entries]
             document["modes"][mode].update({"medianSeconds": statistics.median(values),
-                                            "minimumSeconds": min(values), "maximumSeconds": max(values)})
+                                            "minimumSeconds": min(values), "maximumSeconds": max(values),
+                                            "medianRayTracingResourcesReadySeconds": statistics.median(ray_values),
+                                            "minimumRayTracingResourcesReadySeconds": min(ray_values),
+                                            "maximumRayTracingResourcesReadySeconds": max(ray_values),
+                                            "medianBackgroundAccelerationBuildSeconds": statistics.median(
+                                                entry["backgroundAccelerationBuildSeconds"] for entry in entries)})
             save()
         if "baseline" in document["modes"] and "warm" in document["modes"]:
             baseline = document["modes"]["baseline"]["medianSeconds"]
             warm = document["modes"]["warm"]["medianSeconds"]
             document["warmMedianSpeedup"] = baseline / warm
             document["warmMedianReductionPercent"] = 100 * (1 - warm / baseline)
+            document["warmRayTracingResourcesReadySpeedup"] = (
+                document["modes"]["baseline"]["medianRayTracingResourcesReadySeconds"] /
+                document["modes"]["warm"]["medianRayTracingResourcesReadySeconds"])
         document["completed"] = True
         save()
     except (OSError, ValueError, RuntimeError, KeyboardInterrupt) as error:
@@ -247,7 +301,8 @@ def main():
     print(f"Results: {summary_path}")
     for mode, measured in document["modes"].items():
         print(f"{mode}: median {measured['medianSeconds']:.3f}s "
-              f"(range {measured['minimumSeconds']:.3f}–{measured['maximumSeconds']:.3f}s)")
+              f"(range {measured['minimumSeconds']:.3f}–{measured['maximumSeconds']:.3f}s); "
+              f"ray-tracing resources ready median {measured['medianRayTracingResourcesReadySeconds']:.3f}s")
     return 0
 
 

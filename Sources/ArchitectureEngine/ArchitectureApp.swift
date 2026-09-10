@@ -116,7 +116,7 @@ private final class ArchitectureApplicationDelegate: NSObject, NSApplicationDele
     @objc private func showAbout() {
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "ATELIER",
-            .applicationVersion: "2.6.0 · Paris & Chicago",
+            .applicationVersion: "2.7.0 · Paris & Chicago",
             .credits: NSAttributedString(string: "A native Metal architectural observatory.\nParis · Chicago from Robie House to Wrigley Field.\nReference-informed architecture and mapped surroundings.")
         ])
     }
@@ -191,7 +191,9 @@ private struct ArchitectureWorkspace: View {
                         }
                     }
                     Spacer(minLength: 20)
-                    if engine.isMapMode { mapModePanel } else { tourPanel(compact:geometry.size.height<850) }
+                    if !engine.loadingOverlayVisible {
+                        if engine.isMapMode { mapModePanel } else { tourPanel(compact:geometry.size.height<850) }
+                    }
                 }
                 .padding(.horizontal, 38)
                 .padding(.top, geometry.size.height<800 ? 30:50)
@@ -217,7 +219,10 @@ private struct ArchitectureWorkspace: View {
                     }
                 }.padding(25)
             }
-            if !engine.isReady { loadingPanel }
+            if engine.loadingOverlayVisible {
+                if engine.errorMessage != nil { loadingPanel }
+                else { LoadingCityView(snapshot:engine.loadingSnapshot,isChicago:engine.location.world == "chicago") }
+            }
             if engine.showHelp { helpPanel }
             if let notice {
                 VStack {
@@ -368,6 +373,7 @@ private struct ArchitectureWorkspace: View {
     }
 
     private var toolbar: some View {
+        VStack(alignment:.trailing,spacing:7) {
         HStack(spacing: 4) {
             RendererSelectionMenu(engine: engine, selection: engine.rendererMode, isReady: engine.isReady)
                 .equatable()
@@ -382,6 +388,12 @@ private struct ArchitectureWorkspace: View {
                 .disabled(!engine.isReady)
             iconButton("questionmark", help: "Navigation controls · ?", active: engine.showHelp) { engine.showHelp.toggle() }
         }.padding(5).glassPanel(radius: 13)
+        if engine.isReady && (engine.rayTracingPreparing || engine.rayTracingPreparationError != nil) {
+            Label(engine.rayTracingPreparationError == nil ? "CITY PREVIEW · PREPARING RAY TRACING":"FAST RASTER · RAY TRACING UNAVAILABLE",systemImage:"sparkles")
+                .font(.system(size:8,weight:.medium)).tracking(1.2).foregroundStyle(accent)
+                .padding(.horizontal,12).padding(.vertical,6).glassPanel(radius:7)
+        }
+        }
     }
 
     private var performancePanel: some View {
@@ -402,6 +414,7 @@ private struct ArchitectureWorkspace: View {
             metric("Triangles", value: engine.triangleCount.formatted())
             metric(engine.rendererMode == .pathTracing ? "Accumulated samples":"Rendering", value: engine.rendererMode == .pathTracing ? engine.samples.formatted():engine.rendererMode.title)
             metric("Metal allocations", value: engine.memoryMB >= 1024 ? String(format: "%.2f GB", engine.memoryMB / 1024) : String(format: "%.0f MiB", engine.memoryMB))
+            startupTimingButton
         }.padding(17).frame(width: 234).glassPanel(radius: 13)
     }
 
@@ -411,6 +424,7 @@ private struct ArchitectureWorkspace: View {
             Rectangle().fill(.white.opacity(0.15)).frame(width: 1, height: 14)
             Text(String(format: "%.2fM triangles", Double(engine.triangleCount) / 1_000_000)).monospacedDigit()
             Text(String(format: "%.2f GB", engine.memoryMB / 1024)).monospacedDigit().foregroundStyle(.white.opacity(0.55))
+            startupTimingButton
         }.font(.system(size: 9, weight: .medium)).padding(.horizontal, 12).padding(.vertical, 10).glassPanel(radius: 10)
     }
 
@@ -420,6 +434,16 @@ private struct ArchitectureWorkspace: View {
             Spacer()
             Text(value).monospacedDigit().foregroundStyle(.white.opacity(0.9))
         }.font(.system(size: 10))
+    }
+
+    private var startupTimingButton: some View {
+        Button { engine.showStartupTimings.toggle() } label: {
+            Label(engine.loadingSnapshot.progress<1 ? "Loading \(String(format:"%.1fs",engine.loadingSnapshot.elapsed))":"City \(String(format:"%.1fs",engine.loadingSnapshot.elapsed))",systemImage:"stopwatch")
+                .font(.system(size:9,weight:.medium)).monospacedDigit().foregroundStyle(accent)
+        }.buttonStyle(.plain).help("Startup measurements · preparation steps and first visible city")
+            .popover(isPresented:$engine.showStartupTimings,arrowEdge:.bottom) {
+                StartupTimingView(snapshot:engine.loadingSnapshot,rayPreparing:engine.rayTracingPreparing,rayReadySeconds:engine.rayTracingReadySeconds,rayError:engine.rayTracingPreparationError)
+            }
     }
 
     private func tourPanel(compact: Bool) -> some View {
@@ -615,10 +639,6 @@ private struct ArchitectureWorkspace: View {
                 Image(systemName: "exclamationmark.triangle").font(.system(size: 26)).foregroundStyle(accent)
                 Text("The scene could not open").font(.system(size: 22, design: .serif))
                 Text(error).font(.system(size: 12)).foregroundStyle(.secondary).multilineTextAlignment(.center)
-            } else {
-                ProgressView().controlSize(.small)
-                Text("Assembling an icon").font(.system(size: 24, weight: .regular, design: .serif))
-                Text(engine.status).font(.system(size: 11)).foregroundStyle(.secondary).multilineTextAlignment(.center)
             }
         }.padding(32).frame(width: 380).glassPanel(radius: 18)
     }

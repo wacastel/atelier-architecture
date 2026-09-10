@@ -1,0 +1,24 @@
+Startup mainEnteredSeconds: 7.916649337857962e-06
+Startup viewAttachedSeconds: 0.19085591670591384
+Startup preparationStartedSeconds: 0.336089541669935
+Startup sceneCacheHit: true
+Startup scenePreparationSeconds: 2.131156541639939
+Startup rendererPreparationSeconds: 0.4283048749784939
+Startup rendererPhases: ["traffic": 0.005054291686974466, "shaderLibrary": 0.003300166630651802, "raster": 0.0026057083159685135, "pipelines": 0.0007831250550225377, "lightGrids": 0.016136166697833687, "cacheWrite": 2.333370503038168e-06, "sceneBuffers": 0.3922777916304767, "staticAccelerationStructure": 0.00045520829735323787]
+Startup rendererCaches: ["rasterBatches": ["seconds": 0.0013643333222717047, "saved": false, "hit": true, "batches": 31642, "error": ""], "rayTracingDeferred": true, "pipelines": ["misses": 0, "loaded": true, "saved": false, "hits": 24, "error": "", "path": "/Users/william/Library/Caches/local.atelier.architecture/City/v1/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082/chicago/Metal/fd982888f9bb8142217c9f1f0049984bdf86c91718d9254e6226e380e0fed7df.metalarc"]]
+Startup focusPreparationSeconds: 0.1064744166797027
+Startup focusCacheHit: true
+Startup collisionCacheHit: true
+Startup collisionPreparationSeconds: 1.2979480833164416
+Startup navigationLoadedInParallel: true
+Startup world: chicago
+Startup staticTriangles: 46966436
+Startup cacheMode: automatic
+Startup renderer: pathTracing
+Startup quality: balanced
+Startup cityReadySeconds: 2.9006672499817796
+Startup preRenderingSeconds: 2.9006726249936037
+Startup drawableSize: [2880.0, 1920.0]
+Startup preparationSteps: [["durationSeconds": 0.03286791668506339, "id": "identity", "title": "Checking prepared city"], ["id": "geometry", "title": "Loading buildings and streets", "durationSeconds": 2.0981332499650307], ["title": "Preparing landmarks and navigation", "id": "navigation", "durationSeconds": 2.5266965833725408], ["durationSeconds": 0.004078458296135068, "id": "shaders", "title": "Loading Metal shaders"], ["durationSeconds": 0.39227729162666947, "id": "buffers", "title": "Preparing GPU geometry"], ["id": "lighting", "durationSeconds": 0.016583791642915457, "title": "Preparing lighting"], ["durationSeconds": 0.005048083374276757, "title": "Preparing boats and traffic", "id": "traffic"], ["title": "Preparing the viewport", "id": "raster", "durationSeconds": 0.0026571250054985285], ["id": "presentation", "durationSeconds": 0.2530791250173934, "title": "Displaying the city"]]
+Startup firstFrameRenderer: raster
+Startup backgroundRayPreparation: true

@@ -9,7 +9,7 @@ struct RenderOptions: Equatable {
     var exposure: Float = 1.0
     var bounces: Float = 3
     var lighting: Int = 0
-    var sunsetBuildingLights: Bool = true
+    var sunsetBuildingLights: Bool = false
     var denoising: Bool = true
     var regularization: Bool = true
     var lowDiscrepancySampling: Bool = true
@@ -93,6 +93,13 @@ final class MetalRenderer {
     let indexBuffer: MTLBuffer
     let materialBuffer: MTLBuffer
     let accelerationStructure: MTLAccelerationStructure
+    private let accelerationPreparation: StaticAccelerationPreparation
+    var rayTracingReady: Bool { accelerationPreparation.ready }
+    var rayTracingPreparationSeconds: Double? { accelerationPreparation.buildSeconds }
+    private var firstFrameRendererName: String?
+    var firstFrameRenderer: String? {
+        metricsLock.lock(); defer { metricsLock.unlock() }; return firstFrameRendererName
+    }
     let staticGeometrySections: [[String:Int]]
     let triangleCount: Int
     let detailCount: Int
@@ -120,10 +127,13 @@ final class MetalRenderer {
     private let semaphore = DispatchSemaphore(value: 2)
     var allocatedMB: Double { Double(device.currentAllocatedSize) / 1048576 }
 
-    init(scene: SceneData, device: MTLDevice, cacheDirectory: URL? = nil, cacheKey: String = "", forceRebuildCache: Bool = false) throws {
+    init(scene: SceneData, device: MTLDevice, cacheDirectory: URL? = nil, cacheKey: String = "", forceRebuildCache: Bool = false, startupProgress: ((String, Double) -> Void)? = nil, deferRayTracingBuild: Bool = false) throws {
         let start = Date()
         var phases: [String: Double] = [:]
         var phaseStart = ProcessInfo.processInfo.systemUptime
+        let rendererStartUptime = phaseStart
+        func begin(_ name:String) { startupProgress?(name,ProcessInfo.processInfo.systemUptime-rendererStartUptime) }
+        begin("shaderLibrary")
         func phase(_ name: String) {
             let now = ProcessInfo.processInfo.systemUptime
             phases[name] = now - phaseStart; phaseStart = now
@@ -145,6 +155,7 @@ final class MetalRenderer {
             identity:cacheKey + "|MSL3.1|" + MetalPipelineCache.digest(Data(source.utf8)),
             directory:cacheKey.isEmpty ? nil : cacheDirectory?.appendingPathComponent("Metal"),forceRebuild:forceRebuildCache)
         phase("shaderLibrary")
+        begin("pipelines")
         guard let kernel = library.makeFunction(name: "pathTrace"), let vertex = library.makeFunction(name: "fullscreenVertex"), let fragment = library.makeFunction(name: "presentFragment") else { throw EngineError.message("Metal shader entry points are missing.") }
         tracePipeline = try pipelineCache.compute(kernel)
         guard let direct=library.makeFunction(name:"directRayTrace"),let directTraffic=library.makeFunction(name:"directRayTraceTraffic") else { throw EngineError.message("Direct ray tracing entry points are missing.") }
@@ -175,6 +186,7 @@ final class MetalRenderer {
         presentation.fragmentFunction = library.makeFunction(name:"directFocusedPresentFragment")
         directFocusedPresentPipeline = try pipelineCache.render(presentation)
         phase("pipelines")
+        begin("sceneBuffers")
         guard !scene.vertices.isEmpty, scene.vertices.count % 3 == 0,
               scene.materialIndices.count == scene.triangleCount,
               scene.materialIndices.allSatisfy({ Int($0) < scene.materials.count }) else { throw EngineError.message("Invalid scene triangle or material buffers.") }
@@ -208,6 +220,7 @@ final class MetalRenderer {
         dayInteriorLightBuffer=try buffer(interiorLights.isEmpty ? [SceneLight(positionRadius:.zero,directionCone:.zero,colorPower:.zero,parameters:.zero)] : interiorLights)
         dayInteriorLightBuffer.label="Always-on interior lighting"
         phase("sceneBuffers")
+        begin("lightGrids")
         nightLightGrid=LightGrid(lights:scene.lights)
         dayLightGrid=LightGrid(lights:interiorLights)
         nightLightRanges=try buffer(nightLightGrid.ranges.isEmpty ? [SIMD2<UInt32>(0,0)]:nightLightGrid.ranges)
@@ -216,30 +229,43 @@ final class MetalRenderer {
         dayLightIndices=try buffer(dayLightGrid.indices.isEmpty ? [UInt32(0)]:dayLightGrid.indices)
         triangleCount = scene.triangleCount + fleet.triangleCount; detailCount = scene.detailCount + fleet.vehicles.count
         phase("lightGrids")
+        begin("staticAccelerationStructure")
         let descriptor = MTLPrimitiveAccelerationStructureDescriptor()
         let geometries = GeometryPartition.descriptors(vertexBuffer: vertexBuffer, triangleCount: scene.triangleCount)
         descriptor.geometryDescriptors = geometries
         staticGeometrySections = geometries.map { ["vertexBufferOffsetBytes":$0.vertexBufferOffset,
             "triangleCount":$0.triangleCount,"vertexSpanBytes":$0.triangleCount*3*MemoryLayout<SceneVertex>.stride] }
-        let sizes = device.accelerationStructureSizes(descriptor: descriptor)
-        guard let acceleration = device.makeAccelerationStructure(size: sizes.accelerationStructureSize),
-              let scratch = device.makeBuffer(length: sizes.buildScratchBufferSize, options: .storageModePrivate),
-              let command = queue.makeCommandBuffer(), let encoder = command.makeAccelerationStructureCommandEncoder() else { throw EngineError.message("Could not allocate ray tracing acceleration structure.") }
-        accelerationStructure = acceleration; acceleration.label = scene.name + " static triangle BVH"
-        encoder.build(accelerationStructure: acceleration, descriptor: descriptor, scratchBuffer: scratch, scratchBufferOffset: 0)
-        encoder.endEncoding(); command.commit(); command.waitUntilCompleted()
-        if let error = command.error { throw error }
+        let preparation = try StaticAccelerationPreparation(device:device,descriptor:descriptor,label:scene.name + " static triangle BVH")
+        accelerationPreparation = preparation
+        let acceleration = preparation.acceleration
+        accelerationStructure = acceleration
+        if !deferRayTracingBuild { try preparation.prepare() }
         phase("staticAccelerationStructure")
+        begin("traffic")
         traffic = fleet.vertices.isEmpty ? nil : try TrafficMetal(fleet:fleet,staticTriangleCount:scene.triangleCount,staticAcceleration:acceleration,vertices:vertexBuffer,device:device,library:library,pipelineCache:pipelineCache)
         phase("traffic")
+        begin("raster")
         rasterRenderer = try RasterRenderer(scene:scene,fleet:fleet,device:device,library:library,pipelineCache:pipelineCache,
             cacheDirectory:cacheDirectory,cacheKey:cacheKey,forceRebuildCache:forceRebuildCache)
         phase("raster")
+        begin("cacheWrite")
         pipelineCache.save()
         phase("cacheWrite")
-        startupCacheStatistics = ["pipelines":pipelineCache.statistics,"rasterBatches":rasterRenderer.cacheStatistics]
+        begin("ready")
+        startupCacheStatistics = ["pipelines":pipelineCache.statistics,"rasterBatches":rasterRenderer.cacheStatistics,
+            "rayTracingDeferred":deferRayTracingBuild]
         startupPhaseSeconds = phases
         buildSeconds = Date().timeIntervalSince(start)
+    }
+
+    /// Call on a background loader after the first raster frame is presented.
+    /// All buffers remain resident and the original tracing build flags are kept.
+    /// Concurrent calls join the same build; errors leave raster rendering usable.
+    func prepareRayTracing(progress: ((String, Double)->Void)? = nil) throws {
+        let started=ProcessInfo.processInfo.systemUptime
+        progress?("staticAccelerationStructure",0)
+        try accelerationPreparation.prepare()
+        progress?("rayTracingReady",ProcessInfo.processInfo.systemUptime-started)
     }
 
     /// Nonthrowing absolute timeline input. Calling with the same time is a
@@ -254,6 +280,7 @@ final class MetalRenderer {
     func resetAccumulation() { sampleCount = 0 }
     /// Call after stopping submissions, before replacing a location's resources.
     func waitUntilIdle() {
+        accelerationPreparation.waitUntilIdle()
         guard let fence = queue.makeCommandBuffer() else { return }
         fence.commit(); fence.waitUntilCompleted()
     }
@@ -313,6 +340,7 @@ final class MetalRenderer {
     }
 
     private func encodeTrace(_ command: MTLCommandBuffer, pose: CameraPose, options: RenderOptions) throws -> FrameUniforms {
+        guard rayTracingReady else { throw EngineError.message("Ray tracing is still preparing. Raster rendering is available.") }
         rayTracingDispatchCount += 1
         try traffic?.encodeUpdate(command,time:sceneTime,vertices:vertexBuffer)
         guard let texture = accumulation, let encoder = command.makeComputeCommandEncoder() else { throw EngineError.message("Ray tracing encoder unavailable.") }
@@ -349,6 +377,7 @@ final class MetalRenderer {
     }
 
     private func encodeDirect(_ command:MTLCommandBuffer,pose:CameraPose,options:RenderOptions) throws -> FrameUniforms {
+        guard rayTracingReady else { throw EngineError.message("Ray tracing is still preparing. Raster rendering is available.") }
         resetAccumulation();resetReconstruction()
         try traffic?.encodeUpdate(command,time:sceneTime,vertices:vertexBuffer)
         guard let texture=accumulation,let encoder=command.makeComputeCommandEncoder() else { throw EngineError.message("Direct ray encoder unavailable.") }
@@ -448,6 +477,9 @@ final class MetalRenderer {
 
     func draw(view: MTKView, pose: CameraPose, options: RenderOptions, renderWidth: Int, reset: Bool, samplesPerFrame: Int = 4, resetHistory: Bool = false) throws -> Bool {
         guard let drawable = view.currentDrawable, let descriptor = view.currentRenderPassDescriptor else { return false }
+        var options=options
+        if !rayTracingReady { options.rayTracing=false;options.directRayTracing=false }
+        let actualRenderer=options.rayTracing ? (options.directRayTracing ? "directRayTracing":"pathTracing"):"raster"
         let aspect = max(1,view.drawableSize.height) / max(1,view.drawableSize.width)
         let requestedWidth = Double(max(1,min(8192,renderWidth)))
         let requestedHeight = max(1,requestedWidth*aspect)
@@ -482,7 +514,10 @@ final class MetalRenderer {
                 firstPresentationHandler = nil
                 firstPresentationProbe = FirstPresentationProbe(handler:handler)
             }
-            firstPresentationProbe?.observe(drawable)
+            firstPresentationProbe?.observe(drawable) { [weak self] in
+                guard let self else { return }
+                self.metricsLock.lock();self.firstFrameRendererName=actualRenderer;self.metricsLock.unlock()
+            }
             command.present(drawable)
             command.addCompletedHandler { [weak self] buffer in
                 if let self {
@@ -746,14 +781,67 @@ final class FirstPresentationProbe {
     private let lock=NSLock()
     private var handler: ((Double, Bool)->Void)?
     init(handler:@escaping (Double, Bool)->Void) { self.handler=handler }
-    func observe(_ drawable: MTLDrawable) {
+    func observe(_ drawable: MTLDrawable, beforeReporting: (() -> Void)? = nil) {
         lock.lock();let active=handler != nil;lock.unlock()
         guard active else { return }
-        drawable.addPresentedHandler { [self] shown in record(shown.presentedTime) }
+        drawable.addPresentedHandler { [self] shown in record(shown.presentedTime,beforeReporting:beforeReporting) }
     }
-    func record(_ time:Double) {
+    func record(_ time:Double,beforeReporting:(()->Void)? = nil) {
         guard time.isFinite,time>0 else { return }
         lock.lock();let callback=handler;handler=nil;lock.unlock()
-        callback?(time,true)
+        if let callback { beforeReporting?();callback(time,true) }
+    }
+}
+
+/// Owns an immutable city build on a separate Metal queue. Publication of the
+/// completed AS is synchronized; no tracing command can consume a partial BVH.
+final class StaticAccelerationPreparation {
+    let acceleration: MTLAccelerationStructure
+    private let queue: MTLCommandQueue
+    private let descriptor: MTLPrimitiveAccelerationStructureDescriptor
+    private var scratch: MTLBuffer?
+    private let condition=NSCondition()
+    private enum State { case pending, building, ready, failed(Error) }
+    private var state=State.pending
+    private var seconds:Double?
+    var ready:Bool { condition.lock();defer { condition.unlock() };if case .ready=state { return true };return false }
+    var buildSeconds:Double? { condition.lock();defer { condition.unlock() };return seconds }
+    init(device:MTLDevice,descriptor:MTLPrimitiveAccelerationStructureDescriptor,label:String) throws {
+        self.descriptor=descriptor
+        let sizes=device.accelerationStructureSizes(descriptor:descriptor)
+        guard let queue=device.makeCommandQueue(),let acceleration=device.makeAccelerationStructure(size:sizes.accelerationStructureSize),
+              let scratch=device.makeBuffer(length:sizes.buildScratchBufferSize,options:.storageModePrivate) else {
+            throw EngineError.message("Could not allocate ray tracing acceleration structure.")
+        }
+        self.queue=queue;queue.label="Background static city preparation"
+        self.acceleration=acceleration;acceleration.label=label;self.scratch=scratch
+    }
+    func prepare() throws {
+        condition.lock()
+        while case .building=state { condition.wait() }
+        switch state {
+        case .ready: condition.unlock();return
+        case .failed(let error): condition.unlock();throw error
+        case .pending: state = .building;condition.unlock()
+        case .building: preconditionFailure("Condition wait returned while building")
+        }
+        let started=ProcessInfo.processInfo.systemUptime
+        do {
+            guard let scratch,let command=queue.makeCommandBuffer(),let encoder=command.makeAccelerationStructureCommandEncoder() else {
+                throw EngineError.message("Could not encode ray tracing acceleration structure.")
+            }
+            encoder.build(accelerationStructure:acceleration,descriptor:descriptor,scratchBuffer:scratch,scratchBufferOffset:0)
+            encoder.endEncoding();command.commit();command.waitUntilCompleted()
+            if let error=command.error { throw error }
+            condition.lock();seconds=ProcessInfo.processInfo.systemUptime-started
+            self.scratch=nil;state = .ready;condition.broadcast();condition.unlock()
+        } catch {
+            condition.lock();self.scratch=nil;state = .failed(error);condition.broadcast();condition.unlock()
+            throw error
+        }
+    }
+    func waitUntilIdle() {
+        condition.lock();defer { condition.unlock() }
+        while case .building=state { condition.wait() }
     }
 }

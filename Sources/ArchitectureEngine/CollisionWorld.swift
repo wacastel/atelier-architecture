@@ -19,7 +19,7 @@ final class CollisionWorld {
     var triangles: [Triangle] = []
     var nodes: [Node] = []
     private var pickingDetail: CollisionWorld?
-    private var sourceTriangleCount = 0
+    private(set) var sourceTriangleCount = 0
     private var retainedPickingRegions: [[UInt32]] = []
     var detailedPickingTriangleCount: Int { pickingDetail?.triangles.count ?? 0 }
     var detailedPickingNodeCount: Int { pickingDetail?.nodes.count ?? 0 }

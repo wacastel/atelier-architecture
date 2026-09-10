@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 2,
+  "startedAtUTC": "20260910T121630.602892Z",
+  "measurement": "New native process launch to first positive city MTLDrawable presentedTime",
+  "secondaryMeasurement": "Process launch to ray-tracing resources ready; not the first ray-traced presentation",
+  "requiresActualPresentedTimestamp": true,
+  "executable": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "executableSHA256": "31c1a095d4eefb7beb221b47fb4d604b8ee869d29d068af74067b6d506697736",
+  "cacheDirectory": "/Users/william/Library/Caches/local.atelier.architecture/City/v1",
+  "runsPerMode": 3,
+  "limitations": [
+    "Filesystem and operating-system caches are not purged between runs.",
+    "Existing applications and GPU workloads are not stopped.",
+    "First presentation does not measure steady-state FPS or path-tracing convergence.",
+    "The actual first-frame renderer is recorded separately from the requested renderer.",
+    "Ray-tracing resources ready does not certify a ray-traced frame has been displayed.",
+    "Callback-only reports without a positive actual presentedTime are diagnostic evidence and are rejected."
+  ],
+  "modes": {
+    "warm": {
+      "runs": [
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-release/20260910T121630.602892Z/warm-1.json",
+          "launchToFirstPresentedSeconds": 3.1614698750781827,
+          "processLifetimeSeconds": 4.915937665966339,
+          "firstFrameRenderer": "raster",
+          "backgroundRayPreparation": true,
+          "rayTracingReadySeconds": 4.798666458344087,
+          "backgroundAccelerationBuildSeconds": 1.6334742499748245,
+          "launchToRayTracingResourcesReadySeconds": 4.80634991673287
+        },
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-release/20260910T121630.602892Z/warm-2.json",
+          "launchToFirstPresentedSeconds": 3.2280634173657745,
+          "processLifetimeSeconds": 5.26923416700447,
+          "firstFrameRenderer": "raster",
+          "backgroundRayPreparation": true,
+          "rayTracingReadySeconds": 5.143353083345573,
+          "backgroundAccelerationBuildSeconds": 1.9101975000230595,
+          "launchToRayTracingResourcesReadySeconds": 5.150051084056031
+        },
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-release/20260910T121630.602892Z/warm-3.json",
+          "launchToFirstPresentedSeconds": 3.174664000456687,
+          "processLifetimeSeconds": 5.073833583039232,
+          "firstFrameRenderer": "raster",
+          "backgroundRayPreparation": true,
+          "rayTracingReadySeconds": 4.9770639166818,
+          "backgroundAccelerationBuildSeconds": 1.7973101667012088,
+          "launchToRayTracingResourcesReadySeconds": 4.983543792099226
+        }
+      ],
+      "medianSeconds": 3.174664000456687,
+      "minimumSeconds": 3.1614698750781827,
+      "maximumSeconds": 3.2280634173657745,
+      "medianRayTracingResourcesReadySeconds": 4.983543792099226,
+      "minimumRayTracingResourcesReadySeconds": 4.80634991673287,
+      "maximumRayTracingResourcesReadySeconds": 5.150051084056031,
+      "medianBackgroundAccelerationBuildSeconds": 1.7973101667012088
+    }
+  },
+  "precacheProcessSeconds": 8.245654750033282,
+  "configuration": {
+    "renderer": "pathTracing",
+    "quality": "balanced",
+    "drawableSize": [
+      2880,
+      1920
+    ],
+    "staticTriangles": 46966436,
+    "world": "chicago",
+    "timingSource": "drawable presentedTime",
+    "actualPresentTimestampAvailable": true
+  },
+  "completed": true
+}

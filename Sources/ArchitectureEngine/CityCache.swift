@@ -8,6 +8,7 @@ struct CityCacheContext {
     let forceRebuild: Bool
     var sceneURL: URL { directory.appendingPathComponent("scene.bin") }
     var collisionURL: URL { directory.appendingPathComponent("collision.bin") }
+    var focusURL: URL { directory.appendingPathComponent("landmarks.bin") }
 }
 
 /// Local, disposable caches are keyed by executable and geometry-resource bytes.

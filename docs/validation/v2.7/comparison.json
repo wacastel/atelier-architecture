@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "configuration": {
+    "renderer": "pathTracing",
+    "quality": "balanced",
+    "drawableSize": [
+      2880,
+      1920
+    ],
+    "staticTriangles": 46966436,
+    "world": "chicago",
+    "timingSource": "drawable presentedTime",
+    "actualPresentTimestampAvailable": true
+  },
+  "runsEach": 3,
+  "beforeMedianSeconds": 10.629021458385978,
+  "afterMedianSeconds": 3.174664000456687,
+  "waitingReductionPercent": 70.13211410960157,
+  "beforeFirstFrameRenderer": "pathTracing",
+  "afterFirstFrameRenderer": "raster",
+  "afterMedianRayTracingResourcesReadySeconds": 4.983543792099226,
+  "scope": "Unlocked, sequential, fresh native warm-cache launches on the same Mac; positive Metal presentedTime. Version 2.7 shows full-geometry Fast Raster before unchanged ray-tracing preparation. Resources-ready does not certify a displayed ray-traced frame or convergence. macOS filesystem caches were not purged.",
+  "beforeExecutableSHA256": "ba0c5eac39dc247d71bec8fa31d1b44d33c401902ab33fd9a8ebe62ee898e278",
+  "afterExecutableSHA256": "31c1a095d4eefb7beb221b47fb4d604b8ee869d29d068af74067b6d506697736"
+}

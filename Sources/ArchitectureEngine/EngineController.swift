@@ -26,11 +26,36 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     func cancelViewportInput()
 }
 
+private final class NavigationPreparation {
+    let done = DispatchGroup()
+    var catalog: LandmarkFocusCatalog?
+    var collision: CollisionWorld?
+    var focusHit = false
+    var focusSeconds = 0.0
+    var collisionSeconds = 0.0
+}
+
+/// The controller stops drawing and gives up its renderer before this handoff.
+/// Only its thread-safe drain operation is used on the loader queue.
+private final class RetiringRenderer: @unchecked Sendable {
+    let renderer: MetalRenderer?
+    init(_ renderer: MetalRenderer?) { self.renderer=renderer }
+    func waitUntilIdle() { renderer?.waitUntilIdle() }
+}
+
 @MainActor final class EngineController: ObservableObject {
     @Published var status = "Preparing Willis Tower and Chicago…"
     @Published private(set) var location: ArchitectureLocation = .chicago
     @Published var isFullscreen = false
     @Published var isReady = false
+    @Published private(set) var loadingSnapshot = CityLoadingProgress().snapshot
+    @Published private(set) var loadingOverlayVisible = true
+    @Published private(set) var rayTracingPreparing = false
+    @Published private(set) var rayTracingReadySeconds: Double?
+    @Published private(set) var rayTracingPreparationError: String?
+    @Published var showStartupTimings = false
+    private var loadingProgress = CityLoadingProgress()
+    private var loadingTimer: Timer?
     @Published var errorMessage: String?
     @Published var fps = 0.0
     @Published var gpuMilliseconds = 0.0
@@ -53,7 +78,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     @Published var currentStop = 0
     @Published var quality = 1
     @Published var lighting = 0
-    @Published private(set) var sunsetBuildingLights = true
+    @Published private(set) var sunsetBuildingLights = false
     @Published var exposure = 1.0
     @Published private(set) var navigationMode = 1
     @Published private(set) var mapViewSpan: Float = 1800
@@ -118,6 +143,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
         if value == location {
             if playback.demoActive {
                 playback.selectLocation(value)
+                resetAuthoredViewControls()
                 applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
                 focusViewport()
             }
@@ -127,6 +153,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
             // The park and tower are bookmarks in the same world. Keep the GPU
             // scene resident, changing only the camera and its playback clock.
             location = value; playback.selectLocation(value); lighting = playback.effectiveLighting
+            resetAuthoredViewControls()
             applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
             view?.window?.title = "ATELIER / \(value.name)"; focusViewport()
             return
@@ -180,18 +207,41 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
     private func loadLocation(_ selected: ArchitectureLocation, device: MTLDevice) {
         loadGeneration += 1
         let generation = loadGeneration
-        let previousRenderer = renderer
+        let preparationQueue = sceneQueue
+        let loadingStarted = generation == 1 ? StartupMetrics.shared.started:CACurrentMediaTime()
+        loadingProgress=CityLoadingProgress(world:selected.world,started:loadingStarted)
+        loadingSnapshot=loadingProgress.snapshot; loadingOverlayVisible=true
+        rayTracingPreparing=false;rayTracingReadySeconds=nil;rayTracingPreparationError=nil
+        loadingTimer?.invalidate()
+        loadingTimer=Timer.scheduledTimer(withTimeInterval:0.1,repeats:true) { [weak self] _ in
+            MainActor.assumeIsolated {
+                guard let self else { return }
+                self.loadingProgress.tick();self.loadingSnapshot=self.loadingProgress.snapshot
+            }
+        }
+        let loadingStep: (String,Bool)->Void = { [weak self] name, completed in
+            let now=CACurrentMediaTime()
+            DispatchQueue.main.async {
+                guard let self,self.loadGeneration==generation else { return }
+                if completed { self.loadingProgress.complete(name,at:now) }
+                else { self.loadingProgress.begin(name,at:now) }
+                self.loadingSnapshot=self.loadingProgress.snapshot
+            }
+        }
+        let previousRenderer = RetiringRenderer(renderer)
         // Main-thread drawing stops before the previous GPU queue is drained.
         isReady = false; view?.isPaused = true; keys.removeAll()
-        previousRenderer?.waitUntilIdle()
         renderer = nil; collision = nil; focusCatalog = nil; clearObjectFocus(); errorMessage = nil
-        location = selected; playback.selectLocation(selected)
+        location = selected; playback.selectLocation(selected); resetAuthoredViewControls()
         lighting = playback.effectiveLighting; applyViewSelection(); synchronizePlayback()
         status = "Preparing \(selected.name) and \(selected.shortName)…"
         view?.window?.title = "ATELIER / \(selected.name)"
         triangleCount = 0; memoryMB = 0; samples = 0; fps = 0
         frameTimes.removeAll()
         sceneQueue.async { [weak self] in
+            // A preceding world's deferred ray build may still be running. Its
+            // drain belongs on the loader queue, never on the UI thread.
+            previousRenderer.waitUntilIdle()
             // The serial loader avoids concurrent multi-million-triangle builds.
             // Superseded requests are skipped before allocating a new scene.
             let current = DispatchQueue.main.sync { self?.loadGeneration == generation }
@@ -199,59 +249,127 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
             do {
                 let preparationStart=CACurrentMediaTime()
                 StartupMetrics.shared.mark("preparationStartedSeconds")
+                loadingStep("identity",false)
                 let cache: CityCacheContext?
                 do { cache=try CityCache.context(world:selected.world) }
                 catch { cache=nil; StartupMetrics.shared.set("cacheSetupError",error.localizedDescription) }
+                loadingStep("identity",true)
+                // Cached navigation does not depend on decoding the scene first.
+                // Join before enabling input, and verify its source count below.
+                let navigation=NavigationPreparation();navigation.done.enter()
+                loadingStep("navigation",false)
+                DispatchQueue.global(qos:.userInitiated).async {
+                    defer { navigation.done.leave() }
+                    let start=CACurrentMediaTime()
+                    let cached=cache.flatMap{$0.forceRebuild ? nil:LandmarkFocusCatalog.loadCache(from:$0.focusURL,key:$0.key)}
+                    let catalog=cached ?? LandmarkFocusCatalog(world:selected.world)
+                    navigation.catalog=catalog;navigation.focusHit=cached != nil
+                    navigation.focusSeconds=CACurrentMediaTime()-start
+                    let regions=catalog.authored.filter{$0.id=="chicago:cloud-gate"}.map{CollisionWorld.PickingRegion(minimum:$0.bounds.minimum,maximum:$0.bounds.maximum)}
+                    let collisionStart=CACurrentMediaTime()
+                    navigation.collision=cache.flatMap{$0.forceRebuild ? nil:CollisionWorld.loadCache(from:$0.collisionURL,cacheKey:$0.key,detailedPickingRegions:regions)}
+                    navigation.collisionSeconds=CACurrentMediaTime()-collisionStart
+                }
+                loadingStep("geometry",false)
                 let cachedScene=cache.flatMap { $0.forceRebuild ? nil:CityCache.loadScene(from:$0.sceneURL,key:$0.key) }
                 let scene = cachedScene ?? selected.build()
+                loadingStep("geometry",true)
                 StartupMetrics.shared.set("sceneCacheHit",cachedScene != nil)
                 StartupMetrics.shared.set("scenePreparationSeconds",CACurrentMediaTime()-preparationStart)
                 let rendererStart=CACurrentMediaTime()
                 guard DispatchQueue.main.sync(execute: { self?.loadGeneration == generation }) else { return }
-                let nextRenderer = try MetalRenderer(scene:scene,device:device,cacheDirectory:cache?.directory,cacheKey:cache?.key ?? "",forceRebuildCache:cache?.forceRebuild ?? false)
+                var activeRendererStep: String?
+                let rendererProgress: (String,Double)->Void = { phase,_ in
+                    let mapping=["shaderLibrary":"shaders","pipelines":"shaders","sceneBuffers":"buffers","lightGrids":"lighting","traffic":"traffic","raster":"raster","cacheWrite":"raster"]
+                    if let name=mapping[phase], name != activeRendererStep {
+                        if let previous=activeRendererStep { loadingStep(previous,true) }
+                        loadingStep(name,false);activeRendererStep=name
+                    }
+                }
+                let nextRenderer = try MetalRenderer(scene:scene,device:device,cacheDirectory:cache?.directory,cacheKey:cache?.key ?? "",forceRebuildCache:cache?.forceRebuild ?? false,startupProgress:rendererProgress,deferRayTracingBuild:true)
+                if let previous=activeRendererStep { loadingStep(previous,true) }
                 StartupMetrics.shared.set("rendererPreparationSeconds",CACurrentMediaTime()-rendererStart)
                 StartupMetrics.shared.set("rendererPhases",nextRenderer.startupPhaseSeconds)
                 StartupMetrics.shared.set("rendererCaches",nextRenderer.startupCacheStatistics)
-                let focusStart=CACurrentMediaTime()
-                let nextFocusCatalog = LandmarkFocusCatalog(world: selected.world)
-                StartupMetrics.shared.set("focusPreparationSeconds",CACurrentMediaTime()-focusStart)
+                navigation.done.wait()
+                let nextFocusCatalog = navigation.catalog!
+                StartupMetrics.shared.set("focusPreparationSeconds",navigation.focusSeconds)
+                StartupMetrics.shared.set("focusCacheHit",navigation.focusHit)
                 let denseRegions = nextFocusCatalog.authored.filter { $0.id == "chicago:cloud-gate" }.map {
                     CollisionWorld.PickingRegion(minimum: $0.bounds.minimum, maximum: $0.bounds.maximum)
                 }
                 let collisionStart=CACurrentMediaTime()
-                let cachedCollision=cache.flatMap { $0.forceRebuild ? nil:CollisionWorld.loadCache(from:$0.collisionURL,cacheKey:$0.key,detailedPickingRegions:denseRegions,expectedSceneTriangleCount:scene.triangleCount) }
+                let cachedCollision=navigation.collision.flatMap{$0.sourceTriangleCount==scene.triangleCount ? $0:nil}
                 let nextCollision = cachedCollision ?? CollisionWorld(scene:scene,detailedPickingRegions:denseRegions)
+                loadingStep("navigation",true)
                 StartupMetrics.shared.set("collisionCacheHit",cachedCollision != nil)
-                StartupMetrics.shared.set("collisionPreparationSeconds",CACurrentMediaTime()-collisionStart)
+                StartupMetrics.shared.set("collisionPreparationSeconds",navigation.collisionSeconds+CACurrentMediaTime()-collisionStart)
+                StartupMetrics.shared.set("navigationLoadedInParallel",true)
                 StartupMetrics.shared.set("world",selected.world)
                 StartupMetrics.shared.set("staticTriangles",scene.triangleCount)
                 StartupMetrics.shared.set("cacheMode",cache == nil ? "disabled":(cache!.forceRebuild ? "rebuild":"automatic"))
-                // Misses are saved after the first visible-city submission, so
-                // first-time persistence does not extend the loading screen.
-                let persistence: (() -> String?)?
-                if let cache, cachedScene == nil || cachedCollision == nil {
-                    persistence = {
+                // The first visible frame uses full city geometry with raster
+                // lighting. Prepare unchanged-quality ray tracing afterwards.
+                let persistence: (Double) -> String? = { [weak self,weak nextRenderer] presentationUptime in
+                    guard let nextRenderer else { return nil }
+                    var preparationError: String?
+                    do { try preparationQueue.sync { try nextRenderer.prepareRayTracing() } }
+                    catch { preparationError=error.localizedDescription }
+                    let readyTime=CACurrentMediaTime()
+                    StartupMetrics.shared.recordRayPreparation(presentationUptime:presentationUptime,
+                        seconds:readyTime-StartupMetrics.shared.started,
+                        buildSeconds:nextRenderer.rayTracingPreparationSeconds,error:preparationError)
+                    DispatchQueue.main.async {
+                        guard let self,self.loadGeneration==generation else { return }
+                        self.rayTracingPreparing=false
+                        self.rayTracingReadySeconds=preparationError == nil ? readyTime-loadingStarted:nil
+                        self.rayTracingPreparationError=preparationError
+                        self.dirty=true;self.historyDirty=true
+                        self.status=preparationError.map{"Raster preview · ray tracing unavailable: \($0)"} ?? "\(self.rendererMode.title) ready"
+                    }
+                    if let cache {
                         do {
                             if cachedScene == nil { try CityCache.writeScene(scene,to:cache.sceneURL,key:cache.key) }
                             if cachedCollision == nil { try nextCollision.writeCache(to:cache.collisionURL,cacheKey:cache.key,detailedPickingRegions:denseRegions) }
-                            return nil
+                            if !navigation.focusHit { try nextFocusCatalog.writeCache(to:cache.focusURL,key:cache.key) }
                         } catch { return error.localizedDescription }
                     }
-                } else { persistence=nil }
-                nextRenderer.firstPresentationHandler = { time, exact in
-                    StartupMetrics.shared.presented(at:time,exactTimestamp:exact,afterPresentation:persistence)
+                    return nil
+                }
+                nextRenderer.firstPresentationHandler = { [weak self,weak nextRenderer] time, exact in
+                    let actualMode=nextRenderer?.firstFrameRenderer ?? "raster"
+                    DispatchQueue.main.async {
+                        if let self,self.loadGeneration==generation {
+                            self.loadingProgress.presented(at:time);self.loadingSnapshot=self.loadingProgress.snapshot
+                            self.loadingTimer?.invalidate();self.loadingTimer=nil
+                            StartupMetrics.shared.set("preparationSteps",self.loadingSnapshot.steps.map{step -> [String:Any] in
+                                ["id":step.id,"title":step.title,"durationSeconds":step.duration.map{$0 as Any} ?? NSNull()]
+                            })
+                            DispatchQueue.main.asyncAfter(deadline:.now()+0.45) { [weak self] in
+                                guard let self,self.loadGeneration==generation else { return }
+                                self.loadingOverlayVisible=false
+                            }
+                        }
+                        // Publish completion before starting background GPU work.
+                        StartupMetrics.shared.set("firstFrameRenderer",actualMode)
+                        StartupMetrics.shared.set("backgroundRayPreparation",true)
+                        StartupMetrics.shared.presented(at:time,exactTimestamp:exact) { persistence(time) }
+                    }
                 }
                 DispatchQueue.main.async {
                     guard let self, self.loadGeneration == generation else { return }
                     self.renderer = nextRenderer; self.collision = nextCollision; self.focusCatalog = nextFocusCatalog
                     self.triangleCount = nextRenderer.triangleCount
                     self.memoryMB = nextRenderer.allocatedMB
-                    self.status = "Hardware ray tracing ready"
+                    self.status = "City preview · preparing ray tracing"
+                    self.rayTracingPreparing=true
                     StartupMetrics.shared.set("renderer",self.rendererMode.rawValue)
                     StartupMetrics.shared.set("quality",["responsive","balanced","maximum"][max(0,min(2,self.quality))])
                     StartupMetrics.shared.mark("cityReadySeconds")
+                    StartupMetrics.shared.set("preRenderingSeconds",CACurrentMediaTime()-loadingStarted)
                     StartupMetrics.shared.set("drawableSize",[self.view?.drawableSize.width ?? 0,self.view?.drawableSize.height ?? 0])
                     self.isReady = true; self.applyViewSelection()
+                    loadingStep("presentation",false)
                     self.previousTime = CACurrentMediaTime(); self.synchronizePlayback()
                     self.view?.isPaused = false; self.focusViewport()
                 }
@@ -259,6 +377,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
                 DispatchQueue.main.async {
                     guard let self, self.loadGeneration == generation else { return }
                     self.errorMessage = error.localizedDescription
+                    self.loadingTimer?.invalidate();self.loadingTimer=nil
                     self.status = "Renderer could not start"
                 }
             }
@@ -444,9 +563,12 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
         navigationMode = location.walkingViews.contains(playback.view) ? 0 : 1
         keys.removeAll(); dirty = true; historyDirty = true
     }
+    private func resetAuthoredViewControls() {
+        if location.preferredLighting(view:playback.view) != nil { sunsetBuildingLights=false;dirty=true;historyDirty=true }
+    }
     func selectStop(_ index: Int) {
         guard !isMapMode, stops.indices.contains(index) else { return }
-        playback.select(index); applyViewSelection(); previousTime = CACurrentMediaTime()
+        playback.select(index); resetAuthoredViewControls(); applyViewSelection(); previousTime = CACurrentMediaTime()
         synchronizePlayback(); focusViewport()
     }
     func toggleTour() {
@@ -464,6 +586,7 @@ enum ArchitectureRendererMode: String, CaseIterable, Identifiable {
         if playback.demoActive {
             playback.navigateDemoView(offset: direction)
             location = playback.location; lighting = playback.effectiveLighting
+            resetAuthoredViewControls()
             applyViewSelection(); synchronizePlayback(); previousTime = CACurrentMediaTime()
             view?.window?.title = "ATELIER / \(location.name)"; focusViewport()
         } else { selectStop((currentStop + direction + stops.count) % stops.count) }

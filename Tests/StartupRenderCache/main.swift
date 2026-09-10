@@ -134,12 +134,43 @@ for mode in 0..<3 {
     let second=try warmRenderer.renderOffscreen(pose:camera,options:options,width:96,height:64,samples:1)
     check(first==second,"Cached renderer must exactly preserve image for mode \(mode)")
 }
+var preparationPhases:[String]=[],preparationTimes:[Double]=[]
+let deferredRenderer=try MetalRenderer(scene:renderScene,device:device,cacheDirectory:productionDir,cacheKey:"full-render-fixture",
+    startupProgress:{ name,time in preparationPhases.append(name);preparationTimes.append(time) },deferRayTracingBuild:true)
+check(!deferredRenderer.rayTracingReady && deferredRenderer.rayTracingPreparationSeconds==nil,"Preview renderer must not build or publish ray tracing early")
+check(preparationPhases==["shaderLibrary","pipelines","sceneBuffers","lightGrids","staticAccelerationStructure","traffic","raster","cacheWrite","ready"],"Phase callbacks expose ordered real setup phases")
+check(zip(preparationTimes,preparationTimes.dropFirst()).allSatisfy{$0<=$1},"Phase elapsed times must be monotonic")
+let rasterOptions=RenderOptions(bounces:1,lighting:1,denoising:false,rayTracing:false)
+let preview=try deferredRenderer.renderOffscreen(pose:camera,options:rasterOptions,width:96,height:64,samples:1)
+let fullRaster=try warmRenderer.renderOffscreen(pose:camera,options:rasterOptions,width:96,height:64,samples:1)
+check(preview==fullRaster,"Raster preview preserves the exact complete city before ray tracing is built")
+var rejectedPendingRay=false
+ do { _ = try deferredRenderer.renderOffscreen(pose:camera,options:RenderOptions(lighting:1),width:96,height:64,samples:1) }
+ catch { rejectedPendingRay=true }
+check(rejectedPendingRay,"An offscreen ray request must reject an unbuilt acceleration structure")
+let preparationErrors=NSLock();var preparationFailure=false
+DispatchQueue.concurrentPerform(iterations:2) { _ in
+    do { try deferredRenderer.prepareRayTracing() }
+    catch { preparationErrors.lock();preparationFailure=true;preparationErrors.unlock() }
+}
+check(!preparationFailure && deferredRenderer.rayTracingReady,"Concurrent preparation callers must join one valid background build")
+let builtDuration=deferredRenderer.rayTracingPreparationSeconds
+try deferredRenderer.prepareRayTracing()
+check(builtDuration != nil && deferredRenderer.rayTracingPreparationSeconds==builtDuration,"Repeated preparation must not rebuild the acceleration structure")
+for mode in 0..<2 {
+    let options=RenderOptions(bounces:1,lighting:1,denoising:false,rayTracing:true,directRayTracing:mode==1)
+    deferredRenderer.frameSeed=0;warmRenderer.frameSeed=0
+    let prepared=try deferredRenderer.renderOffscreen(pose:camera,options:options,width:96,height:64,samples:1)
+    let immediate=try warmRenderer.renderOffscreen(pose:camera,options:options,width:96,height:64,samples:1)
+    check(prepared==immediate,"Deferred preparation preserves ray image for mode \(mode)")
+}
+deferredRenderer.waitUntilIdle()
 var presentedTimes:[Double]=[], presentationExact:[Bool]=[]
 let presentation=FirstPresentationProbe { time,exact in presentedTimes.append(time);presentationExact.append(exact) }
 presentation.record(0);presentation.record(.nan);presentation.record(.infinity);presentation.record(-1)
 check(presentedTimes.isEmpty && presentationExact.isEmpty,"Dropped, undisplayed, and invalid timestamps must leave the presentation probe armed")
 presentation.record(123.45);presentation.record(123.46);presentation.record(0)
 check(presentedTimes==[123.45] && presentationExact==[true],"Only the first positive actual presentation timestamp is reported, exactly once")
-let report:[String:Any]=["checks":checks,"passed":true,"device":device.name,"cold":cold.statistics,"warm":warm.statistics,"corrupt":corrupt.statistics,"changed":changed.statistics,"unavailable":unwritable.statistics,"rasterBatchCount":batchCold.batches.count,"productionCold":productionCold,"productionWarm":productionWarm,"productionRaster":rasterWarm,"productionColdPhases":coldRenderer.startupPhaseSeconds,"productionWarmPhases":warmRenderer.startupPhaseSeconds]
+let report:[String:Any]=["checks":checks,"passed":true,"device":device.name,"cold":cold.statistics,"warm":warm.statistics,"corrupt":corrupt.statistics,"changed":changed.statistics,"unavailable":unwritable.statistics,"rasterBatchCount":batchCold.batches.count,"productionCold":productionCold,"productionWarm":productionWarm,"productionRaster":rasterWarm,"productionColdPhases":coldRenderer.startupPhaseSeconds,"productionWarmPhases":warmRenderer.startupPhaseSeconds,"deferredBuildSeconds":builtDuration ?? -1,"deferredPhases":preparationPhases]
 try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:output.appendingPathComponent("startup-render-cache.json"))
 print("PASS: \(checks) startup-render-cache checks")

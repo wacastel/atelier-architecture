@@ -1,4 +1,5 @@
 import Foundation
+import CryptoKit
 import simd
 
 /// A non-jittered screen ray. Coordinates are top-left normalized view coordinates,
@@ -25,7 +26,7 @@ struct FocusRay {
     }
 }
 
-struct FocusBounds {
+struct FocusBounds: Codable {
     let minimum: SIMD3<Float>
     let maximum: SIMD3<Float>
     var center: SIMD3<Float> { (minimum+maximum)/2 }
@@ -42,7 +43,7 @@ struct FocusBounds {
 
 /// Named components are compact selection volumes, not a second triangle BVH.
 /// A footprint's triangle indices preserve courtyards/holes in the map resource.
-struct FocusVolume {
+struct FocusVolume: Codable {
     let bounds: FocusBounds
     let points: [SIMD2<Float>]
     let triangles: [Int]
@@ -57,6 +58,10 @@ struct FocusVolume {
         self.triangles = triangles.count % 3 == 0 && triangles.allSatisfy({ points.indices.contains($0) }) ? triangles : []
         let xs = points.map{$0[0]}, zs = points.map{$0[1]}
         bounds = FocusBounds(minimum:SIMD3(xs.min()!,bottom,zs.min()!),maximum:SIMD3(xs.max()!,top,zs.max()!))
+    }
+    /// The prepared catalog validates these arrays and bounds before construction.
+    fileprivate init(cachedBounds: FocusBounds, points: [SIMD2<Float>], triangles: [Int]) {
+        self.bounds=cachedBounds;self.points=points;self.triangles=triangles
     }
     func contains(_ p: SIMD3<Float>, tolerance: Float = 0.18) -> Bool {
         guard bounds.contains(p,tolerance:tolerance) else { return false }
@@ -88,7 +93,7 @@ struct FocusVolume {
     }
 }
 
-struct LandmarkFocus: Identifiable {
+struct LandmarkFocus: Identifiable, Codable {
     let id: String
     let name: String
     let center: SIMD3<Float>
@@ -110,6 +115,155 @@ struct LandmarkFocusCatalog {
     private let cells: [SIMD2<Int>: [Int]]
     private let identities: [String: LandmarkFocus]
     private static let cellSize: Float = 100
+
+    private struct PreparedName: Codable {
+        let id: String
+        let name: String
+    }
+    private struct PreparedHeader: Codable {
+        let version: Int
+        let key: String
+        let byteOrder: String
+        let strides: [Int]
+        let authoredCount: Int
+        let names: [PreparedName]
+        let volumes: Int
+        let points: Int
+        let triangles: Int
+    }
+    // Flat POD arrays avoid recursively decoding millions of plist numeric nodes.
+    // The JSON header stores only labels/counts; every coordinate keeps its bits.
+    private struct PreparedItem {
+        var center: SIMD4<Float>
+        var volumes: SIMD4<UInt32> // start, count, reserved, reserved
+    }
+    private struct PreparedVolume {
+        var minimum: SIMD4<Float>
+        var maximum: SIMD4<Float>
+        var ranges: SIMD4<UInt32> // point start/count, local triangle start/count
+    }
+    private static let cacheMagic=Data("ATLFCS02".utf8)
+    private static let cacheStrides=[MemoryLayout<PreparedItem>.stride,MemoryLayout<PreparedVolume>.stride,
+                                     MemoryLayout<SIMD2<Float>>.stride,MemoryLayout<UInt32>.stride]
+    private static let cacheByteOrder=UInt32(littleEndian:1)==1 ? "little":"big"
+    private static let cacheMaximumBytes=64*1024*1024
+    private enum PreparedCacheError: LocalizedError {
+        case invalid
+        var errorDescription: String? { "Landmark metadata exceeds the prepared cache format or has invalid geometry" }
+    }
+    private static func validCacheBounds(_ b: FocusBounds) -> Bool {
+        b.minimum.focusFinite && b.maximum.focusFinite && (0..<3).allSatisfy {
+            b.minimum[$0]<=b.maximum[$0] && abs(b.minimum[$0])<1e7 && abs(b.maximum[$0])<1e7
+        }
+    }
+    private static func validCacheName(_ id: String, _ name: String) -> Bool {
+        !id.isEmpty && id.count<2048 && name.count<2048
+    }
+    static func loadCache(from url: URL, key: String) -> Self? {
+        guard let data=try? Data(contentsOf:url,options:.mappedIfSafe),data.count>=48,data.count<cacheMaximumBytes,
+              data.prefix(8)==cacheMagic else { return nil }
+        let rawHeaderLength=data.withUnsafeBytes { UInt64(littleEndian:$0.loadUnaligned(fromByteOffset:8,as:UInt64.self)) }
+        guard rawHeaderLength>0,rawHeaderLength<16*1024*1024,rawHeaderLength<=UInt64(data.count-48) else { return nil }
+        let headerLength=Int(rawHeaderLength),payloadStart=(16+headerLength+15)/16*16
+        guard payloadStart<=data.count-32,
+              let header=try? JSONDecoder().decode(PreparedHeader.self,from:data.subdata(in:16..<(16+headerLength))),
+              header.version==2,header.key==key,header.byteOrder==cacheByteOrder,header.strides==cacheStrides,
+              header.authoredCount>=0,header.authoredCount<1_000,header.names.count>=header.authoredCount,
+              header.names.count-header.authoredCount<200_000,
+              header.names.allSatisfy({validCacheName($0.id,$0.name)}) else { return nil }
+        let counts=[header.names.count,header.volumes,header.points,header.triangles]
+        var remaining=data.count-payloadStart-32
+        for (count,stride) in zip(counts,cacheStrides) {
+            guard count>=0,count<=remaining/stride else { return nil }
+            remaining-=count*stride
+        }
+        guard remaining==0,Data(SHA256.hash(data:data.dropLast(32)))==data.suffix(32) else { return nil }
+        var offset=payloadStart
+        func array<T>(_ type: T.Type, _ count: Int) -> [T] {
+            let bytes=count*MemoryLayout<T>.stride
+            defer { offset+=bytes }
+            return Array<T>(unsafeUninitializedCapacity:count) { buffer,initialized in
+                if bytes>0 {
+                    data.withUnsafeBytes { raw in
+                        UnsafeMutableRawPointer(buffer.baseAddress!).copyMemory(from:raw.baseAddress!.advanced(by:offset),byteCount:bytes)
+                    }
+                }
+                initialized=count
+            }
+        }
+        let items=array(PreparedItem.self,header.names.count),volumes=array(PreparedVolume.self,header.volumes)
+        let points=array(SIMD2<Float>.self,header.points),triangles=array(UInt32.self,header.triangles)
+        var authored:[LandmarkFocus]=[],mapped:[LandmarkFocus]=[]
+        authored.reserveCapacity(header.authoredCount);mapped.reserveCapacity(items.count-header.authoredCount)
+        var volumeCursor=0,pointCursor=0,triangleCursor=0
+        for (i,item) in items.enumerated() {
+            let center=SIMD3(item.center.x,item.center.y,item.center.z),volumeCount=Int(item.volumes.y)
+            // Canonical contiguous ranges reject aliases, gaps and unowned data.
+            // All arithmetic is bounded by the already checked payload lengths.
+            guard center.focusFinite,item.center.w==0,item.volumes.z==0,item.volumes.w==0,
+                  Int(item.volumes.x)==volumeCursor,volumeCount>0,volumeCount<1_000,
+                  volumeCount<=volumes.count-volumeCursor else { return nil }
+            var components:[FocusVolume]=[];components.reserveCapacity(volumeCount)
+            for record in volumes[volumeCursor..<(volumeCursor+volumeCount)] {
+                let bounds=FocusBounds(minimum:SIMD3(record.minimum.x,record.minimum.y,record.minimum.z),
+                                       maximum:SIMD3(record.maximum.x,record.maximum.y,record.maximum.z))
+                let pointCount=Int(record.ranges.y),triangleCount=Int(record.ranges.w)
+                guard validCacheBounds(bounds),record.minimum.w==0,record.maximum.w==0,
+                      Int(record.ranges.x)==pointCursor,Int(record.ranges.z)==triangleCursor,
+                      (pointCount==0 || pointCount>=3),pointCount<100_000,pointCount<=points.count-pointCursor,
+                      triangleCount%3==0,triangleCount<=triangles.count-triangleCursor else { return nil }
+                let pointRange=pointCursor..<(pointCursor+pointCount),triangleRange=triangleCursor..<(triangleCursor+triangleCount)
+                guard points[pointRange].allSatisfy({ p in
+                    p.x.isFinite && p.y.isFinite && p.x>=bounds.minimum.x && p.x<=bounds.maximum.x &&
+                    p.y>=bounds.minimum.z && p.y<=bounds.maximum.z
+                }),triangles[triangleRange].allSatisfy({$0<UInt32(pointCount)}) else { return nil }
+                components.append(FocusVolume(cachedBounds:bounds,points:Array(points[pointRange]),triangles:triangles[triangleRange].map(Int.init)))
+                pointCursor+=pointCount;triangleCursor+=triangleCount
+            }
+            volumeCursor+=volumeCount
+            let focus=LandmarkFocus(id:header.names[i].id,name:header.names[i].name,volumes:components,center:center)
+            if i<header.authoredCount { authored.append(focus) } else { mapped.append(focus) }
+        }
+        guard volumeCursor==volumes.count,pointCursor==points.count,triangleCursor==triangles.count else { return nil }
+        return Self(authored:authored,mapped:mapped)
+    }
+    func writeCache(to url: URL,key: String) throws {
+        guard authored.count<1_000,mapped.count<200_000 else { throw PreparedCacheError.invalid }
+        var names:[PreparedName]=[],items:[PreparedItem]=[],volumes:[PreparedVolume]=[]
+        var points:[SIMD2<Float>]=[],triangles:[UInt32]=[]
+        names.reserveCapacity(authored.count+mapped.count);items.reserveCapacity(authored.count+mapped.count)
+        for item in authored+mapped {
+            guard Self.validCacheName(item.id,item.name),item.center.focusFinite,!item.volumes.isEmpty,item.volumes.count<1_000,
+                  volumes.count<16_000_000 else { throw PreparedCacheError.invalid }
+            names.append(PreparedName(id:item.id,name:item.name))
+            items.append(PreparedItem(center:SIMD4(item.center,0),volumes:SIMD4(UInt32(volumes.count),UInt32(item.volumes.count),0,0)))
+            for v in item.volumes {
+                guard Self.validCacheBounds(v.bounds),(v.points.isEmpty || v.points.count>=3),v.points.count<100_000,
+                      v.points.allSatisfy({ p in p.x.isFinite && p.y.isFinite && p.x>=v.bounds.minimum.x && p.x<=v.bounds.maximum.x &&
+                          p.y>=v.bounds.minimum.z && p.y<=v.bounds.maximum.z }),
+                      v.triangles.count%3==0,v.triangles.allSatisfy({v.points.indices.contains($0)}),
+                      points.count<16_000_000,triangles.count<16_000_000,v.triangles.count<16_000_000 else { throw PreparedCacheError.invalid }
+                volumes.append(PreparedVolume(minimum:SIMD4(v.bounds.minimum,0),maximum:SIMD4(v.bounds.maximum,0),
+                                               ranges:SIMD4(UInt32(points.count),UInt32(v.points.count),UInt32(triangles.count),UInt32(v.triangles.count))))
+                points.append(contentsOf:v.points);triangles.append(contentsOf:v.triangles.map(UInt32.init))
+            }
+        }
+        let header=PreparedHeader(version:2,key:key,byteOrder:Self.cacheByteOrder,strides:Self.cacheStrides,authoredCount:authored.count,
+                                  names:names,volumes:volumes.count,points:points.count,triangles:triangles.count)
+        let metadata=try JSONEncoder().encode(header)
+        let payloadBytes=zip([items.count,volumes.count,points.count,triangles.count],Self.cacheStrides).reduce(0){$0+$1.0*$1.1}
+        let payloadStart=(16+metadata.count+15)/16*16
+        guard metadata.count<16*1024*1024,payloadBytes<Self.cacheMaximumBytes-payloadStart-32 else { throw PreparedCacheError.invalid }
+        var body=Self.cacheMagic,length=UInt64(metadata.count).littleEndian
+        body.reserveCapacity(payloadStart+payloadBytes+32)
+        withUnsafeBytes(of:&length){body.append(contentsOf:$0)}
+        body.append(metadata);body.append(Data(repeating:0,count:payloadStart-body.count))
+        items.withUnsafeBytes{body.append(contentsOf:$0)};volumes.withUnsafeBytes{body.append(contentsOf:$0)}
+        points.withUnsafeBytes{body.append(contentsOf:$0)};triangles.withUnsafeBytes{body.append(contentsOf:$0)}
+        body.append(contentsOf:SHA256.hash(data:body))
+        try FileManager.default.createDirectory(at:url.deletingLastPathComponent(),withIntermediateDirectories:true)
+        try body.write(to:url,options:.atomic)
+    }
 
     init(authored: [LandmarkFocus], mapped: [LandmarkFocus] = []) {
         self.authored=authored; self.mapped=mapped

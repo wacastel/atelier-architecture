@@ -1,0 +1,45 @@
+{
+  "device" : "Apple M3 Ultra",
+  "passed" : true,
+  "scope" : "Prepared CPU scene, navigation BVH, raster batches and Metal pipeline binaries; GPU buffers and acceleration structures are recreated at launch.",
+  "totalSeconds" : 10.280806166643742,
+  "worlds" : [
+    {
+      "cacheBytes" : 6975054825,
+      "cacheKey" : "f0a1fd07940d77042fee8baca4f4104ebf804b113111e3af0a068d856ce70503:chicago",
+      "collisionHit" : true,
+      "collisionLoadOrBuildSeconds" : 1.2152072916505858,
+      "collisionNodes" : 9245199,
+      "collisionTriangles" : 34790878,
+      "directory" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f0a1fd07940d77042fee8baca4f4104ebf804b113111e3af0a068d856ce70503\/chicago",
+      "passed" : true,
+      "preparedRenderers" : [
+        "path",
+        "direct",
+        "raster"
+      ],
+      "rendererAndWarmFramesSeconds" : 5.991670208342839,
+      "rendererCaches" : {
+        "pipelines" : {
+          "error" : "",
+          "hits" : 24,
+          "loaded" : true,
+          "misses" : 0,
+          "path" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f0a1fd07940d77042fee8baca4f4104ebf804b113111e3af0a068d856ce70503\/chicago\/Metal\/a527a9d18db0dd8a7a769a3986ea9f960cb88ea1a94fbde5241f84735aa49299.metalarc",
+          "saved" : false
+        },
+        "rasterBatches" : {
+          "batches" : 31642,
+          "error" : "",
+          "hit" : true,
+          "saved" : false,
+          "seconds" : 0.0013794583501294255
+        }
+      },
+      "sceneHit" : true,
+      "sceneLoadOrBuildSeconds" : 2.0197969583678059,
+      "staticTriangles" : 46966436,
+      "world" : "chicago"
+    }
+  ]
+}

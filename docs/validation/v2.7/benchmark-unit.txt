@@ -1,0 +1,24 @@
+test_actual_first_renderer_must_be_reported (__main__.StartupWorkflowTests.test_actual_first_renderer_must_be_reported) ... ok
+test_background_ray_preparation_requires_raster_preview (__main__.StartupWorkflowTests.test_background_ray_preparation_requires_raster_preview) ... ok
+test_background_ray_readiness_cannot_precede_preview (__main__.StartupWorkflowTests.test_background_ray_readiness_cannot_precede_preview) ... ok
+test_baseline_cache_mode_must_be_disabled (__main__.StartupWorkflowTests.test_baseline_cache_mode_must_be_disabled) ... ok
+test_callback_only_timestamp_is_diagnostic_not_visible_startup (__main__.StartupWorkflowTests.test_callback_only_timestamp_is_diagnostic_not_visible_startup) ... ok
+test_failed_ray_preparation_is_rejected (__main__.StartupWorkflowTests.test_failed_ray_preparation_is_rejected) ... ok
+test_first_renderer_is_measured_separately_from_comparison_configuration (__main__.StartupWorkflowTests.test_first_renderer_is_measured_separately_from_comparison_configuration) ... ok
+test_missing_presentation_time_fails_and_retains_partial_evidence (__main__.StartupWorkflowTests.test_missing_presentation_time_fails_and_retains_partial_evidence) ... ok
+test_missing_ray_readiness_is_rejected (__main__.StartupWorkflowTests.test_missing_ray_readiness_is_rejected) ... ok
+test_modes_use_fresh_native_children_and_precache_before_warm (__main__.StartupWorkflowTests.test_modes_use_fresh_native_children_and_precache_before_warm) ... ok
+test_ray_build_duration_cannot_be_boolean (__main__.StartupWorkflowTests.test_ray_build_duration_cannot_be_boolean) ... ok
+test_ray_readiness_cannot_exceed_child_lifetime (__main__.StartupWorkflowTests.test_ray_readiness_cannot_exceed_child_lifetime) ... ok
+test_ray_readiness_must_be_finite (__main__.StartupWorkflowTests.test_ray_readiness_must_be_finite) ... ok
+test_synchronous_startup_has_distinct_resource_and_presentation_times (__main__.StartupWorkflowTests.test_synchronous_startup_has_distinct_resource_and_presentation_times) ... ok
+test_timeout_does_not_kill_unrelated_process (__main__.StartupWorkflowTests.test_timeout_does_not_kill_unrelated_process) ... ok
+test_warm_focus_miss_is_rejected (__main__.StartupWorkflowTests.test_warm_focus_miss_is_rejected) ... ok
+test_warm_pipeline_miss_is_rejected (__main__.StartupWorkflowTests.test_warm_pipeline_miss_is_rejected) ... ok
+test_warm_raster_miss_is_rejected (__main__.StartupWorkflowTests.test_warm_raster_miss_is_rejected) ... ok
+test_warm_scene_miss_is_rejected (__main__.StartupWorkflowTests.test_warm_scene_miss_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 5.378s
+
+OK

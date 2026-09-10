@@ -396,8 +396,8 @@ extension Bundle {
 
     playingBackend.setLighting(3)
     let sunsetPose=playingBackend.cameraPose, sunsetProgress=playingBackend.tourProgress
-    expect(playingBackend.sunsetBuildingLights && playingBackend.options.architectureLightsEnabled
-           && playingBackend.options.sunsetState==1,"Sunset architectural lighting is not on by default")
+    expect(!playingBackend.sunsetBuildingLights && !playingBackend.options.architectureLightsEnabled
+           && playingBackend.options.sunsetState==2,"Sunset architectural lighting is not off by default")
     for enabled in [false,true,false] {
         playingBackend.setSunsetBuildingLights(enabled)
         for mode in ArchitectureRendererMode.allCases {

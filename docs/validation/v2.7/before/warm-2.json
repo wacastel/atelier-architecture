@@ -1,0 +1,57 @@
+{
+  "actualPresentTimestampAvailable" : true,
+  "appStartedUptime" : 356638.11260829173,
+  "cacheMode" : "automatic",
+  "cityReadySeconds" : 9.9387220416683704,
+  "clock" : "mach monotonic uptime",
+  "collisionCacheHit" : true,
+  "collisionPreparationSeconds" : 1.2105564583325759,
+  "drawableSize" : [
+    2880,
+    1920
+  ],
+  "firstCityPresentedSeconds" : 10.33241537498543,
+  "firstPresentedUptime" : 356648.44502366672,
+  "focusPreparationSeconds" : 0.94062479166314006,
+  "launchToFirstPresentedSeconds" : 10.339779208705295,
+  "mainEnteredSeconds" : 8.3333579823374748e-06,
+  "passed" : true,
+  "preparationStartedSeconds" : 0.33939829166047275,
+  "processSpawnUptime" : 356638.10524445801,
+  "quality" : "balanced",
+  "renderer" : "pathTracing",
+  "rendererCaches" : {
+    "pipelines" : {
+      "error" : "",
+      "hits" : 24,
+      "loaded" : true,
+      "misses" : 0,
+      "path" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f0a1fd07940d77042fee8baca4f4104ebf804b113111e3af0a068d856ce70503\/chicago\/Metal\/a527a9d18db0dd8a7a769a3986ea9f960cb88ea1a94fbde5241f84735aa49299.metalarc",
+      "saved" : false
+    },
+    "rasterBatches" : {
+      "batches" : 31642,
+      "error" : "",
+      "hit" : true,
+      "saved" : false,
+      "seconds" : 0.0014284583739936352
+    }
+  },
+  "rendererPhases" : {
+    "cacheWrite" : 1.5416298992931843e-06,
+    "lightGrids" : 0.015778833359945565,
+    "pipelines" : 0.00076179165625944734,
+    "raster" : 0.002690791676286608,
+    "sceneBuffers" : 0.45648879167856649,
+    "shaderLibrary" : 0.0032958333031274378,
+    "staticAccelerationStructure" : 4.8118619999731891,
+    "traffic" : 0.00540983333485201
+  },
+  "rendererPreparationSeconds" : 5.2970622082939371,
+  "sceneCacheHit" : true,
+  "scenePreparationSeconds" : 2.1059093750081956,
+  "staticTriangles" : 46966436,
+  "timingSource" : "drawable presentedTime",
+  "viewAttachedSeconds" : 0.19722379167797044,
+  "world" : "chicago"
+}

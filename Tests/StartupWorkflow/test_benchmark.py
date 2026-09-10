@@ -33,11 +33,15 @@ else:
     report = {"passed": True, "staticTriangles": 10, "world": "synthetic",
               "renderer": "pathTracing", "quality": "balanced", "drawableSize": [1440, 960],
               "launchToFirstPresentedSeconds": 0.000001,
-              "firstPresentedUptime": 100.1,
+              "firstPresentedUptime": 100.000001,
+              "processSpawnUptime": 100.0, "appStartedUptime": 100.0000002,
+              "firstFrameRenderer": "raster", "backgroundRayPreparation": True,
+              "rayTracingReadySeconds": 0.000002, "backgroundAccelerationBuildSeconds": 0.0000006,
+              "rayTracingPreparationSucceeded": True,
               "timingSource": "drawable presentedTime", "actualPresentTimestampAvailable": True}
     mode = "disabled" if "--no-city-cache" in a else "rebuild" if "--force-rebuild-cache" in a else "automatic"
     warm, cold = mode == "automatic", mode == "rebuild"
-    report.update({"cacheMode": mode, "sceneCacheHit": warm, "collisionCacheHit": warm,
+    report.update({"cacheMode": mode, "sceneCacheHit": warm, "collisionCacheHit": warm, "focusCacheHit": warm,
         "rendererCaches": {"pipelines": {"error": "", "loaded": warm, "saved": cold,
             "hits": 24 if warm else 0, "misses": 24 if cold else 0,
             "path": "synthetic.metalarc" if mode != "disabled" else "disabled"},
@@ -50,12 +54,39 @@ else:
         report["timingSource"] = "presentation callback (OS timestamp unavailable)"
     elif failure == "scene-miss":
         report["sceneCacheHit"] = False
+    elif failure == "focus-miss":
+        report["focusCacheHit"] = False
     elif failure == "pipeline-miss":
         report["rendererCaches"]["pipelines"]["misses"] = 1
     elif failure == "raster-miss":
         report["rendererCaches"]["rasterBatches"]["hit"] = False
     elif failure == "wrong-mode":
         report["cacheMode"] = "automatic"
+    elif failure == "missing-ray-ready":
+        del report["rayTracingReadySeconds"]
+    elif failure == "ray-failed":
+        report["rayTracingPreparationSucceeded"] = False
+        report["rayTracingPreparationError"] = "synthetic AS failure"
+    elif failure == "invalid-first-renderer":
+        report["firstFrameRenderer"] = "requested renderer"
+    elif failure == "premature-ray-ready":
+        report["rayTracingReadySeconds"] = 0.0000001
+    elif failure == "non-raster-preview":
+        report["firstFrameRenderer"] = "pathTracing"
+    elif failure == "nonfinite-ray-ready":
+        report["rayTracingReadySeconds"] = float("nan")
+    elif failure == "ray-exceeds-lifetime":
+        report["rayTracingReadySeconds"] = 60
+    elif failure == "boolean-build-seconds":
+        report["backgroundAccelerationBuildSeconds"] = True
+    elif failure == "synchronous-ray-startup":
+        report["backgroundRayPreparation"] = False
+        report["firstFrameRenderer"] = "pathTracing"
+        report["rayTracingReadySeconds"] = 0.0000007
+    elif failure == "changed-first-renderer" and warm:
+        report["backgroundRayPreparation"] = False
+        report["firstFrameRenderer"] = "directRayTracing"
+        report["rayTracingReadySeconds"] = 0.0000007
     pathlib.Path(a[a.index("--startup-report")+1]).write_text(json.dumps(report))
 '''
 
@@ -88,6 +119,7 @@ class StartupWorkflowTests(unittest.TestCase):
         code, report = self.run_wrapper()
         self.assertEqual(code, 0)
         self.assertTrue(report["completed"])
+        self.assertEqual(report["schemaVersion"], 2)
         calls = [json.loads(line) for line in self.calls.read_text().splitlines()]
         self.assertEqual(len(calls), 7)
         for call in calls[:2]:
@@ -102,7 +134,14 @@ class StartupWorkflowTests(unittest.TestCase):
         for mode in ("baseline", "cold", "warm"):
             self.assertEqual(len(report["modes"][mode]["runs"]), 2)
             self.assertEqual(report["modes"][mode]["medianSeconds"], 0.000001)
+            self.assertAlmostEqual(report["modes"][mode]["medianRayTracingResourcesReadySeconds"], 0.0000022, places=11)
+            self.assertEqual(report["modes"][mode]["medianBackgroundAccelerationBuildSeconds"], 0.0000006)
+            for entry in report["modes"][mode]["runs"]:
+                self.assertEqual(entry["firstFrameRenderer"], "raster")
+                self.assertTrue(entry["backgroundRayPreparation"])
         self.assertEqual(report["warmMedianSpeedup"], 1)
+        self.assertEqual(report["warmRayTracingResourcesReadySpeedup"], 1)
+        self.assertNotIn("firstFrameRenderer", report["configuration"])
 
     def test_missing_presentation_time_fails_and_retains_partial_evidence(self):
         code, report = self.run_wrapper(mode="baseline", invalid="missing-time")
@@ -131,6 +170,12 @@ class StartupWorkflowTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("Warm pipelines were not fully reused", report["error"])
 
+    def test_warm_focus_miss_is_rejected(self):
+        code, report = self.run_wrapper(mode="warm", invalid="focus-miss")
+        self.assertEqual(code, 1)
+        self.assertIn("focusCacheHit=True", report["error"])
+        self.assertEqual(report["modes"]["warm"]["runs"], [])
+
     def test_warm_raster_miss_is_rejected(self):
         code, report = self.run_wrapper(mode="warm", invalid="raster-miss")
         self.assertEqual(code, 1)
@@ -140,6 +185,62 @@ class StartupWorkflowTests(unittest.TestCase):
         code, report = self.run_wrapper(mode="baseline", invalid="wrong-mode")
         self.assertEqual(code, 1)
         self.assertIn("cacheMode=disabled", report["error"])
+
+    def test_missing_ray_readiness_is_rejected(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="missing-ray-ready")
+        self.assertEqual(code, 1)
+        self.assertIn("rayTracingReadySeconds", report["error"])
+        self.assertEqual(report["modes"]["baseline"]["runs"], [])
+
+    def test_failed_ray_preparation_is_rejected(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="ray-failed")
+        self.assertEqual(code, 1)
+        self.assertIn("Ray-tracing resources were not successfully prepared", report["error"])
+        self.assertEqual(report["modes"]["baseline"]["runs"], [])
+
+    def test_actual_first_renderer_must_be_reported(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="invalid-first-renderer")
+        self.assertEqual(code, 1)
+        self.assertIn("firstFrameRenderer", report["error"])
+
+    def test_background_ray_readiness_cannot_precede_preview(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="premature-ray-ready")
+        self.assertEqual(code, 1)
+        self.assertIn("ready before first presentation", report["error"])
+
+    def test_background_ray_preparation_requires_raster_preview(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="non-raster-preview")
+        self.assertEqual(code, 1)
+        self.assertIn("requires a raster first frame", report["error"])
+
+    def test_ray_readiness_must_be_finite(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="nonfinite-ray-ready")
+        self.assertEqual(code, 1)
+        self.assertIn("Missing valid rayTracingReadySeconds", report["error"])
+
+    def test_ray_readiness_cannot_exceed_child_lifetime(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="ray-exceeds-lifetime")
+        self.assertEqual(code, 1)
+        self.assertIn("readiness exceeds the child lifetime", report["error"])
+
+    def test_ray_build_duration_cannot_be_boolean(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="boolean-build-seconds")
+        self.assertEqual(code, 1)
+        self.assertIn("Missing valid backgroundAccelerationBuildSeconds", report["error"])
+
+    def test_synchronous_startup_has_distinct_resource_and_presentation_times(self):
+        code, report = self.run_wrapper(mode="baseline", invalid="synchronous-ray-startup")
+        self.assertEqual(code, 0)
+        entry = report["modes"]["baseline"]["runs"][0]
+        self.assertFalse(entry["backgroundRayPreparation"])
+        self.assertEqual(entry["firstFrameRenderer"], "pathTracing")
+        self.assertLess(entry["launchToRayTracingResourcesReadySeconds"], entry["launchToFirstPresentedSeconds"])
+
+    def test_first_renderer_is_measured_separately_from_comparison_configuration(self):
+        code, report = self.run_wrapper(invalid="changed-first-renderer")
+        self.assertEqual(code, 0)
+        self.assertEqual(report["configuration"]["renderer"], "pathTracing")
+        self.assertEqual(report["modes"]["warm"]["runs"][0]["firstFrameRenderer"], "directRayTracing")
 
     def test_timeout_does_not_kill_unrelated_process(self):
         unrelated = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(20)"])

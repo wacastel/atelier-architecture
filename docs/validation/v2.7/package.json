@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "version": "2.7.0",
+  "build": "22",
+  "executableSHA256": "31c1a095d4eefb7beb221b47fb4d604b8ee869d29d068af74067b6d506697736",
+  "codesignVerification": "codesign --verify --deep --strict dist/Atelier.app exited 0",
+  "precacheWorlds": [
+    "chicago",
+    "paris"
+  ],
+  "githubVisibility": "PUBLIC",
+  "githubRepository": "https://github.com/wacastel/atelier-architecture"
+}

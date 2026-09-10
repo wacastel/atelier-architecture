@@ -263,8 +263,9 @@ expect(ArchitectureLocation.navypier.world == ArchitectureLocation.millennium.wo
 expect(samePose(NavyPierScene.stops[7].pose,MillenniumScene.stops[0].pose), "Navy Pier connecting flight starts at the Millennium Park bookmark")
 expect(samePose(NavyPierWalkthrough.pose(view:7,seconds:180),NavyPierScene.stops[0].pose), "Navy Pier connecting flight ends at the opening pier bookmark")
 
-// Skyline lighting uses authored per-view studies unless the user overrides a pass.
-let skylinePresets = [3,1,3,2,2,1,0,2]
+// Explicit Skyline selection restores its authored study, including the same
+// card. Manual lighting remains intact until a selection or automatic pass wrap.
+let skylinePresets = [3,1,3,2,0,1,0,2]
 expect(ArchitectureLocation.skyline.walkingViews.isEmpty, "Offshore skyline cameras do not claim walking support")
 for (view,preset) in skylinePresets.enumerated() {
     var study = WalkthroughPlayback(location:.skyline)
@@ -274,17 +275,42 @@ for (view,preset) in skylinePresets.enumerated() {
     study.toggle(); study.advance(8); study.toggle()
     study.toggleDayNight()
     expect(study.effectiveLighting == (preset == 2 ? 0:2) && study.time == 8 && study.state == .paused, "Skyline N toggles from the displayed preset and preserves pause/time")
+    study.advance(2)
+    expect(study.effectiveLighting == (preset == 2 ? 0:2), "Manual lighting remains selected while the current view holds")
+    study.select(view)
+    expect(study.effectiveLighting == preset && !study.lightingOverridden && study.time == 0, "Reselecting Skyline study \(view) restores its authored lighting and opening camera")
+    study.setLighting(3)
     study.select((view+1)%8)
-    expect(study.effectiveLighting == (preset == 2 ? 0:2), "Skyline manual lighting holds across selected views")
+    expect(study.effectiveLighting == skylinePresets[(view+1)%8] && !study.lightingOverridden, "Selecting a different Skyline study restores that study's lighting")
 }
 // The added cameras must be different geographical compositions, not nearby lake orbits.
 for t in stride(from:0.0,through:120.0,by:4.0) {
     let west=SkylineWalkthrough.pose(view:1,seconds:t)
     expect(west.position.x < -12_000 && west.target.x > west.position.x+12_000 && west.fov >= 5 && west.fov <= 12,"Western route stays beyond Chicago and faces east with a telephoto lens")
     let river=SkylineWalkthrough.pose(view:4,seconds:t), south=SkylineWalkthrough.pose(view:6,seconds:t)
-    expect(river.position.z < -1000 && river.target.z > river.position.z+900,"Kinzie route keeps its southward river composition")
+    expect(river.position.z >= -1110 && river.position.z <= -890 && river.target.z > river.position.z+250 && river.position.y >= 18 && river.position.y <= 23,"Kinzie route stays low over the southward river corridor")
     expect(south.position.z > 2300 && south.target.z < south.position.z-2300,"Ping Tom route keeps its distinct northward composition")
-    expect(simd_distance(west.position,river.position)>12_000 && simd_distance(river.position,south.position)>3300,"New studies remain geographically distinct throughout their routes")
+    expect(simd_distance(west.position,river.position)>12_000 && simd_distance(river.position,south.position)>3200,"New studies remain geographically distinct throughout their routes")
+}
+let riverCorridor = ChicagoContext.database.rivers.filter { [Int64(34855520),Int64(137301030)].contains($0.id) }
+func overNorthBranch(_ position: SIMD3<Float>) -> Bool {
+    riverCorridor.contains { river in
+        var inside = false
+        let p = river.points
+        for i in p.indices {
+            let a=p[i], b=p[(i+1)%p.count]
+            if (a[1]>position.z) != (b[1]>position.z), position.x < (b[0]-a[0])*(position.z-a[1])/(b[1]-a[1])+a[0] { inside.toggle() }
+        }
+        return inside
+    }
+}
+for step in 0...1200 {
+    let position=SkylineWalkthrough.pose(view:4,seconds:Double(step)/10).position
+    expect(overNorthBranch(position), "Low river flight stays over the mapped North Branch at \(step)")
+    expect([SIMD3<Float>(3,0,0),SIMD3<Float>(-3,0,0),SIMD3<Float>(0,0,3),SIMD3<Float>(0,0,-3)].allSatisfy { overNorthBranch(position+$0) }, "Low river flight retains water-side clearance at \(step)")
+}
+for second in 0...420 {
+    expect(overNorthBranch(SkylineWalkthrough.idlePose(view:4,seconds:Double(second)).position), "Complete river idle cycle stays above mapped water at \(second)s")
 }
 var skylineCycle = WalkthroughPlayback(location:.skyline)
 skylineCycle.setLighting(3)
@@ -300,11 +326,31 @@ var skylineDemo = WalkthroughPlayback(location:.skyline)
 skylineDemo.setLighting(3); skylineDemo.startChicagoDemo(routeIndex:8)
 expect(!skylineDemo.lightingOverridden && skylineDemo.location == .skyline && skylineDemo.effectiveLighting == 3, "A fresh demo clears manual override and restores the opening Skyline sunset")
 skylineDemo.setLighting(3); skylineDemo.navigateDemoView(offset:7)
-expect(skylineDemo.effectiveLighting == 3, "Demo navigation within a pass preserves explicit sunset")
+expect(skylineDemo.effectiveLighting == 2 && !skylineDemo.lightingOverridden, "Explicit demo navigation selects the authored night panorama")
 skylineDemo.selectLocation(.chicago); skylineDemo.selectLocation(.skyline)
-expect(skylineDemo.effectiveLighting == 3 && skylineDemo.demoActive, "In-demo Chicago selections preserve deliberate lighting override")
+expect(skylineDemo.effectiveLighting == 3 && skylineDemo.demoActive, "In-demo Skyline selection restores its authored sunset without stopping demo")
 skylineDemo.navigateDemoView(offset:WalkthroughPlayback.chicagoDemoRouteCount)
 expect(!skylineDemo.lightingOverridden && skylineDemo.effectiveLighting == 2, "Full demo pass clears the override and advances night parity")
+var nightStudy = WalkthroughPlayback(location:.skyline)
+nightStudy.advance(160)
+expect(nightStudy.lighting == 2 && nightStudy.effectiveLighting == 2, "Automatic Skyline night pass stays night")
+nightStudy.select(0)
+expect(nightStudy.lighting == 2 && nightStudy.effectiveLighting == 3, "Explicit sunset selection preserves underlying night-pass parity")
+nightStudy.toggleIdleCycling(); nightStudy.advance(20)
+expect(nightStudy.view == 1 && nightStudy.lighting == 2 && nightStudy.effectiveLighting == 2, "Resumed idle sequence retains the night pass after the explicitly chosen view")
+var nightDemo = WalkthroughPlayback(location:.skyline)
+nightDemo.setLighting(2); nightDemo.startChicagoDemo(routeIndex:8)
+nightDemo.select(0)
+expect(nightDemo.demoActive && nightDemo.effectiveLighting == 3 && nightDemo.lighting == 2, "Selecting sunset during night demo restores the bookmark and preserves pass parity")
+nightDemo.advance(120)
+expect(nightDemo.demoActive && nightDemo.view == 1 && nightDemo.effectiveLighting == 2, "Automatic demo continuation returns to the existing night pass")
+nightDemo.setLighting(1);nightDemo.advance(1)
+expect(nightDemo.effectiveLighting == 1, "Manual demo lighting does not reset on ordinary frames")
+nightDemo.select(3)
+expect(nightDemo.effectiveLighting == 2 && nightDemo.time == 0 && nightDemo.state == .playing, "Explicit night card resets lighting and restarts that walkthrough within demo")
+var ordinaryStudy = WalkthroughPlayback(location:.chicago)
+ordinaryStudy.setLighting(3);ordinaryStudy.select(1)
+expect(ordinaryStudy.effectiveLighting == 3 && ordinaryStudy.lightingOverridden, "A location without authored lighting retains manual lighting on view selection")
 
 // Chicago demo sequences full route durations across every resident Chicago set.
 // Use an independent explicit order to catch accidental Paris inclusion/reordering.

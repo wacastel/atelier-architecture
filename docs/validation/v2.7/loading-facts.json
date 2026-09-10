@@ -1,0 +1,10 @@
+{
+  "checks" : 80546,
+  "facts" : 100,
+  "factsPerSeed" : 500,
+  "intervalSeconds" : 3,
+  "passed" : true,
+  "scope" : "Offline content integrity and shuffled three-second scheduling; not native UI or web availability.",
+  "seedsTested" : 32,
+  "sources" : 25
+}

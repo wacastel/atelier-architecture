@@ -1,0 +1,18 @@
+Startup mainEnteredSeconds: 7.83335417509079e-06
+Startup viewAttachedSeconds: 0.17686725000385195
+Startup preparationStartedSeconds: 0.31930874998215586
+Startup sceneCacheHit: true
+Startup scenePreparationSeconds: 2.1375348333385773
+Startup rendererPreparationSeconds: 5.571587416692637
+Startup rendererPhases: ["lightGrids": 0.01570512499893084, "staticAccelerationStructure": 5.143957875028718, "raster": 0.004790416627656668, "cacheWrite": 2.4583423510193825e-06, "shaderLibrary": 0.003421875007916242, "sceneBuffers": 0.39030270831426606, "pipelines": 0.0007597083458676934, "traffic": 0.01246770832221955]
+Startup rendererCaches: ["rasterBatches": ["hit": true, "saved": false, "batches": 31642, "seconds": 0.002468416641931981, "error": ""], "pipelines": ["loaded": true, "hits": 24, "misses": 0, "saved": false, "path": "/Users/william/Library/Caches/local.atelier.architecture/City/v1/f0a1fd07940d77042fee8baca4f4104ebf804b113111e3af0a068d856ce70503/chicago/Metal/a527a9d18db0dd8a7a769a3986ea9f960cb88ea1a94fbde5241f84735aa49299.metalarc", "error": ""]]
+Startup focusPreparationSeconds: 0.9645224583218805
+Startup collisionCacheHit: true
+Startup collisionPreparationSeconds: 1.2296404166263528
+Startup world: chicago
+Startup staticTriangles: 46966436
+Startup cacheMode: automatic
+Startup renderer: pathTracing
+Startup quality: balanced
+Startup cityReadySeconds: 10.255943833326455
+Startup drawableSize: [2880.0, 1920.0]

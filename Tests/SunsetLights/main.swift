@@ -36,7 +36,7 @@ let panelRenderer=try MetalRenderer(scene:panels,device:device)
 check(MemoryLayout<FrameUniforms>.stride==144,"Frame ABI unchanged")
 let modes:[(String,Bool,Bool)]=[("path",true,false),("direct",true,true),("raster",false,false)]
 for (mode,ray,direct) in modes {
-    var on=RenderOptions(exposure:0.4,bounces:1,lighting:3,denoising:false,rayTracing:ray,directRayTracing:direct)
+    var on=RenderOptions(exposure:0.4,bounces:1,lighting:3,sunsetBuildingLights:true,denoising:false,rayTracing:ray,directRayTracing:direct)
     var off=on;off.sunsetBuildingLights=false
     let u=panelRenderer.uniforms(pose:camera,options:on),v=panelRenderer.uniforms(pose:camera,options:off)
     check(u.sunDirection==v.sunDirection && u.sunColor==v.sunColor && u.settings==v.settings,"\(mode): light preference changed sunlight")
@@ -67,7 +67,7 @@ litFloor.lights=[SceneLight(positionRadius:SIMD4(0,4,0,0.2),directionCone:SIMD4(
 let floorRenderer=try MetalRenderer(scene:litFloor,device:device),emptyFloorRenderer=try MetalRenderer(scene:groundScene,device:device)
 let overhead=CameraPose(position:V(0,14,0),target:.zero,fov:60)
 for (mode,ray,direct) in modes {for indexed in [true,false] {
-    var on=RenderOptions(bounces:1,lighting:3,denoising:false,indexedLighting:indexed,rayTracing:ray,directRayTracing:direct)
+    var on=RenderOptions(bounces:1,lighting:3,sunsetBuildingLights:true,denoising:false,indexedLighting:indexed,rayTracing:ray,directRayTracing:direct)
     var off=on;off.sunsetBuildingLights=false
     let lit=try image(floorRenderer,overhead,on),unlit=try image(floorRenderer,overhead,off),absent=try image(emptyFloorRenderer,overhead,off)
     check(unlit==absent,"\(mode), indexed=\(indexed): disabled static light still contributes")
@@ -83,7 +83,7 @@ quad(&mirror,V(-5,-2,0),V(5,-2,0),V(5,6,0),V(-5,6,0),0)
 quad(&mirror,V(-4,0,14),V(-4,4,14),V(4,4,14),V(4,0,14),1)
 let mirrorRenderer=try MetalRenderer(scene:mirror,device:device)
 for (mode,ray,direct) in modes {
-    let on=RenderOptions(exposure:0.4,bounces:2,lighting:3,denoising:false,rayTracing:ray,directRayTracing:direct)
+    let on=RenderOptions(exposure:0.4,bounces:2,lighting:3,sunsetBuildingLights:true,denoising:false,rayTracing:ray,directRayTracing:direct)
     var off=on;off.sunsetBuildingLights=false
     let lit=try image(mirrorRenderer,camera,on),unlit=try image(mirrorRenderer,camera,off)
     if ray {check(luminance(lit,96,64)>luminance(unlit,96,64)+10,"\(mode): offscreen reflected architectural emission did not switch off")}
@@ -103,7 +103,7 @@ let trafficRenderer=try MetalRenderer(scene:trafficScene,device:device),roadRend
 trafficRenderer.setSceneTime((100-fleet.vehicles[0].phase)/12)
 let trafficCamera=CameraPose(position:V(0,28,8),target:V(0,0,8),fov:60)
 for (mode,ray,direct) in modes {
-    let on=RenderOptions(bounces:1,lighting:3,denoising:false,rayTracing:ray,directRayTracing:direct)
+    let on=RenderOptions(bounces:1,lighting:3,sunsetBuildingLights:true,denoising:false,rayTracing:ray,directRayTracing:direct)
     var off=on;off.sunsetBuildingLights=false
     let lit=try image(trafficRenderer,trafficCamera,on),unlit=try image(trafficRenderer,trafficCamera,off)
     check(lit==unlit,"\(mode): sunset fixed-light switch changed dynamic traffic")

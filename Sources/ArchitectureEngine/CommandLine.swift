@@ -52,7 +52,8 @@ import CoreText
         --camera x,y,z --target x,y,z --fov 60   Override a still camera
         --seconds 108 --fps 24       Video duration and frame rate
         --lighting 0                0 golden hour, 1 daylight, 2 illuminated night, 3 sunset (Skyline defaults to authored lighting)
-        --sunset-lights-off         Disable fixed architectural/site lights only at sunset
+        --sunset-lights-on          Enable building lights at sunset (default off)
+        --sunset-lights-off         Explicitly retain the unlit sunset default
         --single-view --stop 0      Export one full route (56–360 seconds)
         --idle                     Export the selected view’s slow idle animation
         --renderer path|direct|raster  Select renderer (default path)
@@ -67,6 +68,9 @@ import CoreText
         --obj building.obj --scale 1 Load another structure; scale converts units to meters
         """)
         return true
+    }
+    if args.contains("--sunset-lights-on") && args.contains("--sunset-lights-off") {
+        fputs("Choose only one sunset lights option.\n",stderr);exit(2)
     }
     if args.contains("--obj") && (!args.contains("--render") || args.contains("--video") || args.contains("--gallery") || args.contains("--self-test")) {
         fputs("OBJ scenes currently support --render. The guided tour, gallery and navigation self-test use the selected built-in location.\n", stderr)
@@ -127,7 +131,7 @@ import CoreText
         let samples = max(1,min(8192,integer("--samples",args.contains("--video") ? 8 : 64)))
         let stop = max(0,min(location.stops.count-1,integer("--stop",0)))
         let defaultLighting = location.preferredLighting(view: stop) ?? 0
-        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),sunsetBuildingLights:!args.contains("--sunset-lights-off"),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:rendererName != "raster",directRayTracing:rendererName=="direct",hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
+        let options = RenderOptions(exposure:1,bounces:Float(max(1,min(8,integer("--bounces",3)))),lighting:max(0,min(3,integer("--lighting",defaultLighting))),sunsetBuildingLights:args.contains("--sunset-lights-on"),denoising:!args.contains("--raw"),regularization:!args.contains("--no-regularization"),lowDiscrepancySampling:!args.contains("--random-sampling"),indexedLighting:!args.contains("--linear-lights"),rayTracing:rendererName != "raster",directRayTracing:rendererName=="direct",hazeDensity:args.contains("--obj") ? 0:location.hazeDensity(view:stop))
         print("Renderer: \(rendererTitle)\(rendererName=="path" ? "":" · one deterministic frame; requested SPP is ignored")")
         var pose = location.stops[stop].pose
         if args.contains("--at") {

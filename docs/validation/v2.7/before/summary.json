@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "startedAtUTC": "20260910T113255.381602Z",
+  "measurement": "New native process launch to first positive city MTLDrawable presentedTime",
+  "requiresActualPresentedTimestamp": true,
+  "executable": "/Users/william/dev/architecture/dist/Atelier.app/Contents/MacOS/ArchitectureEngine",
+  "executableSHA256": "ba0c5eac39dc247d71bec8fa31d1b44d33c401902ab33fd9a8ebe62ee898e278",
+  "cacheDirectory": "/Users/william/Library/Caches/local.atelier.architecture/City/v1",
+  "runsPerMode": 3,
+  "limitations": [
+    "Filesystem and operating-system caches are not purged between runs.",
+    "Existing applications and GPU workloads are not stopped.",
+    "First presentation does not measure steady-state FPS or path-tracing convergence.",
+    "Callback-only reports without a positive actual presentedTime are diagnostic evidence and are rejected."
+  ],
+  "modes": {
+    "warm": {
+      "runs": [
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-before/20260910T113255.381602Z/warm-1.json",
+          "launchToFirstPresentedSeconds": 10.629021458385978,
+          "processLifetimeSeconds": 10.788415124989115
+        },
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-before/20260910T113255.381602Z/warm-2.json",
+          "launchToFirstPresentedSeconds": 10.339779208705295,
+          "processLifetimeSeconds": 10.497732749965508
+        },
+        {
+          "report": "/Users/william/dev/architecture/output/startup-v27-before/20260910T113255.381602Z/warm-3.json",
+          "launchToFirstPresentedSeconds": 10.857985417067539,
+          "processLifetimeSeconds": 11.009322332974989
+        }
+      ],
+      "medianSeconds": 10.629021458385978,
+      "minimumSeconds": 10.339779208705295,
+      "maximumSeconds": 10.857985417067539
+    }
+  },
+  "precacheProcessSeconds": 10.369086999970023,
+  "configuration": {
+    "renderer": "pathTracing",
+    "quality": "balanced",
+    "drawableSize": [
+      2880,
+      1920
+    ],
+    "staticTriangles": 46966436,
+    "world": "chicago",
+    "timingSource": "drawable presentedTime",
+    "actualPresentTimestampAvailable": true
+  },
+  "completed": true
+}

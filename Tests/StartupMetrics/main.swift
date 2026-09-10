@@ -19,7 +19,7 @@ func completedReport() -> [String: Any] {
     let deadline = ProcessInfo.processInfo.systemUptime + 4
     while ProcessInfo.processInfo.systemUptime < deadline {
         let current = report()
-        if current["cachePersistenceAfterFirstFrameSeconds"] != nil { return current }
+        if current["postPresentationWorkSeconds"] != nil { return current }
         Thread.sleep(forTimeInterval: 0.005)
     }
     return report()
@@ -83,6 +83,57 @@ expect(warmReport["passed"] as? Bool == true && warmReport["cachePersistenceAfte
 warm.set("world", "paris")
 warm.presented(at: warm.started + 1, exactTimestamp: true)
 expect(report()["world"] as? String == "chicago", "Repeated no-write presentation retains the launch report")
+
+// A user can change the location before the initial load becomes visible.
+// The actual first presentation owns its ray preparation regardless of which
+// load generation produced it, and later worlds cannot replace that result.
+let superseded = StartupMetrics()
+superseded.set("world", "chicago")
+let invisibleTime = superseded.started + 0.05
+superseded.recordRayPreparation(presentationUptime:invisibleTime,seconds:99,buildSeconds:98,error:"never presented")
+superseded.set("world", "paris")
+let visibleTime = superseded.started + 0.2
+let visibleStarted=DispatchSemaphore(value:0),visibleGate=DispatchSemaphore(value:0)
+superseded.presented(at:visibleTime,exactTimestamp:true) {
+    superseded.recordRayPreparation(presentationUptime:visibleTime,seconds:0.7,buildSeconds:0.5,error:nil)
+    visibleStarted.signal()
+    _ = visibleGate.wait(timeout:.now()+4)
+    return nil
+}
+expect(visibleStarted.wait(timeout:.now()+2) == .success,"The first visible replacement world's ray work starts")
+superseded.set("world", "chicago")
+let laterDone=DispatchSemaphore(value:0)
+superseded.presented(at:visibleTime+1,exactTimestamp:true) {
+    superseded.recordRayPreparation(presentationUptime:visibleTime+1,seconds:8,buildSeconds:7,error:"later-world-ray-error")
+    laterDone.signal()
+    return nil
+}
+expect(laterDone.wait(timeout:.now()+2) == .success,"A later world's ray work runs while launch work is pending")
+visibleGate.signal()
+let visibleReport=completedReport()
+expect(visibleReport["world"] as? String == "paris","A replacement load can own the first visible world's report")
+expect(visibleReport["firstPresentedUptime"] as? Double == visibleTime,"Ray ownership uses the winning actual presentation timestamp")
+expect(visibleReport["rayTracingPreparationSucceeded"] as? Bool == true,"Successful ray preparation follows the first visible world")
+expect(visibleReport["rayTracingReadySeconds"] as? Double == 0.7,"A later world's completion cannot overwrite launch ray readiness")
+expect(visibleReport["backgroundAccelerationBuildSeconds"] as? Double == 0.5,"The first visible world's build duration remains associated with it")
+expect(visibleReport["rayTracingPreparationError"] == nil && visibleReport["rayTracingPreparationFailedSeconds"] == nil,"Invisible and later worlds cannot inject launch ray errors")
+expect(visibleReport["cacheWriteError"] == nil,"Ray metadata does not create a cache error")
+expect(visibleReport["postPresentationWorkSeconds"] != nil && visibleReport["cachePersistenceAfterFirstFrameSeconds"] == nil,"Background ray work is timed separately from cache-only persistence")
+
+let failedRay=StartupMetrics()
+failedRay.set("world","chicago")
+let failedTime=failedRay.started+0.1
+failedRay.presented(at:failedTime,exactTimestamp:true) {
+    failedRay.recordRayPreparation(presentationUptime:failedTime,seconds:0.8,buildSeconds:nil,error:"acceleration build failed")
+    return nil // Scene-cache writes succeeded; the ray error has its own field.
+}
+let failureReport=completedReport()
+expect(failureReport["passed"] as? Bool == true,"A displayed raster city remains a valid first presentation when ray preparation fails")
+expect(failureReport["rayTracingPreparationSucceeded"] as? Bool == false,"Ray failure is recorded explicitly")
+expect(failureReport["rayTracingPreparationFailedSeconds"] as? Double == 0.8,"Ray failure has a failure timestamp")
+expect(failureReport["rayTracingReadySeconds"] == nil,"A failed ray build cannot claim a readiness timestamp")
+expect(failureReport["rayTracingPreparationError"] as? String == "acceleration build failed","Ray error retains its own diagnosis")
+expect(failureReport["cacheWriteError"] == nil,"Successful cache writes are not mislabeled by ray preparation failure")
 
 let output: [String: Any] = ["passed": failures.isEmpty, "checks": checks, "failures": failures,
     "scope": "Actual StartupMetrics class with bounded semaphore-controlled overlapping world persistence; no native window, renderer, city build, or GPU work."]

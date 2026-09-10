@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Bounded SwiftUI ImageRenderer previews and CPU scheduler checks; not native app integration or live transition capture.",
+  "cpuChecks": 80546,
+  "facts": 100,
+  "primaryAndInstitutionalSources": 25,
+  "typecheckPassed": true,
+  "visualReview": {
+    "normal": [
+      1440,
+      960
+    ],
+    "compact": [
+      960,
+      680
+    ],
+    "complete": [
+      1440,
+      960
+    ],
+    "paris": [
+      1440,
+      960
+    ]
+  },
+  "observations": [
+    "Progress and durations fit normal and compact cards.",
+    "Facts remain at bottom without overlapping progress panel.",
+    "Completed and Paris states omit facts.",
+    "View itself is transparent outside cards."
+  ],
+  "sourceSHA256": {
+    "Sources/ArchitectureEngine/ChicagoFacts.swift": "513dee96c22ee451931ed7d0d3cfdd60e9459561e0b7003657b88020b31daac3",
+    "Sources/ArchitectureEngine/LoadingCityView.swift": "69e88687e003c03fed8e3b95356401ee9fb188bf961994d64e7216e9cd24f0e3",
+    "Sources/ArchitectureEngine/CityLoadingProgress.swift": "63d7aa21a3f1addcdf24869c1eb1964d70c563d1c3d03fa5320c8ec036b1f729",
+    "Tests/ChicagoFacts/main.swift": "1c3bc4a3c1e909a0e35dc86d5fb959f1a9242ae218cfeddcd4f7e4de5bf50b49"
+  }
+}

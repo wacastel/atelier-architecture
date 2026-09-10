@@ -1,6 +1,22 @@
 # Faster city startup
 
-Atelier prepares the shared Chicago world before it can draw the opening Willis Tower view. Version 2.6 adds a reusable city cache and a build workflow that prepares it before the next GUI launch. All nine Chicago destinations share this preparation; Paris has a separate world.
+Version 2.7 displays the complete Chicago geometry in Fast Raster as soon as it is ready, then prepares ray-tracing acceleration structures in the background. The selected renderer takes over automatically when those resources are ready. This reduces the work required before the city first appears while retaining the existing ray-tracing geometry and build quality. All nine Chicago destinations share one prepared world; Paris has a separate world.
+
+Scene geometry and navigation data load in parallel. Reusable caches cover geometry, collision/navigation acceleration data, landmark focus targets, raster batches and device-specific Metal pipelines. The compact landmark catalog avoids reconstructing thousands of focus targets at each launch. The build command prepares these caches before opening the GUI.
+
+## Loading feedback and timings
+
+The Chicago loading panel shows **Loading the Windy City**, the current preparation step, a progress bar, elapsed time and completed step durations. The percentage tracks weighted preparation steps rather than estimating remaining seconds. It reaches 100% only after Metal reports an actual city-frame presentation. The completed panel remains briefly visible as the city appears.
+
+A fact card at the bottom rotates among **100 Chicago facts every three seconds** while loading. A shuffled bag visits every fact before repeating, avoids immediate repeats between bags, and respects Reduce Motion. Facts and source names are bundled for offline use; Paris does not show Chicago facts. [Fact ledger and institutional sources](CHICAGO-FACTS.md).
+
+After launch, click the **stopwatch / City** control in the statistics panel to inspect preparation durations and the separate time when ray-tracing resources became ready. Navigation and scene work overlap, so their durations should not be summed to infer total startup time. **Open detailed launch report** opens:
+
+```text
+~/Library/Logs/Atelier/last-startup.json
+```
+
+The report records the first presented renderer, requested renderer, cache hits, preparation phases, actual presentation timestamp and background ray-tracing preparation. A later write adds completion of background work. The on-screen stopwatch starts when city loading begins; the benchmark below additionally includes process launch overhead.
 
 ## Build and prepare the next launch
 
@@ -11,7 +27,7 @@ From the project directory:
 open dist/Atelier.app
 ```
 
-The build compiles a release executable, packages and signs the app, then runs its Chicago precache command. Only after that succeeds does it replace `dist/Atelier.app`. The previous app remains available if compilation, signing or precaching fails. The precache command opens no window.
+The build compiles a release executable, packages and signs the app, then runs its Chicago precache command, including landmark focus data. Only after that succeeds does it replace `dist/Atelier.app`. The previous app remains available if compilation, signing or precaching fails. The precache command opens no window.
 
 The launcher also accepts an explicit build command:
 
@@ -27,7 +43,7 @@ To prepare both worlds:
 ./scripts/build-app.sh --precache-city all
 ```
 
-Chicago is the default because Willis Tower is the opening location. `--precache-city paris` prepares only the Eiffel Tower world. Use `--no-precache` to package without preparing a cache during development or when measuring the uncached baseline. The build writes its precache report to `dist/precache-report.json`.
+Chicago is the default because Willis Tower is the opening location. `--precache-city all` prepares Chicago and Paris, including their focus catalogs. `--precache-city paris` prepares only the Eiffel Tower world. Use `--no-precache` to package without preparing a cache during development or when measuring the uncached baseline. The build writes its precache report to `dist/precache-report.json`.
 
 ## Prepare an existing build
 
@@ -61,9 +77,9 @@ The cache key hashes the packaged executable and all geometry JSON resources. A 
 
 The benchmark starts a new native app process for every run. It measures from the process launch timestamp to the first city drawable's positive Metal `presentedTime`, obtained through `MTLDrawable.addPresentedHandler`. It does not stop at creation of the window, disappearance of the loading message, or completion of an offscreen render.
 
-If a presentation callback supplies no positive `presentedTime`, the app ignores that dropped or undisplayed frame and keeps waiting for the first actual presentation. This avoids treating an initial dropped frame as either a visible city or a failed launch. The wrapper independently requires a positive actual presentation timestamp and rejects callback-only reports from older instrumented builds. It also rejects comparisons if the timing source or rendering configuration changes between runs.
+If a presentation callback supplies no positive `presentedTime`, the app ignores that dropped or undisplayed frame and keeps waiting for the first actual presentation. This avoids treating an initial dropped frame as either a visible city or a failed launch. The wrapper independently requires a positive actual presentation timestamp and rejects callback-only reports from older instrumented builds. It also rejects comparisons if the timing source, requested renderer, quality, drawable dimensions or scene identity changes between runs. The actual first-frame renderer is recorded separately: version 2.7 intentionally presents a Fast Raster preview before the requested ray-traced renderer is ready.
 
-Initial diagnostic runs returned zero timestamps while this Mac's session was locked. Those runs do not establish an M3 Ultra or macOS limitation, and they are not valid measurements of the city becoming visible. A locked session can prevent normal window presentation and cause the benchmark to time out; such failed runs retain diagnostic reports and are excluded from performance claims.
+Historical diagnostic runs made while the Mac was locked returned zero presentation timestamps. Those runs are excluded from visible-startup measurements; they do not establish a hardware or macOS limitation. The current comparison uses unlocked native runs. A locked session can prevent presentation and cause a timeout, with diagnostic evidence retained.
 
 Three conditions run in sequence:
 
@@ -71,9 +87,9 @@ Three conditions run in sequence:
 - **Cold:** `--force-rebuild-cache` regenerates the world cache during a native launch.
 - **Warm:** the CLI precache command prepares the cache before native launches are timed, matching the build workflow.
 
-The wrapper checks observed cache state against each condition. A baseline must actually disable caching; a cold run must rebuild; a warm run must report scene, collision and raster cache hits plus complete Metal pipeline reuse with no misses. Cache errors or a silent rebuild invalidate that condition instead of being mislabeled as a successful warm launch.
+The wrapper checks observed cache state against each condition. A baseline must actually disable caching; a cold run must rebuild; a warm run must report scene, collision, focus and raster cache hits plus complete Metal pipeline reuse with no misses. Cache errors or a silent rebuild invalidate that condition instead of being mislabeled as a successful warm launch.
 
-Each condition defaults to three new processes. JSON reports and process logs go in a timestamped directory under `output/startup-benchmark/`; `summary.json` records the executable SHA-256, each accepted timing, median, range and warm-versus-baseline speedup. The entire app report is retained beside the summary, including the renderer, drawable dimensions, cache state and timing source. Failed runs retain their reports and logs but contribute no timing sample. The benchmark uses an isolated cache inside its output directory unless `--cache-dir` is supplied. It does not delete the normal application cache.
+Each condition defaults to three new processes. JSON reports and process logs go in a timestamped directory under `output/startup-benchmark/`; `summary.json` records the executable SHA-256, each accepted timing, median, range and warm-versus-baseline speedup. The entire app report is retained beside the summary, including the requested and first-frame renderers, drawable dimensions, cache state, timing source, background acceleration-build duration and launch-to-ray-resources-ready time. Failed runs retain their reports and logs but contribute no timing sample. The benchmark uses an isolated cache inside its output directory unless `--cache-dir` is supplied. It does not delete the normal application cache.
 
 For a single condition or a longer timeout:
 
@@ -82,22 +98,21 @@ For a single condition or a longer timeout:
 ./scripts/benchmark-startup.py --mode warm --runs 3 --timeout 300
 ```
 
-Run this in an **unlocked, active macOS display session**, and keep it unlocked for every run. The app opens a real window and exits after its first positive city presentation timestamp and any pending cache persistence; only the presentation time contributes to the startup sample. The benchmark does not quit an existing Atelier process or stop other GPU work. For representative timing, keep the display configuration and other workloads the same between conditions. The default timeout is 180 seconds per child; on timeout or interruption, the wrapper terminates only its own child process group.
+Run this in an **unlocked, active macOS display session**, and keep it unlocked for every run. The app opens a real window and exits after the first positive city presentation timestamp, background ray-tracing preparation and pending cache persistence. Only the presentation time contributes to the visible-startup sample; ray-resource readiness is reported separately and must succeed. The benchmark does not quit an existing Atelier process or stop other GPU work. For representative timing, keep the display configuration and other workloads the same between conditions. The default timeout is 180 seconds per child; on timeout or interruption, the wrapper terminates only its own child process group.
 
-These are application cold/warm measurements. The benchmark does not purge macOS filesystem caches. First presentation does not measure steady-state frame rate or the time required for path-traced noise to converge. A cache also does not imply that Metal device resources can all be reused across processes: those parts of renderer setup still occur at launch.
+These are application cold/warm measurements. The benchmark does not purge macOS filesystem caches. First presentation measures the usable full-geometry raster preview in version 2.7. It does not measure steady-state frame rate, first ray-traced presentation, or the time required for path-traced noise to converge. A cache also does not imply that Metal device resources can all be reused across processes: those parts of renderer setup still occur at launch.
 
 ## Validation
 
-The final signed build successfully prepared both worlds before replacing the app. A subsequent packaged `--precache-city all` reused scene, collision and raster caches for both worlds, plus all 24 Chicago and 17 Paris Metal pipeline variants. These single headless observations used the same final executable and scene identity:
+An unlocked native **version 2.6 warm-cache baseline measured 10.629 seconds median across three fresh launches** from process spawn to actual city presentation. That release waited for ray-tracing resources before presenting the city. Version 2.7 moves that work after the first full-geometry raster frame and records its readiness separately.
 
-| Chicago preparation phase | Build without existing cache | Subsequent cache reuse |
-| --- | ---: | ---: |
-| Scene geometry build or load | 3.871 s | 1.984 s |
-| Collision/navigation build or load | 6.848 s | 1.219 s |
-| Renderer setup and three small offscreen frames | 10.343 s | 12.887 s |
+| Native warm launch | Runs | Median launch to first actual city presentation | First-frame renderer |
+| --- | ---: | ---: | --- |
+| Version 2.6 baseline | 3 | 10.629 s | Path Tracing |
+| Version 2.7 final compact-cache build | 3 | 3.175 s | Fast Raster preview |
 
-Sources: [build precache report](validation/v2.6/build-precache.json) and [packaged all-world report](validation/v2.6/packaged-precache-all.json). These are separate-process, single observations of preparation phases. They are **not** measurements of launch to the first visible city frame. GPU buffers and acceleration structures still need rebuilding, and other workloads affect GPU preparation and rendering. No full-startup speedup is claimed from this table.
+The final signed build reduced median waiting time by **70.1%**. Its three visible-city measurements were **3.161, 3.228 and 3.175 seconds**. Ray-tracing resources became ready at a separate **4.984-second median** (4.806–5.150 seconds). Both versions used Chicago, balanced Path Tracing as the requested mode, 2880 × 1920 drawable pixels and 46,966,436 static triangles. The first visible image intentionally changes from Path Tracing to a Fast Raster preview; this is not a measurement of the first displayed ray-traced frame or convergence. [Exact comparison](validation/v2.7/comparison.json) · [Native reports and test evidence](validation/v2.7/evidence-index.md).
 
-The Chicago cache occupies approximately 6.97 GB; Paris occupies approximately 1.30 GB. The cache includes scene geometry, navigation acceleration data, raster batches and device-specific pipeline archives. Both are disposable and can be regenerated by the build or precache command.
+A bounded compact-catalog check measured approximately **16.5 MB** for Chicago's focus data, with **0.10 s to load versus 0.98 s to construct**. These are individual CPU preparation observations, not full-launch timings. Existing scene and collision caches are much larger; the complete generated cache remains disposable.
 
-The native first-visible benchmark remains unverified because the Mac was locked during attempted measurements. A valid comparison requires unlocked native runs. Eight synthetic wrapper tests cover mode selection, report preservation, actual-timestamp requirements, cache-hit checks and safe timeout cleanup; those tests do not measure application startup speed.
+Historical version 2.6 headless reports are retained as [build precache evidence](validation/v2.6/build-precache.json) and [packaged all-world evidence](validation/v2.6/packaged-precache-all.json). Offscreen preparation and synthetic wrapper checks do not establish visible startup speed. The benchmark rejects absent actual timestamps, cache misses in warm runs and failed background ray-tracing preparation, and preserves partial evidence on failure.

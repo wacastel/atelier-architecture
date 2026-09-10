@@ -1,0 +1,92 @@
+{
+  "device" : "Apple M3 Ultra",
+  "passed" : true,
+  "scope" : "Prepared CPU scene, navigation BVH, raster batches and Metal pipeline binaries; GPU buffers and acceleration structures are recreated at launch.",
+  "totalSeconds" : 21.009310541674495,
+  "worlds" : [
+    {
+      "cacheBytes" : 6991583209,
+      "cacheKey" : "f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082:chicago",
+      "collisionHit" : false,
+      "collisionLoadOrBuildSeconds" : 7.1233362083439715,
+      "collisionNodes" : 9245199,
+      "collisionTriangles" : 34790878,
+      "collisionWriteSeconds" : 1.0369716249988414,
+      "directory" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082\/chicago",
+      "focusHit" : false,
+      "focusLoadOrBuildSeconds" : 0.90511324995895848,
+      "passed" : true,
+      "preparedRenderers" : [
+        "path",
+        "direct",
+        "raster"
+      ],
+      "rendererAndWarmFramesSeconds" : 2.6577170832897536,
+      "rendererCaches" : {
+        "pipelines" : {
+          "error" : "",
+          "hits" : 0,
+          "loaded" : false,
+          "misses" : 24,
+          "path" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082\/chicago\/Metal\/fd982888f9bb8142217c9f1f0049984bdf86c91718d9254e6226e380e0fed7df.metalarc",
+          "saved" : true
+        },
+        "rasterBatches" : {
+          "batches" : 31642,
+          "error" : "",
+          "hit" : false,
+          "saved" : true,
+          "seconds" : 0.11257529171416536
+        },
+        "rayTracingDeferred" : false
+      },
+      "sceneHit" : false,
+      "sceneLoadOrBuildSeconds" : 4.153145249991212,
+      "sceneWriteSeconds" : 2.1017909999936819,
+      "staticTriangles" : 46966436,
+      "world" : "chicago"
+    },
+    {
+      "cacheBytes" : 1300963956,
+      "cacheKey" : "f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082:paris",
+      "collisionHit" : false,
+      "collisionLoadOrBuildSeconds" : 1.2590352083207108,
+      "collisionNodes" : 1760325,
+      "collisionTriangles" : 6673220,
+      "collisionWriteSeconds" : 0.18804962502326816,
+      "directory" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082\/paris",
+      "focusHit" : false,
+      "focusLoadOrBuildSeconds" : 0.045245041663292795,
+      "passed" : true,
+      "preparedRenderers" : [
+        "path",
+        "direct",
+        "raster"
+      ],
+      "rendererAndWarmFramesSeconds" : 0.80370920832501724,
+      "rendererCaches" : {
+        "pipelines" : {
+          "error" : "",
+          "hits" : 0,
+          "loaded" : false,
+          "misses" : 17,
+          "path" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082\/paris\/Metal\/2f19c72f356da4029c356fa3526adc8a782e97963aaef55be6188f396eb63aaa.metalarc",
+          "saved" : true
+        },
+        "rasterBatches" : {
+          "batches" : 3758,
+          "error" : "",
+          "hit" : false,
+          "saved" : true,
+          "seconds" : 0.018625916680321097
+        },
+        "rayTracingDeferred" : false
+      },
+      "sceneHit" : false,
+      "sceneLoadOrBuildSeconds" : 0.20289491669973359,
+      "sceneWriteSeconds" : 0.35620549996383488,
+      "staticTriangles" : 8645884,
+      "world" : "paris"
+    }
+  ]
+}

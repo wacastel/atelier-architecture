@@ -1,0 +1,114 @@
+{
+  "actualPresentTimestampAvailable" : true,
+  "appStartedUptime" : 359250.62390795839,
+  "backgroundAccelerationBuildSeconds" : 1.7973101667012088,
+  "backgroundRayPreparation" : true,
+  "cacheMode" : "automatic",
+  "cityReadySeconds" : 2.8287865000311285,
+  "clock" : "mach monotonic uptime",
+  "collisionCacheHit" : true,
+  "collisionPreparationSeconds" : 1.3158068332704715,
+  "drawableSize" : [
+    2880,
+    1920
+  ],
+  "firstCityPresentedSeconds" : 3.1681841250392608,
+  "firstFrameRenderer" : "raster",
+  "firstPresentedUptime" : 359253.79209208343,
+  "focusCacheHit" : true,
+  "focusPreparationSeconds" : 0.10508220834890381,
+  "launchToFirstPresentedSeconds" : 3.1746640004566871,
+  "mainEnteredSeconds" : 7.7916774898767471e-06,
+  "navigationLoadedInParallel" : true,
+  "passed" : true,
+  "postPresentationWorkSeconds" : 1.797411541629117,
+  "preparationStartedSeconds" : 0.27928204170893878,
+  "preparationSteps" : [
+    {
+      "durationSeconds" : 0.033174625015817583,
+      "id" : "identity",
+      "title" : "Checking prepared city"
+    },
+    {
+      "durationSeconds" : 2.0930466666468419,
+      "id" : "geometry",
+      "title" : "Loading buildings and streets"
+    },
+    {
+      "durationSeconds" : 2.5111132499878295,
+      "id" : "navigation",
+      "title" : "Preparing landmarks and navigation"
+    },
+    {
+      "durationSeconds" : 0.0041145833092741668,
+      "id" : "shaders",
+      "title" : "Loading Metal shaders"
+    },
+    {
+      "durationSeconds" : 0.38294854166451842,
+      "id" : "buffers",
+      "title" : "Preparing GPU geometry"
+    },
+    {
+      "durationSeconds" : 0.0161341666826047,
+      "id" : "lighting",
+      "title" : "Preparing lighting"
+    },
+    {
+      "durationSeconds" : 0.005174583347979933,
+      "id" : "traffic",
+      "title" : "Preparing boats and traffic"
+    },
+    {
+      "durationSeconds" : 0.002632166666444391,
+      "id" : "raster",
+      "title" : "Preparing the viewport"
+    },
+    {
+      "durationSeconds" : 0.33935704169562086,
+      "id" : "presentation",
+      "title" : "Displaying the city"
+    }
+  ],
+  "preRenderingSeconds" : 2.8287935000262223,
+  "processSpawnUptime" : 359250.61742808297,
+  "quality" : "balanced",
+  "rayTracingPreparationSucceeded" : true,
+  "rayTracingReadySeconds" : 4.9770639166818,
+  "renderer" : "pathTracing",
+  "rendererCaches" : {
+    "pipelines" : {
+      "error" : "",
+      "hits" : 24,
+      "loaded" : true,
+      "misses" : 0,
+      "path" : "\/Users\/william\/Library\/Caches\/local.atelier.architecture\/City\/v1\/f706e33f64445a4507d87ebfcb24144296d5930f891b85f371b5723ccd68c082\/chicago\/Metal\/fd982888f9bb8142217c9f1f0049984bdf86c91718d9254e6226e380e0fed7df.metalarc",
+      "saved" : false
+    },
+    "rasterBatches" : {
+      "batches" : 31642,
+      "error" : "",
+      "hit" : true,
+      "saved" : false,
+      "seconds" : 0.0012869166675955057
+    },
+    "rayTracingDeferred" : true
+  },
+  "rendererPhases" : {
+    "cacheWrite" : 3.1249946914613247e-06,
+    "lightGrids" : 0.015784208313561976,
+    "pipelines" : 0.00077345833415165544,
+    "raster" : 0.0025779166608117521,
+    "sceneBuffers" : 0.38295029167784378,
+    "shaderLibrary" : 0.0033461666898801923,
+    "staticAccelerationStructure" : 0.000361250014975667,
+    "traffic" : 0.0051809166907332838
+  },
+  "rendererPreparationSeconds" : 0.41781387495575473,
+  "sceneCacheHit" : true,
+  "scenePreparationSeconds" : 2.126393916667439,
+  "staticTriangles" : 46966436,
+  "timingSource" : "drawable presentedTime",
+  "viewAttachedSeconds" : 0.16488562501035631,
+  "world" : "chicago"
+}

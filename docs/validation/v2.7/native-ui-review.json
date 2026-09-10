@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "version": "2.7.0 build 22",
+  "scope": "Final native application observed and operated through CUA; separate interactive run, not included in the three-run benchmark. The screenshot review used Fast Raster for responsive inspection.",
+  "checks": [
+    "Willis Tower opens by default; loading heading reads Loading the Windy City; active geometry and navigation steps, percentage, elapsed time and random sourced fact appear.",
+    "Loading panel and facts disappear after the city appears; selected Path Tracing takes over from the initial raster preview.",
+    "Stopwatch popover lists all preparation steps and durations, actual first-city elapsed time, separate ray-resource readiness, overlapping-work explanation and detailed-report button.",
+    "City across the water selects Sunset and building lights off.",
+    "Enabling sunset lights, switching to Paris and returning to Skyline restores Sunset and lights off.",
+    "Enabling sunset lights and selecting Daylight, then reselecting City across the water restores Sunset and lights off.",
+    "Lights on the lake selects Night; the sunset-only switch is disabled, leaving the normal night lighting active.",
+    "The river leads downtown selects Golden and opens around 20 metres above the North Branch; screenshot shows river foreground between close towers.",
+    "Paris uses Loading the City of Light with no Chicago fact card."
+  ],
+  "limits": [
+    "The fleeting 100% state is verified by the loading model tests and SwiftUI completion preview; it was not separately captured in this native run.",
+    "Three-second randomized rotation is checked by scheduler tests; individual facts were observed during native loading.",
+    "Earlier draft native lighting review and uncached panel inspection are not used for final performance claims."
+  ]
+}

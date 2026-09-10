@@ -1,0 +1,11 @@
+{
+  "audioSynchronizationCalls" : 96,
+  "checks" : 851,
+  "failures" : [
+
+  ],
+  "landmarkClicks" : 40,
+  "limitations" : "No native event dispatch, rendered frame, collision\/roof geometry or device-dependent location loading is exercised. Semantic focus uses the real authored metadata\/proxy path with renderer absent. Actual held-key integration is stepped without GPU submission, including Map cardinal movement\/bounds\/lifecycle reset and normal top-down Fly movement. Fullscreen input reset is covered without attaching a native window; actual G\/CtrlCmdF fullscreen dispatch and renderer output require separate native\/GPU review.",
+  "passed" : true,
+  "scope" : "CPU actual EngineController methods and production camera\/playback\/map metadata. Only AmbientMusicController is replaced by an inert stub; the absent SwiftPM Bundle.module accessor traps if reached. No view attachment, Metal device, renderer construction, city geometry build or audio playback."
+}
